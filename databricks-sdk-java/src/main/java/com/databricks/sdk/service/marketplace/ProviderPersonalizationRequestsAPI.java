@@ -33,7 +33,7 @@ public class ProviderPersonalizationRequestsAPI {
    * regardless of which listing they are for.
    */
   public Iterable<PersonalizationRequest> list(ListAllPersonalizationRequestsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::list,
         ListAllPersonalizationRequestsResponse::getPersonalizationRequests,

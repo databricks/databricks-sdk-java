@@ -143,7 +143,7 @@ public class ModelRegistryAPI {
 
   /** Gets the latest version of a registered model. */
   public Iterable<ModelVersion> getLatestVersions(GetLatestVersionsRequest request) {
-    return new Paginator<>(
+    return Paginator.newOffsetPagination(
         request,
         impl::getLatestVersions,
         GetLatestVersionsResponse::getModelVersions,
@@ -212,7 +212,7 @@ public class ModelRegistryAPI {
 
   /** Lists all available registered models, up to the limit specified in __max_results__. */
   public Iterable<Model> listModels(ListModelsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listModels,
         ListModelsResponse::getRegisteredModels,
@@ -232,7 +232,7 @@ public class ModelRegistryAPI {
 
   /** Gets a list of all open stage transition requests for the model version. */
   public Iterable<Activity> listTransitionRequests(ListTransitionRequestsRequest request) {
-    return new Paginator<>(
+    return Paginator.newOffsetPagination(
         request,
         impl::listTransitionRequests,
         ListTransitionRequestsResponse::getRequests,
@@ -241,7 +241,7 @@ public class ModelRegistryAPI {
 
   /** **NOTE:** This endpoint is in Public Preview. Lists all registry webhooks. */
   public Iterable<RegistryWebhook> listWebhooks(ListWebhooksRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listWebhooks,
         ListRegistryWebhooks::getWebhooks,
@@ -266,7 +266,7 @@ public class ModelRegistryAPI {
 
   /** Searches for specific model versions based on the supplied __filter__. */
   public Iterable<ModelVersion> searchModelVersions(SearchModelVersionsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::searchModelVersions,
         SearchModelVersionsResponse::getModelVersions,
@@ -281,7 +281,7 @@ public class ModelRegistryAPI {
 
   /** Search for registered models based on the specified __filter__. */
   public Iterable<Model> searchModels(SearchModelsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::searchModels,
         SearchModelsResponse::getRegisteredModels,

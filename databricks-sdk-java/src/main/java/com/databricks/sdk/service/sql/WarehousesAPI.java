@@ -224,7 +224,7 @@ public class WarehousesAPI {
 
   /** Lists all SQL warehouses that a user has access to. */
   public Iterable<EndpointInfo> list(ListWarehousesRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::list,
         ListWarehousesResponse::getWarehouses,
@@ -243,7 +243,7 @@ public class WarehousesAPI {
    */
   public Iterable<DefaultWarehouseOverride> listDefaultWarehouseOverrides(
       ListDefaultWarehouseOverridesRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listDefaultWarehouseOverrides,
         ListDefaultWarehouseOverridesResponse::getDefaultWarehouseOverrides,

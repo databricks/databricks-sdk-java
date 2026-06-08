@@ -59,7 +59,7 @@ public class AccountSettingsV2API {
    */
   public Iterable<SettingsMetadata> listAccountSettingsMetadata(
       ListAccountSettingsMetadataRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listAccountSettingsMetadata,
         ListAccountSettingsMetadataResponse::getSettingsMetadata,
@@ -86,7 +86,7 @@ public class AccountSettingsV2API {
    */
   public Iterable<SettingsMetadata> listAccountUserPreferencesMetadata(
       ListAccountUserPreferencesMetadataRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listAccountUserPreferencesMetadata,
         ListAccountUserPreferencesMetadataResponse::getSettingsMetadata,

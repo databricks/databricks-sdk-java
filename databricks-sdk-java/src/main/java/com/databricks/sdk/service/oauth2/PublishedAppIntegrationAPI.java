@@ -62,7 +62,7 @@ public class PublishedAppIntegrationAPI {
   /** Get the list of published OAuth app integrations for the specified Databricks account */
   public Iterable<GetPublishedAppIntegrationOutput> list(
       ListPublishedAppIntegrationsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::list,
         GetPublishedAppIntegrationsOutput::getApps,

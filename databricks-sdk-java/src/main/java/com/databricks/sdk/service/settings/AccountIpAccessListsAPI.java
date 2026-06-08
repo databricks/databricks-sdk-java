@@ -84,7 +84,7 @@ public class AccountIpAccessListsAPI {
 
   /** Gets all IP access lists for the specified account. */
   public Iterable<IpAccessListInfo> list() {
-    return new Paginator<>(
+    return Paginator.newOffsetPagination(
         null,
         (Void v) -> impl.list(),
         GetIpAccessListsResponse::getIpAccessLists,

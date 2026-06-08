@@ -20,6 +20,13 @@ public class Deployment {
   private String createdBy;
 
   /**
+   * Bundle target deployment mode (development or production), derived from the most recent
+   * version's mode.
+   */
+  @JsonProperty("deployment_mode")
+  private DeploymentMode deploymentMode;
+
+  /**
    * When the deployment was destroyed (i.e. `bundle destroy` completed). Unset if the deployment
    * has not been destroyed. Named destroy_time (not delete_time) because this tracks the
    * `databricks bundle destroy` command, not the API-level deletion.
@@ -74,6 +81,15 @@ public class Deployment {
 
   public String getCreatedBy() {
     return createdBy;
+  }
+
+  public Deployment setDeploymentMode(DeploymentMode deploymentMode) {
+    this.deploymentMode = deploymentMode;
+    return this;
+  }
+
+  public DeploymentMode getDeploymentMode() {
+    return deploymentMode;
   }
 
   public Deployment setDestroyTime(Timestamp destroyTime) {
@@ -155,6 +171,7 @@ public class Deployment {
     Deployment that = (Deployment) o;
     return Objects.equals(createTime, that.createTime)
         && Objects.equals(createdBy, that.createdBy)
+        && Objects.equals(deploymentMode, that.deploymentMode)
         && Objects.equals(destroyTime, that.destroyTime)
         && Objects.equals(destroyedBy, that.destroyedBy)
         && Objects.equals(displayName, that.displayName)
@@ -170,6 +187,7 @@ public class Deployment {
     return Objects.hash(
         createTime,
         createdBy,
+        deploymentMode,
         destroyTime,
         destroyedBy,
         displayName,
@@ -185,6 +203,7 @@ public class Deployment {
     return new ToStringer(Deployment.class)
         .add("createTime", createTime)
         .add("createdBy", createdBy)
+        .add("deploymentMode", deploymentMode)
         .add("destroyTime", destroyTime)
         .add("destroyedBy", destroyedBy)
         .add("displayName", displayName)

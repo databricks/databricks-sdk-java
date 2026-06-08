@@ -166,7 +166,7 @@ public class DataQualityAPI {
 
   /** (Unimplemented) List data quality monitors. */
   public Iterable<Monitor> listMonitor(ListMonitorRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listMonitor,
         ListMonitorResponse::getMonitors,
@@ -198,7 +198,7 @@ public class DataQualityAPI {
    * **USE_CATALOG** on the schema's parent catalog, and **USE_SCHEMA** on the schema.
    */
   public Iterable<Refresh> listRefresh(ListRefreshRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listRefresh,
         ListRefreshResponse::getRefreshes,

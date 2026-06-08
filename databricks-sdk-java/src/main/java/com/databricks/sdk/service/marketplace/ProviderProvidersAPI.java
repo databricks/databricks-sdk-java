@@ -49,7 +49,7 @@ public class ProviderProvidersAPI {
 
   /** List provider profiles for account. */
   public Iterable<ProviderInfo> list(ListProvidersRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::list,
         ListProvidersResponse::getProviders,

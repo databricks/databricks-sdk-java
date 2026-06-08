@@ -62,7 +62,7 @@ public class TokenManagementAPI {
 
   /** Lists all tokens associated with the specified workspace or user. */
   public Iterable<TokenInfo> list(ListTokenManagementRequest request) {
-    return new Paginator<>(
+    return Paginator.newOffsetPagination(
         request, impl::list, ListTokensResponse::getTokenInfos, response -> null);
   }
 

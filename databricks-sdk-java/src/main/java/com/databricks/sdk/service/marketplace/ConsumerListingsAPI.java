@@ -45,7 +45,7 @@ public class ConsumerListingsAPI {
 
   /** List all published listings in the Databricks Marketplace that the consumer has access to. */
   public Iterable<Listing> list(ListListingsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::list,
         ListListingsResponse::getListings,
@@ -67,7 +67,7 @@ public class ConsumerListingsAPI {
    * query supports a variety of different search parameters and performs fuzzy matching.
    */
   public Iterable<Listing> search(SearchListingsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::search,
         SearchListingsResponse::getListings,

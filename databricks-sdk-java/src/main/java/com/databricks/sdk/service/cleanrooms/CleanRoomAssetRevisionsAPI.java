@@ -53,7 +53,7 @@ public class CleanRoomAssetRevisionsAPI {
 
   /** List revisions for an asset */
   public Iterable<CleanRoomAsset> list(ListCleanRoomAssetRevisionsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::list,
         ListCleanRoomAssetRevisionsResponse::getRevisions,

@@ -36,7 +36,7 @@ public class UserAgent {
   // TODO: check if reading from
   // /META-INF/maven/com.databricks/databrics-sdk-java/pom.properties
   // or getClass().getPackage().getImplementationVersion() is enough.
-  private static final String version = "0.113.0";
+  private static final String version = "0.116.0";
 
   public static void withProduct(String product, String productVersion) {
     UserAgent.product = product;
@@ -249,12 +249,21 @@ public class UserAgent {
     }
   }
 
-  // The agents.md standard env var. When set to a value we don't specifically
-  // recognize, detection falls back to "unknown".
+  // The agents.md standard env var. Consulted first when no explicit matcher
+  // fires.
   private static final String AGENT_ENV_VAR = "AGENT";
 
+  // The Vercel @vercel/detect-agent convention env var. Consulted only as a
+  // secondary fallback when AGENT is unset or empty.
+  private static final String AI_AGENT_ENV_VAR = "AI_AGENT";
+
+  // Maximum length of a passed-through fallback agent value. Longer values are
+  // truncated to keep the user agent header bounded.
+  private static final int MAX_AGENT_FALLBACK_LEN = 64;
+
   // Canonical list of known AI coding agents.
-  // Keep this list in sync with databricks-sdk-go and databricks-sdk-py.
+  // Keep this list, and the AGENT/AI_AGENT fallback handling in
+  // agentEnvFallback, in sync with databricks-sdk-go and databricks-sdk-py.
   // Agents are listed alphabetically by product name.
   private static List<KnownAgent> listKnownAgents() {
     return Arrays.asList(
@@ -294,9 +303,8 @@ public class UserAgent {
   //     stacked when one agent invokes another as a subagent (e.g. Claude Code
   //     spawning a Cursor CLI subprocess), so the child process inherits env
   //     vars from multiple layers.
-  //   - Zero agents matched: if the agents.md standard AGENT env var is set to
-  //     a known product name, return that product name. If it is set to any
-  //     other non-empty value, return "unknown". Otherwise return "".
+  //   - Zero agents matched: fall back to the generic AGENT / AI_AGENT env
+  //     vars (see agentEnvFallback).
   //
   // Because explicit matchers win over AGENT, e.g. AGENT=cursor + CLAUDECODE=1
   // yields "claude-code", and AGENT=goose + CLAUDECODE=1 also yields
@@ -317,23 +325,29 @@ public class UserAgent {
     if (matches.size() > 1) {
       return "multiple";
     }
-    return agentEnvFallback(env, agents);
+    return agentEnvFallback(env);
   }
 
-  // agentEnvFallback honors the agents.md AGENT=<name> standard.
-  // Returns the value if it matches a known product name, "unknown" if AGENT
-  // is set to any other non-empty value, and "" if AGENT is unset or empty.
-  private static String agentEnvFallback(Environment env, List<KnownAgent> agents) {
+  // agentEnvFallback honors the agents.md AGENT=<name> standard, with the
+  // Vercel @vercel/detect-agent AI_AGENT convention as a secondary fallback.
+  // AGENT takes precedence when both are non-empty.
+  //
+  // The raw value is passed through (no coercion to "unknown"), but sanitized
+  // to satisfy the user agent allowlist and capped at MAX_AGENT_FALLBACK_LEN
+  // characters. Returns "" when both AGENT and AI_AGENT are unset or empty.
+  private static String agentEnvFallback(Environment env) {
     String v = env.get(AGENT_ENV_VAR);
+    if (v == null || v.isEmpty()) {
+      v = env.get(AI_AGENT_ENV_VAR);
+    }
     if (v == null || v.isEmpty()) {
       return "";
     }
-    for (KnownAgent a : agents) {
-      if (a.product.equals(v)) {
-        return v;
-      }
+    v = sanitize(v);
+    if (v.length() > MAX_AGENT_FALLBACK_LEN) {
+      v = v.substring(0, MAX_AGENT_FALLBACK_LEN);
     }
-    return "unknown";
+    return v;
   }
 
   // Thread-safe lazy initialization of agent provider detection

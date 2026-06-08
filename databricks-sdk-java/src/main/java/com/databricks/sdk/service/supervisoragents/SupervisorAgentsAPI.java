@@ -129,7 +129,7 @@ public class SupervisorAgentsAPI {
 
   /** Lists examples under a Supervisor Agent. */
   public Iterable<Example> listExamples(ListExamplesRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listExamples,
         ListExamplesResponse::getExamples,
@@ -144,7 +144,7 @@ public class SupervisorAgentsAPI {
 
   /** Lists Supervisor Agents. */
   public Iterable<SupervisorAgent> listSupervisorAgents(ListSupervisorAgentsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listSupervisorAgents,
         ListSupervisorAgentsResponse::getSupervisorAgents,
@@ -163,7 +163,7 @@ public class SupervisorAgentsAPI {
 
   /** Lists Tools under a Supervisor Agent. */
   public Iterable<Tool> listTools(ListToolsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listTools,
         ListToolsResponse::getTools,

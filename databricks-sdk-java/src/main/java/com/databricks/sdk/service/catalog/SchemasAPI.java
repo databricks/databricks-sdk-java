@@ -84,7 +84,7 @@ public class SchemasAPI {
     if (request.getMaxResults() == null) {
       request.setMaxResults(0L);
     }
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::list,
         ListSchemasResponse::getSchemas,

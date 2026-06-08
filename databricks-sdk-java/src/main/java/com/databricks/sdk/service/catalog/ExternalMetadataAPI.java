@@ -72,7 +72,7 @@ public class ExternalMetadataAPI {
    * specific ordering of the elements in the array.
    */
   public Iterable<ExternalMetadata> listExternalMetadata(ListExternalMetadataRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listExternalMetadata,
         ListExternalMetadataResponse::getExternalMetadata,

@@ -52,7 +52,7 @@ public class AccountMetastoresAPI {
 
   /** Gets all Unity Catalog metastores associated with an account specified by ID. */
   public Iterable<MetastoreInfo> list() {
-    return new Paginator<>(
+    return Paginator.newOffsetPagination(
         null,
         (Void v) -> impl.list(),
         AccountsListMetastoresResponse::getMetastores,

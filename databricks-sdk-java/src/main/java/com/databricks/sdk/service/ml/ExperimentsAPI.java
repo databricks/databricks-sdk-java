@@ -144,7 +144,7 @@ public class ExperimentsAPI {
 
   /** Gets a list of all values for the specified metric for a given run. */
   public Iterable<Metric> getHistory(GetHistoryRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::getHistory,
         GetMetricHistoryResponse::getMetrics,
@@ -211,7 +211,7 @@ public class ExperimentsAPI {
    * API](/api/workspace/files/listdirectorycontents).
    */
   public Iterable<FileInfo> listArtifacts(ListArtifactsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listArtifacts,
         ListArtifactsResponse::getFiles,
@@ -226,7 +226,7 @@ public class ExperimentsAPI {
 
   /** Gets a list of all experiments. */
   public Iterable<Experiment> listExperiments(ListExperimentsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listExperiments,
         ListExperimentsResponse::getExperiments,
@@ -367,7 +367,7 @@ public class ExperimentsAPI {
 
   /** Searches for experiments that satisfy specified search criteria. */
   public Iterable<Experiment> searchExperiments(SearchExperiments request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::searchExperiments,
         SearchExperimentsResponse::getExperiments,
@@ -391,7 +391,7 @@ public class ExperimentsAPI {
    * <p>Search expressions can use `mlflowMetric` and `mlflowParam` keys.
    */
   public Iterable<Run> searchRuns(SearchRuns request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::searchRuns,
         SearchRunsResponse::getRuns,

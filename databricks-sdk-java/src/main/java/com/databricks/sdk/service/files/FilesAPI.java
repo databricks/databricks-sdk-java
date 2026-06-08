@@ -125,7 +125,7 @@ public class FilesAPI {
    * returns a HTTP 404 error.
    */
   public Iterable<DirectoryEntry> listDirectoryContents(ListDirectoryContentsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listDirectoryContents,
         ListDirectoryResponse::getContents,

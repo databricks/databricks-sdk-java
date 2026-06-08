@@ -48,7 +48,7 @@ public class PolicyFamiliesAPI {
    * is paginated.
    */
   public Iterable<PolicyFamily> list(ListPolicyFamiliesRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::list,
         ListPolicyFamiliesResponse::getPolicyFamilies,

@@ -56,7 +56,7 @@ public class ProviderFilesAPI {
 
   /** List files attached to a parent entity. */
   public Iterable<FileInfo> list(ListFilesRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::list,
         ListFilesResponse::getFileInfos,

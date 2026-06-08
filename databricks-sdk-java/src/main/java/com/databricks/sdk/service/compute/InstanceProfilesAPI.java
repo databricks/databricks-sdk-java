@@ -66,7 +66,7 @@ public class InstanceProfilesAPI {
    * <p>This API is available to all users.
    */
   public Iterable<InstanceProfile> list() {
-    return new Paginator<>(
+    return Paginator.newOffsetPagination(
         null,
         (Void v) -> impl.list(),
         ListInstanceProfilesResponse::getInstanceProfiles,

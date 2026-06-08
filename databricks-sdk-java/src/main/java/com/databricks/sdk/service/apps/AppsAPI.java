@@ -356,7 +356,7 @@ public class AppsAPI {
 
   /** Lists all apps in the workspace. */
   public Iterable<App> list(ListAppsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::list,
         ListAppsResponse::getApps,
@@ -375,7 +375,7 @@ public class AppsAPI {
 
   /** Lists all app deployments for the app with the supplied name. */
   public Iterable<AppDeployment> listDeployments(ListAppDeploymentsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listDeployments,
         ListAppDeploymentsResponse::getAppDeployments,
@@ -390,7 +390,7 @@ public class AppsAPI {
 
   /** Lists all app spaces in the workspace. */
   public Iterable<Space> listSpaces(ListSpacesRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listSpaces,
         ListSpacesResponse::getSpaces,

@@ -62,7 +62,7 @@ public class BudgetsAPI {
 
   /** Gets all budgets associated with this account. */
   public Iterable<BudgetConfiguration> list(ListBudgetConfigurationsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::list,
         ListBudgetConfigurationsResponse::getBudgets,

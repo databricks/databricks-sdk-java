@@ -172,7 +172,7 @@ public class PipelinesAPI {
 
   /** Retrieves events for a pipeline. */
   public Iterable<PipelineEvent> listPipelineEvents(ListPipelineEventsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listPipelineEvents,
         ListPipelineEventsResponse::getEvents,
@@ -187,7 +187,7 @@ public class PipelinesAPI {
 
   /** Lists pipelines defined in the Spark Declarative Pipelines system. */
   public Iterable<PipelineStateInfo> listPipelines(ListPipelinesRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listPipelines,
         ListPipelinesResponse::getStatuses,

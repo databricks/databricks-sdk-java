@@ -59,7 +59,7 @@ public class WorkspaceAssignmentAPI {
    * Get the permission assignments for the specified Databricks account and Databricks workspace.
    */
   public Iterable<PermissionAssignment> list(ListWorkspaceAssignmentRequest request) {
-    return new Paginator<>(
+    return Paginator.newOffsetPagination(
         request, impl::list, PermissionAssignments::getPermissionAssignments, response -> null);
   }
 

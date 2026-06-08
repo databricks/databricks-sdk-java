@@ -1,5 +1,40 @@
 # Version changelog
 
+## Release v0.116.0 (2026-06-04)
+
+### Bug Fixes
+
+- Make the client ID optional in `DatabricksOAuthTokenSource`. Previously `getToken()` threw a
+  `NullPointerException` ("ClientID cannot be null") when no client ID was set, which prevented
+  token exchange for users authenticated through a web browser OAuth flow whose IdP JWT does not
+  contain a client ID. When the client ID is null or empty, the `client_id` parameter is now
+  omitted from the token exchange request to perform account-wide token federation.
+
+
+## Release v0.115.0 (2026-06-02)
+
+### API Changes
+* Add `deploymentMode` field for `com.databricks.sdk.service.bundle.Deployment`.
+* Add `deploymentMode` field for `com.databricks.sdk.service.bundle.Version`.
+* Add `collaborationPlatformConnectivity` and `effectiveCollaborationPlatformConnectivity` fields for `com.databricks.sdk.service.settingsv2.Setting`.
+
+
+## Release v0.114.0 (2026-06-01)
+
+### Internal Changes
+* Switch workspace addressing header on workspace-scoped API calls from `X-Databricks-Org-Id` to `X-Databricks-Workspace-Id`. The value continues to come from the `DATABRICKS_WORKSPACE_ID` environment variable / `DatabricksConfig.setWorkspaceId()` setter, and now accepts either a classic numeric workspace ID or another workspace identifier format (server disambiguates). Mirrors [databricks/databricks-sdk-go#1688](https://github.com/databricks/databricks-sdk-go/pull/1688).
+
+### API Changes
+* Add `updateTokenManagement()` method for `workspaceClient.tokenManagement()` service.
+* Add `deploymentId` and `versionId` fields for `com.databricks.sdk.service.jobs.JobDeployment`.
+* Add `deploymentId` and `versionId` fields for `com.databricks.sdk.service.pipelines.PipelineDeployment`.
+* Add `autoscopeEnabled` field for `com.databricks.sdk.service.settings.CreateOboTokenRequest`.
+* Add `autoscopeEnabled` field for `com.databricks.sdk.service.settings.CreateTokenRequest`.
+* Add `autoscopeState`, `backfillScopes`, `inferredScopes` and `scopes` fields for `com.databricks.sdk.service.settings.PublicTokenInfo`.
+* Add `autoscopeState`, `backfillScopes`, `inferredScopes` and `scopes` fields for `com.databricks.sdk.service.settings.TokenInfo`.
+* Add `resourceType` field for `com.databricks.sdk.service.bundle.Operation`.
+
+
 ## Release v0.113.0 (2026-05-28)
 
 ### API Changes

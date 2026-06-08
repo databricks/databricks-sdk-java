@@ -245,7 +245,7 @@ public class PostgresAPI {
 
   /** Returns a paginated list of database branches in the project. */
   public Iterable<Branch> listBranches(ListBranchesRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listBranches,
         ListBranchesResponse::getBranches,
@@ -264,7 +264,7 @@ public class PostgresAPI {
 
   /** List Databases. */
   public Iterable<Database> listDatabases(ListDatabasesRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listDatabases,
         ListDatabasesResponse::getDatabases,
@@ -283,7 +283,7 @@ public class PostgresAPI {
 
   /** Returns a paginated list of compute endpoints in the branch. */
   public Iterable<Endpoint> listEndpoints(ListEndpointsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listEndpoints,
         ListEndpointsResponse::getEndpoints,
@@ -301,7 +301,7 @@ public class PostgresAPI {
    * access.
    */
   public Iterable<Project> listProjects(ListProjectsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listProjects,
         ListProjectsResponse::getProjects,
@@ -320,7 +320,7 @@ public class PostgresAPI {
 
   /** Returns a paginated list of Postgres roles in the branch. */
   public Iterable<Role> listRoles(ListRolesRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listRoles,
         ListRolesResponse::getRoles,

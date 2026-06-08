@@ -46,6 +46,13 @@ public class Setting {
   private BooleanMessage booleanVal;
 
   /**
+   * Setting value for collaboration_platform_connectivity setting. This is the setting value set by
+   * consumers, check effective_collaboration_platform_connectivity for final setting value.
+   */
+  @JsonProperty("collaboration_platform_connectivity")
+  private CollaborationPlatformConnectivityMessage collaborationPlatformConnectivity;
+
+  /**
    * Effective setting value for aibi_dashboard_embedding_access_policy setting. This is the final
    * effective value of setting. To set a value use aibi_dashboard_embedding_access_policy.
    */
@@ -79,6 +86,13 @@ public class Setting {
    */
   @JsonProperty("effective_boolean_val")
   private BooleanMessage effectiveBooleanVal;
+
+  /**
+   * Effective setting value for collaboration_platform_connectivity setting. This is the final
+   * effective value of setting. To set a value use collaboration_platform_connectivity.
+   */
+  @JsonProperty("effective_collaboration_platform_connectivity")
+  private CollaborationPlatformConnectivityMessage effectiveCollaborationPlatformConnectivity;
 
   /**
    * Effective setting value for integer type setting. This is the final effective value of setting.
@@ -203,6 +217,16 @@ public class Setting {
     return booleanVal;
   }
 
+  public Setting setCollaborationPlatformConnectivity(
+      CollaborationPlatformConnectivityMessage collaborationPlatformConnectivity) {
+    this.collaborationPlatformConnectivity = collaborationPlatformConnectivity;
+    return this;
+  }
+
+  public CollaborationPlatformConnectivityMessage getCollaborationPlatformConnectivity() {
+    return collaborationPlatformConnectivity;
+  }
+
   public Setting setEffectiveAibiDashboardEmbeddingAccessPolicy(
       AibiDashboardEmbeddingAccessPolicy effectiveAibiDashboardEmbeddingAccessPolicy) {
     this.effectiveAibiDashboardEmbeddingAccessPolicy = effectiveAibiDashboardEmbeddingAccessPolicy;
@@ -251,6 +275,16 @@ public class Setting {
 
   public BooleanMessage getEffectiveBooleanVal() {
     return effectiveBooleanVal;
+  }
+
+  public Setting setEffectiveCollaborationPlatformConnectivity(
+      CollaborationPlatformConnectivityMessage effectiveCollaborationPlatformConnectivity) {
+    this.effectiveCollaborationPlatformConnectivity = effectiveCollaborationPlatformConnectivity;
+    return this;
+  }
+
+  public CollaborationPlatformConnectivityMessage getEffectiveCollaborationPlatformConnectivity() {
+    return effectiveCollaborationPlatformConnectivity;
   }
 
   public Setting setEffectiveIntegerVal(IntegerMessage effectiveIntegerVal) {
@@ -368,6 +402,7 @@ public class Setting {
         && Objects.equals(allowedAppsUserApiScopes, that.allowedAppsUserApiScopes)
         && Objects.equals(automaticClusterUpdateWorkspace, that.automaticClusterUpdateWorkspace)
         && Objects.equals(booleanVal, that.booleanVal)
+        && Objects.equals(collaborationPlatformConnectivity, that.collaborationPlatformConnectivity)
         && Objects.equals(
             effectiveAibiDashboardEmbeddingAccessPolicy,
             that.effectiveAibiDashboardEmbeddingAccessPolicy)
@@ -378,6 +413,9 @@ public class Setting {
         && Objects.equals(
             effectiveAutomaticClusterUpdateWorkspace, that.effectiveAutomaticClusterUpdateWorkspace)
         && Objects.equals(effectiveBooleanVal, that.effectiveBooleanVal)
+        && Objects.equals(
+            effectiveCollaborationPlatformConnectivity,
+            that.effectiveCollaborationPlatformConnectivity)
         && Objects.equals(effectiveIntegerVal, that.effectiveIntegerVal)
         && Objects.equals(
             effectiveOperationalEmailCustomRecipient, that.effectiveOperationalEmailCustomRecipient)
@@ -400,11 +438,13 @@ public class Setting {
         allowedAppsUserApiScopes,
         automaticClusterUpdateWorkspace,
         booleanVal,
+        collaborationPlatformConnectivity,
         effectiveAibiDashboardEmbeddingAccessPolicy,
         effectiveAibiDashboardEmbeddingApprovedDomains,
         effectiveAllowedAppsUserApiScopes,
         effectiveAutomaticClusterUpdateWorkspace,
         effectiveBooleanVal,
+        effectiveCollaborationPlatformConnectivity,
         effectiveIntegerVal,
         effectiveOperationalEmailCustomRecipient,
         effectivePersonalCompute,
@@ -426,6 +466,7 @@ public class Setting {
         .add("allowedAppsUserApiScopes", allowedAppsUserApiScopes)
         .add("automaticClusterUpdateWorkspace", automaticClusterUpdateWorkspace)
         .add("booleanVal", booleanVal)
+        .add("collaborationPlatformConnectivity", collaborationPlatformConnectivity)
         .add(
             "effectiveAibiDashboardEmbeddingAccessPolicy",
             effectiveAibiDashboardEmbeddingAccessPolicy)
@@ -435,6 +476,9 @@ public class Setting {
         .add("effectiveAllowedAppsUserApiScopes", effectiveAllowedAppsUserApiScopes)
         .add("effectiveAutomaticClusterUpdateWorkspace", effectiveAutomaticClusterUpdateWorkspace)
         .add("effectiveBooleanVal", effectiveBooleanVal)
+        .add(
+            "effectiveCollaborationPlatformConnectivity",
+            effectiveCollaborationPlatformConnectivity)
         .add("effectiveIntegerVal", effectiveIntegerVal)
         .add("effectiveOperationalEmailCustomRecipient", effectiveOperationalEmailCustomRecipient)
         .add("effectivePersonalCompute", effectivePersonalCompute)

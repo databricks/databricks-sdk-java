@@ -108,7 +108,7 @@ public class EnvironmentsAPI {
    */
   public Iterable<WorkspaceBaseEnvironment> listWorkspaceBaseEnvironments(
       ListWorkspaceBaseEnvironmentsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listWorkspaceBaseEnvironments,
         ListWorkspaceBaseEnvironmentsResponse::getWorkspaceBaseEnvironments,

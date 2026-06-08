@@ -51,7 +51,7 @@ public class BudgetPolicyAPI {
    * Lists all policies. Policies are returned in the alphabetically ascending order of their names.
    */
   public Iterable<BudgetPolicy> list(ListBudgetPoliciesRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::list,
         ListBudgetPoliciesResponse::getPolicies,

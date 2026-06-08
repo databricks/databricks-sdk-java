@@ -127,7 +127,7 @@ public class KnowledgeAssistantsAPI {
 
   /** Lists examples under a Knowledge Assistant. */
   public Iterable<Example> listExamples(ListExamplesRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listExamples,
         ListExamplesResponse::getExamples,
@@ -143,7 +143,7 @@ public class KnowledgeAssistantsAPI {
   /** List Knowledge Assistants */
   public Iterable<KnowledgeAssistant> listKnowledgeAssistants(
       ListKnowledgeAssistantsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listKnowledgeAssistants,
         ListKnowledgeAssistantsResponse::getKnowledgeAssistants,
@@ -162,7 +162,7 @@ public class KnowledgeAssistantsAPI {
 
   /** Lists Knowledge Sources under a Knowledge Assistant. */
   public Iterable<KnowledgeSource> listKnowledgeSources(ListKnowledgeSourcesRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listKnowledgeSources,
         ListKnowledgeSourcesResponse::getKnowledgeSources,

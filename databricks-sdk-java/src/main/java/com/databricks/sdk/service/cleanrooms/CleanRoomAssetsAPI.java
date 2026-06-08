@@ -76,7 +76,7 @@ public class CleanRoomAssetsAPI {
 
   /** List assets. */
   public Iterable<CleanRoomAsset> list(ListCleanRoomAssetsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::list,
         ListCleanRoomAssetsResponse::getAssets,

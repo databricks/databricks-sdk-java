@@ -193,7 +193,7 @@ public class ServingEndpointsAPI {
 
   /** Get all serving endpoints. */
   public Iterable<ServingEndpoint> list() {
-    return new Paginator<>(
+    return Paginator.newOffsetPagination(
         null, (Void v) -> impl.list(), ListEndpointsResponse::getEndpoints, response -> null);
   }
 

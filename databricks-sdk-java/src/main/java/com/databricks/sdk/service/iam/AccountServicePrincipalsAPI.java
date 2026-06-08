@@ -59,7 +59,7 @@ public class AccountServicePrincipalsAPI {
     if (request.getCount() == null) {
       request.setCount(10000L);
     }
-    return new Paginator<>(
+    return Paginator.newOffsetPagination(
             request,
             impl::list,
             ListServicePrincipalResponse::getResources,

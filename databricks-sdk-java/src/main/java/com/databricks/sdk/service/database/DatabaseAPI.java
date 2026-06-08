@@ -212,7 +212,7 @@ public class DatabaseAPI {
 
   /** This API is currently unimplemented, but exposed for Terraform support. */
   public Iterable<DatabaseCatalog> listDatabaseCatalogs(ListDatabaseCatalogsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listDatabaseCatalogs,
         ListDatabaseCatalogsResponse::getDatabaseCatalogs,
@@ -238,7 +238,7 @@ public class DatabaseAPI {
    */
   public Iterable<DatabaseInstanceRole> listDatabaseInstanceRoles(
       ListDatabaseInstanceRolesRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listDatabaseInstanceRoles,
         ListDatabaseInstanceRolesResponse::getDatabaseInstanceRoles,
@@ -253,7 +253,7 @@ public class DatabaseAPI {
 
   /** List Database Instances. */
   public Iterable<DatabaseInstance> listDatabaseInstances(ListDatabaseInstancesRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listDatabaseInstances,
         ListDatabaseInstancesResponse::getDatabaseInstances,
@@ -274,7 +274,7 @@ public class DatabaseAPI {
   /** This API is currently unimplemented, but exposed for Terraform support. */
   public Iterable<SyncedDatabaseTable> listSyncedDatabaseTables(
       ListSyncedDatabaseTablesRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listSyncedDatabaseTables,
         ListSyncedDatabaseTablesResponse::getSyncedTables,

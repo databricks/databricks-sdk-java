@@ -62,7 +62,7 @@ public class AlertsAPI {
    * temporary ban.
    */
   public Iterable<ListAlertsResponseAlert> list(ListAlertsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::list,
         ListAlertsResponse::getResults,

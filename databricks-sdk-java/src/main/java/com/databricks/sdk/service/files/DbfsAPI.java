@@ -114,7 +114,8 @@ public class DbfsAPI {
    * same functionality without timing out.
    */
   public Iterable<FileInfo> list(ListDbfsRequest request) {
-    return new Paginator<>(request, impl::list, ListStatusResponse::getFiles, response -> null);
+    return Paginator.newOffsetPagination(
+        request, impl::list, ListStatusResponse::getFiles, response -> null);
   }
 
   public void mkdirs(String path) {
