@@ -7,6 +7,7 @@
 ### Breaking Changes
 
 ### Bug Fixes
+* Canonicalize Bearer tokenType in Authorization headers
 
 ### Security Vulnerabilities
 
@@ -15,3 +16,4 @@
 ### Internal Changes
 
 ### API Changes
+* Add `getCanonicalTokenType()` method for `com.databricks.sdk.core.oauth.Token`

@@ -99,7 +99,8 @@ public class AzureCliCredentialsProvider implements CredentialsProvider {
           () -> {
             Token token = tokenSource.getToken();
             Map<String, String> headers = new HashMap<>();
-            headers.put("Authorization", token.getTokenType() + " " + token.getAccessToken());
+            headers.put(
+                "Authorization", token.getCanonicalTokenType() + " " + token.getAccessToken());
             if (finalMgmtTokenSource != null) {
               AzureUtils.addSpManagementToken(finalMgmtTokenSource, headers);
             }
