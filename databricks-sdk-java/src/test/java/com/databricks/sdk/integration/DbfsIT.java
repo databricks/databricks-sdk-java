@@ -16,11 +16,13 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 @EnvContext("workspace")
 @ExtendWith(EnvTest.class)
+@Disabled("Legacy DBFS is disabled on the test workspace (DBFS deprecation)")
 public class DbfsIT {
   // An integration test for DbfsExt which writes a file of 10 KiB to DBFS, reads the written file
   // back, and ensures that the contents of the file are the same as what was written out.

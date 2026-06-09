@@ -14,4 +14,6 @@
 
 ### Internal Changes
 
+* Disable `DbfsIT` integration tests; legacy DBFS root is disabled on the test workspace (DBFS deprecation).
+
 ### API Changes
