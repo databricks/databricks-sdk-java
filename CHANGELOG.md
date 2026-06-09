@@ -1,5 +1,14 @@
 # Version changelog
 
+## Release v0.118.0 (2026-06-09)
+
+### Bug Fixes
+* Canonicalize Bearer tokenType in Authorization headers
+
+### API Changes
+* Add `getCanonicalTokenType()` method for `com.databricks.sdk.core.oauth.Token`
+
+
 ## Release v0.117.0 (2026-06-08)
 
 ### New Features and Improvements
