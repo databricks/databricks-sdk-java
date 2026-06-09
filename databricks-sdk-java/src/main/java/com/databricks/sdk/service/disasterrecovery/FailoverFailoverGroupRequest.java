@@ -29,8 +29,8 @@ public class FailoverFailoverGroupRequest {
   @JsonIgnore private String name;
 
   /**
-   * The target primary region. Must be one of the derived regions and different from the current
-   * effective_primary_region. Serves as an idempotency check.
+   * The target primary region. Must be one of the participating regions and different from the
+   * current effective_primary_region. Serves as an idempotency check.
    */
   @JsonProperty("target_primary_region")
   private String targetPrimaryRegion;

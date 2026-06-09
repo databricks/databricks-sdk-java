@@ -37,6 +37,10 @@ public class CatalogInfo {
   @JsonProperty("created_by")
   private String createdBy;
 
+  /** Custom maximum retention period in hours for the catalog */
+  @JsonProperty("custom_max_retention_hours")
+  private Long customMaxRetentionHours;
+
   /** */
   @JsonProperty("effective_predictive_optimization_flag")
   private EffectivePredictiveOptimizationFlag effectivePredictiveOptimizationFlag;
@@ -169,6 +173,15 @@ public class CatalogInfo {
 
   public String getCreatedBy() {
     return createdBy;
+  }
+
+  public CatalogInfo setCustomMaxRetentionHours(Long customMaxRetentionHours) {
+    this.customMaxRetentionHours = customMaxRetentionHours;
+    return this;
+  }
+
+  public Long getCustomMaxRetentionHours() {
+    return customMaxRetentionHours;
   }
 
   public CatalogInfo setEffectivePredictiveOptimizationFlag(
@@ -346,6 +359,7 @@ public class CatalogInfo {
         && Objects.equals(connectionName, that.connectionName)
         && Objects.equals(createdAt, that.createdAt)
         && Objects.equals(createdBy, that.createdBy)
+        && Objects.equals(customMaxRetentionHours, that.customMaxRetentionHours)
         && Objects.equals(
             effectivePredictiveOptimizationFlag, that.effectivePredictiveOptimizationFlag)
         && Objects.equals(enablePredictiveOptimization, that.enablePredictiveOptimization)
@@ -376,6 +390,7 @@ public class CatalogInfo {
         connectionName,
         createdAt,
         createdBy,
+        customMaxRetentionHours,
         effectivePredictiveOptimizationFlag,
         enablePredictiveOptimization,
         fullName,
@@ -405,6 +420,7 @@ public class CatalogInfo {
         .add("connectionName", connectionName)
         .add("createdAt", createdAt)
         .add("createdBy", createdBy)
+        .add("customMaxRetentionHours", customMaxRetentionHours)
         .add("effectivePredictiveOptimizationFlag", effectivePredictiveOptimizationFlag)
         .add("enablePredictiveOptimization", enablePredictiveOptimization)
         .add("fullName", fullName)

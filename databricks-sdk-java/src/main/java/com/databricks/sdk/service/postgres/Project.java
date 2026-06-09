@@ -35,6 +35,10 @@ public class Project {
   @JsonProperty("name")
   private String name;
 
+  /** The part of the name, chosen by the user when the resource was created. */
+  @JsonProperty("project_id")
+  private String projectId;
+
   /**
    * A timestamp indicating when the project is scheduled for permanent deletion. Empty if the
    * project is not deleted, otherwise set to a timestamp in the future.
@@ -97,6 +101,15 @@ public class Project {
     return name;
   }
 
+  public Project setProjectId(String projectId) {
+    this.projectId = projectId;
+    return this;
+  }
+
+  public String getProjectId() {
+    return projectId;
+  }
+
   public Project setPurgeTime(Timestamp purgeTime) {
     this.purgeTime = purgeTime;
     return this;
@@ -151,6 +164,7 @@ public class Project {
         && Objects.equals(deleteTime, that.deleteTime)
         && Objects.equals(initialEndpointSpec, that.initialEndpointSpec)
         && Objects.equals(name, that.name)
+        && Objects.equals(projectId, that.projectId)
         && Objects.equals(purgeTime, that.purgeTime)
         && Objects.equals(spec, that.spec)
         && Objects.equals(status, that.status)
@@ -165,6 +179,7 @@ public class Project {
         deleteTime,
         initialEndpointSpec,
         name,
+        projectId,
         purgeTime,
         spec,
         status,
@@ -179,6 +194,7 @@ public class Project {
         .add("deleteTime", deleteTime)
         .add("initialEndpointSpec", initialEndpointSpec)
         .add("name", name)
+        .add("projectId", projectId)
         .add("purgeTime", purgeTime)
         .add("spec", spec)
         .add("status", status)

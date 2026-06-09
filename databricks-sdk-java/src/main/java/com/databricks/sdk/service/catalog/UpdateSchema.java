@@ -15,6 +15,10 @@ public class UpdateSchema {
   @JsonProperty("comment")
   private String comment;
 
+  /** Custom maximum retention period in hours for the schema. */
+  @JsonProperty("custom_max_retention_hours")
+  private Long customMaxRetentionHours;
+
   /** Whether predictive optimization should be enabled for this object and objects under it. */
   @JsonProperty("enable_predictive_optimization")
   private EnablePredictiveOptimization enablePredictiveOptimization;
@@ -41,6 +45,15 @@ public class UpdateSchema {
 
   public String getComment() {
     return comment;
+  }
+
+  public UpdateSchema setCustomMaxRetentionHours(Long customMaxRetentionHours) {
+    this.customMaxRetentionHours = customMaxRetentionHours;
+    return this;
+  }
+
+  public Long getCustomMaxRetentionHours() {
+    return customMaxRetentionHours;
   }
 
   public UpdateSchema setEnablePredictiveOptimization(
@@ -95,6 +108,7 @@ public class UpdateSchema {
     if (o == null || getClass() != o.getClass()) return false;
     UpdateSchema that = (UpdateSchema) o;
     return Objects.equals(comment, that.comment)
+        && Objects.equals(customMaxRetentionHours, that.customMaxRetentionHours)
         && Objects.equals(enablePredictiveOptimization, that.enablePredictiveOptimization)
         && Objects.equals(fullName, that.fullName)
         && Objects.equals(newName, that.newName)
@@ -105,13 +119,20 @@ public class UpdateSchema {
   @Override
   public int hashCode() {
     return Objects.hash(
-        comment, enablePredictiveOptimization, fullName, newName, owner, properties);
+        comment,
+        customMaxRetentionHours,
+        enablePredictiveOptimization,
+        fullName,
+        newName,
+        owner,
+        properties);
   }
 
   @Override
   public String toString() {
     return new ToStringer(UpdateSchema.class)
         .add("comment", comment)
+        .add("customMaxRetentionHours", customMaxRetentionHours)
         .add("enablePredictiveOptimization", enablePredictiveOptimization)
         .add("fullName", fullName)
         .add("newName", newName)

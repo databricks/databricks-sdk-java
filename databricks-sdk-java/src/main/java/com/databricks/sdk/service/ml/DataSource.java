@@ -22,6 +22,10 @@ public class DataSource {
   @JsonProperty("request_source")
   private RequestSource requestSource;
 
+  /** A Stream data source. */
+  @JsonProperty("stream_source")
+  private StreamSource streamSource;
+
   public DataSource setDeltaTableSource(DeltaTableSource deltaTableSource) {
     this.deltaTableSource = deltaTableSource;
     return this;
@@ -49,6 +53,15 @@ public class DataSource {
     return requestSource;
   }
 
+  public DataSource setStreamSource(StreamSource streamSource) {
+    this.streamSource = streamSource;
+    return this;
+  }
+
+  public StreamSource getStreamSource() {
+    return streamSource;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -56,12 +69,13 @@ public class DataSource {
     DataSource that = (DataSource) o;
     return Objects.equals(deltaTableSource, that.deltaTableSource)
         && Objects.equals(kafkaSource, that.kafkaSource)
-        && Objects.equals(requestSource, that.requestSource);
+        && Objects.equals(requestSource, that.requestSource)
+        && Objects.equals(streamSource, that.streamSource);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(deltaTableSource, kafkaSource, requestSource);
+    return Objects.hash(deltaTableSource, kafkaSource, requestSource, streamSource);
   }
 
   @Override
@@ -70,6 +84,7 @@ public class DataSource {
         .add("deltaTableSource", deltaTableSource)
         .add("kafkaSource", kafkaSource)
         .add("requestSource", requestSource)
+        .add("streamSource", streamSource)
         .toString();
   }
 }

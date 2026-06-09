@@ -11,6 +11,14 @@ import java.util.Objects;
 @Generated
 public class EgressNetworkPolicyNetworkAccessPolicy {
   /**
+   * List of Databricks workspace destinations that serverless workloads are allowed to access when
+   * in RESTRICTED_ACCESS mode.
+   */
+  @JsonProperty("allowed_databricks_destinations")
+  private Collection<EgressNetworkPolicyNetworkAccessPolicyDatabricksDestination>
+      allowedDatabricksDestinations;
+
+  /**
    * List of internet destinations that serverless workloads are allowed to access when in
    * RESTRICTED_ACCESS mode.
    */
@@ -42,6 +50,18 @@ public class EgressNetworkPolicyNetworkAccessPolicy {
   /** The restriction mode that controls how serverless workloads can access the internet. */
   @JsonProperty("restriction_mode")
   private EgressNetworkPolicyNetworkAccessPolicyRestrictionMode restrictionMode;
+
+  public EgressNetworkPolicyNetworkAccessPolicy setAllowedDatabricksDestinations(
+      Collection<EgressNetworkPolicyNetworkAccessPolicyDatabricksDestination>
+          allowedDatabricksDestinations) {
+    this.allowedDatabricksDestinations = allowedDatabricksDestinations;
+    return this;
+  }
+
+  public Collection<EgressNetworkPolicyNetworkAccessPolicyDatabricksDestination>
+      getAllowedDatabricksDestinations() {
+    return allowedDatabricksDestinations;
+  }
 
   public EgressNetworkPolicyNetworkAccessPolicy setAllowedInternetDestinations(
       Collection<EgressNetworkPolicyNetworkAccessPolicyInternetDestination>
@@ -104,7 +124,8 @@ public class EgressNetworkPolicyNetworkAccessPolicy {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     EgressNetworkPolicyNetworkAccessPolicy that = (EgressNetworkPolicyNetworkAccessPolicy) o;
-    return Objects.equals(allowedInternetDestinations, that.allowedInternetDestinations)
+    return Objects.equals(allowedDatabricksDestinations, that.allowedDatabricksDestinations)
+        && Objects.equals(allowedInternetDestinations, that.allowedInternetDestinations)
         && Objects.equals(allowedStorageDestinations, that.allowedStorageDestinations)
         && Objects.equals(blockedInternetDestinations, that.blockedInternetDestinations)
         && Objects.equals(policyEnforcement, that.policyEnforcement)
@@ -114,6 +135,7 @@ public class EgressNetworkPolicyNetworkAccessPolicy {
   @Override
   public int hashCode() {
     return Objects.hash(
+        allowedDatabricksDestinations,
         allowedInternetDestinations,
         allowedStorageDestinations,
         blockedInternetDestinations,
@@ -124,6 +146,7 @@ public class EgressNetworkPolicyNetworkAccessPolicy {
   @Override
   public String toString() {
     return new ToStringer(EgressNetworkPolicyNetworkAccessPolicy.class)
+        .add("allowedDatabricksDestinations", allowedDatabricksDestinations)
         .add("allowedInternetDestinations", allowedInternetDestinations)
         .add("allowedStorageDestinations", allowedStorageDestinations)
         .add("blockedInternetDestinations", blockedInternetDestinations)

@@ -14,6 +14,21 @@ public class UpdateRepoRequest {
   @JsonProperty("branch")
   private String branch;
 
+  /**
+   * WARNING: DESTRUCTIVE AND IRREVERSIBLE. If true, permanently deletes ALL uncommitted changes in
+   * the Git folder — staged, unstaged, and untracked files — before updating. Lost data CANNOT be
+   * recovered.
+   *
+   * <p>NEVER use this on Git folders where users author or edit files. This flag is intended ONLY
+   * for automated jobs that treat the Git folder as a read-only mirror of a remote branch and need
+   * to force-sync it. If any user has uncommitted work in the Git folder, that work will be
+   * permanently destroyed without warning.
+   *
+   * <p>Local commits that have been made but not yet pushed to the remote are preserved.
+   */
+  @JsonProperty("dangerously_force_discard_all")
+  private Boolean dangerouslyForceDiscardAll;
+
   /** ID of the Git folder (repo) object in the workspace. */
   @JsonIgnore private Long repoId;
 
@@ -39,6 +54,15 @@ public class UpdateRepoRequest {
 
   public String getBranch() {
     return branch;
+  }
+
+  public UpdateRepoRequest setDangerouslyForceDiscardAll(Boolean dangerouslyForceDiscardAll) {
+    this.dangerouslyForceDiscardAll = dangerouslyForceDiscardAll;
+    return this;
+  }
+
+  public Boolean getDangerouslyForceDiscardAll() {
+    return dangerouslyForceDiscardAll;
   }
 
   public UpdateRepoRequest setRepoId(Long repoId) {
@@ -74,6 +98,7 @@ public class UpdateRepoRequest {
     if (o == null || getClass() != o.getClass()) return false;
     UpdateRepoRequest that = (UpdateRepoRequest) o;
     return Objects.equals(branch, that.branch)
+        && Objects.equals(dangerouslyForceDiscardAll, that.dangerouslyForceDiscardAll)
         && Objects.equals(repoId, that.repoId)
         && Objects.equals(sparseCheckout, that.sparseCheckout)
         && Objects.equals(tag, that.tag);
@@ -81,13 +106,14 @@ public class UpdateRepoRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(branch, repoId, sparseCheckout, tag);
+    return Objects.hash(branch, dangerouslyForceDiscardAll, repoId, sparseCheckout, tag);
   }
 
   @Override
   public String toString() {
     return new ToStringer(UpdateRepoRequest.class)
         .add("branch", branch)
+        .add("dangerouslyForceDiscardAll", dangerouslyForceDiscardAll)
         .add("repoId", repoId)
         .add("sparseCheckout", sparseCheckout)
         .add("tag", tag)

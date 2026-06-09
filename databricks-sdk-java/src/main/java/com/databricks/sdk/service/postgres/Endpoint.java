@@ -14,6 +14,10 @@ public class Endpoint {
   @JsonProperty("create_time")
   private Timestamp createTime;
 
+  /** The part of the name, chosen by the user when the resource was created. */
+  @JsonProperty("endpoint_id")
+  private String endpointId;
+
   /**
    * Output only. The full resource path of the endpoint. Format:
    * projects/{project_id}/branches/{branch_id}/endpoints/{endpoint_id}
@@ -54,6 +58,15 @@ public class Endpoint {
 
   public Timestamp getCreateTime() {
     return createTime;
+  }
+
+  public Endpoint setEndpointId(String endpointId) {
+    this.endpointId = endpointId;
+    return this;
+  }
+
+  public String getEndpointId() {
+    return endpointId;
   }
 
   public Endpoint setName(String name) {
@@ -116,6 +129,7 @@ public class Endpoint {
     if (o == null || getClass() != o.getClass()) return false;
     Endpoint that = (Endpoint) o;
     return Objects.equals(createTime, that.createTime)
+        && Objects.equals(endpointId, that.endpointId)
         && Objects.equals(name, that.name)
         && Objects.equals(parent, that.parent)
         && Objects.equals(spec, that.spec)
@@ -126,13 +140,14 @@ public class Endpoint {
 
   @Override
   public int hashCode() {
-    return Objects.hash(createTime, name, parent, spec, status, uid, updateTime);
+    return Objects.hash(createTime, endpointId, name, parent, spec, status, uid, updateTime);
   }
 
   @Override
   public String toString() {
     return new ToStringer(Endpoint.class)
         .add("createTime", createTime)
+        .add("endpointId", endpointId)
         .add("name", name)
         .add("parent", parent)
         .add("spec", spec)

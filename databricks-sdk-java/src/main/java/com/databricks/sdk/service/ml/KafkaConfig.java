@@ -34,6 +34,10 @@ public class KafkaConfig {
   @JsonProperty("extra_options")
   private Map<String, String> extraOptions;
 
+  /** Configuration for ingesting Kafka data into a Databricks-managed Delta table. */
+  @JsonProperty("ingestion_config")
+  private IngestionConfig ingestionConfig;
+
   /**
    * Schema configuration for extracting message keys from topics. At least one of key_schema and
    * value_schema must be provided.
@@ -96,6 +100,15 @@ public class KafkaConfig {
     return extraOptions;
   }
 
+  public KafkaConfig setIngestionConfig(IngestionConfig ingestionConfig) {
+    this.ingestionConfig = ingestionConfig;
+    return this;
+  }
+
+  public IngestionConfig getIngestionConfig() {
+    return ingestionConfig;
+  }
+
   public KafkaConfig setKeySchema(SchemaConfig keySchema) {
     this.keySchema = keySchema;
     return this;
@@ -141,6 +154,7 @@ public class KafkaConfig {
         && Objects.equals(backfillSource, that.backfillSource)
         && Objects.equals(bootstrapServers, that.bootstrapServers)
         && Objects.equals(extraOptions, that.extraOptions)
+        && Objects.equals(ingestionConfig, that.ingestionConfig)
         && Objects.equals(keySchema, that.keySchema)
         && Objects.equals(name, that.name)
         && Objects.equals(subscriptionMode, that.subscriptionMode)
@@ -154,6 +168,7 @@ public class KafkaConfig {
         backfillSource,
         bootstrapServers,
         extraOptions,
+        ingestionConfig,
         keySchema,
         name,
         subscriptionMode,
@@ -167,6 +182,7 @@ public class KafkaConfig {
         .add("backfillSource", backfillSource)
         .add("bootstrapServers", bootstrapServers)
         .add("extraOptions", extraOptions)
+        .add("ingestionConfig", ingestionConfig)
         .add("keySchema", keySchema)
         .add("name", name)
         .add("subscriptionMode", subscriptionMode)

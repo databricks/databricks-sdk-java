@@ -15,10 +15,7 @@ public class WorkspaceSet {
   @JsonProperty("name")
   private String name;
 
-  /**
-   * Whether to enable control plane DR (notebooks, jobs, clusters, etc.) for this set. Requires all
-   * workspaces in the set to be Mission Critical tier.
-   */
+  /** Whether to enable control plane DR (notebooks, jobs, clusters, etc.) for this set. */
   @JsonProperty("replicate_workspace_assets")
   private Boolean replicateWorkspaceAssets;
 
@@ -31,8 +28,8 @@ public class WorkspaceSet {
   private Collection<String> stableUrlNames;
 
   /**
-   * Workspace IDs in this set. The system derives and validates regions. EA: exactly 2 workspaces
-   * (one per region).
+   * Workspace IDs in this set. The system derives and validates regions. All workspaces must be in
+   * the Mission Critical tier.
    */
   @JsonProperty("workspace_ids")
   private Collection<String> workspaceIds;

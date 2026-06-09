@@ -26,6 +26,10 @@ public class Role {
   @JsonProperty("parent")
   private String parent;
 
+  /** The part of the name, chosen by the user when the resource was created. */
+  @JsonProperty("role_id")
+  private String roleId;
+
   /**
    * The spec contains the role configuration, including identity type, authentication method, and
    * role attributes.
@@ -71,6 +75,15 @@ public class Role {
     return parent;
   }
 
+  public Role setRoleId(String roleId) {
+    this.roleId = roleId;
+    return this;
+  }
+
+  public String getRoleId() {
+    return roleId;
+  }
+
   public Role setSpec(RoleRoleSpec spec) {
     this.spec = spec;
     return this;
@@ -106,6 +119,7 @@ public class Role {
     return Objects.equals(createTime, that.createTime)
         && Objects.equals(name, that.name)
         && Objects.equals(parent, that.parent)
+        && Objects.equals(roleId, that.roleId)
         && Objects.equals(spec, that.spec)
         && Objects.equals(status, that.status)
         && Objects.equals(updateTime, that.updateTime);
@@ -113,7 +127,7 @@ public class Role {
 
   @Override
   public int hashCode() {
-    return Objects.hash(createTime, name, parent, spec, status, updateTime);
+    return Objects.hash(createTime, name, parent, roleId, spec, status, updateTime);
   }
 
   @Override
@@ -122,6 +136,7 @@ public class Role {
         .add("createTime", createTime)
         .add("name", name)
         .add("parent", parent)
+        .add("roleId", roleId)
         .add("spec", spec)
         .add("status", status)
         .add("updateTime", updateTime)

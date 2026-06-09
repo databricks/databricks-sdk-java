@@ -15,6 +15,10 @@ public class UpdateCatalog {
   @JsonProperty("comment")
   private String comment;
 
+  /** Custom maximum retention period in hours for the catalog */
+  @JsonProperty("custom_max_retention_hours")
+  private Long customMaxRetentionHours;
+
   /** Whether predictive optimization should be enabled for this object and objects under it. */
   @JsonProperty("enable_predictive_optimization")
   private EnablePredictiveOptimization enablePredictiveOptimization;
@@ -56,6 +60,15 @@ public class UpdateCatalog {
 
   public String getComment() {
     return comment;
+  }
+
+  public UpdateCatalog setCustomMaxRetentionHours(Long customMaxRetentionHours) {
+    this.customMaxRetentionHours = customMaxRetentionHours;
+    return this;
+  }
+
+  public Long getCustomMaxRetentionHours() {
+    return customMaxRetentionHours;
   }
 
   public UpdateCatalog setEnablePredictiveOptimization(
@@ -137,6 +150,7 @@ public class UpdateCatalog {
     if (o == null || getClass() != o.getClass()) return false;
     UpdateCatalog that = (UpdateCatalog) o;
     return Objects.equals(comment, that.comment)
+        && Objects.equals(customMaxRetentionHours, that.customMaxRetentionHours)
         && Objects.equals(enablePredictiveOptimization, that.enablePredictiveOptimization)
         && Objects.equals(isolationMode, that.isolationMode)
         && Objects.equals(managedEncryptionSettings, that.managedEncryptionSettings)
@@ -151,6 +165,7 @@ public class UpdateCatalog {
   public int hashCode() {
     return Objects.hash(
         comment,
+        customMaxRetentionHours,
         enablePredictiveOptimization,
         isolationMode,
         managedEncryptionSettings,
@@ -165,6 +180,7 @@ public class UpdateCatalog {
   public String toString() {
     return new ToStringer(UpdateCatalog.class)
         .add("comment", comment)
+        .add("customMaxRetentionHours", customMaxRetentionHours)
         .add("enablePredictiveOptimization", enablePredictiveOptimization)
         .add("isolationMode", isolationMode)
         .add("managedEncryptionSettings", managedEncryptionSettings)

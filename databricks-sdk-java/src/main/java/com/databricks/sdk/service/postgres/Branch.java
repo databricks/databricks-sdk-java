@@ -10,6 +10,10 @@ import java.util.Objects;
 
 @Generated
 public class Branch {
+  /** The part of the name, chosen by the user when the resource was created. */
+  @JsonProperty("branch_id")
+  private String branchId;
+
   /** A timestamp indicating when the branch was created. */
   @JsonProperty("create_time")
   private Timestamp createTime;
@@ -45,6 +49,15 @@ public class Branch {
   /** A timestamp indicating when the branch was last updated. */
   @JsonProperty("update_time")
   private Timestamp updateTime;
+
+  public Branch setBranchId(String branchId) {
+    this.branchId = branchId;
+    return this;
+  }
+
+  public String getBranchId() {
+    return branchId;
+  }
 
   public Branch setCreateTime(Timestamp createTime) {
     this.createTime = createTime;
@@ -114,7 +127,8 @@ public class Branch {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Branch that = (Branch) o;
-    return Objects.equals(createTime, that.createTime)
+    return Objects.equals(branchId, that.branchId)
+        && Objects.equals(createTime, that.createTime)
         && Objects.equals(name, that.name)
         && Objects.equals(parent, that.parent)
         && Objects.equals(spec, that.spec)
@@ -125,12 +139,13 @@ public class Branch {
 
   @Override
   public int hashCode() {
-    return Objects.hash(createTime, name, parent, spec, status, uid, updateTime);
+    return Objects.hash(branchId, createTime, name, parent, spec, status, uid, updateTime);
   }
 
   @Override
   public String toString() {
     return new ToStringer(Branch.class)
+        .add("branchId", branchId)
         .add("createTime", createTime)
         .add("name", name)
         .add("parent", parent)

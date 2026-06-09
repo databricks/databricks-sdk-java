@@ -20,6 +20,15 @@ public class QueryVectorIndexRequest {
   private Collection<String> columnsToRerank;
 
   /**
+   * Facets to compute over the matched results. Each entry has one of these forms: `"<column>"` -
+   * top 10 distinct values by count `"<column> TOP <n>"` - top n distinct values, where n > 0
+   * `"<column> BUCKETS [[from,to],...]"` - inclusive numeric ranges `TOP` and `BUCKETS` are
+   * case-insensitive. A column may appear at most once.
+   */
+  @JsonProperty("facets")
+  private Collection<String> facets;
+
+  /**
    * JSON string representing query filters.
    *
    * <p>Example filters:
@@ -37,6 +46,10 @@ public class QueryVectorIndexRequest {
   /** Number of results to return. Defaults to 10. */
   @JsonProperty("num_results")
   private Long numResults;
+
+  /** Text columns to search for `query_text`. When empty, all text columns are searched. */
+  @JsonProperty("query_columns")
+  private Collection<String> queryColumns;
 
   /** Query text. Required for Delta Sync Index using model endpoint. */
   @JsonProperty("query_text")
@@ -68,6 +81,13 @@ public class QueryVectorIndexRequest {
   @JsonProperty("score_threshold")
   private Double scoreThreshold;
 
+  /**
+   * Sort results by column values instead of the default relevance ordering. Each clause has the
+   * form `"<column> ASC"` or `"<column> DESC"`, for example `["rating DESC", "price ASC"]`.
+   */
+  @JsonProperty("sort_columns")
+  private Collection<String> sortColumns;
+
   public QueryVectorIndexRequest setColumns(Collection<String> columns) {
     this.columns = columns;
     return this;
@@ -84,6 +104,15 @@ public class QueryVectorIndexRequest {
 
   public Collection<String> getColumnsToRerank() {
     return columnsToRerank;
+  }
+
+  public QueryVectorIndexRequest setFacets(Collection<String> facets) {
+    this.facets = facets;
+    return this;
+  }
+
+  public Collection<String> getFacets() {
+    return facets;
   }
 
   public QueryVectorIndexRequest setFiltersJson(String filtersJson) {
@@ -111,6 +140,15 @@ public class QueryVectorIndexRequest {
 
   public Long getNumResults() {
     return numResults;
+  }
+
+  public QueryVectorIndexRequest setQueryColumns(Collection<String> queryColumns) {
+    this.queryColumns = queryColumns;
+    return this;
+  }
+
+  public Collection<String> getQueryColumns() {
+    return queryColumns;
   }
 
   public QueryVectorIndexRequest setQueryText(String queryText) {
@@ -158,6 +196,15 @@ public class QueryVectorIndexRequest {
     return scoreThreshold;
   }
 
+  public QueryVectorIndexRequest setSortColumns(Collection<String> sortColumns) {
+    this.sortColumns = sortColumns;
+    return this;
+  }
+
+  public Collection<String> getSortColumns() {
+    return sortColumns;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -165,14 +212,17 @@ public class QueryVectorIndexRequest {
     QueryVectorIndexRequest that = (QueryVectorIndexRequest) o;
     return Objects.equals(columns, that.columns)
         && Objects.equals(columnsToRerank, that.columnsToRerank)
+        && Objects.equals(facets, that.facets)
         && Objects.equals(filtersJson, that.filtersJson)
         && Objects.equals(indexName, that.indexName)
         && Objects.equals(numResults, that.numResults)
+        && Objects.equals(queryColumns, that.queryColumns)
         && Objects.equals(queryText, that.queryText)
         && Objects.equals(queryType, that.queryType)
         && Objects.equals(queryVector, that.queryVector)
         && Objects.equals(reranker, that.reranker)
-        && Objects.equals(scoreThreshold, that.scoreThreshold);
+        && Objects.equals(scoreThreshold, that.scoreThreshold)
+        && Objects.equals(sortColumns, that.sortColumns);
   }
 
   @Override
@@ -180,14 +230,17 @@ public class QueryVectorIndexRequest {
     return Objects.hash(
         columns,
         columnsToRerank,
+        facets,
         filtersJson,
         indexName,
         numResults,
+        queryColumns,
         queryText,
         queryType,
         queryVector,
         reranker,
-        scoreThreshold);
+        scoreThreshold,
+        sortColumns);
   }
 
   @Override
@@ -195,14 +248,17 @@ public class QueryVectorIndexRequest {
     return new ToStringer(QueryVectorIndexRequest.class)
         .add("columns", columns)
         .add("columnsToRerank", columnsToRerank)
+        .add("facets", facets)
         .add("filtersJson", filtersJson)
         .add("indexName", indexName)
         .add("numResults", numResults)
+        .add("queryColumns", queryColumns)
         .add("queryText", queryText)
         .add("queryType", queryType)
         .add("queryVector", queryVector)
         .add("reranker", reranker)
         .add("scoreThreshold", scoreThreshold)
+        .add("sortColumns", sortColumns)
         .toString();
   }
 }
