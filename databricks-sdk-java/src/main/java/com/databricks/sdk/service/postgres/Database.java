@@ -15,6 +15,10 @@ public class Database {
   @JsonProperty("create_time")
   private Timestamp createTime;
 
+  /** The part of the name, chosen by the user when the resource was created. */
+  @JsonProperty("database_id")
+  private String databaseId;
+
   /**
    * The resource name of the database. Format:
    * projects/{project_id}/branches/{branch_id}/databases/{database_id}
@@ -45,6 +49,15 @@ public class Database {
 
   public Timestamp getCreateTime() {
     return createTime;
+  }
+
+  public Database setDatabaseId(String databaseId) {
+    this.databaseId = databaseId;
+    return this;
+  }
+
+  public String getDatabaseId() {
+    return databaseId;
   }
 
   public Database setName(String name) {
@@ -98,6 +111,7 @@ public class Database {
     if (o == null || getClass() != o.getClass()) return false;
     Database that = (Database) o;
     return Objects.equals(createTime, that.createTime)
+        && Objects.equals(databaseId, that.databaseId)
         && Objects.equals(name, that.name)
         && Objects.equals(parent, that.parent)
         && Objects.equals(spec, that.spec)
@@ -107,13 +121,14 @@ public class Database {
 
   @Override
   public int hashCode() {
-    return Objects.hash(createTime, name, parent, spec, status, updateTime);
+    return Objects.hash(createTime, databaseId, name, parent, spec, status, updateTime);
   }
 
   @Override
   public String toString() {
     return new ToStringer(Database.class)
         .add("createTime", createTime)
+        .add("databaseId", databaseId)
         .add("name", name)
         .add("parent", parent)
         .add("spec", spec)

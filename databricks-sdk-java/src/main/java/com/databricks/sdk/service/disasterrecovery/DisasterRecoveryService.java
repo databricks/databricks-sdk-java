@@ -33,7 +33,12 @@ public interface DisasterRecoveryService {
   /** Get a stable URL. */
   StableUrl getStableUrl(GetStableUrlRequest getStableUrlRequest);
 
-  /** List failover groups. */
+  /**
+   * List failover groups.
+   *
+   * <p>List entries are abbreviated: `state` and `replication_point` are not populated. Call
+   * GetFailoverGroup to retrieve the full resource.
+   */
   ListFailoverGroupsResponse listFailoverGroups(
       ListFailoverGroupsRequest listFailoverGroupsRequest);
 

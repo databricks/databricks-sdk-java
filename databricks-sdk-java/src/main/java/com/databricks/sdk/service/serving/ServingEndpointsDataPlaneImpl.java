@@ -68,7 +68,7 @@ class ServingEndpointsDataPlaneImpl implements ServingEndpointsDataPlaneService 
       }
       RequestOptions options =
           new RequestOptions()
-              .withAuthorization(token.getCanonicalTokenType() + " " + token.getAccessToken())
+              .withAuthorization(token.getTokenType() + " " + token.getAccessToken())
               .withUrl(path);
 
       return apiClient.execute(req, QueryEndpointResponse.class, options);

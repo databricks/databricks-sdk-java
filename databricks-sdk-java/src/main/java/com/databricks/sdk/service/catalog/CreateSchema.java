@@ -18,6 +18,10 @@ public class CreateSchema {
   @JsonProperty("comment")
   private String comment;
 
+  /** Custom maximum retention period in hours for the schema. */
+  @JsonProperty("custom_max_retention_hours")
+  private Long customMaxRetentionHours;
+
   /** Name of schema, relative to parent catalog. */
   @JsonProperty("name")
   private String name;
@@ -46,6 +50,15 @@ public class CreateSchema {
 
   public String getComment() {
     return comment;
+  }
+
+  public CreateSchema setCustomMaxRetentionHours(Long customMaxRetentionHours) {
+    this.customMaxRetentionHours = customMaxRetentionHours;
+    return this;
+  }
+
+  public Long getCustomMaxRetentionHours() {
+    return customMaxRetentionHours;
   }
 
   public CreateSchema setName(String name) {
@@ -82,6 +95,7 @@ public class CreateSchema {
     CreateSchema that = (CreateSchema) o;
     return Objects.equals(catalogName, that.catalogName)
         && Objects.equals(comment, that.comment)
+        && Objects.equals(customMaxRetentionHours, that.customMaxRetentionHours)
         && Objects.equals(name, that.name)
         && Objects.equals(properties, that.properties)
         && Objects.equals(storageRoot, that.storageRoot);
@@ -89,7 +103,8 @@ public class CreateSchema {
 
   @Override
   public int hashCode() {
-    return Objects.hash(catalogName, comment, name, properties, storageRoot);
+    return Objects.hash(
+        catalogName, comment, customMaxRetentionHours, name, properties, storageRoot);
   }
 
   @Override
@@ -97,6 +112,7 @@ public class CreateSchema {
     return new ToStringer(CreateSchema.class)
         .add("catalogName", catalogName)
         .add("comment", comment)
+        .add("customMaxRetentionHours", customMaxRetentionHours)
         .add("name", name)
         .add("properties", properties)
         .add("storageRoot", storageRoot)

@@ -11,47 +11,36 @@ import java.util.Objects;
 /** TikTok Ads specific options for ingestion */
 @Generated
 public class TikTokAdsOptions {
-  /** (Optional) Data level for the report. If not specified, defaults to AUCTION_CAMPAIGN. */
+  /** Deprecated. Use custom_report_options.data_level instead. */
   @JsonProperty("data_level")
   private TikTokAdsOptionsTikTokDataLevel dataLevel;
 
-  /**
-   * (Optional) Dimensions to include in the report. Examples: "campaign_id", "adgroup_id", "ad_id",
-   * "stat_time_day", "stat_time_hour" If not specified, defaults to campaign_id.
-   */
+  /** Deprecated. Use custom_report_options.dimensions instead. */
   @JsonProperty("dimensions")
   private Collection<String> dimensions;
 
   /**
    * (Optional) Number of days to look back for report tables during incremental sync to capture
-   * late-arriving conversions and attribution data. If not specified, defaults to 7 days.
+   * late-arriving conversions and attribution data.
    */
   @JsonProperty("lookback_window_days")
   private Long lookbackWindowDays;
 
-  /**
-   * (Optional) Metrics to include in the report. Examples: "spend", "impressions", "clicks",
-   * "conversion", "cpc" If not specified, defaults to basic metrics (spend, impressions, clicks,
-   * etc.)
-   */
+  /** Deprecated. Use custom_report_options.metrics instead. */
   @JsonProperty("metrics")
   private Collection<String> metrics;
 
-  /**
-   * (Optional) Whether to request lifetime metrics (all-time aggregated data). When true, the
-   * report returns all-time data. If not specified, defaults to false.
-   */
+  /** Deprecated. Use custom_report_options.query_lifetime instead. */
   @JsonProperty("query_lifetime")
   private Boolean queryLifetime;
 
-  /** (Optional) Report type for the TikTok Ads API. If not specified, defaults to BASIC. */
+  /** Deprecated. Use custom_report_options.report_type instead. */
   @JsonProperty("report_type")
   private TikTokAdsOptionsTikTokReportType reportType;
 
   /**
    * (Optional) Start date for the initial sync of report tables in YYYY-MM-DD format. This
-   * determines the earliest date from which to sync historical data. If not specified, defaults to
-   * 1 year of historical data for daily reports and 30 days for hourly reports.
+   * determines the earliest date from which to sync historical data.
    */
   @JsonProperty("sync_start_date")
   private String syncStartDate;

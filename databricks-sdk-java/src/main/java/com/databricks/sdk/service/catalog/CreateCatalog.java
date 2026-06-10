@@ -18,6 +18,10 @@ public class CreateCatalog {
   @JsonProperty("connection_name")
   private String connectionName;
 
+  /** Custom maximum retention period in hours for the catalog */
+  @JsonProperty("custom_max_retention_hours")
+  private Long customMaxRetentionHours;
+
   /** Control CMK encryption for managed catalog data */
   @JsonProperty("managed_encryption_settings")
   private EncryptionSettings managedEncryptionSettings;
@@ -67,6 +71,15 @@ public class CreateCatalog {
 
   public String getConnectionName() {
     return connectionName;
+  }
+
+  public CreateCatalog setCustomMaxRetentionHours(Long customMaxRetentionHours) {
+    this.customMaxRetentionHours = customMaxRetentionHours;
+    return this;
+  }
+
+  public Long getCustomMaxRetentionHours() {
+    return customMaxRetentionHours;
   }
 
   public CreateCatalog setManagedEncryptionSettings(EncryptionSettings managedEncryptionSettings) {
@@ -139,6 +152,7 @@ public class CreateCatalog {
     CreateCatalog that = (CreateCatalog) o;
     return Objects.equals(comment, that.comment)
         && Objects.equals(connectionName, that.connectionName)
+        && Objects.equals(customMaxRetentionHours, that.customMaxRetentionHours)
         && Objects.equals(managedEncryptionSettings, that.managedEncryptionSettings)
         && Objects.equals(name, that.name)
         && Objects.equals(options, that.options)
@@ -153,6 +167,7 @@ public class CreateCatalog {
     return Objects.hash(
         comment,
         connectionName,
+        customMaxRetentionHours,
         managedEncryptionSettings,
         name,
         options,
@@ -167,6 +182,7 @@ public class CreateCatalog {
     return new ToStringer(CreateCatalog.class)
         .add("comment", comment)
         .add("connectionName", connectionName)
+        .add("customMaxRetentionHours", customMaxRetentionHours)
         .add("managedEncryptionSettings", managedEncryptionSettings)
         .add("name", name)
         .add("options", options)

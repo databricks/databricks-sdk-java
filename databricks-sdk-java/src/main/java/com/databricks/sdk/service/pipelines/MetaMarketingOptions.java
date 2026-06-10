@@ -11,45 +11,52 @@ import java.util.Objects;
 /** Meta Marketing (Meta Ads) specific options for ingestion */
 @Generated
 public class MetaMarketingOptions {
-  /** (Optional) Action attribution windows for insights reporting (e.g. "28d_click", "1d_view") */
+  /**
+   * (Optional, DEPRECATED — use custom_report_options.action_attribution_windows) Action
+   * attribution windows for insights reporting (e.g. "28d_click", "1d_view")
+   */
   @JsonProperty("action_attribution_windows")
   private Collection<String> actionAttributionWindows;
 
-  /** (Optional) Action breakdowns to configure for data aggregation */
+  /** (Optional, DEPRECATED — use custom_report_options.action_breakdowns) Action breakdowns */
   @JsonProperty("action_breakdowns")
   private Collection<String> actionBreakdowns;
 
   /**
-   * (Optional) Timing used to report action statistics (impression, conversion, mixed, or lifetime)
+   * (Optional, DEPRECATED — use custom_report_options.action_report_time) Timing used to report
+   * action statistics (impression, conversion, mixed, or lifetime)
    */
   @JsonProperty("action_report_time")
   private String actionReportTime;
 
-  /** (Optional) Breakdowns to configure for data aggregation */
+  /** (Optional, DEPRECATED — use custom_report_options.breakdowns) Breakdowns to configure */
   @JsonProperty("breakdowns")
   private Collection<String> breakdowns;
 
   /**
    * (Optional) Window in days to revisit data during sync to capture updated conversion data from
-   * the API.
+   * the API, shared by prebuilt and custom reports.
    */
   @JsonProperty("custom_insights_lookback_window")
   private Long customInsightsLookbackWindow;
 
-  /** (Optional) Granularity of data to pull (account, ad, adset, campaign) */
+  /**
+   * (Optional, DEPRECATED — use custom_report_options.level) Granularity of data to pull (account,
+   * ad, adset, campaign)
+   */
   @JsonProperty("level")
   private String level;
 
   /**
    * (Optional) Start date in yyyy-MM-dd format (e.g. 2025-01-15). Data added after this date will
-   * be ingested
+   * be ingested, shared by prebuilt and custom reports.
    */
   @JsonProperty("start_date")
   private String startDate;
 
   /**
-   * (Optional) Value in string by which to aggregate statistics (can take all_days, monthly or
-   * number of days)
+   * (Optional, DEPRECATED — use custom_report_options.time_increment) Value in string by which to
+   * aggregate statistics (can take all_days, monthly or number of days)
    */
   @JsonProperty("time_increment")
   private String timeIncrement;

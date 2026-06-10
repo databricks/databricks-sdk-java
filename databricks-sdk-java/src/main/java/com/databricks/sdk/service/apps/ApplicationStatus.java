@@ -13,6 +13,10 @@ public class ApplicationStatus {
   @JsonProperty("message")
   private String message;
 
+  /** The number of running instances of this application. */
+  @JsonProperty("running_instances")
+  private Long runningInstances;
+
   /** State of the application. */
   @JsonProperty("state")
   private ApplicationState state;
@@ -24,6 +28,15 @@ public class ApplicationStatus {
 
   public String getMessage() {
     return message;
+  }
+
+  public ApplicationStatus setRunningInstances(Long runningInstances) {
+    this.runningInstances = runningInstances;
+    return this;
+  }
+
+  public Long getRunningInstances() {
+    return runningInstances;
   }
 
   public ApplicationStatus setState(ApplicationState state) {
@@ -40,18 +53,21 @@ public class ApplicationStatus {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ApplicationStatus that = (ApplicationStatus) o;
-    return Objects.equals(message, that.message) && Objects.equals(state, that.state);
+    return Objects.equals(message, that.message)
+        && Objects.equals(runningInstances, that.runningInstances)
+        && Objects.equals(state, that.state);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(message, state);
+    return Objects.hash(message, runningInstances, state);
   }
 
   @Override
   public String toString() {
     return new ToStringer(ApplicationStatus.class)
         .add("message", message)
+        .add("runningInstances", runningInstances)
         .add("state", state)
         .toString();
   }

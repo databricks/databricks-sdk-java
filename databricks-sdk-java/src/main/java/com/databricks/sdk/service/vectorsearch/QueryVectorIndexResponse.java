@@ -9,6 +9,10 @@ import java.util.Objects;
 
 @Generated
 public class QueryVectorIndexResponse {
+  /** Facet aggregation rows returned by a query. */
+  @JsonProperty("facet_result")
+  private FacetResultData facetResult;
+
   /** Metadata about the result set. */
   @JsonProperty("manifest")
   private ResultManifest manifest;
@@ -25,6 +29,15 @@ public class QueryVectorIndexResponse {
   /** Data returned in the query result. */
   @JsonProperty("result")
   private ResultData result;
+
+  public QueryVectorIndexResponse setFacetResult(FacetResultData facetResult) {
+    this.facetResult = facetResult;
+    return this;
+  }
+
+  public FacetResultData getFacetResult() {
+    return facetResult;
+  }
 
   public QueryVectorIndexResponse setManifest(ResultManifest manifest) {
     this.manifest = manifest;
@@ -58,19 +71,21 @@ public class QueryVectorIndexResponse {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     QueryVectorIndexResponse that = (QueryVectorIndexResponse) o;
-    return Objects.equals(manifest, that.manifest)
+    return Objects.equals(facetResult, that.facetResult)
+        && Objects.equals(manifest, that.manifest)
         && Objects.equals(nextPageToken, that.nextPageToken)
         && Objects.equals(result, that.result);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(manifest, nextPageToken, result);
+    return Objects.hash(facetResult, manifest, nextPageToken, result);
   }
 
   @Override
   public String toString() {
     return new ToStringer(QueryVectorIndexResponse.class)
+        .add("facetResult", facetResult)
         .add("manifest", manifest)
         .add("nextPageToken", nextPageToken)
         .add("result", result)

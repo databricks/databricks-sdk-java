@@ -10,12 +10,14 @@ import com.databricks.sdk.mixin.DbfsExt;
 import com.databricks.sdk.mixin.SecretsExt;
 import com.databricks.sdk.service.agentbricks.AgentBricksAPI;
 import com.databricks.sdk.service.agentbricks.AgentBricksService;
+import com.databricks.sdk.service.aisearch.AiSearchAPI;
+import com.databricks.sdk.service.aisearch.AiSearchService;
 import com.databricks.sdk.service.apps.AppsAPI;
 import com.databricks.sdk.service.apps.AppsService;
 import com.databricks.sdk.service.apps.AppsSettingsAPI;
 import com.databricks.sdk.service.apps.AppsSettingsService;
-import com.databricks.sdk.service.bundle.BundleAPI;
-import com.databricks.sdk.service.bundle.BundleService;
+import com.databricks.sdk.service.bundledeployments.BundleDeploymentsAPI;
+import com.databricks.sdk.service.bundledeployments.BundleDeploymentsService;
 import com.databricks.sdk.service.catalog.ArtifactAllowlistsAPI;
 import com.databricks.sdk.service.catalog.ArtifactAllowlistsService;
 import com.databricks.sdk.service.catalog.CatalogsAPI;
@@ -280,13 +282,14 @@ public class WorkspaceClient {
   private AccessControlAPI accessControlAPI;
   private AccountAccessControlProxyAPI accountAccessControlProxyAPI;
   private AgentBricksAPI agentBricksAPI;
+  private AiSearchAPI aiSearchAPI;
   private AlertsAPI alertsAPI;
   private AlertsLegacyAPI alertsLegacyAPI;
   private AlertsV2API alertsV2API;
   private AppsAPI appsAPI;
   private AppsSettingsAPI appsSettingsAPI;
   private ArtifactAllowlistsAPI artifactAllowlistsAPI;
-  private BundleAPI bundleAPI;
+  private BundleDeploymentsAPI bundleDeploymentsAPI;
   private CatalogsAPI catalogsAPI;
   private CleanRoomAssetRevisionsAPI cleanRoomAssetRevisionsAPI;
   private CleanRoomAssetsAPI cleanRoomAssetsAPI;
@@ -420,13 +423,14 @@ public class WorkspaceClient {
     accessControlAPI = new AccessControlAPI(apiClient);
     accountAccessControlProxyAPI = new AccountAccessControlProxyAPI(apiClient);
     agentBricksAPI = new AgentBricksAPI(apiClient);
+    aiSearchAPI = new AiSearchAPI(apiClient);
     alertsAPI = new AlertsAPI(apiClient);
     alertsLegacyAPI = new AlertsLegacyAPI(apiClient);
     alertsV2API = new AlertsV2API(apiClient);
     appsAPI = new AppsAPI(apiClient);
     appsSettingsAPI = new AppsSettingsAPI(apiClient);
     artifactAllowlistsAPI = new ArtifactAllowlistsAPI(apiClient);
-    bundleAPI = new BundleAPI(apiClient);
+    bundleDeploymentsAPI = new BundleDeploymentsAPI(apiClient);
     catalogsAPI = new CatalogsAPI(apiClient);
     cleanRoomAssetRevisionsAPI = new CleanRoomAssetRevisionsAPI(apiClient);
     cleanRoomAssetsAPI = new CleanRoomAssetsAPI(apiClient);
@@ -584,6 +588,14 @@ public class WorkspaceClient {
   }
 
   /**
+   * **AI Search Endpoint**: Represents the compute resources to host AI Search indexes.
+   * AIP-conformant replacement for the legacy VectorSearchEndpoints API; functionally equivalent.
+   */
+  public AiSearchAPI aiSearch() {
+    return aiSearchAPI;
+  }
+
+  /**
    * The alerts API can be used to perform CRUD operations on alerts. An alert is a Databricks SQL
    * object that periodically runs a query, evaluates a condition of its result, and notifies one or
    * more users and/or notification destinations if the condition was met. Alerts can be scheduled
@@ -635,8 +647,8 @@ public class WorkspaceClient {
   }
 
   /** Service for managing bundle deployment metadata. */
-  public BundleAPI bundle() {
-    return bundleAPI;
+  public BundleDeploymentsAPI bundleDeployments() {
+    return bundleDeploymentsAPI;
   }
 
   /**
@@ -2255,6 +2267,17 @@ public class WorkspaceClient {
     return this;
   }
 
+  /** Replace the default AiSearchService with a custom implementation. */
+  public WorkspaceClient withAiSearchImpl(AiSearchService aiSearch) {
+    return this.withAiSearchAPI(new AiSearchAPI(aiSearch));
+  }
+
+  /** Replace the default AiSearchAPI with a custom implementation. */
+  public WorkspaceClient withAiSearchAPI(AiSearchAPI aiSearch) {
+    this.aiSearchAPI = aiSearch;
+    return this;
+  }
+
   /** Replace the default AlertsService with a custom implementation. */
   public WorkspaceClient withAlertsImpl(AlertsService alerts) {
     return this.withAlertsAPI(new AlertsAPI(alerts));
@@ -2321,14 +2344,14 @@ public class WorkspaceClient {
     return this;
   }
 
-  /** Replace the default BundleService with a custom implementation. */
-  public WorkspaceClient withBundleImpl(BundleService bundle) {
-    return this.withBundleAPI(new BundleAPI(bundle));
+  /** Replace the default BundleDeploymentsService with a custom implementation. */
+  public WorkspaceClient withBundleDeploymentsImpl(BundleDeploymentsService bundleDeployments) {
+    return this.withBundleDeploymentsAPI(new BundleDeploymentsAPI(bundleDeployments));
   }
 
-  /** Replace the default BundleAPI with a custom implementation. */
-  public WorkspaceClient withBundleAPI(BundleAPI bundle) {
-    this.bundleAPI = bundle;
+  /** Replace the default BundleDeploymentsAPI with a custom implementation. */
+  public WorkspaceClient withBundleDeploymentsAPI(BundleDeploymentsAPI bundleDeployments) {
+    this.bundleDeploymentsAPI = bundleDeployments;
     return this;
   }
 

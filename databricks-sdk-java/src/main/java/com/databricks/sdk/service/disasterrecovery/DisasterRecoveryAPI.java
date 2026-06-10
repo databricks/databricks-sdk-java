@@ -79,7 +79,12 @@ public class DisasterRecoveryAPI {
     return listFailoverGroups(new ListFailoverGroupsRequest().setParent(parent));
   }
 
-  /** List failover groups. */
+  /**
+   * List failover groups.
+   *
+   * <p>List entries are abbreviated: `state` and `replication_point` are not populated. Call
+   * GetFailoverGroup to retrieve the full resource.
+   */
   public Iterable<FailoverGroup> listFailoverGroups(ListFailoverGroupsRequest request) {
     return Paginator.newTokenPagination(
         request,

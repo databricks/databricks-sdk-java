@@ -10,8 +10,8 @@ import java.util.Collection;
 import java.util.Objects;
 
 /**
- * A failover group manages disaster recovery across workspace sets, coordinating UCDR and CPDR
- * replication.
+ * A failover group manages disaster recovery across workspace sets, coordinating Unity Catalog and
+ * workspace assets replication.
  */
 @Generated
 public class FailoverGroup {

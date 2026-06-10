@@ -10,6 +10,10 @@ import java.util.Objects;
 
 @Generated
 public class Catalog {
+  /** The part of the name, chosen by the user when the resource was created. */
+  @JsonProperty("catalog_id")
+  private String catalogId;
+
   /** A timestamp indicating when the catalog was created. */
   @JsonProperty("create_time")
   private Timestamp createTime;
@@ -37,6 +41,15 @@ public class Catalog {
   /** A timestamp indicating when the catalog was last updated. */
   @JsonProperty("update_time")
   private Timestamp updateTime;
+
+  public Catalog setCatalogId(String catalogId) {
+    this.catalogId = catalogId;
+    return this;
+  }
+
+  public String getCatalogId() {
+    return catalogId;
+  }
 
   public Catalog setCreateTime(Timestamp createTime) {
     this.createTime = createTime;
@@ -97,7 +110,8 @@ public class Catalog {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Catalog that = (Catalog) o;
-    return Objects.equals(createTime, that.createTime)
+    return Objects.equals(catalogId, that.catalogId)
+        && Objects.equals(createTime, that.createTime)
         && Objects.equals(name, that.name)
         && Objects.equals(spec, that.spec)
         && Objects.equals(status, that.status)
@@ -107,12 +121,13 @@ public class Catalog {
 
   @Override
   public int hashCode() {
-    return Objects.hash(createTime, name, spec, status, uid, updateTime);
+    return Objects.hash(catalogId, createTime, name, spec, status, uid, updateTime);
   }
 
   @Override
   public String toString() {
     return new ToStringer(Catalog.class)
+        .add("catalogId", catalogId)
         .add("createTime", createTime)
         .add("name", name)
         .add("spec", spec)

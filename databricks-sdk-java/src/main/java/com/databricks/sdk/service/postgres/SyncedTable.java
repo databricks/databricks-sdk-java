@@ -38,6 +38,10 @@ public class SyncedTable {
   @JsonProperty("status")
   private SyncedTableSyncedTableStatus status;
 
+  /** The part of the name, chosen by the user when the resource was created. */
+  @JsonProperty("synced_table_id")
+  private String syncedTableId;
+
   /** The Unity Catalog table ID for this synced table. */
   @JsonProperty("uid")
   private String uid;
@@ -78,6 +82,15 @@ public class SyncedTable {
     return status;
   }
 
+  public SyncedTable setSyncedTableId(String syncedTableId) {
+    this.syncedTableId = syncedTableId;
+    return this;
+  }
+
+  public String getSyncedTableId() {
+    return syncedTableId;
+  }
+
   public SyncedTable setUid(String uid) {
     this.uid = uid;
     return this;
@@ -96,12 +109,13 @@ public class SyncedTable {
         && Objects.equals(name, that.name)
         && Objects.equals(spec, that.spec)
         && Objects.equals(status, that.status)
+        && Objects.equals(syncedTableId, that.syncedTableId)
         && Objects.equals(uid, that.uid);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(createTime, name, spec, status, uid);
+    return Objects.hash(createTime, name, spec, status, syncedTableId, uid);
   }
 
   @Override
@@ -111,6 +125,7 @@ public class SyncedTable {
         .add("name", name)
         .add("spec", spec)
         .add("status", status)
+        .add("syncedTableId", syncedTableId)
         .add("uid", uid)
         .toString();
   }

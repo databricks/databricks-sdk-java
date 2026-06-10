@@ -7,6 +7,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * DEPRECATED — use `AiRuntimeTask` for all new BYOT multi-node GPU workloads (see
+ * ai_runtime_task.proto). `AiRuntimeTask` is the only supported BYOT task type for new workloads;
+ * this proto is retained only for AIR CLI (fka SGCLI) pywheel backwards compatibility and will be
+ * removed once the pywheel → databricks-cli migration completes (post- PuPr).
+ */
 @Generated
 public class GenAiComputeTask {
   /** Command launcher to run the actual script, e.g. bash, python etc. */
