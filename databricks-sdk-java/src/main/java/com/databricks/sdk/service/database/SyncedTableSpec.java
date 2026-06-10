@@ -12,6 +12,13 @@ import java.util.Objects;
 @Generated
 public class SyncedTableSpec {
   /**
+   * When true, enables accelerated sync mode for the initial data load. This significantly improves
+   * performance for large tables. Requires workspace-level enablement.
+   */
+  @JsonProperty("accelerated_sync")
+  private Boolean acceleratedSync;
+
+  /**
    * If true, the synced table's logical database and schema resources in PG will be created if they
    * do not already exist.
    */
@@ -56,6 +63,15 @@ public class SyncedTableSpec {
   /** Time series key to deduplicate (tie-break) rows with the same primary key. */
   @JsonProperty("timeseries_key")
   private String timeseriesKey;
+
+  public SyncedTableSpec setAcceleratedSync(Boolean acceleratedSync) {
+    this.acceleratedSync = acceleratedSync;
+    return this;
+  }
+
+  public Boolean getAcceleratedSync() {
+    return acceleratedSync;
+  }
 
   public SyncedTableSpec setCreateDatabaseObjectsIfMissing(Boolean createDatabaseObjectsIfMissing) {
     this.createDatabaseObjectsIfMissing = createDatabaseObjectsIfMissing;
@@ -125,7 +141,8 @@ public class SyncedTableSpec {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     SyncedTableSpec that = (SyncedTableSpec) o;
-    return Objects.equals(createDatabaseObjectsIfMissing, that.createDatabaseObjectsIfMissing)
+    return Objects.equals(acceleratedSync, that.acceleratedSync)
+        && Objects.equals(createDatabaseObjectsIfMissing, that.createDatabaseObjectsIfMissing)
         && Objects.equals(existingPipelineId, that.existingPipelineId)
         && Objects.equals(newPipelineSpec, that.newPipelineSpec)
         && Objects.equals(primaryKeyColumns, that.primaryKeyColumns)
@@ -137,6 +154,7 @@ public class SyncedTableSpec {
   @Override
   public int hashCode() {
     return Objects.hash(
+        acceleratedSync,
         createDatabaseObjectsIfMissing,
         existingPipelineId,
         newPipelineSpec,
@@ -149,6 +167,7 @@ public class SyncedTableSpec {
   @Override
   public String toString() {
     return new ToStringer(SyncedTableSpec.class)
+        .add("acceleratedSync", acceleratedSync)
         .add("createDatabaseObjectsIfMissing", createDatabaseObjectsIfMissing)
         .add("existingPipelineId", existingPipelineId)
         .add("newPipelineSpec", newPipelineSpec)

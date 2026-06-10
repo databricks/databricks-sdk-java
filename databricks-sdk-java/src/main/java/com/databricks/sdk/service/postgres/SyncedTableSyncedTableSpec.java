@@ -11,6 +11,14 @@ import java.util.Objects;
 @Generated
 public class SyncedTableSyncedTableSpec {
   /**
+   * When true, enables accelerated sync mode for the initial data load. This significantly improves
+   * performance for large tables. Requires workspace-level enablement through Lakebase Accelerated
+   * Sync preview.
+   */
+  @JsonProperty("accelerated_sync")
+  private Boolean acceleratedSync;
+
+  /**
    * The full resource name the branch associated with the table.
    *
    * <p>Format: "projects/{project_id}/branches/{branch_id}".
@@ -80,6 +88,15 @@ public class SyncedTableSyncedTableSpec {
   /** Time series key to deduplicate (tie-break) rows with the same primary key. */
   @JsonProperty("timeseries_key")
   private String timeseriesKey;
+
+  public SyncedTableSyncedTableSpec setAcceleratedSync(Boolean acceleratedSync) {
+    this.acceleratedSync = acceleratedSync;
+    return this;
+  }
+
+  public Boolean getAcceleratedSync() {
+    return acceleratedSync;
+  }
 
   public SyncedTableSyncedTableSpec setBranch(String branch) {
     this.branch = branch;
@@ -169,7 +186,8 @@ public class SyncedTableSyncedTableSpec {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     SyncedTableSyncedTableSpec that = (SyncedTableSyncedTableSpec) o;
-    return Objects.equals(branch, that.branch)
+    return Objects.equals(acceleratedSync, that.acceleratedSync)
+        && Objects.equals(branch, that.branch)
         && Objects.equals(createDatabaseObjectsIfMissing, that.createDatabaseObjectsIfMissing)
         && Objects.equals(existingPipelineId, that.existingPipelineId)
         && Objects.equals(newPipelineSpec, that.newPipelineSpec)
@@ -183,6 +201,7 @@ public class SyncedTableSyncedTableSpec {
   @Override
   public int hashCode() {
     return Objects.hash(
+        acceleratedSync,
         branch,
         createDatabaseObjectsIfMissing,
         existingPipelineId,
@@ -197,6 +216,7 @@ public class SyncedTableSyncedTableSpec {
   @Override
   public String toString() {
     return new ToStringer(SyncedTableSyncedTableSpec.class)
+        .add("acceleratedSync", acceleratedSync)
         .add("branch", branch)
         .add("createDatabaseObjectsIfMissing", createDatabaseObjectsIfMissing)
         .add("existingPipelineId", existingPipelineId)
