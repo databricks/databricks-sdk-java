@@ -7,7 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Feature for model version. ([ML-57150] Renamed from Feature to LinkedFeature) */
+/** Feature for model version. */
 @Generated
 public class LinkedFeature {
   /** Feature name */
