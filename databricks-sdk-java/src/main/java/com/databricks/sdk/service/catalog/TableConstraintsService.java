@@ -8,8 +8,8 @@ import com.databricks.sdk.support.Generated;
  *
  * <p>Primary and foreign keys are informational only and are not enforced. Foreign keys must
  * reference a primary key in another table. This primary key is the parent constraint of the
- * foreign key and the table this primary key is on is the parent table of the foreign key.
- * Similarly, the foreign key is the child constraint of its referenced primary key; the table of
+ * foreign key, and the table this primary key is on is the parent table of the foreign key.
+ * Similarly, the foreign key is the child constraint of its referenced primary key. The table of
  * the foreign key is the child table of the primary key.
  *
  * <p>You can declare primary keys and foreign keys as part of the table specification during table

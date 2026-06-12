@@ -10,10 +10,7 @@ import java.util.Objects;
 /** * */
 @Generated
 public class VpcEndpoint {
-  /**
-   * The Databricks account ID that hosts the VPC endpoint configuration. TODO - This may signal an
-   * OpenAPI diff; it does not show up in the generated spec
-   */
+  /** The Databricks account ID that hosts the VPC endpoint configuration. */
   @JsonProperty("account_id")
   private String accountId;
 

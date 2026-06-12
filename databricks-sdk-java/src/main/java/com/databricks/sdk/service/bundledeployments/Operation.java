@@ -37,7 +37,11 @@ public class Operation {
   @JsonProperty("name")
   private String name;
 
-  /** ID reference for the actual resource in the workspace (e.g. the job ID, pipeline ID). */
+  /**
+   * ID of the actual resource in the workspace (e.g. the job ID, pipeline ID). Required for every
+   * operation except CREATE and RECREATE, which produce a new resource whose ID is not yet known
+   * when the operation is recorded.
+   */
   @JsonProperty("resource_id")
   private String resourceId;
 

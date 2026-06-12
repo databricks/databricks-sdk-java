@@ -15,3 +15,7 @@
 ### Internal Changes
 
 ### API Changes
+* Add `acceleratedSync` and `typeOverrides` fields for `com.databricks.sdk.service.database.SyncedTableSpec`.
+* Add `acceleratedSync` and `typeOverrides` fields for `com.databricks.sdk.service.postgres.SyncedTableSyncedTableSpec`.
+* Change `resourceId` field for `com.databricks.sdk.service.bundledeployments.Operation` to no longer be required.
+* [Breaking] Change `resourceId` field for `com.databricks.sdk.service.bundledeployments.Operation` to no longer be required.
