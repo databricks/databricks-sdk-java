@@ -34,8 +34,8 @@ public class GetHistoryRequest {
   private String runId;
 
   /**
-   * [Deprecated, use `run_id` instead] ID of the run from which to fetch metric values. This field
-   * will be removed in a future MLflow version.
+   * [Deprecated, use {@code run_id} instead] ID of the run from which to fetch metric values. This
+   * field will be removed in a future MLflow version.
    */
   @JsonIgnore
   @QueryParam("run_uuid")

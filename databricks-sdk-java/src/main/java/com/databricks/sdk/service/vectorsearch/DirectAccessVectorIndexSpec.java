@@ -19,9 +19,9 @@ public class DirectAccessVectorIndexSpec {
   private Collection<EmbeddingVectorColumn> embeddingVectorColumns;
 
   /**
-   * The schema of the index in JSON format. Supported types are `integer`, `long`, `float`,
-   * `double`, `boolean`, `string`, `date`, `timestamp`. Supported types for vector column:
-   * `array<float>`, `array<double>`,`.
+   * The schema of the index in JSON format. Supported types are {@code integer}, {@code long},
+   * {@code float}, {@code double}, {@code boolean}, {@code string}, {@code date}, {@code
+   * timestamp}. Supported types for vector column: {@code array<float>}, {@code array<double>},`.
    */
   @JsonProperty("schema_json")
   private String schemaJson;

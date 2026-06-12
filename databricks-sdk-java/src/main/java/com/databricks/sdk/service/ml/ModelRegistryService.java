@@ -5,9 +5,9 @@ import com.databricks.sdk.support.Generated;
 
 /**
  * Note: This API reference documents APIs for the Workspace Model Registry. Databricks recommends
- * using [Models in Unity Catalog](/api/workspace/registeredmodels) instead. Models in Unity Catalog
- * provides centralized model governance, cross-workspace access, lineage, and deployment. Workspace
- * Model Registry will be deprecated in the future.
+ * using <a href="/api/workspace/registeredmodels">Models in Unity Catalog</a> instead. Models in
+ * Unity Catalog provides centralized model governance, cross-workspace access, lineage, and
+ * deployment. Workspace Model Registry will be deprecated in the future.
  *
  * <p>The Workspace Model Registry is a centralized model repository and a UI and set of APIs that
  * enable you to manage the full lifecycle of MLflow Models.
@@ -30,8 +30,8 @@ public interface ModelRegistryService {
   CreateCommentResponse createComment(CreateComment createComment);
 
   /**
-   * Creates a new registered model with the name specified in the request body. Throws
-   * `RESOURCE_ALREADY_EXISTS` if a registered model with the given name exists.
+   * Creates a new registered model with the name specified in the request body. Throws {@code
+   * RESOURCE_ALREADY_EXISTS} if a registered model with the given name exists.
    */
   CreateModelResponse createModel(CreateModelRequest createModelRequest);
 
@@ -43,7 +43,7 @@ public interface ModelRegistryService {
   CreateTransitionRequestResponse createTransitionRequest(
       CreateTransitionRequest createTransitionRequest);
 
-  /** **NOTE:** This endpoint is in Public Preview. Creates a registry webhook. */
+  /** <b>NOTE:</b> This endpoint is in Public Preview. Creates a registry webhook. */
   CreateWebhookResponse createWebhook(CreateRegistryWebhook createRegistryWebhook);
 
   /** Deletes a comment on a model version. */
@@ -65,18 +65,17 @@ public interface ModelRegistryService {
   DeleteTransitionRequestResponse deleteTransitionRequest(
       DeleteTransitionRequestRequest deleteTransitionRequestRequest);
 
-  /** **NOTE:** This endpoint is in Public Preview. Deletes a registry webhook. */
+  /** <b>NOTE:</b> This endpoint is in Public Preview. Deletes a registry webhook. */
   void deleteWebhook(DeleteWebhookRequest deleteWebhookRequest);
 
   /** Gets the latest version of a registered model. */
   GetLatestVersionsResponse getLatestVersions(GetLatestVersionsRequest getLatestVersionsRequest);
 
   /**
-   * Get the details of a model. This is a Databricks workspace version of the [MLflow endpoint]
+   * Get the details of a model. This is a Databricks workspace version of the <a
+   * href="https://www.mlflow.org/docs/latest/rest-api.html#get-registeredmodel">MLflow endpoint</a>
    * that also returns the model's Databricks workspace ID and the permission level of the
    * requesting user on the model.
-   *
-   * <p>[MLflow endpoint]: https://www.mlflow.org/docs/latest/rest-api.html#get-registeredmodel
    */
   GetModelResponse getModel(GetModelRequest getModelRequest);
 
@@ -98,14 +97,14 @@ public interface ModelRegistryService {
   RegisteredModelPermissions getPermissions(
       GetRegisteredModelPermissionsRequest getRegisteredModelPermissionsRequest);
 
-  /** Lists all available registered models, up to the limit specified in __max_results__. */
+  /** Lists all available registered models, up to the limit specified in <b>max_results</b>. */
   ListModelsResponse listModels(ListModelsRequest listModelsRequest);
 
   /** Gets a list of all open stage transition requests for the model version. */
   ListTransitionRequestsResponse listTransitionRequests(
       ListTransitionRequestsRequest listTransitionRequestsRequest);
 
-  /** **NOTE:** This endpoint is in Public Preview. Lists all registry webhooks. */
+  /** <b>NOTE:</b> This endpoint is in Public Preview. Lists all registry webhooks. */
   ListRegistryWebhooks listWebhooks(ListWebhooksRequest listWebhooksRequest);
 
   /** Rejects a model version stage transition request. */
@@ -115,11 +114,11 @@ public interface ModelRegistryService {
   /** Renames a registered model. */
   RenameModelResponse renameModel(RenameModelRequest renameModelRequest);
 
-  /** Searches for specific model versions based on the supplied __filter__. */
+  /** Searches for specific model versions based on the supplied <b>filter</b>. */
   SearchModelVersionsResponse searchModelVersions(
       SearchModelVersionsRequest searchModelVersionsRequest);
 
-  /** Search for registered models based on the specified __filter__. */
+  /** Search for registered models based on the specified <b>filter</b>. */
   SearchModelsResponse searchModels(SearchModelsRequest searchModelsRequest);
 
   /** Sets a tag on a registered model. */
@@ -135,16 +134,14 @@ public interface ModelRegistryService {
   RegisteredModelPermissions setPermissions(
       RegisteredModelPermissionsRequest registeredModelPermissionsRequest);
 
-  /** **NOTE:** This endpoint is in Public Preview. Tests a registry webhook. */
+  /** <b>NOTE:</b> This endpoint is in Public Preview. Tests a registry webhook. */
   TestRegistryWebhookResponse testRegistryWebhook(
       TestRegistryWebhookRequest testRegistryWebhookRequest);
 
   /**
-   * Transition a model version's stage. This is a Databricks workspace version of the [MLflow
-   * endpoint] that also accepts a comment associated with the transition to be recorded.
-   *
-   * <p>[MLflow endpoint]:
-   * https://www.mlflow.org/docs/latest/rest-api.html#transition-modelversion-stage
+   * Transition a model version's stage. This is a Databricks workspace version of the <a
+   * href="https://www.mlflow.org/docs/latest/rest-api.html#transition-modelversion-stage">MLflow
+   * endpoint</a> that also accepts a comment associated with the transition to be recorded.
    */
   TransitionStageResponse transitionStage(
       TransitionModelVersionStageDatabricks transitionModelVersionStageDatabricks);
@@ -166,6 +163,6 @@ public interface ModelRegistryService {
   RegisteredModelPermissions updatePermissions(
       RegisteredModelPermissionsRequest registeredModelPermissionsRequest);
 
-  /** **NOTE:** This endpoint is in Public Preview. Updates a registry webhook. */
+  /** <b>NOTE:</b> This endpoint is in Public Preview. Updates a registry webhook. */
   UpdateWebhookResponse updateWebhook(UpdateRegistryWebhook updateRegistryWebhook);
 }

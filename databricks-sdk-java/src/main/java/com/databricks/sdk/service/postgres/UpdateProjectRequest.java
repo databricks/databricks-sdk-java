@@ -18,7 +18,7 @@ public class UpdateProjectRequest {
   /**
    * The Project to update.
    *
-   * <p>The project's `name` field is used to identify the project to update. Format:
+   * <p>The project's {@code name} field is used to identify the project to update. Format:
    * projects/{project_id}
    */
   @JsonProperty("project")

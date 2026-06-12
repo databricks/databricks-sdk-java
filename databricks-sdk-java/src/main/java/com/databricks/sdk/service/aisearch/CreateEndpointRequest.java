@@ -12,23 +12,26 @@ import java.util.Objects;
 @Generated
 public class CreateEndpointRequest {
   /**
-   * The Endpoint resource to create. Fields other than `endpoint.name` carry the desired
-   * configuration; `endpoint.name` is server-assigned from `parent` and `endpoint_id`.
+   * The Endpoint resource to create. Fields other than {@code endpoint.name} carry the desired
+   * configuration; {@code endpoint.name} is server-assigned from {@code parent} and {@code
+   * endpoint_id}.
    */
   @JsonProperty("endpoint")
   private Endpoint endpoint;
 
   /**
-   * The user-supplied short name for the Endpoint, per AIP-133. The server composes the full
-   * `Endpoint.name` as `{parent}/endpoints/{endpoint_id}`. AIP-133 does not list `endpoint_id` as a
-   * fields-may-be-required entry, so we annotate it OPTIONAL on the wire; the server still rejects
-   * empty values with INVALID_PARAMETER_VALUE.
+   * The user-supplied short name for the Endpoint, per AIP-133. The server composes the full {@code
+   * Endpoint.name} as {@code {parent}/endpoints/{endpoint_id}}. AIP-133 does not list {@code
+   * endpoint_id} as a fields-may-be-required entry, so we annotate it OPTIONAL on the wire; the
+   * server still rejects empty values with INVALID_PARAMETER_VALUE.
    */
   @JsonIgnore
   @QueryParam("endpoint_id")
   private String endpointId;
 
-  /** The Workspace where this Endpoint will be created. Format: `workspaces/{workspace_id}` */
+  /**
+   * The Workspace where this Endpoint will be created. Format: {@code workspaces/{workspace_id}}
+   */
   @JsonIgnore private String parent;
 
   public CreateEndpointRequest setEndpoint(Endpoint endpoint) {

@@ -104,7 +104,9 @@ public class WorkspacesAPI {
    * configuration across workspaces.
    *
    * <p>For information about how to create a new workspace with this API including error handling,
-   * see [Create a new workspace using the Account API].
+   * see <a
+   * href="http://docs.databricks.com/administration-guide/account-api/new-workspace.html">Create a
+   * new workspace using the Account API</a>.
    *
    * <p>Important: Customer-managed VPCs, PrivateLink, and customer-managed keys are supported on a
    * limited set of deployment and subscription types. If you have questions about availability,
@@ -112,9 +114,6 @@ public class WorkspacesAPI {
    *
    * <p>This operation is available only if your account is on the E2 version of the platform or on
    * a select custom plan that allows multiple workspaces per account.
-   *
-   * <p>[Create a new workspace using the Account API]:
-   * http://docs.databricks.com/administration-guide/account-api/new-workspace.html
    */
   public Wait<Workspace, Workspace> create(CreateWorkspaceRequest request) {
     Workspace response = impl.create(request);
@@ -139,14 +138,13 @@ public class WorkspacesAPI {
 
   /**
    * Gets information including status for a Databricks workspace, specified by ID. In the response,
-   * the `workspace_status` field indicates the current status. After initial workspace creation
-   * (which is asynchronous), make repeated `GET` requests with the workspace ID and check its
-   * status. The workspace becomes available when the status changes to `RUNNING`. For information
-   * about how to create a new workspace with this API **including error handling**, see [Create a
-   * new workspace using the Account API].
-   *
-   * <p>[Create a new workspace using the Account API]:
-   * http://docs.databricks.com/administration-guide/account-api/new-workspace.html
+   * the {@code workspace_status} field indicates the current status. After initial workspace
+   * creation (which is asynchronous), make repeated {@code GET} requests with the workspace ID and
+   * check its status. The workspace becomes available when the status changes to {@code RUNNING}.
+   * For information about how to create a new workspace with this API <b>including error
+   * handling</b>, see <a
+   * href="http://docs.databricks.com/administration-guide/account-api/new-workspace.html">Create a
+   * new workspace using the Account API</a>.
    */
   public Workspace get(GetWorkspaceRequest request) {
     return impl.get(request);

@@ -8,7 +8,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 /**
- * The information of the object in workspace. It will be returned by ``list`` and ``get-status``.
+ * The information of the object in workspace. It will be returned by {@code list} and {@code
+ * get-status}.
  */
 @Generated
 public class ObjectInfo {
@@ -17,8 +18,8 @@ public class ObjectInfo {
   private Long createdAt;
 
   /**
-   * The language of the object. This value is set only if the object type is ``NOTEBOOK``. For
-   * Jupyter (.ipynb) notebooks, this is always ``PYTHON``.
+   * The language of the object. This value is set only if the object type is {@code NOTEBOOK}. For
+   * Jupyter (.ipynb) notebooks, this is always {@code PYTHON}.
    */
   @JsonProperty("language")
   private Language language;
@@ -34,9 +35,15 @@ public class ObjectInfo {
   /**
    * The type of the object in workspace.
    *
-   * <p>- `NOTEBOOK`: document that contains runnable code, visualizations, and explanatory text. -
-   * `DIRECTORY`: directory - `LIBRARY`: library - `FILE`: file - `REPO`: repository - `DASHBOARD`:
-   * Lakeview dashboard
+   * <ul>
+   *   <li>{@code NOTEBOOK}: document that contains runnable code, visualizations, and explanatory
+   *       text.
+   *   <li>{@code DIRECTORY}: directory
+   *   <li>{@code LIBRARY}: library
+   *   <li>{@code FILE}: file
+   *   <li>{@code REPO}: repository
+   *   <li>{@code DASHBOARD}: Lakeview dashboard
+   * </ul>
    */
   @JsonProperty("object_type")
   private ObjectType objectType;

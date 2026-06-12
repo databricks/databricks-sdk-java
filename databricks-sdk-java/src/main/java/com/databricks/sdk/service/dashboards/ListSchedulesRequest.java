@@ -19,7 +19,7 @@ public class ListSchedulesRequest {
   private Long pageSize;
 
   /**
-   * A page token, received from a previous `ListSchedules` call. Use this to retrieve the
+   * A page token, received from a previous {@code ListSchedules} call. Use this to retrieve the
    * subsequent page.
    */
   @JsonIgnore

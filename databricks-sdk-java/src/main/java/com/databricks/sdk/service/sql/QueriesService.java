@@ -6,7 +6,7 @@ import com.databricks.sdk.support.Generated;
 /**
  * The queries API can be used to perform CRUD operations on queries. A query is a Databricks SQL
  * object that includes the target SQL warehouse, query text, name, description, tags, and
- * parameters. Queries can be scheduled using the `sql_task` type of the Jobs API, e.g.
+ * parameters. Queries can be scheduled using the {@code sql_task} type of the Jobs API, e.g.
  * :method:jobs/create.
  *
  * <p>This is the high-level interface, that contains generated methods.
@@ -29,9 +29,9 @@ public interface QueriesService {
   Query get(GetQueryRequest getQueryRequest);
 
   /**
-   * Gets a list of queries accessible to the user, ordered by creation time. **Warning:** Calling
-   * this API concurrently 10 or more times could result in throttling, service degradation, or a
-   * temporary ban.
+   * Gets a list of queries accessible to the user, ordered by creation time. <b>Warning:</b>
+   * Calling this API concurrently 10 or more times could result in throttling, service degradation,
+   * or a temporary ban.
    */
   ListQueryObjectsResponse list(ListQueriesRequest listQueriesRequest);
 

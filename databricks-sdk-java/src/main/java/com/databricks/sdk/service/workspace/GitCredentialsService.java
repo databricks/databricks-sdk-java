@@ -6,9 +6,8 @@ import com.databricks.sdk.support.Generated;
 /**
  * Registers personal access token for Databricks to do operations on behalf of the user.
  *
- * <p>See [more info].
- *
- * <p>[more info]: https://docs.databricks.com/repos/get-access-tokens-from-git-provider.html
+ * <p>See <a href="https://docs.databricks.com/repos/get-access-tokens-from-git-provider.html">more
+ * info</a>.
  *
  * <p>This is the high-level interface, that contains generated methods.
  *

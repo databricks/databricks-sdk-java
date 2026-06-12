@@ -19,14 +19,18 @@ public interface EntityTagAssignmentsService {
    * Creates a tag assignment for an Unity Catalog entity.
    *
    * <p>To add tags to Unity Catalog entities, you must own the entity or have the following
-   * privileges: - **APPLY TAG** on the entity - **USE SCHEMA** on the entity's parent schema -
-   * **USE CATALOG** on the entity's parent catalog
+   * privileges:
    *
-   * <p>To add a governed tag to Unity Catalog entities, you must also have the **ASSIGN** or
-   * **MANAGE** permission on the tag policy. See [Manage tag policy permissions].
+   * <ul>
+   *   <li><b>APPLY TAG</b> on the entity
+   *   <li><b>USE SCHEMA</b> on the entity's parent schema
+   *   <li><b>USE CATALOG</b> on the entity's parent catalog
+   * </ul>
    *
-   * <p>[Manage tag policy permissions]:
-   * https://docs.databricks.com/aws/en/admin/tag-policies/manage-permissions
+   * <p>To add a governed tag to Unity Catalog entities, you must also have the <b>ASSIGN</b> or
+   * <b>MANAGE</b> permission on the tag policy. See <a
+   * href="https://docs.databricks.com/aws/en/admin/tag-policies/manage-permissions">Manage tag
+   * policy permissions</a>.
    */
   EntityTagAssignment create(CreateEntityTagAssignmentRequest createEntityTagAssignmentRequest);
 
@@ -34,14 +38,18 @@ public interface EntityTagAssignmentsService {
    * Deletes a tag assignment for an Unity Catalog entity by its key.
    *
    * <p>To delete tags from Unity Catalog entities, you must own the entity or have the following
-   * privileges: - **APPLY TAG** on the entity - **USE_SCHEMA** on the entity's parent schema -
-   * **USE_CATALOG** on the entity's parent catalog
+   * privileges:
    *
-   * <p>To delete a governed tag from Unity Catalog entities, you must also have the **ASSIGN** or
-   * **MANAGE** permission on the tag policy. See [Manage tag policy permissions].
+   * <ul>
+   *   <li><b>APPLY TAG</b> on the entity
+   *   <li><b>USE_SCHEMA</b> on the entity's parent schema
+   *   <li><b>USE_CATALOG</b> on the entity's parent catalog
+   * </ul>
    *
-   * <p>[Manage tag policy permissions]:
-   * https://docs.databricks.com/aws/en/admin/tag-policies/manage-permissions
+   * <p>To delete a governed tag from Unity Catalog entities, you must also have the <b>ASSIGN</b>
+   * or <b>MANAGE</b> permission on the tag policy. See <a
+   * href="https://docs.databricks.com/aws/en/admin/tag-policies/manage-permissions">Manage tag
+   * policy permissions</a>.
    */
   void delete(DeleteEntityTagAssignmentRequest deleteEntityTagAssignmentRequest);
 
@@ -62,14 +70,18 @@ public interface EntityTagAssignmentsService {
    * Updates an existing tag assignment for an Unity Catalog entity.
    *
    * <p>To update tags to Unity Catalog entities, you must own the entity or have the following
-   * privileges: - **APPLY TAG** on the entity - **USE SCHEMA** on the entity's parent schema -
-   * **USE CATALOG** on the entity's parent catalog
+   * privileges:
    *
-   * <p>To update a governed tag to Unity Catalog entities, you must also have the **ASSIGN** or
-   * **MANAGE** permission on the tag policy. See [Manage tag policy permissions].
+   * <ul>
+   *   <li><b>APPLY TAG</b> on the entity
+   *   <li><b>USE SCHEMA</b> on the entity's parent schema
+   *   <li><b>USE CATALOG</b> on the entity's parent catalog
+   * </ul>
    *
-   * <p>[Manage tag policy permissions]:
-   * https://docs.databricks.com/aws/en/admin/tag-policies/manage-permissions
+   * <p>To update a governed tag to Unity Catalog entities, you must also have the <b>ASSIGN</b> or
+   * <b>MANAGE</b> permission on the tag policy. See <a
+   * href="https://docs.databricks.com/aws/en/admin/tag-policies/manage-permissions">Manage tag
+   * policy permissions</a>.
    */
   EntityTagAssignment update(UpdateEntityTagAssignmentRequest updateEntityTagAssignmentRequest);
 }

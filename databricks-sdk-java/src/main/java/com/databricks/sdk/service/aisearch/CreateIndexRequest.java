@@ -12,25 +12,25 @@ import java.util.Objects;
 @Generated
 public class CreateIndexRequest {
   /**
-   * The Index resource to create. Fields other than `index.name` carry the desired configuration;
-   * `index.name` is server-assigned from `parent` and `index_id`.
+   * The Index resource to create. Fields other than {@code index.name} carry the desired
+   * configuration; {@code index.name} is server-assigned from {@code parent} and {@code index_id}.
    */
   @JsonProperty("index")
   private Index index;
 
   /**
    * The user-supplied Unity Catalog table name for the Index, per AIP-133. The server composes the
-   * full `Index.name` as `{parent}/indexes/{index_id}`. AIP-133 does not list `index_id` as a
-   * fields-may-be-required entry, so we annotate it OPTIONAL on the wire; the server still rejects
-   * empty values with INVALID_PARAMETER_VALUE.
+   * full {@code Index.name} as {@code {parent}/indexes/{index_id}}. AIP-133 does not list {@code
+   * index_id} as a fields-may-be-required entry, so we annotate it OPTIONAL on the wire; the server
+   * still rejects empty values with INVALID_PARAMETER_VALUE.
    */
   @JsonIgnore
   @QueryParam("index_id")
   private String indexId;
 
   /**
-   * The Endpoint where this Index will be created. Format:
-   * `workspaces/{workspace_id}/endpoints/{endpoint_id}`
+   * The Endpoint where this Index will be created. Format: {@code
+   * workspaces/{workspace_id}/endpoints/{endpoint_id}}
    */
   @JsonIgnore private String parent;
 

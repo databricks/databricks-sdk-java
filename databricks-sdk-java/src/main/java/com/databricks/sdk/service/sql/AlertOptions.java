@@ -15,18 +15,18 @@ public class AlertOptions {
   private String column;
 
   /**
-   * Custom body of alert notification, if it exists. See [here] for custom templating instructions.
-   *
-   * <p>[here]: https://docs.databricks.com/sql/user/alerts/index.html
+   * Custom body of alert notification, if it exists. See <a
+   * href="https://docs.databricks.com/sql/user/alerts/index.html">here</a> for custom templating
+   * instructions.
    */
   @JsonProperty("custom_body")
   private String customBody;
 
   /**
    * Custom subject of alert notification, if it exists. This includes email subject, Slack
-   * notification header, etc. See [here] for custom templating instructions.
-   *
-   * <p>[here]: https://docs.databricks.com/sql/user/alerts/index.html
+   * notification header, etc. See <a
+   * href="https://docs.databricks.com/sql/user/alerts/index.html">here</a> for custom templating
+   * instructions.
    */
   @JsonProperty("custom_subject")
   private String customSubject;
@@ -42,7 +42,10 @@ public class AlertOptions {
   @JsonProperty("muted")
   private Boolean muted;
 
-  /** Operator used to compare in alert evaluation: `>`, `>=`, `<`, `<=`, `==`, `!=` */
+  /**
+   * Operator used to compare in alert evaluation: {@code >}, {@code >=}, {@code <}, {@code <=},
+   * {@code ==}, {@code !=}
+   */
   @JsonProperty("op")
   private String op;
 

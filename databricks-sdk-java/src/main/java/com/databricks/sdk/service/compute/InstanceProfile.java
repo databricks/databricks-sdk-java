@@ -12,11 +12,10 @@ public class InstanceProfile {
   /**
    * The AWS IAM role ARN of the role associated with the instance profile. This field is required
    * if your role name and instance profile name do not match and you want to use the instance
-   * profile with [Databricks SQL Serverless].
+   * profile with <a href="https://docs.databricks.com/sql/admin/serverless.html">Databricks SQL
+   * Serverless</a>.
    *
    * <p>Otherwise, this field is optional.
-   *
-   * <p>[Databricks SQL Serverless]: https://docs.databricks.com/sql/admin/serverless.html
    */
   @JsonProperty("iam_role_arn")
   private String iamRoleArn;
@@ -29,7 +28,7 @@ public class InstanceProfile {
    * Boolean flag indicating whether the instance profile should only be used in credential
    * passthrough scenarios. If true, it means the instance profile contains an meta IAM role which
    * could assume a wide range of roles. Therefore it should always be used with authorization. This
-   * field is optional, the default value is `false`.
+   * field is optional, the default value is {@code false}.
    */
   @JsonProperty("is_meta_instance_profile")
   private Boolean isMetaInstanceProfile;

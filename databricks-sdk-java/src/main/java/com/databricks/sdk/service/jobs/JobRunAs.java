@@ -11,8 +11,8 @@ import java.util.Objects;
  * Write-only setting. Specifies the user or service principal that the job runs as. If not
  * specified, the job runs as the user who created the job.
  *
- * <p>Either `user_name` or `service_principal_name` should be specified. If not, an error is
- * thrown.
+ * <p>Either {@code user_name} or {@code service_principal_name} should be specified. If not, an
+ * error is thrown.
  */
 @Generated
 public class JobRunAs {
@@ -24,8 +24,8 @@ public class JobRunAs {
   private String groupName;
 
   /**
-   * Application ID of an active service principal. Setting this field requires the
-   * `servicePrincipal/user` role.
+   * Application ID of an active service principal. Setting this field requires the {@code
+   * servicePrincipal/user} role.
    */
   @JsonProperty("service_principal_name")
   private String servicePrincipalName;

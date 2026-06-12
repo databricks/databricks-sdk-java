@@ -8,18 +8,19 @@ import com.databricks.sdk.support.Generated;
  * which you want to allow access shares. The way how sharing works differs depending on whether or
  * not your recipient has access to a Databricks workspace that is enabled for Unity Catalog:
  *
- * <p>- For recipients with access to a Databricks workspace that is enabled for Unity Catalog, you
- * can create a recipient object along with a unique sharing identifier you get from the recipient.
- * The sharing identifier is the key identifier that enables the secure connection. This sharing
- * mode is called **Databricks-to-Databricks sharing**.
+ * <ul>
+ *   <li>For recipients with access to a Databricks workspace that is enabled for Unity Catalog, you
+ *       can create a recipient object along with a unique sharing identifier you get from the
+ *       recipient. The sharing identifier is the key identifier that enables the secure connection.
+ *       This sharing mode is called <b>Databricks-to-Databricks sharing</b>.
+ *   <li>For recipients without access to a Databricks workspace that is enabled for Unity Catalog,
+ *       when you create a recipient object, Databricks generates an activation link you can send to
+ *       the recipient. The recipient follows the activation link to download the credential file,
+ *       and then uses the credential file to establish a secure connection to receive the shared
+ *       data. This sharing mode is called <b>open sharing</b>.
+ * </ul>
  *
- * <p>- For recipients without access to a Databricks workspace that is enabled for Unity Catalog,
- * when you create a recipient object, Databricks generates an activation link you can send to the
- * recipient. The recipient follows the activation link to download the credential file, and then
- * uses the credential file to establish a secure connection to receive the shared data. This
- * sharing mode is called **open sharing**.
- *
- * <p>This is the high-level interface, that contains generated methods.
+ * This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
@@ -27,7 +28,7 @@ import com.databricks.sdk.support.Generated;
 public interface RecipientsService {
   /**
    * Creates a new recipient with the delta sharing authentication type in the metastore. The caller
-   * must be a metastore admin or have the **CREATE_RECIPIENT** privilege on the metastore.
+   * must be a metastore admin or have the <b>CREATE_RECIPIENT</b> privilege on the metastore.
    */
   RecipientInfo create(CreateRecipient createRecipient);
 
@@ -38,17 +39,24 @@ public interface RecipientsService {
   void delete(DeleteRecipientRequest deleteRecipientRequest);
 
   /**
-   * Gets a share recipient from the metastore. The caller must be one of: * A user with
-   * **USE_RECIPIENT** privilege on the metastore * The owner of the share recipient * A metastore
-   * admin
+   * Gets a share recipient from the metastore. The caller must be one of:
+   *
+   * <ul>
+   *   <li>A user with <b>USE_RECIPIENT</b> privilege on the metastore
+   *   <li>The owner of the share recipient
+   *   <li>A metastore admin
+   * </ul>
    */
   RecipientInfo get(GetRecipientRequest getRecipientRequest);
 
   /**
    * Gets an array of all share recipients within the current metastore where:
    *
-   * <p>* the caller is a metastore admin, or * the caller is the owner. There is no guarantee of a
-   * specific ordering of the elements in the array.
+   * <ul>
+   *   <li>the caller is a metastore admin, or
+   *   <li>the caller is the owner. There is no guarantee of a specific ordering of the elements in
+   *       the array.
+   * </ul>
    */
   ListRecipientsResponse list(ListRecipientsRequest listRecipientsRequest);
 
@@ -60,7 +68,7 @@ public interface RecipientsService {
 
   /**
    * Gets the share permissions for the specified Recipient. The caller must have the
-   * **USE_RECIPIENT** privilege on the metastore or be the owner of the Recipient.
+   * <b>USE_RECIPIENT</b> privilege on the metastore or be the owner of the Recipient.
    */
   GetRecipientSharePermissionsResponse sharePermissions(
       SharePermissionsRequest sharePermissionsRequest);

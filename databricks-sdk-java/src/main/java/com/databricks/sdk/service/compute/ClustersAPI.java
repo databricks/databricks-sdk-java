@@ -145,7 +145,7 @@ public class ClustersAPI {
   /**
    * Change the owner of the cluster. You must be an admin and the cluster must be terminated to
    * perform this operation. The service principal application ID can be supplied as an argument to
-   * `owner_username`.
+   * {@code owner_username}.
    */
   public void changeOwner(ChangeClusterOwner request) {
     impl.changeOwner(request);
@@ -153,19 +153,18 @@ public class ClustersAPI {
 
   /**
    * Creates a new Spark cluster. This method will acquire new instances from the cloud provider if
-   * necessary. This method is asynchronous; the returned ``cluster_id`` can be used to poll the
-   * cluster status. When this method returns, the cluster will be in a ``PENDING`` state. The
-   * cluster will be usable once it enters a ``RUNNING`` state. Note: Databricks may not be able to
-   * acquire some of the requested nodes, due to cloud provider limitations (account limits, spot
+   * necessary. This method is asynchronous; the returned {@code cluster_id} can be used to poll the
+   * cluster status. When this method returns, the cluster will be in a {@code PENDING} state. The
+   * cluster will be usable once it enters a {@code RUNNING} state. Note: Databricks may not be able
+   * to acquire some of the requested nodes, due to cloud provider limitations (account limits, spot
    * price, etc.) or transient network issues.
    *
    * <p>If Databricks acquires at least 85% of the requested on-demand nodes, cluster creation will
    * succeed. Otherwise the cluster will terminate with an informative error message.
    *
    * <p>Rather than authoring the cluster's JSON definition from scratch, Databricks recommends
-   * filling out the [create compute UI] and then copying the generated JSON definition from the UI.
-   *
-   * <p>[create compute UI]: https://docs.databricks.com/compute/configure.html
+   * filling out the <a href="https://docs.databricks.com/compute/configure.html">create compute
+   * UI</a> and then copying the generated JSON definition from the UI.
    */
   public Wait<ClusterDetails, CreateClusterResponse> create(CreateCluster request) {
     CreateClusterResponse response = impl.create(request);
@@ -180,8 +179,8 @@ public class ClustersAPI {
 
   /**
    * Terminates the Spark cluster with the specified ID. The cluster is removed asynchronously. Once
-   * the termination has completed, the cluster will be in a `TERMINATED` state. If the cluster is
-   * already in a `TERMINATING` or `TERMINATED` state, nothing will happen.
+   * the termination has completed, the cluster will be in a {@code TERMINATED} state. If the
+   * cluster is already in a {@code TERMINATING} or {@code TERMINATED} state, nothing will happen.
    */
   public Wait<ClusterDetails, Void> delete(DeleteCluster request) {
     impl.delete(request);
@@ -191,15 +190,15 @@ public class ClustersAPI {
 
   /**
    * Updates the configuration of a cluster to match the provided attributes and size. A cluster can
-   * be updated if it is in a `RUNNING` or `TERMINATED` state.
+   * be updated if it is in a {@code RUNNING} or {@code TERMINATED} state.
    *
-   * <p>If a cluster is updated while in a `RUNNING` state, it will be restarted so that the new
-   * attributes can take effect.
+   * <p>If a cluster is updated while in a {@code RUNNING} state, it will be restarted so that the
+   * new attributes can take effect.
    *
-   * <p>If a cluster is updated while in a `TERMINATED` state, it will remain `TERMINATED`. The next
-   * time it is started using the `clusters/start` API, the new attributes will take effect. Any
-   * attempt to update a cluster in any other state will be rejected with an `INVALID_STATE` error
-   * code.
+   * <p>If a cluster is updated while in a {@code TERMINATED} state, it will remain {@code
+   * TERMINATED}. The next time it is started using the {@code clusters/start} API, the new
+   * attributes will take effect. Any attempt to update a cluster in any other state will be
+   * rejected with an {@code INVALID_STATE} error code.
    *
    * <p>Clusters created by the Databricks Jobs service cannot be edited.
    */
@@ -313,7 +312,7 @@ public class ClustersAPI {
 
   /**
    * Resizes a cluster to have a desired number of workers. This will fail unless the cluster is in
-   * a `RUNNING` state.
+   * a {@code RUNNING} state.
    */
   public Wait<ClusterDetails, Void> resize(ResizeCluster request) {
     impl.resize(request);
@@ -322,8 +321,8 @@ public class ClustersAPI {
   }
 
   /**
-   * Restarts a Spark cluster with the supplied ID. If the cluster is not currently in a `RUNNING`
-   * state, nothing will happen.
+   * Restarts a Spark cluster with the supplied ID. If the cluster is not currently in a {@code
+   * RUNNING} state, nothing will happen.
    */
   public Wait<ClusterDetails, Void> restart(RestartCluster request) {
     impl.restart(request);
@@ -351,11 +350,17 @@ public class ClustersAPI {
   }
 
   /**
-   * Starts a terminated Spark cluster with the supplied ID. This works similar to `createCluster`
-   * except: - The previous cluster id and attributes are preserved. - The cluster starts with the
-   * last specified cluster size. - If the previous cluster was an autoscaling cluster, the current
-   * cluster starts with the minimum number of nodes. - If the cluster is not currently in a
-   * ``TERMINATED`` state, nothing will happen. - Clusters launched to run a job cannot be started.
+   * Starts a terminated Spark cluster with the supplied ID. This works similar to {@code
+   * createCluster} except:
+   *
+   * <ul>
+   *   <li>The previous cluster id and attributes are preserved.
+   *   <li>The cluster starts with the last specified cluster size.
+   *   <li>If the previous cluster was an autoscaling cluster, the current cluster starts with the
+   *       minimum number of nodes.
+   *   <li>If the cluster is not currently in a {@code TERMINATED} state, nothing will happen.
+   *   <li>Clusters launched to run a job cannot be started.
+   * </ul>
    */
   public Wait<ClusterDetails, Void> start(StartCluster request) {
     impl.start(request);
@@ -378,13 +383,14 @@ public class ClustersAPI {
 
   /**
    * Updates the configuration of a cluster to match the partial set of attributes and size. Denote
-   * which fields to update using the `update_mask` field in the request body. A cluster can be
-   * updated if it is in a `RUNNING` or `TERMINATED` state. If a cluster is updated while in a
-   * `RUNNING` state, it will be restarted so that the new attributes can take effect. If a cluster
-   * is updated while in a `TERMINATED` state, it will remain `TERMINATED`. The updated attributes
-   * will take effect the next time the cluster is started using the `clusters/start` API. Attempts
-   * to update a cluster in any other state will be rejected with an `INVALID_STATE` error code.
-   * Clusters created by the Databricks Jobs service cannot be updated.
+   * which fields to update using the {@code update_mask} field in the request body. A cluster can
+   * be updated if it is in a {@code RUNNING} or {@code TERMINATED} state. If a cluster is updated
+   * while in a {@code RUNNING} state, it will be restarted so that the new attributes can take
+   * effect. If a cluster is updated while in a {@code TERMINATED} state, it will remain {@code
+   * TERMINATED}. The updated attributes will take effect the next time the cluster is started using
+   * the {@code clusters/start} API. Attempts to update a cluster in any other state will be
+   * rejected with an {@code INVALID_STATE} error code. Clusters created by the Databricks Jobs
+   * service cannot be updated.
    */
   public Wait<ClusterDetails, Void> update(UpdateCluster request) {
     impl.update(request);

@@ -42,8 +42,8 @@ public interface ReposService {
   RepoPermissions getPermissions(GetRepoPermissionsRequest getRepoPermissionsRequest);
 
   /**
-   * Returns repos that the calling user has Manage permissions on. Use `next_page_token` to iterate
-   * through additional pages.
+   * Returns repos that the calling user has Manage permissions on. Use {@code next_page_token} to
+   * iterate through additional pages.
    */
   ListReposResponse list(ListReposRequest listReposRequest);
 

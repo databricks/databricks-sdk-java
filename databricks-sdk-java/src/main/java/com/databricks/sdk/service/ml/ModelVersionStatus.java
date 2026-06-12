@@ -5,12 +5,14 @@ package com.databricks.sdk.service.ml;
 import com.databricks.sdk.support.Generated;
 
 /**
- * The status of the model version. Valid values are: * `PENDING_REGISTRATION`: Request to register
- * a new model version is pending as server performs background tasks.
+ * The status of the model version. Valid values are:
  *
- * <p>* `FAILED_REGISTRATION`: Request to register a new model version has failed.
- *
- * <p>* `READY`: Model version is ready for use.
+ * <ul>
+ *   <li>{@code PENDING_REGISTRATION}: Request to register a new model version is pending as server
+ *       performs background tasks.
+ *   <li>{@code FAILED_REGISTRATION}: Request to register a new model version has failed.
+ *   <li>{@code READY}: Model version is ready for use.
+ * </ul>
  */
 @Generated
 public enum ModelVersionStatus {

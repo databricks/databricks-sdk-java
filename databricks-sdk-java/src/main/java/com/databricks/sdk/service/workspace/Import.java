@@ -12,8 +12,8 @@ public class Import {
   /**
    * The base64-encoded content. This has a limit of 10 MB.
    *
-   * <p>If the limit (10MB) is exceeded, exception with error code **MAX_NOTEBOOK_SIZE_EXCEEDED** is
-   * thrown. This parameter might be absent, and instead a posted file is used.
+   * <p>If the limit (10MB) is exceeded, exception with error code <b>MAX_NOTEBOOK_SIZE_EXCEEDED</b>
+   * is thrown. This parameter might be absent, and instead a posted file is used.
    */
   @JsonProperty("content")
   private String content;
@@ -23,31 +23,35 @@ public class Import {
    *
    * <p>The value is case sensitive.
    *
-   * <p>- `AUTO`: The item is imported depending on an analysis of the item's extension and the
-   * header content provided in the request. If the item is imported as a notebook, then the item's
-   * extension is automatically removed. - `SOURCE`: The notebook or directory is imported as source
-   * code. - `HTML`: The notebook is imported as an HTML file. - `JUPYTER`: The notebook is imported
-   * as a Jupyter/IPython Notebook file. - `DBC`: The notebook is imported in Databricks archive
-   * format. Required for directories. - `R_MARKDOWN`: The notebook is imported from R Markdown
-   * format.
+   * <ul>
+   *   <li>{@code AUTO}: The item is imported depending on an analysis of the item's extension and
+   *       the header content provided in the request. If the item is imported as a notebook, then
+   *       the item's extension is automatically removed.
+   *   <li>{@code SOURCE}: The notebook or directory is imported as source code.
+   *   <li>{@code HTML}: The notebook is imported as an HTML file.
+   *   <li>{@code JUPYTER}: The notebook is imported as a Jupyter/IPython Notebook file.
+   *   <li>{@code DBC}: The notebook is imported in Databricks archive format. Required for
+   *       directories.
+   *   <li>{@code R_MARKDOWN}: The notebook is imported from R Markdown format.
+   * </ul>
    */
   @JsonProperty("format")
   private ImportFormat format;
 
-  /** The language of the object. This value is set only if the object type is `NOTEBOOK`. */
+  /** The language of the object. This value is set only if the object type is {@code NOTEBOOK}. */
   @JsonProperty("language")
   private Language language;
 
   /**
-   * The flag that specifies whether to overwrite existing object. It is `false` by default. For
-   * `DBC` format, `overwrite` is not supported since it may contain a directory.
+   * The flag that specifies whether to overwrite existing object. It is {@code false} by default.
+   * For {@code DBC} format, {@code overwrite} is not supported since it may contain a directory.
    */
   @JsonProperty("overwrite")
   private Boolean overwrite;
 
   /**
    * The absolute path of the object or directory. Importing a directory is only supported for the
-   * `DBC` and `SOURCE` formats.
+   * {@code DBC} and {@code SOURCE} formats.
    */
   @JsonProperty("path")
   private String path;

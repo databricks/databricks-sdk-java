@@ -24,13 +24,12 @@ import java.util.function.Consumer;
  * using notebooks, JARS, Spark Declarative Pipelines, or Python, Scala, Spark submit, and Java
  * applications.
  *
- * <p>You should never hard code secrets or store them in plain text. Use the [Secrets CLI] to
- * manage secrets in the [Databricks CLI]. Use the [Secrets utility] to reference secrets in
- * notebooks and jobs.
- *
- * <p>[Databricks CLI]: https://docs.databricks.com/dev-tools/cli/index.html [Secrets CLI]:
- * https://docs.databricks.com/dev-tools/cli/secrets-cli.html [Secrets utility]:
- * https://docs.databricks.com/dev-tools/databricks-utils.html#dbutils-secrets
+ * <p>You should never hard code secrets or store them in plain text. Use the <a
+ * href="https://docs.databricks.com/dev-tools/cli/secrets-cli.html">Secrets CLI</a> to manage
+ * secrets in the <a href="https://docs.databricks.com/dev-tools/cli/index.html">Databricks CLI</a>.
+ * Use the <a
+ * href="https://docs.databricks.com/dev-tools/databricks-utils.html#dbutils-secrets">Secrets
+ * utility</a> to reference secrets in notebooks and jobs.
  */
 @Generated
 public class JobsAPI {
@@ -163,11 +162,11 @@ public class JobsAPI {
    *
    * <p>Large arrays in the results will be paginated when they exceed 100 elements. A request for a
    * single job will return all properties for that job, and the first 100 elements of array
-   * properties (`tasks`, `job_clusters`, `environments` and `parameters`). Use the
-   * `next_page_token` field to check for more results and pass its value as the `page_token` in
-   * subsequent requests. If any array properties have more than 100 elements, additional results
-   * will be returned on subsequent requests. Arrays without additional results will be empty on
-   * later pages.
+   * properties ({@code tasks}, {@code job_clusters}, {@code environments} and {@code parameters}).
+   * Use the {@code next_page_token} field to check for more results and pass its value as the
+   * {@code page_token} in subsequent requests. If any array properties have more than 100 elements,
+   * additional results will be returned on subsequent requests. Arrays without additional results
+   * will be empty on later pages.
    */
   public Job get(GetJobRequest request) {
     return impl.get(request);
@@ -200,11 +199,11 @@ public class JobsAPI {
    *
    * <p>Large arrays in the results will be paginated when they exceed 100 elements. A request for a
    * single run will return all properties for that run, and the first 100 elements of array
-   * properties (`tasks`, `job_clusters`, `job_parameters` and `repair_history`). Use the
-   * next_page_token field to check for more results and pass its value as the page_token in
-   * subsequent requests. If any array properties have more than 100 elements, additional results
-   * will be returned on subsequent requests. Arrays without additional results will be empty on
-   * later pages.
+   * properties ({@code tasks}, {@code job_clusters}, {@code job_parameters} and {@code
+   * repair_history}). Use the next_page_token field to check for more results and pass its value as
+   * the page_token in subsequent requests. If any array properties have more than 100 elements,
+   * additional results will be returned on subsequent requests. Arrays without additional results
+   * will be empty on later pages.
    */
   public Run getRun(GetRunRequest request) {
     return impl.getRun(request);
@@ -216,14 +215,14 @@ public class JobsAPI {
 
   /**
    * Retrieve the output and metadata of a single task run. When a notebook task returns a value
-   * through the `dbutils.notebook.exit()` call, you can use this endpoint to retrieve that value.
-   * Databricks restricts this API to returning the first 5 MB of the output. To return a larger
-   * result, you can store job results in a cloud storage service.
+   * through the {@code dbutils.notebook.exit()} call, you can use this endpoint to retrieve that
+   * value. Databricks restricts this API to returning the first 5 MB of the output. To return a
+   * larger result, you can store job results in a cloud storage service.
    *
-   * <p>This endpoint validates that the __run_id__ parameter is valid and returns an HTTP status
-   * code 400 if the __run_id__ parameter is invalid. Runs are automatically removed after 60 days.
-   * If you to want to reference them beyond 60 days, you must save old run results before they
-   * expire.
+   * <p>This endpoint validates that the <b>run_id</b> parameter is valid and returns an HTTP status
+   * code 400 if the <b>run_id</b> parameter is invalid. Runs are automatically removed after 60
+   * days. If you to want to reference them beyond 60 days, you must save old run results before
+   * they expire.
    */
   public RunOutput getRunOutput(GetRunOutputRequest request) {
     return impl.getRunOutput(request);
@@ -272,14 +271,14 @@ public class JobsAPI {
   }
 
   /**
-   * Overwrite all settings for the given job. Use the [_Update_ endpoint](:method:jobs/update) to
-   * update job settings partially.
+   * Overwrite all settings for the given job. Use the <a href=":method:jobs/update"><i>Update</i>
+   * endpoint</a> to update job settings partially.
    */
   public void reset(ResetJob request) {
     impl.reset(request);
   }
 
-  /** Run a job and return the `run_id` of the triggered run. */
+  /** Run a job and return the {@code run_id} of the triggered run. */
   public Wait<Run, RunNowResponse> runNow(RunNow request) {
     RunNowResponse response = impl.runNow(request);
     return new Wait<>(
@@ -298,14 +297,14 @@ public class JobsAPI {
 
   /**
    * Submit a one-time run. This endpoint allows you to submit a workload directly without creating
-   * a job. Runs submitted using this endpoint don’t display in the UI. Use the `jobs/runs/get` API
-   * to check the run state after the job is submitted.
+   * a job. Runs submitted using this endpoint don’t display in the UI. Use the {@code
+   * jobs/runs/get} API to check the run state after the job is submitted.
    *
-   * <p>**Important:** Jobs submitted using this endpoint are not saved as a job. They do not show
-   * up in the Jobs UI, and do not retry when they fail. Because they are not saved, Databricks
+   * <p><b>Important:</b> Jobs submitted using this endpoint are not saved as a job. They do not
+   * show up in the Jobs UI, and do not retry when they fail. Because they are not saved, Databricks
    * cannot auto-optimize serverless compute in case of failure. If your job fails, you may want to
-   * use classic compute to specify the compute needs for the job. Alternatively, use the `POST
-   * /jobs/create` and `POST /jobs/run-now` endpoints to create and run a saved job.
+   * use classic compute to specify the compute needs for the job. Alternatively, use the {@code
+   * POST /jobs/create} and {@code POST /jobs/run-now} endpoints to create and run a saved job.
    */
   public Wait<Run, SubmitRunResponse> submit(SubmitRun request) {
     SubmitRunResponse response = impl.submit(request);
@@ -316,8 +315,8 @@ public class JobsAPI {
   }
 
   /**
-   * Add, update, or remove specific settings of an existing job. Use the [_Reset_
-   * endpoint](:method:jobs/reset) to overwrite all job settings.
+   * Add, update, or remove specific settings of an existing job. Use the <a
+   * href=":method:jobs/reset"><i>Reset</i> endpoint</a> to overwrite all job settings.
    */
   public void update(UpdateJob request) {
     impl.update(request);

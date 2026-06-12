@@ -4,7 +4,7 @@ package com.databricks.sdk.service.billing;
 
 import com.databricks.sdk.support.Generated;
 
-/** * Log Delivery Output Format */
+/** Log Delivery Output Format */
 @Generated
 public enum OutputFormat {
   CSV,

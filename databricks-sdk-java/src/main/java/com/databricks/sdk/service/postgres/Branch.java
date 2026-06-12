@@ -29,7 +29,7 @@ public class Branch {
    * The project containing this branch (API resource hierarchy). Format: projects/{project_id}
    *
    * <p>Note: This field indicates where the branch exists in the resource hierarchy. For
-   * point-in-time branching from another branch, see `status.source_branch`.
+   * point-in-time branching from another branch, see {@code status.source_branch}.
    */
   @JsonProperty("parent")
   private String parent;

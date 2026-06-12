@@ -27,7 +27,7 @@ public class CreateAlert {
 
   /**
    * Number of seconds after being triggered before the alert rearms itself and can be triggered
-   * again. If `null`, alert will never be triggered again.
+   * again. If {@code null}, alert will never be triggered again.
    */
   @JsonProperty("rearm")
   private Long rearm;

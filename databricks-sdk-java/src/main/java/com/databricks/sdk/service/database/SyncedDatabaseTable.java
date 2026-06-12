@@ -51,7 +51,7 @@ public class SyncedDatabaseTable {
    *
    * <p>When creating a synced table in a standard catalog, this field is required. In this
    * scenario, specifying this field will allow targeting an arbitrary postgres database. Note that
-   * this has implications for the `create_database_objects_is_missing` field in `spec`.
+   * this has implications for the {@code create_database_objects_is_missing} field in {@code spec}.
    */
   @JsonProperty("logical_database_name")
   private String logicalDatabaseName;

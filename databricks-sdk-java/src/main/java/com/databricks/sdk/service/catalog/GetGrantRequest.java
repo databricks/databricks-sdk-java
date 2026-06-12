@@ -18,11 +18,17 @@ public class GetGrantRequest {
    * present in a single page response is guaranteed to contain all the privileges granted on the
    * requested Securable for the respective principal.
    *
-   * <p>If not set, all the permissions are returned. If set to - lesser than 0: invalid parameter
-   * error - 0: page length is set to a server configured value - lesser than 150 but greater than
-   * 0: invalid parameter error (this is to ensure that server is able to return at least one
-   * complete PrivilegeAssignment in a single page response) - greater than (or equal to) 150: page
-   * length is the minimum of this value and a server configured value
+   * <p>If not set, all the permissions are returned. If set to
+   *
+   * <ul>
+   *   <li>lesser than 0: invalid parameter error
+   *   <li>0: page length is set to a server configured value
+   *   <li>lesser than 150 but greater than 0: invalid parameter error (this is to ensure that
+   *       server is able to return at least one complete PrivilegeAssignment in a single page
+   *       response)
+   *   <li>greater than (or equal to) 150: page length is the minimum of this value and a server
+   *       configured value
+   * </ul>
    */
   @JsonIgnore
   @QueryParam("max_results")

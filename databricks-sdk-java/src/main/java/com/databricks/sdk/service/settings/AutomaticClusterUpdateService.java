@@ -19,10 +19,10 @@ public interface AutomaticClusterUpdateService {
 
   /**
    * Updates the automatic cluster update setting for the workspace. A fresh etag needs to be
-   * provided in `PATCH` requests (as part of the setting field). The etag can be retrieved by
-   * making a `GET` request before the `PATCH` request. If the setting is updated concurrently,
-   * `PATCH` fails with 409 and the request must be retried by using the fresh etag in the 409
-   * response.
+   * provided in {@code PATCH} requests (as part of the setting field). The etag can be retrieved by
+   * making a {@code GET} request before the {@code PATCH} request. If the setting is updated
+   * concurrently, {@code PATCH} fails with 409 and the request must be retried by using the fresh
+   * etag in the 409 response.
    */
   AutomaticClusterUpdateSetting update(
       UpdateAutomaticClusterUpdateSettingRequest updateAutomaticClusterUpdateSettingRequest);

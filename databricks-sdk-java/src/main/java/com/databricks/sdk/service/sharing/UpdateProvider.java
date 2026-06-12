@@ -26,8 +26,8 @@ public class UpdateProvider {
   private String owner;
 
   /**
-   * This field is required when the __authentication_type__ is **TOKEN**,
-   * **OAUTH_CLIENT_CREDENTIALS** or not provided.
+   * This field is required when the <b>authentication_type</b> is <b>TOKEN</b>,
+   * <b>OAUTH_CLIENT_CREDENTIALS</b> or not provided.
    */
   @JsonProperty("recipient_profile_str")
   private String recipientProfileStr;

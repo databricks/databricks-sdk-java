@@ -18,10 +18,10 @@ public class FederationPolicy {
   private String description;
 
   /**
-   * Resource name for the federation policy. Example values include
-   * `accounts/<account-id>/federationPolicies/my-federation-policy` for Account Federation
-   * Policies, and
-   * `accounts/<account-id>/servicePrincipals/<service-principal-id>/federationPolicies/my-federation-policy`
+   * Resource name for the federation policy. Example values include {@code
+   * accounts/<account-id>/federationPolicies/my-federation-policy} for Account Federation Policies,
+   * and {@code
+   * accounts/<account-id>/servicePrincipals/<service-principal-id>/federationPolicies/my-federation-policy}
    * for Service Principal Federation Policies. Typically an output parameter, which does not need
    * to be specified in create or update requests. If specified in a request, must match the value
    * in the request URL.

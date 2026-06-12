@@ -14,9 +14,13 @@ public class Notifications {
    * A list of alerts that trigger the sending of notifications to the configured destinations. The
    * supported alerts are:
    *
-   * <p>* `on-update-success`: A pipeline update completes successfully. * `on-update-failure`: Each
-   * time a pipeline update fails. * `on-update-fatal-failure`: A pipeline update fails with a
-   * non-retryable (fatal) error. * `on-flow-failure`: A single data flow fails.
+   * <ul>
+   *   <li>{@code on-update-success}: A pipeline update completes successfully.
+   *   <li>{@code on-update-failure}: Each time a pipeline update fails.
+   *   <li>{@code on-update-fatal-failure}: A pipeline update fails with a non-retryable (fatal)
+   *       error.
+   *   <li>{@code on-flow-failure}: A single data flow fails.
+   * </ul>
    */
   @JsonProperty("alerts")
   private Collection<String> alerts;

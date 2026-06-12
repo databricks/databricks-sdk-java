@@ -20,7 +20,7 @@ public class ListVersionsRequest {
   private Long pageSize;
 
   /**
-   * A page token, received from a previous `ListVersions` call. Provide this to retrieve the
+   * A page token, received from a previous {@code ListVersions} call. Provide this to retrieve the
    * subsequent page.
    */
   @JsonIgnore

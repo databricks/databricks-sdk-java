@@ -18,7 +18,7 @@ public class ListExternalLineageRelationshipsRequest {
   /**
    * The object to query external lineage relationships for. Since this field is a query parameter,
    * please flatten the nested fields. For example, if the object is a table, the query parameter
-   * should look like: `object_info.table.name=main.sales.customers`
+   * should look like: {@code object_info.table.name=main.sales.customers}
    */
   @JsonIgnore
   @QueryParam("object_info")

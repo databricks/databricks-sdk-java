@@ -19,8 +19,8 @@ public class ListKnowledgeAssistantsRequest {
   private Long pageSize;
 
   /**
-   * A page token, received from a previous `ListKnowledgeAssistants` call. Provide this to retrieve
-   * the subsequent page. If unspecified, the first page will be returned.
+   * A page token, received from a previous {@code ListKnowledgeAssistants} call. Provide this to
+   * retrieve the subsequent page. If unspecified, the first page will be returned.
    */
   @JsonIgnore
   @QueryParam("page_token")

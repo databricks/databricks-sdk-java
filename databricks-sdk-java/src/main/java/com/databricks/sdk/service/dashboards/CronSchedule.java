@@ -10,20 +10,18 @@ import java.util.Objects;
 @Generated
 public class CronSchedule {
   /**
-   * A cron expression using quartz syntax. EX: `0 0 8 * * ?` represents everyday at 8am. See [Cron
-   * Trigger] for details.
-   *
-   * <p>[Cron Trigger]:
-   * http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html
+   * A cron expression using quartz syntax. EX: {@code 0 0 8 * * ?} represents everyday at 8am. See
+   * <a
+   * href="http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html">Cron
+   * Trigger</a> for details.
    */
   @JsonProperty("quartz_cron_expression")
   private String quartzCronExpression;
 
   /**
-   * A Java timezone id. The schedule will be resolved with respect to this timezone. See [Java
-   * TimeZone] for details.
-   *
-   * <p>[Java TimeZone]: https://docs.oracle.com/javase/7/docs/api/java/util/TimeZone.html
+   * A Java timezone id. The schedule will be resolved with respect to this timezone. See <a
+   * href="https://docs.oracle.com/javase/7/docs/api/java/util/TimeZone.html">Java TimeZone</a> for
+   * details.
    */
   @JsonProperty("timezone_id")
   private String timezoneId;

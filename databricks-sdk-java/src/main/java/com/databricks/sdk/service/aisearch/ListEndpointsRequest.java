@@ -12,8 +12,8 @@ import java.util.Objects;
 public class ListEndpointsRequest {
   /**
    * Best-effort upper bound on the number of results to return. Honored as an upper bound by the
-   * shim: `page_size` only narrows the legacy backend's response, never widens it, so the practical
-   * cap is `min(page_size, legacy_fixed_page_size)`.
+   * shim: {@code page_size} only narrows the legacy backend's response, never widens it, so the
+   * practical cap is {@code min(page_size, legacy_fixed_page_size)}.
    */
   @JsonIgnore
   @QueryParam("page_size")
@@ -24,7 +24,9 @@ public class ListEndpointsRequest {
   @QueryParam("page_token")
   private String pageToken;
 
-  /** The Workspace that owns this collection of endpoints. Format: `workspaces/{workspace_id}` */
+  /**
+   * The Workspace that owns this collection of endpoints. Format: {@code workspaces/{workspace_id}}
+   */
   @JsonIgnore private String parent;
 
   public ListEndpointsRequest setPageSize(Long pageSize) {

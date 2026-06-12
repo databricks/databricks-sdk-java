@@ -79,7 +79,7 @@ public class CleanRoomsAPI {
    * PROVISIONING state, with only name, owner, comment, created_at and status populated. The clean
    * room will be usable once it enters an ACTIVE state.
    *
-   * <p>The caller must be a metastore admin or have the **CREATE_CLEAN_ROOM** privilege on the
+   * <p>The caller must be a metastore admin or have the <b>CREATE_CLEAN_ROOM</b> privilege on the
    * metastore.
    */
   public Wait<CleanRoom, CleanRoom> create(CreateCleanRoomRequest request) {
@@ -137,10 +137,10 @@ public class CleanRoomsAPI {
   }
 
   /**
-   * Update a clean room. The caller must be the owner of the clean room, have **MODIFY_CLEAN_ROOM**
-   * privilege, or be metastore admin.
+   * Update a clean room. The caller must be the owner of the clean room, have
+   * <b>MODIFY_CLEAN_ROOM</b> privilege, or be metastore admin.
    *
-   * <p>When the caller is a metastore admin, only the __owner__ field can be updated.
+   * <p>When the caller is a metastore admin, only the <b>owner</b> field can be updated.
    */
   public CleanRoom update(UpdateCleanRoomRequest request) {
     return impl.update(request);

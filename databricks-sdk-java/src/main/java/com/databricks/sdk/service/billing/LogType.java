@@ -4,7 +4,7 @@ package com.databricks.sdk.service.billing;
 
 import com.databricks.sdk.support.Generated;
 
-/** * Log Delivery Type */
+/** Log Delivery Type */
 @Generated
 public enum LogType {
   AUDIT_LOGS,

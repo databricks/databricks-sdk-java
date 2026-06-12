@@ -16,7 +16,7 @@ public class ListDashboardsRequest {
   private Long pageSize;
 
   /**
-   * A page token, received from a previous `ListDashboards` call. This token can be used to
+   * A page token, received from a previous {@code ListDashboards} call. This token can be used to
    * retrieve the subsequent page.
    */
   @JsonIgnore
@@ -31,7 +31,7 @@ public class ListDashboardsRequest {
   @QueryParam("show_trashed")
   private Boolean showTrashed;
 
-  /** `DASHBOARD_VIEW_BASIC`only includes summary metadata from the dashboard. */
+  /** {@code DASHBOARD_VIEW_BASIC}only includes summary metadata from the dashboard. */
   @JsonIgnore
   @QueryParam("view")
   private DashboardView view;

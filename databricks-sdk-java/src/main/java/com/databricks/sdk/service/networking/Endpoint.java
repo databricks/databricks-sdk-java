@@ -52,7 +52,7 @@ public class Endpoint {
   @JsonProperty("region")
   private String region;
 
-  /** The state of the endpoint. The endpoint can only be used if the state is `APPROVED`. */
+  /** The state of the endpoint. The endpoint can only be used if the state is {@code APPROVED}. */
   @JsonProperty("state")
   private EndpointState state;
 

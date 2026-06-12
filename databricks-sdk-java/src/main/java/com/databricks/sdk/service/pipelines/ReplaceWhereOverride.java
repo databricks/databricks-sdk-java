@@ -15,8 +15,8 @@ public class ReplaceWhereOverride {
   private String flowName;
 
   /**
-   * SQL predicate string to use as replace_where condition. Example: `date = '2024-10-10' AND city
-   * = 'xyz'`
+   * SQL predicate string to use as replace_where condition. Example: {@code date = '2024-10-10' AND
+   * city = 'xyz'}
    */
   @JsonProperty("predicate_override")
   private String predicateOverride;

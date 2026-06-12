@@ -26,10 +26,10 @@ public class GenieUpdateSpaceRequest {
   private String parentPath;
 
   /**
-   * The contents of the Genie Space in serialized string form (full replacement). Use the [Get
-   * Genie Space](:method:genie/getspace) API to retrieve an example response, which includes the
-   * `serialized_space` field. This field provides the structure of the JSON string that represents
-   * the space's layout and components.
+   * The contents of the Genie Space in serialized string form (full replacement). Use the <a
+   * href=":method:genie/getspace">Get Genie Space</a> API to retrieve an example response, which
+   * includes the {@code serialized_space} field. This field provides the structure of the JSON
+   * string that represents the space's layout and components.
    */
   @JsonProperty("serialized_space")
   private String serializedSpace;

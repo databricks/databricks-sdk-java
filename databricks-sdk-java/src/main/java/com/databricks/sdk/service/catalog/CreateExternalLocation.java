@@ -17,23 +17,23 @@ public class CreateExternalLocation {
   @JsonProperty("credential_name")
   private String credentialName;
 
-  /** The effective value of `enable_file_events` after applying server-side defaults. */
+  /** The effective value of {@code enable_file_events} after applying server-side defaults. */
   @JsonProperty("effective_enable_file_events")
   private Boolean effectiveEnableFileEvents;
 
   /**
    * The effective file event queue configuration after applying server-side defaults. Always
-   * populated when a queue is provisioned, regardless of whether the user explicitly set
-   * `enable_file_events`. Use this field instead of `file_event_queue` for reading the actual queue
-   * state.
+   * populated when a queue is provisioned, regardless of whether the user explicitly set {@code
+   * enable_file_events}. Use this field instead of {@code file_event_queue} for reading the actual
+   * queue state.
    */
   @JsonProperty("effective_file_event_queue")
   private FileEventQueue effectiveFileEventQueue;
 
   /**
-   * Whether to enable file events on this external location. Default to `true`. Set to `false` to
-   * disable file events. The actual applied value may differ due to server-side defaults; check
-   * `effective_enable_file_events` for the effective state.
+   * Whether to enable file events on this external location. Default to {@code true}. Set to {@code
+   * false} to disable file events. The actual applied value may differ due to server-side defaults;
+   * check {@code effective_enable_file_events} for the effective state.
    */
   @JsonProperty("enable_file_events")
   private Boolean enableFileEvents;
@@ -51,8 +51,8 @@ public class CreateExternalLocation {
   private Boolean fallback;
 
   /**
-   * File event queue settings. If `enable_file_events` is not `false`, must be defined and have
-   * exactly one of the documented properties.
+   * File event queue settings. If {@code enable_file_events} is not {@code false}, must be defined
+   * and have exactly one of the documented properties.
    */
   @JsonProperty("file_event_queue")
   private FileEventQueue fileEventQueue;

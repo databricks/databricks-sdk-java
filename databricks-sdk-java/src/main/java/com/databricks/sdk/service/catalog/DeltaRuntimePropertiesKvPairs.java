@@ -10,7 +10,7 @@ import java.util.Objects;
 
 /**
  * Properties pertaining to the current state of the delta table as given by the commit server. This
- * does not contain **delta.*** (input) properties in __TableInfo.properties__.
+ * does not contain <b>delta.</b>* (input) properties in <b>TableInfo.properties</b>.
  */
 @Generated
 public class DeltaRuntimePropertiesKvPairs {

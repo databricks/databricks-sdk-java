@@ -21,7 +21,7 @@ public class PtServedModel {
    * The name of the entity to be served. The entity may be a model in the Databricks Model
    * Registry, a model in the Unity Catalog (UC), or a function of type FEATURE_SPEC in the UC. If
    * it is a UC object, the full name of the object should be given in the form of
-   * **catalog_name.schema_name.model_name**.
+   * <b>catalog_name.schema_name.model_name</b>.
    */
   @JsonProperty("entity_name")
   private String entityName;

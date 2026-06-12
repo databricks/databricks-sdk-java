@@ -11,7 +11,7 @@ import java.util.Objects;
 @Generated
 public class ExternalLink {
   /**
-   * The number of bytes in the result chunk. This field is not available when using `INLINE`
+   * The number of bytes in the result chunk. This field is not available when using {@code INLINE}
    * disposition.
    */
   @JsonProperty("byte_count")
@@ -23,22 +23,22 @@ public class ExternalLink {
 
   /**
    * Indicates the date-time that the given external link will expire and becomes invalid, after
-   * which point a new `external_link` must be requested.
+   * which point a new {@code external_link} must be requested.
    */
   @JsonProperty("expiration")
   private String expiration;
 
   /**
    * A URL pointing to a chunk of result data, hosted by an external service, with a short
-   * expiration time (<= 15 minutes). As this URL contains a temporary credential, it should be
+   * expiration time (&lt;= 15 minutes). As this URL contains a temporary credential, it should be
    * considered sensitive and the client should not expose this URL in a log.
    */
   @JsonProperty("external_link")
   private String externalLink;
 
   /**
-   * HTTP headers that must be included with a GET request to the `external_link`. Each header is
-   * provided as a key-value pair. Headers are typically used to pass a decryption key to the
+   * HTTP headers that must be included with a GET request to the {@code external_link}. Each header
+   * is provided as a key-value pair. Headers are typically used to pass a decryption key to the
    * external service. The values of these headers should be considered sensitive and the client
    * should not expose these values in a log.
    */
@@ -46,17 +46,18 @@ public class ExternalLink {
   private Map<String, String> httpHeaders;
 
   /**
-   * When fetching, provides the `chunk_index` for the _next_ chunk. If absent, indicates there are
-   * no more chunks. The next chunk can be fetched with a
+   * When fetching, provides the {@code chunk_index} for the <i>next</i> chunk. If absent, indicates
+   * there are no more chunks. The next chunk can be fetched with a
    * :method:statementexecution/getstatementresultchunkn request.
    */
   @JsonProperty("next_chunk_index")
   private Long nextChunkIndex;
 
   /**
-   * When fetching, provides a link to fetch the _next_ chunk. If absent, indicates there are no
-   * more chunks. This link is an absolute `path` to be joined with your `$DATABRICKS_HOST`, and
-   * should be treated as an opaque link. This is an alternative to using `next_chunk_index`.
+   * When fetching, provides a link to fetch the <i>next</i> chunk. If absent, indicates there are
+   * no more chunks. This link is an absolute {@code path} to be joined with your {@code
+   * $DATABRICKS_HOST}, and should be treated as an opaque link. This is an alternative to using
+   * {@code next_chunk_index}.
    */
   @JsonProperty("next_chunk_internal_link")
   private String nextChunkInternalLink;

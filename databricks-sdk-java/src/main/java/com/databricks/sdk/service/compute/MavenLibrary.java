@@ -15,7 +15,7 @@ public class MavenLibrary {
   private String coordinates;
 
   /**
-   * List of dependences to exclude. For example: `["slf4j:slf4j", "*:hadoop-client"]`.
+   * List of dependences to exclude. For example: {@code ["slf4j:slf4j", "*:hadoop-client"]}.
    *
    * <p>Maven dependency exclusions:
    * https://maven.apache.org/guides/introduction/introduction-to-optional-and-excludes-dependencies.html.

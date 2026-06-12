@@ -15,7 +15,7 @@ public class CreateIpAccessList {
   @JsonProperty("ip_addresses")
   private Collection<String> ipAddresses;
 
-  /** Label for the IP access list. This **cannot** be empty. */
+  /** Label for the IP access list. This <b>cannot</b> be empty. */
   @JsonProperty("label")
   private String label;
 

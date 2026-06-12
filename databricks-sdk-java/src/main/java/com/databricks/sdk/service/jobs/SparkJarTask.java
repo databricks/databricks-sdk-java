@@ -11,9 +11,9 @@ import java.util.Objects;
 @Generated
 public class SparkJarTask {
   /**
-   * Deprecated since 04/2016. For classic compute, provide a `jar` through the `libraries` field
-   * instead. For serverless compute, provide a `jar` though the `java_dependencies` field inside
-   * the `environments` list.
+   * Deprecated since 04/2016. For classic compute, provide a {@code jar} through the {@code
+   * libraries} field instead. For serverless compute, provide a {@code jar} though the {@code
+   * java_dependencies} field inside the {@code environments} list.
    *
    * <p>See the examples of classic and serverless compute usage at the top of the page.
    */
@@ -24,8 +24,8 @@ public class SparkJarTask {
    * The full name of the class containing the main method to be executed. This class must be
    * contained in a JAR provided as a library.
    *
-   * <p>The code must use `SparkContext.getOrCreate` to obtain a Spark context; otherwise, runs of
-   * the job fail.
+   * <p>The code must use {@code SparkContext.getOrCreate} to obtain a Spark context; otherwise,
+   * runs of the job fail.
    */
   @JsonProperty("main_class_name")
   private String mainClassName;
@@ -33,14 +33,13 @@ public class SparkJarTask {
   /**
    * Parameters passed to the main method.
    *
-   * <p>Use [Task parameter variables] to set parameters containing information about job runs.
-   *
-   * <p>[Task parameter variables]: https://docs.databricks.com/jobs.html#parameter-variables
+   * <p>Use <a href="https://docs.databricks.com/jobs.html#parameter-variables">Task parameter
+   * variables</a> to set parameters containing information about job runs.
    */
   @JsonProperty("parameters")
   private Collection<String> parameters;
 
-  /** Deprecated. A value of `false` is no longer supported. */
+  /** Deprecated. A value of {@code false} is no longer supported. */
   @JsonProperty("run_as_repl")
   private Boolean runAsRepl;
 

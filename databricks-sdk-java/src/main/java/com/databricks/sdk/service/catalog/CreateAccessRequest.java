@@ -11,8 +11,8 @@ import java.util.Objects;
 @Generated
 public class CreateAccessRequest {
   /**
-   * Optional. The principal this request is for. Empty `behalf_of` defaults to the requester's
-   * identity.
+   * Optional. The principal this request is for. Empty {@code behalf_of} defaults to the
+   * requester's identity.
    *
    * <p>Principals must be unique across the API call.
    */

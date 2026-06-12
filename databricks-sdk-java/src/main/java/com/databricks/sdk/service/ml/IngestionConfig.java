@@ -32,8 +32,8 @@ public class IngestionConfig {
 
   /**
    * Column paths used to identify duplicate rows during ingestion; only one row per distinct
-   * combination of these values is kept. Use dot notation for nested fields (e.g. `value.user_id`).
-   * Empty list means every column is compared.
+   * combination of these values is kept. Use dot notation for nested fields (e.g. {@code
+   * value.user_id}). Empty list means every column is compared.
    */
   @JsonProperty("deduplication_columns")
   private Collection<String> deduplicationColumns;

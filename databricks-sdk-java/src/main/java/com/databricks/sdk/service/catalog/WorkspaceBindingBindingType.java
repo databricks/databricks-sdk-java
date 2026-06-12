@@ -5,8 +5,8 @@ package com.databricks.sdk.service.catalog;
 import com.databricks.sdk.support.Generated;
 
 /**
- * Using `BINDING_TYPE_` prefix here to avoid conflict with `TableOperation` enum in
- * `credentials_common.proto`.
+ * Using {@code BINDING_TYPE_} prefix here to avoid conflict with {@code TableOperation} enum in
+ * {@code credentials_common.proto}.
  */
 @Generated
 public enum WorkspaceBindingBindingType {

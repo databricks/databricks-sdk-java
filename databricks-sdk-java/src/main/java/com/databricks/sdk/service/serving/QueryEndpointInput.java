@@ -28,17 +28,17 @@ public class QueryEndpointInput {
   private DataframeSplitInput dataframeSplit;
 
   /**
-   * The extra parameters field used ONLY for __completions, chat,__ and __embeddings external &
-   * foundation model__ serving endpoints. This is a map of strings and should only be used with
-   * other external/foundation model query fields.
+   * The extra parameters field used ONLY for <b>completions, chat,</b> and <b>embeddings external
+   * &amp; foundation model</b> serving endpoints. This is a map of strings and should only be used
+   * with other external/foundation model query fields.
    */
   @JsonProperty("extra_params")
   private Map<String, String> extraParams;
 
   /**
-   * The input string (or array of strings) field used ONLY for __embeddings external & foundation
-   * model__ serving endpoints and is the only field (along with extra_params if needed) used by
-   * embeddings queries.
+   * The input string (or array of strings) field used ONLY for <b>embeddings external &amp;
+   * foundation model</b> serving endpoints and is the only field (along with extra_params if
+   * needed) used by embeddings queries.
    */
   @JsonProperty("input")
   private Object input;
@@ -52,23 +52,23 @@ public class QueryEndpointInput {
   private Collection<Object> instances;
 
   /**
-   * The max tokens field used ONLY for __completions__ and __chat external & foundation model__
-   * serving endpoints. This is an integer and should only be used with other chat/completions query
-   * fields.
+   * The max tokens field used ONLY for <b>completions</b> and <b>chat external &amp; foundation
+   * model</b> serving endpoints. This is an integer and should only be used with other
+   * chat/completions query fields.
    */
   @JsonProperty("max_tokens")
   private Long maxTokens;
 
   /**
-   * The messages field used ONLY for __chat external & foundation model__ serving endpoints. This
-   * is an array of ChatMessage objects and should only be used with other chat query fields.
+   * The messages field used ONLY for <b>chat external &amp; foundation model</b> serving endpoints.
+   * This is an array of ChatMessage objects and should only be used with other chat query fields.
    */
   @JsonProperty("messages")
   private Collection<ChatMessage> messages;
 
   /**
-   * The n (number of candidates) field used ONLY for __completions__ and __chat external &
-   * foundation model__ serving endpoints. This is an integer between 1 and 5 with a default of 1
+   * The n (number of candidates) field used ONLY for <b>completions</b> and <b>chat external &amp;
+   * foundation model</b> serving endpoints. This is an integer between 1 and 5 with a default of 1
    * and should only be used with other chat/completions query fields.
    */
   @JsonProperty("n")
@@ -81,32 +81,33 @@ public class QueryEndpointInput {
   @JsonIgnore private String name;
 
   /**
-   * The prompt string (or array of strings) field used ONLY for __completions external & foundation
-   * model__ serving endpoints and should only be used with other completions query fields.
+   * The prompt string (or array of strings) field used ONLY for <b>completions external &amp;
+   * foundation model</b> serving endpoints and should only be used with other completions query
+   * fields.
    */
   @JsonProperty("prompt")
   private Object prompt;
 
   /**
-   * The stop sequences field used ONLY for __completions__ and __chat external & foundation model__
-   * serving endpoints. This is a list of strings and should only be used with other
+   * The stop sequences field used ONLY for <b>completions</b> and <b>chat external &amp; foundation
+   * model</b> serving endpoints. This is a list of strings and should only be used with other
    * chat/completions query fields.
    */
   @JsonProperty("stop")
   private Collection<String> stop;
 
   /**
-   * The stream field used ONLY for __completions__ and __chat external & foundation model__ serving
-   * endpoints. This is a boolean defaulting to false and should only be used with other
-   * chat/completions query fields.
+   * The stream field used ONLY for <b>completions</b> and <b>chat external &amp; foundation
+   * model</b> serving endpoints. This is a boolean defaulting to false and should only be used with
+   * other chat/completions query fields.
    */
   @JsonProperty("stream")
   private Boolean stream;
 
   /**
-   * The temperature field used ONLY for __completions__ and __chat external & foundation model__
-   * serving endpoints. This is a float between 0.0 and 2.0 with a default of 1.0 and should only be
-   * used with other chat/completions query fields.
+   * The temperature field used ONLY for <b>completions</b> and <b>chat external &amp; foundation
+   * model</b> serving endpoints. This is a float between 0.0 and 2.0 with a default of 1.0 and
+   * should only be used with other chat/completions query fields.
    */
   @JsonProperty("temperature")
   private Double temperature;

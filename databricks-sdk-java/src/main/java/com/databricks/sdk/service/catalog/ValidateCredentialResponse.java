@@ -12,7 +12,7 @@ import java.util.Objects;
 public class ValidateCredentialResponse {
   /**
    * Whether the tested location is a directory in cloud storage. Only applicable for when purpose
-   * is **STORAGE**.
+   * is <b>STORAGE</b>.
    */
   @JsonProperty("isDir")
   private Boolean isDir;

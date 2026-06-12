@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class CredentialValidationResult {
-  /** Error message would exist when the result does not equal to **PASS**. */
+  /** Error message would exist when the result does not equal to <b>PASS</b>. */
   @JsonProperty("message")
   private String message;
 

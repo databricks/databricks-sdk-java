@@ -23,9 +23,10 @@ public class CleanRoomRemoteDetail {
    * Collaborators in the central clean room. There should one and only one collaborator in the list
    * that satisfies the owner condition:
    *
-   * <p>1. It has the creator's global_metastore_id (determined by caller of CreateCleanRoom).
-   *
-   * <p>2. Its invite_recipient_email is empty.
+   * <ol>
+   *   <li>It has the creator's global_metastore_id (determined by caller of CreateCleanRoom).
+   *   <li>Its invite_recipient_email is empty.
+   * </ol>
    */
   @JsonProperty("collaborators")
   private Collection<CleanRoomCollaborator> collaborators;

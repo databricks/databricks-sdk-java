@@ -10,12 +10,12 @@ import com.databricks.sdk.support.Generated;
  * <p>This API manages database infrastructure only. To query or modify data, use the Data API or
  * direct SQL connections.
  *
- * <p>**About resource IDs and names**
+ * <p><b>About resource IDs and names</b>
  *
- * <p>Resources are identified by hierarchical resource names like
- * `projects/{project_id}/branches/{branch_id}/endpoints/{endpoint_id}`. The `name` field on each
- * resource contains this full path and is output-only. Note that `name` refers to this resource
- * path, not the user-visible `display_name`.
+ * <p>Resources are identified by hierarchical resource names like {@code
+ * projects/{project_id}/branches/{branch_id}/endpoints/{endpoint_id}}. The {@code name} field on
+ * each resource contains this full path and is output-only. Note that {@code name} refers to this
+ * resource path, not the user-visible {@code display_name}.
  *
  * <p>This is the high-level interface, that contains generated methods.
  *

@@ -6,7 +6,7 @@ import com.databricks.sdk.support.Generated;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * The type of object returned by the __external/foundation model__ serving endpoint, one of
+ * The type of object returned by the <b>external/foundation model</b> serving endpoint, one of
  * [text_completion, chat.completion, list (of embeddings)].
  */
 @Generated

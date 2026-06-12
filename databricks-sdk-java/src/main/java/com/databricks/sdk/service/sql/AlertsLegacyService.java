@@ -8,12 +8,10 @@ import java.util.Collection;
  * The alerts API can be used to perform CRUD operations on alerts. An alert is a Databricks SQL
  * object that periodically runs a query, evaluates a condition of its result, and notifies one or
  * more users and/or notification destinations if the condition was met. Alerts can be scheduled
- * using the `sql_task` type of the Jobs API, e.g. :method:jobs/create.
+ * using the {@code sql_task} type of the Jobs API, e.g. :method:jobs/create.
  *
- * <p>**Warning**: This API is deprecated. Please see the latest version of the Databricks SQL API.
- * [Learn more]
- *
- * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
+ * <p><b>Warning</b>: This API is deprecated. Please see the latest version of the Databricks SQL
+ * API. <a href="https://docs.databricks.com/en/sql/dbsql-api-latest.html">Learn more</a>
  *
  * <p>This is the high-level interface, that contains generated methods.
  *
@@ -26,46 +24,41 @@ public interface AlertsLegacyService {
    * a condition of its result, and notifies users or notification destinations if the condition was
    * met.
    *
-   * <p>**Warning**: This API is deprecated. Please use :method:alerts/create instead. [Learn more]
-   *
-   * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
+   * <p><b>Warning</b>: This API is deprecated. Please use :method:alerts/create instead. <a
+   * href="https://docs.databricks.com/en/sql/dbsql-api-latest.html">Learn more</a>
    */
   LegacyAlert create(CreateAlert createAlert);
 
   /**
-   * Deletes an alert. Deleted alerts are no longer accessible and cannot be restored. **Note**:
+   * Deletes an alert. Deleted alerts are no longer accessible and cannot be restored. <b>Note</b>:
    * Unlike queries and dashboards, alerts cannot be moved to the trash.
    *
-   * <p>**Warning**: This API is deprecated. Please use :method:alerts/delete instead. [Learn more]
-   *
-   * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
+   * <p><b>Warning</b>: This API is deprecated. Please use :method:alerts/delete instead. <a
+   * href="https://docs.databricks.com/en/sql/dbsql-api-latest.html">Learn more</a>
    */
   void delete(DeleteAlertsLegacyRequest deleteAlertsLegacyRequest);
 
   /**
    * Gets an alert.
    *
-   * <p>**Warning**: This API is deprecated. Please use :method:alerts/get instead. [Learn more]
-   *
-   * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
+   * <p><b>Warning</b>: This API is deprecated. Please use :method:alerts/get instead. <a
+   * href="https://docs.databricks.com/en/sql/dbsql-api-latest.html">Learn more</a>
    */
   LegacyAlert get(GetAlertsLegacyRequest getAlertsLegacyRequest);
 
   /**
    * Gets a list of alerts.
    *
-   * <p>**Warning**: This API is deprecated. Please use :method:alerts/list instead. [Learn more]
-   *
-   * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
+   * <p><b>Warning</b>: This API is deprecated. Please use :method:alerts/list instead. <a
+   * href="https://docs.databricks.com/en/sql/dbsql-api-latest.html">Learn more</a>
    */
   Collection<LegacyAlert> list();
 
   /**
    * Updates an alert.
    *
-   * <p>**Warning**: This API is deprecated. Please use :method:alerts/update instead. [Learn more]
-   *
-   * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
+   * <p><b>Warning</b>: This API is deprecated. Please use :method:alerts/update instead. <a
+   * href="https://docs.databricks.com/en/sql/dbsql-api-latest.html">Learn more</a>
    */
   void update(EditAlert editAlert);
 }

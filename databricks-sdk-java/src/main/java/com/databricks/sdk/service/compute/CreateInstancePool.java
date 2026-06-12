@@ -27,9 +27,11 @@ public class CreateInstancePool {
 
   /**
    * Additional tags for pool resources. Databricks will tag all pool resources (e.g., AWS instances
-   * and EBS volumes) with these tags in addition to `default_tags`. Notes:
+   * and EBS volumes) with these tags in addition to {@code default_tags}. Notes:
    *
-   * <p>- Currently, Databricks allows at most 45 custom tags
+   * <ul>
+   *   <li>Currently, Databricks allows at most 45 custom tags
+   * </ul>
    */
   @JsonProperty("custom_tags")
   private Map<String, String> customTags;

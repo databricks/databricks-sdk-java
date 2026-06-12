@@ -12,13 +12,12 @@ import java.util.Objects;
 @Generated
 public class RunNow {
   /**
-   * An array of commands to execute for jobs with the dbt task, for example `"dbt_commands": ["dbt
-   * deps", "dbt seed", "dbt deps", "dbt seed", "dbt run"]`
+   * An array of commands to execute for jobs with the dbt task, for example {@code "dbt_commands":
+   * ["dbt deps", "dbt seed", "dbt deps", "dbt seed", "dbt run"]}
    *
-   * <p>⚠ **Deprecation note** Use [job parameters] to pass information down to tasks.
-   *
-   * <p>[job parameters]:
-   * https://docs.databricks.com/jobs/job-parameters.html#job-parameter-pushdown
+   * <p>⚠ <b>Deprecation note</b> Use <a
+   * href="https://docs.databricks.com/jobs/job-parameters.html#job-parameter-pushdown">job
+   * parameters</a> to pass information down to tasks.
    */
   @JsonProperty("dbt_commands")
   private Collection<String> dbtCommands;
@@ -33,24 +32,22 @@ public class RunNow {
    *
    * <p>This token must have at most 64 characters.
    *
-   * <p>For more information, see [How to ensure idempotency for jobs].
-   *
-   * <p>[How to ensure idempotency for jobs]: https://kb.databricks.com/jobs/jobs-idempotency.html
+   * <p>For more information, see <a href="https://kb.databricks.com/jobs/jobs-idempotency.html">How
+   * to ensure idempotency for jobs</a>.
    */
   @JsonProperty("idempotency_token")
   private String idempotencyToken;
 
   /**
-   * A list of parameters for jobs with Spark JAR tasks, for example `"jar_params": ["john doe",
-   * "35"]`. The parameters are used to invoke the main function of the main class specified in the
-   * Spark JAR task. If not specified upon `run-now`, it defaults to an empty list. jar_params
-   * cannot be specified in conjunction with notebook_params. The JSON representation of this field
-   * (for example `{"jar_params":["john doe","35"]}`) cannot exceed 10,000 bytes.
+   * A list of parameters for jobs with Spark JAR tasks, for example {@code "jar_params": ["john
+   * doe", "35"]}. The parameters are used to invoke the main function of the main class specified
+   * in the Spark JAR task. If not specified upon {@code run-now}, it defaults to an empty list.
+   * jar_params cannot be specified in conjunction with notebook_params. The JSON representation of
+   * this field (for example {@code {"jar_params":["john doe","35"]}}) cannot exceed 10,000 bytes.
    *
-   * <p>⚠ **Deprecation note** Use [job parameters] to pass information down to tasks.
-   *
-   * <p>[job parameters]:
-   * https://docs.databricks.com/jobs/job-parameters.html#job-parameter-pushdown
+   * <p>⚠ <b>Deprecation note</b> Use <a
+   * href="https://docs.databricks.com/jobs/job-parameters.html#job-parameter-pushdown">job
+   * parameters</a> to pass information down to tasks.
    */
   @JsonProperty("jar_params")
   private Collection<String> jarParams;
@@ -59,26 +56,27 @@ public class RunNow {
   @JsonProperty("job_id")
   private Long jobId;
 
-  /** Job-level parameters used in the run. for example `"param": "overriding_val"` */
+  /** Job-level parameters used in the run. for example {@code "param": "overriding_val"} */
   @JsonProperty("job_parameters")
   private Map<String, String> jobParameters;
 
   /**
-   * A map from keys to values for jobs with notebook task, for example `"notebook_params": {"name":
-   * "john doe", "age": "35"}`. The map is passed to the notebook and is accessible through the
-   * [dbutils.widgets.get] function.
+   * A map from keys to values for jobs with notebook task, for example {@code "notebook_params":
+   * {"name": "john doe", "age": "35"}}. The map is passed to the notebook and is accessible through
+   * the <a
+   * href="https://docs.databricks.com/dev-tools/databricks-utils.html">dbutils.widgets.get</a>
+   * function.
    *
-   * <p>If not specified upon `run-now`, the triggered run uses the job’s base parameters.
+   * <p>If not specified upon {@code run-now}, the triggered run uses the job’s base parameters.
    *
    * <p>notebook_params cannot be specified in conjunction with jar_params.
    *
-   * <p>⚠ **Deprecation note** Use [job parameters] to pass information down to tasks.
+   * <p>⚠ <b>Deprecation note</b> Use <a
+   * href="https://docs.databricks.com/jobs/job-parameters.html#job-parameter-pushdown">job
+   * parameters</a> to pass information down to tasks.
    *
-   * <p>The JSON representation of this field (for example `{"notebook_params":{"name":"john
-   * doe","age":"35"}}`) cannot exceed 10,000 bytes.
-   *
-   * <p>[dbutils.widgets.get]: https://docs.databricks.com/dev-tools/databricks-utils.html [job
-   * parameters]: https://docs.databricks.com/jobs/job-parameters.html#job-parameter-pushdown
+   * <p>The JSON representation of this field (for example {@code {"notebook_params":{"name":"john
+   * doe","age":"35"}}}) cannot exceed 10,000 bytes.
    */
   @JsonProperty("notebook_params")
   private Map<String, String> notebookParams;
@@ -95,9 +93,11 @@ public class RunNow {
    * compute performance or cost-efficiency for the run. This field overrides the performance target
    * defined on the job level.
    *
-   * <p>* `STANDARD`: Enables cost-efficient execution of serverless workloads. *
-   * `PERFORMANCE_OPTIMIZED`: Prioritizes fast startup and execution times through rapid scaling and
-   * optimized cluster performance.
+   * <ul>
+   *   <li>{@code STANDARD}: Enables cost-efficient execution of serverless workloads.
+   *   <li>{@code PERFORMANCE_OPTIMIZED}: Prioritizes fast startup and execution times through rapid
+   *       scaling and optimized cluster performance.
+   * </ul>
    */
   @JsonProperty("performance_target")
   private PerformanceTarget performanceTarget;
@@ -111,21 +111,21 @@ public class RunNow {
   private Map<String, String> pythonNamedParams;
 
   /**
-   * A list of parameters for jobs with Python tasks, for example `"python_params": ["john doe",
-   * "35"]`. The parameters are passed to Python file as command-line parameters. If specified upon
-   * `run-now`, it would overwrite the parameters specified in job setting. The JSON representation
-   * of this field (for example `{"python_params":["john doe","35"]}`) cannot exceed 10,000 bytes.
+   * A list of parameters for jobs with Python tasks, for example {@code "python_params": ["john
+   * doe", "35"]}. The parameters are passed to Python file as command-line parameters. If specified
+   * upon {@code run-now}, it would overwrite the parameters specified in job setting. The JSON
+   * representation of this field (for example {@code {"python_params":["john doe","35"]}}) cannot
+   * exceed 10,000 bytes.
    *
-   * <p>⚠ **Deprecation note** Use [job parameters] to pass information down to tasks.
+   * <p>⚠ <b>Deprecation note</b> Use <a
+   * href="https://docs.databricks.com/jobs/job-parameters.html#job-parameter-pushdown">job
+   * parameters</a> to pass information down to tasks.
    *
    * <p>Important
    *
    * <p>These parameters accept only Latin characters (ASCII character set). Using non-ASCII
    * characters returns an error. Examples of invalid, non-ASCII characters are Chinese, Japanese
    * kanjis, and emojis.
-   *
-   * <p>[job parameters]:
-   * https://docs.databricks.com/jobs/job-parameters.html#job-parameter-pushdown
    */
   @JsonProperty("python_params")
   private Collection<String> pythonParams;
@@ -135,34 +135,32 @@ public class RunNow {
   private QueueSettings queue;
 
   /**
-   * A list of parameters for jobs with spark submit task, for example `"spark_submit_params":
-   * ["--class", "org.apache.spark.examples.SparkPi"]`. The parameters are passed to spark-submit
-   * script as command-line parameters. If specified upon `run-now`, it would overwrite the
-   * parameters specified in job setting. The JSON representation of this field (for example
-   * `{"python_params":["john doe","35"]}`) cannot exceed 10,000 bytes.
+   * A list of parameters for jobs with spark submit task, for example {@code "spark_submit_params":
+   * ["--class", "org.apache.spark.examples.SparkPi"]}. The parameters are passed to spark-submit
+   * script as command-line parameters. If specified upon {@code run-now}, it would overwrite the
+   * parameters specified in job setting. The JSON representation of this field (for example {@code
+   * {"python_params":["john doe","35"]}}) cannot exceed 10,000 bytes.
    *
-   * <p>⚠ **Deprecation note** Use [job parameters] to pass information down to tasks.
+   * <p>⚠ <b>Deprecation note</b> Use <a
+   * href="https://docs.databricks.com/jobs/job-parameters.html#job-parameter-pushdown">job
+   * parameters</a> to pass information down to tasks.
    *
    * <p>Important
    *
    * <p>These parameters accept only Latin characters (ASCII character set). Using non-ASCII
    * characters returns an error. Examples of invalid, non-ASCII characters are Chinese, Japanese
    * kanjis, and emojis.
-   *
-   * <p>[job parameters]:
-   * https://docs.databricks.com/jobs/job-parameters.html#job-parameter-pushdown
    */
   @JsonProperty("spark_submit_params")
   private Collection<String> sparkSubmitParams;
 
   /**
-   * A map from keys to values for jobs with SQL task, for example `"sql_params": {"name": "john
-   * doe", "age": "35"}`. The SQL alert task does not support custom parameters.
+   * A map from keys to values for jobs with SQL task, for example {@code "sql_params": {"name":
+   * "john doe", "age": "35"}}. The SQL alert task does not support custom parameters.
    *
-   * <p>⚠ **Deprecation note** Use [job parameters] to pass information down to tasks.
-   *
-   * <p>[job parameters]:
-   * https://docs.databricks.com/jobs/job-parameters.html#job-parameter-pushdown
+   * <p>⚠ <b>Deprecation note</b> Use <a
+   * href="https://docs.databricks.com/jobs/job-parameters.html#job-parameter-pushdown">job
+   * parameters</a> to pass information down to tasks.
    */
   @JsonProperty("sql_params")
   private Map<String, String> sqlParams;

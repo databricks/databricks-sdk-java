@@ -10,8 +10,8 @@ import java.util.Objects;
 @Generated
 public class GetIndexRequest {
   /**
-   * Full resource name of the index. Format:
-   * `workspaces/{workspace_id}/endpoints/{endpoint_id}/indexes/{index_id}`
+   * Full resource name of the index. Format: {@code
+   * workspaces/{workspace_id}/endpoints/{endpoint_id}/indexes/{index_id}}
    */
   @JsonIgnore private String name;
 

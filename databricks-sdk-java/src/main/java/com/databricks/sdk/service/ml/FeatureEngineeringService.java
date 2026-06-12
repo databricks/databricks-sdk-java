@@ -92,6 +92,6 @@ public interface FeatureEngineeringService {
   MaterializedFeature updateMaterializedFeature(
       UpdateMaterializedFeatureRequest updateMaterializedFeatureRequest);
 
-  /** Update a Stream. Only fields listed in `update_mask` are mutated. */
+  /** Update a Stream. Only fields listed in {@code update_mask} are mutated. */
   Stream updateStream(UpdateStreamRequest updateStreamRequest);
 }

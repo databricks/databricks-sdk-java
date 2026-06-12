@@ -20,11 +20,11 @@ public class ListAccountUserPreferencesMetadataRequest {
   private Long pageSize;
 
   /**
-   * A page token, received from a previous `ListAccountUserPreferencesMetadataRequest` call.
+   * A page token, received from a previous {@code ListAccountUserPreferencesMetadataRequest} call.
    * Provide this to retrieve the subsequent page.
    *
-   * <p>When paginating, all other parameters provided to
-   * `ListAccountUserPreferencesMetadataRequest` must match the call that provided the page token.
+   * <p>When paginating, all other parameters provided to {@code
+   * ListAccountUserPreferencesMetadataRequest} must match the call that provided the page token.
    */
   @JsonIgnore
   @QueryParam("page_token")

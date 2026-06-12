@@ -26,7 +26,7 @@ public class TableInfo {
   @JsonProperty("catalog_name")
   private String catalogName;
 
-  /** The array of __ColumnInfo__ definitions of the table's columns. */
+  /** The array of <b>ColumnInfo</b> definitions of the table's columns. */
   @JsonProperty("columns")
   private Collection<ColumnInfo> columns;
 
@@ -73,7 +73,7 @@ public class TableInfo {
   @JsonProperty("encryption_details")
   private EncryptionDetails encryptionDetails;
 
-  /** Full name of table, in form of __catalog_name__.__schema_name__.__table_name__ */
+  /** Full name of table, in form of <b>catalog_name</b>.<b>schema_name</b>.<b>table_name</b> */
   @JsonProperty("full_name")
   private String fullName;
 
@@ -123,12 +123,13 @@ public class TableInfo {
   @JsonProperty("storage_credential_name")
   private String storageCredentialName;
 
-  /** Storage root URL for table (for **MANAGED**, **EXTERNAL** tables). */
+  /** Storage root URL for table (for <b>MANAGED</b>, <b>EXTERNAL</b> tables). */
   @JsonProperty("storage_location")
   private String storageLocation;
 
   /**
-   * List of table constraints. Note: this field is not set in the output of the __listTables__ API.
+   * List of table constraints. Note: this field is not set in the output of the <b>listTables</b>
+   * API.
    */
   @JsonProperty("table_constraints")
   private Collection<TableConstraint> tableConstraints;
@@ -150,18 +151,22 @@ public class TableInfo {
   private String updatedBy;
 
   /**
-   * View definition SQL (when __table_type__ is **VIEW**, **MATERIALIZED_VIEW**, or
-   * **STREAMING_TABLE**)
+   * View definition SQL (when <b>table_type</b> is <b>VIEW</b>, <b>MATERIALIZED_VIEW</b>, or
+   * <b>STREAMING_TABLE</b>)
    */
   @JsonProperty("view_definition")
   private String viewDefinition;
 
   /**
-   * View dependencies (when table_type == **VIEW** or **MATERIALIZED_VIEW**, **STREAMING_TABLE**) -
-   * when DependencyList is None, the dependency is not provided; - when DependencyList is an empty
-   * list, the dependency is provided but is empty; - when DependencyList is not an empty list,
-   * dependencies are provided and recorded. Note: this field is not set in the output of the
-   * __listTables__ API.
+   * View dependencies (when table_type == <b>VIEW</b> or <b>MATERIALIZED_VIEW</b>,
+   * <b>STREAMING_TABLE</b>)
+   *
+   * <ul>
+   *   <li>when DependencyList is None, the dependency is not provided;
+   *   <li>when DependencyList is an empty list, the dependency is provided but is empty;
+   *   <li>when DependencyList is not an empty list, dependencies are provided and recorded. Note:
+   *       this field is not set in the output of the <b>listTables</b> API.
+   * </ul>
    */
   @JsonProperty("view_dependencies")
   private DependencyList viewDependencies;

@@ -15,7 +15,7 @@ public class UpdateDatabaseRequest {
   /**
    * The Database to update.
    *
-   * <p>The database's `name` field is used to identify the database to update. Format:
+   * <p>The database's {@code name} field is used to identify the database to update. Format:
    * projects/{project_id}/branches/{branch_id}/databases/{database_id}
    */
   @JsonProperty("database")

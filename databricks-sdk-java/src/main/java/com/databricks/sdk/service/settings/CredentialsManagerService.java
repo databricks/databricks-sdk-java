@@ -17,14 +17,15 @@ public interface CredentialsManagerService {
    * Exchange tokens with an Identity Provider to get a new access token. It allows specifying
    * scopes to determine token permissions.
    *
-   * <p>POST /exchange-tokens/token is the documented public form, expressed via `google.api.http`
-   * below. GET /exchange-tokens/$exchange is a legacy alias used by the Spark driver's OAuth
-   * refresh path (DBHttpClient#get sends a body via HttpGetWithEntity) and stays on the legacy
-   * `option (rpc).endpoints` annotation: its path contains a literal `$`, which `google.api.http`'s
-   * LITERAL grammar does not allow, and `HttpPathParser` does not percent-decode template segments
-   * (so encoding as `%24exchange` would not match the literal `$exchange` path the Spark driver
-   * sends). Per-endpoint `visibility: PUBLIC_UNDOCUMENTED` preserves the DECO-7732 intent of
-   * suppressing the GET alias from the public API spec.
+   * <p>POST /exchange-tokens/token is the documented public form, expressed via {@code
+   * google.api.http} below. GET /exchange-tokens/$exchange is a legacy alias used by the Spark
+   * driver's OAuth refresh path (DBHttpClient#get sends a body via HttpGetWithEntity) and stays on
+   * the legacy {@code option (rpc).endpoints} annotation: its path contains a literal {@code $},
+   * which {@code google.api.http}'s LITERAL grammar does not allow, and {@code HttpPathParser} does
+   * not percent-decode template segments (so encoding as {@code %24exchange} would not match the
+   * literal {@code $exchange} path the Spark driver sends). Per-endpoint {@code visibility:
+   * PUBLIC_UNDOCUMENTED} preserves the DECO-7732 intent of suppressing the GET alias from the
+   * public API spec.
    */
   ExchangeTokenResponse exchangeToken(ExchangeTokenRequest exchangeTokenRequest);
 }

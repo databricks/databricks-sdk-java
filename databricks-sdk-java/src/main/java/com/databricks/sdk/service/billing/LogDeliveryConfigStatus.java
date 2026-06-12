@@ -5,10 +5,10 @@ package com.databricks.sdk.service.billing;
 import com.databricks.sdk.support.Generated;
 
 /**
- * * Log Delivery Status
+ * Log Delivery Status
  *
- * <p>`ENABLED`: All dependencies have executed and succeeded `DISABLED`: At least one dependency
- * has succeeded
+ * <p>{@code ENABLED}: All dependencies have executed and succeeded {@code DISABLED}: At least one
+ * dependency has succeeded
  */
 @Generated
 public enum LogDeliveryConfigStatus {

@@ -11,8 +11,8 @@ import java.util.Objects;
 @Generated
 public class UpdateCleanRoomAssetRequest {
   /**
-   * The asset to update. The asset's `name` and `asset_type` fields are used to identify the asset
-   * to update.
+   * The asset to update. The asset's {@code name} and {@code asset_type} fields are used to
+   * identify the asset to update.
    */
   @JsonProperty("asset")
   private CleanRoomAsset asset;
@@ -28,7 +28,7 @@ public class UpdateCleanRoomAssetRequest {
    * the name displayed in the clean room UI.
    *
    * <p>For UC securable assets (tables, volumes, etc.), the format is
-   * *shared_catalog*.*shared_schema*.*asset_name*
+   * <i>shared_catalog</i>.<i>shared_schema</i>.<i>asset_name</i>
    *
    * <p>For notebooks, the name is the notebook file name. For jar analyses, the name is the jar
    * analysis name.

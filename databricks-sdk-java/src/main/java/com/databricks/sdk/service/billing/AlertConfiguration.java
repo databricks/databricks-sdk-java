@@ -23,14 +23,14 @@ public class AlertConfiguration {
 
   /**
    * The threshold for the budget alert to determine if it is in a triggered state. The number is
-   * evaluated based on `quantity_type`.
+   * evaluated based on {@code quantity_type}.
    */
   @JsonProperty("quantity_threshold")
   private String quantityThreshold;
 
   /**
-   * The way to calculate cost for this budget alert. This is what `quantity_threshold` is measured
-   * in.
+   * The way to calculate cost for this budget alert. This is what {@code quantity_threshold} is
+   * measured in.
    */
   @JsonProperty("quantity_type")
   private AlertConfigurationQuantityType quantityType;

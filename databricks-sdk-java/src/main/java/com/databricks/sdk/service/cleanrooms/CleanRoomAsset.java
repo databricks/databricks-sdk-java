@@ -27,14 +27,14 @@ public class CleanRoomAsset {
 
   /**
    * Foreign table details available to all collaborators of the clean room. Present if and only if
-   * **asset_type** is **FOREIGN_TABLE**
+   * <b>asset_type</b> is <b>FOREIGN_TABLE</b>
    */
   @JsonProperty("foreign_table")
   private CleanRoomAssetForeignTable foreignTable;
 
   /**
    * Local details for a foreign that are only available to its owner. Present if and only if
-   * **asset_type** is **FOREIGN_TABLE**
+   * <b>asset_type</b> is <b>FOREIGN_TABLE</b>
    */
   @JsonProperty("foreign_table_local_details")
   private CleanRoomAssetForeignTableLocalDetails foreignTableLocalDetails;
@@ -44,7 +44,7 @@ public class CleanRoomAsset {
    * the name displayed in the clean room UI.
    *
    * <p>For UC securable assets (tables, volumes, etc.), the format is
-   * *shared_catalog*.*shared_schema*.*asset_name*
+   * <i>shared_catalog</i>.<i>shared_schema</i>.<i>asset_name</i>
    *
    * <p>For notebooks, the name is the notebook file name. For jar analyses, the name is the jar
    * analysis name.
@@ -54,7 +54,7 @@ public class CleanRoomAsset {
 
   /**
    * Notebook details available to all collaborators of the clean room. Present if and only if
-   * **asset_type** is **NOTEBOOK_FILE**
+   * <b>asset_type</b> is <b>NOTEBOOK_FILE</b>
    */
   @JsonProperty("notebook")
   private CleanRoomAssetNotebook notebook;
@@ -69,35 +69,35 @@ public class CleanRoomAsset {
 
   /**
    * Table details available to all collaborators of the clean room. Present if and only if
-   * **asset_type** is **TABLE**
+   * <b>asset_type</b> is <b>TABLE</b>
    */
   @JsonProperty("table")
   private CleanRoomAssetTable table;
 
   /**
    * Local details for a table that are only available to its owner. Present if and only if
-   * **asset_type** is **TABLE**
+   * <b>asset_type</b> is <b>TABLE</b>
    */
   @JsonProperty("table_local_details")
   private CleanRoomAssetTableLocalDetails tableLocalDetails;
 
   /**
    * View details available to all collaborators of the clean room. Present if and only if
-   * **asset_type** is **VIEW**
+   * <b>asset_type</b> is <b>VIEW</b>
    */
   @JsonProperty("view")
   private CleanRoomAssetView view;
 
   /**
    * Local details for a view that are only available to its owner. Present if and only if
-   * **asset_type** is **VIEW**
+   * <b>asset_type</b> is <b>VIEW</b>
    */
   @JsonProperty("view_local_details")
   private CleanRoomAssetViewLocalDetails viewLocalDetails;
 
   /**
    * Local details for a volume that are only available to its owner. Present if and only if
-   * **asset_type** is **VOLUME**
+   * <b>asset_type</b> is <b>VOLUME</b>
    */
   @JsonProperty("volume_local_details")
   private CleanRoomAssetVolumeLocalDetails volumeLocalDetails;

@@ -10,8 +10,8 @@ import java.util.Objects;
 @Generated
 public class ReadResponse {
   /**
-   * The number of bytes read (could be less than ``length`` if we hit end of file). This refers to
-   * number of bytes read in unencoded version (response data is base64-encoded).
+   * The number of bytes read (could be less than {@code length} if we hit end of file). This refers
+   * to number of bytes read in unencoded version (response data is base64-encoded).
    */
   @JsonProperty("bytes_read")
   private Long bytesRead;

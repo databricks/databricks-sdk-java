@@ -7,11 +7,9 @@ import com.databricks.sdk.support.Generated;
  * Unity Catalog enforces resource quotas on all securable objects, which limits the number of
  * resources that can be created. Quotas are expressed in terms of a resource type and a parent (for
  * example, tables per metastore or schemas per catalog). The resource quota APIs enable you to
- * monitor your current usage and limits. For more information on resource quotas see the [Unity
- * Catalog documentation].
- *
- * <p>[Unity Catalog documentation]:
- * https://docs.databricks.com/en/data-governance/unity-catalog/index.html#resource-quotas
+ * monitor your current usage and limits. For more information on resource quotas see the <a
+ * href="https://docs.databricks.com/en/data-governance/unity-catalog/index.html#resource-quotas">Unity
+ * Catalog documentation</a>.
  *
  * <p>This is the high-level interface, that contains generated methods.
  *

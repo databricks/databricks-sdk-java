@@ -11,8 +11,8 @@ import java.util.Objects;
 @Generated
 public class Operation {
   /**
-   * If the value is `false`, it means the operation is still in progress. If `true`, the operation
-   * is completed, and either `error` or `response` is available.
+   * If the value is {@code false}, it means the operation is still in progress. If {@code true},
+   * the operation is completed, and either {@code error} or {@code response} is available.
    */
   @JsonProperty("done")
   private Boolean done;
@@ -31,8 +31,8 @@ public class Operation {
 
   /**
    * The server-assigned name, which is only unique within the same service that originally returns
-   * it. If you use the default HTTP mapping, the `name` should be a resource name ending with
-   * `operations/{unique_id}`.
+   * it. If you use the default HTTP mapping, the {@code name} should be a resource name ending with
+   * {@code operations/{unique_id}}.
    */
   @JsonProperty("name")
   private String name;

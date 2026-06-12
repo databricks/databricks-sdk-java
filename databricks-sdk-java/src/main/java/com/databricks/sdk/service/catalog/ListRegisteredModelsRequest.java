@@ -29,18 +29,28 @@ public class ListRegisteredModelsRequest {
   /**
    * Max number of registered models to return.
    *
-   * <p>If both catalog and schema are specified: - when max_results is not specified, the page
-   * length is set to a server configured value (10000, as of 4/2/2024). - when set to a value
-   * greater than 0, the page length is the minimum of this value and a server configured value
-   * (10000, as of 4/2/2024); - when set to 0, the page length is set to a server configured value
-   * (10000, as of 4/2/2024); - when set to a value less than 0, an invalid parameter error is
-   * returned;
+   * <p>If both catalog and schema are specified:
    *
-   * <p>If neither schema nor catalog is specified: - when max_results is not specified, the page
-   * length is set to a server configured value (100, as of 4/2/2024). - when set to a value greater
-   * than 0, the page length is the minimum of this value and a server configured value (1000, as of
-   * 4/2/2024); - when set to 0, the page length is set to a server configured value (100, as of
-   * 4/2/2024); - when set to a value less than 0, an invalid parameter error is returned;
+   * <ul>
+   *   <li>when max_results is not specified, the page length is set to a server configured value
+   *       (10000, as of 4/2/2024).
+   *   <li>when set to a value greater than 0, the page length is the minimum of this value and a
+   *       server configured value (10000, as of 4/2/2024);
+   *   <li>when set to 0, the page length is set to a server configured value (10000, as of
+   *       4/2/2024);
+   *   <li>when set to a value less than 0, an invalid parameter error is returned;
+   * </ul>
+   *
+   * <p>If neither schema nor catalog is specified:
+   *
+   * <ul>
+   *   <li>when max_results is not specified, the page length is set to a server configured value
+   *       (100, as of 4/2/2024).
+   *   <li>when set to a value greater than 0, the page length is the minimum of this value and a
+   *       server configured value (1000, as of 4/2/2024);
+   *   <li>when set to 0, the page length is set to a server configured value (100, as of 4/2/2024);
+   *   <li>when set to a value less than 0, an invalid parameter error is returned;
+   * </ul>
    */
   @JsonIgnore
   @QueryParam("max_results")

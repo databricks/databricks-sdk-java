@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-/** * Log Delivery Configuration */
+/** Log Delivery Configuration */
 @Generated
 public class CreateLogDeliveryConfigurationParams {
   /** The optional human-readable name of the log delivery configuration. Defaults to empty. */
@@ -17,11 +17,9 @@ public class CreateLogDeliveryConfigurationParams {
 
   /**
    * The ID for a method:credentials/create that represents the AWS IAM role with policy and trust
-   * relationship as described in the main billable usage documentation page. See [Configure
-   * billable usage delivery].
-   *
-   * <p>[Configure billable usage delivery]:
-   * https://docs.databricks.com/administration-guide/account-settings/billable-usage-delivery.html
+   * relationship as described in the main billable usage documentation page. See <a
+   * href="https://docs.databricks.com/administration-guide/account-settings/billable-usage-delivery.html">Configure
+   * billable usage delivery</a>.
    */
   @JsonProperty("credentials_id")
   private String credentialsId;
@@ -43,51 +41,56 @@ public class CreateLogDeliveryConfigurationParams {
   private String deliveryStartTime;
 
   /**
-   * Log delivery type. Supported values are: * `BILLABLE_USAGE` — Configure [billable usage log
-   * delivery]. For the CSV schema, see the [View billable usage]. * `AUDIT_LOGS` — Configure [audit
-   * log delivery]. For the JSON schema, see [Configure audit logging]
+   * Log delivery type. Supported values are:
    *
-   * <p>[Configure audit logging]:
-   * https://docs.databricks.com/administration-guide/account-settings/audit-logs.html [View
-   * billable usage]: https://docs.databricks.com/administration-guide/account-settings/usage.html
-   * [audit log delivery]:
-   * https://docs.databricks.com/administration-guide/account-settings/audit-logs.html [billable
-   * usage log delivery]:
-   * https://docs.databricks.com/administration-guide/account-settings/billable-usage-delivery.html
+   * <ul>
+   *   <li>{@code BILLABLE_USAGE} — Configure <a
+   *       href="https://docs.databricks.com/administration-guide/account-settings/billable-usage-delivery.html">billable
+   *       usage log delivery</a>. For the CSV schema, see the <a
+   *       href="https://docs.databricks.com/administration-guide/account-settings/usage.html">View
+   *       billable usage</a>.
+   *   <li>{@code AUDIT_LOGS} — Configure <a
+   *       href="https://docs.databricks.com/administration-guide/account-settings/audit-logs.html">audit
+   *       log delivery</a>. For the JSON schema, see <a
+   *       href="https://docs.databricks.com/administration-guide/account-settings/audit-logs.html">Configure
+   *       audit logging</a>
+   * </ul>
    */
   @JsonProperty("log_type")
   private LogType logType;
 
   /**
-   * The file type of log delivery. * If `log_type` is `BILLABLE_USAGE`, this value must be `CSV`.
-   * Only the CSV (comma-separated values) format is supported. For the schema, see the [View
-   * billable usage] * If `log_type` is `AUDIT_LOGS`, this value must be `JSON`. Only the JSON
-   * (JavaScript Object Notation) format is supported. For the schema, see the [Configuring audit
-   * logs].
+   * The file type of log delivery.
    *
-   * <p>[Configuring audit logs]:
-   * https://docs.databricks.com/administration-guide/account-settings/audit-logs.html [View
-   * billable usage]: https://docs.databricks.com/administration-guide/account-settings/usage.html
+   * <ul>
+   *   <li>If {@code log_type} is {@code BILLABLE_USAGE}, this value must be {@code CSV}. Only the
+   *       CSV (comma-separated values) format is supported. For the schema, see the <a
+   *       href="https://docs.databricks.com/administration-guide/account-settings/usage.html">View
+   *       billable usage</a>
+   *   <li>If {@code log_type} is {@code AUDIT_LOGS}, this value must be {@code JSON}. Only the JSON
+   *       (JavaScript Object Notation) format is supported. For the schema, see the <a
+   *       href="https://docs.databricks.com/administration-guide/account-settings/audit-logs.html">Configuring
+   *       audit logs</a>.
+   * </ul>
    */
   @JsonProperty("output_format")
   private OutputFormat outputFormat;
 
   /**
-   * Status of log delivery configuration. Set to `ENABLED` (enabled) or `DISABLED` (disabled).
-   * Defaults to `ENABLED`. You can [enable or disable the
-   * configuration](#operation/patch-log-delivery-config-status) later. Deletion of a configuration
-   * is not supported, so disable a log delivery configuration that is no longer needed.
+   * Status of log delivery configuration. Set to {@code ENABLED} (enabled) or {@code DISABLED}
+   * (disabled). Defaults to {@code ENABLED}. You can <a
+   * href="#operation/patch-log-delivery-config-status">enable or disable the configuration</a>
+   * later. Deletion of a configuration is not supported, so disable a log delivery configuration
+   * that is no longer needed.
    */
   @JsonProperty("status")
   private LogDeliveryConfigStatus status;
 
   /**
    * The ID for a method:storage/create that represents the S3 bucket with bucket policy as
-   * described in the main billable usage documentation page. See [Configure billable usage
-   * delivery].
-   *
-   * <p>[Configure billable usage delivery]:
-   * https://docs.databricks.com/administration-guide/account-settings/billable-usage-delivery.html
+   * described in the main billable usage documentation page. See <a
+   * href="https://docs.databricks.com/administration-guide/account-settings/billable-usage-delivery.html">Configure
+   * billable usage delivery</a>.
    */
   @JsonProperty("storage_configuration_id")
   private String storageConfigurationId;
@@ -96,9 +99,9 @@ public class CreateLogDeliveryConfigurationParams {
    * Optional filter that specifies workspace IDs to deliver logs for. By default the workspace
    * filter is empty and log delivery applies at the account level, delivering workspace-level logs
    * for all workspaces in your account, plus account level logs. You can optionally set this field
-   * to an array of workspace IDs (each one is an `int64`) to which log delivery should apply, in
-   * which case only workspace-level logs relating to the specified workspaces are delivered. If you
-   * plan to use different log delivery configurations for different workspaces, set this field
+   * to an array of workspace IDs (each one is an {@code int64}) to which log delivery should apply,
+   * in which case only workspace-level logs relating to the specified workspaces are delivered. If
+   * you plan to use different log delivery configurations for different workspaces, set this field
    * explicitly. Be aware that delivery configurations mentioning specific workspaces won't apply to
    * new workspaces created in the future, and delivery won't include account level logs. For some
    * types of Databricks deployments there is only one workspace per account ID, so this field is

@@ -10,8 +10,8 @@ import java.util.Objects;
 
 /**
  * A rolling time window with an optional delay. This is the SQL-spec-aligned replacement for
- * ContinuousWindow: `delay` is the non-negative counterpart of the legacy non-positive
- * `ContinuousWindow.offset`.
+ * ContinuousWindow: {@code delay} is the non-negative counterpart of the legacy non-positive {@code
+ * ContinuousWindow.offset}.
  */
 @Generated
 public class RollingWindow {

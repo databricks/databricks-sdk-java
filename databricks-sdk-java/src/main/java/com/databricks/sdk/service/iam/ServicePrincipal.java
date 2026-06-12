@@ -23,11 +23,9 @@ public class ServicePrincipal {
   private String displayName;
 
   /**
-   * Entitlements assigned to the service principal. See [assigning entitlements] for a full list of
-   * supported values.
-   *
-   * <p>[assigning entitlements]:
-   * https://docs.databricks.com/administration-guide/users-groups/index.html#assigning-entitlements
+   * Entitlements assigned to the service principal. See <a
+   * href="https://docs.databricks.com/administration-guide/users-groups/index.html#assigning-entitlements">assigning
+   * entitlements</a> for a full list of supported values.
    */
   @JsonProperty("entitlements")
   private Collection<ComplexValue> entitlements;

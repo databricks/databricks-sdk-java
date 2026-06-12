@@ -10,14 +10,14 @@ import java.util.Objects;
 @Generated
 public class JobNotificationSettings {
   /**
-   * If true, do not send notifications to recipients specified in `on_failure` if the run is
+   * If true, do not send notifications to recipients specified in {@code on_failure} if the run is
    * canceled.
    */
   @JsonProperty("no_alert_for_canceled_runs")
   private Boolean noAlertForCanceledRuns;
 
   /**
-   * If true, do not send notifications to recipients specified in `on_failure` if the run is
+   * If true, do not send notifications to recipients specified in {@code on_failure} if the run is
    * skipped.
    */
   @JsonProperty("no_alert_for_skipped_runs")

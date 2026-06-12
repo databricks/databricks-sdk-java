@@ -27,9 +27,13 @@ public class UpdateKnowledgeAssistantRequest {
   @JsonIgnore private String name;
 
   /**
-   * Comma-delimited list of fields to update on the Knowledge Assistant. Allowed values:
-   * `display_name`, `description`, `instructions`. Examples: - `display_name` -
-   * `description,instructions`
+   * Comma-delimited list of fields to update on the Knowledge Assistant. Allowed values: {@code
+   * display_name}, {@code description}, {@code instructions}. Examples:
+   *
+   * <ul>
+   *   <li>{@code display_name}
+   *   <li>{@code description,instructions}
+   * </ul>
    */
   @JsonIgnore
   @QueryParam("update_mask")

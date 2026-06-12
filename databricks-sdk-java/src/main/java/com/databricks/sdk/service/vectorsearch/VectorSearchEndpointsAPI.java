@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Consumer;
 
-/** **Endpoint**: Represents the compute resources to host AI Search indexes. */
+/** <b>Endpoint</b>: Represents the compute resources to host AI Search indexes. */
 @Generated
 public class VectorSearchEndpointsAPI {
   private static final Logger LOG = LoggerFactory.getLogger(VectorSearchEndpointsAPI.class);

@@ -19,14 +19,14 @@ public class PartitionValue {
 
   /**
    * The key of a Delta Sharing recipient's property. For example "databricks-account-id". When this
-   * field is set, field `value` can not be set.
+   * field is set, field {@code value} can not be set.
    */
   @JsonProperty("recipient_property_key")
   private String recipientPropertyKey;
 
   /**
-   * The value of the partition column. When this value is not set, it means `null` value. When this
-   * field is set, field `recipient_property_key` can not be set.
+   * The value of the partition column. When this value is not set, it means {@code null} value.
+   * When this field is set, field {@code recipient_property_key} can not be set.
    */
   @JsonProperty("value")
   private String value;

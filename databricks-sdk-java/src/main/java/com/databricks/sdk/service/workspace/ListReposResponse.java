@@ -11,8 +11,8 @@ import java.util.Objects;
 @Generated
 public class ListReposResponse {
   /**
-   * Token that can be specified as a query parameter to the `GET /repos` endpoint to retrieve the
-   * next page of results.
+   * Token that can be specified as a query parameter to the {@code GET /repos} endpoint to retrieve
+   * the next page of results.
    */
   @JsonProperty("next_page_token")
   private String nextPageToken;

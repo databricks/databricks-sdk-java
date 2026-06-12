@@ -16,7 +16,7 @@ public class CleanRoomAssetNotebook {
 
   /**
    * Base 64 representation of the notebook contents. This is the same format as returned by
-   * :method:workspace/export with the format of **HTML**.
+   * :method:workspace/export with the format of <b>HTML</b>.
    */
   @JsonProperty("notebook_content")
   private String notebookContent;

@@ -52,7 +52,7 @@ public class RfaAPI {
 
   /**
    * Gets an array of access request destinations for the specified securable. Any caller can see
-   * URL destinations or the destinations on the metastore. Otherwise, only those with **BROWSE**
+   * URL destinations or the destinations on the metastore. Otherwise, only those with <b>BROWSE</b>
    * permissions on the securable can see destinations.
    *
    * <p>The supported securable types are: "metastore", "catalog", "schema", "table",
@@ -65,12 +65,12 @@ public class RfaAPI {
 
   /**
    * Updates the access request destinations for the given securable. The caller must be a metastore
-   * admin, the owner of the securable, or a user that has the **MANAGE** privilege on the securable
-   * in order to assign destinations. Destinations cannot be updated for securables underneath
-   * schemas (tables, volumes, functions, and models). For these securable types, destinations are
-   * inherited from the parent securable. A maximum of 5 emails and 5 external notification
-   * destinations (Slack, Microsoft Teams, and Generic Webhook destinations) can be assigned to a
-   * securable. If a URL destination is assigned, no other destinations can be set.
+   * admin, the owner of the securable, or a user that has the <b>MANAGE</b> privilege on the
+   * securable in order to assign destinations. Destinations cannot be updated for securables
+   * underneath schemas (tables, volumes, functions, and models). For these securable types,
+   * destinations are inherited from the parent securable. A maximum of 5 emails and 5 external
+   * notification destinations (Slack, Microsoft Teams, and Generic Webhook destinations) can be
+   * assigned to a securable. If a URL destination is assigned, no other destinations can be set.
    *
    * <p>The supported securable types are: "metastore", "catalog", "schema", "table",
    * "external_location", "connection", "credential", "function", "registered_model", and "volume".

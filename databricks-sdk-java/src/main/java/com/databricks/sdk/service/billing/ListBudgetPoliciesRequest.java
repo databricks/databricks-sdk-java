@@ -24,11 +24,11 @@ public class ListBudgetPoliciesRequest {
   private Long pageSize;
 
   /**
-   * A page token, received from a previous `ListServerlessPolicies` call. Provide this to retrieve
-   * the subsequent page. If unspecified, the first page will be returned.
+   * A page token, received from a previous {@code ListServerlessPolicies} call. Provide this to
+   * retrieve the subsequent page. If unspecified, the first page will be returned.
    *
-   * <p>When paginating, all other parameters provided to `ListServerlessPoliciesRequest` must match
-   * the call that provided the page token.
+   * <p>When paginating, all other parameters provided to {@code ListServerlessPoliciesRequest} must
+   * match the call that provided the page token.
    */
   @JsonIgnore
   @QueryParam("page_token")

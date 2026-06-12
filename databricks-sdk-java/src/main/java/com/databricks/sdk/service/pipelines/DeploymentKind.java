@@ -5,8 +5,11 @@ package com.databricks.sdk.service.pipelines;
 import com.databricks.sdk.support.Generated;
 
 /**
- * The deployment method that manages the pipeline: - BUNDLE: The pipeline is managed by a
- * Databricks Asset Bundle.
+ * The deployment method that manages the pipeline:
+ *
+ * <ul>
+ *   <li>BUNDLE: The pipeline is managed by a Databricks Asset Bundle.
+ * </ul>
  */
 @Generated
 public enum DeploymentKind {

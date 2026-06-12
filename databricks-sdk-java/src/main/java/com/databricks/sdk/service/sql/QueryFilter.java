@@ -25,7 +25,7 @@ public class QueryFilter {
 
   /**
    * A list of statuses (QUEUED, RUNNING, CANCELED, FAILED, FINISHED) to match query results.
-   * Corresponds to the `status` field in the response. Filtering for multiple statuses is not
+   * Corresponds to the {@code status} field in the response. Filtering for multiple statuses is not
    * recommended. Instead, opt to filter by a single status multiple times and then combine the
    * results.
    */

@@ -9,14 +9,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 /**
- * Request to scan (paginate over) the rows of an AI Search index. Models the legacy `num_results` /
- * `last_primary_key` cursor as AIP-158 `page_size` / `page_token`.
+ * Request to scan (paginate over) the rows of an AI Search index. Models the legacy {@code
+ * num_results} / {@code last_primary_key} cursor as AIP-158 {@code page_size} / {@code page_token}.
  */
 @Generated
 public class ScanIndexRequest {
   /**
-   * Full resource name of the index to scan. Format:
-   * `workspaces/{workspace_id}/endpoints/{endpoint_id}/indexes/{index_id}`
+   * Full resource name of the index to scan. Format: {@code
+   * workspaces/{workspace_id}/endpoints/{endpoint_id}/indexes/{index_id}}
    */
   @JsonIgnore private String name;
 

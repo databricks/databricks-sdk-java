@@ -10,9 +10,13 @@ import java.util.Objects;
 
 /**
  * Data Classification configuration for a Unity Catalog catalog. This message follows the "At Most
- * One Resource" pattern: at most one CatalogConfig exists per catalog. - Full CRUD operations are
- * supported: Create enables Data Classification, Delete disables it - It has no unique identifier
- * of its own and uses its parent catalog's identifier (catalog_name)
+ * One Resource" pattern: at most one CatalogConfig exists per catalog.
+ *
+ * <ul>
+ *   <li>Full CRUD operations are supported: Create enables Data Classification, Delete disables it
+ *   <li>It has no unique identifier of its own and uses its parent catalog's identifier
+ *       (catalog_name)
+ * </ul>
  */
 @Generated
 public class CatalogConfig {
@@ -25,7 +29,7 @@ public class CatalogConfig {
 
   /**
    * Schemas to include in the scan. Empty list is not supported as it results in a no-op scan. If
-   * `included_schemas` is not set, all schemas are scanned.
+   * {@code included_schemas} is not set, all schemas are scanned.
    */
   @JsonProperty("included_schemas")
   private CatalogConfigSchemaNames includedSchemas;

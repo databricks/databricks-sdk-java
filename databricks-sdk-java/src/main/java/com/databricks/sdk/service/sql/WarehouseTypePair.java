@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 /**
- * * Configuration values to enable or disable the access to specific warehouse types in the
+ * Configuration values to enable or disable the access to specific warehouse types in the
  * workspace.
  */
 @Generated

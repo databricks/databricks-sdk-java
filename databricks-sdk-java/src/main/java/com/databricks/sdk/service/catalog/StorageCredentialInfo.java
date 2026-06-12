@@ -73,7 +73,7 @@ public class StorageCredentialInfo {
 
   /**
    * Whether the credential is usable only for read operations. Only applicable when purpose is
-   * **STORAGE**.
+   * <b>STORAGE</b>.
    */
   @JsonProperty("read_only")
   private Boolean readOnly;
@@ -88,7 +88,7 @@ public class StorageCredentialInfo {
 
   /**
    * Whether this credential is the current metastore's root storage credential. Only applicable
-   * when purpose is **STORAGE**.
+   * when purpose is <b>STORAGE</b>.
    */
   @JsonProperty("used_for_managed_storage")
   private Boolean usedForManagedStorage;

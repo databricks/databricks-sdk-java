@@ -10,10 +10,8 @@ import com.databricks.sdk.support.Generated;
  * This is an evolving API that facilitates the addition and removal of vizualisations from existing
  * queries within the Databricks Workspace. Data structures may change over time.
  *
- * <p>**Warning**: This API is deprecated. Please see the latest version of the Databricks SQL API.
- * [Learn more]
- *
- * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
+ * <p><b>Warning</b>: This API is deprecated. Please see the latest version of the Databricks SQL
+ * API. <a href="https://docs.databricks.com/en/sql/dbsql-api-latest.html">Learn more</a>
  */
 @Generated
 public class QueryVisualizationsLegacyAPI {
@@ -34,10 +32,8 @@ public class QueryVisualizationsLegacyAPI {
   /**
    * Creates visualization in the query.
    *
-   * <p>**Warning**: This API is deprecated. Please use :method:queryvisualizations/create instead.
-   * [Learn more]
-   *
-   * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
+   * <p><b>Warning</b>: This API is deprecated. Please use :method:queryvisualizations/create
+   * instead. <a href="https://docs.databricks.com/en/sql/dbsql-api-latest.html">Learn more</a>
    */
   public LegacyVisualization create(CreateQueryVisualizationsLegacyRequest request) {
     return impl.create(request);
@@ -50,10 +46,8 @@ public class QueryVisualizationsLegacyAPI {
   /**
    * Removes a visualization from the query.
    *
-   * <p>**Warning**: This API is deprecated. Please use :method:queryvisualizations/delete instead.
-   * [Learn more]
-   *
-   * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
+   * <p><b>Warning</b>: This API is deprecated. Please use :method:queryvisualizations/delete
+   * instead. <a href="https://docs.databricks.com/en/sql/dbsql-api-latest.html">Learn more</a>
    */
   public void delete(DeleteQueryVisualizationsLegacyRequest request) {
     impl.delete(request);
@@ -62,10 +56,8 @@ public class QueryVisualizationsLegacyAPI {
   /**
    * Updates visualization in the query.
    *
-   * <p>**Warning**: This API is deprecated. Please use :method:queryvisualizations/update instead.
-   * [Learn more]
-   *
-   * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
+   * <p><b>Warning</b>: This API is deprecated. Please use :method:queryvisualizations/update
+   * instead. <a href="https://docs.databricks.com/en/sql/dbsql-api-latest.html">Learn more</a>
    */
   public LegacyVisualization update(LegacyVisualization request) {
     return impl.update(request);

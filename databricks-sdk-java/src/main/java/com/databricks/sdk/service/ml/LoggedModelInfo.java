@@ -35,7 +35,7 @@ public class LoggedModelInfo {
   @JsonProperty("model_id")
   private String modelId;
 
-  /** The type of model, such as ``"Agent"``, ``"Classifier"``, ``"LLM"``. */
+  /** The type of model, such as {@code "Agent"}, {@code "Classifier"}, {@code "LLM"}. */
   @JsonProperty("model_type")
   private String modelType;
 

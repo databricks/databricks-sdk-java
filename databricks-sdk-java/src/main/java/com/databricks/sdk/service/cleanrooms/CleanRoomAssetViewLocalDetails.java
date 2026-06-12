@@ -11,7 +11,7 @@ import java.util.Objects;
 public class CleanRoomAssetViewLocalDetails {
   /**
    * The fully qualified name of the view in its owner's local metastore, in the format of
-   * *catalog*.*schema*.*view_name*
+   * <i>catalog</i>.<i>schema</i>.<i>view_name</i>
    */
   @JsonProperty("local_name")
   private String localName;

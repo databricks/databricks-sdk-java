@@ -36,8 +36,8 @@ public interface DisasterRecoveryService {
   /**
    * List failover groups.
    *
-   * <p>List entries are abbreviated: `state` and `replication_point` are not populated. Call
-   * GetFailoverGroup to retrieve the full resource.
+   * <p>List entries are abbreviated: {@code state} and {@code replication_point} are not populated.
+   * Call GetFailoverGroup to retrieve the full resource.
    */
   ListFailoverGroupsResponse listFailoverGroups(
       ListFailoverGroupsRequest listFailoverGroupsRequest);

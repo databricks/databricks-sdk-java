@@ -11,14 +11,14 @@ import java.util.Objects;
 public class Subscriber {
   /**
    * The destination to receive the subscription email. This parameter is mutually exclusive with
-   * `user_subscriber`.
+   * {@code user_subscriber}.
    */
   @JsonProperty("destination_subscriber")
   private SubscriptionSubscriberDestination destinationSubscriber;
 
   /**
-   * The user to receive the subscription email. This parameter is mutually exclusive with
-   * `destination_subscriber`.
+   * The user to receive the subscription email. This parameter is mutually exclusive with {@code
+   * destination_subscriber}.
    */
   @JsonProperty("user_subscriber")
   private SubscriptionSubscriberUser userSubscriber;

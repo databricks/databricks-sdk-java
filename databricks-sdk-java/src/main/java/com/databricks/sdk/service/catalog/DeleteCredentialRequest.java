@@ -11,8 +11,8 @@ import java.util.Objects;
 @Generated
 public class DeleteCredentialRequest {
   /**
-   * Force an update even if there are dependent services (when purpose is **SERVICE**) or dependent
-   * external locations and external tables (when purpose is **STORAGE**).
+   * Force an update even if there are dependent services (when purpose is <b>SERVICE</b>) or
+   * dependent external locations and external tables (when purpose is <b>STORAGE</b>).
    */
   @JsonIgnore
   @QueryParam("force")

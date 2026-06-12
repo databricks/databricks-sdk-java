@@ -10,7 +10,8 @@ import java.util.Objects;
 
 /**
  * Details required to update a registry webhook. Only the fields that need to be updated should be
- * specified, and both `http_url_spec` and `job_spec` should not be specified in the same request.
+ * specified, and both {@code http_url_spec} and {@code job_spec} should not be specified in the
+ * same request.
  */
 @Generated
 public class UpdateRegistryWebhook {
@@ -19,35 +20,30 @@ public class UpdateRegistryWebhook {
   private String description;
 
   /**
-   * Events that can trigger a registry webhook: * `MODEL_VERSION_CREATED`: A new model version was
-   * created for the associated model.
+   * Events that can trigger a registry webhook:
    *
-   * <p>* `MODEL_VERSION_TRANSITIONED_STAGE`: A model version’s stage was changed.
-   *
-   * <p>* `TRANSITION_REQUEST_CREATED`: A user requested a model version’s stage be transitioned.
-   *
-   * <p>* `COMMENT_CREATED`: A user wrote a comment on a registered model.
-   *
-   * <p>* `REGISTERED_MODEL_CREATED`: A new registered model was created. This event type can only
-   * be specified for a registry-wide webhook, which can be created by not specifying a model name
-   * in the create request.
-   *
-   * <p>* `MODEL_VERSION_TAG_SET`: A user set a tag on the model version.
-   *
-   * <p>* `MODEL_VERSION_TRANSITIONED_TO_STAGING`: A model version was transitioned to staging.
-   *
-   * <p>* `MODEL_VERSION_TRANSITIONED_TO_PRODUCTION`: A model version was transitioned to
-   * production.
-   *
-   * <p>* `MODEL_VERSION_TRANSITIONED_TO_ARCHIVED`: A model version was archived.
-   *
-   * <p>* `TRANSITION_REQUEST_TO_STAGING_CREATED`: A user requested a model version be transitioned
-   * to staging.
-   *
-   * <p>* `TRANSITION_REQUEST_TO_PRODUCTION_CREATED`: A user requested a model version be
-   * transitioned to production.
-   *
-   * <p>* `TRANSITION_REQUEST_TO_ARCHIVED_CREATED`: A user requested a model version be archived.
+   * <ul>
+   *   <li>{@code MODEL_VERSION_CREATED}: A new model version was created for the associated model.
+   *   <li>{@code MODEL_VERSION_TRANSITIONED_STAGE}: A model version’s stage was changed.
+   *   <li>{@code TRANSITION_REQUEST_CREATED}: A user requested a model version’s stage be
+   *       transitioned.
+   *   <li>{@code COMMENT_CREATED}: A user wrote a comment on a registered model.
+   *   <li>{@code REGISTERED_MODEL_CREATED}: A new registered model was created. This event type can
+   *       only be specified for a registry-wide webhook, which can be created by not specifying a
+   *       model name in the create request.
+   *   <li>{@code MODEL_VERSION_TAG_SET}: A user set a tag on the model version.
+   *   <li>{@code MODEL_VERSION_TRANSITIONED_TO_STAGING}: A model version was transitioned to
+   *       staging.
+   *   <li>{@code MODEL_VERSION_TRANSITIONED_TO_PRODUCTION}: A model version was transitioned to
+   *       production.
+   *   <li>{@code MODEL_VERSION_TRANSITIONED_TO_ARCHIVED}: A model version was archived.
+   *   <li>{@code TRANSITION_REQUEST_TO_STAGING_CREATED}: A user requested a model version be
+   *       transitioned to staging.
+   *   <li>{@code TRANSITION_REQUEST_TO_PRODUCTION_CREATED}: A user requested a model version be
+   *       transitioned to production.
+   *   <li>{@code TRANSITION_REQUEST_TO_ARCHIVED_CREATED}: A user requested a model version be
+   *       archived.
+   * </ul>
    */
   @JsonProperty("events")
   private Collection<RegistryWebhookEvent> events;

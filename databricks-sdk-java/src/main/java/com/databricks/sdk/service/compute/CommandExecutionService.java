@@ -16,14 +16,14 @@ public interface CommandExecutionService {
   /**
    * Cancels a currently running command within an execution context.
    *
-   * <p>The command ID is obtained from a prior successful call to __execute__.
+   * <p>The command ID is obtained from a prior successful call to <b>execute</b>.
    */
   void cancel(CancelCommand cancelCommand);
 
   /**
    * Gets the status of and, if available, the results from a currently executing command.
    *
-   * <p>The command ID is obtained from a prior successful call to __execute__.
+   * <p>The command ID is obtained from a prior successful call to <b>execute</b>.
    */
   CommandStatusResponse commandStatus(CommandStatusRequest commandStatusRequest);
 

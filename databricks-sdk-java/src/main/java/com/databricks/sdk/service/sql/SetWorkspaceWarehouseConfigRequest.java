@@ -25,8 +25,8 @@ public class SetWorkspaceWarehouseConfigRequest {
   private RepeatedEndpointConfPairs configParam;
 
   /**
-   * Spark confs for external hive metastore configuration JSON serialized size must be less than <=
-   * 512K
+   * Spark confs for external hive metastore configuration JSON serialized size must be less than
+   * &lt;= 512K
    */
   @JsonProperty("data_access_config")
   private Collection<EndpointConfPair> dataAccessConfig;

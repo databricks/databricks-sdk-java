@@ -4,7 +4,7 @@ package com.databricks.sdk.service.postgres;
 
 import com.databricks.sdk.support.Generated;
 
-/** The compute endpoint type. Either `read_write` or `read_only`. */
+/** The compute endpoint type. Either {@code read_write} or {@code read_only}. */
 @Generated
 public enum EndpointType {
   ENDPOINT_TYPE_READ_ONLY,

@@ -11,17 +11,21 @@ import java.util.Objects;
 @Generated
 public class ExportRequest {
   /**
-   * This specifies the format of the exported file. By default, this is `SOURCE`.
+   * This specifies the format of the exported file. By default, this is {@code SOURCE}.
    *
    * <p>The value is case sensitive.
    *
-   * <p>- `SOURCE`: The notebook is exported as source code. Directory exports will not include
-   * non-notebook entries. - `HTML`: The notebook is exported as an HTML file. - `JUPYTER`: The
-   * notebook is exported as a Jupyter/IPython Notebook file. - `DBC`: The notebook is exported in
-   * Databricks archive format. Directory exports will not include non-notebook entries. -
-   * `R_MARKDOWN`: The notebook is exported to R Markdown format. - `AUTO`: The object or directory
-   * is exported depending on the objects type. Directory exports will include notebooks and
-   * workspace files.
+   * <ul>
+   *   <li>{@code SOURCE}: The notebook is exported as source code. Directory exports will not
+   *       include non-notebook entries.
+   *   <li>{@code HTML}: The notebook is exported as an HTML file.
+   *   <li>{@code JUPYTER}: The notebook is exported as a Jupyter/IPython Notebook file.
+   *   <li>{@code DBC}: The notebook is exported in Databricks archive format. Directory exports
+   *       will not include non-notebook entries.
+   *   <li>{@code R_MARKDOWN}: The notebook is exported to R Markdown format.
+   *   <li>{@code AUTO}: The object or directory is exported depending on the objects type.
+   *       Directory exports will include notebooks and workspace files.
+   * </ul>
    */
   @JsonIgnore
   @QueryParam("format")
@@ -29,7 +33,7 @@ public class ExportRequest {
 
   /**
    * The absolute path of the object or directory. Exporting a directory is only supported for the
-   * `DBC`, `SOURCE`, and `AUTO` format.
+   * {@code DBC}, {@code SOURCE}, and {@code AUTO} format.
    */
   @JsonIgnore
   @QueryParam("path")

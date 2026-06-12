@@ -8,10 +8,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 /**
- * DEPRECATED — use `AiRuntimeTask` for all new BYOT multi-node GPU workloads (see
- * ai_runtime_task.proto). `AiRuntimeTask` is the only supported BYOT task type for new workloads;
- * this proto is retained only for AIR CLI (fka SGCLI) pywheel backwards compatibility and will be
- * removed once the pywheel → databricks-cli migration completes (post- PuPr).
+ * DEPRECATED — use {@code AiRuntimeTask} for all new BYOT multi-node GPU workloads (see
+ * ai_runtime_task.proto). {@code AiRuntimeTask} is the only supported BYOT task type for new
+ * workloads; this proto is retained only for AIR CLI (fka SGCLI) pywheel backwards compatibility
+ * and will be removed once the pywheel → databricks-cli migration completes (post- PuPr).
  */
 @Generated
 public class GenAiComputeTask {
@@ -35,11 +35,15 @@ public class GenAiComputeTask {
   private String mlflowExperimentName;
 
   /**
-   * Optional location type of the training script. When set to `WORKSPACE`, the script will be
-   * retrieved from the local Databricks workspace. When set to `GIT`, the script will be retrieved
-   * from a Git repository defined in `git_source`. If the value is empty, the task will use `GIT`
-   * if `git_source` is defined and `WORKSPACE` otherwise. * `WORKSPACE`: Script is located in
-   * Databricks workspace. * `GIT`: Script is located in cloud Git provider.
+   * Optional location type of the training script. When set to {@code WORKSPACE}, the script will
+   * be retrieved from the local Databricks workspace. When set to {@code GIT}, the script will be
+   * retrieved from a Git repository defined in {@code git_source}. If the value is empty, the task
+   * will use {@code GIT} if {@code git_source} is defined and {@code WORKSPACE} otherwise.
+   *
+   * <ul>
+   *   <li>{@code WORKSPACE}: Script is located in Databricks workspace.
+   *   <li>{@code GIT}: Script is located in cloud Git provider.
+   * </ul>
    */
   @JsonProperty("source")
   private Source source;
@@ -47,8 +51,8 @@ public class GenAiComputeTask {
   /**
    * The training script file path to be executed. Cloud file URIs (such as dbfs:/, s3:/, adls:/,
    * gcs:/) and workspace paths are supported. For python files stored in the Databricks workspace,
-   * the path must be absolute and begin with `/`. For files stored in a remote repository, the path
-   * must be relative. This field is required.
+   * the path must be absolute and begin with {@code /}. For files stored in a remote repository,
+   * the path must be relative. This field is required.
    */
   @JsonProperty("training_script_path")
   private String trainingScriptPath;

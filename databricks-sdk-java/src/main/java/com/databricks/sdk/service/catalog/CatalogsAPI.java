@@ -34,7 +34,7 @@ public class CatalogsAPI {
 
   /**
    * Creates a new catalog instance in the parent metastore if the caller is a metastore admin or
-   * has the **CREATE_CATALOG** privilege.
+   * has the <b>CREATE_CATALOG</b> privilege.
    */
   public CatalogInfo create(CreateCatalog request) {
     return impl.create(request);
@@ -58,7 +58,7 @@ public class CatalogsAPI {
 
   /**
    * Gets the specified catalog in a metastore. The caller must be a metastore admin, the owner of
-   * the catalog, or a user that has the **USE_CATALOG** privilege set for their account.
+   * the catalog, or a user that has the <b>USE_CATALOG</b> privilege set for their account.
    */
   public CatalogInfo get(GetCatalogRequest request) {
     return impl.get(request);
@@ -67,13 +67,13 @@ public class CatalogsAPI {
   /**
    * Gets an array of catalogs in the metastore. If the caller is the metastore admin, all catalogs
    * will be retrieved. Otherwise, only catalogs owned by the caller (or for which the caller has
-   * the **USE_CATALOG** privilege) will be retrieved. There is no guarantee of a specific ordering
-   * of the elements in the array.
+   * the <b>USE_CATALOG</b> privilege) will be retrieved. There is no guarantee of a specific
+   * ordering of the elements in the array.
    *
    * <p>NOTE: we recommend using max_results=0 to use the paginated version of this API. Unpaginated
    * calls will be deprecated soon.
    *
-   * <p>PAGINATION BEHAVIOR: When using pagination (max_results >= 0), a page may contain zero
+   * <p>PAGINATION BEHAVIOR: When using pagination (max_results &gt;= 0), a page may contain zero
    * results while still providing a next_page_token. Clients must continue reading pages until
    * next_page_token is absent, which is the only indication that the end of results has been
    * reached.

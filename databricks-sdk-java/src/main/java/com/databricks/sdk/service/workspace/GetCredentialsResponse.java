@@ -15,7 +15,7 @@ public class GetCredentialsResponse {
 
   /**
    * The authenticating email associated with your Git provider user account. Used for
-   * authentication with the remote repository and also sets the author & committer identity for
+   * authentication with the remote repository and also sets the author &amp; committer identity for
    * commits. Required for most Git providers except AWS CodeCommit. Learn more at
    * https://docs.databricks.com/aws/en/repos/get-access-tokens-from-git-provider
    */
@@ -28,9 +28,9 @@ public class GetCredentialsResponse {
 
   /**
    * The username provided with your Git provider account and associated with the credential. For
-   * most Git providers it is only used to set the Git committer & author names for commits, however
-   * it may be required for authentication depending on your Git provider / token requirements.
-   * Required for AWS CodeCommit.
+   * most Git providers it is only used to set the Git committer &amp; author names for commits,
+   * however it may be required for authentication depending on your Git provider / token
+   * requirements. Required for AWS CodeCommit.
    */
   @JsonProperty("git_username")
   private String gitUsername;

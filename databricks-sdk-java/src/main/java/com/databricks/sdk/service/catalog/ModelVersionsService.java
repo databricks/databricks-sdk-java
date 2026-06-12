@@ -9,7 +9,8 @@ import com.databricks.sdk.support.Generated;
  * Databricks workspaces.
  *
  * <p>This API reference documents the REST endpoints for managing model versions in Unity Catalog.
- * For more details, see the [registered models API docs](/api/workspace/registeredmodels).
+ * For more details, see the <a href="/api/workspace/registeredmodels">registered models API
+ * docs</a>.
  *
  * <p>This is the high-level interface, that contains generated methods.
  *
@@ -22,28 +23,28 @@ public interface ModelVersionsService {
    * version will also be deleted.
    *
    * <p>The caller must be a metastore admin or an owner of the parent registered model. For the
-   * latter case, the caller must also be the owner or have the **USE_CATALOG** privilege on the
-   * parent catalog and the **USE_SCHEMA** privilege on the parent schema.
+   * latter case, the caller must also be the owner or have the <b>USE_CATALOG</b> privilege on the
+   * parent catalog and the <b>USE_SCHEMA</b> privilege on the parent schema.
    */
   void delete(DeleteModelVersionRequest deleteModelVersionRequest);
 
   /**
    * Get a model version.
    *
-   * <p>The caller must be a metastore admin or an owner of (or have the **EXECUTE** privilege on)
-   * the parent registered model. For the latter case, the caller must also be the owner or have the
-   * **USE_CATALOG** privilege on the parent catalog and the **USE_SCHEMA** privilege on the parent
-   * schema.
+   * <p>The caller must be a metastore admin or an owner of (or have the <b>EXECUTE</b> privilege
+   * on) the parent registered model. For the latter case, the caller must also be the owner or have
+   * the <b>USE_CATALOG</b> privilege on the parent catalog and the <b>USE_SCHEMA</b> privilege on
+   * the parent schema.
    */
   ModelVersionInfo get(GetModelVersionRequest getModelVersionRequest);
 
   /**
    * Get a model version by alias.
    *
-   * <p>The caller must be a metastore admin or an owner of (or have the **EXECUTE** privilege on)
-   * the registered model. For the latter case, the caller must also be the owner or have the
-   * **USE_CATALOG** privilege on the parent catalog and the **USE_SCHEMA** privilege on the parent
-   * schema.
+   * <p>The caller must be a metastore admin or an owner of (or have the <b>EXECUTE</b> privilege
+   * on) the registered model. For the latter case, the caller must also be the owner or have the
+   * <b>USE_CATALOG</b> privilege on the parent catalog and the <b>USE_SCHEMA</b> privilege on the
+   * parent schema.
    */
   ModelVersionInfo getByAlias(GetByAliasRequest getByAliasRequest);
 
@@ -53,10 +54,10 @@ public interface ModelVersionsService {
    *
    * <p>The returned models are filtered based on the privileges of the calling user. For example,
    * the metastore admin is able to list all the model versions. A regular user needs to be the
-   * owner or have the **EXECUTE** privilege on the parent registered model to recieve the model
+   * owner or have the <b>EXECUTE</b> privilege on the parent registered model to recieve the model
    * versions in the response. For the latter case, the caller must also be the owner or have the
-   * **USE_CATALOG** privilege on the parent catalog and the **USE_SCHEMA** privilege on the parent
-   * schema.
+   * <b>USE_CATALOG</b> privilege on the parent catalog and the <b>USE_SCHEMA</b> privilege on the
+   * parent schema.
    *
    * <p>There is no guarantee of a specific ordering of the elements in the response. The elements
    * in the response will not contain any aliases or tags.
@@ -71,8 +72,8 @@ public interface ModelVersionsService {
    * Updates the specified model version.
    *
    * <p>The caller must be a metastore admin or an owner of the parent registered model. For the
-   * latter case, the caller must also be the owner or have the **USE_CATALOG** privilege on the
-   * parent catalog and the **USE_SCHEMA** privilege on the parent schema.
+   * latter case, the caller must also be the owner or have the <b>USE_CATALOG</b> privilege on the
+   * parent catalog and the <b>USE_SCHEMA</b> privilege on the parent schema.
    *
    * <p>Currently only the comment of the model version can be updated.
    */

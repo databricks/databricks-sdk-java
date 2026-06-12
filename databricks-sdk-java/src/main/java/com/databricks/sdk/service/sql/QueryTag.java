@@ -8,9 +8,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 /**
- * * A query execution can be annotated with an optional key-value pair to allow users to attribute
- * the executions by key and optional value to filter by. QueryTag is the user-facing
- * representation.
+ *
+ *
+ * <ul>
+ *   <li>A query execution can be annotated with an optional key-value pair to allow users to
+ *       attribute the executions by key and optional value to filter by. QueryTag is the
+ *       user-facing representation.
+ * </ul>
  */
 @Generated
 public class QueryTag {

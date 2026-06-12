@@ -28,13 +28,12 @@ public class Activity {
   /**
    * Source stage of the transition (if the activity is stage transition related). Valid values are:
    *
-   * <p>* `None`: The initial stage of a model version.
-   *
-   * <p>* `Staging`: Staging or pre-production stage.
-   *
-   * <p>* `Production`: Production stage.
-   *
-   * <p>* `Archived`: Archived stage.
+   * <ul>
+   *   <li>{@code None}: The initial stage of a model version.
+   *   <li>{@code Staging}: Staging or pre-production stage.
+   *   <li>{@code Production}: Production stage.
+   *   <li>{@code Archived}: Archived stage.
+   * </ul>
    */
   @JsonProperty("from_stage")
   private String fromStage;
@@ -48,9 +47,9 @@ public class Activity {
   private Long lastUpdatedTimestamp;
 
   /**
-   * Comment made by system, for example explaining an activity of type `SYSTEM_TRANSITION`. It
-   * usually describes a side effect, such as a version being archived as part of another version's
-   * stage transition, and may not be returned for some activity types.
+   * Comment made by system, for example explaining an activity of type {@code SYSTEM_TRANSITION}.
+   * It usually describes a side effect, such as a version being archived as part of another
+   * version's stage transition, and may not be returned for some activity types.
    */
   @JsonProperty("system_comment")
   private String systemComment;
@@ -58,13 +57,12 @@ public class Activity {
   /**
    * Target stage of the transition (if the activity is stage transition related). Valid values are:
    *
-   * <p>* `None`: The initial stage of a model version.
-   *
-   * <p>* `Staging`: Staging or pre-production stage.
-   *
-   * <p>* `Production`: Production stage.
-   *
-   * <p>* `Archived`: Archived stage.
+   * <ul>
+   *   <li>{@code None}: The initial stage of a model version.
+   *   <li>{@code Staging}: Staging or pre-production stage.
+   *   <li>{@code Production}: Production stage.
+   *   <li>{@code Archived}: Archived stage.
+   * </ul>
    */
   @JsonProperty("to_stage")
   private String toStage;

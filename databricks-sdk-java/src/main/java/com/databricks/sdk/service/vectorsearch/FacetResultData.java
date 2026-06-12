@@ -11,7 +11,7 @@ import java.util.Objects;
 /** Facet aggregation rows returned by a query. */
 @Generated
 public class FacetResultData {
-  /** Facet rows. Each row is `[facet_column_name, value_or_range, count]`. */
+  /** Facet rows. Each row is {@code [facet_column_name, value_or_range, count]}. */
   @JsonProperty("facet_array")
   private Collection<Collection<String>> facetArray;
 

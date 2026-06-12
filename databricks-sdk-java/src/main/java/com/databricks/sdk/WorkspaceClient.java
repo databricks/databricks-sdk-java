@@ -588,7 +588,7 @@ public class WorkspaceClient {
   }
 
   /**
-   * **AI Search Endpoint**: Represents the compute resources to host AI Search indexes.
+   * <b>AI Search Endpoint</b>: Represents the compute resources to host AI Search indexes.
    * AIP-conformant replacement for the legacy VectorSearchEndpoints API; functionally equivalent.
    */
   public AiSearchAPI aiSearch() {
@@ -599,7 +599,7 @@ public class WorkspaceClient {
    * The alerts API can be used to perform CRUD operations on alerts. An alert is a Databricks SQL
    * object that periodically runs a query, evaluates a condition of its result, and notifies one or
    * more users and/or notification destinations if the condition was met. Alerts can be scheduled
-   * using the `sql_task` type of the Jobs API, e.g. :method:jobs/create.
+   * using the {@code sql_task} type of the Jobs API, e.g. :method:jobs/create.
    */
   public AlertsAPI alerts() {
     return alertsAPI;
@@ -609,12 +609,10 @@ public class WorkspaceClient {
    * The alerts API can be used to perform CRUD operations on alerts. An alert is a Databricks SQL
    * object that periodically runs a query, evaluates a condition of its result, and notifies one or
    * more users and/or notification destinations if the condition was met. Alerts can be scheduled
-   * using the `sql_task` type of the Jobs API, e.g. :method:jobs/create.
+   * using the {@code sql_task} type of the Jobs API, e.g. :method:jobs/create.
    *
-   * <p>**Warning**: This API is deprecated. Please see the latest version of the Databricks SQL
-   * API. [Learn more]
-   *
-   * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
+   * <p><b>Warning</b>: This API is deprecated. Please see the latest version of the Databricks SQL
+   * API. <a href="https://docs.databricks.com/en/sql/dbsql-api-latest.html">Learn more</a>
    */
   public AlertsLegacyAPI alertsLegacy() {
     return alertsLegacyAPI;
@@ -639,8 +637,9 @@ public class WorkspaceClient {
   }
 
   /**
-   * In Databricks Runtime 13.3 and above, you can add libraries and init scripts to the `allowlist`
-   * in UC so that users can leverage these artifacts on compute configured with shared access mode.
+   * In Databricks Runtime 13.3 and above, you can add libraries and init scripts to the {@code
+   * allowlist} in UC so that users can leverage these artifacts on compute configured with shared
+   * access mode.
    */
   public ArtifactAllowlistsAPI artifactAllowlists() {
     return artifactAllowlistsAPI;
@@ -707,18 +706,28 @@ public class WorkspaceClient {
    * rules. These rules specify which attributes or attribute values can be used during cluster
    * creation. Cluster policies have ACLs that limit their use to specific users and groups.
    *
-   * <p>With cluster policies, you can: - Auto-install cluster libraries on the next restart by
-   * listing them in the policy's "libraries" field (Public Preview). - Limit users to creating
-   * clusters with the prescribed settings. - Simplify the user interface, enabling more users to
-   * create clusters, by fixing and hiding some fields. - Manage costs by setting limits on
-   * attributes that impact the hourly rate.
+   * <p>With cluster policies, you can:
+   *
+   * <ul>
+   *   <li>Auto-install cluster libraries on the next restart by listing them in the policy's
+   *       "libraries" field (Public Preview).
+   *   <li>Limit users to creating clusters with the prescribed settings.
+   *   <li>Simplify the user interface, enabling more users to create clusters, by fixing and hiding
+   *       some fields.
+   *   <li>Manage costs by setting limits on attributes that impact the hourly rate.
+   * </ul>
    *
    * <p>Cluster policy permissions limit which policies a user can select in the Policy drop-down
-   * when the user creates a cluster: - A user who has unrestricted cluster create permission can
-   * select the Unrestricted policy and create fully-configurable clusters. - A user who has both
-   * unrestricted cluster create permission and access to cluster policies can select the
-   * Unrestricted policy and policies they have access to. - A user that has access to only cluster
-   * policies, can select the policies they have access to.
+   * when the user creates a cluster:
+   *
+   * <ul>
+   *   <li>A user who has unrestricted cluster create permission can select the Unrestricted policy
+   *       and create fully-configurable clusters.
+   *   <li>A user who has both unrestricted cluster create permission and access to cluster policies
+   *       can select the Unrestricted policy and policies they have access to.
+   *   <li>A user that has access to only cluster policies, can select the policies they have access
+   *       to.
+   * </ul>
    *
    * <p>If no policies exist in the workspace, the Policy drop-down doesn't appear. Only admin users
    * can create, edit, and delete policies. Admin users also have access to all policies.
@@ -816,9 +825,9 @@ public class WorkspaceClient {
    * your cloud tenant. Each credential is subject to Unity Catalog access-control policies that
    * control which users and groups can access the credential.
    *
-   * <p>To create credentials, you must be a Databricks account admin or have the `CREATE SERVICE
-   * CREDENTIAL` privilege. The user who creates the credential can delegate ownership to another
-   * user or group to manage permissions on it.
+   * <p>To create credentials, you must be a Databricks account admin or have the {@code CREATE
+   * SERVICE CREDENTIAL} privilege. The user who creates the credential can delegate ownership to
+   * another user or group to manage permissions on it.
    */
   public CredentialsAPI credentials() {
     return credentialsAPI;
@@ -851,13 +860,11 @@ public class WorkspaceClient {
    * In general, there is little need to modify dashboards using the API. However, it can be useful
    * to use dashboard objects to look-up a collection of related query IDs. The API can also be used
    * to duplicate multiple dashboards at once since you can get a dashboard definition with a GET
-   * request and then POST it to create a new one. Dashboards can be scheduled using the `sql_task`
-   * type of the Jobs API, e.g. :method:jobs/create.
+   * request and then POST it to create a new one. Dashboards can be scheduled using the {@code
+   * sql_task} type of the Jobs API, e.g. :method:jobs/create.
    *
-   * <p>**Warning**: This API is deprecated. Please use the AI/BI Dashboards API instead. [Learn
-   * more]
-   *
-   * <p>[Learn more]: https://docs.databricks.com/en/dashboards/
+   * <p><b>Warning</b>: This API is deprecated. Please use the AI/BI Dashboards API instead. <a
+   * href="https://docs.databricks.com/en/dashboards/">Learn more</a>
    */
   public DashboardsAPI dashboards() {
     return dashboardsAPI;
@@ -872,25 +879,26 @@ public class WorkspaceClient {
     return dataClassificationAPI;
   }
 
-  /** Manage the data quality of Unity Catalog objects (currently support `schema` and `table`) */
+  /**
+   * Manage the data quality of Unity Catalog objects (currently support {@code schema} and {@code
+   * table})
+   */
   public DataQualityAPI dataQuality() {
     return dataQualityAPI;
   }
 
   /**
    * This API is provided to assist you in making new query objects. When creating a query object,
-   * you may optionally specify a `data_source_id` for the SQL warehouse against which it will run.
-   * If you don't already know the `data_source_id` for your desired SQL warehouse, this API will
-   * help you find it.
+   * you may optionally specify a {@code data_source_id} for the SQL warehouse against which it will
+   * run. If you don't already know the {@code data_source_id} for your desired SQL warehouse, this
+   * API will help you find it.
    *
    * <p>This API does not support searches. It returns the full list of SQL warehouses in your
-   * workspace. We advise you to use any text editor, REST client, or `grep` to search the response
-   * from this API for the name of your SQL warehouse as it appears in Databricks SQL.
+   * workspace. We advise you to use any text editor, REST client, or {@code grep} to search the
+   * response from this API for the name of your SQL warehouse as it appears in Databricks SQL.
    *
-   * <p>**Warning**: This API is deprecated. Please see the latest version of the Databricks SQL
-   * API. [Learn more]
-   *
-   * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
+   * <p><b>Warning</b>: This API is deprecated. Please see the latest version of the Databricks SQL
+   * API. <a href="https://docs.databricks.com/en/sql/dbsql-api-latest.html">Learn more</a>
    */
   public DataSourcesAPI dataSources() {
     return dataSourcesAPI;
@@ -916,17 +924,15 @@ public class WorkspaceClient {
    *
    * <p>There are three levels of permission:
    *
-   * <p>- `CAN_VIEW`: Allows read-only access
+   * <ul>
+   *   <li>{@code CAN_VIEW}: Allows read-only access
+   *   <li>{@code CAN_RUN}: Allows read access and run access (superset of {@code CAN_VIEW})
+   *   <li>{@code CAN_MANAGE}: Allows all actions: read, run, edit, delete, modify permissions
+   *       (superset of {@code CAN_RUN})
+   * </ul>
    *
-   * <p>- `CAN_RUN`: Allows read access and run access (superset of `CAN_VIEW`)
-   *
-   * <p>- `CAN_MANAGE`: Allows all actions: read, run, edit, delete, modify permissions (superset of
-   * `CAN_RUN`)
-   *
-   * <p>**Warning**: This API is deprecated. Please see the latest version of the Databricks SQL
-   * API. [Learn more]
-   *
-   * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
+   * <p><b>Warning</b>: This API is deprecated. Please see the latest version of the Databricks SQL
+   * API. <a href="https://docs.databricks.com/en/sql/dbsql-api-latest.html">Learn more</a>
    */
   public DbsqlPermissionsAPI dbsqlPermissions() {
     return dbsqlPermissionsAPI;
@@ -989,7 +995,7 @@ public class WorkspaceClient {
    * directly.
    *
    * <p>To create external locations, you must be a metastore admin or a user with the
-   * **CREATE_EXTERNAL_LOCATION** privilege.
+   * <b>CREATE_EXTERNAL_LOCATION</b> privilege.
    */
   public ExternalLocationsAPI externalLocations() {
     return externalLocationsAPI;
@@ -1029,18 +1035,18 @@ public class WorkspaceClient {
    * directories by referring to their URI. The API makes working with file content as raw bytes
    * easier and more efficient.
    *
-   * <p>The API supports [Unity Catalog volumes], where files and directories to operate on are
-   * specified using their volume URI path, which follows the format
-   * /Volumes/&lt;catalog_name&gt;/&lt;schema_name&gt;/&lt;volume_name&gt;/&lt;path_to_file&gt;.
+   * <p>The API supports <a
+   * href="https://docs.databricks.com/en/connect/unity-catalog/volumes.html">Unity Catalog
+   * volumes</a>, where files and directories to operate on are specified using their volume URI
+   * path, which follows the format
+   * /Volumes/&amp;lt;catalog_name&amp;gt;/&amp;lt;schema_name&amp;gt;/&amp;lt;volume_name&amp;gt;/&amp;lt;path_to_file&amp;gt;.
    *
-   * <p>The Files API has two distinct endpoints, one for working with files (`/fs/files`) and
-   * another one for working with directories (`/fs/directories`). Both endpoints use the standard
-   * HTTP methods GET, HEAD, PUT, and DELETE to manage files and directories specified using their
-   * URI path. The path is always absolute.
+   * <p>The Files API has two distinct endpoints, one for working with files ({@code /fs/files}) and
+   * another one for working with directories ({@code /fs/directories}). Both endpoints use the
+   * standard HTTP methods GET, HEAD, PUT, and DELETE to manage files and directories specified
+   * using their URI path. The path is always absolute.
    *
    * <p>Use of Files API may incur Databricks data transfer charges.
-   *
-   * <p>[Unity Catalog volumes]: https://docs.databricks.com/en/connect/unity-catalog/volumes.html
    */
   public FilesAPI files() {
     return filesAPI;
@@ -1057,7 +1063,7 @@ public class WorkspaceClient {
    * <p>The function implementation can be any SQL expression or Query, and it can be invoked
    * wherever a table reference is allowed in a query. In Unity Catalog, a function resides at the
    * same level as a table, so it can be referenced with the form
-   * __catalog_name__.__schema_name__.__function_name__.
+   * <b>catalog_name</b>.<b>schema_name</b>.<b>function_name</b>.
    */
   public FunctionsAPI functions() {
     return functionsAPI;
@@ -1076,9 +1082,9 @@ public class WorkspaceClient {
   /**
    * Registers personal access token for Databricks to do operations on behalf of the user.
    *
-   * <p>See [more info].
-   *
-   * <p>[more info]: https://docs.databricks.com/repos/get-access-tokens-from-git-provider.html
+   * <p>See <a
+   * href="https://docs.databricks.com/repos/get-access-tokens-from-git-provider.html">more
+   * info</a>.
    */
   public GitCredentialsAPI gitCredentials() {
     return gitCredentialsAPI;
@@ -1088,11 +1094,11 @@ public class WorkspaceClient {
    * The Global Init Scripts API enables Workspace administrators to configure global initialization
    * scripts for their workspace. These scripts run on every node in every cluster in the workspace.
    *
-   * <p>**Important:** Existing clusters must be restarted to pick up any changes made to global
+   * <p><b>Important:</b> Existing clusters must be restarted to pick up any changes made to global
    * init scripts. Global init scripts are run in order. If the init script returns with a bad exit
    * code, the Apache Spark container fails to launch and init scripts with later position are
-   * skipped. If enough containers fail, the entire cluster fails with a
-   * `GLOBAL_INIT_SCRIPT_FAILURE` error code.
+   * skipped. If enough containers fail, the entire cluster fails with a {@code
+   * GLOBAL_INIT_SCRIPT_FAILURE} error code.
    */
   public GlobalInitScriptsAPI globalInitScripts() {
     return globalInitScriptsAPI;
@@ -1150,10 +1156,9 @@ public class WorkspaceClient {
   /**
    * The Instance Profiles API allows admins to add, list, and remove instance profiles that users
    * can launch clusters with. Regular users can list the instance profiles available to them. See
-   * [Secure access to S3 buckets] using instance profiles for more information.
-   *
-   * <p>[Secure access to S3 buckets]:
-   * https://docs.databricks.com/administration-guide/cloud-configurations/aws/instance-profiles.html
+   * <a
+   * href="https://docs.databricks.com/administration-guide/cloud-configurations/aws/instance-profiles.html">Secure
+   * access to S3 buckets</a> using instance profiles for more information.
    */
   public InstanceProfilesAPI instanceProfiles() {
     return instanceProfilesAPI;
@@ -1166,9 +1171,14 @@ public class WorkspaceClient {
    * the feature is disabled for a workspace, all access is allowed for this workspace. There is
    * support for allow lists (inclusion) and block lists (exclusion).
    *
-   * <p>When a connection is attempted: 1. **First, all block lists are checked.** If the connection
-   * IP address matches any block list, the connection is rejected. 2. **If the connection was not
-   * rejected by block lists**, the IP address is compared with the allow lists.
+   * <p>When a connection is attempted:
+   *
+   * <ol>
+   *   <li><b>First, all block lists are checked.</b> If the connection IP address matches any block
+   *       list, the connection is rejected.
+   *   <li><b>If the connection was not rejected by block lists</b>, the IP address is compared with
+   *       the allow lists.
+   * </ol>
    *
    * <p>If there is at least one allow list for the workspace, the connection is allowed only if the
    * IP address matches an allow list. If there are no allow lists for the workspace, all IP
@@ -1195,13 +1205,12 @@ public class WorkspaceClient {
    * tasks using notebooks, JARS, Spark Declarative Pipelines, or Python, Scala, Spark submit, and
    * Java applications.
    *
-   * <p>You should never hard code secrets or store them in plain text. Use the [Secrets CLI] to
-   * manage secrets in the [Databricks CLI]. Use the [Secrets utility] to reference secrets in
-   * notebooks and jobs.
-   *
-   * <p>[Databricks CLI]: https://docs.databricks.com/dev-tools/cli/index.html [Secrets CLI]:
-   * https://docs.databricks.com/dev-tools/cli/secrets-cli.html [Secrets utility]:
-   * https://docs.databricks.com/dev-tools/databricks-utils.html#dbutils-secrets
+   * <p>You should never hard code secrets or store them in plain text. Use the <a
+   * href="https://docs.databricks.com/dev-tools/cli/secrets-cli.html">Secrets CLI</a> to manage
+   * secrets in the <a href="https://docs.databricks.com/dev-tools/cli/index.html">Databricks
+   * CLI</a>. Use the <a
+   * href="https://docs.databricks.com/dev-tools/databricks-utils.html#dbutils-secrets">Secrets
+   * utility</a> to reference secrets in notebooks and jobs.
    */
   public JobsAPI jobs() {
     return jobsAPI;
@@ -1274,9 +1283,9 @@ public class WorkspaceClient {
 
   /**
    * Note: This API reference documents APIs for the Workspace Model Registry. Databricks recommends
-   * using [Models in Unity Catalog](/api/workspace/registeredmodels) instead. Models in Unity
-   * Catalog provides centralized model governance, cross-workspace access, lineage, and deployment.
-   * Workspace Model Registry will be deprecated in the future.
+   * using <a href="/api/workspace/registeredmodels">Models in Unity Catalog</a> instead. Models in
+   * Unity Catalog provides centralized model governance, cross-workspace access, lineage, and
+   * deployment. Workspace Model Registry will be deprecated in the future.
    *
    * <p>The Workspace Model Registry is a centralized model repository and a UI and set of APIs that
    * enable you to manage the full lifecycle of MLflow Models.
@@ -1291,8 +1300,8 @@ public class WorkspaceClient {
    * across Databricks workspaces.
    *
    * <p>This API reference documents the REST endpoints for managing model versions in Unity
-   * Catalog. For more details, see the [registered models API
-   * docs](/api/workspace/registeredmodels).
+   * Catalog. For more details, see the <a href="/api/workspace/registeredmodels">registered models
+   * API docs</a>.
    */
   public ModelVersionsAPI modelVersions() {
     return modelVersionsAPI;
@@ -1323,30 +1332,41 @@ public class WorkspaceClient {
 
   /**
    * Permissions API are used to create read, write, edit, update and manage access for various
-   * users on different objects and endpoints. * **[Apps permissions](:service:apps)** — Manage
-   * which users can manage or use apps. * **[Cluster permissions](:service:clusters)** — Manage
-   * which users can manage, restart, or attach to clusters. * **[Cluster policy
-   * permissions](:service:clusterpolicies)** — Manage which users can use cluster policies. *
-   * **[Spark Declarative Pipelines permissions](:service:pipelines)** — Manage which users can
-   * view, manage, run, cancel, or own a Spark Declarative Pipeline. * **[Job
-   * permissions](:service:jobs)** — Manage which users can view, manage, trigger, cancel, or own a
-   * job. * **[MLflow experiment permissions](:service:experiments)** — Manage which users can read,
-   * edit, or manage MLflow experiments. * **[MLflow registered model
-   * permissions](:service:modelregistry)** — Manage which users can read, edit, or manage MLflow
-   * registered models. * **[Instance Pool permissions](:service:instancepools)** — Manage which
-   * users can manage or attach to pools. * **[Repo permissions](repos)** — Manage which users can
-   * read, run, edit, or manage a repo. * **[Serving endpoint
-   * permissions](:service:servingendpoints)** — Manage which users can view, query, or manage a
-   * serving endpoint. * **[SQL warehouse permissions](:service:warehouses)** — Manage which users
-   * can use or manage SQL warehouses. * **[Token permissions](:service:tokenmanagement)** — Manage
-   * which users can create or use tokens. * **[Workspace object permissions](:service:workspace)**
-   * — Manage which users can read, run, edit, or manage alerts, dbsql-dashboards, directories,
-   * files, notebooks and queries. For the mapping of the required permissions for specific actions
-   * or abilities and other important information, see [Access Control]. Note that to manage access
-   * control on service principals, use **[Account Access Control
-   * Proxy](:service:accountaccesscontrolproxy)**.
+   * users on different objects and endpoints.
    *
-   * <p>[Access Control]: https://docs.databricks.com/security/auth-authz/access-control/index.html
+   * <ul>
+   *   <li><b><a href=":service:apps">Apps permissions</a></b> — Manage which users can manage or
+   *       use apps.
+   *   <li><b><a href=":service:clusters">Cluster permissions</a></b> — Manage which users can
+   *       manage, restart, or attach to clusters.
+   *   <li><b><a href=":service:clusterpolicies">Cluster policy permissions</a></b> — Manage which
+   *       users can use cluster policies.
+   *   <li><b><a href=":service:pipelines">Spark Declarative Pipelines permissions</a></b> — Manage
+   *       which users can view, manage, run, cancel, or own a Spark Declarative Pipeline.
+   *   <li><b><a href=":service:jobs">Job permissions</a></b> — Manage which users can view, manage,
+   *       trigger, cancel, or own a job.
+   *   <li><b><a href=":service:experiments">MLflow experiment permissions</a></b> — Manage which
+   *       users can read, edit, or manage MLflow experiments.
+   *   <li><b><a href=":service:modelregistry">MLflow registered model permissions</a></b> — Manage
+   *       which users can read, edit, or manage MLflow registered models.
+   *   <li><b><a href=":service:instancepools">Instance Pool permissions</a></b> — Manage which
+   *       users can manage or attach to pools.
+   *   <li><b><a href="repos">Repo permissions</a></b> — Manage which users can read, run, edit, or
+   *       manage a repo.
+   *   <li><b><a href=":service:servingendpoints">Serving endpoint permissions</a></b> — Manage
+   *       which users can view, query, or manage a serving endpoint.
+   *   <li><b><a href=":service:warehouses">SQL warehouse permissions</a></b> — Manage which users
+   *       can use or manage SQL warehouses.
+   *   <li><b><a href=":service:tokenmanagement">Token permissions</a></b> — Manage which users can
+   *       create or use tokens.
+   *   <li><b><a href=":service:workspace">Workspace object permissions</a></b> — Manage which users
+   *       can read, run, edit, or manage alerts, dbsql-dashboards, directories, files, notebooks
+   *       and queries. For the mapping of the required permissions for specific actions or
+   *       abilities and other important information, see <a
+   *       href="https://docs.databricks.com/security/auth-authz/access-control/index.html">Access
+   *       Control</a>. Note that to manage access control on service principals, use <b><a
+   *       href=":service:accountaccesscontrolproxy">Account Access Control Proxy</a></b>.
+   * </ul>
    */
   public PermissionsAPI permissions() {
     return permissionsAPI;
@@ -1377,7 +1397,8 @@ public class WorkspaceClient {
    * hierarchical and scalable manner, based on data attributes rather than specific resources,
    * enabling more flexible and comprehensive access control. ABAC policies in Unity Catalog support
    * conditions on securable properties, governance tags, and environment contexts. Callers must
-   * have the `MANAGE` privilege on a securable to view, create, update, or delete ABAC policies.
+   * have the {@code MANAGE} privilege on a securable to view, create, update, or delete ABAC
+   * policies.
    */
   public PoliciesAPI policies() {
     return policiesAPI;
@@ -1438,12 +1459,12 @@ public class WorkspaceClient {
    * <p>This API manages database infrastructure only. To query or modify data, use the Data API or
    * direct SQL connections.
    *
-   * <p>**About resource IDs and names**
+   * <p><b>About resource IDs and names</b>
    *
-   * <p>Resources are identified by hierarchical resource names like
-   * `projects/{project_id}/branches/{branch_id}/endpoints/{endpoint_id}`. The `name` field on each
-   * resource contains this full path and is output-only. Note that `name` refers to this resource
-   * path, not the user-visible `display_name`.
+   * <p>Resources are identified by hierarchical resource names like {@code
+   * projects/{project_id}/branches/{branch_id}/endpoints/{endpoint_id}}. The {@code name} field on
+   * each resource contains this full path and is output-only. Note that {@code name} refers to this
+   * resource path, not the user-visible {@code display_name}.
    */
   public PostgresAPI postgres() {
     return postgresAPI;
@@ -1505,7 +1526,8 @@ public class WorkspaceClient {
 
   /**
    * Deprecated: Please use the Data Quality Monitoring API instead (REST:
-   * /api/data-quality/v1/monitors). Manage data quality of UC objects (currently support `schema`).
+   * /api/data-quality/v1/monitors). Manage data quality of UC objects (currently support {@code
+   * schema}).
    */
   public QualityMonitorV2API qualityMonitorV2() {
     return qualityMonitorV2API;
@@ -1519,8 +1541,8 @@ public class WorkspaceClient {
    * generates metrics tables and a dashboard that you can use to monitor table health and set
    * alerts. Most write operations require the user to be the owner of the table (or its parent
    * schema or parent catalog). Viewing the dashboard, computed metrics, or monitor configuration
-   * only requires the user to have **SELECT** privileges on the table (along with **USE_SCHEMA**
-   * and **USE_CATALOG**).
+   * only requires the user to have <b>SELECT</b> privileges on the table (along with
+   * <b>USE_SCHEMA</b> and <b>USE_CATALOG</b>).
    */
   public QualityMonitorsAPI qualityMonitors() {
     return qualityMonitorsAPI;
@@ -1529,7 +1551,7 @@ public class WorkspaceClient {
   /**
    * The queries API can be used to perform CRUD operations on queries. A query is a Databricks SQL
    * object that includes the target SQL warehouse, query text, name, description, tags, and
-   * parameters. Queries can be scheduled using the `sql_task` type of the Jobs API, e.g.
+   * parameters. Queries can be scheduled using the {@code sql_task} type of the Jobs API, e.g.
    * :method:jobs/create.
    */
   public QueriesAPI queries() {
@@ -1539,12 +1561,11 @@ public class WorkspaceClient {
   /**
    * These endpoints are used for CRUD operations on query definitions. Query definitions include
    * the target SQL warehouse, query text, name, description, tags, parameters, and visualizations.
-   * Queries can be scheduled using the `sql_task` type of the Jobs API, e.g. :method:jobs/create.
+   * Queries can be scheduled using the {@code sql_task} type of the Jobs API, e.g.
+   * :method:jobs/create.
    *
-   * <p>**Warning**: This API is deprecated. Please see the latest version of the Databricks SQL
-   * API. [Learn more]
-   *
-   * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
+   * <p><b>Warning</b>: This API is deprecated. Please see the latest version of the Databricks SQL
+   * API. <a href="https://docs.databricks.com/en/sql/dbsql-api-latest.html">Learn more</a>
    */
   public QueriesLegacyAPI queriesLegacy() {
     return queriesLegacyAPI;
@@ -1570,10 +1591,8 @@ public class WorkspaceClient {
    * This is an evolving API that facilitates the addition and removal of vizualisations from
    * existing queries within the Databricks Workspace. Data structures may change over time.
    *
-   * <p>**Warning**: This API is deprecated. Please see the latest version of the Databricks SQL
-   * API. [Learn more]
-   *
-   * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
+   * <p><b>Warning</b>: This API is deprecated. Please see the latest version of the Databricks SQL
+   * API. <a href="https://docs.databricks.com/en/sql/dbsql-api-latest.html">Learn more</a>
    */
   public QueryVisualizationsLegacyAPI queryVisualizationsLegacy() {
     return queryVisualizationsLegacyAPI;
@@ -1581,10 +1600,10 @@ public class WorkspaceClient {
 
   /**
    * The Recipient Activation API is only applicable in the open sharing model where the recipient
-   * object has the authentication type of `TOKEN`. The data recipient follows the activation link
-   * shared by the data provider to download the credential file that includes the access token. The
-   * recipient will then use the credential file to establish a secure connection with the provider
-   * to receive the shared data.
+   * object has the authentication type of {@code TOKEN}. The data recipient follows the activation
+   * link shared by the data provider to download the credential file that includes the access
+   * token. The recipient will then use the credential file to establish a secure connection with
+   * the provider to receive the shared data.
    *
    * <p>Note that you can download the credential file only once. Recipients should treat the
    * downloaded credential as a secret and must not share it outside of their organization.
@@ -1595,22 +1614,27 @@ public class WorkspaceClient {
 
   /**
    * The Recipient Federation Policies APIs are only applicable in the open sharing model where the
-   * recipient object has the authentication type of `OIDC_RECIPIENT`, enabling data sharing from
-   * Databricks to non-Databricks recipients. OIDC Token Federation enables secure, secret-less
+   * recipient object has the authentication type of {@code OIDC_RECIPIENT}, enabling data sharing
+   * from Databricks to non-Databricks recipients. OIDC Token Federation enables secure, secret-less
    * authentication for accessing Delta Sharing servers. Users and applications authenticate using
    * short-lived OIDC tokens issued by their own Identity Provider (IdP), such as Azure Entra ID or
    * Okta, without the need for managing static credentials or client secrets. A federation policy
    * defines how non-Databricks recipients authenticate using OIDC tokens. It validates the OIDC
    * claims in federated tokens and is set at the recipient level. The caller must be the owner of
    * the recipient to create or manage a federation policy. Federation policies support the
-   * following scenarios: - User-to-Machine (U2M) flow: A user accesses Delta Shares using their own
-   * identity, such as connecting through PowerBI Delta Sharing Client. - Machine-to-Machine (M2M)
-   * flow: An application accesses Delta Shares using its own identity, typically for automation
-   * tasks like nightly jobs through Python Delta Sharing Client. OIDC Token Federation enables
-   * fine-grained access control, supports Multi-Factor Authentication (MFA), and enhances security
-   * by minimizing the risk of credential leakage through the use of short-lived, expiring tokens.
-   * It is designed for strong identity governance, secure cross-platform data sharing, and reduced
-   * operational overhead for credential management.
+   * following scenarios:
+   *
+   * <ul>
+   *   <li>User-to-Machine (U2M) flow: A user accesses Delta Shares using their own identity, such
+   *       as connecting through PowerBI Delta Sharing Client.
+   *   <li>Machine-to-Machine (M2M) flow: An application accesses Delta Shares using its own
+   *       identity, typically for automation tasks like nightly jobs through Python Delta Sharing
+   *       Client. OIDC Token Federation enables fine-grained access control, supports Multi-Factor
+   *       Authentication (MFA), and enhances security by minimizing the risk of credential leakage
+   *       through the use of short-lived, expiring tokens. It is designed for strong identity
+   *       governance, secure cross-platform data sharing, and reduced operational overhead for
+   *       credential management.
+   * </ul>
    *
    * <p>For more information, see
    * https://www.databricks.com/blog/announcing-oidc-token-federation-enhanced-delta-sharing-security
@@ -1626,16 +1650,17 @@ public class WorkspaceClient {
    * on whether or not your recipient has access to a Databricks workspace that is enabled for Unity
    * Catalog:
    *
-   * <p>- For recipients with access to a Databricks workspace that is enabled for Unity Catalog,
-   * you can create a recipient object along with a unique sharing identifier you get from the
-   * recipient. The sharing identifier is the key identifier that enables the secure connection.
-   * This sharing mode is called **Databricks-to-Databricks sharing**.
-   *
-   * <p>- For recipients without access to a Databricks workspace that is enabled for Unity Catalog,
-   * when you create a recipient object, Databricks generates an activation link you can send to the
-   * recipient. The recipient follows the activation link to download the credential file, and then
-   * uses the credential file to establish a secure connection to receive the shared data. This
-   * sharing mode is called **open sharing**.
+   * <ul>
+   *   <li>For recipients with access to a Databricks workspace that is enabled for Unity Catalog,
+   *       you can create a recipient object along with a unique sharing identifier you get from the
+   *       recipient. The sharing identifier is the key identifier that enables the secure
+   *       connection. This sharing mode is called <b>Databricks-to-Databricks sharing</b>.
+   *   <li>For recipients without access to a Databricks workspace that is enabled for Unity
+   *       Catalog, when you create a recipient object, Databricks generates an activation link you
+   *       can send to the recipient. The recipient follows the activation link to download the
+   *       credential file, and then uses the credential file to establish a secure connection to
+   *       receive the shared data. This sharing mode is called <b>open sharing</b>.
+   * </ul>
    */
   public RecipientsAPI recipients() {
     return recipientsAPI;
@@ -1661,13 +1686,18 @@ public class WorkspaceClient {
    * the enclosing catalog and USE_SCHEMA permissions on the enclosing schema. In addition, the
    * following additional privileges are required for various operations:
    *
-   * <p>* To create a registered model, users must additionally have the CREATE_MODEL permission on
-   * the target schema. * To view registered model or model version metadata, model version data
-   * files, or invoke a model version, users must additionally have the EXECUTE permission on the
-   * registered model * To update registered model or model version tags, users must additionally
-   * have APPLY TAG permissions on the registered model * To update other registered model or model
-   * version metadata (comments, aliases) create a new model version, or update permissions on the
-   * registered model, users must be owners of the registered model.
+   * <ul>
+   *   <li>To create a registered model, users must additionally have the CREATE_MODEL permission on
+   *       the target schema.
+   *   <li>To view registered model or model version metadata, model version data files, or invoke a
+   *       model version, users must additionally have the EXECUTE permission on the registered
+   *       model
+   *   <li>To update registered model or model version tags, users must additionally have APPLY TAG
+   *       permissions on the registered model
+   *   <li>To update other registered model or model version metadata (comments, aliases) create a
+   *       new model version, or update permissions on the registered model, users must be owners of
+   *       the registered model.
+   * </ul>
    *
    * <p>Note: The securable type for models is FUNCTION. When using REST APIs (e.g. tagging, grants)
    * that specify a securable type, use FUNCTION as the securable type.
@@ -1696,11 +1726,9 @@ public class WorkspaceClient {
    * Unity Catalog enforces resource quotas on all securable objects, which limits the number of
    * resources that can be created. Quotas are expressed in terms of a resource type and a parent
    * (for example, tables per metastore or schemas per catalog). The resource quota APIs enable you
-   * to monitor your current usage and limits. For more information on resource quotas see the
-   * [Unity Catalog documentation].
-   *
-   * <p>[Unity Catalog documentation]:
-   * https://docs.databricks.com/en/data-governance/unity-catalog/index.html#resource-quotas
+   * to monitor your current usage and limits. For more information on resource quotas see the <a
+   * href="https://docs.databricks.com/en/data-governance/unity-catalog/index.html#resource-quotas">Unity
+   * Catalog documentation</a>.
    */
   public ResourceQuotasAPI resourceQuotas() {
     return resourceQuotasAPI;
@@ -1744,7 +1772,7 @@ public class WorkspaceClient {
   /**
    * A secret is a Unity Catalog securable object that stores sensitive credential data (such as
    * passwords, tokens, and keys) within a three-level namespace
-   * (**catalog_name.schema_name.secret_name**).
+   * (<b>catalog_name.schema_name.secret_name</b>).
    *
    * <p>Secrets can be managed using standard Unity Catalog permissions and are scoped to a schema
    * within a catalog.
@@ -1759,16 +1787,13 @@ public class WorkspaceClient {
    *
    * <p>You can use the generated secrets to obtain OAuth access tokens for a service principal,
    * which can then be used to access Databricks Accounts and Workspace APIs. For more information,
-   * see [Authentication using OAuth tokens for service principals].
+   * see <a href="https://docs.databricks.com/dev-tools/authentication-oauth.html">Authentication
+   * using OAuth tokens for service principals</a>.
    *
    * <p>In addition, the generated secrets can be used to configure the Databricks Terraform
-   * Providerto authenticate with the service principal. For more information, see [Databricks
-   * Terraform Provider].
-   *
-   * <p>[Authentication using OAuth tokens for service principals]:
-   * https://docs.databricks.com/dev-tools/authentication-oauth.html [Databricks Terraform
-   * Provider]:
-   * https://github.com/databricks/terraform-provider-databricks/blob/master/docs/index.md#authenticating-with-service-principal
+   * Providerto authenticate with the service principal. For more information, see <a
+   * href="https://github.com/databricks/terraform-provider-databricks/blob/master/docs/index.md#authenticating-with-service-principal">Databricks
+   * Terraform Provider</a>.
    */
   public ServicePrincipalSecretsProxyAPI servicePrincipalSecretsProxy() {
     return servicePrincipalSecretsProxyAPI;
@@ -1828,11 +1853,13 @@ public class WorkspaceClient {
    * The Databricks SQL Statement Execution API can be used to execute SQL statements on a SQL
    * warehouse and fetch the result.
    *
-   * <p>**Getting started**
+   * <p><b>Getting started</b>
    *
-   * <p>We suggest beginning with the [Databricks SQL Statement Execution API tutorial].
+   * <p>We suggest beginning with the <a
+   * href="https://docs.databricks.com/sql/api/sql-execution-tutorial.html">Databricks SQL Statement
+   * Execution API tutorial</a>.
    *
-   * <p>**Overview of statement execution and result fetching**
+   * <p><b>Overview of statement execution and result fetching</b>
    *
    * <p>Statement execution begins by issuing a :method:statementexecution/executeStatement request
    * with a valid SQL statement and warehouse ID, along with optional parameters such as the data
@@ -1843,78 +1870,91 @@ public class WorkspaceClient {
    * used to poll for results by using a :method:statementexecution/getStatement request.
    *
    * <p>You can specify whether the call should behave synchronously, asynchronously or start
-   * synchronously with a fallback to asynchronous execution. This is controlled with the
-   * `wait_timeout` and `on_wait_timeout` settings. If `wait_timeout` is set between 5-50 seconds
-   * (default: 10s), the call waits for results up to the specified timeout; when set to `0s`, the
-   * call is asynchronous and responds immediately with a statement ID. The `on_wait_timeout`
-   * setting specifies what should happen when the timeout is reached while the statement execution
-   * has not yet finished. This can be set to either `CONTINUE`, to fallback to asynchronous mode,
-   * or it can be set to `CANCEL`, which cancels the statement.
+   * synchronously with a fallback to asynchronous execution. This is controlled with the {@code
+   * wait_timeout} and {@code on_wait_timeout} settings. If {@code wait_timeout} is set between 5-50
+   * seconds (default: 10s), the call waits for results up to the specified timeout; when set to
+   * {@code 0s}, the call is asynchronous and responds immediately with a statement ID. The {@code
+   * on_wait_timeout} setting specifies what should happen when the timeout is reached while the
+   * statement execution has not yet finished. This can be set to either {@code CONTINUE}, to
+   * fallback to asynchronous mode, or it can be set to {@code CANCEL}, which cancels the statement.
    *
-   * <p>In summary: - **Synchronous mode** (`wait_timeout=30s` and `on_wait_timeout=CANCEL`): The
-   * call waits up to 30 seconds; if the statement execution finishes within this time, the result
-   * data is returned directly in the response. If the execution takes longer than 30 seconds, the
-   * execution is canceled and the call returns with a `CANCELED` state. - **Asynchronous mode**
-   * (`wait_timeout=0s` and `on_wait_timeout` is ignored): The call doesn't wait for the statement
-   * to finish but returns directly with a statement ID. The status of the statement execution can
-   * be polled by issuing :method:statementexecution/getStatement with the statement ID. Once the
-   * execution has succeeded, this call also returns the result and metadata in the response. -
-   * **[Default] Hybrid mode** (`wait_timeout=10s` and `on_wait_timeout=CONTINUE`): The call waits
-   * for up to 10 seconds; if the statement execution finishes within this time, the result data is
-   * returned directly in the response. If the execution takes longer than 10 seconds, a statement
-   * ID is returned. The statement ID can be used to fetch status and results in the same way as in
-   * the asynchronous mode.
+   * <p>In summary:
+   *
+   * <ul>
+   *   <li><b>Synchronous mode</b> ({@code wait_timeout=30s} and {@code on_wait_timeout=CANCEL}):
+   *       The call waits up to 30 seconds; if the statement execution finishes within this time,
+   *       the result data is returned directly in the response. If the execution takes longer than
+   *       30 seconds, the execution is canceled and the call returns with a {@code CANCELED} state.
+   *   <li><b>Asynchronous mode</b> ({@code wait_timeout=0s} and {@code on_wait_timeout} is
+   *       ignored): The call doesn't wait for the statement to finish but returns directly with a
+   *       statement ID. The status of the statement execution can be polled by issuing
+   *       :method:statementexecution/getStatement with the statement ID. Once the execution has
+   *       succeeded, this call also returns the result and metadata in the response.
+   *   <li><b>[Default] Hybrid mode</b> ({@code wait_timeout=10s} and {@code
+   *       on_wait_timeout=CONTINUE}): The call waits for up to 10 seconds; if the statement
+   *       execution finishes within this time, the result data is returned directly in the
+   *       response. If the execution takes longer than 10 seconds, a statement ID is returned. The
+   *       statement ID can be used to fetch status and results in the same way as in the
+   *       asynchronous mode.
+   * </ul>
    *
    * <p>Depending on the size, the result can be split into multiple chunks. If the statement
    * execution is successful, the statement response contains a manifest and the first chunk of the
    * result. The manifest contains schema information and provides metadata for each chunk in the
    * result. Result chunks can be retrieved by index with
    * :method:statementexecution/getStatementResultChunkN which may be called in any order and in
-   * parallel. For sequential fetching, each chunk, apart from the last, also contains a
-   * `next_chunk_index` and `next_chunk_internal_link` that point to the next chunk.
+   * parallel. For sequential fetching, each chunk, apart from the last, also contains a {@code
+   * next_chunk_index} and {@code next_chunk_internal_link} that point to the next chunk.
    *
    * <p>A statement can be canceled with :method:statementexecution/cancelExecution.
    *
-   * <p>**Fetching result data: format and disposition**
+   * <p><b>Fetching result data: format and disposition</b>
    *
-   * <p>To specify the format of the result data, use the `format` field, which can be set to one of
-   * the following options: `JSON_ARRAY` (JSON), `ARROW_STREAM` ([Apache Arrow Columnar]), or `CSV`.
+   * <p>To specify the format of the result data, use the {@code format} field, which can be set to
+   * one of the following options: {@code JSON_ARRAY} (JSON), {@code ARROW_STREAM} (<a
+   * href="https://arrow.apache.org/overview/">Apache Arrow Columnar</a>), or {@code CSV}.
    *
-   * <p>There are two ways to receive statement results, controlled by the `disposition` setting,
-   * which can be either `INLINE` or `EXTERNAL_LINKS`:
+   * <p>There are two ways to receive statement results, controlled by the {@code disposition}
+   * setting, which can be either {@code INLINE} or {@code EXTERNAL_LINKS}:
    *
-   * <p>- `INLINE`: In this mode, the result data is directly included in the response. It's best
-   * suited for smaller results. This mode can only be used with the `JSON_ARRAY` format.
+   * <ul>
+   *   <li>{@code INLINE}: In this mode, the result data is directly included in the response. It's
+   *       best suited for smaller results. This mode can only be used with the {@code JSON_ARRAY}
+   *       format.
+   *   <li>{@code EXTERNAL_LINKS}: In this mode, the response provides links that can be used to
+   *       download the result data in chunks separately. This approach is ideal for larger results
+   *       and offers higher throughput. This mode can be used with all the formats: {@code
+   *       JSON_ARRAY}, {@code ARROW_STREAM}, and {@code CSV}.
+   * </ul>
    *
-   * <p>- `EXTERNAL_LINKS`: In this mode, the response provides links that can be used to download
-   * the result data in chunks separately. This approach is ideal for larger results and offers
-   * higher throughput. This mode can be used with all the formats: `JSON_ARRAY`, `ARROW_STREAM`,
-   * and `CSV`.
+   * <p>By default, the API uses {@code format=JSON_ARRAY} and {@code disposition=INLINE}.
    *
-   * <p>By default, the API uses `format=JSON_ARRAY` and `disposition=INLINE`.
-   *
-   * <p>**Limits and limitations**
+   * <p><b>Limits and limitations</b>
    *
    * <p>Note: The byte limit for INLINE disposition is based on internal storage metrics and will
    * not exactly match the byte count of the actual payload.
    *
-   * <p>- Statements with `disposition=INLINE` are limited to 25 MiB and will fail when this limit
-   * is exceeded. - Statements with `disposition=EXTERNAL_LINKS` are limited to 100 GiB. Result sets
-   * larger than this limit will be truncated. Truncation is indicated by the `truncated` field in
-   * the result manifest. - The maximum query text size is 16 MiB. - Cancelation might silently
-   * fail. A successful response from a cancel request indicates that the cancel request was
-   * successfully received and sent to the processing engine. However, an outstanding statement
-   * might have already completed execution when the cancel request arrives. Polling for status
-   * until a terminal state is reached is a reliable way to determine the final state. - Wait
-   * timeouts are approximate, occur server-side, and cannot account for things such as caller
-   * delays and network latency from caller to service. - To guarantee that the statement is kept
-   * alive, you must poll at least once every 15 minutes. - The results are only available for one
-   * hour after success; polling does not extend this. - The SQL Execution API must be used for the
-   * entire lifecycle of the statement. For example, you cannot use the Jobs API to execute the
-   * command, and then the SQL Execution API to cancel it.
-   *
-   * <p>[Apache Arrow Columnar]: https://arrow.apache.org/overview/ [Databricks SQL Statement
-   * Execution API tutorial]: https://docs.databricks.com/sql/api/sql-execution-tutorial.html
+   * <ul>
+   *   <li>Statements with {@code disposition=INLINE} are limited to 25 MiB and will fail when this
+   *       limit is exceeded.
+   *   <li>Statements with {@code disposition=EXTERNAL_LINKS} are limited to 100 GiB. Result sets
+   *       larger than this limit will be truncated. Truncation is indicated by the {@code
+   *       truncated} field in the result manifest.
+   *   <li>The maximum query text size is 16 MiB.
+   *   <li>Cancelation might silently fail. A successful response from a cancel request indicates
+   *       that the cancel request was successfully received and sent to the processing engine.
+   *       However, an outstanding statement might have already completed execution when the cancel
+   *       request arrives. Polling for status until a terminal state is reached is a reliable way
+   *       to determine the final state.
+   *   <li>Wait timeouts are approximate, occur server-side, and cannot account for things such as
+   *       caller delays and network latency from caller to service.
+   *   <li>To guarantee that the statement is kept alive, you must poll at least once every 15
+   *       minutes.
+   *   <li>The results are only available for one hour after success; polling does not extend this.
+   *   <li>The SQL Execution API must be used for the entire lifecycle of the statement. For
+   *       example, you cannot use the Jobs API to execute the command, and then the SQL Execution
+   *       API to cancel it.
+   * </ul>
    */
   public StatementExecutionAPI statementExecution() {
     return statementExecutionAPI;
@@ -1975,8 +2015,8 @@ public class WorkspaceClient {
    * users must have the SELECT permission on the table, and they must have the USE_CATALOG
    * permission on its parent catalog and the USE_SCHEMA permission on its parent schema.
    *
-   * <p>A table can be managed or external. From an API perspective, a __VIEW__ is a particular kind
-   * of table (rather than a managed or external table).
+   * <p>A table can be managed or external. From an API perspective, a <b>VIEW</b> is a particular
+   * kind of table (rather than a managed or external table).
    */
   public TablesAPI tables() {
     return tablesAPI;
@@ -1984,13 +2024,11 @@ public class WorkspaceClient {
 
   /**
    * The Tag Policy API allows you to manage policies for governed tags in Databricks. For Terraform
-   * usage, see the [Tag Policy Terraform documentation]. Permissions for tag policies can be
-   * managed using the [Account Access Control Proxy API].
-   *
-   * <p>[Account Access Control Proxy API]:
-   * https://docs.databricks.com/api/workspace/accountaccesscontrolproxy [Tag Policy Terraform
-   * documentation]:
-   * https://registry.terraform.io/providers/databricks/databricks/latest/docs/resources/tag_policy
+   * usage, see the <a
+   * href="https://registry.terraform.io/providers/databricks/databricks/latest/docs/resources/tag_policy">Tag
+   * Policy Terraform documentation</a>. Permissions for tag policies can be managed using the <a
+   * href="https://docs.databricks.com/api/workspace/accountaccesscontrolproxy">Account Access
+   * Control Proxy API</a>.
    */
   public TagPoliciesAPI tagPolicies() {
     return tagPoliciesAPI;
@@ -2092,20 +2130,25 @@ public class WorkspaceClient {
     return usersV2API;
   }
 
-  /** **Endpoint**: Represents the compute resources to host AI Search indexes. */
+  /** <b>Endpoint</b>: Represents the compute resources to host AI Search indexes. */
   public VectorSearchEndpointsAPI vectorSearchEndpoints() {
     return vectorSearchEndpointsAPI;
   }
 
   /**
-   * **Index**: An efficient representation of your embedding vectors that supports real-time and
+   * <b>Index</b>: An efficient representation of your embedding vectors that supports real-time and
    * efficient approximate nearest neighbor (ANN) search queries.
    *
-   * <p>There are 2 types of AI Search indexes: - **Delta Sync Index**: An index that automatically
-   * syncs with a source Delta Table, automatically and incrementally updating the index as the
-   * underlying data in the Delta Table changes. - **Direct Vector Access Index**: An index that
-   * supports direct read and write of vectors and metadata through our REST and SDK APIs. With this
-   * model, the user manages index updates.
+   * <p>There are 2 types of AI Search indexes:
+   *
+   * <ul>
+   *   <li><b>Delta Sync Index</b>: An index that automatically syncs with a source Delta Table,
+   *       automatically and incrementally updating the index as the underlying data in the Delta
+   *       Table changes.
+   *   <li><b>Direct Vector Access Index</b>: An index that supports direct read and write of
+   *       vectors and metadata through our REST and SDK APIs. With this model, the user manages
+   *       index updates.
+   * </ul>
    */
   public VectorSearchIndexesAPI vectorSearchIndexes() {
     return vectorSearchIndexesAPI;
@@ -2146,14 +2189,14 @@ public class WorkspaceClient {
   }
 
   /**
-   * A securable in Databricks can be configured as __OPEN__ or __ISOLATED__. An __OPEN__ securable
-   * can be accessed from any workspace, while an __ISOLATED__ securable can only be accessed from a
-   * configured list of workspaces. This API allows you to configure (bind) securables to
-   * workspaces.
+   * A securable in Databricks can be configured as <b>OPEN</b> or <b>ISOLATED</b>. An <b>OPEN</b>
+   * securable can be accessed from any workspace, while an <b>ISOLATED</b> securable can only be
+   * accessed from a configured list of workspaces. This API allows you to configure (bind)
+   * securables to workspaces.
    *
-   * <p>NOTE: The __isolation_mode__ is configured for the securable itself (using its Update
-   * method) and the workspace bindings are only consulted when the securable's __isolation_mode__
-   * is set to __ISOLATED__.
+   * <p>NOTE: The <b>isolation_mode</b> is configured for the securable itself (using its Update
+   * method) and the workspace bindings are only consulted when the securable's
+   * <b>isolation_mode</b> is set to <b>ISOLATED</b>.
    *
    * <p>A securable's workspace bindings can be configured by a metastore admin or the owner of the
    * securable.
@@ -2162,8 +2205,14 @@ public class WorkspaceClient {
    * Please use the new path (/api/2.1/unity-catalog/bindings/{securable_type}/{securable_name})
    * which introduces the ability to bind a securable in READ_ONLY mode (catalogs only).
    *
-   * <p>Securable types that support binding: - catalog - storage_credential - credential -
-   * external_location
+   * <p>Securable types that support binding:
+   *
+   * <ul>
+   *   <li>catalog
+   *   <li>storage_credential
+   *   <li>credential
+   *   <li>external_location
+   * </ul>
    */
   public WorkspaceBindingsAPI workspaceBindings() {
     return workspaceBindingsAPI;

@@ -11,8 +11,8 @@ import java.util.Objects;
 public class AuthorizationDetailsGrantRule {
   /**
    * Permission sets for dashboard are defined in
-   * iam-common/rbac-common/permission-sets/definitions/TreeStoreBasePermissionSets Ex:
-   * `permissionSets/dashboard.runner`
+   * iam-common/rbac-common/permission-sets/definitions/TreeStoreBasePermissionSets Ex: {@code
+   * permissionSets/dashboard.runner}
    */
   @JsonProperty("permission_set")
   private String permissionSet;

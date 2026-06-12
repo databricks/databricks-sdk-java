@@ -12,14 +12,14 @@ import java.util.Objects;
  * principal that the pipeline runs as. If not specified, the pipeline runs as the user who created
  * the pipeline.
  *
- * <p>Only `user_name` or `service_principal_name` can be specified. If both are specified, an error
- * is thrown.
+ * <p>Only {@code user_name} or {@code service_principal_name} can be specified. If both are
+ * specified, an error is thrown.
  */
 @Generated
 public class RunAs {
   /**
-   * Application ID of an active service principal. Setting this field requires the
-   * `servicePrincipal/user` role.
+   * Application ID of an active service principal. Setting this field requires the {@code
+   * servicePrincipal/user} role.
    */
   @JsonProperty("service_principal_name")
   private String servicePrincipalName;

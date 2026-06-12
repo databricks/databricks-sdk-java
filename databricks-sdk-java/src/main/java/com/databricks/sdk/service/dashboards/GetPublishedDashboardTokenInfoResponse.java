@@ -11,16 +11,16 @@ import java.util.Objects;
 @Generated
 public class GetPublishedDashboardTokenInfoResponse {
   /**
-   * Authorization constraints for accessing the published dashboard. Currently includes
-   * `workspace_rule_set` and could be enriched with `unity_catalog_privileges` before oAuth token
-   * generation.
+   * Authorization constraints for accessing the published dashboard. Currently includes {@code
+   * workspace_rule_set} and could be enriched with {@code unity_catalog_privileges} before oAuth
+   * token generation.
    */
   @JsonProperty("authorization_details")
   private Collection<AuthorizationDetails> authorizationDetails;
 
   /**
-   * Custom claim generated from external_value and external_viewer_id. Format:
-   * `urn:aibi:external_data:<external_value>:<external_viewer_id>:<dashboard_id>`
+   * Custom claim generated from external_value and external_viewer_id. Format: {@code
+   * urn:aibi:external_data:<external_value>:<external_viewer_id>:<dashboard_id>}
    */
   @JsonProperty("custom_claim")
   private String customClaim;

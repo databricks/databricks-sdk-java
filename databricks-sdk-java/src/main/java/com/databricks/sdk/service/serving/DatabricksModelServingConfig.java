@@ -12,9 +12,9 @@ public class DatabricksModelServingConfig {
   /**
    * The Databricks secret key reference for a Databricks API token that corresponds to a user or
    * service principal with Can Query access to the model serving endpoint pointed to by this
-   * external model. If you prefer to paste your API key directly, see
-   * `databricks_api_token_plaintext`. You must provide an API key using one of the following
-   * fields: `databricks_api_token` or `databricks_api_token_plaintext`.
+   * external model. If you prefer to paste your API key directly, see {@code
+   * databricks_api_token_plaintext}. You must provide an API key using one of the following fields:
+   * {@code databricks_api_token} or {@code databricks_api_token_plaintext}.
    */
   @JsonProperty("databricks_api_token")
   private String databricksApiToken;
@@ -22,9 +22,9 @@ public class DatabricksModelServingConfig {
   /**
    * The Databricks API token that corresponds to a user or service principal with Can Query access
    * to the model serving endpoint pointed to by this external model provided as a plaintext string.
-   * If you prefer to reference your key using Databricks Secrets, see `databricks_api_token`. You
-   * must provide an API key using one of the following fields: `databricks_api_token` or
-   * `databricks_api_token_plaintext`.
+   * If you prefer to reference your key using Databricks Secrets, see {@code databricks_api_token}.
+   * You must provide an API key using one of the following fields: {@code databricks_api_token} or
+   * {@code databricks_api_token_plaintext}.
    */
   @JsonProperty("databricks_api_token_plaintext")
   private String databricksApiTokenPlaintext;

@@ -13,19 +13,17 @@ public class NotebookTask {
   /**
    * Base parameters to be used for each run of this job. If the run is initiated by a call to
    * :method:jobs/run Now with parameters specified, the two parameters maps are merged. If the same
-   * key is specified in `base_parameters` and in `run-now`, the value from `run-now` is used. Use
-   * [Task parameter variables] to set parameters containing information about job runs.
+   * key is specified in {@code base_parameters} and in {@code run-now}, the value from {@code
+   * run-now} is used. Use <a href="https://docs.databricks.com/jobs.html#parameter-variables">Task
+   * parameter variables</a> to set parameters containing information about job runs.
    *
-   * <p>If the notebook takes a parameter that is not specified in the job’s `base_parameters` or
-   * the `run-now` override parameters, the default value from the notebook is used.
+   * <p>If the notebook takes a parameter that is not specified in the job’s {@code base_parameters}
+   * or the {@code run-now} override parameters, the default value from the notebook is used.
    *
-   * <p>Retrieve these parameters in a notebook using [dbutils.widgets.get].
+   * <p>Retrieve these parameters in a notebook using <a
+   * href="https://docs.databricks.com/dev-tools/databricks-utils.html#dbutils-widgets">dbutils.widgets.get</a>.
    *
    * <p>The JSON representation of this field cannot exceed 1MB.
-   *
-   * <p>[Task parameter variables]: https://docs.databricks.com/jobs.html#parameter-variables
-   * [dbutils.widgets.get]:
-   * https://docs.databricks.com/dev-tools/databricks-utils.html#dbutils-widgets
    */
   @JsonProperty("base_parameters")
   private Map<String, String> baseParameters;
@@ -39,18 +37,22 @@ public class NotebookTask {
   private String notebookPath;
 
   /**
-   * Optional location type of the notebook. When set to `WORKSPACE`, the notebook will be retrieved
-   * from the local Databricks workspace. When set to `GIT`, the notebook will be retrieved from a
-   * Git repository defined in `git_source`. If the value is empty, the task will use `GIT` if
-   * `git_source` is defined and `WORKSPACE` otherwise. * `WORKSPACE`: Notebook is located in
-   * Databricks workspace. * `GIT`: Notebook is located in cloud Git provider.
+   * Optional location type of the notebook. When set to {@code WORKSPACE}, the notebook will be
+   * retrieved from the local Databricks workspace. When set to {@code GIT}, the notebook will be
+   * retrieved from a Git repository defined in {@code git_source}. If the value is empty, the task
+   * will use {@code GIT} if {@code git_source} is defined and {@code WORKSPACE} otherwise.
+   *
+   * <ul>
+   *   <li>{@code WORKSPACE}: Notebook is located in Databricks workspace.
+   *   <li>{@code GIT}: Notebook is located in cloud Git provider.
+   * </ul>
    */
   @JsonProperty("source")
   private Source source;
 
   /**
-   * Optional `warehouse_id` to run the notebook on a SQL warehouse. Classic SQL warehouses are NOT
-   * supported, please use serverless or pro SQL warehouses.
+   * Optional {@code warehouse_id} to run the notebook on a SQL warehouse. Classic SQL warehouses
+   * are NOT supported, please use serverless or pro SQL warehouses.
    *
    * <p>Note that SQL warehouses only support SQL cells; if the notebook contains non-SQL cells, the
    * run will fail.

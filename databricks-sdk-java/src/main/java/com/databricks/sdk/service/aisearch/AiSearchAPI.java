@@ -8,7 +8,7 @@ import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.Paginator;
 
 /**
- * **AI Search Endpoint**: Represents the compute resources to host AI Search indexes.
+ * <b>AI Search Endpoint</b>: Represents the compute resources to host AI Search indexes.
  * AIP-conformant replacement for the legacy VectorSearchEndpoints API; functionally equivalent.
  */
 @Generated

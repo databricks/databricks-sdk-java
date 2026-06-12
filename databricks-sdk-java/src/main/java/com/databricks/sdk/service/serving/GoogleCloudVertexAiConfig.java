@@ -11,24 +11,22 @@ import java.util.Objects;
 public class GoogleCloudVertexAiConfig {
   /**
    * The Databricks secret key reference for a private key for the service account which has access
-   * to the Google Cloud Vertex AI Service. See [Best practices for managing service account keys].
-   * If you prefer to paste your API key directly, see `private_key_plaintext`. You must provide an
-   * API key using one of the following fields: `private_key` or `private_key_plaintext`
-   *
-   * <p>[Best practices for managing service account keys]:
-   * https://cloud.google.com/iam/docs/best-practices-for-managing-service-account-keys
+   * to the Google Cloud Vertex AI Service. See <a
+   * href="https://cloud.google.com/iam/docs/best-practices-for-managing-service-account-keys">Best
+   * practices for managing service account keys</a>. If you prefer to paste your API key directly,
+   * see {@code private_key_plaintext}. You must provide an API key using one of the following
+   * fields: {@code private_key} or {@code private_key_plaintext}
    */
   @JsonProperty("private_key")
   private String privateKey;
 
   /**
    * The private key for the service account which has access to the Google Cloud Vertex AI Service
-   * provided as a plaintext secret. See [Best practices for managing service account keys]. If you
-   * prefer to reference your key using Databricks Secrets, see `private_key`. You must provide an
-   * API key using one of the following fields: `private_key` or `private_key_plaintext`.
-   *
-   * <p>[Best practices for managing service account keys]:
-   * https://cloud.google.com/iam/docs/best-practices-for-managing-service-account-keys
+   * provided as a plaintext secret. See <a
+   * href="https://cloud.google.com/iam/docs/best-practices-for-managing-service-account-keys">Best
+   * practices for managing service account keys</a>. If you prefer to reference your key using
+   * Databricks Secrets, see {@code private_key}. You must provide an API key using one of the
+   * following fields: {@code private_key} or {@code private_key_plaintext}.
    */
   @JsonProperty("private_key_plaintext")
   private String privateKeyPlaintext;
@@ -38,10 +36,9 @@ public class GoogleCloudVertexAiConfig {
   private String projectId;
 
   /**
-   * This is the region for the Google Cloud Vertex AI Service. See [supported regions] for more
+   * This is the region for the Google Cloud Vertex AI Service. See <a
+   * href="https://cloud.google.com/vertex-ai/docs/general/locations">supported regions</a> for more
    * details. Some models are only available in specific regions.
-   *
-   * <p>[supported regions]: https://cloud.google.com/vertex-ai/docs/general/locations
    */
   @JsonProperty("region")
   private String region;

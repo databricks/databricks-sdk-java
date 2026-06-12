@@ -11,24 +11,24 @@ import java.util.Objects;
 @Generated
 public class ClusterLogConf {
   /**
-   * destination needs to be provided. e.g. `{ "dbfs" : { "destination" : "dbfs:/home/cluster_log" }
-   * }`
+   * destination needs to be provided. e.g. {@code { "dbfs" : { "destination" :
+   * "dbfs:/home/cluster_log" } }}
    */
   @JsonProperty("dbfs")
   private DbfsStorageInfo dbfs;
 
   /**
-   * destination and either the region or endpoint need to be provided. e.g. `{ "s3": {
-   * "destination" : "s3://cluster_log_bucket/prefix", "region" : "us-west-2" } }` Cluster iam role
-   * is used to access s3, please make sure the cluster iam role in `instance_profile_arn` has
+   * destination and either the region or endpoint need to be provided. e.g. {@code { "s3": {
+   * "destination" : "s3://cluster_log_bucket/prefix", "region" : "us-west-2" } }} Cluster iam role
+   * is used to access s3, please make sure the cluster iam role in {@code instance_profile_arn} has
    * permission to write data to the s3 destination.
    */
   @JsonProperty("s3")
   private S3StorageInfo s3;
 
   /**
-   * destination needs to be provided, e.g. `{ "volumes": { "destination":
-   * "/Volumes/catalog/schema/volume/cluster_log" } }`
+   * destination needs to be provided, e.g. {@code { "volumes": { "destination":
+   * "/Volumes/catalog/schema/volume/cluster_log" } }}
    */
   @JsonProperty("volumes")
   private VolumesStorageInfo volumes;

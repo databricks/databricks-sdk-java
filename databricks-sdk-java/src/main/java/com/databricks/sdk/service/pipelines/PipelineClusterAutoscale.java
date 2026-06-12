@@ -10,8 +10,8 @@ import java.util.Objects;
 @Generated
 public class PipelineClusterAutoscale {
   /**
-   * The maximum number of workers to which the cluster can scale up when overloaded. `max_workers`
-   * must be strictly greater than `min_workers`.
+   * The maximum number of workers to which the cluster can scale up when overloaded. {@code
+   * max_workers} must be strictly greater than {@code min_workers}.
    */
   @JsonProperty("max_workers")
   private Long maxWorkers;
@@ -26,8 +26,8 @@ public class PipelineClusterAutoscale {
   /**
    * Databricks Enhanced Autoscaling optimizes cluster utilization by automatically allocating
    * cluster resources based on workload volume, with minimal impact to the data processing latency
-   * of your pipelines. Enhanced Autoscaling is available for `updates` clusters only. The legacy
-   * autoscaling feature is used for `maintenance` clusters.
+   * of your pipelines. Enhanced Autoscaling is available for {@code updates} clusters only. The
+   * legacy autoscaling feature is used for {@code maintenance} clusters.
    */
   @JsonProperty("mode")
   private PipelineClusterAutoscaleMode mode;

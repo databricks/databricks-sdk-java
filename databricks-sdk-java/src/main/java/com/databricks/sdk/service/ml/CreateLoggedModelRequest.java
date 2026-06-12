@@ -14,7 +14,7 @@ public class CreateLoggedModelRequest {
   @JsonProperty("experiment_id")
   private String experimentId;
 
-  /** The type of the model, such as ``"Agent"``, ``"Classifier"``, ``"LLM"``. */
+  /** The type of the model, such as {@code "Agent"}, {@code "Classifier"}, {@code "LLM"}. */
   @JsonProperty("model_type")
   private String modelType;
 

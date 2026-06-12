@@ -9,7 +9,8 @@ import com.databricks.sdk.support.Paginator;
 
 /**
  * Deprecated: Please use the Data Quality Monitoring API instead (REST:
- * /api/data-quality/v1/monitors). Manage data quality of UC objects (currently support `schema`).
+ * /api/data-quality/v1/monitors). Manage data quality of UC objects (currently support {@code
+ * schema}).
  */
 @Generated
 public class QualityMonitorV2API {

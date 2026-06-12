@@ -14,20 +14,17 @@ public class CronSchedule {
   private PauseStatus pauseStatus;
 
   /**
-   * A Cron expression using Quartz syntax that describes the schedule for a job. See [Cron Trigger]
-   * for details. This field is required.
-   *
-   * <p>[Cron Trigger]:
-   * http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html
+   * A Cron expression using Quartz syntax that describes the schedule for a job. See <a
+   * href="http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html">Cron
+   * Trigger</a> for details. This field is required.
    */
   @JsonProperty("quartz_cron_expression")
   private String quartzCronExpression;
 
   /**
-   * A Java timezone ID. The schedule for a job is resolved with respect to this timezone. See [Java
-   * TimeZone] for details. This field is required.
-   *
-   * <p>[Java TimeZone]: https://docs.oracle.com/javase/7/docs/api/java/util/TimeZone.html
+   * A Java timezone ID. The schedule for a job is resolved with respect to this timezone. See <a
+   * href="https://docs.oracle.com/javase/7/docs/api/java/util/TimeZone.html">Java TimeZone</a> for
+   * details. This field is required.
    */
   @JsonProperty("timezone_id")
   private String timezoneId;

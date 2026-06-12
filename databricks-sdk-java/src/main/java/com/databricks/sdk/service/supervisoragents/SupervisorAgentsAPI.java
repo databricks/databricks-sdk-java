@@ -199,15 +199,15 @@ public class SupervisorAgentsAPI {
 
   /**
    * Updates a Supervisor Agent. The fields that are required depend on the paths specified in
-   * `update_mask`. Only fields included in the mask will be updated.
+   * {@code update_mask}. Only fields included in the mask will be updated.
    */
   public SupervisorAgent updateSupervisorAgent(UpdateSupervisorAgentRequest request) {
     return impl.updateSupervisorAgent(request);
   }
 
   /**
-   * Updates a Tool. Only the `description` field can be updated. To change immutable fields such as
-   * tool type, spec, or tool ID, delete the tool and recreate it.
+   * Updates a Tool. Only the {@code description} field can be updated. To change immutable fields
+   * such as tool type, spec, or tool ID, delete the tool and recreate it.
    */
   public Tool updateTool(UpdateToolRequest request) {
     return impl.updateTool(request);

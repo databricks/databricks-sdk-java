@@ -28,7 +28,7 @@ public class ValidateCredentialRequest {
 
   /**
    * The name of an existing external location to validate. Only applicable for storage credentials
-   * (purpose is **STORAGE**.)
+   * (purpose is <b>STORAGE</b>.)
    */
   @JsonProperty("external_location_name")
   private String externalLocationName;
@@ -39,12 +39,12 @@ public class ValidateCredentialRequest {
 
   /**
    * Whether the credential is only usable for read operations. Only applicable for storage
-   * credentials (purpose is **STORAGE**.)
+   * credentials (purpose is <b>STORAGE</b>.)
    */
   @JsonProperty("read_only")
   private Boolean readOnly;
 
-  /** The external location url to validate. Only applicable when purpose is **STORAGE**. */
+  /** The external location url to validate. Only applicable when purpose is <b>STORAGE</b>. */
   @JsonProperty("url")
   private String url;
 

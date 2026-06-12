@@ -10,8 +10,8 @@ import java.util.Objects;
 @Generated
 public class ResourceMeta {
   /**
-   * Identifier for group type. Can be local workspace group (`WorkspaceGroup`) or account group
-   * (`Group`).
+   * Identifier for group type. Can be local workspace group ({@code WorkspaceGroup}) or account
+   * group ({@code Group}).
    */
   @JsonProperty("resourceType")
   private String resourceType;

@@ -8,8 +8,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 /**
- * A table constraint, as defined by *one* of the following fields being set:
- * __primary_key_constraint__, __foreign_key_constraint__, __named_table_constraint__.
+ * A table constraint, as defined by <i>one</i> of the following fields being set:
+ * <b>primary_key_constraint</b>, <b>foreign_key_constraint</b>, <b>named_table_constraint</b>.
  */
 @Generated
 public class TableConstraint {

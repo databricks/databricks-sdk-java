@@ -96,14 +96,15 @@ public class EnvironmentsAPI {
    *
    * <p>Databricks provides the following base environments:
    *
-   * <p>- `workspace-base-environments/databricks_ai_...`: includes popular AI and deep learning
-   * packages for serverless GPU compute.
+   * <ul>
+   *   <li>{@code workspace-base-environments/databricks_ai_...}: includes popular AI and deep
+   *       learning packages for serverless GPU compute.
+   *   <li>{@code workspace-base-environments/databricks_ml_...}: includes popular ML packages for
+   *       serverless compute.
+   * </ul>
    *
-   * <p>- `workspace-base-environments/databricks_ml_...`: includes popular ML packages for
-   * serverless compute.
-   *
-   * <p>Databricks-provided base environments are versioned. For example,
-   * `workspace-base-environments/databricks_ml_v5` corresponds to the ML environment built on
+   * <p>Databricks-provided base environments are versioned. For example, {@code
+   * workspace-base-environments/databricks_ml_v5} corresponds to the ML environment built on
    * environment version 5.
    */
   public Iterable<WorkspaceBaseEnvironment> listWorkspaceBaseEnvironments(

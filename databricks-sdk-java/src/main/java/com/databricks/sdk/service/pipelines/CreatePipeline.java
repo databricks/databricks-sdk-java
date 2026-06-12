@@ -20,10 +20,10 @@ public class CreatePipeline {
   private String budgetPolicyId;
 
   /**
-   * A catalog in Unity Catalog to publish data from this pipeline to. If `target` is specified,
-   * tables in this pipeline are published to a `target` schema inside `catalog` (for example,
-   * `catalog`.`target`.`table`). If `target` is not specified, no data is published to Unity
-   * Catalog.
+   * A catalog in Unity Catalog to publish data from this pipeline to. If {@code target} is
+   * specified, tables in this pipeline are published to a {@code target} schema inside {@code
+   * catalog} (for example, {@code catalog}.{@code target}.{@code table}). If {@code target} is not
+   * specified, no data is published to Unity Catalog.
    */
   @JsonProperty("catalog")
   private String catalog;
@@ -40,7 +40,7 @@ public class CreatePipeline {
   @JsonProperty("configuration")
   private Map<String, String> configuration;
 
-  /** Whether the pipeline is continuous or triggered. This replaces `trigger`. */
+  /** Whether the pipeline is continuous or triggered. This replaces {@code trigger}. */
   @JsonProperty("continuous")
   private Boolean continuous;
 
@@ -147,14 +147,14 @@ public class CreatePipeline {
   private Map<String, String> tags;
 
   /**
-   * Target schema (database) to add tables in this pipeline to. Exactly one of `schema` or `target`
-   * must be specified. To publish to Unity Catalog, also specify `catalog`. This legacy field is
-   * deprecated for pipeline creation in favor of the `schema` field.
+   * Target schema (database) to add tables in this pipeline to. Exactly one of {@code schema} or
+   * {@code target} must be specified. To publish to Unity Catalog, also specify {@code catalog}.
+   * This legacy field is deprecated for pipeline creation in favor of the {@code schema} field.
    */
   @JsonProperty("target")
   private String target;
 
-  /** Which pipeline trigger to use. Deprecated: Use `continuous` instead. */
+  /** Which pipeline trigger to use. Deprecated: Use {@code continuous} instead. */
   @JsonProperty("trigger")
   private PipelineTrigger trigger;
 

@@ -12,11 +12,9 @@ import com.databricks.sdk.support.Paginator;
  * compute resources. This API provides stable subnets for your workspace so that you can configure
  * your firewalls on your Azure Storage accounts to allow access from Databricks. You can also use
  * the API to provision private endpoints for Databricks to privately connect serverless compute
- * resources to your Azure resources using Azure Private Link. See [configure serverless secure
- * connectivity].
- *
- * <p>[configure serverless secure connectivity]:
- * https://learn.microsoft.com/azure/databricks/security/network/serverless-network-security
+ * resources to your Azure resources using Azure Private Link. See <a
+ * href="https://learn.microsoft.com/azure/databricks/security/network/serverless-network-security">configure
+ * serverless secure connectivity</a>.
  */
 @Generated
 public class NetworkConnectivityAPI {
@@ -40,13 +38,12 @@ public class NetworkConnectivityAPI {
    * configuration to create Databricks managed private endpoints so that Databricks serverless
    * compute resources privately access your resources.
    *
-   * <p>**IMPORTANT**: After you create the network connectivity configuration, you must assign one
-   * or more workspaces to the new network connectivity configuration. You can share one network
+   * <p><b>IMPORTANT</b>: After you create the network connectivity configuration, you must assign
+   * one or more workspaces to the new network connectivity configuration. You can share one network
    * connectivity configuration with multiple workspaces from the same Azure region within the same
-   * Databricks account. See [configure serverless secure connectivity].
-   *
-   * <p>[configure serverless secure connectivity]:
-   * https://learn.microsoft.com/azure/databricks/security/network/serverless-network-security
+   * Databricks account. See <a
+   * href="https://learn.microsoft.com/azure/databricks/security/network/serverless-network-security">configure
+   * serverless secure connectivity</a>.
    */
   public NetworkConnectivityConfiguration createNetworkConnectivityConfiguration(
       CreateNetworkConnectivityConfigRequest request) {
@@ -58,12 +55,11 @@ public class NetworkConnectivityAPI {
    * object is created, Databricks asynchronously provisions a new Azure private endpoint to your
    * specified Azure resource.
    *
-   * <p>**IMPORTANT**: You must use Azure portal or other Azure tools to approve the private
+   * <p><b>IMPORTANT</b>: You must use Azure portal or other Azure tools to approve the private
    * endpoint to complete the connection. To get the information of the private endpoint created,
-   * make a `GET` request on the new private endpoint rule. See [serverless private link].
-   *
-   * <p>[serverless private link]:
-   * https://learn.microsoft.com/azure/databricks/security/network/serverless-network-security/serverless-private-link
+   * make a {@code GET} request on the new private endpoint rule. See <a
+   * href="https://learn.microsoft.com/azure/databricks/security/network/serverless-network-security/serverless-private-link">serverless
+   * private link</a>.
    */
   public NccPrivateEndpointRule createPrivateEndpointRule(
       CreatePrivateEndpointRuleRequest request) {
@@ -94,8 +90,8 @@ public class NetworkConnectivityAPI {
    * Initiates deleting a private endpoint rule. If the connection state is PENDING or EXPIRED, the
    * private endpoint is immediately deleted. Otherwise, the private endpoint is deactivated and
    * will be deleted after one day of deactivation. When a private endpoint is deactivated, the
-   * `deactivated` field is set to `true` and the private endpoint is not available to your
-   * serverless compute resources.
+   * {@code deactivated} field is set to {@code true} and the private endpoint is not available to
+   * your serverless compute resources.
    */
   public NccPrivateEndpointRule deletePrivateEndpointRule(
       DeletePrivateEndpointRuleRequest request) {

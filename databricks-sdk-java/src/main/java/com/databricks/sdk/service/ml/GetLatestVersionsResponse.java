@@ -11,8 +11,9 @@ import java.util.Objects;
 @Generated
 public class GetLatestVersionsResponse {
   /**
-   * Latest version models for each requests stage. Only return models with current `READY` status.
-   * If no `stages` provided, returns the latest version for each stage, including `"None"`.
+   * Latest version models for each requests stage. Only return models with current {@code READY}
+   * status. If no {@code stages} provided, returns the latest version for each stage, including
+   * {@code "None"}.
    */
   @JsonProperty("model_versions")
   private Collection<ModelVersion> modelVersions;

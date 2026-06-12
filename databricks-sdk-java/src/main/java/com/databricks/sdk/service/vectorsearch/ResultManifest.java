@@ -19,11 +19,11 @@ public class ResultManifest {
   @JsonProperty("columns")
   private Collection<ColumnInfo> columns;
 
-  /** Number of columns in `facet_result`. */
+  /** Number of columns in {@code facet_result}. */
   @JsonProperty("facet_column_count")
   private Long facetColumnCount;
 
-  /** Information about each column in `facet_result`. */
+  /** Information about each column in {@code facet_result}. */
   @JsonProperty("facet_columns")
   private Collection<ColumnInfo> facetColumns;
 

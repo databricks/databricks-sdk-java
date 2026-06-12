@@ -19,7 +19,7 @@ public class ListExamplesRequest {
   private Long pageSize;
 
   /**
-   * A page token, received from a previous `ListExamples` call. Provide this to retrieve the
+   * A page token, received from a previous {@code ListExamples} call. Provide this to retrieve the
    * subsequent page. If unspecified, the first page will be returned.
    */
   @JsonIgnore

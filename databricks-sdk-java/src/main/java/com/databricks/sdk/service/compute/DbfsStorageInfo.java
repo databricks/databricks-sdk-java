@@ -10,7 +10,7 @@ import java.util.Objects;
 /** A storage location in DBFS */
 @Generated
 public class DbfsStorageInfo {
-  /** dbfs destination, e.g. `dbfs:/my/path` */
+  /** dbfs destination, e.g. {@code dbfs:/my/path} */
   @JsonProperty("destination")
   private String destination;
 

@@ -24,9 +24,14 @@ public class BaseJob {
 
   /**
    * The id of the budget policy used by this job for cost attribution purposes. This may be set
-   * through (in order of precedence): 1. Budget admins through the account or workspace console 2.
-   * Jobs UI in the job details page and Jobs API using `budget_policy_id` 3. Inferred default based
-   * on accessible budget policies of the run_as identity on job creation or modification.
+   * through (in order of precedence):
+   *
+   * <ol>
+   *   <li>Budget admins through the account or workspace console
+   *   <li>Jobs UI in the job details page and Jobs API using {@code budget_policy_id}
+   *   <li>Inferred default based on accessible budget policies of the run_as identity on job
+   *       creation or modification.
+   * </ol>
    */
   @JsonProperty("effective_budget_policy_id")
   private String effectiveBudgetPolicyId;
@@ -36,9 +41,9 @@ public class BaseJob {
   private String effectiveUsagePolicyId;
 
   /**
-   * Indicates if the job has more array properties (`tasks`, `job_clusters`) that are not shown.
-   * They can be accessed via :method:jobs/get endpoint. It is only relevant for API 2.2
-   * :method:jobs/list requests with `expand_tasks=true`.
+   * Indicates if the job has more array properties ({@code tasks}, {@code job_clusters}) that are
+   * not shown. They can be accessed via :method:jobs/get endpoint. It is only relevant for API 2.2
+   * :method:jobs/list requests with {@code expand_tasks=true}.
    */
   @JsonProperty("has_more")
   private Boolean hasMore;
@@ -48,8 +53,8 @@ public class BaseJob {
   private Long jobId;
 
   /**
-   * Settings for this job and all of its runs. These settings can be updated using the `resetJob`
-   * method.
+   * Settings for this job and all of its runs. These settings can be updated using the {@code
+   * resetJob} method.
    */
   @JsonProperty("settings")
   private JobSettings settings;

@@ -40,7 +40,9 @@ public class UpdateMetastore {
   @JsonProperty("owner")
   private String owner;
 
-  /** Privilege model version of the metastore, of the form `major.minor` (e.g., `1.0`). */
+  /**
+   * Privilege model version of the metastore, of the form {@code major.minor} (e.g., {@code 1.0}).
+   */
   @JsonProperty("privilege_model_version")
   private String privilegeModelVersion;
 

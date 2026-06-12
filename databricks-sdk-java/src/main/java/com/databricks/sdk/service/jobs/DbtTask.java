@@ -13,14 +13,14 @@ public class DbtTask {
   /**
    * Optional name of the catalog to use. The value is the top level in the 3-level namespace of
    * Unity Catalog (catalog / schema / relation). The catalog value can only be specified if a
-   * warehouse_id is specified. Requires dbt-databricks >= 1.1.1.
+   * warehouse_id is specified. Requires dbt-databricks &gt;= 1.1.1.
    */
   @JsonProperty("catalog")
   private String catalog;
 
   /**
-   * A list of dbt commands to execute. All commands must start with `dbt`. This parameter must not
-   * be empty. A maximum of up to 10 commands can be provided.
+   * A list of dbt commands to execute. All commands must start with {@code dbt}. This parameter
+   * must not be empty. A maximum of up to 10 commands can be provided.
    */
   @JsonProperty("commands")
   private Collection<String> commands;
@@ -42,19 +42,21 @@ public class DbtTask {
 
   /**
    * Optional schema to write to. This parameter is only used when a warehouse_id is also provided.
-   * If not provided, the `default` schema is used.
+   * If not provided, the {@code default} schema is used.
    */
   @JsonProperty("schema")
   private String schema;
 
   /**
-   * Optional location type of the project directory. When set to `WORKSPACE`, the project will be
-   * retrieved from the local Databricks workspace. When set to `GIT`, the project will be retrieved
-   * from a Git repository defined in `git_source`. If the value is empty, the task will use `GIT`
-   * if `git_source` is defined and `WORKSPACE` otherwise.
+   * Optional location type of the project directory. When set to {@code WORKSPACE}, the project
+   * will be retrieved from the local Databricks workspace. When set to {@code GIT}, the project
+   * will be retrieved from a Git repository defined in {@code git_source}. If the value is empty,
+   * the task will use {@code GIT} if {@code git_source} is defined and {@code WORKSPACE} otherwise.
    *
-   * <p>* `WORKSPACE`: Project is located in Databricks workspace. * `GIT`: Project is located in
-   * cloud Git provider.
+   * <ul>
+   *   <li>{@code WORKSPACE}: Project is located in Databricks workspace.
+   *   <li>{@code GIT}: Project is located in cloud Git provider.
+   * </ul>
    */
   @JsonProperty("source")
   private Source source;
@@ -62,7 +64,7 @@ public class DbtTask {
   /**
    * ID of the SQL warehouse to connect to. If provided, we automatically generate and provide the
    * profile and connection details to dbt. It can be overridden on a per-command basis by using the
-   * `--profiles-dir` command line argument.
+   * {@code --profiles-dir} command line argument.
    */
   @JsonProperty("warehouse_id")
   private String warehouseId;

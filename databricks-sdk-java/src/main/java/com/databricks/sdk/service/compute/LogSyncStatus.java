@@ -11,8 +11,8 @@ import java.util.Objects;
 @Generated
 public class LogSyncStatus {
   /**
-   * The timestamp of last attempt. If the last attempt fails, `last_exception` will contain the
-   * exception in the last attempt.
+   * The timestamp of last attempt. If the last attempt fails, {@code last_exception} will contain
+   * the exception in the last attempt.
    */
   @JsonProperty("last_attempted")
   private Long lastAttempted;

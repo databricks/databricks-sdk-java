@@ -10,7 +10,7 @@ import java.util.Objects;
 /**
  * An AI Search index — a searchable collection of vectors and metadata hosted on an AI Search
  * endpoint. Indexes are children of endpoints; customers create, get, list, and delete them. The
- * `{index}` segment of the resource name is the index's Unity Catalog table name.
+ * {@code {index}} segment of the resource name is the index's Unity Catalog table name.
  */
 @Generated
 public class Index {
@@ -18,17 +18,19 @@ public class Index {
   @JsonProperty("creator")
   private String creator;
 
-  /** Specification for a Delta Sync index. Set when `index_type` is `DELTA_SYNC`. */
+  /** Specification for a Delta Sync index. Set when {@code index_type} is {@code DELTA_SYNC}. */
   @JsonProperty("delta_sync_index_spec")
   private DeltaSyncIndexSpec deltaSyncIndexSpec;
 
-  /** Specification for a Direct Access index. Set when `index_type` is `DIRECT_ACCESS`. */
+  /**
+   * Specification for a Direct Access index. Set when {@code index_type} is {@code DIRECT_ACCESS}.
+   */
   @JsonProperty("direct_access_index_spec")
   private DirectAccessIndexSpec directAccessIndexSpec;
 
   /**
    * Name of the endpoint associated with the index. Ignored on create — the endpoint is taken from
-   * `CreateIndexRequest.parent`; populated only on output.
+   * {@code CreateIndexRequest.parent}; populated only on output.
    */
   @JsonProperty("endpoint")
   private String endpoint;
@@ -42,11 +44,11 @@ public class Index {
   private IndexType indexType;
 
   /**
-   * Name of the AI Search index. Server-assigned full resource path
-   * (`workspaces/{workspace}/endpoints/{endpoint}/indexes/{index}`) on output, where `{index}` is
-   * the index's Unity Catalog table name. On create, the user-supplied UC table name is conveyed
-   * via `CreateIndexRequest.index_id`; the server composes the full `name` and returns it on the
-   * response.
+   * Name of the AI Search index. Server-assigned full resource path ({@code
+   * workspaces/{workspace}/endpoints/{endpoint}/indexes/{index}}) on output, where {@code {index}}
+   * is the index's Unity Catalog table name. On create, the user-supplied UC table name is conveyed
+   * via {@code CreateIndexRequest.index_id}; the server composes the full {@code name} and returns
+   * it on the response.
    */
   @JsonProperty("name")
   private String name;

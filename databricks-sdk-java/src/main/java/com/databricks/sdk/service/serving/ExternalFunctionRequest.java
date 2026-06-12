@@ -39,9 +39,9 @@ public class ExternalFunctionRequest {
 
   /**
    * Optional subdomain to prepend to the connection URL's host. If provided, this will be added as
-   * a prefix to the connection URL's host. For example, if the connection URL is
-   * `https://api.example.com/v1` and `sub_domain` is `"custom"`, the resulting URL will be
-   * `https://custom.api.example.com/v1`.
+   * a prefix to the connection URL's host. For example, if the connection URL is {@code
+   * https://api.example.com/v1} and {@code sub_domain} is {@code "custom"}, the resulting URL will
+   * be {@code https://custom.api.example.com/v1}.
    */
   @JsonProperty("sub_domain")
   private String subDomain;

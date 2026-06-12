@@ -18,7 +18,8 @@ public class CreateProjectRequest {
   /**
    * The ID to use for the Project. This becomes the final component of the project's resource name.
    * The ID is required and must be 1-63 characters long, start with a lowercase letter, and contain
-   * only lowercase letters, numbers, and hyphens. For example, `my-app` becomes `projects/my-app`.
+   * only lowercase letters, numbers, and hyphens. For example, {@code my-app} becomes {@code
+   * projects/my-app}.
    */
   @JsonIgnore
   @QueryParam("project_id")

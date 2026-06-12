@@ -31,13 +31,12 @@ public class DeleteTransitionRequestRequest {
   /**
    * Target stage of the transition request. Valid values are:
    *
-   * <p>* `None`: The initial stage of a model version.
-   *
-   * <p>* `Staging`: Staging or pre-production stage.
-   *
-   * <p>* `Production`: Production stage.
-   *
-   * <p>* `Archived`: Archived stage.
+   * <ul>
+   *   <li>{@code None}: The initial stage of a model version.
+   *   <li>{@code Staging}: Staging or pre-production stage.
+   *   <li>{@code Production}: Production stage.
+   *   <li>{@code Archived}: Archived stage.
+   * </ul>
    */
   @JsonIgnore
   @QueryParam("stage")

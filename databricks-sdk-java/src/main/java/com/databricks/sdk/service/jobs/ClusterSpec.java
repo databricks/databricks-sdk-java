@@ -19,8 +19,8 @@ public class ClusterSpec {
   private String existingClusterId;
 
   /**
-   * If job_cluster_key, this task is executed reusing the cluster specified in
-   * `job.settings.job_clusters`.
+   * If job_cluster_key, this task is executed reusing the cluster specified in {@code
+   * job.settings.job_clusters}.
    */
   @JsonProperty("job_cluster_key")
   private String jobClusterKey;

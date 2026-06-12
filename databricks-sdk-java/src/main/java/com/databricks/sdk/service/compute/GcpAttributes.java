@@ -30,13 +30,13 @@ public class GcpAttributes {
   private ConfidentialComputeType confidentialComputeType;
 
   /**
-   * The first `first_on_demand` nodes of the cluster will be placed on on-demand instances. This
-   * value should be greater than 0, to make sure the cluster driver node is placed on an on-demand
-   * instance. If this value is greater than or equal to the current cluster size, all nodes will be
-   * placed on on-demand instances. If this value is less than the current cluster size,
-   * `first_on_demand` nodes will be placed on on-demand instances and the remainder will be placed
-   * on `availability` instances. Note that this value does not affect cluster size and cannot
-   * currently be mutated over the lifetime of a cluster.
+   * The first {@code first_on_demand} nodes of the cluster will be placed on on-demand instances.
+   * This value should be greater than 0, to make sure the cluster driver node is placed on an
+   * on-demand instance. If this value is greater than or equal to the current cluster size, all
+   * nodes will be placed on on-demand instances. If this value is less than the current cluster
+   * size, {@code first_on_demand} nodes will be placed on on-demand instances and the remainder
+   * will be placed on {@code availability} instances. Note that this value does not affect cluster
+   * size and cannot currently be mutated over the lifetime of a cluster.
    */
   @JsonProperty("first_on_demand")
   private Long firstOnDemand;
@@ -51,11 +51,9 @@ public class GcpAttributes {
 
   /**
    * If provided, each node (workers and driver) in the cluster will have this number of local SSDs
-   * attached. Each local SSD is 375GB in size. Refer to [GCP documentation] for the supported
-   * number of local SSDs for each instance type.
-   *
-   * <p>[GCP documentation]:
-   * https://cloud.google.com/compute/docs/disks/local-ssd#choose_number_local_ssds
+   * attached. Each local SSD is 375GB in size. Refer to <a
+   * href="https://cloud.google.com/compute/docs/disks/local-ssd#choose_number_local_ssds">GCP
+   * documentation</a> for the supported number of local SSDs for each instance type.
    */
   @JsonProperty("local_ssd_count")
   private Long localSsdCount;
@@ -70,10 +68,15 @@ public class GcpAttributes {
 
   /**
    * Identifier for the availability zone in which the cluster resides. This can be one of the
-   * following: - "HA" => High availability, spread nodes across availability zones for a Databricks
-   * deployment region [default]. - "AUTO" => Databricks picks an availability zone to schedule the
-   * cluster on. - A GCP availability zone => Pick One of the available zones for (machine type +
-   * region) from https://cloud.google.com/compute/docs/regions-zones.
+   * following:
+   *
+   * <ul>
+   *   <li>"HA" =&gt; High availability, spread nodes across availability zones for a Databricks
+   *       deployment region [default].
+   *   <li>"AUTO" =&gt; Databricks picks an availability zone to schedule the cluster on.
+   *   <li>A GCP availability zone =&gt; Pick One of the available zones for (machine type + region)
+   *       from https://cloud.google.com/compute/docs/regions-zones.
+   * </ul>
    */
   @JsonProperty("zone_id")
   private String zoneId;

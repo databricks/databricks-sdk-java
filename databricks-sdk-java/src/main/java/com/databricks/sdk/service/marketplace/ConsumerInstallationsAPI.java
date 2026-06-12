@@ -78,8 +78,13 @@ public class ConsumerInstallationsAPI {
   /**
    * This is a update API that will update the part of the fields defined in the installation table
    * as well as interact with external services according to the fields not included in the
-   * installation table 1. the token will be rotate if the rotateToken flag is true 2. the token
-   * will be forcibly rotate if the rotateToken flag is true and the tokenInfo field is empty
+   * installation table
+   *
+   * <ol>
+   *   <li>the token will be rotate if the rotateToken flag is true
+   *   <li>the token will be forcibly rotate if the rotateToken flag is true and the tokenInfo field
+   *       is empty
+   * </ol>
    */
   public UpdateInstallationResponse update(UpdateInstallationRequest request) {
     return impl.update(request);

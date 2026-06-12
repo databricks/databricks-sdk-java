@@ -11,8 +11,8 @@ import java.util.Objects;
 @Generated
 public class VolumesStorageInfo {
   /**
-   * UC Volumes destination, e.g. `/Volumes/catalog/schema/vol1/init-scripts/setup-datadog.sh` or
-   * `dbfs:/Volumes/catalog/schema/vol1/init-scripts/setup-datadog.sh`
+   * UC Volumes destination, e.g. {@code /Volumes/catalog/schema/vol1/init-scripts/setup-datadog.sh}
+   * or {@code dbfs:/Volumes/catalog/schema/vol1/init-scripts/setup-datadog.sh}
    */
   @JsonProperty("destination")
   private String destination;

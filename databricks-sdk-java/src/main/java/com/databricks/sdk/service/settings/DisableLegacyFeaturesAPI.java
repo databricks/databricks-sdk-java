@@ -9,9 +9,14 @@ import com.databricks.sdk.support.Generated;
 /**
  * Disable legacy features for new Databricks workspaces.
  *
- * <p>For newly created workspaces: 1. Disables the use of DBFS root and mounts. 2. Hive Metastore
- * will not be provisioned. 3. Disables the use of ‘No-isolation clusters’. 4. Disables Databricks
- * Runtime versions prior to 13.3LTS.
+ * <p>For newly created workspaces:
+ *
+ * <ol>
+ *   <li>Disables the use of DBFS root and mounts.
+ *   <li>Hive Metastore will not be provisioned.
+ *   <li>Disables the use of ‘No-isolation clusters’.
+ *   <li>Disables Databricks Runtime versions prior to 13.3LTS.
+ * </ol>
  */
 @Generated
 public class DisableLegacyFeaturesAPI {

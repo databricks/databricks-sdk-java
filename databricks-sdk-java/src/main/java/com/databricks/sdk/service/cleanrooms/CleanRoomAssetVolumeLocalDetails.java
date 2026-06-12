@@ -11,7 +11,7 @@ import java.util.Objects;
 public class CleanRoomAssetVolumeLocalDetails {
   /**
    * The fully qualified name of the volume in its owner's local metastore, in the format of
-   * *catalog*.*schema*.*volume_name*
+   * <i>catalog</i>.<i>schema</i>.<i>volume_name</i>
    */
   @JsonProperty("local_name")
   private String localName;

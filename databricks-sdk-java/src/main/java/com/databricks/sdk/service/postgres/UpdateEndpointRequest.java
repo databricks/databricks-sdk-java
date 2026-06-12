@@ -15,7 +15,7 @@ public class UpdateEndpointRequest {
   /**
    * The Endpoint to update.
    *
-   * <p>The endpoint's `name` field is used to identify the endpoint to update. Format:
+   * <p>The endpoint's {@code name} field is used to identify the endpoint to update. Format:
    * projects/{project_id}/branches/{branch_id}/endpoints/{endpoint_id}
    */
   @JsonProperty("endpoint")

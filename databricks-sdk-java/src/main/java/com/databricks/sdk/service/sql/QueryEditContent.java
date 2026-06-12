@@ -13,9 +13,8 @@ import java.util.Objects;
 public class QueryEditContent {
   /**
    * Data source ID maps to the ID of the data source used by the resource and is distinct from the
-   * warehouse ID. [Learn more]
-   *
-   * <p>[Learn more]: https://docs.databricks.com/api/workspace/datasources/list
+   * warehouse ID. <a href="https://docs.databricks.com/api/workspace/datasources/list">Learn
+   * more</a>
    */
   @JsonProperty("data_source_id")
   private String dataSourceId;
@@ -31,9 +30,9 @@ public class QueryEditContent {
   private String name;
 
   /**
-   * Exclusively used for storing a list parameter definitions. A parameter is an object with
-   * `title`, `name`, `type`, and `value` properties. The `value` field here is the default value.
-   * It can be overridden at runtime.
+   * Exclusively used for storing a list parameter definitions. A parameter is an object with {@code
+   * title}, {@code name}, {@code type}, and {@code value} properties. The {@code value} field here
+   * is the default value. It can be overridden at runtime.
    */
   @JsonProperty("options")
   private Object options;
@@ -46,8 +45,8 @@ public class QueryEditContent {
   @JsonIgnore private String queryId;
 
   /**
-   * Sets the **Run as** role for the object. Must be set to one of `"viewer"` (signifying "run as
-   * viewer" behavior) or `"owner"` (signifying "run as owner" behavior)
+   * Sets the <b>Run as</b> role for the object. Must be set to one of {@code "viewer"} (signifying
+   * "run as viewer" behavior) or {@code "owner"} (signifying "run as owner" behavior)
    */
   @JsonProperty("run_as_role")
   private RunAsRole runAsRole;

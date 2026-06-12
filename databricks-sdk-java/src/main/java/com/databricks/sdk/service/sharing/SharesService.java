@@ -16,8 +16,9 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface SharesService extends SharesExtService {
   /**
-   * Creates a new share for data objects. Data objects can be added after creation with **update**.
-   * The caller must be a metastore admin or have the **CREATE_SHARE** privilege on the metastore.
+   * Creates a new share for data objects. Data objects can be added after creation with
+   * <b>update</b>. The caller must be a metastore admin or have the <b>CREATE_SHARE</b> privilege
+   * on the metastore.
    */
   ShareInfo create(CreateShare createShare);
 
@@ -47,18 +48,19 @@ public interface SharesService extends SharesExtService {
    * Updates the share with the changes and data objects in the request. The caller must be the
    * owner of the share or a metastore admin.
    *
-   * <p>When the caller is a metastore admin, only the __owner__ field can be updated.
+   * <p>When the caller is a metastore admin, only the <b>owner</b> field can be updated.
    *
-   * <p>In the case the share name is changed, **updateShare** requires that the caller is the owner
-   * of the share and has the CREATE_SHARE privilege.
+   * <p>In the case the share name is changed, <b>updateShare</b> requires that the caller is the
+   * owner of the share and has the CREATE_SHARE privilege.
    *
-   * <p>If there are notebook files in the share, the __storage_root__ field cannot be updated.
+   * <p>If there are notebook files in the share, the <b>storage_root</b> field cannot be updated.
    *
-   * <p>For each table that is added through this method, the share owner must also have **SELECT**
-   * privilege on the table. This privilege must be maintained indefinitely for recipients to be
-   * able to access the table. Typically, you should use a group as the share owner.
+   * <p>For each table that is added through this method, the share owner must also have
+   * <b>SELECT</b> privilege on the table. This privilege must be maintained indefinitely for
+   * recipients to be able to access the table. Typically, you should use a group as the share
+   * owner.
    *
-   * <p>Table removals through **update** do not require additional privileges.
+   * <p>Table removals through <b>update</b> do not require additional privileges.
    */
   ShareInfo update(UpdateShare updateShare);
 

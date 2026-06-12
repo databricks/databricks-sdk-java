@@ -20,7 +20,7 @@ public class ListJobComplianceRequest {
 
   /**
    * A page token that can be used to navigate to the next page or previous page as returned by
-   * `next_page_token` or `prev_page_token`.
+   * {@code next_page_token} or {@code prev_page_token}.
    */
   @JsonIgnore
   @QueryParam("page_token")

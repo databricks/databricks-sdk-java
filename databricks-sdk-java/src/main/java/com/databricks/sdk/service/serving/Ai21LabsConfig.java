@@ -11,16 +11,16 @@ import java.util.Objects;
 public class Ai21LabsConfig {
   /**
    * The Databricks secret key reference for an AI21 Labs API key. If you prefer to paste your API
-   * key directly, see `ai21labs_api_key_plaintext`. You must provide an API key using one of the
-   * following fields: `ai21labs_api_key` or `ai21labs_api_key_plaintext`.
+   * key directly, see {@code ai21labs_api_key_plaintext}. You must provide an API key using one of
+   * the following fields: {@code ai21labs_api_key} or {@code ai21labs_api_key_plaintext}.
    */
   @JsonProperty("ai21labs_api_key")
   private String ai21labsApiKey;
 
   /**
    * An AI21 Labs API key provided as a plaintext string. If you prefer to reference your key using
-   * Databricks Secrets, see `ai21labs_api_key`. You must provide an API key using one of the
-   * following fields: `ai21labs_api_key` or `ai21labs_api_key_plaintext`.
+   * Databricks Secrets, see {@code ai21labs_api_key}. You must provide an API key using one of the
+   * following fields: {@code ai21labs_api_key} or {@code ai21labs_api_key_plaintext}.
    */
   @JsonProperty("ai21labs_api_key_plaintext")
   private String ai21labsApiKeyPlaintext;

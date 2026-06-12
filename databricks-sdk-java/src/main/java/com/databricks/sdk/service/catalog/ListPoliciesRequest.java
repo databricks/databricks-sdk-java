@@ -19,10 +19,14 @@ public class ListPoliciesRequest {
   private Boolean includeInherited;
 
   /**
-   * Optional. Maximum number of policies to return on a single page (page length). - When not set
-   * or set to 0, the page length is set to a server configured value (recommended); - When set to a
-   * value greater than 0, the page length is the minimum of this value and a server configured
-   * value;
+   * Optional. Maximum number of policies to return on a single page (page length).
+   *
+   * <ul>
+   *   <li>When not set or set to 0, the page length is set to a server configured value
+   *       (recommended);
+   *   <li>When set to a value greater than 0, the page length is the minimum of this value and a
+   *       server configured value;
+   * </ul>
    */
   @JsonIgnore
   @QueryParam("max_results")

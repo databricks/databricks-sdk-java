@@ -22,8 +22,8 @@ public class UpdateRun {
   private String runName;
 
   /**
-   * [Deprecated, use `run_id` instead] ID of the run to update. This field will be removed in a
-   * future MLflow version.
+   * [Deprecated, use {@code run_id} instead] ID of the run to update. This field will be removed in
+   * a future MLflow version.
    */
   @JsonProperty("run_uuid")
   private String runUuid;

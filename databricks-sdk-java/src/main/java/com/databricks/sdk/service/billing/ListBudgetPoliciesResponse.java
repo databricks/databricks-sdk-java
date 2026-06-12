@@ -12,8 +12,8 @@ import java.util.Objects;
 @Generated
 public class ListBudgetPoliciesResponse {
   /**
-   * A token that can be sent as `page_token` to retrieve the next page. If this field is omitted,
-   * there are no subsequent pages.
+   * A token that can be sent as {@code page_token} to retrieve the next page. If this field is
+   * omitted, there are no subsequent pages.
    */
   @JsonProperty("next_page_token")
   private String nextPageToken;
@@ -23,7 +23,7 @@ public class ListBudgetPoliciesResponse {
   private Collection<BudgetPolicy> policies;
 
   /**
-   * A token that can be sent as `page_token` to retrieve the previous page. In this field is
+   * A token that can be sent as {@code page_token} to retrieve the previous page. In this field is
    * omitted, there are no previous pages.
    */
   @JsonProperty("previous_page_token")

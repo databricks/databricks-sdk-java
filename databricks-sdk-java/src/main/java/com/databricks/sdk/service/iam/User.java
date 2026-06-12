@@ -15,12 +15,10 @@ public class User {
   private Boolean active;
 
   /**
-   * String that represents a concatenation of given and family names. For example `John Smith`.
-   * This field cannot be updated through the Workspace SCIM APIs when [identity federation is
-   * enabled]. Use Account SCIM APIs to update `displayName`.
-   *
-   * <p>[identity federation is enabled]:
-   * https://docs.databricks.com/administration-guide/users-groups/best-practices.html#enable-identity-federation
+   * String that represents a concatenation of given and family names. For example {@code John
+   * Smith}. This field cannot be updated through the Workspace SCIM APIs when <a
+   * href="https://docs.databricks.com/administration-guide/users-groups/best-practices.html#enable-identity-federation">identity
+   * federation is enabled</a>. Use Account SCIM APIs to update {@code displayName}.
    */
   @JsonProperty("displayName")
   private String displayName;
@@ -30,11 +28,9 @@ public class User {
   private Collection<ComplexValue> emails;
 
   /**
-   * Entitlements assigned to the user. See [assigning entitlements] for a full list of supported
-   * values.
-   *
-   * <p>[assigning entitlements]:
-   * https://docs.databricks.com/administration-guide/users-groups/index.html#assigning-entitlements
+   * Entitlements assigned to the user. See <a
+   * href="https://docs.databricks.com/administration-guide/users-groups/index.html#assigning-entitlements">assigning
+   * entitlements</a> for a full list of supported values.
    */
   @JsonProperty("entitlements")
   private Collection<ComplexValue> entitlements;

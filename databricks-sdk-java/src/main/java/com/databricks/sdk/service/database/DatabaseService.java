@@ -79,10 +79,10 @@ public interface DatabaseService {
       ListDatabaseCatalogsRequest listDatabaseCatalogsRequest);
 
   /**
-   * START OF PG ROLE APIs Section These APIs are marked a PUBLIC with stage < PUBLIC_PREVIEW. With
-   * more recent Lakebase V2 plans, we don't plan to ever advance these to PUBLIC_PREVIEW. These
-   * APIs will remain effectively undocumented/UI-only and we'll aim for a new public roles API as
-   * part of V2 PuPr.
+   * START OF PG ROLE APIs Section These APIs are marked a PUBLIC with stage &lt; PUBLIC_PREVIEW.
+   * With more recent Lakebase V2 plans, we don't plan to ever advance these to PUBLIC_PREVIEW.
+   * These APIs will remain effectively undocumented/UI-only and we'll aim for a new public roles
+   * API as part of V2 PuPr.
    */
   ListDatabaseInstanceRolesResponse listDatabaseInstanceRoles(
       ListDatabaseInstanceRolesRequest listDatabaseInstanceRolesRequest);

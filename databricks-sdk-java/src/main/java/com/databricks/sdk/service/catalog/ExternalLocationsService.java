@@ -13,7 +13,7 @@ import com.databricks.sdk.support.Generated;
  * <p>Databricks recommends using external locations rather than using storage credentials directly.
  *
  * <p>To create external locations, you must be a metastore admin or a user with the
- * **CREATE_EXTERNAL_LOCATION** privilege.
+ * <b>CREATE_EXTERNAL_LOCATION</b> privilege.
  *
  * <p>This is the high-level interface, that contains generated methods.
  *
@@ -23,7 +23,7 @@ import com.databricks.sdk.support.Generated;
 public interface ExternalLocationsService {
   /**
    * Creates a new external location entry in the metastore. The caller must be a metastore admin or
-   * have the **CREATE_EXTERNAL_LOCATION** privilege on both the metastore and the associated
+   * have the <b>CREATE_EXTERNAL_LOCATION</b> privilege on both the metastore and the associated
    * storage credential.
    */
   ExternalLocationInfo create(CreateExternalLocation createExternalLocation);
@@ -41,15 +41,15 @@ public interface ExternalLocationsService {
   ExternalLocationInfo get(GetExternalLocationRequest getExternalLocationRequest);
 
   /**
-   * Gets an array of external locations (__ExternalLocationInfo__ objects) from the metastore. The
-   * caller must be a metastore admin, the owner of the external location, or a user that has some
-   * privilege on the external location. There is no guarantee of a specific ordering of the
+   * Gets an array of external locations (<b>ExternalLocationInfo</b> objects) from the metastore.
+   * The caller must be a metastore admin, the owner of the external location, or a user that has
+   * some privilege on the external location. There is no guarantee of a specific ordering of the
    * elements in the array.
    *
    * <p>NOTE: we recommend using max_results=0 to use the paginated version of this API. Unpaginated
    * calls will be deprecated soon.
    *
-   * <p>PAGINATION BEHAVIOR: When using pagination (max_results >= 0), a page may contain zero
+   * <p>PAGINATION BEHAVIOR: When using pagination (max_results &gt;= 0), a page may contain zero
    * results while still providing a next_page_token. Clients must continue reading pages until
    * next_page_token is absent, which is the only indication that the end of results has been
    * reached.

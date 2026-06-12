@@ -15,27 +15,32 @@ public interface BundleDeploymentsService {
   /**
    * Marks a version as complete and releases the deployment lock.
    *
-   * <p>The server atomically: 1. Sets the version status to the provided terminal status. 2. Sets
-   * `complete_time` to the current server timestamp. 3. Releases the lock on the parent deployment.
-   * 4. Updates the parent deployment's `status` and `last_version_id`.
+   * <p>The server atomically:
+   *
+   * <ol>
+   *   <li>Sets the version status to the provided terminal status.
+   *   <li>Sets {@code complete_time} to the current server timestamp.
+   *   <li>Releases the lock on the parent deployment.
+   *   <li>Updates the parent deployment's {@code status} and {@code last_version_id}.
+   * </ol>
    */
   Version completeVersion(CompleteVersionRequest completeVersionRequest);
 
   /**
    * Creates a new deployment in the workspace.
    *
-   * <p>The caller must provide a `deployment_id` which becomes the final component of the
+   * <p>The caller must provide a {@code deployment_id} which becomes the final component of the
    * deployment's resource name. If a deployment with the same ID already exists, the server returns
-   * `ALREADY_EXISTS`.
+   * {@code ALREADY_EXISTS}.
    */
   Deployment createDeployment(CreateDeploymentRequest createDeploymentRequest);
 
   /**
    * Creates a resource operation under a version.
    *
-   * <p>The caller must provide a `resource_key` which becomes the final component of the
+   * <p>The caller must provide a {@code resource_key} which becomes the final component of the
    * operation's name. If an operation with the same key already exists under the version, the
-   * server returns `ALREADY_EXISTS`.
+   * server returns {@code ALREADY_EXISTS}.
    *
    * <p>On success the server also updates the corresponding deployment-level Resource (creating it
    * if this is the first operation for that resource_key, or removing it if action_type is DELETE).
@@ -46,8 +51,8 @@ public interface BundleDeploymentsService {
    * Creates a new version under a deployment.
    *
    * <p>Creating a version acquires an exclusive lock on the deployment, preventing concurrent
-   * deploys. The caller provides a `version_id` which the server validates equals `last_version_id
-   * + 1` on the deployment.
+   * deploys. The caller provides a {@code version_id} which the server validates equals {@code
+   * last_version_id + 1} on the deployment.
    */
   Version createVersion(CreateVersionRequest createVersionRequest);
 
@@ -56,7 +61,7 @@ public interface BundleDeploymentsService {
    *
    * <p>The deployment is marked as deleted. It and all its children (versions and their operations)
    * will be permanently deleted after the retention policy expires. If the deployment has an
-   * in-progress version, the server returns `RESOURCE_CONFLICT`.
+   * in-progress version, the server returns {@code RESOURCE_CONFLICT}.
    */
   void deleteDeployment(DeleteDeploymentRequest deleteDeploymentRequest);
 
@@ -77,7 +82,7 @@ public interface BundleDeploymentsService {
    *
    * <p>The server validates that the version is the active (non-terminal) version on the parent
    * deployment and resets the lock expiry. If the lock has already expired or the version is no
-   * longer active, the server returns `ABORTED`.
+   * longer active, the server returns {@code ABORTED}.
    */
   HeartbeatResponse heartbeat(HeartbeatRequest heartbeatRequest);
 

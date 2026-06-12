@@ -18,17 +18,26 @@ public class RoleRoleSpec {
    * Controls how the Postgres role authenticates when a client opens a database connection.
    * Supported values:
    *
-   * <p>* LAKEBASE_OAUTH_V1: the role authenticates by presenting a Databricks OAuth access token
-   * derived from the backing managed identity (the Databricks user, service principal, or group
-   * named by the role's `postgres_role`). No static password exists for roles using this method. *
-   * PG_PASSWORD_SCRAM_SHA_256: the role authenticates with a Postgres password verified server-side
-   * using the SCRAM-SHA-256 mechanism. Lakebase generates a password for the role. * NO_LOGIN: the
-   * role cannot open a Postgres session at all. Useful for roles that exist only to own objects or
-   * to aggregate privileges that are then granted to other, loginable roles.
+   * <ul>
+   *   <li>LAKEBASE_OAUTH_V1: the role authenticates by presenting a Databricks OAuth access token
+   *       derived from the backing managed identity (the Databricks user, service principal, or
+   *       group named by the role's {@code postgres_role}). No static password exists for roles
+   *       using this method.
+   *   <li>PG_PASSWORD_SCRAM_SHA_256: the role authenticates with a Postgres password verified
+   *       server-side using the SCRAM-SHA-256 mechanism. Lakebase generates a password for the
+   *       role.
+   *   <li>NO_LOGIN: the role cannot open a Postgres session at all. Useful for roles that exist
+   *       only to own objects or to aggregate privileges that are then granted to other, loginable
+   *       roles.
+   * </ul>
    *
    * <p>If auth_method is left unspecified, a meaningful authentication method is derived from the
-   * identity_type: * For the managed identities, OAUTH is used. * For the regular postgres roles,
-   * authentication based on postgres passwords is used.
+   * identity_type:
+   *
+   * <ul>
+   *   <li>For the managed identities, OAUTH is used.
+   *   <li>For the regular postgres roles, authentication based on postgres passwords is used.
+   * </ul>
    *
    * <p>NOTE: for the Databricks identity type GROUP, LAKEBASE_OAUTH_V1 is the default auth method
    * (group can login as well).
@@ -39,7 +48,11 @@ public class RoleRoleSpec {
   /**
    * The type of role. When specifying a managed-identity, the chosen role_id must be a valid:
    *
-   * <p>* application ID for SERVICE_PRINCIPAL * user email for USER * group name for GROUP
+   * <ul>
+   *   <li>application ID for SERVICE_PRINCIPAL
+   *   <li>user email for USER
+   *   <li>group name for GROUP
+   * </ul>
    */
   @JsonProperty("identity_type")
   private RoleIdentityType identityType;
@@ -59,8 +72,11 @@ public class RoleRoleSpec {
    * <p>If you wish to create a Postgres Role backed by a managed Databricks identity, then
    * postgres_role must be one of the following:
    *
-   * <p>1. user email for IdentityType.USER 2. app ID for IdentityType.SERVICE_PRINCIPAL 2. group
-   * name for IdentityType.GROUP
+   * <ol>
+   *   <li>user email for IdentityType.USER
+   *   <li>app ID for IdentityType.SERVICE_PRINCIPAL
+   *   <li>group name for IdentityType.GROUP
+   * </ol>
    */
   @JsonProperty("postgres_role")
   private String postgresRole;

@@ -15,8 +15,8 @@ import java.util.Objects;
 public class StableUrl {
   /**
    * Fully qualified resource name of the FailoverGroup this stable URL is currently linked to, in
-   * the format `accounts/{account_id}/failover-groups/{failover_group_id}`. Empty when the stable
-   * URL is not attached to any failover group.
+   * the format {@code accounts/{account_id}/failover-groups/{failover_group_id}}. Empty when the
+   * stable URL is not attached to any failover group.
    */
   @JsonProperty("failover_group_name")
   private String failoverGroupName;
@@ -34,8 +34,8 @@ public class StableUrl {
 
   /**
    * The stable URL endpoint. Generated on creation and immutable thereafter. For non-Private-Link
-   * workspaces this is `https://<spog_host>/?c=<connection_id>`. For Private-Link workspaces this
-   * is the per-connection hostname.
+   * workspaces this is {@code https://<spog_host>/?c=<connection_id>}. For Private-Link workspaces
+   * this is the per-connection hostname.
    */
   @JsonProperty("url")
   private String url;

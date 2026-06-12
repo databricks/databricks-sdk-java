@@ -18,8 +18,8 @@ public class CreateBranchRequest {
   /**
    * The ID to use for the Branch. This becomes the final component of the branch's resource name.
    * The ID is required and must be 1-63 characters long, start with a lowercase letter, and contain
-   * only lowercase letters, numbers, and hyphens. For example, `development` becomes
-   * `projects/my-app/branches/development`.
+   * only lowercase letters, numbers, and hyphens. For example, {@code development} becomes {@code
+   * projects/my-app/branches/development}.
    */
   @JsonIgnore
   @QueryParam("branch_id")

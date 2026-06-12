@@ -22,8 +22,8 @@ public class TableUpdateTriggerConfiguration {
   private Long minTimeBetweenTriggersSeconds;
 
   /**
-   * A list of tables to monitor for changes. The table name must be in the format
-   * `catalog_name.schema_name.table_name`.
+   * A list of tables to monitor for changes. The table name must be in the format {@code
+   * catalog_name.schema_name.table_name}.
    */
   @JsonProperty("table_names")
   private Collection<String> tableNames;

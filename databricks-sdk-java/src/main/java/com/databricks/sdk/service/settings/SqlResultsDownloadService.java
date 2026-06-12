@@ -5,7 +5,7 @@ import com.databricks.sdk.support.Generated;
 
 /**
  * Controls whether users within the workspace are allowed to download results from the SQL Editor
- * and AI/BI Dashboards UIs. By default, this setting is enabled (set to `true`)
+ * and AI/BI Dashboards UIs. By default, this setting is enabled (set to {@code true})
  *
  * <p>This is the high-level interface, that contains generated methods.
  *

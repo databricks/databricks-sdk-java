@@ -16,9 +16,8 @@ public class AlertQuery {
 
   /**
    * Data source ID maps to the ID of the data source used by the resource and is distinct from the
-   * warehouse ID. [Learn more]
-   *
-   * <p>[Learn more]: https://docs.databricks.com/api/workspace/datasources/list
+   * warehouse ID. <a href="https://docs.databricks.com/api/workspace/datasources/list">Learn
+   * more</a>
    */
   @JsonProperty("data_source_id")
   private String dataSourceId;
@@ -35,8 +34,9 @@ public class AlertQuery {
 
   /**
    * Indicates whether the query is trashed. Trashed queries can't be used in dashboards, or appear
-   * in search results. If this boolean is `true`, the `options` property for this query includes a
-   * `moved_to_trash_at` timestamp. Trashed queries are permanently deleted after 30 days.
+   * in search results. If this boolean is {@code true}, the {@code options} property for this query
+   * includes a {@code moved_to_trash_at} timestamp. Trashed queries are permanently deleted after
+   * 30 days.
    */
   @JsonProperty("is_archived")
   private Boolean isArchived;
@@ -50,8 +50,8 @@ public class AlertQuery {
 
   /**
    * Text parameter types are not safe from SQL injection for all types of data source. Set this
-   * Boolean parameter to `true` if a query either does not use any text type parameters or uses a
-   * data source type where text type parameters are handled safely.
+   * Boolean parameter to {@code true} if a query either does not use any text type parameters or
+   * uses a data source type where text type parameters are handled safely.
    */
   @JsonProperty("is_safe")
   private Boolean isSafe;

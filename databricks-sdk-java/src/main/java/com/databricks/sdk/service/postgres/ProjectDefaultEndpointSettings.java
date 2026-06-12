@@ -22,8 +22,8 @@ public class ProjectDefaultEndpointSettings {
 
   /**
    * When set to true, explicitly disables automatic suspension (never suspend). Should be set to
-   * true when provided. Mutually exclusive with `suspend_timeout_duration`. When updating, use
-   * `spec.project_default_settings.suspension` in the update_mask.
+   * true when provided. Mutually exclusive with {@code suspend_timeout_duration}. When updating,
+   * use {@code spec.project_default_settings.suspension} in the update_mask.
    */
   @JsonProperty("no_suspension")
   private Boolean noSuspension;
@@ -35,8 +35,8 @@ public class ProjectDefaultEndpointSettings {
   /**
    * Duration of inactivity after which the compute endpoint is automatically suspended. If
    * specified should be between 60s and 604800s (1 minute to 1 week). Mutually exclusive with
-   * `no_suspension`. When updating, use `spec.project_default_settings.suspension` in the
-   * update_mask.
+   * {@code no_suspension}. When updating, use {@code spec.project_default_settings.suspension} in
+   * the update_mask.
    */
   @JsonProperty("suspend_timeout_duration")
   private Duration suspendTimeoutDuration;

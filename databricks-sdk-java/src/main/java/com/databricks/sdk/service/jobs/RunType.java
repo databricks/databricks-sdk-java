@@ -5,12 +5,14 @@ package com.databricks.sdk.service.jobs;
 import com.databricks.sdk.support.Generated;
 
 /**
- * The type of a run. * `JOB_RUN`: Normal job run. A run created with :method:jobs/runNow. *
- * `WORKFLOW_RUN`: Workflow run. A run created with [dbutils.notebook.run]. * `SUBMIT_RUN`: Submit
- * run. A run created with :method:jobs/submit.
+ * The type of a run.
  *
- * <p>[dbutils.notebook.run]:
- * https://docs.databricks.com/dev-tools/databricks-utils.html#dbutils-workflow
+ * <ul>
+ *   <li>{@code JOB_RUN}: Normal job run. A run created with :method:jobs/runNow.
+ *   <li>{@code WORKFLOW_RUN}: Workflow run. A run created with <a
+ *       href="https://docs.databricks.com/dev-tools/databricks-utils.html#dbutils-workflow">dbutils.notebook.run</a>.
+ *   <li>{@code SUBMIT_RUN}: Submit run. A run created with :method:jobs/submit.
+ * </ul>
  */
 @Generated
 public enum RunType {

@@ -16,8 +16,8 @@ public class UpsertDataRequest {
   private String inputsJson;
 
   /**
-   * Full resource name of the index. Must be a Direct Access index. Format:
-   * `workspaces/{workspace_id}/endpoints/{endpoint_id}/indexes/{index_id}`
+   * Full resource name of the index. Must be a Direct Access index. Format: {@code
+   * workspaces/{workspace_id}/endpoints/{endpoint_id}/indexes/{index_id}}
    */
   @JsonIgnore private String name;
 

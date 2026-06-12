@@ -33,15 +33,15 @@ public class ListJobsRequest {
 
   /**
    * The offset of the first job to return, relative to the most recently created job. Deprecated
-   * since June 2023. Use `page_token` to iterate through the pages instead.
+   * since June 2023. Use {@code page_token} to iterate through the pages instead.
    */
   @JsonIgnore
   @QueryParam("offset")
   private Long offset;
 
   /**
-   * Use `next_page_token` or `prev_page_token` returned from the previous request to list the next
-   * or previous page of jobs respectively.
+   * Use {@code next_page_token} or {@code prev_page_token} returned from the previous request to
+   * list the next or previous page of jobs respectively.
    */
   @JsonIgnore
   @QueryParam("page_token")

@@ -15,7 +15,7 @@ public class ProviderInfo {
 
   /**
    * Cloud vendor of the provider's UC metastore. This field is only present when the
-   * __authentication_type__ is **DATABRICKS**.
+   * <b>authentication_type</b> is <b>DATABRICKS</b>.
    */
   @JsonProperty("cloud")
   private String cloud;
@@ -34,15 +34,15 @@ public class ProviderInfo {
 
   /**
    * The global UC metastore id of the data provider. This field is only present when the
-   * __authentication_type__ is **DATABRICKS**. The identifier is of format
-   * __cloud__:__region__:__metastore-uuid__.
+   * <b>authentication_type</b> is <b>DATABRICKS</b>. The identifier is of format
+   * <b>cloud</b>:<b>region</b>:<b>metastore-uuid</b>.
    */
   @JsonProperty("data_provider_global_metastore_id")
   private String dataProviderGlobalMetastoreId;
 
   /**
    * UUID of the provider's UC metastore. This field is only present when the
-   * __authentication_type__ is **DATABRICKS**.
+   * <b>authentication_type</b> is <b>DATABRICKS</b>.
    */
   @JsonProperty("metastore_id")
   private String metastoreId;
@@ -56,22 +56,22 @@ public class ProviderInfo {
   private String owner;
 
   /**
-   * The recipient profile. This field is only present when the authentication_type is `TOKEN` or
-   * `OAUTH_CLIENT_CREDENTIALS`.
+   * The recipient profile. This field is only present when the authentication_type is {@code TOKEN}
+   * or {@code OAUTH_CLIENT_CREDENTIALS}.
    */
   @JsonProperty("recipient_profile")
   private RecipientProfile recipientProfile;
 
   /**
-   * This field is required when the __authentication_type__ is **TOKEN**,
-   * **OAUTH_CLIENT_CREDENTIALS** or not provided.
+   * This field is required when the <b>authentication_type</b> is <b>TOKEN</b>,
+   * <b>OAUTH_CLIENT_CREDENTIALS</b> or not provided.
    */
   @JsonProperty("recipient_profile_str")
   private String recipientProfileStr;
 
   /**
    * Cloud region of the provider's UC metastore. This field is only present when the
-   * __authentication_type__ is **DATABRICKS**.
+   * <b>authentication_type</b> is <b>DATABRICKS</b>.
    */
   @JsonProperty("region")
   private String region;

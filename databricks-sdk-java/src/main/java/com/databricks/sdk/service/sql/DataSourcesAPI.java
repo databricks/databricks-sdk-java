@@ -8,18 +8,16 @@ import com.databricks.sdk.support.Generated;
 
 /**
  * This API is provided to assist you in making new query objects. When creating a query object, you
- * may optionally specify a `data_source_id` for the SQL warehouse against which it will run. If you
- * don't already know the `data_source_id` for your desired SQL warehouse, this API will help you
- * find it.
+ * may optionally specify a {@code data_source_id} for the SQL warehouse against which it will run.
+ * If you don't already know the {@code data_source_id} for your desired SQL warehouse, this API
+ * will help you find it.
  *
  * <p>This API does not support searches. It returns the full list of SQL warehouses in your
- * workspace. We advise you to use any text editor, REST client, or `grep` to search the response
- * from this API for the name of your SQL warehouse as it appears in Databricks SQL.
+ * workspace. We advise you to use any text editor, REST client, or {@code grep} to search the
+ * response from this API for the name of your SQL warehouse as it appears in Databricks SQL.
  *
- * <p>**Warning**: This API is deprecated. Please see the latest version of the Databricks SQL API.
- * [Learn more]
- *
- * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
+ * <p><b>Warning</b>: This API is deprecated. Please see the latest version of the Databricks SQL
+ * API. <a href="https://docs.databricks.com/en/sql/dbsql-api-latest.html">Learn more</a>
  */
 @Generated
 public class DataSourcesAPI {
@@ -39,13 +37,11 @@ public class DataSourcesAPI {
 
   /**
    * Retrieves a full list of SQL warehouses available in this workspace. All fields that appear in
-   * this API response are enumerated for clarity. However, you need only a SQL warehouse's `id` to
-   * create new queries against it.
+   * this API response are enumerated for clarity. However, you need only a SQL warehouse's {@code
+   * id} to create new queries against it.
    *
-   * <p>**Warning**: This API is deprecated. Please use :method:warehouses/list instead. [Learn
-   * more]
-   *
-   * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
+   * <p><b>Warning</b>: This API is deprecated. Please use :method:warehouses/list instead. <a
+   * href="https://docs.databricks.com/en/sql/dbsql-api-latest.html">Learn more</a>
    */
   public Iterable<DataSource> list() {
     return impl.list();

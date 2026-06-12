@@ -52,10 +52,11 @@ public class OutlookOptions {
   private Collection<String> includeSenders;
 
   /**
-   * (Optional) Filter emails by subject line. Values ending with "*" use prefix match (subject
-   * starts with the part before "*"); otherwise substring match (subject contains the value).
-   * Examples: "Invoice" (substring), "Re:*" (prefix), "Support Ticket", "URGENT*" If not specified,
-   * emails with all subjects will be synced. Filter semantics: OR between different subjects.
+   * (Optional) Filter emails by subject line. Values ending with "<i>" use prefix match (subject
+   * starts with the part before "</i>"); otherwise substring match (subject contains the value).
+   * Examples: "Invoice" (substring), "Re:<i>" (prefix), "Support Ticket", "URGENT</i>" If not
+   * specified, emails with all subjects will be synced. Filter semantics: OR between different
+   * subjects.
    */
   @JsonProperty("include_subjects")
   private Collection<String> includeSubjects;

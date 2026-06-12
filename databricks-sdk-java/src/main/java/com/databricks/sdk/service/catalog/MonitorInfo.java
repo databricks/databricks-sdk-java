@@ -20,8 +20,8 @@ public class MonitorInfo {
 
   /**
    * [Create:OPT Update:OPT] Baseline table name. Baseline data is used to compute drift from the
-   * data in the monitored `table_name`. The baseline table and the monitored table shall have the
-   * same schema.
+   * data in the monitored {@code table_name}. The baseline table and the monitored table shall have
+   * the same schema.
    */
   @JsonProperty("baseline_table_name")
   private String baselineTableName;
@@ -42,8 +42,8 @@ public class MonitorInfo {
   private MonitorDataClassificationConfig dataClassificationConfig;
 
   /**
-   * [Create:ERR Update:IGN] Table that stores drift metrics data. Format:
-   * `catalog.schema.table_name`.
+   * [Create:ERR Update:IGN] Table that stores drift metrics data. Format: {@code
+   * catalog.schema.table_name}.
    */
   @JsonProperty("drift_metrics_table_name")
   private String driftMetricsTableName;
@@ -76,8 +76,8 @@ public class MonitorInfo {
   private String outputSchemaName;
 
   /**
-   * [Create:ERR Update:IGN] Table that stores profile metrics data. Format:
-   * `catalog.schema.table_name`.
+   * [Create:ERR Update:IGN] Table that stores profile metrics data. Format: {@code
+   * catalog.schema.table_name}.
    */
   @JsonProperty("profile_metrics_table_name")
   private String profileMetricsTableName;
@@ -89,10 +89,10 @@ public class MonitorInfo {
   /**
    * [Create:OPT Update:OPT] List of column expressions to slice data with for targeted analysis.
    * The data is grouped by each expression independently, resulting in a separate slice for each
-   * predicate and its complements. For example `slicing_exprs=[“col_1”, “col_2 > 10”]` will
-   * generate the following slices: two slices for `col_2 > 10` (True and False), and one slice per
-   * unique value in `col1`. For high-cardinality columns, only the top 100 unique values by
-   * frequency will generate slices.
+   * predicate and its complements. For example {@code slicing_exprs=[“col_1”, “col_2 > 10”]} will
+   * generate the following slices: two slices for {@code col_2 > 10} (True and False), and one
+   * slice per unique value in {@code col1}. For high-cardinality columns, only the top 100 unique
+   * values by frequency will generate slices.
    */
   @JsonProperty("slicing_exprs")
   private Collection<String> slicingExprs;
@@ -105,7 +105,7 @@ public class MonitorInfo {
   @JsonProperty("status")
   private MonitorInfoStatus status;
 
-  /** [Create:ERR Update:IGN] UC table to monitor. Format: `catalog.schema.table_name` */
+  /** [Create:ERR Update:IGN] UC table to monitor. Format: {@code catalog.schema.table_name} */
   @JsonProperty("table_name")
   private String tableName;
 

@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Generated
 public class DeleteDatabaseInstanceRoleRequest {
-  /** This is the AIP standard name for the equivalent of Postgres' `IF EXISTS` option */
+  /** This is the AIP standard name for the equivalent of Postgres' {@code IF EXISTS} option */
   @JsonIgnore
   @QueryParam("allow_missing")
   private Boolean allowMissing;

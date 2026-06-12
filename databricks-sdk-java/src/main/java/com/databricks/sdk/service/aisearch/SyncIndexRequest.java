@@ -11,8 +11,8 @@ import java.util.Objects;
 @Generated
 public class SyncIndexRequest {
   /**
-   * Full resource name of the index to synchronize. Must be a Delta Sync index. Format:
-   * `workspaces/{workspace_id}/endpoints/{endpoint_id}/indexes/{index_id}`
+   * Full resource name of the index to synchronize. Must be a Delta Sync index. Format: {@code
+   * workspaces/{workspace_id}/endpoints/{endpoint_id}/indexes/{index_id}}
    */
   @JsonIgnore private String name;
 

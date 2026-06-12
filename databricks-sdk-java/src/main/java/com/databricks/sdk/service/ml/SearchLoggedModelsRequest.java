@@ -12,10 +12,10 @@ import java.util.Objects;
 public class SearchLoggedModelsRequest {
   /**
    * List of datasets on which to apply the metrics filter clauses. For example, a filter with
-   * `metrics.accuracy > 0.9` and dataset info with name "test_dataset" means we will return all
-   * logged models with accuracy > 0.9 on the test_dataset. Metric values from ANY dataset matching
-   * the criteria are considered. If no datasets are specified, then metrics across all datasets are
-   * considered in the filter.
+   * {@code metrics.accuracy > 0.9} and dataset info with name "test_dataset" means we will return
+   * all logged models with accuracy &gt; 0.9 on the test_dataset. Metric values from ANY dataset
+   * matching the criteria are considered. If no datasets are specified, then metrics across all
+   * datasets are considered in the filter.
    */
   @JsonProperty("datasets")
   private Collection<SearchLoggedModelsDataset> datasets;
@@ -28,7 +28,7 @@ public class SearchLoggedModelsRequest {
    * A filter expression over logged model info and data that allows returning a subset of logged
    * models. The syntax is a subset of SQL that supports AND'ing together binary operations.
    *
-   * <p>Example: ``params.alpha < 0.3 AND metrics.accuracy > 0.9``.
+   * <p>Example: {@code params.alpha < 0.3 AND metrics.accuracy > 0.9}.
    */
   @JsonProperty("filter")
   private String filter;

@@ -24,9 +24,11 @@ public class CreateSyncedTableRequest {
    *
    * <p>synced_table_id represents both of the following:
    *
-   * <p>1. An online VIEW virtual table in the Unity Catalog accessible via the Lakehouse
-   * Federation. 2. Postgres table named "{table}" in schema "{schema}" in the connected Postgres
-   * database
+   * <ol>
+   *   <li>An online VIEW virtual table in the Unity Catalog accessible via the Lakehouse
+   *       Federation.
+   *   <li>Postgres table named "{table}" in schema "{schema}" in the connected Postgres database
+   * </ol>
    */
   @JsonIgnore
   @QueryParam("synced_table_id")

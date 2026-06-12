@@ -15,7 +15,8 @@ public class PipelineLibrary {
 
   /**
    * The unified field to include source codes. Each entry can be a notebook path, a file path, or a
-   * folder path that ends `/**`. This field cannot be used together with `notebook` or `file`.
+   * folder path that ends {@code /**}. This field cannot be used together with {@code notebook} or
+   * {@code file}.
    */
   @JsonProperty("glob")
   private PathPattern glob;

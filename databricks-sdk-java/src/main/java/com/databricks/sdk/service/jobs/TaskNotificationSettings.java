@@ -10,22 +10,22 @@ import java.util.Objects;
 @Generated
 public class TaskNotificationSettings {
   /**
-   * If true, do not send notifications to recipients specified in `on_start` for the retried runs
-   * and do not send notifications to recipients specified in `on_failure` until the last retry of
-   * the run.
+   * If true, do not send notifications to recipients specified in {@code on_start} for the retried
+   * runs and do not send notifications to recipients specified in {@code on_failure} until the last
+   * retry of the run.
    */
   @JsonProperty("alert_on_last_attempt")
   private Boolean alertOnLastAttempt;
 
   /**
-   * If true, do not send notifications to recipients specified in `on_failure` if the run is
+   * If true, do not send notifications to recipients specified in {@code on_failure} if the run is
    * canceled.
    */
   @JsonProperty("no_alert_for_canceled_runs")
   private Boolean noAlertForCanceledRuns;
 
   /**
-   * If true, do not send notifications to recipients specified in `on_failure` if the run is
+   * If true, do not send notifications to recipients specified in {@code on_failure} if the run is
    * skipped.
    */
   @JsonProperty("no_alert_for_skipped_runs")

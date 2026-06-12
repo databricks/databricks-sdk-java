@@ -12,10 +12,10 @@ import java.util.Objects;
 @Generated
 public class ListIndexesResponse {
   /**
-   * The indexes on the endpoint. The field is named `indexes` (not the irregular plural `indices`)
-   * to satisfy core::0132, which derives the response field name from the ListIndexes method.
-   * core::0158::response-plural-first-field independently computes the resource plural as `indices`
-   * and is satisfied via a scoped field exception below.
+   * The indexes on the endpoint. The field is named {@code indexes} (not the irregular plural
+   * {@code indices}) to satisfy core::0132, which derives the response field name from the
+   * ListIndexes method. core::0158::response-plural-first-field independently computes the resource
+   * plural as {@code indices} and is satisfied via a scoped field exception below.
    */
   @JsonProperty("indexes")
   private Collection<Index> indexes;

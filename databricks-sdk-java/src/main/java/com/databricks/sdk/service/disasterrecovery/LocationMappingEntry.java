@@ -9,7 +9,7 @@ import java.util.Objects;
 
 /**
  * A single entry in a location mapping, mapping a region to a storage URI. Used instead of
- * map<string, string> for proto2 compatibility.
+ * map&lt;string, string&gt; for proto2 compatibility.
  */
 @Generated
 public class LocationMappingEntry {

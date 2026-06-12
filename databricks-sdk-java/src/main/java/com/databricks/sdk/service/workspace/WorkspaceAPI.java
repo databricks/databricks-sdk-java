@@ -33,9 +33,14 @@ public class WorkspaceAPI {
 
   /**
    * Deletes an object or a directory (and optionally recursively deletes all objects in the
-   * directory). * If `path` does not exist, this call returns an error `RESOURCE_DOES_NOT_EXIST`. *
-   * If `path` is a non-empty directory and `recursive` is set to `false`, this call returns an
-   * error `DIRECTORY_NOT_EMPTY`.
+   * directory).
+   *
+   * <ul>
+   *   <li>If {@code path} does not exist, this call returns an error {@code
+   *       RESOURCE_DOES_NOT_EXIST}.
+   *   <li>If {@code path} is a non-empty directory and {@code recursive} is set to {@code false},
+   *       this call returns an error {@code DIRECTORY_NOT_EMPTY}.
+   * </ul>
    *
    * <p>Object deletion cannot be undone and deleting a directory recursively is not atomic.
    */
@@ -50,10 +55,10 @@ public class WorkspaceAPI {
   /**
    * Exports an object or the contents of an entire directory.
    *
-   * <p>If `path` does not exist, this call returns an error `RESOURCE_DOES_NOT_EXIST`.
+   * <p>If {@code path} does not exist, this call returns an error {@code RESOURCE_DOES_NOT_EXIST}.
    *
-   * <p>If the exported data would exceed size limit, this call returns
-   * `MAX_NOTEBOOK_SIZE_EXCEEDED`. Currently, this API does not support exporting a library.
+   * <p>If the exported data would exceed size limit, this call returns {@code
+   * MAX_NOTEBOOK_SIZE_EXCEEDED}. Currently, this API does not support exporting a library.
    */
   public ExportResponse export(ExportRequest request) {
     return impl.export(request);
@@ -94,8 +99,8 @@ public class WorkspaceAPI {
   }
 
   /**
-   * Gets the status of an object or a directory. If `path` does not exist, this call returns an
-   * error `RESOURCE_DOES_NOT_EXIST`.
+   * Gets the status of an object or a directory. If {@code path} does not exist, this call returns
+   * an error {@code RESOURCE_DOES_NOT_EXIST}.
    */
   public ObjectInfo getStatus(GetStatusRequest request) {
     return impl.getStatus(request);
@@ -103,10 +108,11 @@ public class WorkspaceAPI {
 
   /**
    * Imports a workspace object (for example, a notebook or file) or the contents of an entire
-   * directory. If `path` already exists and `overwrite` is set to `false`, this call returns an
-   * error `RESOURCE_ALREADY_EXISTS`. To import a directory, you can use either the `DBC` format or
-   * the `SOURCE` format with the `language` field unset. To import a single file as `SOURCE`, you
-   * must set the `language` field. Zip files within directories are not supported.
+   * directory. If {@code path} already exists and {@code overwrite} is set to {@code false}, this
+   * call returns an error {@code RESOURCE_ALREADY_EXISTS}. To import a directory, you can use
+   * either the {@code DBC} format or the {@code SOURCE} format with the {@code language} field
+   * unset. To import a single file as {@code SOURCE}, you must set the {@code language} field. Zip
+   * files within directories are not supported.
    */
   public void importContent(Import request) {
     impl.importContent(request);
@@ -118,7 +124,7 @@ public class WorkspaceAPI {
 
   /**
    * Lists the contents of a directory, or the object if it is not a directory. If the input path
-   * does not exist, this call returns an error `RESOURCE_DOES_NOT_EXIST`.
+   * does not exist, this call returns an error {@code RESOURCE_DOES_NOT_EXIST}.
    */
   public Iterable<ObjectInfo> list(ListWorkspaceRequest request) {
     return Paginator.newOffsetPagination(
@@ -132,7 +138,7 @@ public class WorkspaceAPI {
   /**
    * Creates the specified directory (and necessary parent directories if they do not exist). If
    * there is an object (not a directory) at any prefix of the input path, this call returns an
-   * error `RESOURCE_ALREADY_EXISTS`.
+   * error {@code RESOURCE_ALREADY_EXISTS}.
    *
    * <p>Note that if this operation fails it may have succeeded in creating some of the necessary
    * parent directories.

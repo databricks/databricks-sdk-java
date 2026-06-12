@@ -10,7 +10,7 @@ import java.util.Objects;
 /** A credential that is dependent on a SQL object. */
 @Generated
 public class CredentialDependency {
-  /** Full name of the dependent credential, in the form of __credential_name__. */
+  /** Full name of the dependent credential, in the form of <b>credential_name</b>. */
   @JsonProperty("credential_name")
   private String credentialName;
 

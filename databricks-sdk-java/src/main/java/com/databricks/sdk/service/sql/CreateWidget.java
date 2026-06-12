@@ -19,7 +19,7 @@ public class CreateWidget {
 
   /**
    * If this is a textbox widget, the application displays this text. This field is ignored if the
-   * widget contains a visualization in the `visualization` field.
+   * widget contains a visualization in the {@code visualization} field.
    */
   @JsonProperty("text")
   private String text;

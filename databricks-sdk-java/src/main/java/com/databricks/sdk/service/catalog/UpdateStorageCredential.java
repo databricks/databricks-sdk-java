@@ -58,7 +58,7 @@ public class UpdateStorageCredential {
 
   /**
    * Whether the credential is usable only for read operations. Only applicable when purpose is
-   * **STORAGE**.
+   * <b>STORAGE</b>.
    */
   @JsonProperty("read_only")
   private Boolean readOnly;

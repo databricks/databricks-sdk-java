@@ -37,11 +37,12 @@ public class SubmitRun {
    * Version-controlled source code is supported by notebook, dbt, Python script, and SQL File
    * tasks.
    *
-   * <p>If `git_source` is set, these tasks retrieve the file from the remote repository by default.
-   * However, this behavior can be overridden by setting `source` to `WORKSPACE` on the task.
+   * <p>If {@code git_source} is set, these tasks retrieve the file from the remote repository by
+   * default. However, this behavior can be overridden by setting {@code source} to {@code
+   * WORKSPACE} on the task.
    *
    * <p>Note: dbt and SQL File tasks support only version-controlled sources. If dbt or SQL File
-   * tasks are used, `git_source` must be defined on the job.
+   * tasks are used, {@code git_source} must be defined on the job.
    */
   @JsonProperty("git_source")
   private GitSource gitSource;
@@ -61,16 +62,15 @@ public class SubmitRun {
    *
    * <p>This token must have at most 64 characters.
    *
-   * <p>For more information, see [How to ensure idempotency for jobs].
-   *
-   * <p>[How to ensure idempotency for jobs]: https://kb.databricks.com/jobs/jobs-idempotency.html
+   * <p>For more information, see <a href="https://kb.databricks.com/jobs/jobs-idempotency.html">How
+   * to ensure idempotency for jobs</a>.
    */
   @JsonProperty("idempotency_token")
   private String idempotencyToken;
 
   /**
-   * Optional notification settings that are used when sending notifications to each of the
-   * `email_notifications` and `webhook_notifications` for this run.
+   * Optional notification settings that are used when sending notifications to each of the {@code
+   * email_notifications} and {@code webhook_notifications} for this run.
    */
   @JsonProperty("notification_settings")
   private JobNotificationSettings notificationSettings;
@@ -86,7 +86,7 @@ public class SubmitRun {
   @JsonProperty("run_as")
   private JobRunAs runAs;
 
-  /** An optional name for the run. The default value is `Untitled`. */
+  /** An optional name for the run. The default value is {@code Untitled}. */
   @JsonProperty("run_name")
   private String runName;
 
@@ -94,7 +94,7 @@ public class SubmitRun {
   @JsonProperty("tasks")
   private Collection<SubmitTask> tasks;
 
-  /** An optional timeout applied to each run of this job. A value of `0` means no timeout. */
+  /** An optional timeout applied to each run of this job. A value of {@code 0} means no timeout. */
   @JsonProperty("timeout_seconds")
   private Long timeoutSeconds;
 

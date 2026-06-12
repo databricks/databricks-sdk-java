@@ -19,12 +19,13 @@ public class SearchRuns {
    * syntax is a subset of SQL that supports ANDing together binary operations between a param,
    * metric, or tag and a constant.
    *
-   * <p>Example: `metrics.rmse < 1 and params.model_class = 'LogisticRegression'`
+   * <p>Example: {@code metrics.rmse < 1 and params.model_class = 'LogisticRegression'}
    *
    * <p>You can select columns with special characters (hyphen, space, period, etc.) by using double
-   * quotes: `metrics."model class" = 'LinearRegression' and tags."user-name" = 'Tomas'`
+   * quotes: {@code metrics."model class" = 'LinearRegression' and tags."user-name" = 'Tomas'}
    *
-   * <p>Supported operators are `=`, `!=`, `>`, `>=`, `<`, and `<=`.
+   * <p>Supported operators are {@code =}, {@code !=}, {@code >}, {@code >=}, {@code <}, and {@code
+   * <=}.
    */
   @JsonProperty("filter")
   private String filter;
@@ -35,10 +36,10 @@ public class SearchRuns {
 
   /**
    * List of columns to be ordered by, including attributes, params, metrics, and tags with an
-   * optional `"DESC"` or `"ASC"` annotation, where `"ASC"` is the default. Example: `["params.input
-   * DESC", "metrics.alpha ASC", "metrics.rmse"]`. Tiebreaks are done by start_time `DESC` followed
-   * by `run_id` for runs with the same start time (and this is the default ordering criterion if
-   * order_by is not provided).
+   * optional {@code "DESC"} or {@code "ASC"} annotation, where {@code "ASC"} is the default.
+   * Example: {@code ["params.input DESC", "metrics.alpha ASC", "metrics.rmse"]}. Tiebreaks are done
+   * by start_time {@code DESC} followed by {@code run_id} for runs with the same start time (and
+   * this is the default ordering criterion if order_by is not provided).
    */
   @JsonProperty("order_by")
   private Collection<String> orderBy;

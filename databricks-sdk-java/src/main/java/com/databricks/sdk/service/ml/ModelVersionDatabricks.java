@@ -29,7 +29,7 @@ public class ModelVersionDatabricks {
   @JsonProperty("email_subscription_status")
   private RegistryEmailSubscriptionType emailSubscriptionStatus;
 
-  /** Feature lineage of `model_version`. */
+  /** Feature lineage of {@code model_version}. */
   @JsonProperty("feature_list")
   private FeatureList featureList;
 
@@ -42,8 +42,8 @@ public class ModelVersionDatabricks {
   private String name;
 
   /**
-   * Open requests for this `model_versions`. Gap in sequence number is intentional and is done in
-   * order to match field sequence numbers of `ModelVersion` proto message
+   * Open requests for this {@code model_versions}. Gap in sequence number is intentional and is
+   * done in order to match field sequence numbers of {@code ModelVersion} proto message
    */
   @JsonProperty("open_requests")
   private Collection<Activity> openRequests;

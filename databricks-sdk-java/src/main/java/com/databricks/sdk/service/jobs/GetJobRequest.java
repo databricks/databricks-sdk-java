@@ -21,8 +21,8 @@ public class GetJobRequest {
   private Long jobId;
 
   /**
-   * Use `next_page_token` returned from the previous GetJob response to request the next page of
-   * the job's array properties.
+   * Use {@code next_page_token} returned from the previous GetJob response to request the next page
+   * of the job's array properties.
    */
   @JsonIgnore
   @QueryParam("page_token")

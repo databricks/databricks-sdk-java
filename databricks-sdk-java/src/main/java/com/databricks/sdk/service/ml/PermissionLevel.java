@@ -5,8 +5,8 @@ package com.databricks.sdk.service.ml;
 import com.databricks.sdk.support.Generated;
 
 /**
- * Permission level of the requesting user on the object. For what is allowed at each level, see
- * [MLflow Model permissions](..).
+ * Permission level of the requesting user on the object. For what is allowed at each level, see <a
+ * href="..">MLflow Model permissions</a>.
  */
 @Generated
 public enum PermissionLevel {

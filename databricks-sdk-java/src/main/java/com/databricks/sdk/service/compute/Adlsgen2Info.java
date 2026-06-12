@@ -11,8 +11,8 @@ import java.util.Objects;
 @Generated
 public class Adlsgen2Info {
   /**
-   * abfss destination, e.g.
-   * `abfss://<container-name>@<storage-account-name>.dfs.core.windows.net/<directory-name>`.
+   * abfss destination, e.g. {@code
+   * abfss://<container-name>@<storage-account-name>.dfs.core.windows.net/<directory-name>}.
    */
   @JsonProperty("destination")
   private String destination;

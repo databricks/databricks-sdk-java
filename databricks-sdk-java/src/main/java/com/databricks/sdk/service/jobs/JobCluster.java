@@ -11,8 +11,8 @@ import java.util.Objects;
 public class JobCluster {
   /**
    * A unique name for the job cluster. This field is required and must be unique within the job.
-   * `JobTaskSettings` may refer to this field to determine which cluster to launch for the task
-   * execution.
+   * {@code JobTaskSettings} may refer to this field to determine which cluster to launch for the
+   * task execution.
    */
   @JsonProperty("job_cluster_key")
   private String jobClusterKey;

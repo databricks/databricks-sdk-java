@@ -16,35 +16,30 @@ public class CreateRegistryWebhook {
   private String description;
 
   /**
-   * Events that can trigger a registry webhook: * `MODEL_VERSION_CREATED`: A new model version was
-   * created for the associated model.
+   * Events that can trigger a registry webhook:
    *
-   * <p>* `MODEL_VERSION_TRANSITIONED_STAGE`: A model version’s stage was changed.
-   *
-   * <p>* `TRANSITION_REQUEST_CREATED`: A user requested a model version’s stage be transitioned.
-   *
-   * <p>* `COMMENT_CREATED`: A user wrote a comment on a registered model.
-   *
-   * <p>* `REGISTERED_MODEL_CREATED`: A new registered model was created. This event type can only
-   * be specified for a registry-wide webhook, which can be created by not specifying a model name
-   * in the create request.
-   *
-   * <p>* `MODEL_VERSION_TAG_SET`: A user set a tag on the model version.
-   *
-   * <p>* `MODEL_VERSION_TRANSITIONED_TO_STAGING`: A model version was transitioned to staging.
-   *
-   * <p>* `MODEL_VERSION_TRANSITIONED_TO_PRODUCTION`: A model version was transitioned to
-   * production.
-   *
-   * <p>* `MODEL_VERSION_TRANSITIONED_TO_ARCHIVED`: A model version was archived.
-   *
-   * <p>* `TRANSITION_REQUEST_TO_STAGING_CREATED`: A user requested a model version be transitioned
-   * to staging.
-   *
-   * <p>* `TRANSITION_REQUEST_TO_PRODUCTION_CREATED`: A user requested a model version be
-   * transitioned to production.
-   *
-   * <p>* `TRANSITION_REQUEST_TO_ARCHIVED_CREATED`: A user requested a model version be archived.
+   * <ul>
+   *   <li>{@code MODEL_VERSION_CREATED}: A new model version was created for the associated model.
+   *   <li>{@code MODEL_VERSION_TRANSITIONED_STAGE}: A model version’s stage was changed.
+   *   <li>{@code TRANSITION_REQUEST_CREATED}: A user requested a model version’s stage be
+   *       transitioned.
+   *   <li>{@code COMMENT_CREATED}: A user wrote a comment on a registered model.
+   *   <li>{@code REGISTERED_MODEL_CREATED}: A new registered model was created. This event type can
+   *       only be specified for a registry-wide webhook, which can be created by not specifying a
+   *       model name in the create request.
+   *   <li>{@code MODEL_VERSION_TAG_SET}: A user set a tag on the model version.
+   *   <li>{@code MODEL_VERSION_TRANSITIONED_TO_STAGING}: A model version was transitioned to
+   *       staging.
+   *   <li>{@code MODEL_VERSION_TRANSITIONED_TO_PRODUCTION}: A model version was transitioned to
+   *       production.
+   *   <li>{@code MODEL_VERSION_TRANSITIONED_TO_ARCHIVED}: A model version was archived.
+   *   <li>{@code TRANSITION_REQUEST_TO_STAGING_CREATED}: A user requested a model version be
+   *       transitioned to staging.
+   *   <li>{@code TRANSITION_REQUEST_TO_PRODUCTION_CREATED}: A user requested a model version be
+   *       transitioned to production.
+   *   <li>{@code TRANSITION_REQUEST_TO_ARCHIVED_CREATED}: A user requested a model version be
+   *       archived.
+   * </ul>
    */
   @JsonProperty("events")
   private Collection<RegistryWebhookEvent> events;
@@ -66,12 +61,14 @@ public class CreateRegistryWebhook {
 
   /**
    * Enable or disable triggering the webhook, or put the webhook into test mode. The default is
-   * `ACTIVE`: * `ACTIVE`: Webhook is triggered when an associated event happens.
+   * {@code ACTIVE}:
    *
-   * <p>* `DISABLED`: Webhook is not triggered.
-   *
-   * <p>* `TEST_MODE`: Webhook can be triggered through the test endpoint, but is not triggered on a
-   * real event.
+   * <ul>
+   *   <li>{@code ACTIVE}: Webhook is triggered when an associated event happens.
+   *   <li>{@code DISABLED}: Webhook is not triggered.
+   *   <li>{@code TEST_MODE}: Webhook can be triggered through the test endpoint, but is not
+   *       triggered on a real event.
+   * </ul>
    */
   @JsonProperty("status")
   private RegistryWebhookStatus status;

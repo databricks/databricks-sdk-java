@@ -13,11 +13,9 @@ public class CleanRoomCollaborator {
   /**
    * Collaborator alias specified by the clean room creator. It is unique across all collaborators
    * of this clean room, and used to derive multiple values internally such as catalog alias and
-   * clean room name for single metastore clean rooms. It should follow [UC securable naming
-   * requirements].
-   *
-   * <p>[UC securable naming requirements]:
-   * https://docs.databricks.com/en/data-governance/unity-catalog/index.html#securable-object-naming-requirements
+   * clean room name for single metastore clean rooms. It should follow <a
+   * href="https://docs.databricks.com/en/data-governance/unity-catalog/index.html#securable-object-naming-requirements">UC
+   * securable naming requirements</a>.
    */
   @JsonProperty("collaborator_alias")
   private String collaboratorAlias;
@@ -54,8 +52,8 @@ public class CleanRoomCollaborator {
   private Long inviteRecipientWorkspaceId;
 
   /**
-   * [Organization name](:method:metastores/list#metastores-delta_sharing_organization_name)
-   * configured in the metastore
+   * <a href=":method:metastores/list#metastores-delta_sharing_organization_name">Organization
+   * name</a> configured in the metastore
    */
   @JsonProperty("organization_name")
   private String organizationName;

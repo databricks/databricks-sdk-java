@@ -13,8 +13,8 @@ import java.util.Objects;
 public class UpdateMonitor {
   /**
    * [Create:OPT Update:OPT] Baseline table name. Baseline data is used to compute drift from the
-   * data in the monitored `table_name`. The baseline table and the monitored table shall have the
-   * same schema.
+   * data in the monitored {@code table_name}. The baseline table and the monitored table shall have
+   * the same schema.
    */
   @JsonProperty("baseline_table_name")
   private String baselineTableName;
@@ -60,10 +60,10 @@ public class UpdateMonitor {
   /**
    * [Create:OPT Update:OPT] List of column expressions to slice data with for targeted analysis.
    * The data is grouped by each expression independently, resulting in a separate slice for each
-   * predicate and its complements. For example `slicing_exprs=[“col_1”, “col_2 > 10”]` will
-   * generate the following slices: two slices for `col_2 > 10` (True and False), and one slice per
-   * unique value in `col1`. For high-cardinality columns, only the top 100 unique values by
-   * frequency will generate slices.
+   * predicate and its complements. For example {@code slicing_exprs=[“col_1”, “col_2 > 10”]} will
+   * generate the following slices: two slices for {@code col_2 > 10} (True and False), and one
+   * slice per unique value in {@code col1}. For high-cardinality columns, only the top 100 unique
+   * values by frequency will generate slices.
    */
   @JsonProperty("slicing_exprs")
   private Collection<String> slicingExprs;
@@ -73,7 +73,7 @@ public class UpdateMonitor {
   private MonitorSnapshot snapshot;
 
   /**
-   * UC table name in format `catalog.schema.table_name`. This field corresponds to the
+   * UC table name in format {@code catalog.schema.table_name}. This field corresponds to the
    * {full_table_name_arg} arg in the endpoint path.
    */
   @JsonIgnore private String tableName;

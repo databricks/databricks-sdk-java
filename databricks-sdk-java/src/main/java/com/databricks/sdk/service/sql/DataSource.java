@@ -12,9 +12,8 @@ import java.util.Objects;
 public class DataSource {
   /**
    * Data source ID maps to the ID of the data source used by the resource and is distinct from the
-   * warehouse ID. [Learn more]
-   *
-   * <p>[Learn more]: https://docs.databricks.com/api/workspace/datasources/list
+   * warehouse ID. <a href="https://docs.databricks.com/api/workspace/datasources/list">Learn
+   * more</a>
    */
   @JsonProperty("id")
   private String id;
@@ -42,7 +41,7 @@ public class DataSource {
   @JsonProperty("syntax")
   private String syntax;
 
-  /** The type of data source. For SQL warehouses, this will be `databricks_internal`. */
+  /** The type of data source. For SQL warehouses, this will be {@code databricks_internal}. */
   @JsonProperty("type")
   private String typeValue;
 

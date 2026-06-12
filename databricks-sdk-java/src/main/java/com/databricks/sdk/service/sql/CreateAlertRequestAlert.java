@@ -14,18 +14,18 @@ public class CreateAlertRequestAlert {
   private AlertCondition condition;
 
   /**
-   * Custom body of alert notification, if it exists. See [here] for custom templating instructions.
-   *
-   * <p>[here]: https://docs.databricks.com/sql/user/alerts/index.html
+   * Custom body of alert notification, if it exists. See <a
+   * href="https://docs.databricks.com/sql/user/alerts/index.html">here</a> for custom templating
+   * instructions.
    */
   @JsonProperty("custom_body")
   private String customBody;
 
   /**
    * Custom subject of alert notification, if it exists. This can include email subject entries and
-   * Slack notification headers, for example. See [here] for custom templating instructions.
-   *
-   * <p>[here]: https://docs.databricks.com/sql/user/alerts/index.html
+   * Slack notification headers, for example. See <a
+   * href="https://docs.databricks.com/sql/user/alerts/index.html">here</a> for custom templating
+   * instructions.
    */
   @JsonProperty("custom_subject")
   private String customSubject;

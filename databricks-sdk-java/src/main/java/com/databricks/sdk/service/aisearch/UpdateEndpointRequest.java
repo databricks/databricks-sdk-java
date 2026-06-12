@@ -12,15 +12,15 @@ import java.util.Objects;
 
 @Generated
 public class UpdateEndpointRequest {
-  /** The Endpoint resource to update. `endpoint.name` carries the full resource path. */
+  /** The Endpoint resource to update. {@code endpoint.name} carries the full resource path. */
   @JsonProperty("endpoint")
   private Endpoint endpoint;
 
   /**
-   * Name of the AI Search endpoint. Server-assigned full resource path
-   * (`workspaces/{workspace}/endpoints/{endpoint}`) on output. On create, the user-supplied short
-   * name is conveyed via `CreateEndpointRequest.endpoint_id`; the server composes the full `name`
-   * and returns it on the response.
+   * Name of the AI Search endpoint. Server-assigned full resource path ({@code
+   * workspaces/{workspace}/endpoints/{endpoint}}) on output. On create, the user-supplied short
+   * name is conveyed via {@code CreateEndpointRequest.endpoint_id}; the server composes the full
+   * {@code name} and returns it on the response.
    */
   @JsonIgnore private String name;
 

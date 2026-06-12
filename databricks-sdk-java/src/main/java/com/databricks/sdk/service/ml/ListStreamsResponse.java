@@ -12,9 +12,14 @@ import java.util.Objects;
  * Response to a ListStreamsRequest.
  *
  * <p>NOTE: Results are post-filtered by access permission on each stream's ingestion table. This
- * means: - Returned results may be fewer than page_size (including zero) - Page token points to
- * next unfiltered batch, not next filtered batch, and may point to an item that will be filtered
- * out Callers should paginate until next_page_token is empty to retrieve all accessible streams.
+ * means:
+ *
+ * <ul>
+ *   <li>Returned results may be fewer than page_size (including zero)
+ *   <li>Page token points to next unfiltered batch, not next filtered batch, and may point to an
+ *       item that will be filtered out Callers should paginate until next_page_token is empty to
+ *       retrieve all accessible streams.
+ * </ul>
  */
 @Generated
 public class ListStreamsResponse {

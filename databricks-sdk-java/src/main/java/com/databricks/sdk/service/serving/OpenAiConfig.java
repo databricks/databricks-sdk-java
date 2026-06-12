@@ -16,18 +16,19 @@ public class OpenAiConfig {
 
   /**
    * The Databricks secret key reference for a client secret used for Microsoft Entra ID
-   * authentication. If you prefer to paste your client secret directly, see
-   * `microsoft_entra_client_secret_plaintext`. You must provide an API key using one of the
-   * following fields: `microsoft_entra_client_secret` or `microsoft_entra_client_secret_plaintext`.
+   * authentication. If you prefer to paste your client secret directly, see {@code
+   * microsoft_entra_client_secret_plaintext}. You must provide an API key using one of the
+   * following fields: {@code microsoft_entra_client_secret} or {@code
+   * microsoft_entra_client_secret_plaintext}.
    */
   @JsonProperty("microsoft_entra_client_secret")
   private String microsoftEntraClientSecret;
 
   /**
    * The client secret used for Microsoft Entra ID authentication provided as a plaintext string. If
-   * you prefer to reference your key using Databricks Secrets, see `microsoft_entra_client_secret`.
-   * You must provide an API key using one of the following fields: `microsoft_entra_client_secret`
-   * or `microsoft_entra_client_secret_plaintext`.
+   * you prefer to reference your key using Databricks Secrets, see {@code
+   * microsoft_entra_client_secret}. You must provide an API key using one of the following fields:
+   * {@code microsoft_entra_client_secret} or {@code microsoft_entra_client_secret_plaintext}.
    */
   @JsonProperty("microsoft_entra_client_secret_plaintext")
   private String microsoftEntraClientSecretPlaintext;
@@ -47,16 +48,18 @@ public class OpenAiConfig {
 
   /**
    * The Databricks secret key reference for an OpenAI API key using the OpenAI or Azure service. If
-   * you prefer to paste your API key directly, see `openai_api_key_plaintext`. You must provide an
-   * API key using one of the following fields: `openai_api_key` or `openai_api_key_plaintext`.
+   * you prefer to paste your API key directly, see {@code openai_api_key_plaintext}. You must
+   * provide an API key using one of the following fields: {@code openai_api_key} or {@code
+   * openai_api_key_plaintext}.
    */
   @JsonProperty("openai_api_key")
   private String openaiApiKey;
 
   /**
    * The OpenAI API key using the OpenAI or Azure service provided as a plaintext string. If you
-   * prefer to reference your key using Databricks Secrets, see `openai_api_key`. You must provide
-   * an API key using one of the following fields: `openai_api_key` or `openai_api_key_plaintext`.
+   * prefer to reference your key using Databricks Secrets, see {@code openai_api_key}. You must
+   * provide an API key using one of the following fields: {@code openai_api_key} or {@code
+   * openai_api_key_plaintext}.
    */
   @JsonProperty("openai_api_key_plaintext")
   private String openaiApiKeyPlaintext;

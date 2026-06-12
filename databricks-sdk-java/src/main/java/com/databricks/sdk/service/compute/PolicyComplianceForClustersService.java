@@ -23,13 +23,13 @@ import com.databricks.sdk.support.Generated;
 public interface PolicyComplianceForClustersService {
   /**
    * Updates a cluster to be compliant with the current version of its policy. A cluster can be
-   * updated if it is in a `RUNNING` or `TERMINATED` state.
+   * updated if it is in a {@code RUNNING} or {@code TERMINATED} state.
    *
-   * <p>If a cluster is updated while in a `RUNNING` state, it will be restarted so that the new
-   * attributes can take effect.
+   * <p>If a cluster is updated while in a {@code RUNNING} state, it will be restarted so that the
+   * new attributes can take effect.
    *
-   * <p>If a cluster is updated while in a `TERMINATED` state, it will remain `TERMINATED`. The next
-   * time the cluster is started, the new attributes will take effect.
+   * <p>If a cluster is updated while in a {@code TERMINATED} state, it will remain {@code
+   * TERMINATED}. The next time the cluster is started, the new attributes will take effect.
    *
    * <p>Clusters created by the Databricks Jobs, SDP, or Models services cannot be enforced by this
    * API. Instead, use the "Enforce job policy compliance" API to enforce policy compliance on jobs.

@@ -13,15 +13,15 @@ import java.util.Objects;
 public class JobSettings {
   /**
    * The id of the user specified budget policy to use for this job. If not specified, a default
-   * budget policy may be applied when creating or modifying the job. See
-   * `effective_budget_policy_id` for the budget policy used by this workload.
+   * budget policy may be applied when creating or modifying the job. See {@code
+   * effective_budget_policy_id} for the budget policy used by this workload.
    */
   @JsonProperty("budget_policy_id")
   private String budgetPolicyId;
 
   /**
    * An optional continuous property for this job. The continuous property will ensure that there is
-   * always one run executing. Only one of `schedule` and `continuous` can be used.
+   * always one run executing. Only one of {@code schedule} and {@code continuous} can be used.
    */
   @JsonProperty("continuous")
   private Continuous continuous;
@@ -39,8 +39,10 @@ public class JobSettings {
   /**
    * Edit mode of the job.
    *
-   * <p>* `UI_LOCKED`: The job is in a locked UI state and cannot be modified. * `EDITABLE`: The job
-   * is in an editable state and can be modified.
+   * <ul>
+   *   <li>{@code UI_LOCKED}: The job is in a locked UI state and cannot be modified.
+   *   <li>{@code EDITABLE}: The job is in an editable state and can be modified.
+   * </ul>
    */
   @JsonProperty("edit_mode")
   private JobEditMode editMode;
@@ -64,7 +66,7 @@ public class JobSettings {
 
   /**
    * Used to tell what is the format of the job. This field is ignored in Create/Update/Reset calls.
-   * When using the Jobs API 2.1 this value is always set to `"MULTI_TASK"`.
+   * When using the Jobs API 2.1 this value is always set to {@code "MULTI_TASK"}.
    */
   @JsonProperty("format")
   private Format format;
@@ -74,11 +76,12 @@ public class JobSettings {
    * Version-controlled source code is supported by notebook, dbt, Python script, and SQL File
    * tasks.
    *
-   * <p>If `git_source` is set, these tasks retrieve the file from the remote repository by default.
-   * However, this behavior can be overridden by setting `source` to `WORKSPACE` on the task.
+   * <p>If {@code git_source} is set, these tasks retrieve the file from the remote repository by
+   * default. However, this behavior can be overridden by setting {@code source} to {@code
+   * WORKSPACE} on the task.
    *
    * <p>Note: dbt and SQL File tasks support only version-controlled sources. If dbt or SQL File
-   * tasks are used, `git_source` must be defined on the job.
+   * tasks are used, {@code git_source} must be defined on the job.
    */
   @JsonProperty("git_source")
   private GitSource gitSource;
@@ -103,7 +106,8 @@ public class JobSettings {
    * This setting affects only new runs. For example, suppose the job’s concurrency is 4 and there
    * are 4 concurrent active runs. Then setting the concurrency to 3 won’t kill any of the active
    * runs. However, from then on, new runs are skipped unless there are fewer than 3 active runs.
-   * This value cannot exceed 1000. Setting this value to `0` causes all new runs to be skipped.
+   * This value cannot exceed 1000. Setting this value to {@code 0} causes all new runs to be
+   * skipped.
    */
   @JsonProperty("max_concurrent_runs")
   private Long maxConcurrentRuns;
@@ -113,8 +117,8 @@ public class JobSettings {
   private String name;
 
   /**
-   * Optional notification settings that are used when sending notifications to each of the
-   * `email_notifications` and `webhook_notifications` for this job.
+   * Optional notification settings that are used when sending notifications to each of the {@code
+   * email_notifications} and {@code webhook_notifications} for this job.
    */
   @JsonProperty("notification_settings")
   private JobNotificationSettings notificationSettings;
@@ -128,9 +132,11 @@ public class JobSettings {
    * performance or cost-efficiency for the run. The performance target does not apply to tasks that
    * run on Serverless GPU compute.
    *
-   * <p>* `STANDARD`: Enables cost-efficient execution of serverless workloads. *
-   * `PERFORMANCE_OPTIMIZED`: Prioritizes fast startup and execution times through rapid scaling and
-   * optimized cluster performance.
+   * <ul>
+   *   <li>{@code STANDARD}: Enables cost-efficient execution of serverless workloads.
+   *   <li>{@code PERFORMANCE_OPTIMIZED}: Prioritizes fast startup and execution times through rapid
+   *       scaling and optimized cluster performance.
+   * </ul>
    */
   @JsonProperty("performance_target")
   private PerformanceTarget performanceTarget;
@@ -141,15 +147,15 @@ public class JobSettings {
 
   /**
    * The user or service principal that the job runs as, if specified in the request. This field
-   * indicates the explicit configuration of `run_as` for the job. To find the value in all cases,
-   * explicit or implicit, use `run_as_user_name`.
+   * indicates the explicit configuration of {@code run_as} for the job. To find the value in all
+   * cases, explicit or implicit, use {@code run_as_user_name}.
    */
   @JsonProperty("run_as")
   private JobRunAs runAs;
 
   /**
    * An optional periodic schedule for this job. The default behavior is that the job only runs when
-   * triggered by clicking “Run Now” in the Jobs UI or sending an API request to `runNow`.
+   * triggered by clicking “Run Now” in the Jobs UI or sending an API request to {@code runNow}.
    */
   @JsonProperty("schedule")
   private CronSchedule schedule;
@@ -166,28 +172,28 @@ public class JobSettings {
    * A list of task specifications to be executed by this job. It supports up to 1000 elements in
    * write endpoints (:method:jobs/create, :method:jobs/reset, :method:jobs/update,
    * :method:jobs/submit). Read endpoints return only 100 tasks. If more than 100 tasks are
-   * available, you can paginate through them using :method:jobs/get. Use the `next_page_token`
-   * field at the object root to determine if more results are available.
+   * available, you can paginate through them using :method:jobs/get. Use the {@code
+   * next_page_token} field at the object root to determine if more results are available.
    */
   @JsonProperty("tasks")
   private Collection<Task> tasks;
 
-  /** An optional timeout applied to each run of this job. A value of `0` means no timeout. */
+  /** An optional timeout applied to each run of this job. A value of {@code 0} means no timeout. */
   @JsonProperty("timeout_seconds")
   private Long timeoutSeconds;
 
   /**
    * A configuration to trigger a run when certain conditions are met. The default behavior is that
    * the job runs only when triggered by clicking “Run Now” in the Jobs UI or sending an API request
-   * to `runNow`.
+   * to {@code runNow}.
    */
   @JsonProperty("trigger")
   private TriggerSettings trigger;
 
   /**
    * The id of the user specified usage policy to use for this job. If not specified, a default
-   * usage policy may be applied when creating or modifying the job. See `effective_usage_policy_id`
-   * for the usage policy used by this workload.
+   * usage policy may be applied when creating or modifying the job. See {@code
+   * effective_usage_policy_id} for the usage policy used by this workload.
    */
   @JsonProperty("usage_policy_id")
   private String usagePolicyId;

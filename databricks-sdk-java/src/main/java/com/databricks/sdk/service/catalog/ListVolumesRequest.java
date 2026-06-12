@@ -26,11 +26,15 @@ public class ListVolumesRequest {
   /**
    * Maximum number of volumes to return (page length).
    *
-   * <p>If not set, the page length is set to a server configured value (10000, as of 1/29/2024). -
-   * when set to a value greater than 0, the page length is the minimum of this value and a server
-   * configured value (10000, as of 1/29/2024); - when set to 0, the page length is set to a server
-   * configured value (10000, as of 1/29/2024) (recommended); - when set to a value less than 0, an
-   * invalid parameter error is returned;
+   * <p>If not set, the page length is set to a server configured value (10000, as of 1/29/2024).
+   *
+   * <ul>
+   *   <li>when set to a value greater than 0, the page length is the minimum of this value and a
+   *       server configured value (10000, as of 1/29/2024);
+   *   <li>when set to 0, the page length is set to a server configured value (10000, as of
+   *       1/29/2024) (recommended);
+   *   <li>when set to a value less than 0, an invalid parameter error is returned;
+   * </ul>
    *
    * <p>Note: this parameter controls only the maximum number of volumes to return. The actual
    * number of volumes returned in a page may be smaller than this value, including 0, even if there

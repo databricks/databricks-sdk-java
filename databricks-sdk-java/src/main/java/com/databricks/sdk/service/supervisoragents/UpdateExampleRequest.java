@@ -23,8 +23,13 @@ public class UpdateExampleRequest {
   @JsonIgnore private String name;
 
   /**
-   * Comma-delimited list of fields to update on the example. Allowed values: `question`,
-   * `guidelines`. Examples: - `question` - `question,guidelines`
+   * Comma-delimited list of fields to update on the example. Allowed values: {@code question},
+   * {@code guidelines}. Examples:
+   *
+   * <ul>
+   *   <li>{@code question}
+   *   <li>{@code question,guidelines}
+   * </ul>
    */
   @JsonIgnore
   @QueryParam("update_mask")

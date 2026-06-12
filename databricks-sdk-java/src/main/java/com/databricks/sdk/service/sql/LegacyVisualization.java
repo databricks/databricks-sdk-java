@@ -9,7 +9,7 @@ import java.util.Objects;
 
 /**
  * The visualization description API changes frequently and is unsupported. You can duplicate a
- * visualization by copying description objects received _from the API_ and then using them to
+ * visualization by copying description objects received <i>from the API</i> and then using them to
  * create a new one with a POST request to the same endpoint. Databricks does not recommend
  * constructing ad-hoc visualizations entirely in JSON.
  */

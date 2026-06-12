@@ -16,8 +16,8 @@ public class IngestionPipelineDefinitionTableSpecificConfigQueryBasedConnectorCo
    * the table to be read and ingested incrementally through structured streaming. The columns are
    * allowed to have repeated values but have to be non-decreasing. If the source data is merged
    * into the destination (e.g., using SCD Type 1 or Type 2), these columns will implicitly define
-   * the `sequence_by` behavior. You can still explicitly set `sequence_by` to override this
-   * default.
+   * the {@code sequence_by} behavior. You can still explicitly set {@code sequence_by} to override
+   * this default.
    */
   @JsonProperty("cursor_columns")
   private Collection<String> cursorColumns;
@@ -25,7 +25,7 @@ public class IngestionPipelineDefinitionTableSpecificConfigQueryBasedConnectorCo
   /**
    * Specifies a SQL WHERE condition that specifies that the source row has been deleted. This is
    * sometimes referred to as "soft-deletes". For example: "Operation = 'DELETE'" or "is_deleted =
-   * true". This field is orthogonal to `hard_deletion_sync_interval_in_seconds`, one for
+   * true". This field is orthogonal to {@code hard_deletion_sync_interval_in_seconds}, one for
    * soft-deletes and the other for hard-deletes. See also the
    * hard_deletion_sync_min_interval_in_seconds field for handling of "hard deletes" where the
    * source rows are physically removed from the table.

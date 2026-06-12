@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class SharedDataObjectUpdate {
-  /** One of: **ADD**, **REMOVE**, **UPDATE**. */
+  /** One of: <b>ADD</b>, <b>REMOVE</b>, <b>UPDATE</b>. */
   @JsonProperty("action")
   private SharedDataObjectUpdateAction action;
 

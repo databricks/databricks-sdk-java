@@ -15,8 +15,8 @@ public class ListDirectoryContentsRequest {
 
   /**
    * The maximum number of directory entries to return. The response may contain fewer entries. If
-   * the response contains a `next_page_token`, there may be more entries, even if fewer than
-   * `page_size` entries are in the response.
+   * the response contains a {@code next_page_token}, there may be more entries, even if fewer than
+   * {@code page_size} entries are in the response.
    *
    * <p>We recommend not to set this value unless you are intentionally listing less than the
    * complete directory contents.
@@ -29,12 +29,13 @@ public class ListDirectoryContentsRequest {
   private Long pageSize;
 
   /**
-   * An opaque page token which was the `next_page_token` in the response of the previous request to
-   * list the contents of this directory. Provide this token to retrieve the next page of directory
-   * entries. When providing a `page_token`, all other parameters provided to the request must match
-   * the previous request. To list all of the entries in a directory, it is necessary to continue
-   * requesting pages of entries until the response contains no `next_page_token`. Note that the
-   * number of entries returned must not be used to determine when the listing is complete.
+   * An opaque page token which was the {@code next_page_token} in the response of the previous
+   * request to list the contents of this directory. Provide this token to retrieve the next page of
+   * directory entries. When providing a {@code page_token}, all other parameters provided to the
+   * request must match the previous request. To list all of the entries in a directory, it is
+   * necessary to continue requesting pages of entries until the response contains no {@code
+   * next_page_token}. Note that the number of entries returned must not be used to determine when
+   * the listing is complete.
    */
   @JsonIgnore
   @QueryParam("page_token")

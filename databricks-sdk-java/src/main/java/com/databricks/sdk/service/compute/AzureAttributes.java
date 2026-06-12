@@ -11,20 +11,20 @@ import java.util.Objects;
 @Generated
 public class AzureAttributes {
   /**
-   * Availability type used for all subsequent nodes past the `first_on_demand` ones. Note: If
-   * `first_on_demand` is zero, this availability type will be used for the entire cluster.
+   * Availability type used for all subsequent nodes past the {@code first_on_demand} ones. Note: If
+   * {@code first_on_demand} is zero, this availability type will be used for the entire cluster.
    */
   @JsonProperty("availability")
   private AzureAvailability availability;
 
   /**
-   * The first `first_on_demand` nodes of the cluster will be placed on on-demand instances. This
-   * value should be greater than 0, to make sure the cluster driver node is placed on an on-demand
-   * instance. If this value is greater than or equal to the current cluster size, all nodes will be
-   * placed on on-demand instances. If this value is less than the current cluster size,
-   * `first_on_demand` nodes will be placed on on-demand instances and the remainder will be placed
-   * on `availability` instances. Note that this value does not affect cluster size and cannot
-   * currently be mutated over the lifetime of a cluster.
+   * The first {@code first_on_demand} nodes of the cluster will be placed on on-demand instances.
+   * This value should be greater than 0, to make sure the cluster driver node is placed on an
+   * on-demand instance. If this value is greater than or equal to the current cluster size, all
+   * nodes will be placed on on-demand instances. If this value is less than the current cluster
+   * size, {@code first_on_demand} nodes will be placed on on-demand instances and the remainder
+   * will be placed on {@code availability} instances. Note that this value does not affect cluster
+   * size and cannot currently be mutated over the lifetime of a cluster.
    */
   @JsonProperty("first_on_demand")
   private Long firstOnDemand;
@@ -37,7 +37,7 @@ public class AzureAttributes {
    * The max bid price to be used for Azure spot instances. The Max price for the bid cannot be
    * higher than the on-demand price of the instance. If not specified, the default value is -1,
    * which specifies that the instance cannot be evicted on the basis of price, and only on the
-   * basis of availability. Further, the value should > 0 or -1.
+   * basis of availability. Further, the value should &gt; 0 or -1.
    */
   @JsonProperty("spot_bid_max_price")
   private Double spotBidMaxPrice;

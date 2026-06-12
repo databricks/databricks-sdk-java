@@ -18,7 +18,10 @@ public class QueryVectorIndexNextPageRequest {
   /** Name of the vector index to query. */
   @JsonIgnore private String indexName;
 
-  /** Page token returned from previous `QueryVectorIndex` or `QueryVectorIndexNextPage` API. */
+  /**
+   * Page token returned from previous {@code QueryVectorIndex} or {@code QueryVectorIndexNextPage}
+   * API.
+   */
   @JsonProperty("page_token")
   private String pageToken;
 

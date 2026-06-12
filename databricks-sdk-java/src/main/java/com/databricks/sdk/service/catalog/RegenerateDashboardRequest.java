@@ -11,7 +11,7 @@ import java.util.Objects;
 @Generated
 public class RegenerateDashboardRequest {
   /**
-   * UC table name in format `catalog.schema.table_name`. This field corresponds to the
+   * UC table name in format {@code catalog.schema.table_name}. This field corresponds to the
    * {full_table_name_arg} arg in the endpoint path.
    */
   @JsonIgnore private String tableName;

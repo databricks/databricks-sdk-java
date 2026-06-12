@@ -23,8 +23,8 @@ public class Version {
   private Timestamp completeTime;
 
   /**
-   * The user who completed the version (email or principal name). May differ from `created_by` when
-   * another user force-completes the version.
+   * The user who completed the version (email or principal name). May differ from {@code
+   * created_by} when another user force-completes the version.
    */
   @JsonProperty("completed_by")
   private String completedBy;

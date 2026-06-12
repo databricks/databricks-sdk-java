@@ -6,11 +6,14 @@ import com.databricks.sdk.support.Generated;
 /**
  * 'Disabling legacy access' has the following impacts:
  *
- * <p>1. Disables direct access to Hive Metastores from the workspace. However, you can still access
- * a Hive Metastore through Hive Metastore federation. 2. Disables fallback mode on external
- * location access from the workspace. 3. Disables Databricks Runtime versions prior to 13.3LTS.
+ * <ol>
+ *   <li>Disables direct access to Hive Metastores from the workspace. However, you can still access
+ *       a Hive Metastore through Hive Metastore federation.
+ *   <li>Disables fallback mode on external location access from the workspace.
+ *   <li>Disables Databricks Runtime versions prior to 13.3LTS.
+ * </ol>
  *
- * <p>This is the high-level interface, that contains generated methods.
+ * This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */

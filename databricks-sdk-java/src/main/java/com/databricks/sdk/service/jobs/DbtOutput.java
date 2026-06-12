@@ -10,7 +10,10 @@ import java.util.Objects;
 
 @Generated
 public class DbtOutput {
-  /** An optional map of headers to send when retrieving the artifact from the `artifacts_link`. */
+  /**
+   * An optional map of headers to send when retrieving the artifact from the {@code
+   * artifacts_link}.
+   */
   @JsonProperty("artifacts_headers")
   private Map<String, String> artifactsHeaders;
 

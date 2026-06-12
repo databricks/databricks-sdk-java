@@ -13,19 +13,19 @@ public class V1ResponseChoiceElement {
   @JsonProperty("finishReason")
   private String finishReason;
 
-  /** The index of the choice in the __chat or completions__ response. */
+  /** The index of the choice in the <b>chat or completions</b> response. */
   @JsonProperty("index")
   private Long index;
 
-  /** The logprobs returned only by the __completions__ endpoint. */
+  /** The logprobs returned only by the <b>completions</b> endpoint. */
   @JsonProperty("logprobs")
   private Long logprobs;
 
-  /** The message response from the __chat__ endpoint. */
+  /** The message response from the <b>chat</b> endpoint. */
   @JsonProperty("message")
   private ChatMessage message;
 
-  /** The text response from the __completions__ endpoint. */
+  /** The text response from the <b>completions</b> endpoint. */
   @JsonProperty("text")
   private String text;
 

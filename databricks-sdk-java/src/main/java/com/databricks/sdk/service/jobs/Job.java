@@ -25,9 +25,14 @@ public class Job {
 
   /**
    * The id of the budget policy used by this job for cost attribution purposes. This may be set
-   * through (in order of precedence): 1. Budget admins through the account or workspace console 2.
-   * Jobs UI in the job details page and Jobs API using `budget_policy_id` 3. Inferred default based
-   * on accessible budget policies of the run_as identity on job creation or modification.
+   * through (in order of precedence):
+   *
+   * <ol>
+   *   <li>Budget admins through the account or workspace console
+   *   <li>Jobs UI in the job details page and Jobs API using {@code budget_policy_id}
+   *   <li>Inferred default based on accessible budget policies of the run_as identity on job
+   *       creation or modification.
+   * </ol>
    */
   @JsonProperty("effective_budget_policy_id")
   private String effectiveBudgetPolicyId;
@@ -37,9 +42,9 @@ public class Job {
   private String effectiveUsagePolicyId;
 
   /**
-   * Indicates if the job has more array properties (`tasks`, `job_clusters`) that are not shown.
-   * They can be accessed via :method:jobs/get endpoint. It is only relevant for API 2.2
-   * :method:jobs/list requests with `expand_tasks=true`.
+   * Indicates if the job has more array properties ({@code tasks}, {@code job_clusters}) that are
+   * not shown. They can be accessed via :method:jobs/get endpoint. It is only relevant for API 2.2
+   * :method:jobs/list requests with {@code expand_tasks=true}.
    */
   @JsonProperty("has_more")
   private Boolean hasMore;
@@ -54,19 +59,19 @@ public class Job {
 
   /**
    * The email of an active workspace user or the application ID of a service principal that the job
-   * runs as. This value can be changed by setting the `run_as` field when creating or updating a
-   * job.
+   * runs as. This value can be changed by setting the {@code run_as} field when creating or
+   * updating a job.
    *
-   * <p>By default, `run_as_user_name` is based on the current job settings and is set to the
-   * creator of the job if job access control is disabled or to the user with the `is_owner`
+   * <p>By default, {@code run_as_user_name} is based on the current job settings and is set to the
+   * creator of the job if job access control is disabled or to the user with the {@code is_owner}
    * permission if job access control is enabled.
    */
   @JsonProperty("run_as_user_name")
   private String runAsUserName;
 
   /**
-   * Settings for this job and all of its runs. These settings can be updated using the `resetJob`
-   * method.
+   * Settings for this job and all of its runs. These settings can be updated using the {@code
+   * resetJob} method.
    */
   @JsonProperty("settings")
   private JobSettings settings;

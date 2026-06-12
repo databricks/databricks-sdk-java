@@ -12,12 +12,12 @@ import java.util.Objects;
 public class GetSecretRequest {
   /**
    * The three-level (fully qualified) name of the secret (for example,
-   * **catalog_name.schema_name.secret_name**).
+   * <b>catalog_name.schema_name.secret_name</b>).
    */
   @JsonIgnore private String fullName;
 
   /**
-   * Whether to include secrets in the response for which you only have the **BROWSE** privilege,
+   * Whether to include secrets in the response for which you only have the <b>BROWSE</b> privilege,
    * which limits access to metadata.
    */
   @JsonIgnore

@@ -10,23 +10,23 @@ import java.util.Objects;
 @Generated
 public class InitScriptInfoAndExecutionDetails {
   /**
-   * destination needs to be provided, e.g.
-   * `abfss://<container-name>@<storage-account-name>.dfs.core.windows.net/<directory-name>`
+   * destination needs to be provided, e.g. {@code
+   * abfss://<container-name>@<storage-account-name>.dfs.core.windows.net/<directory-name>}
    */
   @JsonProperty("abfss")
   private Adlsgen2Info abfss;
 
   /**
-   * destination needs to be provided. e.g. `{ "dbfs": { "destination" : "dbfs:/home/cluster_log" }
-   * }`
+   * destination needs to be provided. e.g. {@code { "dbfs": { "destination" :
+   * "dbfs:/home/cluster_log" } }}
    */
   @JsonProperty("dbfs")
   private DbfsStorageInfo dbfs;
 
   /**
    * Additional details regarding errors (such as a file not found message if the status is
-   * FAILED_FETCH). This field should only be used to provide *additional* information to the status
-   * field, not duplicate it.
+   * FAILED_FETCH). This field should only be used to provide <i>additional</i> information to the
+   * status field, not duplicate it.
    */
   @JsonProperty("error_message")
   private String errorMessage;
@@ -36,23 +36,24 @@ public class InitScriptInfoAndExecutionDetails {
   private Long executionDurationSeconds;
 
   /**
-   * destination needs to be provided, e.g. `{ "file": { "destination": "file:/my/local/file.sh" }
-   * }`
+   * destination needs to be provided, e.g. {@code { "file": { "destination":
+   * "file:/my/local/file.sh" } }}
    */
   @JsonProperty("file")
   private LocalFileInfo file;
 
   /**
-   * destination needs to be provided, e.g. `{ "gcs": { "destination": "gs://my-bucket/file.sh" } }`
+   * destination needs to be provided, e.g. {@code { "gcs": { "destination":
+   * "gs://my-bucket/file.sh" } }}
    */
   @JsonProperty("gcs")
   private GcsStorageInfo gcs;
 
   /**
-   * destination and either the region or endpoint need to be provided. e.g. `{ \"s3\": {
-   * \"destination\": \"s3://cluster_log_bucket/prefix\", \"region\": \"us-west-2\" } }` Cluster iam
-   * role is used to access s3, please make sure the cluster iam role in `instance_profile_arn` has
-   * permission to write data to the s3 destination.
+   * destination and either the region or endpoint need to be provided. e.g. {@code { \"s3\": {
+   * \"destination\": \"s3://cluster_log_bucket/prefix\", \"region\": \"us-west-2\" } }} Cluster iam
+   * role is used to access s3, please make sure the cluster iam role in {@code
+   * instance_profile_arn} has permission to write data to the s3 destination.
    */
   @JsonProperty("s3")
   private S3StorageInfo s3;
@@ -69,15 +70,15 @@ public class InitScriptInfoAndExecutionDetails {
   private String stderr;
 
   /**
-   * destination needs to be provided. e.g. `{ \"volumes\" : { \"destination\" :
-   * \"/Volumes/my-init.sh\" } }`
+   * destination needs to be provided. e.g. {@code { \"volumes\" : { \"destination\" :
+   * \"/Volumes/my-init.sh\" } }}
    */
   @JsonProperty("volumes")
   private VolumesStorageInfo volumes;
 
   /**
-   * destination needs to be provided, e.g. `{ "workspace": { "destination":
-   * "/cluster-init-scripts/setup-datadog.sh" } }`
+   * destination needs to be provided, e.g. {@code { "workspace": { "destination":
+   * "/cluster-init-scripts/setup-datadog.sh" } }}
    */
   @JsonProperty("workspace")
   private WorkspaceStorageInfo workspace;

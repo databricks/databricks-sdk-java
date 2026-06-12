@@ -18,8 +18,8 @@ public class Result {
   private Long rowCount;
 
   /**
-   * Statement Execution API statement id. Use [Get status, manifest, and result first
-   * chunk](:method:statementexecution/getstatement) to get the full result data.
+   * Statement Execution API statement id. Use <a href=":method:statementexecution/getstatement">Get
+   * status, manifest, and result first chunk</a> to get the full result data.
    */
   @JsonProperty("statement_id")
   private String statementId;

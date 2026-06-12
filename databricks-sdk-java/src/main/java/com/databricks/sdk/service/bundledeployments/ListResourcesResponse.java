@@ -12,8 +12,8 @@ import java.util.Objects;
 @Generated
 public class ListResourcesResponse {
   /**
-   * A token, which can be sent as `page_token` to retrieve the next page. If this field is omitted,
-   * there are no subsequent pages.
+   * A token, which can be sent as {@code page_token} to retrieve the next page. If this field is
+   * omitted, there are no subsequent pages.
    */
   @JsonProperty("next_page_token")
   private String nextPageToken;

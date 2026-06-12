@@ -12,40 +12,42 @@ import java.util.Objects;
 public class WebhookNotifications {
   /**
    * An optional list of system notification IDs to call when the duration of a run exceeds the
-   * threshold specified for the `RUN_DURATION_SECONDS` metric in the `health` field. A maximum of 3
-   * destinations can be specified for the `on_duration_warning_threshold_exceeded` property.
+   * threshold specified for the {@code RUN_DURATION_SECONDS} metric in the {@code health} field. A
+   * maximum of 3 destinations can be specified for the {@code
+   * on_duration_warning_threshold_exceeded} property.
    */
   @JsonProperty("on_duration_warning_threshold_exceeded")
   private Collection<Webhook> onDurationWarningThresholdExceeded;
 
   /**
    * An optional list of system notification IDs to call when the run fails. A maximum of 3
-   * destinations can be specified for the `on_failure` property.
+   * destinations can be specified for the {@code on_failure} property.
    */
   @JsonProperty("on_failure")
   private Collection<Webhook> onFailure;
 
   /**
    * An optional list of system notification IDs to call when the run starts. A maximum of 3
-   * destinations can be specified for the `on_start` property.
+   * destinations can be specified for the {@code on_start} property.
    */
   @JsonProperty("on_start")
   private Collection<Webhook> onStart;
 
   /**
    * An optional list of system notification IDs to call when any streaming backlog thresholds are
-   * exceeded for any stream. Streaming backlog thresholds can be set in the `health` field using
-   * the following metrics: `STREAMING_BACKLOG_BYTES`, `STREAMING_BACKLOG_RECORDS`,
-   * `STREAMING_BACKLOG_SECONDS`, or `STREAMING_BACKLOG_FILES`. Alerting is based on the 10-minute
-   * average of these metrics. If the issue persists, notifications are resent every 30 minutes. A
-   * maximum of 3 destinations can be specified for the `on_streaming_backlog_exceeded` property.
+   * exceeded for any stream. Streaming backlog thresholds can be set in the {@code health} field
+   * using the following metrics: {@code STREAMING_BACKLOG_BYTES}, {@code
+   * STREAMING_BACKLOG_RECORDS}, {@code STREAMING_BACKLOG_SECONDS}, or {@code
+   * STREAMING_BACKLOG_FILES}. Alerting is based on the 10-minute average of these metrics. If the
+   * issue persists, notifications are resent every 30 minutes. A maximum of 3 destinations can be
+   * specified for the {@code on_streaming_backlog_exceeded} property.
    */
   @JsonProperty("on_streaming_backlog_exceeded")
   private Collection<Webhook> onStreamingBacklogExceeded;
 
   /**
    * An optional list of system notification IDs to call when the run completes successfully. A
-   * maximum of 3 destinations can be specified for the `on_success` property.
+   * maximum of 3 destinations can be specified for the {@code on_success} property.
    */
   @JsonProperty("on_success")
   private Collection<Webhook> onSuccess;

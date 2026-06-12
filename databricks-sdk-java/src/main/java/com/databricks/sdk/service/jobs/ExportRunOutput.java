@@ -13,7 +13,8 @@ import java.util.Objects;
 public class ExportRunOutput {
   /**
    * The exported content in HTML format (one for every view item). To extract the HTML notebook
-   * from the JSON response, download and run this [Python script](/_static/examples/extract.py).
+   * from the JSON response, download and run this <a href="/_static/examples/extract.py">Python
+   * script</a>.
    */
   @JsonProperty("views")
   private Collection<ViewItem> views;

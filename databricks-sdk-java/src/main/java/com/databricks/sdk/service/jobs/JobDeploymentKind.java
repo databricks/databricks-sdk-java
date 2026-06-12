@@ -5,8 +5,12 @@ package com.databricks.sdk.service.jobs;
 import com.databricks.sdk.support.Generated;
 
 /**
- * * `BUNDLE`: The job is managed by Databricks Asset Bundle. * `SYSTEM_MANAGED`: The job is managed
- * by Databricks and is read-only.
+ *
+ *
+ * <ul>
+ *   <li>{@code BUNDLE}: The job is managed by Databricks Asset Bundle.
+ *   <li>{@code SYSTEM_MANAGED}: The job is managed by Databricks and is read-only.
+ * </ul>
  */
 @Generated
 public enum JobDeploymentKind {

@@ -63,10 +63,13 @@ public class AccountIamV2API {
 
   /**
    * Returns the access details for a principal in a workspace. Allows for checking access details
-   * for any provisioned principal (user, service principal, or group) in a workspace. * Provisioned
-   * principal here refers to one that has been synced into Databricks from the customer's IdP or
-   * added explicitly to Databricks via SCIM/UI. Allows for passing in a "view" parameter to control
-   * what fields are returned (BASIC by default or FULL).
+   * for any provisioned principal (user, service principal, or group) in a workspace.
+   *
+   * <ul>
+   *   <li>Provisioned principal here refers to one that has been synced into Databricks from the
+   *       customer's IdP or added explicitly to Databricks via SCIM/UI. Allows for passing in a
+   *       "view" parameter to control what fields are returned (BASIC by default or FULL).
+   * </ul>
    */
   public WorkspaceAccessDetail getWorkspaceAccessDetail(GetWorkspaceAccessDetailRequest request) {
     return impl.getWorkspaceAccessDetail(request);

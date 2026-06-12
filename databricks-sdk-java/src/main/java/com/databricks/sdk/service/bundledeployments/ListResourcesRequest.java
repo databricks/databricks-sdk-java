@@ -20,7 +20,7 @@ public class ListResourcesRequest {
   private Long pageSize;
 
   /**
-   * A page token, received from a previous `ListResources` call. Provide this to retrieve the
+   * A page token, received from a previous {@code ListResources} call. Provide this to retrieve the
    * subsequent page.
    */
   @JsonIgnore

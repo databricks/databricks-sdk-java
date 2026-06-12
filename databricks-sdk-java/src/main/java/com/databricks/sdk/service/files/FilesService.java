@@ -8,18 +8,18 @@ import com.databricks.sdk.support.Generated;
  * directories by referring to their URI. The API makes working with file content as raw bytes
  * easier and more efficient.
  *
- * <p>The API supports [Unity Catalog volumes], where files and directories to operate on are
- * specified using their volume URI path, which follows the format
- * /Volumes/&lt;catalog_name&gt;/&lt;schema_name&gt;/&lt;volume_name&gt;/&lt;path_to_file&gt;.
+ * <p>The API supports <a
+ * href="https://docs.databricks.com/en/connect/unity-catalog/volumes.html">Unity Catalog
+ * volumes</a>, where files and directories to operate on are specified using their volume URI path,
+ * which follows the format
+ * /Volumes/&amp;lt;catalog_name&amp;gt;/&amp;lt;schema_name&amp;gt;/&amp;lt;volume_name&amp;gt;/&amp;lt;path_to_file&amp;gt;.
  *
- * <p>The Files API has two distinct endpoints, one for working with files (`/fs/files`) and another
- * one for working with directories (`/fs/directories`). Both endpoints use the standard HTTP
- * methods GET, HEAD, PUT, and DELETE to manage files and directories specified using their URI
- * path. The path is always absolute.
+ * <p>The Files API has two distinct endpoints, one for working with files ({@code /fs/files}) and
+ * another one for working with directories ({@code /fs/directories}). Both endpoints use the
+ * standard HTTP methods GET, HEAD, PUT, and DELETE to manage files and directories specified using
+ * their URI path. The path is always absolute.
  *
  * <p>Use of Files API may incur Databricks data transfer charges.
- *
- * <p>[Unity Catalog volumes]: https://docs.databricks.com/en/connect/unity-catalog/volumes.html
  *
  * <p>This is the high-level interface, that contains generated methods.
  *
@@ -29,8 +29,9 @@ import com.databricks.sdk.support.Generated;
 public interface FilesService {
   /**
    * Creates an empty directory. If necessary, also creates any parent directories of the new, empty
-   * directory (like the shell command `mkdir -p`). If called on an existing directory, returns a
-   * success response; this method is idempotent (it will succeed if the directory already exists).
+   * directory (like the shell command {@code mkdir -p}). If called on an existing directory,
+   * returns a success response; this method is idempotent (it will succeed if the directory already
+   * exists).
    */
   void createDirectory(CreateDirectoryRequest createDirectoryRequest);
 
@@ -57,9 +58,9 @@ public interface FilesService {
    *
    * <p>This method is useful to check if a directory exists and the caller has access to it.
    *
-   * <p>If you wish to ensure the directory exists, you can instead use `PUT`, which will create the
-   * directory if it does not exist, and is idempotent (it will succeed if the directory already
-   * exists).
+   * <p>If you wish to ensure the directory exists, you can instead use {@code PUT}, which will
+   * create the directory if it does not exist, and is idempotent (it will succeed if the directory
+   * already exists).
    */
   void getDirectoryMetadata(GetDirectoryMetadataRequest getDirectoryMetadataRequest);
 

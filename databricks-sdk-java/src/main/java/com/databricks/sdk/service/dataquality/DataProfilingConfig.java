@@ -20,7 +20,7 @@ public class DataProfilingConfig {
 
   /**
    * Baseline table name. Baseline data is used to compute drift from the data in the monitored
-   * `table_name`. The baseline table and the monitored table shall have the same schema.
+   * {@code table_name}. The baseline table and the monitored table shall have the same schema.
    */
   @JsonProperty("baseline_table_name")
   private String baselineTableName;
@@ -36,7 +36,7 @@ public class DataProfilingConfig {
   @JsonProperty("dashboard_id")
   private String dashboardId;
 
-  /** Table that stores drift metrics data. Format: `catalog.schema.table_name`. */
+  /** Table that stores drift metrics data. Format: {@code catalog.schema.table_name}. */
   @JsonProperty("drift_metrics_table_name")
   private String driftMetricsTableName;
 
@@ -44,7 +44,7 @@ public class DataProfilingConfig {
   @JsonProperty("effective_warehouse_id")
   private String effectiveWarehouseId;
 
-  /** `Analysis Configuration` for monitoring inference log tables. */
+  /** {@code Analysis Configuration} for monitoring inference log tables. */
   @JsonProperty("inference_log")
   private InferenceLogConfig inferenceLog;
 
@@ -60,7 +60,7 @@ public class DataProfilingConfig {
   @JsonProperty("monitor_version")
   private Long monitorVersion;
 
-  /** Unity Catalog table to monitor. Format: `catalog.schema.table_name` */
+  /** Unity Catalog table to monitor. Format: {@code catalog.schema.table_name} */
   @JsonProperty("monitored_table_name")
   private String monitoredTableName;
 
@@ -72,7 +72,7 @@ public class DataProfilingConfig {
   @JsonProperty("output_schema_id")
   private String outputSchemaId;
 
-  /** Table that stores profile metrics data. Format: `catalog.schema.table_name`. */
+  /** Table that stores profile metrics data. Format: {@code catalog.schema.table_name}. */
   @JsonProperty("profile_metrics_table_name")
   private String profileMetricsTableName;
 
@@ -87,14 +87,15 @@ public class DataProfilingConfig {
   /**
    * List of column expressions to slice data with for targeted analysis. The data is grouped by
    * each expression independently, resulting in a separate slice for each predicate and its
-   * complements. For example `slicing_exprs=[“col_1”, “col_2 > 10”]` will generate the following
-   * slices: two slices for `col_2 > 10` (True and False), and one slice per unique value in `col1`.
-   * For high-cardinality columns, only the top 100 unique values by frequency will generate slices.
+   * complements. For example {@code slicing_exprs=[“col_1”, “col_2 > 10”]} will generate the
+   * following slices: two slices for {@code col_2 > 10} (True and False), and one slice per unique
+   * value in {@code col1}. For high-cardinality columns, only the top 100 unique values by
+   * frequency will generate slices.
    */
   @JsonProperty("slicing_exprs")
   private Collection<String> slicingExprs;
 
-  /** `Analysis Configuration` for monitoring snapshot tables. */
+  /** {@code Analysis Configuration} for monitoring snapshot tables. */
   @JsonProperty("snapshot")
   private SnapshotConfig snapshot;
 
@@ -102,7 +103,7 @@ public class DataProfilingConfig {
   @JsonProperty("status")
   private DataProfilingStatus status;
 
-  /** `Analysis Configuration` for monitoring time series tables. */
+  /** {@code Analysis Configuration} for monitoring time series tables. */
   @JsonProperty("time_series")
   private TimeSeriesConfig timeSeries;
 

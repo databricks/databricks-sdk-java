@@ -23,9 +23,9 @@ public interface ExperimentsService {
    * that another experiment with the same name does not already exist and fails if another
    * experiment with the same name already exists.
    *
-   * <p>Throws `RESOURCE_ALREADY_EXISTS` if an experiment with the given name exists. Note: In some
-   * contexts, this error may be remapped to `ALREADY_EXISTS`. To be safe, clients should check for
-   * both error codes.
+   * <p>Throws {@code RESOURCE_ALREADY_EXISTS} if an experiment with the given name exists. Note: In
+   * some contexts, this error may be remapped to {@code ALREADY_EXISTS}. To be safe, clients should
+   * check for both error codes.
    */
   CreateExperimentResponse createExperiment(CreateExperiment createExperiment);
 
@@ -34,8 +34,8 @@ public interface ExperimentsService {
 
   /**
    * Creates a new run within an experiment. A run is usually a single execution of a machine
-   * learning or data ETL pipeline. MLflow uses runs to track the `mlflowParam`, `mlflowMetric`, and
-   * `mlflowRunTag` associated with a single execution.
+   * learning or data ETL pipeline. MLflow uses runs to track the {@code mlflowParam}, {@code
+   * mlflowMetric}, and {@code mlflowRunTag} associated with a single execution.
    */
   CreateRunResponse createRun(CreateRun createRun);
 
@@ -78,7 +78,7 @@ public interface ExperimentsService {
    * active and deleted experiment share the same name. If multiple deleted experiments share the
    * same name, the API will return one of them.
    *
-   * <p>Throws `RESOURCE_DOES_NOT_EXIST` if no experiment with the specified name exists.
+   * <p>Throws {@code RESOURCE_DOES_NOT_EXIST} if no experiment with the specified name exists.
    */
   GetExperimentByNameResponse getByName(GetByNameRequest getByNameRequest);
 
@@ -111,11 +111,11 @@ public interface ExperimentsService {
   GetRunResponse getRun(GetRunRequest getRunRequest);
 
   /**
-   * List artifacts for a run. Takes an optional `artifact_path` prefix which if specified, the
-   * response contains only artifacts with the specified prefix. A maximum of 1000 artifacts will be
-   * retrieved for UC Volumes. Please call `/api/2.0/fs/directories{directory_path}` for listing
-   * artifacts in UC Volumes, which supports pagination. See [List directory contents | Files
-   * API](/api/workspace/files/listdirectorycontents).
+   * List artifacts for a run. Takes an optional {@code artifact_path} prefix which if specified,
+   * the response contains only artifacts with the specified prefix. A maximum of 1000 artifacts
+   * will be retrieved for UC Volumes. Please call {@code /api/2.0/fs/directories{directory_path}}
+   * for listing artifacts in UC Volumes, which supports pagination. See <a
+   * href="/api/workspace/files/listdirectorycontents">List directory contents | Files API</a>.
    */
   ListArtifactsResponse listArtifacts(ListArtifactsRequest listArtifactsRequest);
 
@@ -134,37 +134,38 @@ public interface ExperimentsService {
    *
    * <p>The overwrite behavior for metrics, params, and tags is as follows:
    *
-   * <p>* Metrics: metric values are never overwritten. Logging a metric (key, value, timestamp)
-   * appends to the set of values for the metric with the provided key.
+   * <ul>
+   *   <li>Metrics: metric values are never overwritten. Logging a metric (key, value, timestamp)
+   *       appends to the set of values for the metric with the provided key.
+   *   <li>Tags: tag values can be overwritten by successive writes to the same tag key. That is, if
+   *       multiple tag values with the same key are provided in the same API request, the
+   *       last-provided tag value is written. Logging the same tag (key, value) is permitted.
+   *       Specifically, logging a tag is idempotent.
+   *   <li>Parameters: once written, param values cannot be changed (attempting to overwrite a param
+   *       value will result in an error). However, logging the same param (key, value) is
+   *       permitted. Specifically, logging a param is idempotent.
+   * </ul>
    *
-   * <p>* Tags: tag values can be overwritten by successive writes to the same tag key. That is, if
-   * multiple tag values with the same key are provided in the same API request, the last-provided
-   * tag value is written. Logging the same tag (key, value) is permitted. Specifically, logging a
-   * tag is idempotent.
+   * <p><b>Request Limits</b>
    *
-   * <p>* Parameters: once written, param values cannot be changed (attempting to overwrite a param
-   * value will result in an error). However, logging the same param (key, value) is permitted.
-   * Specifically, logging a param is idempotent.
+   * <p>A single JSON-serialized API request may be up to 1 MB in size and contain:
    *
-   * <p>Request Limits ------------------------------- A single JSON-serialized API request may be
-   * up to 1 MB in size and contain:
-   *
-   * <p>* No more than 1000 metrics, params, and tags in total
-   *
-   * <p>* Up to 1000 metrics
-   *
-   * <p>* Up to 100 params
-   *
-   * <p>* Up to 100 tags
+   * <ul>
+   *   <li>No more than 1000 metrics, params, and tags in total
+   *   <li>Up to 1000 metrics
+   *   <li>Up to 100 params
+   *   <li>Up to 100 tags
+   * </ul>
    *
    * <p>For example, a valid request might contain 900 metrics, 50 params, and 50 tags, but logging
    * 900 metrics, 50 params, and 51 tags is invalid.
    *
    * <p>The following limits also apply to metric, param, and tag keys and values:
    *
-   * <p>* Metric keys, param keys, and tag keys can be up to 250 characters in length
-   *
-   * <p>* Parameter and tag values can be up to 250 characters in length
+   * <ul>
+   *   <li>Metric keys, param keys, and tag keys can be up to 250 characters in length
+   *   <li>Parameter and tag values can be up to 250 characters in length
+   * </ul>
    */
   void logBatch(LogBatch logBatch);
 
@@ -187,8 +188,8 @@ public interface ExperimentsService {
   void logMetric(LogMetric logMetric);
 
   /**
-   * **Note:** the [Create a logged model](/api/workspace/experiments/createloggedmodel) API
-   * replaces this endpoint.
+   * <b>Note:</b> the <a href="/api/workspace/experiments/createloggedmodel">Create a logged
+   * model</a> API replaces this endpoint.
    *
    * <p>Log a model to an MLflow Run.
    */
@@ -209,7 +210,8 @@ public interface ExperimentsService {
    * metrics, params, and tags. If experiment uses FileStore, underlying artifacts associated with
    * experiment are also restored.
    *
-   * <p>Throws `RESOURCE_DOES_NOT_EXIST` if experiment was never created or was permanently deleted.
+   * <p>Throws {@code RESOURCE_DOES_NOT_EXIST} if experiment was never created or was permanently
+   * deleted.
    */
   void restoreExperiment(RestoreExperiment restoreExperiment);
 
@@ -217,7 +219,8 @@ public interface ExperimentsService {
    * Restores a deleted run. This also restores associated metadata, runs, metrics, params, and
    * tags.
    *
-   * <p>Throws `RESOURCE_DOES_NOT_EXIST` if the run was never created or was permanently deleted.
+   * <p>Throws {@code RESOURCE_DOES_NOT_EXIST} if the run was never created or was permanently
+   * deleted.
    */
   void restoreRun(RestoreRun restoreRun);
 
@@ -238,7 +241,7 @@ public interface ExperimentsService {
   /**
    * Searches for runs that satisfy expressions.
    *
-   * <p>Search expressions can use `mlflowMetric` and `mlflowParam` keys.
+   * <p>Search expressions can use {@code mlflowMetric} and {@code mlflowParam} keys.
    */
   SearchRunsResponse searchRuns(SearchRuns searchRuns);
 

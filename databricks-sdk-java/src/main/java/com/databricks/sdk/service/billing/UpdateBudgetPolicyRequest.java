@@ -17,9 +17,9 @@ public class UpdateBudgetPolicyRequest {
   private LimitConfig limitConfig;
 
   /**
-   * The policy to update. `creator_user_id` cannot be specified in the request. All other fields
-   * must be specified even if not changed. The `policy_id` is used to identify the policy to
-   * update.
+   * The policy to update. {@code creator_user_id} cannot be specified in the request. All other
+   * fields must be specified even if not changed. The {@code policy_id} is used to identify the
+   * policy to update.
    */
   @JsonProperty("policy")
   private BudgetPolicy policy;

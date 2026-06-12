@@ -30,9 +30,13 @@ public class ListTablesRequest {
 
   /**
    * Maximum number of tables to return. If not set, all the tables are returned (not recommended).
-   * - when set to a value greater than 0, the page length is the minimum of this value and a server
-   * configured value; - when set to 0, the page length is set to a server configured value
-   * (recommended); - when set to a value less than 0, an invalid parameter error is returned;
+   *
+   * <ul>
+   *   <li>when set to a value greater than 0, the page length is the minimum of this value and a
+   *       server configured value;
+   *   <li>when set to 0, the page length is set to a server configured value (recommended);
+   *   <li>when set to a value less than 0, an invalid parameter error is returned;
+   * </ul>
    */
   @JsonIgnore
   @QueryParam("max_results")

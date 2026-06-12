@@ -33,10 +33,10 @@ public interface ProvidersService {
 
   /**
    * Gets an array of available authentication providers. The caller must either be a metastore
-   * admin, have the **USE_PROVIDER** privilege on the providers, or be the owner of the providers.
-   * Providers not owned by the caller and for which the caller does not have the **USE_PROVIDER**
-   * privilege are not included in the response. There is no guarantee of a specific ordering of the
-   * elements in the array.
+   * admin, have the <b>USE_PROVIDER</b> privilege on the providers, or be the owner of the
+   * providers. Providers not owned by the caller and for which the caller does not have the
+   * <b>USE_PROVIDER</b> privilege are not included in the response. There is no guarantee of a
+   * specific ordering of the elements in the array.
    */
   ListProvidersResponse list(ListProvidersRequest listProvidersRequest);
 
@@ -50,7 +50,10 @@ public interface ProvidersService {
   /**
    * Gets an array of a specified provider's shares within the metastore where:
    *
-   * <p>* the caller is a metastore admin, or * the caller is the owner.
+   * <ul>
+   *   <li>the caller is a metastore admin, or
+   *   <li>the caller is the owner.
+   * </ul>
    */
   ListProviderSharesResponse listShares(ListSharesRequest listSharesRequest);
 
