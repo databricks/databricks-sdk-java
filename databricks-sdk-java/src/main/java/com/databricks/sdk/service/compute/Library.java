@@ -22,39 +22,43 @@ public class Library {
 
   /**
    * URI of the JAR library to install. Supported URIs include Workspace paths, Unity Catalog
-   * Volumes paths, and S3 URIs. For example: `{ "jar": "/Workspace/path/to/library.jar" }`, `{
-   * "jar" : "/Volumes/path/to/library.jar" }` or `{ "jar": "s3://my-bucket/library.jar" }`. If S3
-   * is used, please make sure the cluster has read access on the library. You may need to launch
-   * the cluster with an IAM role to access the S3 URI.
+   * Volumes paths, and S3 URIs. For example: {@code { "jar": "/Workspace/path/to/library.jar" }},
+   * {@code { "jar" : "/Volumes/path/to/library.jar" }} or {@code { "jar":
+   * "s3://my-bucket/library.jar" }}. If S3 is used, please make sure the cluster has read access on
+   * the library. You may need to launch the cluster with an IAM role to access the S3 URI.
    */
   @JsonProperty("jar")
   private String jar;
 
   /**
-   * Specification of a maven library to be installed. For example: `{ "coordinates":
-   * "org.jsoup:jsoup:1.7.2" }`
+   * Specification of a maven library to be installed. For example: {@code { "coordinates":
+   * "org.jsoup:jsoup:1.7.2" }}
    */
   @JsonProperty("maven")
   private MavenLibrary maven;
 
-  /** Specification of a PyPi library to be installed. For example: `{ "package": "simplejson" }` */
+  /**
+   * Specification of a PyPi library to be installed. For example: {@code { "package": "simplejson"
+   * }}
+   */
   @JsonProperty("pypi")
   private PythonPyPiLibrary pypi;
 
   /**
    * URI of the requirements.txt file to install. Only Workspace paths and Unity Catalog Volumes
-   * paths are supported. For example: `{ "requirements": "/Workspace/path/to/requirements.txt" }`
-   * or `{ "requirements" : "/Volumes/path/to/requirements.txt" }`
+   * paths are supported. For example: {@code { "requirements":
+   * "/Workspace/path/to/requirements.txt" }} or {@code { "requirements" :
+   * "/Volumes/path/to/requirements.txt" }}
    */
   @JsonProperty("requirements")
   private String requirements;
 
   /**
    * URI of the wheel library to install. Supported URIs include Workspace paths, Unity Catalog
-   * Volumes paths, and S3 URIs. For example: `{ "whl": "/Workspace/path/to/library.whl" }`, `{
-   * "whl" : "/Volumes/path/to/library.whl" }` or `{ "whl": "s3://my-bucket/library.whl" }`. If S3
-   * is used, please make sure the cluster has read access on the library. You may need to launch
-   * the cluster with an IAM role to access the S3 URI.
+   * Volumes paths, and S3 URIs. For example: {@code { "whl": "/Workspace/path/to/library.whl" }},
+   * {@code { "whl" : "/Volumes/path/to/library.whl" }} or {@code { "whl":
+   * "s3://my-bucket/library.whl" }}. If S3 is used, please make sure the cluster has read access on
+   * the library. You may need to launch the cluster with an IAM role to access the S3 URI.
    */
   @JsonProperty("whl")
   private String whl;

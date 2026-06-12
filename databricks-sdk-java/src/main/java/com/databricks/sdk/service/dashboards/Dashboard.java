@@ -41,18 +41,18 @@ public class Dashboard {
 
   /**
    * The workspace path of the dashboard asset, including the file name. Exported dashboards always
-   * have the file extension `.lvdash.json`. This field is excluded in List Dashboards responses.
+   * have the file extension {@code .lvdash.json}. This field is excluded in List Dashboards
+   * responses.
    */
   @JsonProperty("path")
   private String path;
 
   /**
    * The contents of the dashboard in serialized string form. This field is excluded in List
-   * Dashboards responses. Use the [get dashboard API] to retrieve an example response, which
-   * includes the `serialized_dashboard` field. This field provides the structure of the JSON string
-   * that represents the dashboard's layout and components.
-   *
-   * <p>[get dashboard API]: https://docs.databricks.com/api/workspace/lakeview/get
+   * Dashboards responses. Use the <a
+   * href="https://docs.databricks.com/api/workspace/lakeview/get">get dashboard API</a> to retrieve
+   * an example response, which includes the {@code serialized_dashboard} field. This field provides
+   * the structure of the JSON string that represents the dashboard's layout and components.
    */
   @JsonProperty("serialized_dashboard")
   private String serializedDashboard;

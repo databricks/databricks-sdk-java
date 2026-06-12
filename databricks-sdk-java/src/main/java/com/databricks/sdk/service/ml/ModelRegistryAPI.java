@@ -9,9 +9,9 @@ import com.databricks.sdk.support.Paginator;
 
 /**
  * Note: This API reference documents APIs for the Workspace Model Registry. Databricks recommends
- * using [Models in Unity Catalog](/api/workspace/registeredmodels) instead. Models in Unity Catalog
- * provides centralized model governance, cross-workspace access, lineage, and deployment. Workspace
- * Model Registry will be deprecated in the future.
+ * using <a href="/api/workspace/registeredmodels">Models in Unity Catalog</a> instead. Models in
+ * Unity Catalog provides centralized model governance, cross-workspace access, lineage, and
+ * deployment. Workspace Model Registry will be deprecated in the future.
  *
  * <p>The Workspace Model Registry is a centralized model repository and a UI and set of APIs that
  * enable you to manage the full lifecycle of MLflow Models.
@@ -48,8 +48,8 @@ public class ModelRegistryAPI {
   }
 
   /**
-   * Creates a new registered model with the name specified in the request body. Throws
-   * `RESOURCE_ALREADY_EXISTS` if a registered model with the given name exists.
+   * Creates a new registered model with the name specified in the request body. Throws {@code
+   * RESOURCE_ALREADY_EXISTS} if a registered model with the given name exists.
    */
   public CreateModelResponse createModel(CreateModelRequest request) {
     return impl.createModel(request);
@@ -65,7 +65,7 @@ public class ModelRegistryAPI {
     return impl.createTransitionRequest(request);
   }
 
-  /** **NOTE:** This endpoint is in Public Preview. Creates a registry webhook. */
+  /** <b>NOTE:</b> This endpoint is in Public Preview. Creates a registry webhook. */
   public CreateWebhookResponse createWebhook(CreateRegistryWebhook request) {
     return impl.createWebhook(request);
   }
@@ -136,7 +136,7 @@ public class ModelRegistryAPI {
     deleteWebhook(new DeleteWebhookRequest().setId(id));
   }
 
-  /** **NOTE:** This endpoint is in Public Preview. Deletes a registry webhook. */
+  /** <b>NOTE:</b> This endpoint is in Public Preview. Deletes a registry webhook. */
   public void deleteWebhook(DeleteWebhookRequest request) {
     impl.deleteWebhook(request);
   }
@@ -155,11 +155,10 @@ public class ModelRegistryAPI {
   }
 
   /**
-   * Get the details of a model. This is a Databricks workspace version of the [MLflow endpoint]
+   * Get the details of a model. This is a Databricks workspace version of the <a
+   * href="https://www.mlflow.org/docs/latest/rest-api.html#get-registeredmodel">MLflow endpoint</a>
    * that also returns the model's Databricks workspace ID and the permission level of the
    * requesting user on the model.
-   *
-   * <p>[MLflow endpoint]: https://www.mlflow.org/docs/latest/rest-api.html#get-registeredmodel
    */
   public GetModelResponse getModel(GetModelRequest request) {
     return impl.getModel(request);
@@ -210,7 +209,7 @@ public class ModelRegistryAPI {
     return impl.getPermissions(request);
   }
 
-  /** Lists all available registered models, up to the limit specified in __max_results__. */
+  /** Lists all available registered models, up to the limit specified in <b>max_results</b>. */
   public Iterable<Model> listModels(ListModelsRequest request) {
     return Paginator.newTokenPagination(
         request,
@@ -239,7 +238,7 @@ public class ModelRegistryAPI {
         response -> null);
   }
 
-  /** **NOTE:** This endpoint is in Public Preview. Lists all registry webhooks. */
+  /** <b>NOTE:</b> This endpoint is in Public Preview. Lists all registry webhooks. */
   public Iterable<RegistryWebhook> listWebhooks(ListWebhooksRequest request) {
     return Paginator.newTokenPagination(
         request,
@@ -264,7 +263,7 @@ public class ModelRegistryAPI {
     return impl.renameModel(request);
   }
 
-  /** Searches for specific model versions based on the supplied __filter__. */
+  /** Searches for specific model versions based on the supplied <b>filter</b>. */
   public Iterable<ModelVersion> searchModelVersions(SearchModelVersionsRequest request) {
     return Paginator.newTokenPagination(
         request,
@@ -279,7 +278,7 @@ public class ModelRegistryAPI {
         });
   }
 
-  /** Search for registered models based on the specified __filter__. */
+  /** Search for registered models based on the specified <b>filter</b>. */
   public Iterable<Model> searchModels(SearchModelsRequest request) {
     return Paginator.newTokenPagination(
         request,
@@ -312,17 +311,15 @@ public class ModelRegistryAPI {
     return impl.setPermissions(request);
   }
 
-  /** **NOTE:** This endpoint is in Public Preview. Tests a registry webhook. */
+  /** <b>NOTE:</b> This endpoint is in Public Preview. Tests a registry webhook. */
   public TestRegistryWebhookResponse testRegistryWebhook(TestRegistryWebhookRequest request) {
     return impl.testRegistryWebhook(request);
   }
 
   /**
-   * Transition a model version's stage. This is a Databricks workspace version of the [MLflow
-   * endpoint] that also accepts a comment associated with the transition to be recorded.
-   *
-   * <p>[MLflow endpoint]:
-   * https://www.mlflow.org/docs/latest/rest-api.html#transition-modelversion-stage
+   * Transition a model version's stage. This is a Databricks workspace version of the <a
+   * href="https://www.mlflow.org/docs/latest/rest-api.html#transition-modelversion-stage">MLflow
+   * endpoint</a> that also accepts a comment associated with the transition to be recorded.
    */
   public TransitionStageResponse transitionStage(TransitionModelVersionStageDatabricks request) {
     return impl.transitionStage(request);
@@ -351,7 +348,7 @@ public class ModelRegistryAPI {
     return impl.updatePermissions(request);
   }
 
-  /** **NOTE:** This endpoint is in Public Preview. Updates a registry webhook. */
+  /** <b>NOTE:</b> This endpoint is in Public Preview. Updates a registry webhook. */
   public UpdateWebhookResponse updateWebhook(UpdateRegistryWebhook request) {
     return impl.updateWebhook(request);
   }

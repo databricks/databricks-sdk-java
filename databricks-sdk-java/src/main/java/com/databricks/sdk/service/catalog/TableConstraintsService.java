@@ -25,11 +25,16 @@ public interface TableConstraintsService {
    * Creates a new table constraint.
    *
    * <p>For the table constraint creation to succeed, the user must satisfy both of these
-   * conditions: - the user must have the **USE_CATALOG** privilege on the table's parent catalog,
-   * the **USE_SCHEMA** privilege on the table's parent schema, and be the owner of the table. - if
-   * the new constraint is a __ForeignKeyConstraint__, the user must have the **USE_CATALOG**
-   * privilege on the referenced parent table's catalog, the **USE_SCHEMA** privilege on the
-   * referenced parent table's schema, and be the owner of the referenced parent table.
+   * conditions:
+   *
+   * <ul>
+   *   <li>the user must have the <b>USE_CATALOG</b> privilege on the table's parent catalog, the
+   *       <b>USE_SCHEMA</b> privilege on the table's parent schema, and be the owner of the table.
+   *   <li>if the new constraint is a <b>ForeignKeyConstraint</b>, the user must have the
+   *       <b>USE_CATALOG</b> privilege on the referenced parent table's catalog, the
+   *       <b>USE_SCHEMA</b> privilege on the referenced parent table's schema, and be the owner of
+   *       the referenced parent table.
+   * </ul>
    */
   TableConstraint create(CreateTableConstraint createTableConstraint);
 
@@ -37,11 +42,15 @@ public interface TableConstraintsService {
    * Deletes a table constraint.
    *
    * <p>For the table constraint deletion to succeed, the user must satisfy both of these
-   * conditions: - the user must have the **USE_CATALOG** privilege on the table's parent catalog,
-   * the **USE_SCHEMA** privilege on the table's parent schema, and be the owner of the table. - if
-   * __cascade__ argument is **true**, the user must have the following permissions on all of the
-   * child tables: the **USE_CATALOG** privilege on the table's catalog, the **USE_SCHEMA**
-   * privilege on the table's schema, and be the owner of the table.
+   * conditions:
+   *
+   * <ul>
+   *   <li>the user must have the <b>USE_CATALOG</b> privilege on the table's parent catalog, the
+   *       <b>USE_SCHEMA</b> privilege on the table's parent schema, and be the owner of the table.
+   *   <li>if <b>cascade</b> argument is <b>true</b>, the user must have the following permissions
+   *       on all of the child tables: the <b>USE_CATALOG</b> privilege on the table's catalog, the
+   *       <b>USE_SCHEMA</b> privilege on the table's schema, and be the owner of the table.
+   * </ul>
    */
   void delete(DeleteTableConstraintRequest deleteTableConstraintRequest);
 }

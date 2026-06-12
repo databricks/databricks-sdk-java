@@ -10,8 +10,8 @@ import java.util.Objects;
 @Generated
 public class CreateSecretRequest {
   /**
-   * The secret object to create. The **name**, **catalog_name**, **schema_name**, and **value**
-   * fields are required.
+   * The secret object to create. The <b>name</b>, <b>catalog_name</b>, <b>schema_name</b>, and
+   * <b>value</b> fields are required.
    */
   @JsonProperty("secret")
   private Secret secret;

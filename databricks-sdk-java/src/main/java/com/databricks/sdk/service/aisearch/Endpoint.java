@@ -57,17 +57,17 @@ public class Endpoint {
   private String lastUpdatedUser;
 
   /**
-   * Name of the AI Search endpoint. Server-assigned full resource path
-   * (`workspaces/{workspace}/endpoints/{endpoint}`) on output. On create, the user-supplied short
-   * name is conveyed via `CreateEndpointRequest.endpoint_id`; the server composes the full `name`
-   * and returns it on the response.
+   * Name of the AI Search endpoint. Server-assigned full resource path ({@code
+   * workspaces/{workspace}/endpoints/{endpoint}}) on output. On create, the user-supplied short
+   * name is conveyed via {@code CreateEndpointRequest.endpoint_id}; the server composes the full
+   * {@code name} and returns it on the response.
    */
   @JsonProperty("name")
   private String name;
 
   /**
    * The client-supplied desired number of replicas for the endpoint, applied at create/update time.
-   * Mutually exclusive with `target_qps`.
+   * Mutually exclusive with {@code target_qps}.
    */
   @JsonProperty("replica_count")
   private Long replicaCount;
@@ -77,8 +77,8 @@ public class Endpoint {
   private EndpointScalingInfo scalingInfo;
 
   /**
-   * Target QPS for the endpoint. Mutually exclusive with `replica_count`. Best-effort; the system
-   * does not guarantee this QPS will be achieved.
+   * Target QPS for the endpoint. Mutually exclusive with {@code replica_count}. Best-effort; the
+   * system does not guarantee this QPS will be achieved.
    */
   @JsonProperty("target_qps")
   private Long targetQps;

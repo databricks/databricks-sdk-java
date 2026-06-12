@@ -45,9 +45,9 @@ public class DeltaTableSource {
 
   /**
    * A single SQL SELECT expression applied after filter_condition. Should contains all the columns
-   * needed (eg. "SELECT *, col_a + col_b AS col_c FROM x.y.z WHERE col_a > 0" would have
-   * `transformation_sql` "*, col_a + col_b AS col_c") If transformation_sql is not provided, all
-   * columns of the delta table are present in the DataSource dataframe.
+   * needed (eg. "SELECT <i>, col_a + col_b AS col_c FROM x.y.z WHERE col_a &gt; 0" would have
+   * {@code transformation_sql} "</i>, col_a + col_b AS col_c") If transformation_sql is not
+   * provided, all columns of the delta table are present in the DataSource dataframe.
    */
   @JsonProperty("transformation_sql")
   private String transformationSql;

@@ -14,7 +14,7 @@ import java.util.Objects;
 public class UpdateDefaultWarehouseOverrideRequest {
   /**
    * If set to true, and the override is not found, a new override will be created. In this
-   * situation, `update_mask` is ignored and all fields are applied. Defaults to false.
+   * situation, {@code update_mask} is ignored and all fields are applied. Defaults to false.
    */
   @JsonIgnore
   @QueryParam("allow_missing")

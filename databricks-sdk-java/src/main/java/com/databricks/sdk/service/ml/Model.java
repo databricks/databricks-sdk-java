@@ -10,21 +10,21 @@ import java.util.Objects;
 
 @Generated
 public class Model {
-  /** Timestamp recorded when this `registered_model` was created. */
+  /** Timestamp recorded when this {@code registered_model} was created. */
   @JsonProperty("creation_timestamp")
   private Long creationTimestamp;
 
-  /** Description of this `registered_model`. */
+  /** Description of this {@code registered_model}. */
   @JsonProperty("description")
   private String description;
 
-  /** Timestamp recorded when metadata for this `registered_model` was last updated. */
+  /** Timestamp recorded when metadata for this {@code registered_model} was last updated. */
   @JsonProperty("last_updated_timestamp")
   private Long lastUpdatedTimestamp;
 
   /**
-   * Collection of latest model versions for each stage. Only contains models with current `READY`
-   * status.
+   * Collection of latest model versions for each stage. Only contains models with current {@code
+   * READY} status.
    */
   @JsonProperty("latest_versions")
   private Collection<ModelVersion> latestVersions;
@@ -33,11 +33,11 @@ public class Model {
   @JsonProperty("name")
   private String name;
 
-  /** Tags: Additional metadata key-value pairs for this `registered_model`. */
+  /** Tags: Additional metadata key-value pairs for this {@code registered_model}. */
   @JsonProperty("tags")
   private Collection<ModelTag> tags;
 
-  /** User that created this `registered_model` */
+  /** User that created this {@code registered_model} */
   @JsonProperty("user_id")
   private String userId;
 

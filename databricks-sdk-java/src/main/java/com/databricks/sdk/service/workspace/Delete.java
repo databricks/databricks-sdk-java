@@ -14,9 +14,9 @@ public class Delete {
   private String path;
 
   /**
-   * The flag that specifies whether to delete the object recursively. It is `false` by default.
-   * Please note this deleting directory is not atomic. If it fails in the middle, some of objects
-   * under this directory may be deleted and cannot be undone.
+   * The flag that specifies whether to delete the object recursively. It is {@code false} by
+   * default. Please note this deleting directory is not atomic. If it fails in the middle, some of
+   * objects under this directory may be deleted and cannot be undone.
    */
   @JsonProperty("recursive")
   private Boolean recursive;

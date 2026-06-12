@@ -13,9 +13,8 @@ public class SparkPythonTask {
   /**
    * Command line parameters passed to the Python file.
    *
-   * <p>Use [Task parameter variables] to set parameters containing information about job runs.
-   *
-   * <p>[Task parameter variables]: https://docs.databricks.com/jobs.html#parameter-variables
+   * <p>Use <a href="https://docs.databricks.com/jobs.html#parameter-variables">Task parameter
+   * variables</a> to set parameters containing information about job runs.
    */
   @JsonProperty("parameters")
   private Collection<String> parameters;
@@ -23,20 +22,23 @@ public class SparkPythonTask {
   /**
    * The Python file to be executed. Cloud file URIs (such as dbfs:/, s3:/, adls:/, gcs:/) and
    * workspace paths are supported. For python files stored in the Databricks workspace, the path
-   * must be absolute and begin with `/`. For files stored in a remote repository, the path must be
-   * relative. This field is required.
+   * must be absolute and begin with {@code /}. For files stored in a remote repository, the path
+   * must be relative. This field is required.
    */
   @JsonProperty("python_file")
   private String pythonFile;
 
   /**
-   * Optional location type of the Python file. When set to `WORKSPACE` or not specified, the file
-   * will be retrieved from the local Databricks workspace or cloud location (if the `python_file`
-   * has a URI format). When set to `GIT`, the Python file will be retrieved from a Git repository
-   * defined in `git_source`.
+   * Optional location type of the Python file. When set to {@code WORKSPACE} or not specified, the
+   * file will be retrieved from the local Databricks workspace or cloud location (if the {@code
+   * python_file} has a URI format). When set to {@code GIT}, the Python file will be retrieved from
+   * a Git repository defined in {@code git_source}.
    *
-   * <p>* `WORKSPACE`: The Python file is located in a Databricks workspace or at a cloud filesystem
-   * URI. * `GIT`: The Python file is located in a remote Git repository.
+   * <ul>
+   *   <li>{@code WORKSPACE}: The Python file is located in a Databricks workspace or at a cloud
+   *       filesystem URI.
+   *   <li>{@code GIT}: The Python file is located in a remote Git repository.
+   * </ul>
    */
   @JsonProperty("source")
   private Source source;

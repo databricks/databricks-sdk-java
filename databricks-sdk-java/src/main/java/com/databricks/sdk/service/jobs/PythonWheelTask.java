@@ -13,14 +13,14 @@ import java.util.Objects;
 public class PythonWheelTask {
   /**
    * Named entry point to use, if it does not exist in the metadata of the package it executes the
-   * function from the package directly using `$packageName.$entryPoint()`
+   * function from the package directly using {@code $packageName.$entryPoint()}
    */
   @JsonProperty("entry_point")
   private String entryPoint;
 
   /**
-   * Command-line parameters passed to Python wheel task in the form of `["--name=task",
-   * "--data=dbfs:/path/to/data.json"]`. Leave it empty if `parameters` is not null.
+   * Command-line parameters passed to Python wheel task in the form of {@code ["--name=task",
+   * "--data=dbfs:/path/to/data.json"]}. Leave it empty if {@code parameters} is not null.
    */
   @JsonProperty("named_parameters")
   private Map<String, String> namedParameters;
@@ -30,8 +30,8 @@ public class PythonWheelTask {
   private String packageName;
 
   /**
-   * Command-line parameters passed to Python wheel task. Leave it empty if `named_parameters` is
-   * not null.
+   * Command-line parameters passed to Python wheel task. Leave it empty if {@code named_parameters}
+   * is not null.
    */
   @JsonProperty("parameters")
   private Collection<String> parameters;

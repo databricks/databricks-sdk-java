@@ -5,8 +5,8 @@ package com.databricks.sdk.service.bundledeployments;
 import com.databricks.sdk.support.Generated;
 
 /**
- * Bundle target deployment mode. Mirrors the `mode` field on a bundle target in `databricks.yml`
- * (see https://docs.databricks.com/dev-tools/bundles/deployment-modes).
+ * Bundle target deployment mode. Mirrors the {@code mode} field on a bundle target in {@code
+ * databricks.yml} (see https://docs.databricks.com/dev-tools/bundles/deployment-modes).
  */
 @Generated
 public enum DeploymentMode {

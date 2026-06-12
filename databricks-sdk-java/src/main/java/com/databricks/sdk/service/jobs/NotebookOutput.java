@@ -10,11 +10,11 @@ import java.util.Objects;
 @Generated
 public class NotebookOutput {
   /**
-   * The value passed to
-   * [dbutils.notebook.exit()](/notebooks/notebook-workflows.html#notebook-workflows-exit).
+   * The value passed to <a
+   * href="/notebooks/notebook-workflows.html#notebook-workflows-exit">dbutils.notebook.exit()</a>.
    * Databricks restricts this API to return the first 5 MB of the value. For a larger result, your
-   * job can store the results in a cloud storage service. This field is absent if
-   * `dbutils.notebook.exit()` was never called.
+   * job can store the results in a cloud storage service. This field is absent if {@code
+   * dbutils.notebook.exit()} was never called.
    */
   @JsonProperty("result")
   private String result;

@@ -13,11 +13,17 @@ import java.util.Objects;
 public class ListPipelineEventsRequest {
   /**
    * Criteria to select a subset of results, expressed using a SQL-like syntax. The supported
-   * filters are: 1. level='INFO' (or WARN or ERROR) 2. level in ('INFO', 'WARN') 3. id='[event-id]'
-   * 4. timestamp > 'TIMESTAMP' (or >=,<,<=,=)
+   * filters are:
    *
-   * <p>Composite expressions are supported, for example: level in ('ERROR', 'WARN') AND timestamp>
-   * '2021-07-22T06:37:33.083Z'
+   * <ol>
+   *   <li>level='INFO' (or WARN or ERROR)
+   *   <li>level in ('INFO', 'WARN')
+   *   <li>id='[event-id]'
+   *   <li>timestamp &gt; 'TIMESTAMP' (or &gt;=,&lt;,&lt;=,=)
+   * </ol>
+   *
+   * <p>Composite expressions are supported, for example: level in ('ERROR', 'WARN') AND
+   * timestamp&gt; '2021-07-22T06:37:33.083Z'
    */
   @JsonIgnore
   @QueryParam("filter")

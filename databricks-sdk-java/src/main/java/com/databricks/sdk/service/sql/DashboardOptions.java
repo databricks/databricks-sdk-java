@@ -10,8 +10,8 @@ import java.util.Objects;
 @Generated
 public class DashboardOptions {
   /**
-   * The timestamp when this dashboard was moved to trash. Only present when the `is_archived`
-   * property is `true`. Trashed items are deleted after thirty days.
+   * The timestamp when this dashboard was moved to trash. Only present when the {@code is_archived}
+   * property is {@code true}. Trashed items are deleted after thirty days.
    */
   @JsonProperty("moved_to_trash_at")
   private String movedToTrashAt;

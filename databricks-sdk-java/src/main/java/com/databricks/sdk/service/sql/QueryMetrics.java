@@ -107,7 +107,7 @@ public class QueryMetrics {
   @JsonProperty("result_fetch_time_ms")
   private Long resultFetchTimeMs;
 
-  /** `true` if the query result was fetched from cache, `false` otherwise. */
+  /** {@code true} if the query result was fetched from cache, {@code false} otherwise. */
   @JsonProperty("result_from_cache")
   private Boolean resultFromCache;
 

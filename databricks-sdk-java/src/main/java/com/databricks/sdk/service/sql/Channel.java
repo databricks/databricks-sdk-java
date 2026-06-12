@@ -9,7 +9,7 @@ import java.util.Objects;
 
 /**
  * Configures the channel name and DBSQL version of the warehouse. CHANNEL_NAME_CUSTOM should be
- * chosen only when `dbsql_version` is specified.
+ * chosen only when {@code dbsql_version} is specified.
  */
 @Generated
 public class Channel {

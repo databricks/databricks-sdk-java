@@ -50,8 +50,8 @@ public class Operation {
   private String resourceKey;
 
   /**
-   * The type of the deployment resource this operation applies to. Derived from the `resource_key`
-   * prefix (e.g. "jobs" → JOB); the caller does not set this field.
+   * The type of the deployment resource this operation applies to. Derived from the {@code
+   * resource_key} prefix (e.g. "jobs" → JOB); the caller does not set this field.
    */
   @JsonProperty("resource_type")
   private DeploymentResourceType resourceType;

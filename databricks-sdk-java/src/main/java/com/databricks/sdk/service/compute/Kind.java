@@ -7,15 +7,18 @@ import com.databricks.sdk.support.Generated;
 /**
  * The kind of compute described by this compute specification.
  *
- * <p>Depending on `kind`, different validations and default values will be applied.
+ * <p>Depending on {@code kind}, different validations and default values will be applied.
  *
- * <p>Clusters with `kind = CLASSIC_PREVIEW` support the following fields, whereas clusters with no
- * specified `kind` do not. * [is_single_node](/api/workspace/clusters/create#is_single_node) *
- * [use_ml_runtime](/api/workspace/clusters/create#use_ml_runtime)
+ * <p>Clusters with {@code kind = CLASSIC_PREVIEW} support the following fields, whereas clusters
+ * with no specified {@code kind} do not.
  *
- * <p>By using the [simple form], your clusters are automatically using `kind = CLASSIC_PREVIEW`.
+ * <ul>
+ *   <li><a href="/api/workspace/clusters/create#is_single_node">is_single_node</a>
+ *   <li><a href="/api/workspace/clusters/create#use_ml_runtime">use_ml_runtime</a>
+ * </ul>
  *
- * <p>[simple form]: https://docs.databricks.com/compute/simple-form.html
+ * <p>By using the <a href="https://docs.databricks.com/compute/simple-form.html">simple form</a>,
+ * your clusters are automatically using {@code kind = CLASSIC_PREVIEW}.
  */
 @Generated
 public enum Kind {

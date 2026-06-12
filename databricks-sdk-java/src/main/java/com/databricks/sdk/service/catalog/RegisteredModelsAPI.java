@@ -22,13 +22,17 @@ import com.databricks.sdk.support.Paginator;
  * enclosing catalog and USE_SCHEMA permissions on the enclosing schema. In addition, the following
  * additional privileges are required for various operations:
  *
- * <p>* To create a registered model, users must additionally have the CREATE_MODEL permission on
- * the target schema. * To view registered model or model version metadata, model version data
- * files, or invoke a model version, users must additionally have the EXECUTE permission on the
- * registered model * To update registered model or model version tags, users must additionally have
- * APPLY TAG permissions on the registered model * To update other registered model or model version
- * metadata (comments, aliases) create a new model version, or update permissions on the registered
- * model, users must be owners of the registered model.
+ * <ul>
+ *   <li>To create a registered model, users must additionally have the CREATE_MODEL permission on
+ *       the target schema.
+ *   <li>To view registered model or model version metadata, model version data files, or invoke a
+ *       model version, users must additionally have the EXECUTE permission on the registered model
+ *   <li>To update registered model or model version tags, users must additionally have APPLY TAG
+ *       permissions on the registered model
+ *   <li>To update other registered model or model version metadata (comments, aliases) create a new
+ *       model version, or update permissions on the registered model, users must be owners of the
+ *       registered model.
+ * </ul>
  *
  * <p>Note: The securable type for models is FUNCTION. When using REST APIs (e.g. tagging, grants)
  * that specify a securable type, use FUNCTION as the securable type.
@@ -55,11 +59,15 @@ public class RegisteredModelsAPI {
    * <p>File storage for model versions in the registered model will be located in the default
    * location which is specified by the parent schema, or the parent catalog, or the Metastore.
    *
-   * <p>For registered model creation to succeed, the user must satisfy the following conditions: -
-   * The caller must be a metastore admin, or be the owner of the parent catalog and schema, or have
-   * the **USE_CATALOG** privilege on the parent catalog and the **USE_SCHEMA** privilege on the
-   * parent schema. - The caller must have the **CREATE MODEL** or **CREATE FUNCTION** privilege on
-   * the parent schema.
+   * <p>For registered model creation to succeed, the user must satisfy the following conditions:
+   *
+   * <ul>
+   *   <li>The caller must be a metastore admin, or be the owner of the parent catalog and schema,
+   *       or have the <b>USE_CATALOG</b> privilege on the parent catalog and the <b>USE_SCHEMA</b>
+   *       privilege on the parent schema.
+   *   <li>The caller must have the <b>CREATE MODEL</b> or <b>CREATE FUNCTION</b> privilege on the
+   *       parent schema.
+   * </ul>
    */
   public RegisteredModelInfo create(CreateRegisteredModelRequest request) {
     return impl.create(request);
@@ -74,8 +82,8 @@ public class RegisteredModelsAPI {
    * schema.
    *
    * <p>The caller must be a metastore admin or an owner of the registered model. For the latter
-   * case, the caller must also be the owner or have the **USE_CATALOG** privilege on the parent
-   * catalog and the **USE_SCHEMA** privilege on the parent schema.
+   * case, the caller must also be the owner or have the <b>USE_CATALOG</b> privilege on the parent
+   * catalog and the <b>USE_SCHEMA</b> privilege on the parent schema.
    */
   public void delete(DeleteRegisteredModelRequest request) {
     impl.delete(request);
@@ -89,8 +97,8 @@ public class RegisteredModelsAPI {
    * Deletes a registered model alias.
    *
    * <p>The caller must be a metastore admin or an owner of the registered model. For the latter
-   * case, the caller must also be the owner or have the **USE_CATALOG** privilege on the parent
-   * catalog and the **USE_SCHEMA** privilege on the parent schema.
+   * case, the caller must also be the owner or have the <b>USE_CATALOG</b> privilege on the parent
+   * catalog and the <b>USE_SCHEMA</b> privilege on the parent schema.
    */
   public void deleteAlias(DeleteAliasRequest request) {
     impl.deleteAlias(request);
@@ -103,10 +111,10 @@ public class RegisteredModelsAPI {
   /**
    * Get a registered model.
    *
-   * <p>The caller must be a metastore admin or an owner of (or have the **EXECUTE** privilege on)
-   * the registered model. For the latter case, the caller must also be the owner or have the
-   * **USE_CATALOG** privilege on the parent catalog and the **USE_SCHEMA** privilege on the parent
-   * schema.
+   * <p>The caller must be a metastore admin or an owner of (or have the <b>EXECUTE</b> privilege
+   * on) the registered model. For the latter case, the caller must also be the owner or have the
+   * <b>USE_CATALOG</b> privilege on the parent catalog and the <b>USE_SCHEMA</b> privilege on the
+   * parent schema.
    */
   public RegisteredModelInfo get(GetRegisteredModelRequest request) {
     return impl.get(request);
@@ -118,10 +126,10 @@ public class RegisteredModelsAPI {
    *
    * <p>The returned models are filtered based on the privileges of the calling user. For example,
    * the metastore admin is able to list all the registered models. A regular user needs to be the
-   * owner or have the **EXECUTE** privilege on the registered model to recieve the registered
+   * owner or have the <b>EXECUTE</b> privilege on the registered model to recieve the registered
    * models in the response. For the latter case, the caller must also be the owner or have the
-   * **USE_CATALOG** privilege on the parent catalog and the **USE_SCHEMA** privilege on the parent
-   * schema.
+   * <b>USE_CATALOG</b> privilege on the parent catalog and the <b>USE_SCHEMA</b> privilege on the
+   * parent schema.
    *
    * <p>There is no guarantee of a specific ordering of the elements in the response.
    *
@@ -147,8 +155,8 @@ public class RegisteredModelsAPI {
    * Set an alias on the specified registered model.
    *
    * <p>The caller must be a metastore admin or an owner of the registered model. For the latter
-   * case, the caller must also be the owner or have the **USE_CATALOG** privilege on the parent
-   * catalog and the **USE_SCHEMA** privilege on the parent schema.
+   * case, the caller must also be the owner or have the <b>USE_CATALOG</b> privilege on the parent
+   * catalog and the <b>USE_SCHEMA</b> privilege on the parent schema.
    */
   public RegisteredModelAlias setAlias(SetRegisteredModelAliasRequest request) {
     return impl.setAlias(request);
@@ -158,8 +166,8 @@ public class RegisteredModelsAPI {
    * Updates the specified registered model.
    *
    * <p>The caller must be a metastore admin or an owner of the registered model. For the latter
-   * case, the caller must also be the owner or have the **USE_CATALOG** privilege on the parent
-   * catalog and the **USE_SCHEMA** privilege on the parent schema.
+   * case, the caller must also be the owner or have the <b>USE_CATALOG</b> privilege on the parent
+   * catalog and the <b>USE_SCHEMA</b> privilege on the parent schema.
    *
    * <p>Currently only the name, the owner or the comment of the registered model can be updated.
    */

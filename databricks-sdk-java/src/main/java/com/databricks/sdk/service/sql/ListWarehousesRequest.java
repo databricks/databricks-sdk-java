@@ -16,11 +16,11 @@ public class ListWarehousesRequest {
   private Long pageSize;
 
   /**
-   * A page token, received from a previous `ListWarehouses` call. Provide this to retrieve the
-   * subsequent page; otherwise the first will be retrieved.
+   * A page token, received from a previous {@code ListWarehouses} call. Provide this to retrieve
+   * the subsequent page; otherwise the first will be retrieved.
    *
-   * <p>When paginating, all other parameters provided to `ListWarehouses` must match the call that
-   * provided the page token.
+   * <p>When paginating, all other parameters provided to {@code ListWarehouses} must match the call
+   * that provided the page token.
    */
   @JsonIgnore
   @QueryParam("page_token")

@@ -42,8 +42,9 @@ public class IngestionPipelineDefinition {
 
   /**
    * Immutable. If set to true, the pipeline will ingest tables from the UC foreign catalogs
-   * directly without the need to specify a UC connection or ingestion gateway. The `source_catalog`
-   * fields in objects of IngestionConfig are interpreted as the UC foreign catalogs to ingest from.
+   * directly without the need to specify a UC connection or ingestion gateway. The {@code
+   * source_catalog} fields in objects of IngestionConfig are interpreted as the UC foreign catalogs
+   * to ingest from.
    */
   @JsonProperty("ingest_from_uc_foreign_catalog")
   private Boolean ingestFromUcForeignCatalog;

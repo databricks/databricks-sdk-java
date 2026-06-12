@@ -15,8 +15,8 @@ public class ListBudgetConfigurationsResponse {
   private Collection<BudgetConfiguration> budgets;
 
   /**
-   * Token which can be sent as `page_token` to retrieve the next page of results. If this field is
-   * omitted, there are no subsequent budgets.
+   * Token which can be sent as {@code page_token} to retrieve the next page of results. If this
+   * field is omitted, there are no subsequent budgets.
    */
   @JsonProperty("next_page_token")
   private String nextPageToken;

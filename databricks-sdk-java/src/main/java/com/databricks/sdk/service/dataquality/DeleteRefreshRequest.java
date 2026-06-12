@@ -10,21 +10,35 @@ import java.util.Objects;
 @Generated
 public class DeleteRefreshRequest {
   /**
-   * The UUID of the request object. It is `schema_id` for `schema`, and `table_id` for `table`.
+   * The UUID of the request object. It is {@code schema_id} for {@code schema}, and {@code
+   * table_id} for {@code table}.
    *
-   * <p>Find the `schema_id` from either: 1. The [schema_id] of the `Schemas` resource. 2. In
-   * [Catalog Explorer] > select the `schema` > go to the `Details` tab > the `Schema ID` field.
+   * <p>Find the {@code schema_id} from either:
    *
-   * <p>Find the `table_id` from either: 1. The [table_id] of the `Tables` resource. 2. In [Catalog
-   * Explorer] > select the `table` > go to the `Details` tab > the `Table ID` field.
+   * <ol>
+   *   <li>The <a
+   *       href="https://docs.databricks.com/api/workspace/schemas/get#schema_id">schema_id</a> of
+   *       the {@code Schemas} resource.
+   *   <li>In <a href="https://docs.databricks.com/aws/en/catalog-explorer/">Catalog Explorer</a>
+   *       &gt; select the {@code schema} &gt; go to the {@code Details} tab &gt; the {@code Schema
+   *       ID} field.
+   * </ol>
    *
-   * <p>[Catalog Explorer]: https://docs.databricks.com/aws/en/catalog-explorer/ [schema_id]:
-   * https://docs.databricks.com/api/workspace/schemas/get#schema_id [table_id]:
-   * https://docs.databricks.com/api/workspace/tables/get#table_id
+   * <p>Find the {@code table_id} from either:
+   *
+   * <ol>
+   *   <li>The <a href="https://docs.databricks.com/api/workspace/tables/get#table_id">table_id</a>
+   *       of the {@code Tables} resource.
+   *   <li>In <a href="https://docs.databricks.com/aws/en/catalog-explorer/">Catalog Explorer</a>
+   *       &gt; select the {@code table} &gt; go to the {@code Details} tab &gt; the {@code Table
+   *       ID} field.
+   * </ol>
    */
   @JsonIgnore private String objectId;
 
-  /** The type of the monitored object. Can be one of the following: `schema` or `table`. */
+  /**
+   * The type of the monitored object. Can be one of the following: {@code schema} or {@code table}.
+   */
   @JsonIgnore private String objectType;
 
   /** Unique id of the refresh operation. */

@@ -12,8 +12,8 @@ import java.util.Objects;
 @Generated
 public class RunTask {
   /**
-   * The task evaluates a Databricks alert and sends notifications to subscribers when the
-   * `alert_task` field is present.
+   * The task evaluates a Databricks alert and sends notifications to subscribers when the {@code
+   * alert_task} field is present.
    */
   @JsonProperty("alert_task")
   private AlertTask alertTask;
@@ -21,26 +21,27 @@ public class RunTask {
   /**
    * The sequence number of this run attempt for a triggered job run. The initial attempt of a run
    * has an attempt_number of 0. If the initial run attempt fails, and the job has a retry policy
-   * (`max_retries` > 0), subsequent runs are created with an `original_attempt_run_id` of the
-   * original attempt’s ID and an incrementing `attempt_number`. Runs are retried only until they
-   * succeed, and the maximum `attempt_number` is the same as the `max_retries` value for the job.
+   * ({@code max_retries} &gt; 0), subsequent runs are created with an {@code
+   * original_attempt_run_id} of the original attempt’s ID and an incrementing {@code
+   * attempt_number}. Runs are retried only until they succeed, and the maximum {@code
+   * attempt_number} is the same as the {@code max_retries} value for the job.
    */
   @JsonProperty("attempt_number")
   private Long attemptNumber;
 
   /**
-   * The task runs a [clean rooms] notebook when the `clean_rooms_notebook_task` field is present.
-   *
-   * <p>[clean rooms]: https://docs.databricks.com/clean-rooms/index.html
+   * The task runs a <a href="https://docs.databricks.com/clean-rooms/index.html">clean rooms</a>
+   * notebook when the {@code clean_rooms_notebook_task} field is present.
    */
   @JsonProperty("clean_rooms_notebook_task")
   private CleanRoomsNotebookTask cleanRoomsNotebookTask;
 
   /**
    * The time in milliseconds it took to terminate the cluster and clean up any associated
-   * artifacts. The duration of a task run is the sum of the `setup_duration`, `execution_duration`,
-   * and the `cleanup_duration`. The `cleanup_duration` field is set to 0 for multitask job runs.
-   * The total duration of a multitask job run is the value of the `run_duration` field.
+   * artifacts. The duration of a task run is the sum of the {@code setup_duration}, {@code
+   * execution_duration}, and the {@code cleanup_duration}. The {@code cleanup_duration} field is
+   * set to 0 for multitask job runs. The total duration of a multitask job run is the value of the
+   * {@code run_duration} field.
    */
   @JsonProperty("cleanup_duration")
   private Long cleanupDuration;
@@ -58,8 +59,8 @@ public class RunTask {
 
   /**
    * The task evaluates a condition that can be used to control the execution of other tasks when
-   * the `condition_task` field is present. The condition task does not require a cluster to execute
-   * and does not support retries or notifications.
+   * the {@code condition_task} field is present. The condition task does not require a cluster to
+   * execute and does not support retries or notifications.
    */
   @JsonProperty("condition_task")
   private RunConditionTask conditionTask;
@@ -77,7 +78,7 @@ public class RunTask {
   private DbtPlatformTask dbtPlatformTask;
 
   /**
-   * The task runs one or more dbt commands when the `dbt_task` field is present. The dbt task
+   * The task runs one or more dbt commands when the {@code dbt_task} field is present. The dbt task
    * requires both Databricks SQL and the ability to use a serverless or a pro SQL warehouse.
    */
   @JsonProperty("dbt_task")
@@ -85,8 +86,8 @@ public class RunTask {
 
   /**
    * An optional array of objects specifying the dependency graph of the task. All tasks specified
-   * in this field must complete successfully before executing this task. The key is `task_key`, and
-   * the value is the name assigned to the dependent task.
+   * in this field must complete successfully before executing this task. The key is {@code
+   * task_key}, and the value is the name assigned to the dependent task.
    */
   @JsonProperty("depends_on")
   private Collection<TaskDependency> dependsOn;
@@ -111,9 +112,11 @@ public class RunTask {
    * the client-set performance target on the request depending on whether the performance mode is
    * supported by the job type.
    *
-   * <p>* `STANDARD`: Enables cost-efficient execution of serverless workloads. *
-   * `PERFORMANCE_OPTIMIZED`: Prioritizes fast startup and execution times through rapid scaling and
-   * optimized cluster performance.
+   * <ul>
+   *   <li>{@code STANDARD}: Enables cost-efficient execution of serverless workloads.
+   *   <li>{@code PERFORMANCE_OPTIMIZED}: Prioritizes fast startup and execution times through rapid
+   *       scaling and optimized cluster performance.
+   * </ul>
    */
   @JsonProperty("effective_performance_target")
   private PerformanceTarget effectivePerformanceTarget;
@@ -142,9 +145,9 @@ public class RunTask {
   /**
    * The time in milliseconds it took to execute the commands in the JAR or notebook until they
    * completed, failed, timed out, were cancelled, or encountered an unexpected error. The duration
-   * of a task run is the sum of the `setup_duration`, `execution_duration`, and the
-   * `cleanup_duration`. The `execution_duration` field is set to 0 for multitask job runs. The
-   * total duration of a multitask job run is the value of the `run_duration` field.
+   * of a task run is the sum of the {@code setup_duration}, {@code execution_duration}, and the
+   * {@code cleanup_duration}. The {@code execution_duration} field is set to 0 for multitask job
+   * runs. The total duration of a multitask job run is the value of the {@code run_duration} field.
    */
   @JsonProperty("execution_duration")
   private Long executionDuration;
@@ -158,8 +161,8 @@ public class RunTask {
   private String existingClusterId;
 
   /**
-   * The task executes a nested task for every input provided when the `for_each_task` field is
-   * present.
+   * The task executes a nested task for every input provided when the {@code for_each_task} field
+   * is present.
    */
   @JsonProperty("for_each_task")
   private RunForEachTask forEachTask;
@@ -171,17 +174,17 @@ public class RunTask {
   /**
    * An optional specification for a remote Git repository containing the source code used by tasks.
    * Version-controlled source code is supported by notebook, dbt, Python script, and SQL File
-   * tasks. If `git_source` is set, these tasks retrieve the file from the remote repository by
-   * default. However, this behavior can be overridden by setting `source` to `WORKSPACE` on the
-   * task. Note: dbt and SQL File tasks support only version-controlled sources. If dbt or SQL File
-   * tasks are used, `git_source` must be defined on the job.
+   * tasks. If {@code git_source} is set, these tasks retrieve the file from the remote repository
+   * by default. However, this behavior can be overridden by setting {@code source} to {@code
+   * WORKSPACE} on the task. Note: dbt and SQL File tasks support only version-controlled sources.
+   * If dbt or SQL File tasks are used, {@code git_source} must be defined on the job.
    */
   @JsonProperty("git_source")
   private GitSource gitSource;
 
   /**
-   * If job_cluster_key, this task is executed reusing the cluster specified in
-   * `job.settings.job_clusters`.
+   * If job_cluster_key, this task is executed reusing the cluster specified in {@code
+   * job.settings.job_clusters}.
    */
   @JsonProperty("job_cluster_key")
   private String jobClusterKey;
@@ -195,9 +198,9 @@ public class RunTask {
 
   /**
    * An optional maximum number of times to retry an unsuccessful run. A run is considered to be
-   * unsuccessful if it completes with the `FAILED` result_state or `INTERNAL_ERROR`
-   * `life_cycle_state`. The value `-1` means to retry indefinitely and the value `0` means to never
-   * retry.
+   * unsuccessful if it completes with the {@code FAILED} result_state or {@code INTERNAL_ERROR}
+   * {@code life_cycle_state}. The value {@code -1} means to retry indefinitely and the value {@code
+   * 0} means to never retry.
    */
   @JsonProperty("max_retries")
   private Long maxRetries;
@@ -213,26 +216,27 @@ public class RunTask {
   @JsonProperty("new_cluster")
   private com.databricks.sdk.service.compute.ClusterSpec newCluster;
 
-  /** The task runs a notebook when the `notebook_task` field is present. */
+  /** The task runs a notebook when the {@code notebook_task} field is present. */
   @JsonProperty("notebook_task")
   private NotebookTask notebookTask;
 
   /**
-   * Optional notification settings that are used when sending notifications to each of the
-   * `email_notifications` and `webhook_notifications` for this task run.
+   * Optional notification settings that are used when sending notifications to each of the {@code
+   * email_notifications} and {@code webhook_notifications} for this task run.
    */
   @JsonProperty("notification_settings")
   private TaskNotificationSettings notificationSettings;
 
   /**
-   * The task triggers a pipeline update when the `pipeline_task` field is present. Only pipelines
-   * configured to use triggered more are supported.
+   * The task triggers a pipeline update when the {@code pipeline_task} field is present. Only
+   * pipelines configured to use triggered more are supported.
    */
   @JsonProperty("pipeline_task")
   private PipelineTask pipelineTask;
 
   /**
-   * The task triggers a Power BI semantic model update when the `power_bi_task` field is present.
+   * The task triggers a Power BI semantic model update when the {@code power_bi_task} field is
+   * present.
    */
   @JsonProperty("power_bi_task")
   private PowerBiTask powerBiTask;
@@ -241,7 +245,7 @@ public class RunTask {
   @JsonProperty("python_operator_task")
   private PythonOperatorTask pythonOperatorTask;
 
-  /** The task runs a Python wheel when the `python_wheel_task` field is present. */
+  /** The task runs a Python wheel when the {@code python_wheel_task} field is present. */
   @JsonProperty("python_wheel_task")
   private PythonWheelTask pythonWheelTask;
 
@@ -270,13 +274,13 @@ public class RunTask {
 
   /**
    * An optional value indicating the condition that determines whether the task should be run once
-   * its dependencies have been completed. When omitted, defaults to `ALL_SUCCESS`. See
+   * its dependencies have been completed. When omitted, defaults to {@code ALL_SUCCESS}. See
    * :method:jobs/create for a list of possible values.
    */
   @JsonProperty("run_if")
   private RunIf runIf;
 
-  /** The task triggers another job when the `run_job_task` field is present. */
+  /** The task triggers another job when the {@code run_job_task} field is present. */
   @JsonProperty("run_job_task")
   private RunJobTask runJobTask;
 
@@ -287,32 +291,33 @@ public class RunTask {
   /**
    * The time in milliseconds it took to set up the cluster. For runs that run on new clusters this
    * is the cluster creation time, for runs that run on existing clusters this time should be very
-   * short. The duration of a task run is the sum of the `setup_duration`, `execution_duration`, and
-   * the `cleanup_duration`. The `setup_duration` field is set to 0 for multitask job runs. The
-   * total duration of a multitask job run is the value of the `run_duration` field.
+   * short. The duration of a task run is the sum of the {@code setup_duration}, {@code
+   * execution_duration}, and the {@code cleanup_duration}. The {@code setup_duration} field is set
+   * to 0 for multitask job runs. The total duration of a multitask job run is the value of the
+   * {@code run_duration} field.
    */
   @JsonProperty("setup_duration")
   private Long setupDuration;
 
-  /** The task runs a JAR when the `spark_jar_task` field is present. */
+  /** The task runs a JAR when the {@code spark_jar_task} field is present. */
   @JsonProperty("spark_jar_task")
   private SparkJarTask sparkJarTask;
 
-  /** The task runs a Python file when the `spark_python_task` field is present. */
+  /** The task runs a Python file when the {@code spark_python_task} field is present. */
   @JsonProperty("spark_python_task")
   private SparkPythonTask sparkPythonTask;
 
   /**
    * (Legacy) The task runs the spark-submit script when the spark_submit_task field is present.
-   * Databricks recommends using the spark_jar_task instead; see [Spark Submit task for
-   * jobs](/jobs/spark-submit).
+   * Databricks recommends using the spark_jar_task instead; see <a href="/jobs/spark-submit">Spark
+   * Submit task for jobs</a>.
    */
   @JsonProperty("spark_submit_task")
   private SparkSubmitTask sparkSubmitTask;
 
   /**
    * The task runs a SQL query or file, or it refreshes a SQL alert or a legacy SQL dashboard when
-   * the `sql_task` field is present.
+   * the {@code sql_task} field is present.
    */
   @JsonProperty("sql_task")
   private SqlTask sqlTask;
@@ -325,7 +330,7 @@ public class RunTask {
   @JsonProperty("start_time")
   private Long startTime;
 
-  /** Deprecated. Please use the `status` field instead. */
+  /** Deprecated. Please use the {@code status} field instead. */
   @JsonProperty("state")
   private RunState state;
 
@@ -341,7 +346,10 @@ public class RunTask {
   @JsonProperty("task_key")
   private String taskKey;
 
-  /** An optional timeout applied to each run of this job task. A value of `0` means no timeout. */
+  /**
+   * An optional timeout applied to each run of this job task. A value of {@code 0} means no
+   * timeout.
+   */
   @JsonProperty("timeout_seconds")
   private Long timeoutSeconds;
 

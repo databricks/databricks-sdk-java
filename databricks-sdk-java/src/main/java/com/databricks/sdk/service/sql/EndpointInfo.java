@@ -13,7 +13,12 @@ public class EndpointInfo {
    * The amount of time in minutes that a SQL warehouse must be idle (i.e., no RUNNING queries)
    * before it is automatically stopped.
    *
-   * <p>Supported values: - Must be == 0 or >= 10 mins - 0 indicates no autostop.
+   * <p>Supported values:
+   *
+   * <ul>
+   *   <li>Must be == 0 or &gt;= 10 mins
+   *   <li>0 indicates no autostop.
+   * </ul>
    *
    * <p>Defaults to 120 mins
    */
@@ -29,8 +34,20 @@ public class EndpointInfo {
    * allows you to run larger queries on it. If you want to increase the number of concurrent
    * queries, please tune max_num_clusters.
    *
-   * <p>Supported values: - 2X-Small - X-Small - Small - Medium - Large - X-Large - 2X-Large -
-   * 3X-Large - 4X-Large - 5X-Large
+   * <p>Supported values:
+   *
+   * <ul>
+   *   <li>2X-Small
+   *   <li>X-Small
+   *   <li>Small
+   *   <li>Medium
+   *   <li>Large
+   *   <li>X-Large
+   *   <li>2X-Large
+   *   <li>3X-Large
+   *   <li>4X-Large
+   *   <li>5X-Large
+   * </ul>
    */
   @JsonProperty("cluster_size")
   private String clusterSize;
@@ -70,7 +87,12 @@ public class EndpointInfo {
   /**
    * Maximum number of clusters that the autoscaler will create to handle concurrent queries.
    *
-   * <p>Supported values: - Must be >= min_num_clusters - Must be <= 40.
+   * <p>Supported values:
+   *
+   * <ul>
+   *   <li>Must be &gt;= min_num_clusters
+   *   <li>Must be &lt;= 40.
+   * </ul>
    *
    * <p>Defaults to min_clusters if unset.
    */
@@ -83,7 +105,12 @@ public class EndpointInfo {
    * the cold start time for new queries. This is similar to reserved vs. revocable cores in a
    * resource manager.
    *
-   * <p>Supported values: - Must be > 0 - Must be <= min(max_num_clusters, 30)
+   * <p>Supported values:
+   *
+   * <ul>
+   *   <li>Must be &gt; 0
+   *   <li>Must be &lt;= min(max_num_clusters, 30)
+   * </ul>
    *
    * <p>Defaults to 1
    */
@@ -93,7 +120,12 @@ public class EndpointInfo {
   /**
    * Logical name for the cluster.
    *
-   * <p>Supported values: - Must be unique within an org. - Must be less than 100 characters.
+   * <p>Supported values:
+   *
+   * <ul>
+   *   <li>Must be unique within an org.
+   *   <li>Must be less than 100 characters.
+   * </ul>
    */
   @JsonProperty("name")
   private String name;
@@ -122,14 +154,18 @@ public class EndpointInfo {
    * A set of key-value pairs that will be tagged on all resources (e.g., AWS instances and EBS
    * volumes) associated with this SQL warehouse.
    *
-   * <p>Supported values: - Number of tags < 45.
+   * <p>Supported values:
+   *
+   * <ul>
+   *   <li>Number of tags &lt; 45.
+   * </ul>
    */
   @JsonProperty("tags")
   private EndpointTags tags;
 
   /**
-   * Warehouse type: `PRO` or `CLASSIC`. If you want to use serverless compute, you must set to
-   * `PRO` and also set the field `enable_serverless_compute` to `true`.
+   * Warehouse type: {@code PRO} or {@code CLASSIC}. If you want to use serverless compute, you must
+   * set to {@code PRO} and also set the field {@code enable_serverless_compute} to {@code true}.
    */
   @JsonProperty("warehouse_type")
   private EndpointInfoWarehouseType warehouseType;

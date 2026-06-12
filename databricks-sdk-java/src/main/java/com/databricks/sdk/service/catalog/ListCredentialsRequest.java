@@ -19,10 +19,15 @@ public class ListCredentialsRequest {
   private Boolean includeUnbound;
 
   /**
-   * Maximum number of credentials to return. - If not set, the default max page size is used. -
-   * When set to a value greater than 0, the page length is the minimum of this value and a
-   * server-configured value. - When set to 0, the page length is set to a server-configured value
-   * (recommended). - When set to a value less than 0, an invalid parameter error is returned.
+   * Maximum number of credentials to return.
+   *
+   * <ul>
+   *   <li>If not set, the default max page size is used.
+   *   <li>When set to a value greater than 0, the page length is the minimum of this value and a
+   *       server-configured value.
+   *   <li>When set to 0, the page length is set to a server-configured value (recommended).
+   *   <li>When set to a value less than 0, an invalid parameter error is returned.
+   * </ul>
    */
   @JsonIgnore
   @QueryParam("max_results")

@@ -11,7 +11,7 @@ import java.util.Objects;
 public class CreateCredentialsRequest {
   /**
    * The authenticating email associated with your Git provider user account. Used for
-   * authentication with the remote repository and also sets the author & committer identity for
+   * authentication with the remote repository and also sets the author &amp; committer identity for
    * commits. Required for most Git providers except AWS CodeCommit. Learn more at
    * https://docs.databricks.com/aws/en/repos/get-access-tokens-from-git-provider
    */
@@ -19,20 +19,20 @@ public class CreateCredentialsRequest {
   private String gitEmail;
 
   /**
-   * Git provider. This field is case-insensitive. The available Git providers are `gitHub`,
-   * `bitbucketCloud`, `gitLab`, `azureDevOpsServices` (Azure DevOps Services, including Microsoft
-   * Entra ID authentication), `gitHubEnterprise`, `bitbucketServer` (Bitbucket Data Center),
-   * `gitLabEnterpriseEdition` (GitLab Self-Managed), and `awsCodeCommit` (deprecated by AWS, not
-   * accepting new customers).
+   * Git provider. This field is case-insensitive. The available Git providers are {@code gitHub},
+   * {@code bitbucketCloud}, {@code gitLab}, {@code azureDevOpsServices} (Azure DevOps Services,
+   * including Microsoft Entra ID authentication), {@code gitHubEnterprise}, {@code bitbucketServer}
+   * (Bitbucket Data Center), {@code gitLabEnterpriseEdition} (GitLab Self-Managed), and {@code
+   * awsCodeCommit} (deprecated by AWS, not accepting new customers).
    */
   @JsonProperty("git_provider")
   private String gitProvider;
 
   /**
    * The username provided with your Git provider account and associated with the credential. For
-   * most Git providers it is only used to set the Git committer & author names for commits, however
-   * it may be required for authentication depending on your Git provider / token requirements.
-   * Required for AWS CodeCommit.
+   * most Git providers it is only used to set the Git committer &amp; author names for commits,
+   * however it may be required for authentication depending on your Git provider / token
+   * requirements. Required for AWS CodeCommit.
    */
   @JsonProperty("git_username")
   private String gitUsername;
@@ -47,9 +47,9 @@ public class CreateCredentialsRequest {
 
   /**
    * The personal access token used to authenticate to the corresponding Git provider. For certain
-   * providers, support may exist for other types of scoped access tokens. [Learn more].
-   *
-   * <p>[Learn more]: https://docs.databricks.com/repos/get-access-tokens-from-git-provider.html
+   * providers, support may exist for other types of scoped access tokens. <a
+   * href="https://docs.databricks.com/repos/get-access-tokens-from-git-provider.html">Learn
+   * more</a>.
    */
   @JsonProperty("personal_access_token")
   private String personalAccessToken;

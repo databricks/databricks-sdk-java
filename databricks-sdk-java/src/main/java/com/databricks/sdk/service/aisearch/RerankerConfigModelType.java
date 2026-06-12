@@ -4,7 +4,7 @@ package com.databricks.sdk.service.aisearch;
 
 import com.databricks.sdk.support.Generated;
 
-/** How the `model` field is interpreted. */
+/** How the {@code model} field is interpreted. */
 @Generated
 public enum RerankerConfigModelType {
   MODEL_TYPE_BASE,

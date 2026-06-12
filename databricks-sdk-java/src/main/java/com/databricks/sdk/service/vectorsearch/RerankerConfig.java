@@ -10,8 +10,12 @@ import java.util.Objects;
 @Generated
 public class RerankerConfig {
   /**
-   * Reranker identifier: - When model_type=BASE/UNSPECIFIED: must be "databricks_reranker". - When
-   * model_type=FINETUNED: the Model Serving endpoint name hosting a finetuned reranker.
+   * Reranker identifier:
+   *
+   * <ul>
+   *   <li>When model_type=BASE/UNSPECIFIED: must be "databricks_reranker".
+   *   <li>When model_type=FINETUNED: the Model Serving endpoint name hosting a finetuned reranker.
+   * </ul>
    */
   @JsonProperty("model")
   private String model;

@@ -18,7 +18,7 @@ public interface ConsumerPersonalizationRequestsService {
       CreatePersonalizationRequest createPersonalizationRequest);
 
   /**
-   * Get the personalization request for a listing. Each consumer can make at *most* one
+   * Get the personalization request for a listing. Each consumer can make at <i>most</i> one
    * personalization request for a listing.
    */
   GetPersonalizationRequestResponse get(

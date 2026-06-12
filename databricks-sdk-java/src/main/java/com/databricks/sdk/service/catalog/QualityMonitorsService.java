@@ -11,8 +11,8 @@ import com.databricks.sdk.support.Generated;
  * generates metrics tables and a dashboard that you can use to monitor table health and set alerts.
  * Most write operations require the user to be the owner of the table (or its parent schema or
  * parent catalog). Viewing the dashboard, computed metrics, or monitor configuration only requires
- * the user to have **SELECT** privileges on the table (along with **USE_SCHEMA** and
- * **USE_CATALOG**).
+ * the user to have <b>SELECT</b> privileges on the table (along with <b>USE_SCHEMA</b> and
+ * <b>USE_CATALOG</b>).
  *
  * <p>This is the high-level interface, that contains generated methods.
  *
@@ -30,11 +30,21 @@ public interface QualityMonitorsService {
    * Deprecated: Use Data Quality Monitors API instead (/api/data-quality/v1/monitors). Creates a
    * new monitor for the specified table.
    *
-   * <p>The caller must either: 1. be an owner of the table's parent catalog, have **USE_SCHEMA** on
-   * the table's parent schema, and have **SELECT** access on the table 2. have **USE_CATALOG** on
-   * the table's parent catalog, be an owner of the table's parent schema, and have **SELECT**
-   * access on the table. 3. have the following permissions: - **USE_CATALOG** on the table's parent
-   * catalog - **USE_SCHEMA** on the table's parent schema - be an owner of the table.
+   * <p>The caller must either:
+   *
+   * <ol>
+   *   <li>be an owner of the table's parent catalog, have <b>USE_SCHEMA</b> on the table's parent
+   *       schema, and have <b>SELECT</b> access on the table
+   *   <li>have <b>USE_CATALOG</b> on the table's parent catalog, be an owner of the table's parent
+   *       schema, and have <b>SELECT</b> access on the table.
+   *   <li>have the following permissions:
+   * </ol>
+   *
+   * <ul>
+   *   <li><b>USE_CATALOG</b> on the table's parent catalog
+   *   <li><b>USE_SCHEMA</b> on the table's parent schema
+   *   <li>be an owner of the table.
+   * </ul>
    *
    * <p>Workspace assets, such as the dashboard, will be created in the workspace where this call
    * was made.
@@ -45,10 +55,20 @@ public interface QualityMonitorsService {
    * Deprecated: Use Data Quality Monitors API instead (/api/data-quality/v1/monitors). Deletes a
    * monitor for the specified table.
    *
-   * <p>The caller must either: 1. be an owner of the table's parent catalog 2. have **USE_CATALOG**
-   * on the table's parent catalog and be an owner of the table's parent schema 3. have the
-   * following permissions: - **USE_CATALOG** on the table's parent catalog - **USE_SCHEMA** on the
-   * table's parent schema - be an owner of the table.
+   * <p>The caller must either:
+   *
+   * <ol>
+   *   <li>be an owner of the table's parent catalog
+   *   <li>have <b>USE_CATALOG</b> on the table's parent catalog and be an owner of the table's
+   *       parent schema
+   *   <li>have the following permissions:
+   * </ol>
+   *
+   * <ul>
+   *   <li><b>USE_CATALOG</b> on the table's parent catalog
+   *   <li><b>USE_SCHEMA</b> on the table's parent schema
+   *   <li>be an owner of the table.
+   * </ul>
    *
    * <p>Additionally, the call must be made from the workspace where the monitor was created.
    *
@@ -61,10 +81,20 @@ public interface QualityMonitorsService {
    * Deprecated: Use Data Quality Monitors API instead (/api/data-quality/v1/monitors). Gets a
    * monitor for the specified table.
    *
-   * <p>The caller must either: 1. be an owner of the table's parent catalog 2. have **USE_CATALOG**
-   * on the table's parent catalog and be an owner of the table's parent schema. 3. have the
-   * following permissions: - **USE_CATALOG** on the table's parent catalog - **USE_SCHEMA** on the
-   * table's parent schema - **SELECT** privilege on the table.
+   * <p>The caller must either:
+   *
+   * <ol>
+   *   <li>be an owner of the table's parent catalog
+   *   <li>have <b>USE_CATALOG</b> on the table's parent catalog and be an owner of the table's
+   *       parent schema.
+   *   <li>have the following permissions:
+   * </ol>
+   *
+   * <ul>
+   *   <li><b>USE_CATALOG</b> on the table's parent catalog
+   *   <li><b>USE_SCHEMA</b> on the table's parent schema
+   *   <li><b>SELECT</b> privilege on the table.
+   * </ul>
    *
    * <p>The returned information includes configuration values, as well as information on assets
    * created by the monitor. Some information (e.g., dashboard) may be filtered out if the caller is
@@ -76,10 +106,20 @@ public interface QualityMonitorsService {
    * Deprecated: Use Data Quality Monitors API instead (/api/data-quality/v1/monitors). Gets info
    * about a specific monitor refresh using the given refresh ID.
    *
-   * <p>The caller must either: 1. be an owner of the table's parent catalog 2. have **USE_CATALOG**
-   * on the table's parent catalog and be an owner of the table's parent schema 3. have the
-   * following permissions: - **USE_CATALOG** on the table's parent catalog - **USE_SCHEMA** on the
-   * table's parent schema - **SELECT** privilege on the table.
+   * <p>The caller must either:
+   *
+   * <ol>
+   *   <li>be an owner of the table's parent catalog
+   *   <li>have <b>USE_CATALOG</b> on the table's parent catalog and be an owner of the table's
+   *       parent schema
+   *   <li>have the following permissions:
+   * </ol>
+   *
+   * <ul>
+   *   <li><b>USE_CATALOG</b> on the table's parent catalog
+   *   <li><b>USE_SCHEMA</b> on the table's parent schema
+   *   <li><b>SELECT</b> privilege on the table.
+   * </ul>
    *
    * <p>Additionally, the call must be made from the workspace where the monitor was created.
    */
@@ -89,10 +129,20 @@ public interface QualityMonitorsService {
    * Deprecated: Use Data Quality Monitors API instead (/api/data-quality/v1/monitors). Gets an
    * array containing the history of the most recent refreshes (up to 25) for this table.
    *
-   * <p>The caller must either: 1. be an owner of the table's parent catalog 2. have **USE_CATALOG**
-   * on the table's parent catalog and be an owner of the table's parent schema 3. have the
-   * following permissions: - **USE_CATALOG** on the table's parent catalog - **USE_SCHEMA** on the
-   * table's parent schema - **SELECT** privilege on the table.
+   * <p>The caller must either:
+   *
+   * <ol>
+   *   <li>be an owner of the table's parent catalog
+   *   <li>have <b>USE_CATALOG</b> on the table's parent catalog and be an owner of the table's
+   *       parent schema
+   *   <li>have the following permissions:
+   * </ol>
+   *
+   * <ul>
+   *   <li><b>USE_CATALOG</b> on the table's parent catalog
+   *   <li><b>USE_SCHEMA</b> on the table's parent schema
+   *   <li><b>SELECT</b> privilege on the table.
+   * </ul>
    *
    * <p>Additionally, the call must be made from the workspace where the monitor was created.
    */
@@ -102,10 +152,20 @@ public interface QualityMonitorsService {
    * Deprecated: Use Data Quality Monitors API instead (/api/data-quality/v1/monitors). Regenerates
    * the monitoring dashboard for the specified table.
    *
-   * <p>The caller must either: 1. be an owner of the table's parent catalog 2. have **USE_CATALOG**
-   * on the table's parent catalog and be an owner of the table's parent schema 3. have the
-   * following permissions: - **USE_CATALOG** on the table's parent catalog - **USE_SCHEMA** on the
-   * table's parent schema - be an owner of the table
+   * <p>The caller must either:
+   *
+   * <ol>
+   *   <li>be an owner of the table's parent catalog
+   *   <li>have <b>USE_CATALOG</b> on the table's parent catalog and be an owner of the table's
+   *       parent schema
+   *   <li>have the following permissions:
+   * </ol>
+   *
+   * <ul>
+   *   <li><b>USE_CATALOG</b> on the table's parent catalog
+   *   <li><b>USE_SCHEMA</b> on the table's parent schema
+   *   <li>be an owner of the table
+   * </ul>
    *
    * <p>The call must be made from the workspace where the monitor was created. The dashboard will
    * be regenerated in the assets directory that was specified when the monitor was created.
@@ -118,10 +178,20 @@ public interface QualityMonitorsService {
    * metric refresh on the monitor for the specified table. The refresh will execute in the
    * background.
    *
-   * <p>The caller must either: 1. be an owner of the table's parent catalog 2. have **USE_CATALOG**
-   * on the table's parent catalog and be an owner of the table's parent schema 3. have the
-   * following permissions: - **USE_CATALOG** on the table's parent catalog - **USE_SCHEMA** on the
-   * table's parent schema - be an owner of the table
+   * <p>The caller must either:
+   *
+   * <ol>
+   *   <li>be an owner of the table's parent catalog
+   *   <li>have <b>USE_CATALOG</b> on the table's parent catalog and be an owner of the table's
+   *       parent schema
+   *   <li>have the following permissions:
+   * </ol>
+   *
+   * <ul>
+   *   <li><b>USE_CATALOG</b> on the table's parent catalog
+   *   <li><b>USE_SCHEMA</b> on the table's parent schema
+   *   <li>be an owner of the table
+   * </ul>
    *
    * <p>Additionally, the call must be made from the workspace where the monitor was created.
    */
@@ -131,10 +201,20 @@ public interface QualityMonitorsService {
    * Deprecated: Use Data Quality Monitors API instead (/api/data-quality/v1/monitors). Updates a
    * monitor for the specified table.
    *
-   * <p>The caller must either: 1. be an owner of the table's parent catalog 2. have **USE_CATALOG**
-   * on the table's parent catalog and be an owner of the table's parent schema 3. have the
-   * following permissions: - **USE_CATALOG** on the table's parent catalog - **USE_SCHEMA** on the
-   * table's parent schema - be an owner of the table.
+   * <p>The caller must either:
+   *
+   * <ol>
+   *   <li>be an owner of the table's parent catalog
+   *   <li>have <b>USE_CATALOG</b> on the table's parent catalog and be an owner of the table's
+   *       parent schema
+   *   <li>have the following permissions:
+   * </ol>
+   *
+   * <ul>
+   *   <li><b>USE_CATALOG</b> on the table's parent catalog
+   *   <li><b>USE_SCHEMA</b> on the table's parent schema
+   *   <li>be an owner of the table.
+   * </ul>
    *
    * <p>Additionally, the call must be made from the workspace where the monitor was created, and
    * the caller must be the original creator of the monitor.

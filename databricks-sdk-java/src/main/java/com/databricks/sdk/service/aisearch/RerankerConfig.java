@@ -12,12 +12,12 @@ import java.util.Objects;
 public class RerankerConfig {
   /**
    * Reranker identifier: "databricks_reranker" for the base model, or a Model Serving endpoint name
-   * when `model_type` is MODEL_TYPE_FINETUNED.
+   * when {@code model_type} is MODEL_TYPE_FINETUNED.
    */
   @JsonProperty("model")
   private String model;
 
-  /** Discriminator for how `model` is interpreted. */
+  /** Discriminator for how {@code model} is interpreted. */
   @JsonProperty("model_type")
   private RerankerConfigModelType modelType;
 

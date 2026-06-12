@@ -5,13 +5,15 @@ package com.databricks.sdk.service.jobs;
 import com.databricks.sdk.support.Generated;
 
 /**
- * Optional location type of the SQL file. When set to `WORKSPACE`, the SQL file will be retrieved\
- * from the local Databricks workspace. When set to `GIT`, the SQL file will be retrieved from a Git
- * repository defined in `git_source`. If the value is empty, the task will use `GIT` if
- * `git_source` is defined and `WORKSPACE` otherwise.
+ * Optional location type of the SQL file. When set to {@code WORKSPACE}, the SQL file will be
+ * retrieved from the local Databricks workspace. When set to {@code GIT}, the SQL file will be
+ * retrieved from a Git repository defined in {@code git_source}. If the value is empty, the task
+ * will use {@code GIT} if {@code git_source} is defined and {@code WORKSPACE} otherwise.
  *
- * <p>* `WORKSPACE`: SQL file is located in Databricks workspace. * `GIT`: SQL file is located in
- * cloud Git provider.
+ * <ul>
+ *   <li>{@code WORKSPACE}: SQL file is located in Databricks workspace.
+ *   <li>{@code GIT}: SQL file is located in cloud Git provider.
+ * </ul>
  */
 @Generated
 public enum Source {

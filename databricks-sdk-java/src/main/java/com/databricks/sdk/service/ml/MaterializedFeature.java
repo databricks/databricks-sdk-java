@@ -12,8 +12,8 @@ import java.util.Objects;
 public class MaterializedFeature {
   /**
    * The quartz cron expression that defines the schedule of the materialization pipeline. The
-   * schedule is evaluated in the UTC timezone. Hidden from GraphQL: superseded by the `trigger`
-   * oneof (cron_schedule_trigger), so not exposed to Catalog Explorer.
+   * schedule is evaluated in the UTC timezone. Hidden from GraphQL: superseded by the {@code
+   * trigger} oneof (cron_schedule_trigger), so not exposed to Catalog Explorer.
    */
   @JsonProperty("cron_schedule")
   private String cronSchedule;

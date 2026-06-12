@@ -8,17 +8,18 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** * Update Log Delivery Configuration */
+/** Update Log Delivery Configuration */
 @Generated
 public class UpdateLogDeliveryConfigurationStatusRequest {
   /** The log delivery configuration id of customer */
   @JsonIgnore private String logDeliveryConfigurationId;
 
   /**
-   * Status of log delivery configuration. Set to `ENABLED` (enabled) or `DISABLED` (disabled).
-   * Defaults to `ENABLED`. You can [enable or disable the
-   * configuration](#operation/patch-log-delivery-config-status) later. Deletion of a configuration
-   * is not supported, so disable a log delivery configuration that is no longer needed.
+   * Status of log delivery configuration. Set to {@code ENABLED} (enabled) or {@code DISABLED}
+   * (disabled). Defaults to {@code ENABLED}. You can <a
+   * href="#operation/patch-log-delivery-config-status">enable or disable the configuration</a>
+   * later. Deletion of a configuration is not supported, so disable a log delivery configuration
+   * that is no longer needed.
    */
   @JsonProperty("status")
   private LogDeliveryConfigStatus status;

@@ -21,8 +21,8 @@ public class DashboardEditContent {
   private String name;
 
   /**
-   * Sets the **Run as** role for the object. Must be set to one of `"viewer"` (signifying "run as
-   * viewer" behavior) or `"owner"` (signifying "run as owner" behavior)
+   * Sets the <b>Run as</b> role for the object. Must be set to one of {@code "viewer"} (signifying
+   * "run as viewer" behavior) or {@code "owner"} (signifying "run as owner" behavior)
    */
   @JsonProperty("run_as_role")
   private RunAsRole runAsRole;

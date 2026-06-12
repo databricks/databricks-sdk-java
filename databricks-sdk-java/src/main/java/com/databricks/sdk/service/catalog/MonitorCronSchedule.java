@@ -14,15 +14,13 @@ public class MonitorCronSchedule {
   private MonitorCronSchedulePauseStatus pauseStatus;
 
   /**
-   * The expression that determines when to run the monitor. See [examples].
-   *
-   * <p>[examples]:
-   * https://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html
+   * The expression that determines when to run the monitor. See <a
+   * href="https://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html">examples</a>.
    */
   @JsonProperty("quartz_cron_expression")
   private String quartzCronExpression;
 
-  /** The timezone id (e.g., ``PST``) in which to evaluate the quartz expression. */
+  /** The timezone id (e.g., {@code PST}) in which to evaluate the quartz expression. */
   @JsonProperty("timezone_id")
   private String timezoneId;
 

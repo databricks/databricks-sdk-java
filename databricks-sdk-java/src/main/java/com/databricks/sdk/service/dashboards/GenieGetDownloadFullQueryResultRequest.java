@@ -17,8 +17,8 @@ public class GenieGetDownloadFullQueryResultRequest {
   @JsonIgnore private String conversationId;
 
   /**
-   * Download ID. This ID is provided by the [Generate Download
-   * endpoint](:method:genie/generateDownloadFullQueryResult)
+   * Download ID. This ID is provided by the <a
+   * href=":method:genie/generateDownloadFullQueryResult">Generate Download endpoint</a>
    */
   @JsonIgnore private String downloadId;
 

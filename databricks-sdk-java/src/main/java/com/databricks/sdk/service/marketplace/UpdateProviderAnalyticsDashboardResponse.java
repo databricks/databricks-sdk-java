@@ -13,7 +13,7 @@ public class UpdateProviderAnalyticsDashboardResponse {
   @JsonProperty("dashboard_id")
   private String dashboardId;
 
-  /** id & version should be the same as the request */
+  /** id &amp; version should be the same as the request */
   @JsonProperty("id")
   private String id;
 

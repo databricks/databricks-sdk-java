@@ -27,9 +27,9 @@ public class RepoInfo {
   private String path;
 
   /**
-   * Git provider of the remote git repository, e.g. `gitHub`, `azureDevOpsServices`,
-   * `bitbucketServer` (Bitbucket Data Center), `gitLabEnterpriseEdition` (GitLab Self-Managed), or
-   * `awsCodeCommit` (deprecated).
+   * Git provider of the remote git repository, e.g. {@code gitHub}, {@code azureDevOpsServices},
+   * {@code bitbucketServer} (Bitbucket Data Center), {@code gitLabEnterpriseEdition} (GitLab
+   * Self-Managed), or {@code awsCodeCommit} (deprecated).
    */
   @JsonProperty("provider")
   private String provider;

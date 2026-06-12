@@ -61,10 +61,15 @@ public class AlertV2 {
 
   /**
    * Specifies the identity that will be used to run the alert. This field allows you to configure
-   * alerts to run as a specific user or service principal. - For user identity: Set `user_name` to
-   * the email of an active workspace user. Users can only set this to their own email. - For
-   * service principal: Set `service_principal_name` to the application ID. Requires the
-   * `servicePrincipal/user` role. If not specified, the alert will run as the request user.
+   * alerts to run as a specific user or service principal.
+   *
+   * <ul>
+   *   <li>For user identity: Set {@code user_name} to the email of an active workspace user. Users
+   *       can only set this to their own email.
+   *   <li>For service principal: Set {@code service_principal_name} to the application ID. Requires
+   *       the {@code servicePrincipal/user} role. If not specified, the alert will run as the
+   *       request user.
+   * </ul>
    */
   @JsonProperty("run_as")
   private AlertV2RunAs runAs;
@@ -72,8 +77,8 @@ public class AlertV2 {
   /**
    * The run as username or application ID of service principal. On Create and Update, this field
    * can be set to application ID of an active service principal. Setting this field requires the
-   * servicePrincipal/user role. Deprecated: Use `run_as` field instead. This field will be removed
-   * in a future release.
+   * servicePrincipal/user role. Deprecated: Use {@code run_as} field instead. This field will be
+   * removed in a future release.
    */
   @JsonProperty("run_as_user_name")
   private String runAsUserName;

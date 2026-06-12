@@ -14,12 +14,12 @@ public class StatementParameterListItem {
   private String name;
 
   /**
-   * The data type, given as a string. For example: `INT`, `STRING`, `DECIMAL(10,2)`. If no type is
-   * given the type is assumed to be `STRING`. Complex types, such as `ARRAY`, `MAP`, and `STRUCT`
-   * are not supported. For valid types, refer to the section [Data types] of the SQL language
-   * reference.
-   *
-   * <p>[Data types]: https://docs.databricks.com/sql/language-manual/functions/cast.html
+   * The data type, given as a string. For example: {@code INT}, {@code STRING}, {@code
+   * DECIMAL(10,2)}. If no type is given the type is assumed to be {@code STRING}. Complex types,
+   * such as {@code ARRAY}, {@code MAP}, and {@code STRUCT} are not supported. For valid types,
+   * refer to the section <a
+   * href="https://docs.databricks.com/sql/language-manual/functions/cast.html">Data types</a> of
+   * the SQL language reference.
    */
   @JsonProperty("type")
   private String typeValue;

@@ -12,7 +12,7 @@ import java.util.Objects;
 public class TableDependency {
   /**
    * Full name of the dependent table, in the form of
-   * __catalog_name__.__schema_name__.__table_name__.
+   * <b>catalog_name</b>.<b>schema_name</b>.<b>table_name</b>.
    */
   @JsonProperty("table_full_name")
   private String tableFullName;

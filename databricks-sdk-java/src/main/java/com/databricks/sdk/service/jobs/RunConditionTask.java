@@ -17,21 +17,27 @@ public class RunConditionTask {
   private String left;
 
   /**
-   * * `EQUAL_TO`, `NOT_EQUAL` operators perform string comparison of their operands. This means
-   * that `“12.0” == “12”` will evaluate to `false`. * `GREATER_THAN`, `GREATER_THAN_OR_EQUAL`,
-   * `LESS_THAN`, `LESS_THAN_OR_EQUAL` operators perform numeric comparison of their operands.
-   * `“12.0” >= “12”` will evaluate to `true`, `“10.0” >= “12”` will evaluate to `false`.
    *
-   * <p>The boolean comparison to task values can be implemented with operators `EQUAL_TO`,
-   * `NOT_EQUAL`. If a task value was set to a boolean value, it will be serialized to `“true”` or
-   * `“false”` for the comparison.
+   *
+   * <ul>
+   *   <li>{@code EQUAL_TO}, {@code NOT_EQUAL} operators perform string comparison of their
+   *       operands. This means that {@code “12.0” == “12”} will evaluate to {@code false}.
+   *   <li>{@code GREATER_THAN}, {@code GREATER_THAN_OR_EQUAL}, {@code LESS_THAN}, {@code
+   *       LESS_THAN_OR_EQUAL} operators perform numeric comparison of their operands. {@code “12.0”
+   *       >= “12”} will evaluate to {@code true}, {@code “10.0” >= “12”} will evaluate to {@code
+   *       false}.
+   * </ul>
+   *
+   * The boolean comparison to task values can be implemented with operators {@code EQUAL_TO},
+   * {@code NOT_EQUAL}. If a task value was set to a boolean value, it will be serialized to {@code
+   * “true”} or {@code “false”} for the comparison.
    */
   @JsonProperty("op")
   private ConditionTaskOp op;
 
   /**
    * The condition expression evaluation result. Filled in if the task was successfully completed.
-   * Can be `"true"` or `"false"`
+   * Can be {@code "true"} or {@code "false"}
    */
   @JsonProperty("outcome")
   private String outcome;

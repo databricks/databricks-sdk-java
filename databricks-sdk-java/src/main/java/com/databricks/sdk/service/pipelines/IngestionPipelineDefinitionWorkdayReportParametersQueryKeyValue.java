@@ -14,10 +14,15 @@ public class IngestionPipelineDefinitionWorkdayReportParametersQueryKeyValue {
   private String key;
 
   /**
-   * Value for the report parameter. Possible values it can take are these sql functions: 1.
-   * coalesce(current_offset(), date("YYYY-MM-DD")) -> if current_offset() is null, then the passed
-   * date, else current_offset() 2. current_date() 3. date_sub(current_date(), x) -> subtract x
-   * (some non-negative integer) days from current date
+   * Value for the report parameter. Possible values it can take are these sql functions:
+   *
+   * <ol>
+   *   <li>coalesce(current_offset(), date("YYYY-MM-DD")) -&gt; if current_offset() is null, then
+   *       the passed date, else current_offset()
+   *   <li>current_date()
+   *   <li>date_sub(current_date(), x) -&gt; subtract x (some non-negative integer) days from
+   *       current date
+   * </ol>
    */
   @JsonProperty("value")
   private String value;

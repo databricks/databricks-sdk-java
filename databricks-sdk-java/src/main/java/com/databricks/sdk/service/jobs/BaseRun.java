@@ -13,18 +13,20 @@ public class BaseRun {
   /**
    * The sequence number of this run attempt for a triggered job run. The initial attempt of a run
    * has an attempt_number of 0. If the initial run attempt fails, and the job has a retry policy
-   * (`max_retries` > 0), subsequent runs are created with an `original_attempt_run_id` of the
-   * original attempt’s ID and an incrementing `attempt_number`. Runs are retried only until they
-   * succeed, and the maximum `attempt_number` is the same as the `max_retries` value for the job.
+   * ({@code max_retries} &gt; 0), subsequent runs are created with an {@code
+   * original_attempt_run_id} of the original attempt’s ID and an incrementing {@code
+   * attempt_number}. Runs are retried only until they succeed, and the maximum {@code
+   * attempt_number} is the same as the {@code max_retries} value for the job.
    */
   @JsonProperty("attempt_number")
   private Long attemptNumber;
 
   /**
    * The time in milliseconds it took to terminate the cluster and clean up any associated
-   * artifacts. The duration of a task run is the sum of the `setup_duration`, `execution_duration`,
-   * and the `cleanup_duration`. The `cleanup_duration` field is set to 0 for multitask job runs.
-   * The total duration of a multitask job run is the value of the `run_duration` field.
+   * artifacts. The duration of a task run is the sum of the {@code setup_duration}, {@code
+   * execution_duration}, and the {@code cleanup_duration}. The {@code cleanup_duration} field is
+   * set to 0 for multitask job runs. The total duration of a multitask job run is the value of the
+   * {@code run_duration} field.
    */
   @JsonProperty("cleanup_duration")
   private Long cleanupDuration;
@@ -56,9 +58,11 @@ public class BaseRun {
    * the client-set performance target on the request depending on whether the performance mode is
    * supported by the job type.
    *
-   * <p>* `STANDARD`: Enables cost-efficient execution of serverless workloads. *
-   * `PERFORMANCE_OPTIMIZED`: Prioritizes fast startup and execution times through rapid scaling and
-   * optimized cluster performance.
+   * <ul>
+   *   <li>{@code STANDARD}: Enables cost-efficient execution of serverless workloads.
+   *   <li>{@code PERFORMANCE_OPTIMIZED}: Prioritizes fast startup and execution times through rapid
+   *       scaling and optimized cluster performance.
+   * </ul>
    */
   @JsonProperty("effective_performance_target")
   private PerformanceTarget effectivePerformanceTarget;
@@ -77,9 +81,9 @@ public class BaseRun {
   /**
    * The time in milliseconds it took to execute the commands in the JAR or notebook until they
    * completed, failed, timed out, were cancelled, or encountered an unexpected error. The duration
-   * of a task run is the sum of the `setup_duration`, `execution_duration`, and the
-   * `cleanup_duration`. The `execution_duration` field is set to 0 for multitask job runs. The
-   * total duration of a multitask job run is the value of the `run_duration` field.
+   * of a task run is the sum of the {@code setup_duration}, {@code execution_duration}, and the
+   * {@code cleanup_duration}. The {@code execution_duration} field is set to 0 for multitask job
+   * runs. The total duration of a multitask job run is the value of the {@code run_duration} field.
    */
   @JsonProperty("execution_duration")
   private Long executionDuration;
@@ -89,19 +93,20 @@ public class BaseRun {
    * Version-controlled source code is supported by notebook, dbt, Python script, and SQL File
    * tasks.
    *
-   * <p>If `git_source` is set, these tasks retrieve the file from the remote repository by default.
-   * However, this behavior can be overridden by setting `source` to `WORKSPACE` on the task.
+   * <p>If {@code git_source} is set, these tasks retrieve the file from the remote repository by
+   * default. However, this behavior can be overridden by setting {@code source} to {@code
+   * WORKSPACE} on the task.
    *
    * <p>Note: dbt and SQL File tasks support only version-controlled sources. If dbt or SQL File
-   * tasks are used, `git_source` must be defined on the job.
+   * tasks are used, {@code git_source} must be defined on the job.
    */
   @JsonProperty("git_source")
   private GitSource gitSource;
 
   /**
-   * Indicates if the run has more array properties (`tasks`, `job_clusters`) that are not shown.
-   * They can be accessed via :method:jobs/getrun endpoint. It is only relevant for API 2.2
-   * :method:jobs/listruns requests with `expand_tasks=true`.
+   * Indicates if the run has more array properties ({@code tasks}, {@code job_clusters}) that are
+   * not shown. They can be accessed via :method:jobs/getrun endpoint. It is only relevant for API
+   * 2.2 :method:jobs/listruns requests with {@code expand_tasks=true}.
    */
   @JsonProperty("has_more")
   private Boolean hasMore;
@@ -131,7 +136,7 @@ public class BaseRun {
   @JsonProperty("job_run_id")
   private Long jobRunId;
 
-  /** A unique identifier for this job run. This is set to the same value as `run_id`. */
+  /** A unique identifier for this job run. This is set to the same value as {@code run_id}. */
   @JsonProperty("number_in_job")
   private Long numberInJob;
 
@@ -181,9 +186,10 @@ public class BaseRun {
   /**
    * The time in milliseconds it took to set up the cluster. For runs that run on new clusters this
    * is the cluster creation time, for runs that run on existing clusters this time should be very
-   * short. The duration of a task run is the sum of the `setup_duration`, `execution_duration`, and
-   * the `cleanup_duration`. The `setup_duration` field is set to 0 for multitask job runs. The
-   * total duration of a multitask job run is the value of the `run_duration` field.
+   * short. The duration of a task run is the sum of the {@code setup_duration}, {@code
+   * execution_duration}, and the {@code cleanup_duration}. The {@code setup_duration} field is set
+   * to 0 for multitask job runs. The total duration of a multitask job run is the value of the
+   * {@code run_duration} field.
    */
   @JsonProperty("setup_duration")
   private Long setupDuration;
@@ -196,7 +202,7 @@ public class BaseRun {
   @JsonProperty("start_time")
   private Long startTime;
 
-  /** Deprecated. Please use the `status` field instead. */
+  /** Deprecated. Please use the {@code status} field instead. */
   @JsonProperty("state")
   private RunState state;
 
@@ -205,10 +211,10 @@ public class BaseRun {
   private RunStatus status;
 
   /**
-   * The list of tasks performed by the run. Each task has its own `run_id` which you can use to
-   * call `JobsGetOutput` to retrieve the run resutls. If more than 100 tasks are available, you can
-   * paginate through them using :method:jobs/getrun. Use the `next_page_token` field at the object
-   * root to determine if more results are available.
+   * The list of tasks performed by the run. Each task has its own {@code run_id} which you can use
+   * to call {@code JobsGetOutput} to retrieve the run resutls. If more than 100 tasks are
+   * available, you can paginate through them using :method:jobs/getrun. Use the {@code
+   * next_page_token} field at the object root to determine if more results are available.
    */
   @JsonProperty("tasks")
   private Collection<RunTask> tasks;

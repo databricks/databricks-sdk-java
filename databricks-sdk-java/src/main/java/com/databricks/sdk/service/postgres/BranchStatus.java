@@ -64,7 +64,7 @@ public class BranchStatus {
   @JsonProperty("source_branch_time")
   private Timestamp sourceBranchTime;
 
-  /** A timestamp indicating when the `current_state` began. */
+  /** A timestamp indicating when the {@code current_state} began. */
   @JsonProperty("state_change_time")
   private Timestamp stateChangeTime;
 

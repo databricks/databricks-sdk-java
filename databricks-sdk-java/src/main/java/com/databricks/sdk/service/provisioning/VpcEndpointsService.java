@@ -14,20 +14,18 @@ import java.util.Collection;
 @Generated
 public interface VpcEndpointsService {
   /**
-   * Creates a VPC endpoint configuration, which represents a [VPC endpoint] object in AWS used to
-   * communicate privately with Databricks over [AWS PrivateLink].
+   * Creates a VPC endpoint configuration, which represents a <a
+   * href="https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints.html">VPC endpoint</a>
+   * object in AWS used to communicate privately with Databricks over <a
+   * href="https://aws.amazon.com/privatelink">AWS PrivateLink</a>.
    *
-   * <p>After you create the VPC endpoint configuration, the Databricks [endpoint service]
-   * automatically accepts the VPC endpoint.
+   * <p>After you create the VPC endpoint configuration, the Databricks <a
+   * href="https://docs.aws.amazon.com/vpc/latest/privatelink/privatelink-share-your-services.html">endpoint
+   * service</a> automatically accepts the VPC endpoint.
    *
-   * <p>Before configuring PrivateLink, read the [Databricks article about PrivateLink].
-   *
-   * <p>[AWS PrivateLink]: https://aws.amazon.com/privatelink [Databricks article about
-   * PrivateLink]:
-   * https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html [VPC
-   * endpoint]: https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints.html [endpoint
-   * service]:
-   * https://docs.aws.amazon.com/vpc/latest/privatelink/privatelink-share-your-services.html
+   * <p>Before configuring PrivateLink, read the <a
+   * href="https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html">Databricks
+   * article about PrivateLink</a>.
    */
   VpcEndpoint create(CreateVpcEndpointRequest createVpcEndpointRequest);
 
@@ -38,11 +36,10 @@ public interface VpcEndpointsService {
   VpcEndpoint delete(DeleteVpcEndpointRequest deleteVpcEndpointRequest);
 
   /**
-   * Gets a VPC endpoint configuration, which represents a [VPC endpoint] object in AWS used to
-   * communicate privately with Databricks over [AWS PrivateLink].
-   *
-   * <p>[AWS PrivateLink]: https://aws.amazon.com/privatelink [VPC endpoint]:
-   * https://docs.aws.amazon.com/vpc/latest/privatelink/concepts.html
+   * Gets a VPC endpoint configuration, which represents a <a
+   * href="https://docs.aws.amazon.com/vpc/latest/privatelink/concepts.html">VPC endpoint</a> object
+   * in AWS used to communicate privately with Databricks over <a
+   * href="https://aws.amazon.com/privatelink">AWS PrivateLink</a>.
    */
   VpcEndpoint get(GetVpcEndpointRequest getVpcEndpointRequest);
 

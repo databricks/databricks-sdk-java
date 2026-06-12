@@ -10,8 +10,8 @@ import java.util.Objects;
 @Generated
 public class DeleteIndexRequest {
   /**
-   * Full resource name of the index to delete. Format:
-   * `workspaces/{workspace_id}/endpoints/{endpoint_id}/indexes/{index_id}`
+   * Full resource name of the index to delete. Format: {@code
+   * workspaces/{workspace_id}/endpoints/{endpoint_id}/indexes/{index_id}}
    */
   @JsonIgnore private String name;
 

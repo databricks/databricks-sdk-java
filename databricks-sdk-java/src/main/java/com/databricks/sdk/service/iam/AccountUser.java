@@ -18,7 +18,10 @@ public class AccountUser {
   @JsonProperty("active")
   private Boolean active;
 
-  /** String that represents a concatenation of given and family names. For example `John Smith`. */
+  /**
+   * String that represents a concatenation of given and family names. For example {@code John
+   * Smith}.
+   */
   @JsonProperty("displayName")
   private String displayName;
 

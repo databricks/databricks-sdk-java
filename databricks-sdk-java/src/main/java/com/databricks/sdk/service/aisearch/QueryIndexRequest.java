@@ -10,9 +10,9 @@ import java.util.Collection;
 import java.util.Objects;
 
 /**
- * Request to query (search) an AI Search index. The legacy `num_results` count is exposed as
- * `max_results`; v1 returns up to `max_results` rows in a single response (no cursor pagination —
- * see the note on `max_results` below).
+ * Request to query (search) an AI Search index. The legacy {@code num_results} count is exposed as
+ * {@code max_results}; v1 returns up to {@code max_results} rows in a single response (no cursor
+ * pagination — see the note on {@code max_results} below).
  */
 @Generated
 public class QueryIndexRequest {
@@ -24,25 +24,25 @@ public class QueryIndexRequest {
   @JsonProperty("columns_to_rerank")
   private Collection<String> columnsToRerank;
 
-  /** Facets to compute over the matched results (e.g. `"category TOP 5"`). */
+  /** Facets to compute over the matched results (e.g. {@code "category TOP 5"}). */
   @JsonProperty("facets")
   private Collection<String> facets;
 
-  /** JSON string describing query filters (e.g. `{"id >": 5}`). */
+  /** JSON string describing query filters (e.g. {@code {"id >": 5}}). */
   @JsonProperty("filters_json")
   private String filtersJson;
 
-  /** Maximum number of results to return (the legacy `num_results`). Defaults to 10. */
+  /** Maximum number of results to return (the legacy {@code num_results}). Defaults to 10. */
   @JsonProperty("max_results")
   private Long maxResults;
 
   /**
-   * Full resource name of the index to query. Format:
-   * `workspaces/{workspace_id}/endpoints/{endpoint_id}/indexes/{index_id}`
+   * Full resource name of the index to query. Format: {@code
+   * workspaces/{workspace_id}/endpoints/{endpoint_id}/indexes/{index_id}}
    */
   @JsonIgnore private String name;
 
-  /** Text columns to search for `query_text`. When empty, all text columns are searched. */
+  /** Text columns to search for {@code query_text}. When empty, all text columns are searched. */
   @JsonProperty("query_columns")
   private Collection<String> queryColumns;
 
@@ -50,7 +50,7 @@ public class QueryIndexRequest {
   @JsonProperty("query_text")
   private String queryText;
 
-  /** Query type: `ANN`, `HYBRID`, or `FULL_TEXT`. Defaults to `ANN`. */
+  /** Query type: {@code ANN}, {@code HYBRID}, or {@code FULL_TEXT}. Defaults to {@code ANN}. */
   @JsonProperty("query_type")
   private String queryType;
 
@@ -69,7 +69,7 @@ public class QueryIndexRequest {
   @JsonProperty("score_threshold")
   private Double scoreThreshold;
 
-  /** Sort clauses, e.g. `["rating DESC", "price ASC"]`. Overrides relevance ordering. */
+  /** Sort clauses, e.g. {@code ["rating DESC", "price ASC"]}. Overrides relevance ordering. */
   @JsonProperty("sort_columns")
   private Collection<String> sortColumns;
 

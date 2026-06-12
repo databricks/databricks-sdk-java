@@ -13,9 +13,8 @@ public class SparkSubmitTask {
   /**
    * Command-line parameters passed to spark submit.
    *
-   * <p>Use [Task parameter variables] to set parameters containing information about job runs.
-   *
-   * <p>[Task parameter variables]: https://docs.databricks.com/jobs.html#parameter-variables
+   * <p>Use <a href="https://docs.databricks.com/jobs.html#parameter-variables">Task parameter
+   * variables</a> to set parameters containing information about job runs.
    */
   @JsonProperty("parameters")
   private Collection<String> parameters;

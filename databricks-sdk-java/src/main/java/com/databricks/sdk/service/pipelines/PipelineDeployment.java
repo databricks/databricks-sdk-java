@@ -10,8 +10,8 @@ import java.util.Objects;
 @Generated
 public class PipelineDeployment {
   /**
-   * ID of the deployment that manages this pipeline. Only set when `kind` is `BUNDLE`. Used to look
-   * up deployment metadata from the Deployment Metadata service.
+   * ID of the deployment that manages this pipeline. Only set when {@code kind} is {@code BUNDLE}.
+   * Used to look up deployment metadata from the Deployment Metadata service.
    */
   @JsonProperty("deployment_id")
   private String deploymentId;
@@ -25,8 +25,9 @@ public class PipelineDeployment {
   private String metadataFilePath;
 
   /**
-   * ID of the version of the deployment that produced this pipeline. Only set when `kind` is
-   * `BUNDLE`. Identifies a specific snapshot of the deployment in the Deployment Metadata service.
+   * ID of the version of the deployment that produced this pipeline. Only set when {@code kind} is
+   * {@code BUNDLE}. Identifies a specific snapshot of the deployment in the Deployment Metadata
+   * service.
    */
   @JsonProperty("version_id")
   private String versionId;

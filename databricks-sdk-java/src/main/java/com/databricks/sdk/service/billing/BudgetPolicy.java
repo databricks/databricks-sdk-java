@@ -27,9 +27,13 @@ public class BudgetPolicy {
   private String policyId;
 
   /**
-   * The name of the policy. - Must be unique among active policies. - Can contain only characters
-   * from the ISO 8859-1 (latin1) set. - Can't start with reserved keywords such as
-   * `databricks:default-policy`.
+   * The name of the policy.
+   *
+   * <ul>
+   *   <li>Must be unique among active policies.
+   *   <li>Can contain only characters from the ISO 8859-1 (latin1) set.
+   *   <li>Can't start with reserved keywords such as {@code databricks:default-policy}.
+   * </ul>
    */
   @JsonProperty("policy_name")
   private String policyName;

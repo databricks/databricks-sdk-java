@@ -10,7 +10,7 @@ import com.databricks.sdk.support.Paginator;
 /**
  * A secret is a Unity Catalog securable object that stores sensitive credential data (such as
  * passwords, tokens, and keys) within a three-level namespace
- * (**catalog_name.schema_name.secret_name**).
+ * (<b>catalog_name.schema_name.secret_name</b>).
  *
  * <p>Secrets can be managed using standard Unity Catalog permissions and are scoped to a schema
  * within a catalog.
@@ -34,11 +34,11 @@ public class SecretsUcAPI {
   /**
    * Creates a new secret in Unity Catalog.
    *
-   * <p>You must be the owner of the parent schema or have the **CREATE_SECRET** and **USE SCHEMA**
-   * privileges on the parent schema and **USE CATALOG** on the parent catalog.
+   * <p>You must be the owner of the parent schema or have the <b>CREATE_SECRET</b> and <b>USE
+   * SCHEMA</b> privileges on the parent schema and <b>USE CATALOG</b> on the parent catalog.
    *
-   * <p>The secret is stored in the specified catalog and schema, and the **value** field contains
-   * the sensitive data to be securely stored.
+   * <p>The secret is stored in the specified catalog and schema, and the <b>value</b> field
+   * contains the sensitive data to be securely stored.
    */
   public Secret createSecret(CreateSecretRequest request) {
     return impl.createSecret(request);
@@ -64,11 +64,11 @@ public class SecretsUcAPI {
   /**
    * Gets a secret by its three-level (fully qualified) name.
    *
-   * <p>You must be a metastore admin, the owner of the secret, or have the **MANAGE** privilege on
-   * the secret.
+   * <p>You must be a metastore admin, the owner of the secret, or have the <b>MANAGE</b> privilege
+   * on the secret.
    *
    * <p>The secret value isn't returned by default. To retrieve it, you must also have the
-   * **READ_SECRET** privilege and set **include_value** to true in the request.
+   * <b>READ_SECRET</b> privilege and set <b>include_value</b> to true in the request.
    */
   public Secret getSecret(GetSecretRequest request) {
     return impl.getSecret(request);
@@ -77,12 +77,12 @@ public class SecretsUcAPI {
   /**
    * Lists secrets in Unity Catalog.
    *
-   * <p>You must be a metastore admin, the owner of the secret, or have the **MANAGE** privilege on
-   * the secret.
+   * <p>You must be a metastore admin, the owner of the secret, or have the <b>MANAGE</b> privilege
+   * on the secret.
    *
-   * <p>Both **catalog_name** and **schema_name** must be specified together to filter secrets
-   * within a specific schema. Results are paginated; use the **page_token** field from the response
-   * to retrieve subsequent pages.
+   * <p>Both <b>catalog_name</b> and <b>schema_name</b> must be specified together to filter secrets
+   * within a specific schema. Results are paginated; use the <b>page_token</b> field from the
+   * response to retrieve subsequent pages.
    */
   public Iterable<Secret> listSecrets(ListSecretsRequest request) {
     return Paginator.newTokenPagination(
@@ -102,10 +102,10 @@ public class SecretsUcAPI {
    * Updates an existing secret in Unity Catalog.
    *
    * <p>You must be the owner of the secret or a metastore admin. If you are a metastore admin, only
-   * the **owner** field can be changed.
+   * the <b>owner</b> field can be changed.
    *
-   * <p>Use the **update_mask** field to specify which fields to update. Supported updatable fields
-   * include **value**, **comment**, **owner**, and **expire_time**.
+   * <p>Use the <b>update_mask</b> field to specify which fields to update. Supported updatable
+   * fields include <b>value</b>, <b>comment</b>, <b>owner</b>, and <b>expire_time</b>.
    */
   public Secret updateSecret(UpdateSecretRequest request) {
     return impl.updateSecret(request);

@@ -15,8 +15,8 @@ public class CreateEndpointRequest {
   private Endpoint endpoint;
 
   /**
-   * The parent resource name of the account under which the endpoint is created. Format:
-   * `accounts/{account_id}`.
+   * The parent resource name of the account under which the endpoint is created. Format: {@code
+   * accounts/{account_id}}.
    */
   @JsonIgnore private String parent;
 

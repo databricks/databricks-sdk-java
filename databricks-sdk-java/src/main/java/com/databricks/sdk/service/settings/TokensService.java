@@ -16,7 +16,7 @@ public interface TokensService {
   /**
    * Creates and returns a token for a user. If this call is made through token authentication, it
    * creates a token with the same client ID as the authenticated token. If the user's token quota
-   * is exceeded, this call returns an error **QUOTA_EXCEEDED**.
+   * is exceeded, this call returns an error <b>QUOTA_EXCEEDED</b>.
    */
   CreateTokenResponse create(CreateTokenRequest createTokenRequest);
 
@@ -24,7 +24,7 @@ public interface TokensService {
    * Revokes an access token.
    *
    * <p>If a token with the specified ID is not valid, this call returns an error
-   * **RESOURCE_DOES_NOT_EXIST**.
+   * <b>RESOURCE_DOES_NOT_EXIST</b>.
    */
   void delete(RevokeTokenRequest revokeTokenRequest);
 
@@ -34,7 +34,7 @@ public interface TokensService {
   /**
    * Updates the comment or scopes of a token.
    *
-   * <p>If a token with the specified ID is not valid, this call returns an error **NOT_FOUND**.
+   * <p>If a token with the specified ID is not valid, this call returns an error <b>NOT_FOUND</b>.
    */
   UpdateTokenResponse update(UpdateTokenRequest updateTokenRequest);
 }

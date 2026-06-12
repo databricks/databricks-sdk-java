@@ -18,12 +18,17 @@ public class DashboardTask {
   /**
    * Dashboard task parameters. Used to apply dashboard filter values during dashboard task
    * execution. Parameter values get applied to any dashboard filters that have a matching URL
-   * identifier as the parameter key. The parameter value format is dependent on the filter type: -
-   * For text and single-select filters, provide a single value (e.g. `"value"`) - For date and
-   * datetime filters, provide the value in ISO 8601 format (e.g. `"2000-01-01T00:00:00"`) - For
-   * multi-select filters, provide a JSON array of values (e.g. `"[\"value1\",\"value2\"]"`) - For
-   * range and date range filters, provide a JSON object with `start` and `end` (e.g.
-   * `"{\"start\":\"1\",\"end\":\"10\"}"`)
+   * identifier as the parameter key. The parameter value format is dependent on the filter type:
+   *
+   * <ul>
+   *   <li>For text and single-select filters, provide a single value (e.g. {@code "value"})
+   *   <li>For date and datetime filters, provide the value in ISO 8601 format (e.g. {@code
+   *       "2000-01-01T00:00:00"})
+   *   <li>For multi-select filters, provide a JSON array of values (e.g. {@code
+   *       "[\"value1\",\"value2\"]"})
+   *   <li>For range and date range filters, provide a JSON object with {@code start} and {@code
+   *       end} (e.g. {@code "{\"start\":\"1\",\"end\":\"10\"}"})
+   * </ul>
    */
   @JsonProperty("filters")
   private Map<String, String> filters;

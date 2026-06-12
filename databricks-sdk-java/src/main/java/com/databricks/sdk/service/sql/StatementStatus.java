@@ -16,17 +16,25 @@ public class StatementStatus {
 
   /**
    * SQLSTATE error code returned when the statement execution fails. Only populated when the
-   * statement status is `FAILED`.
+   * statement status is {@code FAILED}.
    */
   @JsonProperty("sql_state")
   private String sqlState;
 
   /**
-   * Statement execution state: - `PENDING`: waiting for warehouse - `RUNNING`: running -
-   * `SUCCEEDED`: execution was successful, result data available for fetch - `FAILED`: execution
-   * failed; reason for failure described in accompanying error message - `CANCELED`: user canceled;
-   * can come from explicit cancel call, or timeout with `on_wait_timeout=CANCEL` - `CLOSED`:
-   * execution successful, and statement closed; result no longer available for fetch
+   * Statement execution state:
+   *
+   * <ul>
+   *   <li>{@code PENDING}: waiting for warehouse
+   *   <li>{@code RUNNING}: running
+   *   <li>{@code SUCCEEDED}: execution was successful, result data available for fetch
+   *   <li>{@code FAILED}: execution failed; reason for failure described in accompanying error
+   *       message
+   *   <li>{@code CANCELED}: user canceled; can come from explicit cancel call, or timeout with
+   *       {@code on_wait_timeout=CANCEL}
+   *   <li>{@code CLOSED}: execution successful, and statement closed; result no longer available
+   *       for fetch
+   * </ul>
    */
   @JsonProperty("state")
   private StatementState state;

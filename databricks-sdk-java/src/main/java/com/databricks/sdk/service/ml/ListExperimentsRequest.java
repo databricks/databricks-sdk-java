@@ -11,10 +11,10 @@ import java.util.Objects;
 @Generated
 public class ListExperimentsRequest {
   /**
-   * Maximum number of experiments desired. If `max_results` is unspecified, return all experiments.
-   * If `max_results` is too large, it'll be automatically capped at 1000. Callers of this endpoint
-   * are encouraged to pass max_results explicitly and leverage page_token to iterate through
-   * experiments.
+   * Maximum number of experiments desired. If {@code max_results} is unspecified, return all
+   * experiments. If {@code max_results} is too large, it'll be automatically capped at 1000.
+   * Callers of this endpoint are encouraged to pass max_results explicitly and leverage page_token
+   * to iterate through experiments.
    */
   @JsonIgnore
   @QueryParam("max_results")

@@ -9,7 +9,8 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * An object with __properties__ containing map of key-value properties attached to the securable.
+ * An object with <b>properties</b> containing map of key-value properties attached to the
+ * securable.
  */
 @Generated
 public class SecurablePropertiesKvPairs {

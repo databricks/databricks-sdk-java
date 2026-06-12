@@ -10,7 +10,7 @@ import java.util.Objects;
 /** A storage location in Workspace Filesystem (WSFS) */
 @Generated
 public class WorkspaceStorageInfo {
-  /** wsfs destination, e.g. `workspace:/cluster-init-scripts/setup-datadog.sh` */
+  /** wsfs destination, e.g. {@code workspace:/cluster-init-scripts/setup-datadog.sh} */
   @JsonProperty("destination")
   private String destination;
 

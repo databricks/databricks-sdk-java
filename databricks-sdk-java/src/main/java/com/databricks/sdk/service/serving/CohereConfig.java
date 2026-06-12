@@ -18,16 +18,16 @@ public class CohereConfig {
 
   /**
    * The Databricks secret key reference for a Cohere API key. If you prefer to paste your API key
-   * directly, see `cohere_api_key_plaintext`. You must provide an API key using one of the
-   * following fields: `cohere_api_key` or `cohere_api_key_plaintext`.
+   * directly, see {@code cohere_api_key_plaintext}. You must provide an API key using one of the
+   * following fields: {@code cohere_api_key} or {@code cohere_api_key_plaintext}.
    */
   @JsonProperty("cohere_api_key")
   private String cohereApiKey;
 
   /**
    * The Cohere API key provided as a plaintext string. If you prefer to reference your key using
-   * Databricks Secrets, see `cohere_api_key`. You must provide an API key using one of the
-   * following fields: `cohere_api_key` or `cohere_api_key_plaintext`.
+   * Databricks Secrets, see {@code cohere_api_key}. You must provide an API key using one of the
+   * following fields: {@code cohere_api_key} or {@code cohere_api_key_plaintext}.
    */
   @JsonProperty("cohere_api_key_plaintext")
   private String cohereApiKeyPlaintext;

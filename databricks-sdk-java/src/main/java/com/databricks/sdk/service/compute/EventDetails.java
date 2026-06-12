@@ -10,8 +10,12 @@ import java.util.Objects;
 @Generated
 public class EventDetails {
   /**
-   * * For created clusters, the attributes of the cluster. * For edited clusters, the new
-   * attributes of the cluster.
+   *
+   *
+   * <ul>
+   *   <li>For created clusters, the attributes of the cluster.
+   *   <li>For edited clusters, the new attributes of the cluster.
+   * </ul>
    */
   @JsonProperty("attributes")
   private ClusterAttributes attributes;
@@ -63,8 +67,11 @@ public class EventDetails {
   private String instanceId;
 
   /**
-   * Unique identifier of the specific job run associated with this cluster event * For clusters
-   * created for jobs, this will be the same as the cluster name
+   * Unique identifier of the specific job run associated with this cluster event
+   *
+   * <ul>
+   *   <li>For clusters created for jobs, this will be the same as the cluster name
+   * </ul>
    */
   @JsonProperty("job_run_name")
   private String jobRunName;
@@ -82,8 +89,13 @@ public class EventDetails {
   private Long previousDiskSize;
 
   /**
-   * A termination reason: * On a TERMINATED event, this is the reason of the termination. * On a
-   * RESIZE_COMPLETE event, this indicates the reason that we failed to acquire some nodes.
+   * A termination reason:
+   *
+   * <ul>
+   *   <li>On a TERMINATED event, this is the reason of the termination.
+   *   <li>On a RESIZE_COMPLETE event, this indicates the reason that we failed to acquire some
+   *       nodes.
+   * </ul>
    */
   @JsonProperty("reason")
   private TerminationReason reason;

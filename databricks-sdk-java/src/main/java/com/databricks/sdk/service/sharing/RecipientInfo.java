@@ -30,7 +30,7 @@ public class RecipientInfo {
 
   /**
    * Cloud vendor of the recipient's Unity Catalog Metastore. This field is only present when the
-   * __authentication_type__ is **DATABRICKS**.
+   * <b>authentication_type</b> is <b>DATABRICKS</b>.
    */
   @JsonProperty("cloud")
   private String cloud;
@@ -49,8 +49,8 @@ public class RecipientInfo {
 
   /**
    * The global Unity Catalog metastore id provided by the data recipient. This field is only
-   * present when the __authentication_type__ is **DATABRICKS**. The identifier is of format
-   * __cloud__:__region__:__metastore-uuid__.
+   * present when the <b>authentication_type</b> is <b>DATABRICKS</b>. The identifier is of format
+   * <b>cloud</b>:<b>region</b>:<b>metastore-uuid</b>.
    */
   @JsonProperty("data_recipient_global_metastore_id")
   private String dataRecipientGlobalMetastoreId;
@@ -69,7 +69,7 @@ public class RecipientInfo {
 
   /**
    * Unique identifier of recipient's Unity Catalog Metastore. This field is only present when the
-   * __authentication_type__ is **DATABRICKS**.
+   * <b>authentication_type</b> is <b>DATABRICKS</b>.
    */
   @JsonProperty("metastore_id")
   private String metastoreId;
@@ -92,19 +92,19 @@ public class RecipientInfo {
 
   /**
    * Cloud region of the recipient's Unity Catalog Metastore. This field is only present when the
-   * __authentication_type__ is **DATABRICKS**.
+   * <b>authentication_type</b> is <b>DATABRICKS</b>.
    */
   @JsonProperty("region")
   private String region;
 
   /**
    * The one-time sharing code provided by the data recipient. This field is only present when the
-   * __authentication_type__ is **DATABRICKS**.
+   * <b>authentication_type</b> is <b>DATABRICKS</b>.
    */
   @JsonProperty("sharing_code")
   private String sharingCode;
 
-  /** This field is only present when the __authentication_type__ is **TOKEN**. */
+  /** This field is only present when the <b>authentication_type</b> is <b>TOKEN</b>. */
   @JsonProperty("tokens")
   private Collection<RecipientTokenInfo> tokens;
 

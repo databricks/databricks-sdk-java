@@ -16,7 +16,7 @@ public class TableState {
   @JsonProperty("has_seen_updates")
   private Boolean hasSeenUpdates;
 
-  /** Full table name of the table to monitor, e.g. `mycatalog.myschema.mytable` */
+  /** Full table name of the table to monitor, e.g. {@code mycatalog.myschema.mytable} */
   @JsonProperty("table_name")
   private String tableName;
 

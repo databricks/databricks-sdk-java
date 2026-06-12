@@ -10,11 +10,9 @@ import java.util.Objects;
 @Generated
 public class CleanRoomOutputCatalog {
   /**
-   * The name of the output catalog in UC. It should follow [UC securable naming requirements]. The
-   * field will always exist if status is CREATED.
-   *
-   * <p>[UC securable naming requirements]:
-   * https://docs.databricks.com/en/data-governance/unity-catalog/index.html#securable-object-naming-requirements
+   * The name of the output catalog in UC. It should follow <a
+   * href="https://docs.databricks.com/en/data-governance/unity-catalog/index.html#securable-object-naming-requirements">UC
+   * securable naming requirements</a>. The field will always exist if status is CREATED.
    */
   @JsonProperty("catalog_name")
   private String catalogName;

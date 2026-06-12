@@ -18,7 +18,7 @@ public class SecretScope {
   @JsonProperty("backend_type")
   private ScopeBackendType backendType;
 
-  /** The metadata for the secret scope if the type is ``AZURE_KEYVAULT`` */
+  /** The metadata for the secret scope if the type is {@code AZURE_KEYVAULT} */
   @JsonProperty("keyvault_metadata")
   private AzureKeyVaultSecretScopeMetadata keyvaultMetadata;
 

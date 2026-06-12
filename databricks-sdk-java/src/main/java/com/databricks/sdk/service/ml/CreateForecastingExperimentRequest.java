@@ -49,9 +49,12 @@ public class CreateForecastingExperimentRequest {
   /**
    * Specifies the list of feature columns to include in model training. These columns must exist in
    * the training data and be of type string, numerical, or boolean. If not specified, no additional
-   * features will be included. Note: Certain columns are automatically handled: - Automatically
-   * excluded: split_column, target_column, custom_weights_column. - Automatically included:
-   * time_column.
+   * features will be included. Note: Certain columns are automatically handled:
+   *
+   * <ul>
+   *   <li>Automatically excluded: split_column, target_column, custom_weights_column.
+   *   <li>Automatically included: time_column.
+   * </ul>
    */
   @JsonProperty("include_features")
   private Collection<String> includeFeatures;

@@ -47,8 +47,8 @@ public class GenieMessage {
   private String messageId;
 
   /**
-   * The result of SQL query if the message includes a query attachment. Deprecated. Use
-   * `query_result_metadata` in `GenieQueryAttachment` instead.
+   * The result of SQL query if the message includes a query attachment. Deprecated. Use {@code
+   * query_result_metadata} in {@code GenieQueryAttachment} instead.
    */
   @JsonProperty("query_result")
   private Result queryResult;

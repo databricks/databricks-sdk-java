@@ -17,13 +17,18 @@ public class NccAzurePrivateEndpointRule {
   /**
    * The current status of this private endpoint. The private endpoint rules are effective only if
    * the connection state is ESTABLISHED. Remember that you must approve new endpoints on your
-   * resources in the Azure portal before they take effect. The possible values are: - INIT:
-   * (deprecated) The endpoint has been created and pending approval. - PENDING: The endpoint has
-   * been created and pending approval. - ESTABLISHED: The endpoint has been approved and is ready
-   * to use in your serverless compute resources. - REJECTED: Connection was rejected by the private
-   * link resource owner. - DISCONNECTED: Connection was removed by the private link resource owner,
-   * the private endpoint becomes informative and should be deleted for clean-up. - EXPIRED: If the
-   * endpoint was created but not approved in 14 days, it will be EXPIRED.
+   * resources in the Azure portal before they take effect. The possible values are:
+   *
+   * <ul>
+   *   <li>INIT: (deprecated) The endpoint has been created and pending approval.
+   *   <li>PENDING: The endpoint has been created and pending approval.
+   *   <li>ESTABLISHED: The endpoint has been approved and is ready to use in your serverless
+   *       compute resources.
+   *   <li>REJECTED: Connection was rejected by the private link resource owner.
+   *   <li>DISCONNECTED: Connection was removed by the private link resource owner, the private
+   *       endpoint becomes informative and should be deleted for clean-up.
+   *   <li>EXPIRED: If the endpoint was created but not approved in 14 days, it will be EXPIRED.
+   * </ul>
    */
   @JsonProperty("connection_state")
   private NccAzurePrivateEndpointRuleConnectionState connectionState;

@@ -11,9 +11,12 @@ import com.databricks.sdk.support.Generated;
  * configuration encapsulates the AWS KMS key information and some information about how the key
  * configuration can be used. There are two possible uses for key configurations:
  *
- * <p>* Managed services: A key configuration can be used to encrypt a workspace's notebook and
- * secret data in the control plane, as well as Databricks SQL queries and query history. * Storage:
- * A key configuration can be used to encrypt a workspace's DBFS and EBS data in the data plane.
+ * <ul>
+ *   <li>Managed services: A key configuration can be used to encrypt a workspace's notebook and
+ *       secret data in the control plane, as well as Databricks SQL queries and query history.
+ *   <li>Storage: A key configuration can be used to encrypt a workspace's DBFS and EBS data in the
+ *       data plane.
+ * </ul>
  *
  * <p>In both of these cases, the key configuration's ID is used when creating a new workspace. This
  * Preview feature is available if your account is on the E2 version of the platform. Updating a
@@ -46,21 +49,20 @@ public class EncryptionKeysAPI {
    * workspace storage, the key encrypts the workspace's root S3 bucket (which contains the
    * workspace's root DBFS and system data) and, optionally, cluster EBS volume data.
    *
-   * <p>**Important**: Customer-managed keys are supported only for some deployment types,
+   * <p><b>Important</b>: Customer-managed keys are supported only for some deployment types,
    * subscription types, and AWS regions that currently support creation of Databricks workspaces.
    *
    * <p>This operation is available only if your account is on the E2 version of the platform or on
    * a select custom plan that allows multiple workspaces per account.
    *
-   * <p>**GCP only**: To create a customer-managed key on GCP, you must include the
-   * `X-Databricks-GCP-SA-Access-Token` HTTP header in your request. This header must contain a
-   * Google Cloud OAuth access token with the `cloud-platform` scope. The Google identity associated
-   * with the token must also have the `setIamPermissions` and `getIamPermissions` IAM permissions
-   * on the key resource. For details on obtaining this token, see [Authenticate with Google ID
-   * tokens].
-   *
-   * <p>[Authenticate with Google ID tokens]:
-   * https://docs.databricks.com/gcp/en/dev-tools/auth/authentication-google-id.html
+   * <p><b>GCP only</b>: To create a customer-managed key on GCP, you must include the {@code
+   * X-Databricks-GCP-SA-Access-Token} HTTP header in your request. This header must contain a
+   * Google Cloud OAuth access token with the {@code cloud-platform} scope. The Google identity
+   * associated with the token must also have the {@code setIamPermissions} and {@code
+   * getIamPermissions} IAM permissions on the key resource. For details on obtaining this token,
+   * see <a
+   * href="https://docs.databricks.com/gcp/en/dev-tools/auth/authentication-google-id.html">Authenticate
+   * with Google ID tokens</a>.
    */
   public CustomerManagedKey create(CreateCustomerManagedKeyRequest request) {
     return impl.create(request);
@@ -91,7 +93,7 @@ public class EncryptionKeysAPI {
    * key encrypts the workspace's root S3 bucket (which contains the workspace's root DBFS and
    * system data) and, optionally, cluster EBS volume data.
    *
-   * <p>**Important**: Customer-managed keys are supported only for some deployment types,
+   * <p><b>Important</b>: Customer-managed keys are supported only for some deployment types,
    * subscription types, and AWS regions.
    *
    * <p>This operation is available only if your account is on the E2 version of the platform.",

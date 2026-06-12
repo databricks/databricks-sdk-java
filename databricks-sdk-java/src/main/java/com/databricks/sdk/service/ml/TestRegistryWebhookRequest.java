@@ -11,8 +11,8 @@ import java.util.Objects;
 @Generated
 public class TestRegistryWebhookRequest {
   /**
-   * If `event` is specified, the test trigger uses the specified event. If `event` is not
-   * specified, the test trigger uses a randomly chosen event associated with the webhook.
+   * If {@code event} is specified, the test trigger uses the specified event. If {@code event} is
+   * not specified, the test trigger uses a randomly chosen event associated with the webhook.
    */
   @JsonProperty("event")
   private RegistryWebhookEvent event;

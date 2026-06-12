@@ -19,7 +19,7 @@ public class PipelinesEnvironment {
    * List of pip dependencies, as supported by the version of pip in this environment. Each
    * dependency is a pip requirement file line
    * https://pip.pypa.io/en/stable/reference/requirements-file-format/ Allowed dependency could be
-   * <requirement specifier>, <archive url/path>, <local project path>(WSFS or Volumes in
+   * <requirement specifier>, &lt;archive url/path&gt;, <local project path>(WSFS or Volumes in
    * Databricks), <vcs project url>
    */
   @JsonProperty("dependencies")
@@ -36,7 +36,7 @@ public class PipelinesEnvironment {
    * https://docs.databricks.com/aws/en/release-notes/serverless/environment-version/
    *
    * <p>The value should be a string representing the environment version number, for example:
-   * `"4"`.
+   * {@code "4"}.
    */
   @JsonProperty("environment_version")
   private String environmentVersion;

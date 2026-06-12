@@ -11,16 +11,24 @@ import java.util.Objects;
 @Generated
 public class ListClusterPoliciesRequest {
   /**
-   * The cluster policy attribute to sort by. * `POLICY_CREATION_TIME` - Sort result list by policy
-   * creation time. * `POLICY_NAME` - Sort result list by policy name.
+   * The cluster policy attribute to sort by.
+   *
+   * <ul>
+   *   <li>{@code POLICY_CREATION_TIME} - Sort result list by policy creation time.
+   *   <li>{@code POLICY_NAME} - Sort result list by policy name.
+   * </ul>
    */
   @JsonIgnore
   @QueryParam("sort_column")
   private ListSortColumn sortColumn;
 
   /**
-   * The order in which the policies get listed. * `DESC` - Sort result list in descending order. *
-   * `ASC` - Sort result list in ascending order.
+   * The order in which the policies get listed.
+   *
+   * <ul>
+   *   <li>{@code DESC} - Sort result list in descending order.
+   *   <li>{@code ASC} - Sort result list in ascending order.
+   * </ul>
    */
   @JsonIgnore
   @QueryParam("sort_order")

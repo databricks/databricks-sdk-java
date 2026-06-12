@@ -13,7 +13,7 @@ public class RenameModelRequest {
   @JsonProperty("name")
   private String name;
 
-  /** If provided, updates the name for this `registered_model`. */
+  /** If provided, updates the name for this {@code registered_model}. */
   @JsonProperty("new_name")
   private String newName;
 

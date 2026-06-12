@@ -14,17 +14,18 @@ public class SearchLoggedModelsOrderBy {
   private Boolean ascending;
 
   /**
-   * If ``field_name`` refers to a metric, this field specifies the digest of the dataset associated
-   * with the metric. Only metrics associated with the specified dataset name and digest will be
-   * considered for ordering. This field may only be set if ``dataset_name`` is also set.
+   * If {@code field_name} refers to a metric, this field specifies the digest of the dataset
+   * associated with the metric. Only metrics associated with the specified dataset name and digest
+   * will be considered for ordering. This field may only be set if {@code dataset_name} is also
+   * set.
    */
   @JsonProperty("dataset_digest")
   private String datasetDigest;
 
   /**
-   * If ``field_name`` refers to a metric, this field specifies the name of the dataset associated
-   * with the metric. Only metrics associated with the specified dataset name will be considered for
-   * ordering. This field may only be set if ``field_name`` refers to a metric.
+   * If {@code field_name} refers to a metric, this field specifies the name of the dataset
+   * associated with the metric. Only metrics associated with the specified dataset name will be
+   * considered for ordering. This field may only be set if {@code field_name} refers to a metric.
    */
   @JsonProperty("dataset_name")
   private String datasetName;

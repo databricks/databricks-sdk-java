@@ -9,8 +9,8 @@ import com.databricks.sdk.support.Paginator;
 
 /**
  * These APIs manage log delivery configurations for this account. The two supported log types for
- * this API are _billable usage logs_ (AWS only) and _audit logs_ (AWS and GCP). This feature is in
- * Public Preview. This feature works with all account ID types.
+ * this API are <i>billable usage logs</i> (AWS only) and <i>audit logs</i> (AWS and GCP). This
+ * feature is in Public Preview. This feature works with all account ID types.
  *
  * <p>Log delivery works with all account types. However, if your account is on the E2 version of
  * the platform or on a select custom plan that allows multiple workspaces per account, you can
@@ -19,52 +19,66 @@ import com.databricks.sdk.support.Paginator;
  *
  * <p>The high-level flow of billable usage delivery (AWS only):
  *
- * <p>1. **Create storage**: In AWS, [create a new AWS S3 bucket] with a specific bucket policy.
- * Using Databricks APIs, call the Account API to create a [storage configuration
- * object](:method:Storage/Create) that uses the bucket name.
+ * <ol>
+ *   <li><b>Create storage</b>: In AWS, <a
+ *       href="https://docs.databricks.com/administration-guide/account-api/aws-storage.html">create
+ *       a new AWS S3 bucket</a> with a specific bucket policy. Using Databricks APIs, call the
+ *       Account API to create a <a href=":method:Storage/Create">storage configuration object</a>
+ *       that uses the bucket name.
+ *   <li><b>Create credentials</b>: In AWS, create the appropriate AWS IAM role. For full details,
+ *       including the required IAM role policies and trust relationship, see <a
+ *       href="https://docs.databricks.com/administration-guide/account-settings/billable-usage-delivery.html">Billable
+ *       usage log delivery</a>. Using Databricks APIs, call the Account API to create a <a
+ *       href=":method:Credentials/Create">credential configuration object</a> that uses the IAM
+ *       role's ARN.
+ *   <li><b>Create log delivery configuration</b>: Using Databricks APIs, call the Account API to <a
+ *       href=":method:LogDelivery/Create">create a log delivery configuration</a> that uses the
+ *       credential and storage configuration objects from previous steps. You can specify if the
+ *       logs should include all events of that log type in your account (<i>Account level</i>
+ *       delivery) or only events for a specific set of workspaces (<i>workspace level</i>
+ *       delivery). Account level log delivery applies to all current and future workspaces plus
+ *       account level logs, while workspace level log delivery solely delivers logs related to the
+ *       specified workspaces. You can create multiple types of delivery configurations per account.
+ * </ol>
  *
- * <p>2. **Create credentials**: In AWS, create the appropriate AWS IAM role. For full details,
- * including the required IAM role policies and trust relationship, see [Billable usage log
- * delivery]. Using Databricks APIs, call the Account API to create a [credential configuration
- * object](:method:Credentials/Create) that uses the IAM role's ARN.
+ * <p>For billable usage delivery (AWS only):
  *
- * <p>3. **Create log delivery configuration**: Using Databricks APIs, call the Account API to
- * [create a log delivery configuration](:method:LogDelivery/Create) that uses the credential and
- * storage configuration objects from previous steps. You can specify if the logs should include all
- * events of that log type in your account (_Account level_ delivery) or only events for a specific
- * set of workspaces (_workspace level_ delivery). Account level log delivery applies to all current
- * and future workspaces plus account level logs, while workspace level log delivery solely delivers
- * logs related to the specified workspaces. You can create multiple types of delivery
- * configurations per account.
+ * <ul>
+ *   <li>For more information about billable usage logs, see <a
+ *       href="https://docs.databricks.com/administration-guide/account-settings/billable-usage-delivery.html">Billable
+ *       usage log delivery</a>. For the CSV schema, see the <a
+ *       href="https://docs.databricks.com/administration-guide/account-settings/usage.html">Usage
+ *       page</a>.
+ *   <li>The delivery location is {@code <bucket-name>/<prefix>/billable-usage/csv/}, where {@code
+ *       <prefix>} is the name of the optional delivery path prefix you set up during log delivery
+ *       configuration. Files are named {@code workspaceId=<workspace-id>-usageMonth=<month>.csv}.
+ *   <li>All billable usage logs apply to specific workspaces (<i>workspace level</i> logs). You can
+ *       aggregate usage for your entire account by creating an <i>account level</i> delivery
+ *       configuration that delivers logs for all current and future workspaces in your account.
+ *   <li>The files are delivered daily by overwriting the month's CSV file for each workspace.
+ * </ul>
  *
- * <p>For billable usage delivery (AWS only): * For more information about billable usage logs, see
- * [Billable usage log delivery]. For the CSV schema, see the [Usage page]. * The delivery location
- * is `<bucket-name>/<prefix>/billable-usage/csv/`, where `<prefix>` is the name of the optional
- * delivery path prefix you set up during log delivery configuration. Files are named
- * `workspaceId=<workspace-id>-usageMonth=<month>.csv`. * All billable usage logs apply to specific
- * workspaces (_workspace level_ logs). You can aggregate usage for your entire account by creating
- * an _account level_ delivery configuration that delivers logs for all current and future
- * workspaces in your account. * The files are delivered daily by overwriting the month's CSV file
- * for each workspace.
+ * <p>For audit log delivery (AWS and GCP):
  *
- * <p>For audit log delivery (AWS and GCP): * For more information about about audit log delivery,
- * see Audit log delivery [AWS] or [GCP], which includes information about the used JSON schema. *
- * The delivery location is
- * `<bucket-name>/<delivery-path-prefix>/workspaceId=<workspaceId>/date=<yyyy-mm-dd>/auditlogs_<internal-id>.json`.
- * Files may get overwritten with the same content multiple times to achieve exactly-once delivery.
- * * If the audit log delivery configuration included specific workspace IDs, only _workspace-level_
- * audit logs for those workspaces are delivered. If the log delivery configuration applies to the
- * entire account (_account level_ delivery configuration), the audit log delivery includes
- * workspace-level audit logs for all workspaces in the account as well as account-level audit logs.
- * See Audit log delivery [AWS] or [GCP] for details. * Auditable events are typically available in
- * logs within 15 minutes.
- *
- * <p>[AWS]: https://docs.databricks.com/administration-guide/account-settings/audit-logs.html
- * [Billable usage log delivery]:
- * https://docs.databricks.com/administration-guide/account-settings/billable-usage-delivery.html
- * [GCP]: https://docs.databricks.com/gcp/en/admin/account-settings/audit-logs [Usage page]:
- * https://docs.databricks.com/administration-guide/account-settings/usage.html [create a new AWS S3
- * bucket]: https://docs.databricks.com/administration-guide/account-api/aws-storage.html
+ * <ul>
+ *   <li>For more information about about audit log delivery, see Audit log delivery <a
+ *       href="https://docs.databricks.com/administration-guide/account-settings/audit-logs.html">AWS</a>
+ *       or <a href="https://docs.databricks.com/gcp/en/admin/account-settings/audit-logs">GCP</a>,
+ *       which includes information about the used JSON schema.
+ *   <li>The delivery location is {@code
+ *       <bucket-name>/<delivery-path-prefix>/workspaceId=<workspaceId>/date=<yyyy-mm-dd>/auditlogs_<internal-id>.json}.
+ *       Files may get overwritten with the same content multiple times to achieve exactly-once
+ *       delivery.
+ *   <li>If the audit log delivery configuration included specific workspace IDs, only
+ *       <i>workspace-level</i> audit logs for those workspaces are delivered. If the log delivery
+ *       configuration applies to the entire account (<i>account level</i> delivery configuration),
+ *       the audit log delivery includes workspace-level audit logs for all workspaces in the
+ *       account as well as account-level audit logs. See Audit log delivery <a
+ *       href="https://docs.databricks.com/administration-guide/account-settings/audit-logs.html">AWS</a>
+ *       or <a href="https://docs.databricks.com/gcp/en/admin/account-settings/audit-logs">GCP</a>
+ *       for details.
+ *   <li>Auditable events are typically available in logs within 15 minutes.
+ * </ul>
  */
 @Generated
 public class LogDeliveryAPI {
@@ -84,14 +98,18 @@ public class LogDeliveryAPI {
 
   /**
    * Creates a new Databricks log delivery configuration to enable delivery of the specified type of
-   * logs to your storage location. This requires that you already created a [credential
-   * object](:method:Credentials/Create) (which encapsulates a cross-account service IAM role) and a
-   * [storage configuration object](:method:Storage/Create) (which encapsulates an S3 bucket).
+   * logs to your storage location. This requires that you already created a <a
+   * href=":method:Credentials/Create">credential object</a> (which encapsulates a cross-account
+   * service IAM role) and a <a href=":method:Storage/Create">storage configuration object</a>
+   * (which encapsulates an S3 bucket).
    *
-   * <p>For full details, including the required IAM role policies and bucket policies, see [Deliver
-   * and access billable usage logs] or [Configure audit logging].
+   * <p>For full details, including the required IAM role policies and bucket policies, see <a
+   * href="https://docs.databricks.com/administration-guide/account-settings/billable-usage-delivery.html">Deliver
+   * and access billable usage logs</a> or <a
+   * href="https://docs.databricks.com/administration-guide/account-settings/audit-logs.html">Configure
+   * audit logging</a>.
    *
-   * <p>**Note**: There is a limit on the number of log delivery configurations available per
+   * <p><b>Note</b>: There is a limit on the number of log delivery configurations available per
    * account (each limit applies separately to each log type including billable usage and audit
    * logs). You can create a maximum of two enabled account-level delivery configurations
    * (configurations without a workspace filter) per type. Additionally, you can create two enabled
@@ -99,13 +117,8 @@ public class LogDeliveryAPI {
    * same workspace ID can occur in the workspace filter for no more than two delivery
    * configurations per log type.
    *
-   * <p>You cannot delete a log delivery configuration, but you can disable it (see [Enable or
-   * disable log delivery configuration](:method:LogDelivery/PatchStatus)).
-   *
-   * <p>[Configure audit logging]:
-   * https://docs.databricks.com/administration-guide/account-settings/audit-logs.html [Deliver and
-   * access billable usage logs]:
-   * https://docs.databricks.com/administration-guide/account-settings/billable-usage-delivery.html
+   * <p>You cannot delete a log delivery configuration, but you can disable it (see <a
+   * href=":method:LogDelivery/PatchStatus">Enable or disable log delivery configuration</a>).
    */
   public WrappedLogDeliveryConfiguration create(WrappedCreateLogDeliveryConfiguration request) {
     return impl.create(request);
@@ -140,7 +153,7 @@ public class LogDeliveryAPI {
    * Enables or disables a log delivery configuration. Deletion of delivery configurations is not
    * supported, so disable log delivery configurations that are no longer needed. Note that you
    * can't re-enable a delivery configuration if this would violate the delivery configuration
-   * limits described under [Create log delivery](:method:LogDelivery/Create).
+   * limits described under <a href=":method:LogDelivery/Create">Create log delivery</a>.
    */
   public void patchStatus(UpdateLogDeliveryConfigurationStatusRequest request) {
     impl.patchStatus(request);

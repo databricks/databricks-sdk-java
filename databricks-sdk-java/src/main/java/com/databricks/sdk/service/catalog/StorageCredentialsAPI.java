@@ -39,8 +39,8 @@ public class StorageCredentialsAPI {
   /**
    * Creates a new storage credential.
    *
-   * <p>The caller must be a metastore admin or have the **CREATE_STORAGE_CREDENTIAL** privilege on
-   * the metastore.
+   * <p>The caller must be a metastore admin or have the <b>CREATE_STORAGE_CREDENTIAL</b> privilege
+   * on the metastore.
    */
   public StorageCredentialInfo create(CreateStorageCredential request) {
     return impl.create(request);
@@ -71,7 +71,7 @@ public class StorageCredentialsAPI {
   }
 
   /**
-   * Gets an array of storage credentials (as __StorageCredentialInfo__ objects). The array is
+   * Gets an array of storage credentials (as <b>StorageCredentialInfo</b> objects). The array is
    * limited to only those storage credentials the caller has permission to access. If the caller is
    * a metastore admin, retrieval of credentials is unrestricted. There is no guarantee of a
    * specific ordering of the elements in the array.
@@ -79,7 +79,7 @@ public class StorageCredentialsAPI {
    * <p>NOTE: we recommend using max_results=0 to use the paginated version of this API. Unpaginated
    * calls will be deprecated soon.
    *
-   * <p>PAGINATION BEHAVIOR: When using pagination (max_results >= 0), a page may contain zero
+   * <p>PAGINATION BEHAVIOR: When using pagination (max_results &gt;= 0), a page may contain zero
    * results while still providing a next_page_token. Clients must continue reading pages until
    * next_page_token is absent, which is the only indication that the end of results has been
    * reached.
@@ -106,22 +106,22 @@ public class StorageCredentialsAPI {
    * Updates a storage credential on the metastore.
    *
    * <p>The caller must be the owner of the storage credential or a metastore admin. If the caller
-   * is a metastore admin, only the **owner** field can be changed.
+   * is a metastore admin, only the <b>owner</b> field can be changed.
    */
   public StorageCredentialInfo update(UpdateStorageCredential request) {
     return impl.update(request);
   }
 
   /**
-   * Validates a storage credential. At least one of __external_location_name__ and __url__ need to
-   * be provided. If only one of them is provided, it will be used for validation. And if both are
-   * provided, the __url__ will be used for validation, and __external_location_name__ will be
-   * ignored when checking overlapping urls.
+   * Validates a storage credential. At least one of <b>external_location_name</b> and <b>url</b>
+   * need to be provided. If only one of them is provided, it will be used for validation. And if
+   * both are provided, the <b>url</b> will be used for validation, and
+   * <b>external_location_name</b> will be ignored when checking overlapping urls.
    *
-   * <p>Either the __storage_credential_name__ or the cloud-specific credential must be provided.
+   * <p>Either the <b>storage_credential_name</b> or the cloud-specific credential must be provided.
    *
    * <p>The caller must be a metastore admin or the storage credential owner or have the
-   * **CREATE_EXTERNAL_LOCATION** privilege on the metastore and the storage credential.
+   * <b>CREATE_EXTERNAL_LOCATION</b> privilege on the metastore and the storage credential.
    */
   public ValidateStorageCredentialResponse validate(ValidateStorageCredential request) {
     return impl.validate(request);

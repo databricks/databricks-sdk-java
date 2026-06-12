@@ -70,13 +70,11 @@ public class RunOutput {
 
   /**
    * The output of a notebook task, if available. A notebook task that terminates (either
-   * successfully or with a failure) without calling `dbutils.notebook.exit()` is considered to have
-   * an empty output. This field is set but its result value is empty. Databricks restricts this API
-   * to return the first 5 MB of the output. To return a larger result, use the [ClusterLogConf]
+   * successfully or with a failure) without calling {@code dbutils.notebook.exit()} is considered
+   * to have an empty output. This field is set but its result value is empty. Databricks restricts
+   * this API to return the first 5 MB of the output. To return a larger result, use the <a
+   * href="https://docs.databricks.com/dev-tools/api/latest/clusters.html#clusterlogconf">ClusterLogConf</a>
    * field to configure log storage for the job cluster.
-   *
-   * <p>[ClusterLogConf]:
-   * https://docs.databricks.com/dev-tools/api/latest/clusters.html#clusterlogconf
    */
   @JsonProperty("notebook_output")
   private NotebookOutput notebookOutput;

@@ -13,7 +13,7 @@ public class ListQueryHistoryRequest {
   /**
    * An optional filter object to limit query history results. Accepts parameters such as user IDs,
    * endpoint IDs, and statuses to narrow the returned data. In a URL, the parameters of this filter
-   * are specified with dot notation. For example: `filter_by.statement_ids`.
+   * are specified with dot notation. For example: {@code filter_by.statement_ids}.
    */
   @JsonIgnore
   @QueryParam("filter_by")

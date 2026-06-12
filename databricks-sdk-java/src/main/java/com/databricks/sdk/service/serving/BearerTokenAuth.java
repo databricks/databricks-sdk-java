@@ -11,14 +11,14 @@ import java.util.Objects;
 public class BearerTokenAuth {
   /**
    * The Databricks secret key reference for a token. If you prefer to paste your token directly,
-   * see `token_plaintext`.
+   * see {@code token_plaintext}.
    */
   @JsonProperty("token")
   private String token;
 
   /**
    * The token provided as a plaintext string. If you prefer to reference your token using
-   * Databricks Secrets, see `token`.
+   * Databricks Secrets, see {@code token}.
    */
   @JsonProperty("token_plaintext")
   private String tokenPlaintext;

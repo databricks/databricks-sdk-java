@@ -17,7 +17,7 @@ public interface ConsumerFulfillmentsService {
       GetListingContentMetadataRequest getListingContentMetadataRequest);
 
   /**
-   * Get all listings fulfillments associated with a listing. A _fulfillment_ is a potential
+   * Get all listings fulfillments associated with a listing. A <i>fulfillment</i> is a potential
    * installation. Standard installations contain metadata about the attached share or git repo.
    * Only one of these fields will be present. Personalized installations contain metadata about the
    * attached share or git repo, as well as the Delta Sharing recipient type.

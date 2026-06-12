@@ -7,10 +7,18 @@ import com.databricks.sdk.support.Generated;
 /**
  * The state of a Cluster. The current allowable state transitions are as follows:
  *
- * <p>- `PENDING` -> `RUNNING` - `PENDING` -> `TERMINATING` - `RUNNING` -> `RESIZING` - `RUNNING` ->
- * `RESTARTING` - `RUNNING` -> `TERMINATING` - `RESTARTING` -> `RUNNING` - `RESTARTING` ->
- * `TERMINATING` - `RESIZING` -> `RUNNING` - `RESIZING` -> `TERMINATING` - `TERMINATING` ->
- * `TERMINATED`
+ * <ul>
+ *   <li>{@code PENDING} -&gt; {@code RUNNING}
+ *   <li>{@code PENDING} -&gt; {@code TERMINATING}
+ *   <li>{@code RUNNING} -&gt; {@code RESIZING}
+ *   <li>{@code RUNNING} -&gt; {@code RESTARTING}
+ *   <li>{@code RUNNING} -&gt; {@code TERMINATING}
+ *   <li>{@code RESTARTING} -&gt; {@code RUNNING}
+ *   <li>{@code RESTARTING} -&gt; {@code TERMINATING}
+ *   <li>{@code RESIZING} -&gt; {@code RUNNING}
+ *   <li>{@code RESIZING} -&gt; {@code TERMINATING}
+ *   <li>{@code TERMINATING} -&gt; {@code TERMINATED}
+ * </ul>
  */
 @Generated
 public enum State {

@@ -15,7 +15,7 @@ public class CreateTableRequest {
   @JsonProperty("catalog_name")
   private String catalogName;
 
-  /** The array of __ColumnInfo__ definitions of the table's columns. */
+  /** The array of <b>ColumnInfo</b> definitions of the table's columns. */
   @JsonProperty("columns")
   private Collection<ColumnInfo> columns;
 
@@ -35,7 +35,7 @@ public class CreateTableRequest {
   @JsonProperty("schema_name")
   private String schemaName;
 
-  /** Storage root URL for table (for **MANAGED**, **EXTERNAL** tables). */
+  /** Storage root URL for table (for <b>MANAGED</b>, <b>EXTERNAL</b> tables). */
   @JsonProperty("storage_location")
   private String storageLocation;
 

@@ -11,16 +11,16 @@ import java.util.Objects;
 @Generated
 public class CreateBudgetPolicyRequest {
   /**
-   * The policy to create. `policy_id` needs to be empty as it will be generated `policy_name` must
-   * be provided, custom_tags may need to be provided depending on the cloud provider. All other
-   * fields are optional.
+   * The policy to create. {@code policy_id} needs to be empty as it will be generated {@code
+   * policy_name} must be provided, custom_tags may need to be provided depending on the cloud
+   * provider. All other fields are optional.
    */
   @JsonProperty("policy")
   private BudgetPolicy policy;
 
   /**
    * A unique identifier for this request. Restricted to 36 ASCII characters. A random UUID is
-   * recommended. This request is only idempotent if a `request_id` is provided.
+   * recommended. This request is only idempotent if a {@code request_id} is provided.
    */
   @JsonProperty("request_id")
   private String requestId;

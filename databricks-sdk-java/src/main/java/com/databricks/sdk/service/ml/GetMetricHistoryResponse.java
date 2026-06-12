@@ -11,9 +11,9 @@ import java.util.Objects;
 @Generated
 public class GetMetricHistoryResponse {
   /**
-   * All logged values for this metric if `max_results` is not specified in the request or if the
-   * total count of metrics returned is less than the service level pagination threshold. Otherwise,
-   * this is one page of results.
+   * All logged values for this metric if {@code max_results} is not specified in the request or if
+   * the total count of metrics returned is less than the service level pagination threshold.
+   * Otherwise, this is one page of results.
    */
   @JsonProperty("metrics")
   private Collection<Metric> metrics;

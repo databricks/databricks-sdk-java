@@ -36,9 +36,10 @@ public class DefaultNamespaceAPI {
 
   /**
    * Deletes the default namespace setting for the workspace. A fresh etag needs to be provided in
-   * `DELETE` requests (as a query parameter). The etag can be retrieved by making a `GET` request
-   * before the `DELETE` request. If the setting is updated/deleted concurrently, `DELETE` fails
-   * with 409 and the request must be retried by using the fresh etag in the 409 response.
+   * {@code DELETE} requests (as a query parameter). The etag can be retrieved by making a {@code
+   * GET} request before the {@code DELETE} request. If the setting is updated/deleted concurrently,
+   * {@code DELETE} fails with 409 and the request must be retried by using the fresh etag in the
+   * 409 response.
    */
   public DeleteDefaultNamespaceSettingResponse delete(
       DeleteDefaultNamespaceSettingRequest request) {
@@ -52,11 +53,12 @@ public class DefaultNamespaceAPI {
 
   /**
    * Updates the default namespace setting for the workspace. A fresh etag needs to be provided in
-   * `PATCH` requests (as part of the setting field). The etag can be retrieved by making a `GET`
-   * request before the `PATCH` request. Note that if the setting does not exist, `GET` returns a
-   * NOT_FOUND error and the etag is present in the error response, which should be set in the
-   * `PATCH` request. If the setting is updated concurrently, `PATCH` fails with 409 and the request
-   * must be retried by using the fresh etag in the 409 response.
+   * {@code PATCH} requests (as part of the setting field). The etag can be retrieved by making a
+   * {@code GET} request before the {@code PATCH} request. Note that if the setting does not exist,
+   * {@code GET} returns a NOT_FOUND error and the etag is present in the error response, which
+   * should be set in the {@code PATCH} request. If the setting is updated concurrently, {@code
+   * PATCH} fails with 409 and the request must be retried by using the fresh etag in the 409
+   * response.
    */
   public DefaultNamespaceSetting update(UpdateDefaultNamespaceSettingRequest request) {
     return impl.update(request);

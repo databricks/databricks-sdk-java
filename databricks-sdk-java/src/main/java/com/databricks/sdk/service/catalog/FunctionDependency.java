@@ -12,7 +12,7 @@ import java.util.Objects;
 public class FunctionDependency {
   /**
    * Full name of the dependent function, in the form of
-   * __catalog_name__.__schema_name__.__function_name__.
+   * <b>catalog_name</b>.<b>schema_name</b>.<b>function_name</b>.
    */
   @JsonProperty("function_full_name")
   private String functionFullName;

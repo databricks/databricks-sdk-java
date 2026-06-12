@@ -20,16 +20,16 @@ public class AwsAttributes {
    * volumes. For node types with no instance store, at least one EBS volume needs to be specified;
    * otherwise, cluster creation will fail.
    *
-   * <p>These EBS volumes will be mounted at `/ebs0`, `/ebs1`, and etc. Instance store volumes will
-   * be mounted at `/local_disk0`, `/local_disk1`, and etc.
+   * <p>These EBS volumes will be mounted at {@code /ebs0}, {@code /ebs1}, and etc. Instance store
+   * volumes will be mounted at {@code /local_disk0}, {@code /local_disk1}, and etc.
    *
    * <p>If EBS volumes are attached, Databricks will configure Spark to use only the EBS volumes for
    * scratch storage because heterogenously sized scratch devices can lead to inefficient disk
    * utilization. If no EBS volumes are attached, Databricks will configure Spark to use instance
    * store volumes.
    *
-   * <p>Please note that if EBS volumes are specified, then the Spark configuration
-   * `spark.local.dir` will be overridden.
+   * <p>Please note that if EBS volumes are specified, then the Spark configuration {@code
+   * spark.local.dir} will be overridden.
    */
   @JsonProperty("ebs_volume_count")
   private Long ebsVolumeCount;
@@ -61,13 +61,13 @@ public class AwsAttributes {
   private EbsVolumeType ebsVolumeType;
 
   /**
-   * The first `first_on_demand` nodes of the cluster will be placed on on-demand instances. If this
-   * value is greater than 0, the cluster driver node in particular will be placed on an on-demand
-   * instance. If this value is greater than or equal to the current cluster size, all nodes will be
-   * placed on on-demand instances. If this value is less than the current cluster size,
-   * `first_on_demand` nodes will be placed on on-demand instances and the remainder will be placed
-   * on `availability` instances. Note that this value does not affect cluster size and cannot
-   * currently be mutated over the lifetime of a cluster.
+   * The first {@code first_on_demand} nodes of the cluster will be placed on on-demand instances.
+   * If this value is greater than 0, the cluster driver node in particular will be placed on an
+   * on-demand instance. If this value is greater than or equal to the current cluster size, all
+   * nodes will be placed on on-demand instances. If this value is less than the current cluster
+   * size, {@code first_on_demand} nodes will be placed on on-demand instances and the remainder
+   * will be placed on {@code availability} instances. Note that this value does not affect cluster
+   * size and cannot currently be mutated over the lifetime of a cluster.
    */
   @JsonProperty("first_on_demand")
   private Long firstOnDemand;
@@ -85,10 +85,10 @@ public class AwsAttributes {
 
   /**
    * The bid price for AWS spot instances, as a percentage of the corresponding instance type's
-   * on-demand price. For example, if this field is set to 50, and the cluster needs a new
-   * `r3.xlarge` spot instance, then the bid price is half of the price of on-demand `r3.xlarge`
-   * instances. Similarly, if this field is set to 200, the bid price is twice the price of
-   * on-demand `r3.xlarge` instances. If not specified, the default value is 100. When spot
+   * on-demand price. For example, if this field is set to 50, and the cluster needs a new {@code
+   * r3.xlarge} spot instance, then the bid price is half of the price of on-demand {@code
+   * r3.xlarge} instances. Similarly, if this field is set to 200, the bid price is twice the price
+   * of on-demand {@code r3.xlarge} instances. If not specified, the default value is 100. When spot
    * instances are requested for this cluster, only spot instances whose bid price percentage
    * matches this field will be considered. Note that, for safety, we enforce this field to be no
    * more than 10000.
@@ -105,8 +105,8 @@ public class AwsAttributes {
    * to place cluster in a zone with high availability, and will retry placement in a different AZ
    * if there is not enough capacity.
    *
-   * <p>The list of available zones as well as the default value can be found by using the `List
-   * Zones` method.
+   * <p>The list of available zones as well as the default value can be found by using the {@code
+   * List Zones} method.
    */
   @JsonProperty("zone_id")
   private String zoneId;

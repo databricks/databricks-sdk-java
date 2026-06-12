@@ -40,15 +40,23 @@ public class VolumesAPI {
    * default location which is specified by the parent schema, or the parent catalog, or the
    * Metastore.
    *
-   * <p>For the volume creation to succeed, the user must satisfy following conditions: - The caller
-   * must be a metastore admin, or be the owner of the parent catalog and schema, or have the
-   * **USE_CATALOG** privilege on the parent catalog and the **USE_SCHEMA** privilege on the parent
-   * schema. - The caller must have **CREATE VOLUME** privilege on the parent schema.
+   * <p>For the volume creation to succeed, the user must satisfy following conditions:
    *
-   * <p>For an external volume, following conditions also need to satisfy - The caller must have
-   * **CREATE EXTERNAL VOLUME** privilege on the external location. - There are no other tables, nor
-   * volumes existing in the specified storage location. - The specified storage location is not
-   * under the location of other tables, nor volumes, or catalogs or schemas.
+   * <ul>
+   *   <li>The caller must be a metastore admin, or be the owner of the parent catalog and schema,
+   *       or have the <b>USE_CATALOG</b> privilege on the parent catalog and the <b>USE_SCHEMA</b>
+   *       privilege on the parent schema.
+   *   <li>The caller must have <b>CREATE VOLUME</b> privilege on the parent schema.
+   * </ul>
+   *
+   * <p>For an external volume, following conditions also need to satisfy
+   *
+   * <ul>
+   *   <li>The caller must have <b>CREATE EXTERNAL VOLUME</b> privilege on the external location.
+   *   <li>There are no other tables, nor volumes existing in the specified storage location.
+   *   <li>The specified storage location is not under the location of other tables, nor volumes, or
+   *       catalogs or schemas.
+   * </ul>
    */
   public VolumeInfo create(CreateVolumeRequestContent request) {
     return impl.create(request);
@@ -62,8 +70,8 @@ public class VolumesAPI {
    * Deletes a volume from the specified parent catalog and schema.
    *
    * <p>The caller must be a metastore admin or an owner of the volume. For the latter case, the
-   * caller must also be the owner or have the **USE_CATALOG** privilege on the parent catalog and
-   * the **USE_SCHEMA** privilege on the parent schema.
+   * caller must also be the owner or have the <b>USE_CATALOG</b> privilege on the parent catalog
+   * and the <b>USE_SCHEMA</b> privilege on the parent schema.
    */
   public void delete(DeleteVolumeRequest request) {
     impl.delete(request);
@@ -78,9 +86,9 @@ public class VolumesAPI {
    *
    * <p>The returned volumes are filtered based on the privileges of the calling user. For example,
    * the metastore admin is able to list all the volumes. A regular user needs to be the owner or
-   * have the **READ VOLUME** privilege on the volume to receive the volumes in the response. For
-   * the latter case, the caller must also be the owner or have the **USE_CATALOG** privilege on the
-   * parent catalog and the **USE_SCHEMA** privilege on the parent schema.
+   * have the <b>READ VOLUME</b> privilege on the volume to receive the volumes in the response. For
+   * the latter case, the caller must also be the owner or have the <b>USE_CATALOG</b> privilege on
+   * the parent catalog and the <b>USE_SCHEMA</b> privilege on the parent schema.
    *
    * <p>There is no guarantee of a specific ordering of the elements in the array.
    *
@@ -109,10 +117,10 @@ public class VolumesAPI {
   /**
    * Gets a volume from the metastore for a specific catalog and schema.
    *
-   * <p>The caller must be a metastore admin or an owner of (or have the **READ VOLUME** privilege
-   * on) the volume. For the latter case, the caller must also be the owner or have the
-   * **USE_CATALOG** privilege on the parent catalog and the **USE_SCHEMA** privilege on the parent
-   * schema.
+   * <p>The caller must be a metastore admin or an owner of (or have the <b>READ VOLUME</b>
+   * privilege on) the volume. For the latter case, the caller must also be the owner or have the
+   * <b>USE_CATALOG</b> privilege on the parent catalog and the <b>USE_SCHEMA</b> privilege on the
+   * parent schema.
    */
   public VolumeInfo read(ReadVolumeRequest request) {
     return impl.read(request);
@@ -122,8 +130,8 @@ public class VolumesAPI {
    * Updates the specified volume under the specified parent catalog and schema.
    *
    * <p>The caller must be a metastore admin or an owner of the volume. For the latter case, the
-   * caller must also be the owner or have the **USE_CATALOG** privilege on the parent catalog and
-   * the **USE_SCHEMA** privilege on the parent schema.
+   * caller must also be the owner or have the <b>USE_CATALOG</b> privilege on the parent catalog
+   * and the <b>USE_SCHEMA</b> privilege on the parent schema.
    *
    * <p>Currently only the name, the owner or the comment of the volume could be updated.
    */

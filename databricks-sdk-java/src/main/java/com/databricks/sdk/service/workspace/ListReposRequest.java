@@ -20,8 +20,8 @@ public class ListReposRequest {
 
   /**
    * Filters repos that have paths starting with the given path prefix. If not provided or when
-   * provided an effectively empty prefix (`/` or `/Workspace`) Git folders (repos) from
-   * `/Workspace/Repos` will be served.
+   * provided an effectively empty prefix ({@code /} or {@code /Workspace}) Git folders (repos) from
+   * {@code /Workspace/Repos} will be served.
    */
   @JsonIgnore
   @QueryParam("path_prefix")

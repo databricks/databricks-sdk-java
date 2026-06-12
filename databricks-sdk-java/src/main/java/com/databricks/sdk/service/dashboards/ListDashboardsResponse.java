@@ -15,8 +15,8 @@ public class ListDashboardsResponse {
   private Collection<Dashboard> dashboards;
 
   /**
-   * A token, which can be sent as `page_token` to retrieve the next page. If this field is omitted,
-   * there are no subsequent dashboards.
+   * A token, which can be sent as {@code page_token} to retrieve the next page. If this field is
+   * omitted, there are no subsequent dashboards.
    */
   @JsonProperty("next_page_token")
   private String nextPageToken;

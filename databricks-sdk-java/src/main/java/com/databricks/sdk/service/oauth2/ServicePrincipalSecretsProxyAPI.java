@@ -12,16 +12,14 @@ import com.databricks.sdk.support.Paginator;
  * use these APIs, the service principal must be first added to the current workspace.
  *
  * <p>You can use the generated secrets to obtain OAuth access tokens for a service principal, which
- * can then be used to access Databricks Accounts and Workspace APIs. For more information, see
- * [Authentication using OAuth tokens for service principals].
+ * can then be used to access Databricks Accounts and Workspace APIs. For more information, see <a
+ * href="https://docs.databricks.com/dev-tools/authentication-oauth.html">Authentication using OAuth
+ * tokens for service principals</a>.
  *
  * <p>In addition, the generated secrets can be used to configure the Databricks Terraform
- * Providerto authenticate with the service principal. For more information, see [Databricks
- * Terraform Provider].
- *
- * <p>[Authentication using OAuth tokens for service principals]:
- * https://docs.databricks.com/dev-tools/authentication-oauth.html [Databricks Terraform Provider]:
- * https://github.com/databricks/terraform-provider-databricks/blob/master/docs/index.md#authenticating-with-service-principal
+ * Providerto authenticate with the service principal. For more information, see <a
+ * href="https://github.com/databricks/terraform-provider-databricks/blob/master/docs/index.md#authenticating-with-service-principal">Databricks
+ * Terraform Provider</a>.
  */
 @Generated
 public class ServicePrincipalSecretsProxyAPI {

@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class CreateFunctionRequest {
-  /** Partial __FunctionInfo__ specifying the function to be created. */
+  /** Partial <b>FunctionInfo</b> specifying the function to be created. */
   @JsonProperty("function_info")
   private CreateFunction functionInfo;
 

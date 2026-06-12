@@ -19,7 +19,7 @@ public class ListSubscriptionsRequest {
   private Long pageSize;
 
   /**
-   * A page token, received from a previous `ListSubscriptions` call. Use this to retrieve the
+   * A page token, received from a previous {@code ListSubscriptions} call. Use this to retrieve the
    * subsequent page.
    */
   @JsonIgnore

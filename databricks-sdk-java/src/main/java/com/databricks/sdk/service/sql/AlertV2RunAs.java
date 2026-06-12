@@ -10,8 +10,8 @@ import java.util.Objects;
 @Generated
 public class AlertV2RunAs {
   /**
-   * Application ID of an active service principal. Setting this field requires the
-   * `servicePrincipal/user` role.
+   * Application ID of an active service principal. Setting this field requires the {@code
+   * servicePrincipal/user} role.
    */
   @JsonProperty("service_principal_name")
   private String servicePrincipalName;

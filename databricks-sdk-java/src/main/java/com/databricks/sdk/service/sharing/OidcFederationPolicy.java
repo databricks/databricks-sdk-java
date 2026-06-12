@@ -30,23 +30,46 @@ public class OidcFederationPolicy {
   /**
    * The required token subject, as specified in the subject claim of federated tokens. The subject
    * claim identifies the identity of the user or machine accessing the resource. Examples for Entra
-   * ID (AAD): - U2M flow (group access): If the subject claim is `groups`, this must be the Object
-   * ID of the group in Entra ID. - U2M flow (user access): If the subject claim is `oid`, this must
-   * be the Object ID of the user in Entra ID. - M2M flow (OAuth App access): If the subject claim
-   * is `azp`, this must be the client ID of the OAuth app registered in Entra ID.
+   * ID (AAD):
+   *
+   * <ul>
+   *   <li>U2M flow (group access): If the subject claim is {@code groups}, this must be the Object
+   *       ID of the group in Entra ID.
+   *   <li>U2M flow (user access): If the subject claim is {@code oid}, this must be the Object ID
+   *       of the user in Entra ID.
+   *   <li>M2M flow (OAuth App access): If the subject claim is {@code azp}, this must be the client
+   *       ID of the OAuth app registered in Entra ID.
+   * </ul>
    */
   @JsonProperty("subject")
   private String subject;
 
   /**
    * The claim that contains the subject of the token. Depending on the identity provider and the
-   * use case (U2M or M2M), this can vary: - For Entra ID (AAD): * U2M flow (group access): Use
-   * `groups`. * U2M flow (user access): Use `oid`. * M2M flow (OAuth App access): Use `azp`. - For
-   * other IdPs, refer to the specific IdP documentation.
+   * use case (U2M or M2M), this can vary:
    *
-   * <p>Supported `subject_claim` values are: - `oid`: Object ID of the user. - `azp`: Client ID of
-   * the OAuth app. - `groups`: Object ID of the group. - `sub`: Subject identifier for other use
-   * cases.
+   * <ul>
+   *   <li>For Entra ID (AAD):
+   * </ul>
+   *
+   * <ul>
+   *   <li>U2M flow (group access): Use {@code groups}.
+   *   <li>U2M flow (user access): Use {@code oid}.
+   *   <li>M2M flow (OAuth App access): Use {@code azp}.
+   * </ul>
+   *
+   * <ul>
+   *   <li>For other IdPs, refer to the specific IdP documentation.
+   * </ul>
+   *
+   * <p>Supported {@code subject_claim} values are:
+   *
+   * <ul>
+   *   <li>{@code oid}: Object ID of the user.
+   *   <li>{@code azp}: Client ID of the OAuth app.
+   *   <li>{@code groups}: Object ID of the group.
+   *   <li>{@code sub}: Subject identifier for other use cases.
+   * </ul>
    */
   @JsonProperty("subject_claim")
   private String subjectClaim;

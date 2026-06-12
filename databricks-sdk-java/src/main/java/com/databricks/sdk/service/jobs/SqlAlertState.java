@@ -7,8 +7,11 @@ import com.databricks.sdk.support.Generated;
 /**
  * The state of the SQL alert.
  *
- * <p>* UNKNOWN: alert yet to be evaluated * OK: alert evaluated and did not fulfill trigger
- * conditions * TRIGGERED: alert evaluated and fulfilled trigger conditions
+ * <ul>
+ *   <li>UNKNOWN: alert yet to be evaluated
+ *   <li>OK: alert evaluated and did not fulfill trigger conditions
+ *   <li>TRIGGERED: alert evaluated and fulfilled trigger conditions
+ * </ul>
  */
 @Generated
 public enum SqlAlertState {

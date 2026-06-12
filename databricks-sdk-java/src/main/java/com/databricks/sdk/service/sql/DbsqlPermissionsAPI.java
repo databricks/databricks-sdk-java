@@ -13,17 +13,15 @@ import com.databricks.sdk.support.Generated;
  *
  * <p>There are three levels of permission:
  *
- * <p>- `CAN_VIEW`: Allows read-only access
+ * <ul>
+ *   <li>{@code CAN_VIEW}: Allows read-only access
+ *   <li>{@code CAN_RUN}: Allows read access and run access (superset of {@code CAN_VIEW})
+ *   <li>{@code CAN_MANAGE}: Allows all actions: read, run, edit, delete, modify permissions
+ *       (superset of {@code CAN_RUN})
+ * </ul>
  *
- * <p>- `CAN_RUN`: Allows read access and run access (superset of `CAN_VIEW`)
- *
- * <p>- `CAN_MANAGE`: Allows all actions: read, run, edit, delete, modify permissions (superset of
- * `CAN_RUN`)
- *
- * <p>**Warning**: This API is deprecated. Please see the latest version of the Databricks SQL API.
- * [Learn more]
- *
- * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
+ * <p><b>Warning</b>: This API is deprecated. Please see the latest version of the Databricks SQL
+ * API. <a href="https://docs.databricks.com/en/sql/dbsql-api-latest.html">Learn more</a>
  */
 @Generated
 public class DbsqlPermissionsAPI {
@@ -48,10 +46,8 @@ public class DbsqlPermissionsAPI {
   /**
    * Gets a JSON representation of the access control list (ACL) for a specified object.
    *
-   * <p>**Warning**: This API is deprecated. Please use :method:workspace/getpermissions instead.
-   * [Learn more]
-   *
-   * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
+   * <p><b>Warning</b>: This API is deprecated. Please use :method:workspace/getpermissions instead.
+   * <a href="https://docs.databricks.com/en/sql/dbsql-api-latest.html">Learn more</a>
    */
   public GetResponse get(GetDbsqlPermissionRequest request) {
     return impl.get(request);
@@ -61,10 +57,8 @@ public class DbsqlPermissionsAPI {
    * Sets the access control list (ACL) for a specified object. This operation will complete rewrite
    * the ACL.
    *
-   * <p>**Warning**: This API is deprecated. Please use :method:workspace/setpermissions instead.
-   * [Learn more]
-   *
-   * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
+   * <p><b>Warning</b>: This API is deprecated. Please use :method:workspace/setpermissions instead.
+   * <a href="https://docs.databricks.com/en/sql/dbsql-api-latest.html">Learn more</a>
    */
   public SetResponse set(SetRequest request) {
     return impl.set(request);
@@ -74,10 +68,9 @@ public class DbsqlPermissionsAPI {
    * Transfers ownership of a dashboard, query, or alert to an active user. Requires an admin API
    * key.
    *
-   * <p>**Warning**: This API is deprecated. For queries and alerts, please use
-   * :method:queries/update and :method:alerts/update respectively instead. [Learn more]
-   *
-   * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
+   * <p><b>Warning</b>: This API is deprecated. For queries and alerts, please use
+   * :method:queries/update and :method:alerts/update respectively instead. <a
+   * href="https://docs.databricks.com/en/sql/dbsql-api-latest.html">Learn more</a>
    */
   public Success transferOwnership(TransferOwnershipRequest request) {
     return impl.transferOwnership(request);

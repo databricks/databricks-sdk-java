@@ -7,7 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** The metadata of the Azure KeyVault for a secret scope of type `AZURE_KEYVAULT` */
+/** The metadata of the Azure KeyVault for a secret scope of type {@code AZURE_KEYVAULT} */
 @Generated
 public class AzureKeyVaultSecretScopeMetadata {
   /** The DNS of the KeyVault */

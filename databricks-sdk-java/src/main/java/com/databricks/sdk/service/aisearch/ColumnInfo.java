@@ -7,7 +7,10 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Column information (name and data type) for an index column. Surfaced on `Index.column_info`. */
+/**
+ * Column information (name and data type) for an index column. Surfaced on {@code
+ * Index.column_info}.
+ */
 @Generated
 public class ColumnInfo {
   /** Name of the column. */

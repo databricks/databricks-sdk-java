@@ -14,7 +14,7 @@ public class ListDirectoryResponse {
   @JsonProperty("contents")
   private Collection<DirectoryEntry> contents;
 
-  /** A token, which can be sent as `page_token` to retrieve the next page. */
+  /** A token, which can be sent as {@code page_token} to retrieve the next page. */
   @JsonProperty("next_page_token")
   private String nextPageToken;
 

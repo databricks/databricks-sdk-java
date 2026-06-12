@@ -11,8 +11,8 @@ import java.util.Objects;
 @Generated
 public class PythonOperatorTask {
   /**
-   * Fully qualified name of the main class or function. For example, `my_project.my_function` or
-   * `my_project.MyOperator`.
+   * Fully qualified name of the main class or function. For example, {@code my_project.my_function}
+   * or {@code my_project.MyOperator}.
    */
   @JsonProperty("main")
   private String main;

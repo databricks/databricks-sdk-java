@@ -18,8 +18,8 @@ public class CreateEndpointRequest {
   /**
    * The ID to use for the Endpoint. This becomes the final component of the endpoint's resource
    * name. The ID is required and must be 1-63 characters long, start with a lowercase letter, and
-   * contain only lowercase letters, numbers, and hyphens. For example, `primary` becomes
-   * `projects/my-app/branches/development/endpoints/primary`.
+   * contain only lowercase letters, numbers, and hyphens. For example, {@code primary} becomes
+   * {@code projects/my-app/branches/development/endpoints/primary}.
    */
   @JsonIgnore
   @QueryParam("endpoint_id")

@@ -11,9 +11,9 @@ import java.util.Objects;
 @Generated
 public class PolicyInfo {
   /**
-   * Options for column mask policies. Valid only if `policy_type` is `POLICY_TYPE_COLUMN_MASK`.
-   * Required on create and optional on update. When specified on update, the new options will
-   * replace the existing options as a whole.
+   * Options for column mask policies. Valid only if {@code policy_type} is {@code
+   * POLICY_TYPE_COLUMN_MASK}. Required on create and optional on update. When specified on update,
+   * the new options will replace the existing options as a whole.
    */
   @JsonProperty("column_mask")
   private ColumnMaskOptions columnMask;
@@ -35,8 +35,8 @@ public class PolicyInfo {
   private Collection<String> exceptPrincipals;
 
   /**
-   * Type of securables that the policy should take effect on. Only `TABLE` is supported at this
-   * moment. Required on create and optional on update.
+   * Type of securables that the policy should take effect on. Only {@code TABLE} is supported at
+   * this moment. Required on create and optional on update.
    */
   @JsonProperty("for_securable_type")
   private SecurableType forSecurableType;
@@ -46,16 +46,16 @@ public class PolicyInfo {
   private String id;
 
   /**
-   * Optional list of condition expressions used to match table columns. Only valid when
-   * `for_securable_type` is `TABLE`. When specified, the policy only applies to tables whose
+   * Optional list of condition expressions used to match table columns. Only valid when {@code
+   * for_securable_type} is {@code TABLE}. When specified, the policy only applies to tables whose
    * columns satisfy all match conditions.
    */
   @JsonProperty("match_columns")
   private Collection<MatchColumn> matchColumns;
 
   /**
-   * Name of the policy. Required on create and optional on update. To rename the policy, set `name`
-   * to a different value on update.
+   * Name of the policy. Required on create and optional on update. To rename the policy, set {@code
+   * name} to a different value on update.
    */
   @JsonProperty("name")
   private String name;
@@ -65,8 +65,8 @@ public class PolicyInfo {
   private String onSecurableFullname;
 
   /**
-   * Type of the securable on which the policy is defined. Only `CATALOG`, `SCHEMA` and `TABLE` are
-   * supported at this moment. Required on create.
+   * Type of the securable on which the policy is defined. Only {@code CATALOG}, {@code SCHEMA} and
+   * {@code TABLE} are supported at this moment. Required on create.
    */
   @JsonProperty("on_securable_type")
   private SecurableType onSecurableType;
@@ -76,9 +76,9 @@ public class PolicyInfo {
   private PolicyType policyType;
 
   /**
-   * Options for row filter policies. Valid only if `policy_type` is `POLICY_TYPE_ROW_FILTER`.
-   * Required on create and optional on update. When specified on update, the new options will
-   * replace the existing options as a whole.
+   * Options for row filter policies. Valid only if {@code policy_type} is {@code
+   * POLICY_TYPE_ROW_FILTER}. Required on create and optional on update. When specified on update,
+   * the new options will replace the existing options as a whole.
    */
   @JsonProperty("row_filter")
   private RowFilterOptions rowFilter;

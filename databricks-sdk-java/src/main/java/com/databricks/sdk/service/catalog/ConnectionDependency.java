@@ -10,7 +10,7 @@ import java.util.Objects;
 /** A connection that is dependent on a SQL object. */
 @Generated
 public class ConnectionDependency {
-  /** Full name of the dependent connection, in the form of __connection_name__. */
+  /** Full name of the dependent connection, in the form of <b>connection_name</b>. */
   @JsonProperty("connection_name")
   private String connectionName;
 

@@ -34,7 +34,7 @@ public class QueryInfo {
   @JsonProperty("duration")
   private Long duration;
 
-  /** Alias for `warehouse_id`. */
+  /** Alias for {@code warehouse_id}. */
   @JsonProperty("endpoint_id")
   private String endpointId;
 
@@ -120,9 +120,13 @@ public class QueryInfo {
   /**
    * Query status with one the following values:
    *
-   * <p>- `QUEUED`: Query has been received and queued. - `RUNNING`: Query has started. -
-   * `CANCELED`: Query has been cancelled by the user. - `FAILED`: Query has failed. - `FINISHED`:
-   * Query has completed.
+   * <ul>
+   *   <li>{@code QUEUED}: Query has been received and queued.
+   *   <li>{@code RUNNING}: Query has started.
+   *   <li>{@code CANCELED}: Query has been cancelled by the user.
+   *   <li>{@code FAILED}: Query has failed.
+   *   <li>{@code FINISHED}: Query has completed.
+   * </ul>
    */
   @JsonProperty("status")
   private QueryStatus status;

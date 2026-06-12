@@ -17,7 +17,7 @@ public class CreateDeploymentRequest {
 
   /**
    * The ID to use for the deployment, which will become the final component of the deployment's
-   * resource name (i.e. `deployments/{deployment_id}`).
+   * resource name (i.e. {@code deployments/{deployment_id}}).
    */
   @JsonIgnore
   @QueryParam("deployment_id")

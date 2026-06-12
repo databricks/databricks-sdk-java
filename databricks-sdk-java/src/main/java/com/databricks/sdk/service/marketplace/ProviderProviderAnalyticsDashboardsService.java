@@ -13,8 +13,8 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface ProviderProviderAnalyticsDashboardsService {
   /**
-   * Create provider analytics dashboard. Returns Marketplace specific `id`. Not to be confused with
-   * the Lakeview dashboard id.
+   * Create provider analytics dashboard. Returns Marketplace specific {@code id}. Not to be
+   * confused with the Lakeview dashboard id.
    */
   ProviderAnalyticsDashboard create();
 

@@ -11,7 +11,7 @@ import java.util.Objects;
 public class HttpUrlSpec {
   /**
    * Value of the authorization header that should be sent in the request sent by the wehbook. It
-   * should be of the form `"<auth type> <credentials>"`. If set to an empty string, no
+   * should be of the form {@code "<auth type> <credentials>"}. If set to an empty string, no
    * authorization header will be included in the request.
    */
   @JsonProperty("authorization")

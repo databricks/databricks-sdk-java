@@ -15,7 +15,7 @@ public class UpdateBranchRequest {
   /**
    * The Branch to update.
    *
-   * <p>The branch's `name` field is used to identify the branch to update. Format:
+   * <p>The branch's {@code name} field is used to identify the branch to update. Format:
    * projects/{project_id}/branches/{branch_id}
    */
   @JsonProperty("branch")

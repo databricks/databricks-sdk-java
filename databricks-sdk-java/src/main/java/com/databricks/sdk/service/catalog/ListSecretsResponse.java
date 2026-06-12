@@ -13,7 +13,7 @@ import java.util.Objects;
 public class ListSecretsResponse {
   /**
    * Opaque token to retrieve the next page of results. Absent if there are no more pages.
-   * **page_token** should be set to this value for the next request.
+   * <b>page_token</b> should be set to this value for the next request.
    */
   @JsonProperty("next_page_token")
   private String nextPageToken;

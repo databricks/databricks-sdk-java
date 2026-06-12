@@ -26,9 +26,13 @@ public class AlertTask {
   private String warehouseId;
 
   /**
-   * The workspace_path is the path to the alert file in the workspace. The path: * must start with
-   * "/Workspace" * must be a normalized path. User has to select only one of alert_id or
-   * workspace_path to identify the alert.
+   * The workspace_path is the path to the alert file in the workspace. The path:
+   *
+   * <ul>
+   *   <li>must start with "/Workspace"
+   *   <li>must be a normalized path. User has to select only one of alert_id or workspace_path to
+   *       identify the alert.
+   * </ul>
    */
   @JsonProperty("workspace_path")
   private String workspacePath;

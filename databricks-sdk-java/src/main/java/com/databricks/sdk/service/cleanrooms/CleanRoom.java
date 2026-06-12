@@ -10,9 +10,8 @@ import java.util.Objects;
 @Generated
 public class CleanRoom {
   /**
-   * Whether clean room access is restricted due to [CSP]
-   *
-   * <p>[CSP]: https://docs.databricks.com/en/security/privacy/security-profile.html
+   * Whether clean room access is restricted due to <a
+   * href="https://docs.databricks.com/en/security/privacy/security-profile.html">CSP</a>
    */
   @JsonProperty("access_restricted")
   private CleanRoomAccessRestricted accessRestricted;
@@ -30,10 +29,9 @@ public class CleanRoom {
   private String localCollaboratorAlias;
 
   /**
-   * The name of the clean room. It should follow [UC securable naming requirements].
-   *
-   * <p>[UC securable naming requirements]:
-   * https://docs.databricks.com/en/data-governance/unity-catalog/index.html#securable-object-naming-requirements
+   * The name of the clean room. It should follow <a
+   * href="https://docs.databricks.com/en/data-governance/unity-catalog/index.html#securable-object-naming-requirements">UC
+   * securable naming requirements</a>.
    */
   @JsonProperty("name")
   private String name;

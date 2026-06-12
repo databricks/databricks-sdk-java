@@ -6,7 +6,7 @@ import com.databricks.sdk.support.Generated;
 /**
  * Controls whether schedules or workload tasks for refreshing AI/BI Dashboards in the workspace can
  * send subscription emails containing PDFs and/or images of the dashboard. By default, this setting
- * is enabled (set to `true`)
+ * is enabled (set to {@code true})
  *
  * <p>This is the high-level interface, that contains generated methods.
  *

@@ -208,7 +208,7 @@ public class CommandExecutionAPI {
   /**
    * Cancels a currently running command within an execution context.
    *
-   * <p>The command ID is obtained from a prior successful call to __execute__.
+   * <p>The command ID is obtained from a prior successful call to <b>execute</b>.
    */
   public Wait<CommandStatusResponse, Void> cancel(CancelCommand request) {
     impl.cancel(request);
@@ -233,7 +233,7 @@ public class CommandExecutionAPI {
   /**
    * Gets the status of and, if available, the results from a currently executing command.
    *
-   * <p>The command ID is obtained from a prior successful call to __execute__.
+   * <p>The command ID is obtained from a prior successful call to <b>execute</b>.
    */
   public CommandStatusResponse commandStatus(CommandStatusRequest request) {
     return impl.commandStatus(request);

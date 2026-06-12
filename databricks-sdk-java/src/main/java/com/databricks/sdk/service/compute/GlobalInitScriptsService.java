@@ -7,10 +7,11 @@ import com.databricks.sdk.support.Generated;
  * The Global Init Scripts API enables Workspace administrators to configure global initialization
  * scripts for their workspace. These scripts run on every node in every cluster in the workspace.
  *
- * <p>**Important:** Existing clusters must be restarted to pick up any changes made to global init
- * scripts. Global init scripts are run in order. If the init script returns with a bad exit code,
- * the Apache Spark container fails to launch and init scripts with later position are skipped. If
- * enough containers fail, the entire cluster fails with a `GLOBAL_INIT_SCRIPT_FAILURE` error code.
+ * <p><b>Important:</b> Existing clusters must be restarted to pick up any changes made to global
+ * init scripts. Global init scripts are run in order. If the init script returns with a bad exit
+ * code, the Apache Spark container fails to launch and init scripts with later position are
+ * skipped. If enough containers fail, the entire cluster fails with a {@code
+ * GLOBAL_INIT_SCRIPT_FAILURE} error code.
  *
  * <p>This is the high-level interface, that contains generated methods.
  *
@@ -29,8 +30,8 @@ public interface GlobalInitScriptsService {
 
   /**
    * Get a list of all global init scripts for this workspace. This returns all properties for each
-   * script but **not** the script contents. To retrieve the contents of a script, use the [get a
-   * global init script](:method:globalinitscripts/get) operation.
+   * script but <b>not</b> the script contents. To retrieve the contents of a script, use the <a
+   * href=":method:globalinitscripts/get">get a global init script</a> operation.
    */
   ListGlobalInitScriptsResponse list();
 

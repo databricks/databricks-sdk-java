@@ -25,8 +25,8 @@ public class ProviderProviderAnalyticsDashboardsAPI {
   }
 
   /**
-   * Create provider analytics dashboard. Returns Marketplace specific `id`. Not to be confused with
-   * the Lakeview dashboard id.
+   * Create provider analytics dashboard. Returns Marketplace specific {@code id}. Not to be
+   * confused with the Lakeview dashboard id.
    */
   public ProviderAnalyticsDashboard create() {
     return impl.create();

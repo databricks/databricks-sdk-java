@@ -5,7 +5,8 @@ import com.databricks.sdk.support.Generated;
 
 /**
  * Deprecated: Please use the Data Quality Monitoring API instead (REST:
- * /api/data-quality/v1/monitors). Manage data quality of UC objects (currently support `schema`).
+ * /api/data-quality/v1/monitors). Manage data quality of UC objects (currently support {@code
+ * schema}).
  *
  * <p>This is the high-level interface, that contains generated methods.
  *

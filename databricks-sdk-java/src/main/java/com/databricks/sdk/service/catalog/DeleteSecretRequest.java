@@ -11,7 +11,7 @@ import java.util.Objects;
 public class DeleteSecretRequest {
   /**
    * The three-level (fully qualified) name of the secret (for example,
-   * **catalog_name.schema_name.secret_name**).
+   * <b>catalog_name.schema_name.secret_name</b>).
    */
   @JsonIgnore private String fullName;
 

@@ -15,20 +15,28 @@ import java.util.Objects;
 @Generated
 public class DiskSpec {
   /**
-   * The number of disks launched for each instance: - This feature is only enabled for supported
-   * node types. - Users can choose up to the limit of the disks supported by the node type. - For
-   * node types with no OS disk, at least one disk must be specified; otherwise, cluster creation
-   * will fail.
+   * The number of disks launched for each instance:
+   *
+   * <ul>
+   *   <li>This feature is only enabled for supported node types.
+   *   <li>Users can choose up to the limit of the disks supported by the node type.
+   *   <li>For node types with no OS disk, at least one disk must be specified; otherwise, cluster
+   *       creation will fail.
+   * </ul>
    *
    * <p>If disks are attached, Databricks will configure Spark to use only the disks for scratch
    * storage, because heterogenously sized scratch devices can lead to inefficient disk utilization.
    * If no disks are attached, Databricks will configure Spark to use instance store disks.
    *
-   * <p>Note: If disks are specified, then the Spark configuration `spark.local.dir` will be
+   * <p>Note: If disks are specified, then the Spark configuration {@code spark.local.dir} will be
    * overridden.
    *
-   * <p>Disks will be mounted at: - For AWS: `/ebs0`, `/ebs1`, and etc. - For Azure:
-   * `/remote_volume0`, `/remote_volume1`, and etc.
+   * <p>Disks will be mounted at:
+   *
+   * <ul>
+   *   <li>For AWS: {@code /ebs0}, {@code /ebs1}, and etc.
+   *   <li>For Azure: {@code /remote_volume0}, {@code /remote_volume1}, and etc.
+   * </ul>
    */
   @JsonProperty("disk_count")
   private Long diskCount;
@@ -41,9 +49,19 @@ public class DiskSpec {
    * The size of each disk (in GiB) launched for each instance. Values must fall into the supported
    * range for a particular instance type.
    *
-   * <p>For AWS: - General Purpose SSD: 100 - 4096 GiB - Throughput Optimized HDD: 500 - 4096 GiB
+   * <p>For AWS:
    *
-   * <p>For Azure: - Premium LRS (SSD): 1 - 1023 GiB - Standard LRS (HDD): 1- 1023 GiB
+   * <ul>
+   *   <li>General Purpose SSD: 100 - 4096 GiB
+   *   <li>Throughput Optimized HDD: 500 - 4096 GiB
+   * </ul>
+   *
+   * <p>For Azure:
+   *
+   * <ul>
+   *   <li>Premium LRS (SSD): 1 - 1023 GiB
+   *   <li>Standard LRS (HDD): 1- 1023 GiB
+   * </ul>
    */
   @JsonProperty("disk_size")
   private Long diskSize;

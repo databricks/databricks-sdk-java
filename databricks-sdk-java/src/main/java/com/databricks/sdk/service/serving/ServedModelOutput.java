@@ -29,8 +29,9 @@ public class ServedModelOutput {
   /**
    * An object containing a set of optional, user-specified environment variable key-value pairs
    * used for serving this entity. Note: this is an experimental feature and subject to change.
-   * Example entity environment variables that refer to Databricks secrets: `{"OPENAI_API_KEY":
-   * "{{secrets/my_scope/my_key}}", "DATABRICKS_TOKEN": "{{secrets/my_scope2/my_key2}}"}`
+   * Example entity environment variables that refer to Databricks secrets: {@code
+   * {"OPENAI_API_KEY": "{{secrets/my_scope/my_key}}", "DATABRICKS_TOKEN":
+   * "{{secrets/my_scope2/my_key2}}"}}
    */
   @JsonProperty("environment_vars")
   private Map<String, String> environmentVars;
@@ -99,10 +100,9 @@ public class ServedModelOutput {
    * The workload type of the served entity. The workload type selects which type of compute to use
    * in the endpoint. The default value for this parameter is "CPU". For deep learning workloads,
    * GPU acceleration is available by selecting workload types like GPU_SMALL and others. See the
-   * available [GPU types].
-   *
-   * <p>[GPU types]:
-   * https://docs.databricks.com/en/machine-learning/model-serving/create-manage-serving-endpoints.html#gpu-workload-types
+   * available <a
+   * href="https://docs.databricks.com/en/machine-learning/model-serving/create-manage-serving-endpoints.html#gpu-workload-types">GPU
+   * types</a>.
    */
   @JsonProperty("workload_type")
   private ServingModelWorkloadType workloadType;

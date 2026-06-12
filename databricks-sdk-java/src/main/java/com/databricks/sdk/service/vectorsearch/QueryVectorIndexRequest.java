@@ -20,10 +20,10 @@ public class QueryVectorIndexRequest {
   private Collection<String> columnsToRerank;
 
   /**
-   * Facets to compute over the matched results. Each entry has one of these forms: `"<column>"` -
-   * top 10 distinct values by count `"<column> TOP <n>"` - top n distinct values, where n > 0
-   * `"<column> BUCKETS [[from,to],...]"` - inclusive numeric ranges `TOP` and `BUCKETS` are
-   * case-insensitive. A column may appear at most once.
+   * Facets to compute over the matched results. Each entry has one of these forms: {@code
+   * "<column>"} - top 10 distinct values by count {@code "<column> TOP <n>"} - top n distinct
+   * values, where n &gt; 0 {@code "<column> BUCKETS [[from,to],...]"} - inclusive numeric ranges
+   * {@code TOP} and {@code BUCKETS} are case-insensitive. A column may appear at most once.
    */
   @JsonProperty("facets")
   private Collection<String> facets;
@@ -33,9 +33,13 @@ public class QueryVectorIndexRequest {
    *
    * <p>Example filters:
    *
-   * <p>- `{"id <": 5}`: Filter for id less than 5. - `{"id >": 5}`: Filter for id greater than 5. -
-   * `{"id <=": 5}`: Filter for id less than equal to 5. - `{"id >=": 5}`: Filter for id greater
-   * than equal to 5. - `{"id": 5}`: Filter for id equal to 5.
+   * <ul>
+   *   <li>{@code {"id <": 5}}: Filter for id less than 5.
+   *   <li>{@code {"id >": 5}}: Filter for id greater than 5.
+   *   <li>{@code {"id <=": 5}}: Filter for id less than equal to 5.
+   *   <li>{@code {"id >=": 5}}: Filter for id greater than equal to 5.
+   *   <li>{@code {"id": 5}}: Filter for id equal to 5.
+   * </ul>
    */
   @JsonProperty("filters_json")
   private String filtersJson;
@@ -47,7 +51,7 @@ public class QueryVectorIndexRequest {
   @JsonProperty("num_results")
   private Long numResults;
 
-  /** Text columns to search for `query_text`. When empty, all text columns are searched. */
+  /** Text columns to search for {@code query_text}. When empty, all text columns are searched. */
   @JsonProperty("query_columns")
   private Collection<String> queryColumns;
 
@@ -55,7 +59,10 @@ public class QueryVectorIndexRequest {
   @JsonProperty("query_text")
   private String queryText;
 
-  /** The query type to use. Choices are `ANN` and `HYBRID` and `FULL_TEXT`. Defaults to `ANN`. */
+  /**
+   * The query type to use. Choices are {@code ANN} and {@code HYBRID} and {@code FULL_TEXT}.
+   * Defaults to {@code ANN}.
+   */
   @JsonProperty("query_type")
   private String queryType;
 
@@ -68,9 +75,9 @@ public class QueryVectorIndexRequest {
 
   /**
    * If set, the top 50 results are reranked with the Databricks Reranker model before returning the
-   * `num_results` results to the user. The setting `columns_to_rerank` selects which columns are
-   * used for reranking. For each datapoint, the columns selected are concatenated before being sent
-   * to the reranking model. See
+   * {@code num_results} results to the user. The setting {@code columns_to_rerank} selects which
+   * columns are used for reranking. For each datapoint, the columns selected are concatenated
+   * before being sent to the reranking model. See
    * https://docs.databricks.com/aws/en/vector-search/query-vector-search#rerank for more
    * information.
    */
@@ -83,7 +90,8 @@ public class QueryVectorIndexRequest {
 
   /**
    * Sort results by column values instead of the default relevance ordering. Each clause has the
-   * form `"<column> ASC"` or `"<column> DESC"`, for example `["rating DESC", "price ASC"]`.
+   * form {@code "<column> ASC"} or {@code "<column> DESC"}, for example {@code ["rating DESC",
+   * "price ASC"]}.
    */
   @JsonProperty("sort_columns")
   private Collection<String> sortColumns;

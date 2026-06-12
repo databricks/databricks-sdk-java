@@ -50,7 +50,7 @@ public class SchemaInfo {
   @JsonProperty("enable_predictive_optimization")
   private EnablePredictiveOptimization enablePredictiveOptimization;
 
-  /** Full name of schema, in form of __catalog_name__.__schema_name__. */
+  /** Full name of schema, in form of <b>catalog_name</b>.<b>schema_name</b>. */
   @JsonProperty("full_name")
   private String fullName;
 

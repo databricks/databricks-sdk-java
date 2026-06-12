@@ -5,8 +5,13 @@ package com.databricks.sdk.service.jobs;
 import com.databricks.sdk.support.Generated;
 
 /**
- * * `CODE`: Code view of the notebook. * `DASHBOARDS`: All dashboard views of the notebook. *
- * `ALL`: All views of the notebook.
+ *
+ *
+ * <ul>
+ *   <li>{@code CODE}: Code view of the notebook.
+ *   <li>{@code DASHBOARDS}: All dashboard views of the notebook.
+ *   <li>{@code ALL}: All views of the notebook.
+ * </ul>
  */
 @Generated
 public enum ViewsToExport {

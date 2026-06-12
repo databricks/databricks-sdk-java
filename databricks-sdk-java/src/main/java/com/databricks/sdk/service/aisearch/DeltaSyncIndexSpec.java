@@ -37,10 +37,10 @@ public class DeltaSyncIndexSpec {
 
   /**
    * Pipeline execution mode. Required on create — the backend rejects an unset value. Storage
-   * Optimized endpoints accept only `TRIGGERED`; Standard endpoints accept both. No explicit
-   * `stage` — a REQUIRED field staged below its service would be dropped from combined specs while
-   * remaining in `required`, tripping the OpenAPI required-vs-properties consistency check. The
-   * field inherits the service's launch stage.
+   * Optimized endpoints accept only {@code TRIGGERED}; Standard endpoints accept both. No explicit
+   * {@code stage} — a REQUIRED field staged below its service would be dropped from combined specs
+   * while remaining in {@code required}, tripping the OpenAPI required-vs-properties consistency
+   * check. The field inherits the service's launch stage.
    */
   @JsonProperty("pipeline_type")
   private PipelineType pipelineType;

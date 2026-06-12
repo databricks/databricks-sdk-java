@@ -28,10 +28,10 @@ public class RequiredFields {
 
   /**
    * The field mask must be a single string, with multiple fields separated by commas (no spaces).
-   * The field path is relative to the resource object, using a dot (`.`) to navigate sub-fields
-   * (e.g., `author.given_name`). Specification of elements in sequence or map fields is not
-   * allowed, as only the entire collection field can be specified. Field names must exactly match
-   * the resource field names.
+   * The field path is relative to the resource object, using a dot ({@code .}) to navigate
+   * sub-fields (e.g., {@code author.given_name}). Specification of elements in sequence or map
+   * fields is not allowed, as only the entire collection field can be specified. Field names must
+   * exactly match the resource field names.
    */
   @JsonProperty("required_field_mask")
   @QueryParam("required_field_mask")

@@ -17,7 +17,7 @@ import com.databricks.sdk.support.Generated;
 public interface SchemasService {
   /**
    * Creates a new schema for catalog in the Metastore. The caller must be a metastore admin, or
-   * have the **CREATE_SCHEMA** privilege in the parent catalog.
+   * have the <b>CREATE_SCHEMA</b> privilege in the parent catalog.
    */
   SchemaInfo create(CreateSchema createSchema);
 
@@ -29,20 +29,20 @@ public interface SchemasService {
 
   /**
    * Gets the specified schema within the metastore. The caller must be a metastore admin, the owner
-   * of the schema, or a user that has the **USE_SCHEMA** privilege on the schema.
+   * of the schema, or a user that has the <b>USE_SCHEMA</b> privilege on the schema.
    */
   SchemaInfo get(GetSchemaRequest getSchemaRequest);
 
   /**
    * Gets an array of schemas for a catalog in the metastore. If the caller is the metastore admin
    * or the owner of the parent catalog, all schemas for the catalog will be retrieved. Otherwise,
-   * only schemas owned by the caller (or for which the caller has the **USE_SCHEMA** privilege)
+   * only schemas owned by the caller (or for which the caller has the <b>USE_SCHEMA</b> privilege)
    * will be retrieved. There is no guarantee of a specific ordering of the elements in the array.
    *
    * <p>NOTE: we recommend using max_results=0 to use the paginated version of this API. Unpaginated
    * calls will be deprecated soon.
    *
-   * <p>PAGINATION BEHAVIOR: When using pagination (max_results >= 0), a page may contain zero
+   * <p>PAGINATION BEHAVIOR: When using pagination (max_results &gt;= 0), a page may contain zero
    * results while still providing a next_page_token. Clients must continue reading pages until
    * next_page_token is absent, which is the only indication that the end of results has been
    * reached.
@@ -51,9 +51,9 @@ public interface SchemasService {
 
   /**
    * Updates a schema for a catalog. The caller must be the owner of the schema or a metastore
-   * admin. If the caller is a metastore admin, only the __owner__ field can be changed in the
-   * update. If the __name__ field must be updated, the caller must be a metastore admin or have the
-   * **CREATE_SCHEMA** privilege on the parent catalog.
+   * admin. If the caller is a metastore admin, only the <b>owner</b> field can be changed in the
+   * update. If the <b>name</b> field must be updated, the caller must be a metastore admin or have
+   * the <b>CREATE_SCHEMA</b> privilege on the parent catalog.
    */
   SchemaInfo update(UpdateSchema updateSchema);
 }

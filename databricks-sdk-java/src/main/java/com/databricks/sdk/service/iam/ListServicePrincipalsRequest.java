@@ -26,12 +26,11 @@ public class ListServicePrincipalsRequest {
   private String excludedAttributes;
 
   /**
-   * Query by which the results have to be filtered. Supported operators are equals(`eq`),
-   * contains(`co`), starts with(`sw`) and not equals(`ne`). Additionally, simple expressions can be
-   * formed using logical operators - `and` and `or`. The [SCIM RFC] has more details but we
+   * Query by which the results have to be filtered. Supported operators are equals({@code eq}),
+   * contains({@code co}), starts with({@code sw}) and not equals({@code ne}). Additionally, simple
+   * expressions can be formed using logical operators - {@code and} and {@code or}. The <a
+   * href="https://tools.ietf.org/html/rfc7644#section-3.4.2.2">SCIM RFC</a> has more details but we
    * currently only support simple expressions.
-   *
-   * <p>[SCIM RFC]: https://tools.ietf.org/html/rfc7644#section-3.4.2.2
    */
   @JsonIgnore
   @QueryParam("filter")

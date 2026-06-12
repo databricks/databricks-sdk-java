@@ -21,7 +21,8 @@ public class ListEndpointsRequest {
   private String pageToken;
 
   /**
-   * The parent resource name of the account to list endpoints for. Format: `accounts/{account_id}`.
+   * The parent resource name of the account to list endpoints for. Format: {@code
+   * accounts/{account_id}}.
    */
   @JsonIgnore private String parent;
 

@@ -12,7 +12,7 @@ import java.util.Objects;
 public class DeleteStorageCredentialRequest {
   /**
    * Force an update even if there are dependent external locations or external tables (when purpose
-   * is **STORAGE**) or dependent services (when purpose is **SERVICE**).
+   * is <b>STORAGE</b>) or dependent services (when purpose is <b>SERVICE</b>).
    */
   @JsonIgnore
   @QueryParam("force")

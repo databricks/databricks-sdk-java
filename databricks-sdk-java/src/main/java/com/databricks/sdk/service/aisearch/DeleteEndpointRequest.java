@@ -10,8 +10,8 @@ import java.util.Objects;
 @Generated
 public class DeleteEndpointRequest {
   /**
-   * Full resource name of the endpoint to delete. Format:
-   * `workspaces/{workspace_id}/endpoints/{endpoint_id}`
+   * Full resource name of the endpoint to delete. Format: {@code
+   * workspaces/{workspace_id}/endpoints/{endpoint_id}}
    */
   @JsonIgnore private String name;
 

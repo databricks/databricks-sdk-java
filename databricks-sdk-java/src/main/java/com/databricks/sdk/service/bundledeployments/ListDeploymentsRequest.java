@@ -20,8 +20,8 @@ public class ListDeploymentsRequest {
   private Long pageSize;
 
   /**
-   * A page token, received from a previous `ListDeployments` call. Provide this to retrieve the
-   * subsequent page.
+   * A page token, received from a previous {@code ListDeployments} call. Provide this to retrieve
+   * the subsequent page.
    */
   @JsonIgnore
   @QueryParam("page_token")

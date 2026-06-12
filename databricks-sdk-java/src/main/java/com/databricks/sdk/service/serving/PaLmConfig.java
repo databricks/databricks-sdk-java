@@ -11,16 +11,16 @@ import java.util.Objects;
 public class PaLmConfig {
   /**
    * The Databricks secret key reference for a PaLM API key. If you prefer to paste your API key
-   * directly, see `palm_api_key_plaintext`. You must provide an API key using one of the following
-   * fields: `palm_api_key` or `palm_api_key_plaintext`.
+   * directly, see {@code palm_api_key_plaintext}. You must provide an API key using one of the
+   * following fields: {@code palm_api_key} or {@code palm_api_key_plaintext}.
    */
   @JsonProperty("palm_api_key")
   private String palmApiKey;
 
   /**
    * The PaLM API key provided as a plaintext string. If you prefer to reference your key using
-   * Databricks Secrets, see `palm_api_key`. You must provide an API key using one of the following
-   * fields: `palm_api_key` or `palm_api_key_plaintext`.
+   * Databricks Secrets, see {@code palm_api_key}. You must provide an API key using one of the
+   * following fields: {@code palm_api_key} or {@code palm_api_key_plaintext}.
    */
   @JsonProperty("palm_api_key_plaintext")
   private String palmApiKeyPlaintext;

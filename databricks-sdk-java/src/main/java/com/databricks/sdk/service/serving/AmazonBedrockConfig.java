@@ -11,18 +11,18 @@ import java.util.Objects;
 public class AmazonBedrockConfig {
   /**
    * The Databricks secret key reference for an AWS access key ID with permissions to interact with
-   * Bedrock services. If you prefer to paste your API key directly, see
-   * `aws_access_key_id_plaintext`. You must provide an API key using one of the following fields:
-   * `aws_access_key_id` or `aws_access_key_id_plaintext`.
+   * Bedrock services. If you prefer to paste your API key directly, see {@code
+   * aws_access_key_id_plaintext}. You must provide an API key using one of the following fields:
+   * {@code aws_access_key_id} or {@code aws_access_key_id_plaintext}.
    */
   @JsonProperty("aws_access_key_id")
   private String awsAccessKeyId;
 
   /**
    * An AWS access key ID with permissions to interact with Bedrock services provided as a plaintext
-   * string. If you prefer to reference your key using Databricks Secrets, see `aws_access_key_id`.
-   * You must provide an API key using one of the following fields: `aws_access_key_id` or
-   * `aws_access_key_id_plaintext`.
+   * string. If you prefer to reference your key using Databricks Secrets, see {@code
+   * aws_access_key_id}. You must provide an API key using one of the following fields: {@code
+   * aws_access_key_id} or {@code aws_access_key_id_plaintext}.
    */
   @JsonProperty("aws_access_key_id_plaintext")
   private String awsAccessKeyIdPlaintext;
@@ -34,8 +34,8 @@ public class AmazonBedrockConfig {
   /**
    * The Databricks secret key reference for an AWS secret access key paired with the access key ID,
    * with permissions to interact with Bedrock services. If you prefer to paste your API key
-   * directly, see `aws_secret_access_key_plaintext`. You must provide an API key using one of the
-   * following fields: `aws_secret_access_key` or `aws_secret_access_key_plaintext`.
+   * directly, see {@code aws_secret_access_key_plaintext}. You must provide an API key using one of
+   * the following fields: {@code aws_secret_access_key} or {@code aws_secret_access_key_plaintext}.
    */
   @JsonProperty("aws_secret_access_key")
   private String awsSecretAccessKey;
@@ -43,8 +43,8 @@ public class AmazonBedrockConfig {
   /**
    * An AWS secret access key paired with the access key ID, with permissions to interact with
    * Bedrock services provided as a plaintext string. If you prefer to reference your key using
-   * Databricks Secrets, see `aws_secret_access_key`. You must provide an API key using one of the
-   * following fields: `aws_secret_access_key` or `aws_secret_access_key_plaintext`.
+   * Databricks Secrets, see {@code aws_secret_access_key}. You must provide an API key using one of
+   * the following fields: {@code aws_secret_access_key} or {@code aws_secret_access_key_plaintext}.
    */
   @JsonProperty("aws_secret_access_key_plaintext")
   private String awsSecretAccessKeyPlaintext;
@@ -59,8 +59,8 @@ public class AmazonBedrockConfig {
   /**
    * ARN of the instance profile that the external model will use to access AWS resources. You must
    * authenticate using an instance profile or access keys. If you prefer to authenticate using
-   * access keys, see `aws_access_key_id`, `aws_access_key_id_plaintext`, `aws_secret_access_key`
-   * and `aws_secret_access_key_plaintext`.
+   * access keys, see {@code aws_access_key_id}, {@code aws_access_key_id_plaintext}, {@code
+   * aws_secret_access_key} and {@code aws_secret_access_key_plaintext}.
    */
   @JsonProperty("instance_profile_arn")
   private String instanceProfileArn;

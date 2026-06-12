@@ -40,15 +40,14 @@ public class SharedDataObject {
 
   /**
    * Whether to enable or disable sharing of data history. If not specified, the default is
-   * **DISABLED**.
+   * <b>DISABLED</b>.
    */
   @JsonProperty("history_data_sharing_status")
   private SharedDataObjectHistoryDataSharingStatus historyDataSharingStatus;
 
   /**
-   * A fully qualified name that uniquely identifies a data object. For example,
-   * a table's fully qualified name is in the format of
-   * `<catalog>.<schema>.<table>`,
+   * A fully qualified name that uniquely identifies a data object. For example, a table's fully
+   * qualified name is in the format of {@code <catalog>.<schema>.<table>},
    */
   @JsonProperty("name")
   private String name;
@@ -60,27 +59,38 @@ public class SharedDataObject {
   /**
    * A user-provided alias name for table-like data objects within the share.
    *
-   * Use this field for table-like objects (for example: TABLE, VIEW,
-   * MATERIALIZED_VIEW, STREAMING_TABLE, FOREIGN_TABLE). For non-table objects
-   * (for example: VOLUME, MODEL, NOTEBOOK_FILE, FUNCTION), use
-   * `string_shared_as` instead.
+   * <p>Use this field for table-like objects (for example: TABLE, VIEW, MATERIALIZED_VIEW,
+   * STREAMING_TABLE, FOREIGN_TABLE). For non-table objects (for example: VOLUME, MODEL,
+   * NOTEBOOK_FILE, FUNCTION), use {@code string_shared_as} instead.
    *
-   * Important: For non-table objects, this field must be omitted entirely.
+   * <p>Important: For non-table objects, this field must be omitted entirely.
    *
-   * Format: Must be a 2-part name `<schema_name>.<table_name>` (e.g.,
-   * "sales_schema.orders_table") - Both schema and table names must contain
-   * only alphanumeric characters and underscores - No periods, spaces, forward
-   * slashes, or control characters are allowed within each part - Do not
-   * include the catalog name (use 2 parts, not 3)
+   * <p>Format: Must be a 2-part name {@code <schema_name>.<table_name>} (e.g.,
+   * "sales_schema.orders_table")
    *
-   * Behavior: - If not provided, the service automatically generates the alias
-   * as `<schema>.<table>` from the object's original name - If you don't want
-   * to specify this field, omit it entirely from the request (do not pass an
-   * empty string) - The `shared_as` name must be unique within the share
+   * <ul>
+   *   <li>Both schema and table names must contain only alphanumeric characters and underscores
+   *   <li>No periods, spaces, forward slashes, or control characters are allowed within each part
+   *   <li>Do not include the catalog name (use 2 parts, not 3)
+   * </ul>
    *
-   * Examples: - Valid: "analytics_schema.customer_view" - Invalid:
-   * "catalog.analytics_schema.customer_view" (3 parts not allowed) - Invalid:
-   * "analytics-schema.customer-view" (hyphens not allowed)
+   * <p>Behavior:
+   *
+   * <ul>
+   *   <li>If not provided, the service automatically generates the alias as {@code
+   *       <schema>.<table>} from the object's original name
+   *   <li>If you don't want to specify this field, omit it entirely from the request (do not pass
+   *       an empty string)
+   *   <li>The {@code shared_as} name must be unique within the share
+   * </ul>
+   *
+   * <p>Examples:
+   *
+   * <ul>
+   *   <li>Valid: "analytics_schema.customer_view"
+   *   <li>Invalid: "catalog.analytics_schema.customer_view" (3 parts not allowed)
+   *   <li>Invalid: "analytics-schema.customer-view" (hyphens not allowed)
+   * </ul>
    */
   @JsonProperty("shared_as")
   private String sharedAs;
@@ -88,15 +98,15 @@ public class SharedDataObject {
   /**
    * The start version associated with the object. This allows data providers to control the lowest
    * object version that is accessible by clients. If specified, clients can query snapshots or
-   * changes for versions >= start_version. If not specified, clients can only query starting from
-   * the version of the object at the time it was added to the share.
+   * changes for versions &gt;= start_version. If not specified, clients can only query starting
+   * from the version of the object at the time it was added to the share.
    *
-   * <p>NOTE: The start_version should be <= the `current` version of the object.
+   * <p>NOTE: The start_version should be &lt;= the {@code current} version of the object.
    */
   @JsonProperty("start_version")
   private Long startVersion;
 
-  /** One of: **ACTIVE**, **PERMISSION_DENIED**. */
+  /** One of: <b>ACTIVE</b>, <b>PERMISSION_DENIED</b>. */
   @JsonProperty("status")
   private SharedDataObjectStatus status;
 
@@ -105,26 +115,43 @@ public class SharedDataObject {
    *
    * <p>Use this field for non-table objects (for example: VOLUME, MODEL, NOTEBOOK_FILE, FUNCTION).
    * For table-like objects (for example: TABLE, VIEW, MATERIALIZED_VIEW, STREAMING_TABLE,
-   * FOREIGN_TABLE), use `shared_as` instead.
+   * FOREIGN_TABLE), use {@code shared_as} instead.
    *
    * <p>Important: For table-like objects, this field must be omitted entirely.
    *
-   * <p>Format: - For VOLUME: Must be a 2-part name `<schema_name>.<volume_name>` (e.g.,
-   * "data_schema.ml_models") - For FUNCTION: Must be a 2-part name `<schema_name>.<function_name>`
-   * (e.g., "udf_schema.calculate_tax") - For MODEL: Must be a 2-part name
-   * `<schema_name>.<model_name>` (e.g., "models.prediction_model") - For NOTEBOOK_FILE: Should be
-   * the notebook file name (e.g., "analysis_notebook.py") - All names must contain only
-   * alphanumeric characters and underscores - No periods, spaces, forward slashes, or control
-   * characters are allowed within each part
+   * <p>Format:
    *
-   * <p>Behavior: - If not provided, the service automatically generates the alias from the object's
-   * original name - If you don't want to specify this field, omit it entirely from the request (do
-   * not pass an empty string) - The `string_shared_as` name must be unique for objects of the same
-   * type within the share
+   * <ul>
+   *   <li>For VOLUME: Must be a 2-part name {@code <schema_name>.<volume_name>} (e.g.,
+   *       "data_schema.ml_models")
+   *   <li>For FUNCTION: Must be a 2-part name {@code <schema_name>.<function_name>} (e.g.,
+   *       "udf_schema.calculate_tax")
+   *   <li>For MODEL: Must be a 2-part name {@code <schema_name>.<model_name>} (e.g.,
+   *       "models.prediction_model")
+   *   <li>For NOTEBOOK_FILE: Should be the notebook file name (e.g., "analysis_notebook.py")
+   *   <li>All names must contain only alphanumeric characters and underscores
+   *   <li>No periods, spaces, forward slashes, or control characters are allowed within each part
+   * </ul>
    *
-   * <p>Examples: - Valid for VOLUME: "data_schema.training_data" - Valid for FUNCTION:
-   * "analytics.calculate_revenue" - Invalid: "catalog.data_schema.training_data" (3 parts not
-   * allowed for volumes) - Invalid: "data-schema.training-data" (hyphens not allowed)
+   * <p>Behavior:
+   *
+   * <ul>
+   *   <li>If not provided, the service automatically generates the alias from the object's original
+   *       name
+   *   <li>If you don't want to specify this field, omit it entirely from the request (do not pass
+   *       an empty string)
+   *   <li>The {@code string_shared_as} name must be unique for objects of the same type within the
+   *       share
+   * </ul>
+   *
+   * <p>Examples:
+   *
+   * <ul>
+   *   <li>Valid for VOLUME: "data_schema.training_data"
+   *   <li>Valid for FUNCTION: "analytics.calculate_revenue"
+   *   <li>Invalid: "catalog.data_schema.training_data" (3 parts not allowed for volumes)
+   *   <li>Invalid: "data-schema.training-data" (hyphens not allowed)
+   * </ul>
    */
   @JsonProperty("string_shared_as")
   private String stringSharedAs;

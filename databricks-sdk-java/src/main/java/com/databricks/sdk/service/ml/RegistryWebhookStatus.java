@@ -6,12 +6,14 @@ import com.databricks.sdk.support.Generated;
 
 /**
  * Enable or disable triggering the webhook, or put the webhook into test mode. The default is
- * `ACTIVE`: * `ACTIVE`: Webhook is triggered when an associated event happens.
+ * {@code ACTIVE}:
  *
- * <p>* `DISABLED`: Webhook is not triggered.
- *
- * <p>* `TEST_MODE`: Webhook can be triggered through the test endpoint, but is not triggered on a
- * real event.
+ * <ul>
+ *   <li>{@code ACTIVE}: Webhook is triggered when an associated event happens.
+ *   <li>{@code DISABLED}: Webhook is not triggered.
+ *   <li>{@code TEST_MODE}: Webhook can be triggered through the test endpoint, but is not triggered
+ *       on a real event.
+ * </ul>
  */
 @Generated
 public enum RegistryWebhookStatus {

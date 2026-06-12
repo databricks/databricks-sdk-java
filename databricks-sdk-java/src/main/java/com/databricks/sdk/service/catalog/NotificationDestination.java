@@ -26,7 +26,7 @@ public class NotificationDestination {
    * object. The special destination cannot be assigned to a securable and only represents the
    * default destination of the securable. The securable types that support default special
    * destinations are: "catalog", "external_location", "connection", "credential", and "metastore".
-   * The **destination_type** of a **special_destination** is always EMAIL.
+   * The <b>destination_type</b> of a <b>special_destination</b> is always EMAIL.
    */
   @JsonProperty("special_destination")
   private SpecialDestination specialDestination;

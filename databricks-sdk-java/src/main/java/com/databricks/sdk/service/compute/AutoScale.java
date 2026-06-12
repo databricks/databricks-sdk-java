@@ -11,7 +11,7 @@ import java.util.Objects;
 public class AutoScale {
   /**
    * The maximum number of workers to which the cluster can scale up when overloaded. Note that
-   * `max_workers` must be strictly greater than `min_workers`.
+   * {@code max_workers} must be strictly greater than {@code min_workers}.
    */
   @JsonProperty("max_workers")
   private Long maxWorkers;

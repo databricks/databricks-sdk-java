@@ -20,11 +20,11 @@ public class ListDefaultWarehouseOverridesRequest {
   private Long pageSize;
 
   /**
-   * A page token, received from a previous `ListDefaultWarehouseOverrides` call. Provide this to
-   * retrieve the subsequent page.
+   * A page token, received from a previous {@code ListDefaultWarehouseOverrides} call. Provide this
+   * to retrieve the subsequent page.
    *
-   * <p>When paginating, all other parameters provided to `ListDefaultWarehouseOverrides` must match
-   * the call that provided the page token.
+   * <p>When paginating, all other parameters provided to {@code ListDefaultWarehouseOverrides} must
+   * match the call that provided the page token.
    */
   @JsonIgnore
   @QueryParam("page_token")

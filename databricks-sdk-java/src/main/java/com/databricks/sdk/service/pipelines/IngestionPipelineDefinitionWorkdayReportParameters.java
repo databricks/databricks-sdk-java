@@ -13,7 +13,8 @@ import java.util.Objects;
 public class IngestionPipelineDefinitionWorkdayReportParameters {
   /**
    * (Optional) Marks the report as incremental. This field is deprecated and should not be used.
-   * Use `parameters` instead. The incremental behavior is now controlled by the `parameters` field.
+   * Use {@code parameters} instead. The incremental behavior is now controlled by the {@code
+   * parameters} field.
    */
   @JsonProperty("incremental")
   private Boolean incremental;
@@ -29,7 +30,7 @@ public class IngestionPipelineDefinitionWorkdayReportParameters {
 
   /**
    * (Optional) Additional custom parameters for Workday Report This field is deprecated and should
-   * not be used. Use `parameters` instead.
+   * not be used. Use {@code parameters} instead.
    */
   @JsonProperty("report_parameters")
   private Collection<IngestionPipelineDefinitionWorkdayReportParametersQueryKeyValue>

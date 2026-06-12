@@ -22,11 +22,13 @@ public class Results {
   /**
    * The image data in one of the following formats:
    *
-   * <p>1. A Data URL with base64-encoded image data: `data:image/{type};base64,{base64-data}`.
-   * Example: `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUA...`
-   *
-   * <p>2. A FileStore file path for large images: `/plots/{filename}.png`. Example:
-   * `/plots/b6a7ad70-fb2c-4353-8aed-3f1e015174a4.png`
+   * <ol>
+   *   <li>A Data URL with base64-encoded image data: {@code
+   *       data:image/{type};base64,{base64-data}}. Example: {@code
+   *       data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUA...}
+   *   <li>A FileStore file path for large images: {@code /plots/{filename}.png}. Example: {@code
+   *       /plots/b6a7ad70-fb2c-4353-8aed-3f1e015174a4.png}
+   * </ol>
    */
   @JsonProperty("fileName")
   private String fileName;

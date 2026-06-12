@@ -9,11 +9,14 @@ import java.util.Objects;
 
 @Generated
 public class CreateVectorIndexRequest {
-  /** Specification for Delta Sync Index. Required if `index_type` is `DELTA_SYNC`. */
+  /** Specification for Delta Sync Index. Required if {@code index_type} is {@code DELTA_SYNC}. */
   @JsonProperty("delta_sync_index_spec")
   private DeltaSyncVectorIndexSpecRequest deltaSyncIndexSpec;
 
-  /** Specification for Direct Vector Access Index. Required if `index_type` is `DIRECT_ACCESS`. */
+  /**
+   * Specification for Direct Vector Access Index. Required if {@code index_type} is {@code
+   * DIRECT_ACCESS}.
+   */
   @JsonProperty("direct_access_index_spec")
   private DirectAccessVectorIndexSpec directAccessIndexSpec;
 
@@ -21,7 +24,10 @@ public class CreateVectorIndexRequest {
   @JsonProperty("endpoint_name")
   private String endpointName;
 
-  /** The subtype of the index. Use `HYBRID` or `FULL_TEXT`. `VECTOR` is not supported. */
+  /**
+   * The subtype of the index. Use {@code HYBRID} or {@code FULL_TEXT}. {@code VECTOR} is not
+   * supported.
+   */
   @JsonProperty("index_subtype")
   private IndexSubtype indexSubtype;
 

@@ -15,8 +15,8 @@ public class QueryOptions {
   private String catalog;
 
   /**
-   * The timestamp when this query was moved to trash. Only present when the `is_archived` property
-   * is `true`. Trashed items are deleted after thirty days.
+   * The timestamp when this query was moved to trash. Only present when the {@code is_archived}
+   * property is {@code true}. Trashed items are deleted after thirty days.
    */
   @JsonProperty("moved_to_trash_at")
   private String movedToTrashAt;

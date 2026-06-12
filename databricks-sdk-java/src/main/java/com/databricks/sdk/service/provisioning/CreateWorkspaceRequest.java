@@ -16,7 +16,7 @@ public class CreateWorkspaceRequest {
 
   /**
    * DEPRECATED: This field is being ignored by the server and will be removed in the future. The
-   * cloud name. This field always has the value `gcp`.
+   * cloud name. This field always has the value {@code gcp}.
    */
   @JsonProperty("cloud")
   private String cloud;
@@ -26,11 +26,11 @@ public class CreateWorkspaceRequest {
   private CloudResourceContainer cloudResourceContainer;
 
   /**
-   * If the compute mode is `SERVERLESS`, a serverless workspace is created that comes
+   * If the compute mode is {@code SERVERLESS}, a serverless workspace is created that comes
    * pre-configured with serverless compute and default storage, providing a fully-managed,
    * enterprise-ready SaaS experience. This means you don't need to provide any resources managed by
-   * you, such as credentials, storage, or network. If the compute mode is `HYBRID` (which is the
-   * default option), a classic workspace is created that uses customer-managed resources.
+   * you, such as credentials, storage, or network. If the compute mode is {@code HYBRID} (which is
+   * the default option), a classic workspace is created that uses customer-managed resources.
    */
   @JsonProperty("compute_mode")
   private CustomerFacingComputeMode computeMode;
@@ -77,8 +77,8 @@ public class CreateWorkspaceRequest {
   private GkeConfig gkeConfig;
 
   /**
-   * The Google Cloud region of the workspace data plane in your Google account (for example,
-   * `us-east4`).
+   * The Google Cloud region of the workspace data plane in your Google account (for example, {@code
+   * us-east4}).
    */
   @JsonProperty("location")
   private String location;
@@ -113,13 +113,12 @@ public class CreateWorkspaceRequest {
 
   /**
    * ID of the workspace's private access settings object. Only used for PrivateLink. You must
-   * specify this ID if you are using [AWS PrivateLink] for either front-end (user-to-workspace
-   * connection), back-end (data plane to control plane connection), or both connection types.
-   * Before configuring PrivateLink, read the [Databricks article about PrivateLink].",
-   *
-   * <p>[AWS PrivateLink]: https://aws.amazon.com/privatelink/ [Databricks article about
-   * PrivateLink]:
-   * https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
+   * specify this ID if you are using <a href="https://aws.amazon.com/privatelink/">AWS
+   * PrivateLink</a> for either front-end (user-to-workspace connection), back-end (data plane to
+   * control plane connection), or both connection types. Before configuring PrivateLink, read the
+   * <a
+   * href="https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html">Databricks
+   * article about PrivateLink</a>.",
    */
   @JsonProperty("private_access_settings_id")
   private String privateAccessSettingsId;

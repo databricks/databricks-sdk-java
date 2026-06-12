@@ -13,11 +13,11 @@ public class GetAssignableRolesForResourceRequest {
   /**
    * The resource name for which assignable roles will be listed.
    *
-   * <p>Examples | Summary :--- | :--- `resource=accounts/<ACCOUNT_ID>` | A resource name for the
-   * account. `resource=accounts/<ACCOUNT_ID>/groups/<GROUP_ID>` | A resource name for the group.
-   * `resource=accounts/<ACCOUNT_ID>/servicePrincipals/<SP_ID>` | A resource name for the service
-   * principal. `resource=accounts/<ACCOUNT_ID>/tagPolicies/<TAG_POLICY_ID>` | A resource name for
-   * the tag policy.
+   * <p>Examples | Summary :--- | :--- {@code resource=accounts/<ACCOUNT_ID>} | A resource name for
+   * the account. {@code resource=accounts/<ACCOUNT_ID>/groups/<GROUP_ID>} | A resource name for the
+   * group. {@code resource=accounts/<ACCOUNT_ID>/servicePrincipals/<SP_ID>} | A resource name for
+   * the service principal. {@code resource=accounts/<ACCOUNT_ID>/tagPolicies/<TAG_POLICY_ID>} | A
+   * resource name for the tag policy.
    */
   @JsonIgnore
   @QueryParam("resource")

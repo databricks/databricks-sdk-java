@@ -5,19 +5,17 @@ package com.databricks.sdk.service.ml;
 import com.databricks.sdk.support.Generated;
 
 /**
- * Type of activity. Valid values are: * `APPLIED_TRANSITION`: User applied the corresponding stage
- * transition.
+ * Type of activity. Valid values are:
  *
- * <p>* `REQUESTED_TRANSITION`: User requested the corresponding stage transition.
- *
- * <p>* `CANCELLED_REQUEST`: User cancelled an existing transition request.
- *
- * <p>* `APPROVED_REQUEST`: User approved the corresponding stage transition.
- *
- * <p>* `REJECTED_REQUEST`: User rejected the coressponding stage transition.
- *
- * <p>* `SYSTEM_TRANSITION`: For events performed as a side effect, such as archiving existing model
- * versions in a stage.
+ * <ul>
+ *   <li>{@code APPLIED_TRANSITION}: User applied the corresponding stage transition.
+ *   <li>{@code REQUESTED_TRANSITION}: User requested the corresponding stage transition.
+ *   <li>{@code CANCELLED_REQUEST}: User cancelled an existing transition request.
+ *   <li>{@code APPROVED_REQUEST}: User approved the corresponding stage transition.
+ *   <li>{@code REJECTED_REQUEST}: User rejected the coressponding stage transition.
+ *   <li>{@code SYSTEM_TRANSITION}: For events performed as a side effect, such as archiving
+ *       existing model versions in a stage.
+ * </ul>
  */
 @Generated
 public enum ActivityType {

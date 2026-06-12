@@ -17,7 +17,7 @@ public class CreateAccountsMetastore {
   @JsonProperty("name")
   private String name;
 
-  /** Cloud region which the metastore serves (e.g., `us-west-2`, `westus`). */
+  /** Cloud region which the metastore serves (e.g., {@code us-west-2}, {@code westus}). */
   @JsonProperty("region")
   private String region;
 

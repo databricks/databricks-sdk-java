@@ -11,15 +11,15 @@ import java.util.Objects;
 @Generated
 public class ListSecretsRequest {
   /**
-   * The name of the catalog under which to list secrets. Both **catalog_name** and **schema_name**
-   * must be specified together.
+   * The name of the catalog under which to list secrets. Both <b>catalog_name</b> and
+   * <b>schema_name</b> must be specified together.
    */
   @JsonIgnore
   @QueryParam("catalog_name")
   private String catalogName;
 
   /**
-   * Whether to include secrets in the response for which you only have the **BROWSE** privilege,
+   * Whether to include secrets in the response for which you only have the <b>BROWSE</b> privilege,
    * which limits access to metadata.
    */
   @JsonIgnore
@@ -29,9 +29,12 @@ public class ListSecretsRequest {
   /**
    * Maximum number of secrets to return.
    *
-   * <p>- If not specified, at most 10000 secrets are returned. - If set to a value greater than 0,
-   * the page length is the minimum of this value and 10000. - If set to 0, the page length is set
-   * to 10000. - If set to a value less than 0, an invalid parameter error is returned.
+   * <ul>
+   *   <li>If not specified, at most 10000 secrets are returned.
+   *   <li>If set to a value greater than 0, the page length is the minimum of this value and 10000.
+   *   <li>If set to 0, the page length is set to 10000.
+   *   <li>If set to a value less than 0, an invalid parameter error is returned.
+   * </ul>
    */
   @JsonIgnore
   @QueryParam("page_size")
@@ -46,8 +49,8 @@ public class ListSecretsRequest {
   private String pageToken;
 
   /**
-   * The name of the schema under which to list secrets. Both **catalog_name** and **schema_name**
-   * must be specified together.
+   * The name of the schema under which to list secrets. Both <b>catalog_name</b> and
+   * <b>schema_name</b> must be specified together.
    */
   @JsonIgnore
   @QueryParam("schema_name")

@@ -21,8 +21,9 @@ public class CreateVersionRequest {
   private Version version;
 
   /**
-   * The version ID the caller expects to create. The server validates this equals `last_version_id
-   * + 1` on the deployment. If it doesn't match, the server returns `ABORTED`.
+   * The version ID the caller expects to create. The server validates this equals {@code
+   * last_version_id + 1} on the deployment. If it doesn't match, the server returns {@code
+   * ABORTED}.
    */
   @JsonIgnore
   @QueryParam("version_id")

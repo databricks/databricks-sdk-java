@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class MetastoreInfo {
-  /** Cloud vendor of the metastore home shard (e.g., `aws`, `azure`, `gcp`). */
+  /** Cloud vendor of the metastore home shard (e.g., {@code aws}, {@code azure}, {@code gcp}). */
   @JsonProperty("cloud")
   private String cloud;
 
@@ -45,8 +45,8 @@ public class MetastoreInfo {
   private Boolean externalAccessEnabled;
 
   /**
-   * Globally unique metastore ID across clouds and regions, of the form
-   * `cloud:region:metastore_id`.
+   * Globally unique metastore ID across clouds and regions, of the form {@code
+   * cloud:region:metastore_id}.
    */
   @JsonProperty("global_metastore_id")
   private String globalMetastoreId;
@@ -63,11 +63,13 @@ public class MetastoreInfo {
   @JsonProperty("owner")
   private String owner;
 
-  /** Privilege model version of the metastore, of the form `major.minor` (e.g., `1.0`). */
+  /**
+   * Privilege model version of the metastore, of the form {@code major.minor} (e.g., {@code 1.0}).
+   */
   @JsonProperty("privilege_model_version")
   private String privilegeModelVersion;
 
-  /** Cloud region which the metastore serves (e.g., `us-west-2`, `westus`). */
+  /** Cloud region which the metastore serves (e.g., {@code us-west-2}, {@code westus}). */
   @JsonProperty("region")
   private String region;
 

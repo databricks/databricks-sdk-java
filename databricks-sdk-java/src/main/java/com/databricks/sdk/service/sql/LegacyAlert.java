@@ -39,15 +39,15 @@ public class LegacyAlert {
 
   /**
    * Number of seconds after being triggered before the alert rearms itself and can be triggered
-   * again. If `null`, alert will never be triggered again.
+   * again. If {@code null}, alert will never be triggered again.
    */
   @JsonProperty("rearm")
   private Long rearm;
 
   /**
-   * State of the alert. Possible values are: `unknown` (yet to be evaluated), `triggered`
-   * (evaluated and fulfilled trigger conditions), or `ok` (evaluated and did not fulfill trigger
-   * conditions).
+   * State of the alert. Possible values are: {@code unknown} (yet to be evaluated), {@code
+   * triggered} (evaluated and fulfilled trigger conditions), or {@code ok} (evaluated and did not
+   * fulfill trigger conditions).
    */
   @JsonProperty("state")
   private LegacyAlertState state;

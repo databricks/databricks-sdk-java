@@ -11,19 +11,17 @@ import java.util.Objects;
 @Generated
 public class ListQueriesLegacyRequest {
   /**
-   * Name of query attribute to order by. Default sort order is ascending. Append a dash (`-`) to
-   * order descending instead.
+   * Name of query attribute to order by. Default sort order is ascending. Append a dash ({@code -})
+   * to order descending instead.
    *
-   * <p>- `name`: The name of the query.
-   *
-   * <p>- `created_at`: The timestamp the query was created.
-   *
-   * <p>- `runtime`: The time it took to run this query. This is blank for parameterized queries. A
-   * blank value is treated as the highest value for sorting.
-   *
-   * <p>- `executed_at`: The timestamp when the query was last run.
-   *
-   * <p>- `created_by`: The user name of the user that created the query.
+   * <ul>
+   *   <li>{@code name}: The name of the query.
+   *   <li>{@code created_at}: The timestamp the query was created.
+   *   <li>{@code runtime}: The time it took to run this query. This is blank for parameterized
+   *       queries. A blank value is treated as the highest value for sorting.
+   *   <li>{@code executed_at}: The timestamp when the query was last run.
+   *   <li>{@code created_by}: The user name of the user that created the query.
+   * </ul>
    */
   @JsonIgnore
   @QueryParam("order")

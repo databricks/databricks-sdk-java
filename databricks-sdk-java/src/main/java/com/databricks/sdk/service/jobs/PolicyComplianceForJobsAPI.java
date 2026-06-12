@@ -37,8 +37,8 @@ public class PolicyComplianceForJobsAPI {
   }
 
   /**
-   * Updates a job so the job clusters that are created when running the job (specified in
-   * `new_cluster`) are compliant with the current versions of their respective cluster policies.
+   * Updates a job so the job clusters that are created when running the job (specified in {@code
+   * new_cluster}) are compliant with the current versions of their respective cluster policies.
    * All-purpose clusters used in the job will not be updated.
    */
   public EnforcePolicyComplianceResponse enforceCompliance(EnforcePolicyComplianceRequest request) {

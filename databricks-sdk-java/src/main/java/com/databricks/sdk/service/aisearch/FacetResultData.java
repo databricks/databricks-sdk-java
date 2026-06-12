@@ -12,7 +12,7 @@ import java.util.Objects;
 /** Facet aggregation rows returned by a query. */
 @Generated
 public class FacetResultData {
-  /** Facet rows; each row is `[facet_column_name, value_or_range, count]`. */
+  /** Facet rows; each row is {@code [facet_column_name, value_or_range, count]}. */
   @JsonProperty("facet_array")
   private Collection<Collection<JsonNode>> facetArray;
 

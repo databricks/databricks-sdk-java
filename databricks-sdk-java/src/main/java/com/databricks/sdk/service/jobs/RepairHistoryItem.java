@@ -15,9 +15,11 @@ public class RepairHistoryItem {
    * the client-set performance target on the request depending on whether the performance mode is
    * supported by the job type.
    *
-   * <p>* `STANDARD`: Enables cost-efficient execution of serverless workloads. *
-   * `PERFORMANCE_OPTIMIZED`: Prioritizes fast startup and execution times through rapid scaling and
-   * optimized cluster performance.
+   * <ul>
+   *   <li>{@code STANDARD}: Enables cost-efficient execution of serverless workloads.
+   *   <li>{@code PERFORMANCE_OPTIMIZED}: Prioritizes fast startup and execution times through rapid
+   *       scaling and optimized cluster performance.
+   * </ul>
    */
   @JsonProperty("effective_performance_target")
   private PerformanceTarget effectivePerformanceTarget;
@@ -27,7 +29,8 @@ public class RepairHistoryItem {
   private Long endTime;
 
   /**
-   * The ID of the repair. Only returned for the items that represent a repair in `repair_history`.
+   * The ID of the repair. Only returned for the items that represent a repair in {@code
+   * repair_history}.
    */
   @JsonProperty("id")
   private Long id;
@@ -36,7 +39,7 @@ public class RepairHistoryItem {
   @JsonProperty("start_time")
   private Long startTime;
 
-  /** Deprecated. Please use the `status` field instead. */
+  /** Deprecated. Please use the {@code status} field instead. */
   @JsonProperty("state")
   private RunState state;
 

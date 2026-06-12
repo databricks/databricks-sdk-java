@@ -4,8 +4,9 @@ package com.databricks.sdk.service.catalog;
 import com.databricks.sdk.support.Generated;
 
 /**
- * In Databricks Runtime 13.3 and above, you can add libraries and init scripts to the `allowlist`
- * in UC so that users can leverage these artifacts on compute configured with shared access mode.
+ * In Databricks Runtime 13.3 and above, you can add libraries and init scripts to the {@code
+ * allowlist} in UC so that users can leverage these artifacts on compute configured with shared
+ * access mode.
  *
  * <p>This is the high-level interface, that contains generated methods.
  *
@@ -15,14 +16,14 @@ import com.databricks.sdk.support.Generated;
 public interface ArtifactAllowlistsService {
   /**
    * Get the artifact allowlist of a certain artifact type. The caller must be a metastore admin or
-   * have the **MANAGE ALLOWLIST** privilege on the metastore.
+   * have the <b>MANAGE ALLOWLIST</b> privilege on the metastore.
    */
   ArtifactAllowlistInfo get(GetArtifactAllowlistRequest getArtifactAllowlistRequest);
 
   /**
    * Set the artifact allowlist of a certain artifact type. The whole artifact allowlist is replaced
-   * with the new allowlist. The caller must be a metastore admin or have the **MANAGE ALLOWLIST**
-   * privilege on the metastore.
+   * with the new allowlist. The caller must be a metastore admin or have the <b>MANAGE
+   * ALLOWLIST</b> privilege on the metastore.
    */
   ArtifactAllowlistInfo update(SetArtifactAllowlist setArtifactAllowlist);
 }

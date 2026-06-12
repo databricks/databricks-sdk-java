@@ -14,42 +14,42 @@ import java.util.Objects;
 @Generated
 public class QueryEndpointResponse {
   /**
-   * The list of choices returned by the __chat or completions external/foundation model__ serving
-   * endpoint.
+   * The list of choices returned by the <b>chat or completions external/foundation model</b>
+   * serving endpoint.
    */
   @JsonProperty("choices")
   private Collection<V1ResponseChoiceElement> choices;
 
   /**
-   * The timestamp in seconds when the query was created in Unix time returned by a __completions or
-   * chat external/foundation model__ serving endpoint.
+   * The timestamp in seconds when the query was created in Unix time returned by a <b>completions
+   * or chat external/foundation model</b> serving endpoint.
    */
   @JsonProperty("created")
   private Long created;
 
   /**
-   * The list of the embeddings returned by the __embeddings external/foundation model__ serving
+   * The list of the embeddings returned by the <b>embeddings external/foundation model</b> serving
    * endpoint.
    */
   @JsonProperty("data")
   private Collection<EmbeddingsV1ResponseEmbeddingElement> data;
 
   /**
-   * The ID of the query that may be returned by a __completions or chat external/foundation model__
-   * serving endpoint.
+   * The ID of the query that may be returned by a <b>completions or chat external/foundation
+   * model</b> serving endpoint.
    */
   @JsonProperty("id")
   private String id;
 
   /**
-   * The name of the __external/foundation model__ used for querying. This is the name of the model
-   * that was specified in the endpoint config.
+   * The name of the <b>external/foundation model</b> used for querying. This is the name of the
+   * model that was specified in the endpoint config.
    */
   @JsonProperty("model")
   private String model;
 
   /**
-   * The type of object returned by the __external/foundation model__ serving endpoint, one of
+   * The type of object returned by the <b>external/foundation model</b> serving endpoint, one of
    * [text_completion, chat.completion, list (of embeddings)].
    */
   @JsonProperty("object")
@@ -72,7 +72,7 @@ public class QueryEndpointResponse {
   private String servedModelName;
 
   /**
-   * The usage object that may be returned by the __external/foundation model__ serving endpoint.
+   * The usage object that may be returned by the <b>external/foundation model</b> serving endpoint.
    * This contains information about the number of tokens used in the prompt and response.
    */
   @JsonProperty("usage")

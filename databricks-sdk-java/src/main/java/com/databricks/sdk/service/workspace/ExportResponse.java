@@ -8,14 +8,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 /**
- * The request field `direct_download` determines whether a JSON response or binary contents are
- * returned by this endpoint.
+ * The request field {@code direct_download} determines whether a JSON response or binary contents
+ * are returned by this endpoint.
  */
 @Generated
 public class ExportResponse {
   /**
    * The base64-encoded content. If the limit (10MB) is exceeded, exception with error code
-   * **MAX_NOTEBOOK_SIZE_EXCEEDED** is thrown.
+   * <b>MAX_NOTEBOOK_SIZE_EXCEEDED</b> is thrown.
    */
   @JsonProperty("content")
   private String content;

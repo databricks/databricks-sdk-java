@@ -17,7 +17,7 @@ import java.util.Objects;
 public class Secret {
   /**
    * Indicates whether the principal is limited to retrieving metadata for the associated object
-   * through the **BROWSE** privilege when **include_browse** is enabled in the request.
+   * through the <b>BROWSE</b> privilege when <b>include_browse</b> is enabled in the request.
    */
   @JsonProperty("browse_only")
   private Boolean browseOnly;
@@ -39,15 +39,15 @@ public class Secret {
   private String createdBy;
 
   /**
-   * The effective owner of the secret, which may differ from the directly-set **owner** due to
+   * The effective owner of the secret, which may differ from the directly-set <b>owner</b> due to
    * inheritance.
    */
   @JsonProperty("effective_owner")
   private String effectiveOwner;
 
   /**
-   * The secret value. Only populated in responses when you have the **READ_SECRET** privilege and
-   * **include_value** is set to true in the request. The maximum size is 60 KiB.
+   * The secret value. Only populated in responses when you have the <b>READ_SECRET</b> privilege
+   * and <b>include_value</b> is set to true in the request. The maximum size is 60 KiB.
    */
   @JsonProperty("effective_value")
   private String effectiveValue;
@@ -66,7 +66,7 @@ public class Secret {
 
   /**
    * The three-level (fully qualified) name of the secret, in the form of
-   * **catalog_name.schema_name.secret_name**.
+   * <b>catalog_name.schema_name.secret_name</b>.
    */
   @JsonProperty("full_name")
   private String fullName;
@@ -100,8 +100,8 @@ public class Secret {
 
   /**
    * The secret value to store. This field is input-only and is not returned in responses — use the
-   * **effective_value** field (via GetSecret with **include_value** set to true) to read the secret
-   * value. The maximum size is 60 KiB (pre-encryption). Accepted content includes passwords,
+   * <b>effective_value</b> field (via GetSecret with <b>include_value</b> set to true) to read the
+   * secret value. The maximum size is 60 KiB (pre-encryption). Accepted content includes passwords,
    * tokens, keys, and other sensitive credential data.
    */
   @JsonProperty("value")

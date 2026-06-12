@@ -220,7 +220,7 @@ public class FeatureEngineeringAPI {
     return impl.updateMaterializedFeature(request);
   }
 
-  /** Update a Stream. Only fields listed in `update_mask` are mutated. */
+  /** Update a Stream. Only fields listed in {@code update_mask} are mutated. */
   public Stream updateStream(UpdateStreamRequest request) {
     return impl.updateStream(request);
   }

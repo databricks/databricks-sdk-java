@@ -12,7 +12,7 @@ import java.util.Objects;
 public class UpdateFunction {
   /**
    * The fully-qualified name of the function (of the form
-   * __catalog_name__.__schema_name__.__function__name__).
+   * <b>catalog_name</b>.<b>schema_name</b>.<b>function__name</b>).
    */
   @JsonIgnore private String name;
 

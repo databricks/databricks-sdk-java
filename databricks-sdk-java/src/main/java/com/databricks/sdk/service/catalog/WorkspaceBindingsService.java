@@ -4,13 +4,14 @@ package com.databricks.sdk.service.catalog;
 import com.databricks.sdk.support.Generated;
 
 /**
- * A securable in Databricks can be configured as __OPEN__ or __ISOLATED__. An __OPEN__ securable
- * can be accessed from any workspace, while an __ISOLATED__ securable can only be accessed from a
- * configured list of workspaces. This API allows you to configure (bind) securables to workspaces.
+ * A securable in Databricks can be configured as <b>OPEN</b> or <b>ISOLATED</b>. An <b>OPEN</b>
+ * securable can be accessed from any workspace, while an <b>ISOLATED</b> securable can only be
+ * accessed from a configured list of workspaces. This API allows you to configure (bind) securables
+ * to workspaces.
  *
- * <p>NOTE: The __isolation_mode__ is configured for the securable itself (using its Update method)
- * and the workspace bindings are only consulted when the securable's __isolation_mode__ is set to
- * __ISOLATED__.
+ * <p>NOTE: The <b>isolation_mode</b> is configured for the securable itself (using its Update
+ * method) and the workspace bindings are only consulted when the securable's <b>isolation_mode</b>
+ * is set to <b>ISOLATED</b>.
  *
  * <p>A securable's workspace bindings can be configured by a metastore admin or the owner of the
  * securable.
@@ -19,10 +20,16 @@ import com.databricks.sdk.support.Generated;
  * Please use the new path (/api/2.1/unity-catalog/bindings/{securable_type}/{securable_name}) which
  * introduces the ability to bind a securable in READ_ONLY mode (catalogs only).
  *
- * <p>Securable types that support binding: - catalog - storage_credential - credential -
- * external_location
+ * <p>Securable types that support binding:
  *
- * <p>This is the high-level interface, that contains generated methods.
+ * <ul>
+ *   <li>catalog
+ *   <li>storage_credential
+ *   <li>credential
+ *   <li>external_location
+ * </ul>
+ *
+ * This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
@@ -41,7 +48,7 @@ public interface WorkspaceBindingsService {
    * <p>NOTE: we recommend using max_results=0 to use the paginated version of this API. Unpaginated
    * calls will be deprecated soon.
    *
-   * <p>PAGINATION BEHAVIOR: When using pagination (max_results >= 0), a page may contain zero
+   * <p>PAGINATION BEHAVIOR: When using pagination (max_results &gt;= 0), a page may contain zero
    * results while still providing a next_page_token. Clients must continue reading pages until
    * next_page_token is absent, which is the only indication that the end of results has been
    * reached.

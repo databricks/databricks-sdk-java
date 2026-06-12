@@ -24,8 +24,8 @@ public class ResultManifest {
   private ResultSchema schema;
 
   /**
-   * The total number of bytes in the result set. This field is not available when using `INLINE`
-   * disposition.
+   * The total number of bytes in the result set. This field is not available when using {@code
+   * INLINE} disposition.
    */
   @JsonProperty("total_byte_count")
   private Long totalByteCount;
@@ -38,7 +38,7 @@ public class ResultManifest {
   @JsonProperty("total_row_count")
   private Long totalRowCount;
 
-  /** Indicates whether the result is truncated due to `row_limit` or `byte_limit`. */
+  /** Indicates whether the result is truncated due to {@code row_limit} or {@code byte_limit}. */
   @JsonProperty("truncated")
   private Boolean truncated;
 

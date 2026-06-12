@@ -10,13 +10,16 @@ import java.util.Objects;
 @Generated
 public class QueryParameter {
   /**
-   * Date-range query parameter value. Can only specify one of `dynamic_date_range_value` or
-   * `date_range_value`.
+   * Date-range query parameter value. Can only specify one of {@code dynamic_date_range_value} or
+   * {@code date_range_value}.
    */
   @JsonProperty("date_range_value")
   private DateRangeValue dateRangeValue;
 
-  /** Date query parameter value. Can only specify one of `dynamic_date_value` or `date_value`. */
+  /**
+   * Date query parameter value. Can only specify one of {@code dynamic_date_value} or {@code
+   * date_value}.
+   */
   @JsonProperty("date_value")
   private DateValue dateValue;
 

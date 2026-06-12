@@ -11,8 +11,8 @@ import java.util.Objects;
 @Generated
 public class PrivilegeAssignment {
   /**
-   * The principal (user email address or group name). For deleted principals, `principal` is empty
-   * while `principal_id` is populated.
+   * The principal (user email address or group name). For deleted principals, {@code principal} is
+   * empty while {@code principal_id} is populated.
    */
   @JsonProperty("principal")
   private String principal;

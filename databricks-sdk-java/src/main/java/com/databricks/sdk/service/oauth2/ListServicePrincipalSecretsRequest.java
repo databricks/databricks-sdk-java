@@ -16,13 +16,13 @@ public class ListServicePrincipalSecretsRequest {
   private Long pageSize;
 
   /**
-   * An opaque page token which was the `next_page_token` in the response of the previous request to
-   * list the secrets for this service principal. Provide this token to retrieve the next page of
-   * secret entries. When providing a `page_token`, all other parameters provided to the request
-   * must match the previous request. To list all of the secrets for a service principal, it is
-   * necessary to continue requesting pages of entries until the response contains no
-   * `next_page_token`. Note that the number of entries returned must not be used to determine when
-   * the listing is complete.
+   * An opaque page token which was the {@code next_page_token} in the response of the previous
+   * request to list the secrets for this service principal. Provide this token to retrieve the next
+   * page of secret entries. When providing a {@code page_token}, all other parameters provided to
+   * the request must match the previous request. To list all of the secrets for a service
+   * principal, it is necessary to continue requesting pages of entries until the response contains
+   * no {@code next_page_token}. Note that the number of entries returned must not be used to
+   * determine when the listing is complete.
    */
   @JsonIgnore
   @QueryParam("page_token")

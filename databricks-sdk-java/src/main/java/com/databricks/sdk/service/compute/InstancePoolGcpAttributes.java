@@ -16,11 +16,9 @@ public class InstancePoolGcpAttributes {
 
   /**
    * If provided, each node in the instance pool will have this number of local SSDs attached. Each
-   * local SSD is 375GB in size. Refer to [GCP documentation] for the supported number of local SSDs
-   * for each instance type.
-   *
-   * <p>[GCP documentation]:
-   * https://cloud.google.com/compute/docs/disks/local-ssd#choose_number_local_ssds
+   * local SSD is 375GB in size. Refer to <a
+   * href="https://cloud.google.com/compute/docs/disks/local-ssd#choose_number_local_ssds">GCP
+   * documentation</a> for the supported number of local SSDs for each instance type.
    */
   @JsonProperty("local_ssd_count")
   private Long localSsdCount;
@@ -32,10 +30,14 @@ public class InstancePoolGcpAttributes {
    * workspace resides in the "us-east1" region. This is an optional field at instance pool
    * creation, and if not specified, a default zone will be used.
    *
-   * <p>This field can be one of the following: - "HA" => High availability, spread nodes across
-   * availability zones for a Databricks deployment region - A GCP availability zone => Pick One of
-   * the available zones for (machine type + region) from
-   * https://cloud.google.com/compute/docs/regions-zones (e.g. "us-west1-a").
+   * <p>This field can be one of the following:
+   *
+   * <ul>
+   *   <li>"HA" =&gt; High availability, spread nodes across availability zones for a Databricks
+   *       deployment region
+   *   <li>A GCP availability zone =&gt; Pick One of the available zones for (machine type + region)
+   *       from https://cloud.google.com/compute/docs/regions-zones (e.g. "us-west1-a").
+   * </ul>
    *
    * <p>If empty, Databricks picks an availability zone to schedule the cluster on.
    */

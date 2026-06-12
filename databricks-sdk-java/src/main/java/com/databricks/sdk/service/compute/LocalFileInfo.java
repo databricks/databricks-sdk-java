@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class LocalFileInfo {
-  /** local file destination, e.g. `file:/my/local/file.sh` */
+  /** local file destination, e.g. {@code file:/my/local/file.sh} */
   @JsonProperty("destination")
   private String destination;
 

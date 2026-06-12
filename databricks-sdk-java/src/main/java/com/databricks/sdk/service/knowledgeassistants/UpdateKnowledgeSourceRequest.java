@@ -27,8 +27,13 @@ public class UpdateKnowledgeSourceRequest {
   @JsonIgnore private String name;
 
   /**
-   * Comma-delimited list of fields to update on the Knowledge Source. Allowed values:
-   * `display_name`, `description`. Examples: - `display_name` - `display_name,description`
+   * Comma-delimited list of fields to update on the Knowledge Source. Allowed values: {@code
+   * display_name}, {@code description}. Examples:
+   *
+   * <ul>
+   *   <li>{@code display_name}
+   *   <li>{@code display_name,description}
+   * </ul>
    */
   @JsonIgnore
   @QueryParam("update_mask")

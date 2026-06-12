@@ -12,7 +12,7 @@ import java.util.Objects;
 public class UpdateJob {
   /**
    * Remove top-level fields in the job settings. Removing nested fields is not supported, except
-   * for tasks and job clusters (`tasks/task_1`). This field is optional.
+   * for tasks and job clusters ({@code tasks/task_1}). This field is optional.
    */
   @JsonProperty("fields_to_remove")
   private Collection<String> fieldsToRemove;
@@ -24,14 +24,15 @@ public class UpdateJob {
   /**
    * The new settings for the job.
    *
-   * <p>Top-level fields specified in `new_settings` are completely replaced, except for arrays
-   * which are merged. That is, new and existing entries are completely replaced based on the
-   * respective key fields, i.e. `task_key` or `job_cluster_key`, while previous entries are kept.
+   * <p>Top-level fields specified in {@code new_settings} are completely replaced, except for
+   * arrays which are merged. That is, new and existing entries are completely replaced based on the
+   * respective key fields, i.e. {@code task_key} or {@code job_cluster_key}, while previous entries
+   * are kept.
    *
    * <p>Partially updating nested fields is not supported.
    *
-   * <p>Changes to the field `JobSettings.timeout_seconds` are applied to active runs. Changes to
-   * other fields are applied to future runs only.
+   * <p>Changes to the field {@code JobSettings.timeout_seconds} are applied to active runs. Changes
+   * to other fields are applied to future runs only.
    */
   @JsonProperty("new_settings")
   private JobSettings newSettings;

@@ -22,7 +22,7 @@ public class Workspace {
   @JsonProperty("azure_workspace_info")
   private AzureWorkspaceInfo azureWorkspaceInfo;
 
-  /** The cloud name. This field can have values like `azure`, `gcp`. */
+  /** The cloud name. This field can have values like {@code azure}, {@code gcp}. */
   @JsonProperty("cloud")
   private String cloud;
 
@@ -70,8 +70,8 @@ public class Workspace {
   private GkeConfig gkeConfig;
 
   /**
-   * The Google Cloud region of the workspace data plane in your Google account (for example,
-   * `us-east4`).
+   * The Google Cloud region of the workspace data plane in your Google account (for example, {@code
+   * us-east4}).
    */
   @JsonProperty("location")
   private String location;
@@ -83,7 +83,7 @@ public class Workspace {
   /**
    * The network configuration for the workspace.
    *
-   * <p>DEPRECATED. Use `network_id` instead.
+   * <p>DEPRECATED. Use {@code network_id} instead.
    */
   @JsonProperty("network")
   private WorkspaceNetwork network;
@@ -105,14 +105,13 @@ public class Workspace {
 
   /**
    * ID of the workspace's private access settings object. Only used for PrivateLink. You must
-   * specify this ID if you are using [AWS PrivateLink] for either front-end (user-to-workspace
-   * connection), back-end (data plane to control plane connection), or both connection types.
+   * specify this ID if you are using <a href="https://aws.amazon.com/privatelink/">AWS
+   * PrivateLink</a> for either front-end (user-to-workspace connection), back-end (data plane to
+   * control plane connection), or both connection types.
    *
-   * <p>Before configuring PrivateLink, read the [Databricks article about PrivateLink].",
-   *
-   * <p>[AWS PrivateLink]: https://aws.amazon.com/privatelink/ [Databricks article about
-   * PrivateLink]:
-   * https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
+   * <p>Before configuring PrivateLink, read the <a
+   * href="https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html">Databricks
+   * article about PrivateLink</a>.",
    */
   @JsonProperty("private_access_settings_id")
   private String privateAccessSettingsId;

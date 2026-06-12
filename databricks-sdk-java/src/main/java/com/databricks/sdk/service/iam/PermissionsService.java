@@ -5,31 +5,43 @@ import com.databricks.sdk.support.Generated;
 
 /**
  * Permissions API are used to create read, write, edit, update and manage access for various users
- * on different objects and endpoints. * **[Apps permissions](:service:apps)** — Manage which users
- * can manage or use apps. * **[Cluster permissions](:service:clusters)** — Manage which users can
- * manage, restart, or attach to clusters. * **[Cluster policy
- * permissions](:service:clusterpolicies)** — Manage which users can use cluster policies. *
- * **[Spark Declarative Pipelines permissions](:service:pipelines)** — Manage which users can view,
- * manage, run, cancel, or own a Spark Declarative Pipeline. * **[Job permissions](:service:jobs)**
- * — Manage which users can view, manage, trigger, cancel, or own a job. * **[MLflow experiment
- * permissions](:service:experiments)** — Manage which users can read, edit, or manage MLflow
- * experiments. * **[MLflow registered model permissions](:service:modelregistry)** — Manage which
- * users can read, edit, or manage MLflow registered models. * **[Instance Pool
- * permissions](:service:instancepools)** — Manage which users can manage or attach to pools. *
- * **[Repo permissions](repos)** — Manage which users can read, run, edit, or manage a repo. *
- * **[Serving endpoint permissions](:service:servingendpoints)** — Manage which users can view,
- * query, or manage a serving endpoint. * **[SQL warehouse permissions](:service:warehouses)** —
- * Manage which users can use or manage SQL warehouses. * **[Token
- * permissions](:service:tokenmanagement)** — Manage which users can create or use tokens. *
- * **[Workspace object permissions](:service:workspace)** — Manage which users can read, run, edit,
- * or manage alerts, dbsql-dashboards, directories, files, notebooks and queries. For the mapping of
- * the required permissions for specific actions or abilities and other important information, see
- * [Access Control]. Note that to manage access control on service principals, use **[Account Access
- * Control Proxy](:service:accountaccesscontrolproxy)**.
+ * on different objects and endpoints.
  *
- * <p>[Access Control]: https://docs.databricks.com/security/auth-authz/access-control/index.html
+ * <ul>
+ *   <li><b><a href=":service:apps">Apps permissions</a></b> — Manage which users can manage or use
+ *       apps.
+ *   <li><b><a href=":service:clusters">Cluster permissions</a></b> — Manage which users can manage,
+ *       restart, or attach to clusters.
+ *   <li><b><a href=":service:clusterpolicies">Cluster policy permissions</a></b> — Manage which
+ *       users can use cluster policies.
+ *   <li><b><a href=":service:pipelines">Spark Declarative Pipelines permissions</a></b> — Manage
+ *       which users can view, manage, run, cancel, or own a Spark Declarative Pipeline.
+ *   <li><b><a href=":service:jobs">Job permissions</a></b> — Manage which users can view, manage,
+ *       trigger, cancel, or own a job.
+ *   <li><b><a href=":service:experiments">MLflow experiment permissions</a></b> — Manage which
+ *       users can read, edit, or manage MLflow experiments.
+ *   <li><b><a href=":service:modelregistry">MLflow registered model permissions</a></b> — Manage
+ *       which users can read, edit, or manage MLflow registered models.
+ *   <li><b><a href=":service:instancepools">Instance Pool permissions</a></b> — Manage which users
+ *       can manage or attach to pools.
+ *   <li><b><a href="repos">Repo permissions</a></b> — Manage which users can read, run, edit, or
+ *       manage a repo.
+ *   <li><b><a href=":service:servingendpoints">Serving endpoint permissions</a></b> — Manage which
+ *       users can view, query, or manage a serving endpoint.
+ *   <li><b><a href=":service:warehouses">SQL warehouse permissions</a></b> — Manage which users can
+ *       use or manage SQL warehouses.
+ *   <li><b><a href=":service:tokenmanagement">Token permissions</a></b> — Manage which users can
+ *       create or use tokens.
+ *   <li><b><a href=":service:workspace">Workspace object permissions</a></b> — Manage which users
+ *       can read, run, edit, or manage alerts, dbsql-dashboards, directories, files, notebooks and
+ *       queries. For the mapping of the required permissions for specific actions or abilities and
+ *       other important information, see <a
+ *       href="https://docs.databricks.com/security/auth-authz/access-control/index.html">Access
+ *       Control</a>. Note that to manage access control on service principals, use <b><a
+ *       href=":service:accountaccesscontrolproxy">Account Access Control Proxy</a></b>.
+ * </ul>
  *
- * <p>This is the high-level interface, that contains generated methods.
+ * This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */

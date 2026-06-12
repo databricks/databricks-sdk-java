@@ -11,11 +11,11 @@ import java.util.Objects;
 @Generated
 public class ListArtifactsRequest {
   /**
-   * The token indicating the page of artifact results to fetch. `page_token` is not supported when
-   * listing artifacts in UC Volumes. A maximum of 1000 artifacts will be retrieved for UC Volumes.
-   * Please call `/api/2.0/fs/directories{directory_path}` for listing artifacts in UC Volumes,
-   * which supports pagination. See [List directory contents | Files
-   * API](/api/workspace/files/listdirectorycontents).
+   * The token indicating the page of artifact results to fetch. {@code page_token} is not supported
+   * when listing artifacts in UC Volumes. A maximum of 1000 artifacts will be retrieved for UC
+   * Volumes. Please call {@code /api/2.0/fs/directories{directory_path}} for listing artifacts in
+   * UC Volumes, which supports pagination. See <a
+   * href="/api/workspace/files/listdirectorycontents">List directory contents | Files API</a>.
    */
   @JsonIgnore
   @QueryParam("page_token")
@@ -32,8 +32,8 @@ public class ListArtifactsRequest {
   private String runId;
 
   /**
-   * [Deprecated, use `run_id` instead] ID of the run whose artifacts to list. This field will be
-   * removed in a future MLflow version.
+   * [Deprecated, use {@code run_id} instead] ID of the run whose artifacts to list. This field will
+   * be removed in a future MLflow version.
    */
   @JsonIgnore
   @QueryParam("run_uuid")

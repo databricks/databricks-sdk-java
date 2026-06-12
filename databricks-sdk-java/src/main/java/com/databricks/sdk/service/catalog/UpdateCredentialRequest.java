@@ -31,8 +31,8 @@ public class UpdateCredentialRequest {
   private DatabricksGcpServiceAccount databricksGcpServiceAccount;
 
   /**
-   * Force an update even if there are dependent services (when purpose is **SERVICE**) or dependent
-   * external locations and external tables (when purpose is **STORAGE**).
+   * Force an update even if there are dependent services (when purpose is <b>SERVICE</b>) or
+   * dependent external locations and external tables (when purpose is <b>STORAGE</b>).
    */
   @JsonProperty("force")
   private Boolean force;
@@ -57,7 +57,7 @@ public class UpdateCredentialRequest {
 
   /**
    * Whether the credential is usable only for read operations. Only applicable when purpose is
-   * **STORAGE**.
+   * <b>STORAGE</b>.
    */
   @JsonProperty("read_only")
   private Boolean readOnly;

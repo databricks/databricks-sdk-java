@@ -11,13 +11,18 @@ import java.util.Objects;
 @Generated
 public class SharesListRequest {
   /**
-   * Maximum number of shares to return. - when set to 0, the page length is set to a server
-   * configured value (recommended); - when set to a value greater than 0, the page length is the
-   * minimum of this value and a server configured value; - when set to a value less than 0, an
-   * invalid parameter error is returned; - If not set, all valid shares are returned (not
-   * recommended). - Note: The number of returned shares might be less than the specified
-   * max_results size, even zero. The only definitive indication that no further shares can be
-   * fetched is when the next_page_token is unset from the response.
+   * Maximum number of shares to return.
+   *
+   * <ul>
+   *   <li>when set to 0, the page length is set to a server configured value (recommended);
+   *   <li>when set to a value greater than 0, the page length is the minimum of this value and a
+   *       server configured value;
+   *   <li>when set to a value less than 0, an invalid parameter error is returned;
+   *   <li>If not set, all valid shares are returned (not recommended).
+   *   <li>Note: The number of returned shares might be less than the specified max_results size,
+   *       even zero. The only definitive indication that no further shares can be fetched is when
+   *       the next_page_token is unset from the response.
+   * </ul>
    */
   @JsonIgnore
   @QueryParam("max_results")

@@ -10,8 +10,8 @@ import java.util.Objects;
 @Generated
 public class GenieGetDownloadFullQueryResultResponse {
   /**
-   * SQL Statement Execution response. See [Get status, manifest, and result first
-   * chunk](:method:statementexecution/getstatement) for more details.
+   * SQL Statement Execution response. See <a href=":method:statementexecution/getstatement">Get
+   * status, manifest, and result first chunk</a> for more details.
    */
   @JsonProperty("statement_response")
   private com.databricks.sdk.service.sql.StatementResponse statementResponse;

@@ -19,7 +19,7 @@ public class EndpointStatus {
   @JsonProperty("message")
   private String message;
 
-  /** Current lifecycle state of the endpoint. See `State` for the meaning of each value. */
+  /** Current lifecycle state of the endpoint. See {@code State} for the meaning of each value. */
   @JsonProperty("state")
   private EndpointStatusState state;
 

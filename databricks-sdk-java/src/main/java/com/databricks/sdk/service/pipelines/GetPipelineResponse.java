@@ -43,7 +43,7 @@ public class GetPipelineResponse {
   @JsonProperty("latest_updates")
   private Collection<UpdateStateInfo> latestUpdates;
 
-  /** A human friendly identifier for the pipeline, taken from the `spec`. */
+  /** A human friendly identifier for the pipeline, taken from the {@code spec}. */
   @JsonProperty("name")
   private String name;
 
@@ -60,8 +60,8 @@ public class GetPipelineResponse {
 
   /**
    * The user or service principal that the pipeline runs as, if specified in the request. This
-   * field indicates the explicit configuration of `run_as` for the pipeline. To find the value in
-   * all cases, explicit or implicit, use `run_as_user_name`.
+   * field indicates the explicit configuration of {@code run_as} for the pipeline. To find the
+   * value in all cases, explicit or implicit, use {@code run_as_user_name}.
    */
   @JsonProperty("run_as")
   private RunAs runAs;
@@ -70,7 +70,9 @@ public class GetPipelineResponse {
   @JsonProperty("run_as_user_name")
   private String runAsUserName;
 
-  /** The pipeline specification. This field is not returned when called by `ListPipelines`. */
+  /**
+   * The pipeline specification. This field is not returned when called by {@code ListPipelines}.
+   */
   @JsonProperty("spec")
   private PipelineSpec spec;
 

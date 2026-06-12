@@ -61,8 +61,8 @@ public class ClusterDetails {
    * The configuration for delivering spark logs to a long-term storage destination. Three kinds of
    * destinations (DBFS, S3 and Unity Catalog volumes) are supported. Only one destination can be
    * specified for one cluster. If the conf is given, the logs will be delivered to the destination
-   * every `5 mins`. The destination of driver logs is `$destination/$clusterId/driver`, while the
-   * destination of executor logs is `$destination/$clusterId/executor`.
+   * every {@code 5 mins}. The destination of driver logs is {@code $destination/$clusterId/driver},
+   * while the destination of executor logs is {@code $destination/$clusterId/executor}.
    */
   @JsonProperty("cluster_log_conf")
   private ClusterLogConf clusterLogConf;
@@ -99,12 +99,13 @@ public class ClusterDetails {
 
   /**
    * Additional tags for cluster resources. Databricks will tag all cluster resources (e.g., AWS
-   * instances and EBS volumes) with these tags in addition to `default_tags`. Notes:
+   * instances and EBS volumes) with these tags in addition to {@code default_tags}. Notes:
    *
-   * <p>- Currently, Databricks allows at most 45 custom tags
-   *
-   * <p>- Clusters can only reuse cloud resources if the resources' tags are a subset of the cluster
-   * tags
+   * <ul>
+   *   <li>Currently, Databricks allows at most 45 custom tags
+   *   <li>Clusters can only reuse cloud resources if the resources' tags are a subset of the
+   *       cluster tags
+   * </ul>
    */
   @JsonProperty("custom_tags")
   private Map<String, String> customTags;
@@ -114,17 +115,15 @@ public class ClusterDetails {
   private DataSecurityMode dataSecurityMode;
 
   /**
-   * Tags that are added by Databricks regardless of any `custom_tags`, including:
+   * Tags that are added by Databricks regardless of any {@code custom_tags}, including:
    *
-   * <p>- Vendor: Databricks
-   *
-   * <p>- Creator: <username_of_creator>
-   *
-   * <p>- ClusterName: <name_of_cluster>
-   *
-   * <p>- ClusterId: <id_of_cluster>
-   *
-   * <p>- Name: <Databricks internal use>
+   * <ul>
+   *   <li>Vendor: Databricks
+   *   <li>Creator: &lt;username_of_creator&gt;
+   *   <li>ClusterName: &lt;name_of_cluster&gt;
+   *   <li>ClusterId: &lt;id_of_cluster&gt;
+   *   <li>Name: <Databricks internal use>
+   * </ul>
    */
   @JsonProperty("default_tags")
   private Map<String, String> defaultTags;
@@ -153,7 +152,7 @@ public class ClusterDetails {
 
   /**
    * The node type of the Spark driver. Note that this field is optional; if unset, the driver node
-   * type will be set as the same value as `node_type_id` defined above.
+   * type will be set as the same value as {@code node_type_id} defined above.
    *
    * <p>This field, along with node_type_id, should not be set if virtual_cluster_size is set. If
    * both driver_node_type_id, node_type_id, and virtual_cluster_size are specified,
@@ -186,8 +185,8 @@ public class ClusterDetails {
 
   /**
    * The configuration for storing init scripts. Any number of destinations can be specified. The
-   * scripts are executed sequentially in the order provided. If `cluster_log_conf` is specified,
-   * init script logs are sent to `<destination>/<cluster-ID>/init_scripts`.
+   * scripts are executed sequentially in the order provided. If {@code cluster_log_conf} is
+   * specified, init script logs are sent to {@code <destination>/<cluster-ID>/init_scripts}.
    */
   @JsonProperty("init_scripts")
   private Collection<InitScriptInfo> initScripts;
@@ -197,10 +196,10 @@ public class ClusterDetails {
   private String instancePoolId;
 
   /**
-   * This field can only be used when `kind = CLASSIC_PREVIEW`.
+   * This field can only be used when {@code kind = CLASSIC_PREVIEW}.
    *
-   * <p>When set to true, Databricks will automatically set single node related `custom_tags`,
-   * `spark_conf`, and `num_workers`
+   * <p>When set to true, Databricks will automatically set single node related {@code custom_tags},
+   * {@code spark_conf}, and {@code num_workers}
    */
   @JsonProperty("is_single_node")
   private Boolean isSingleNode;
@@ -234,14 +233,14 @@ public class ClusterDetails {
   private String nodeTypeId;
 
   /**
-   * Number of worker nodes that this cluster should have. A cluster has one Spark Driver and
-   * `num_workers` Executors for a total of `num_workers` + 1 Spark nodes.
+   * Number of worker nodes that this cluster should have. A cluster has one Spark Driver and {@code
+   * num_workers} Executors for a total of {@code num_workers} + 1 Spark nodes.
    *
    * <p>Note: When reading the properties of a cluster, this field reflects the desired number of
    * workers rather than the actual current number of workers. For instance, if a cluster is resized
    * from 5 to 10 workers, this field will immediately be updated to reflect the target size of 10
-   * workers, whereas the workers listed in `spark_info` will gradually increase from 5 to 10 as the
-   * new nodes are provisioned.
+   * workers, whereas the workers listed in {@code spark_info} will gradually increase from 5 to 10
+   * as the new nodes are provisioned.
    */
   @JsonProperty("num_workers")
   private Long numWorkers;
@@ -260,8 +259,9 @@ public class ClusterDetails {
   /**
    * Determines the cluster's runtime engine, either standard or Photon.
    *
-   * <p>This field is not compatible with legacy `spark_version` values that contain `-photon-`.
-   * Remove `-photon-` from the `spark_version` and set `runtime_engine` to `PHOTON`.
+   * <p>This field is not compatible with legacy {@code spark_version} values that contain {@code
+   * -photon-}. Remove {@code -photon-} from the {@code spark_version} and set {@code
+   * runtime_engine} to {@code PHOTON}.
    *
    * <p>If left unspecified, the runtime engine defaults to standard unless the spark_version
    * contains -photon-, in which case Photon will be used.
@@ -269,45 +269,45 @@ public class ClusterDetails {
   @JsonProperty("runtime_engine")
   private RuntimeEngine runtimeEngine;
 
-  /** Single user name if data_security_mode is `SINGLE_USER` */
+  /** Single user name if data_security_mode is {@code SINGLE_USER} */
   @JsonProperty("single_user_name")
   private String singleUserName;
 
   /**
    * An object containing a set of optional, user-specified Spark configuration key-value pairs.
-   * Users can also pass in a string of extra JVM options to the driver and the executors via
-   * `spark.driver.extraJavaOptions` and `spark.executor.extraJavaOptions` respectively.
+   * Users can also pass in a string of extra JVM options to the driver and the executors via {@code
+   * spark.driver.extraJavaOptions} and {@code spark.executor.extraJavaOptions} respectively.
    */
   @JsonProperty("spark_conf")
   private Map<String, String> sparkConf;
 
   /**
-   * A canonical SparkContext identifier. This value *does* change when the Spark driver restarts.
-   * The pair `(cluster_id, spark_context_id)` is a globally unique identifier over all Spark
-   * contexts.
+   * A canonical SparkContext identifier. This value <i>does</i> change when the Spark driver
+   * restarts. The pair {@code (cluster_id, spark_context_id)} is a globally unique identifier over
+   * all Spark contexts.
    */
   @JsonProperty("spark_context_id")
   private Long sparkContextId;
 
   /**
    * An object containing a set of optional, user-specified environment variable key-value pairs.
-   * Please note that key-value pair of the form (X,Y) will be exported as is (i.e., `export X='Y'`)
-   * while launching the driver and workers.
+   * Please note that key-value pair of the form (X,Y) will be exported as is (i.e., {@code export
+   * X='Y'}) while launching the driver and workers.
    *
-   * <p>In order to specify an additional set of `SPARK_DAEMON_JAVA_OPTS`, we recommend appending
-   * them to `$SPARK_DAEMON_JAVA_OPTS` as shown in the example below. This ensures that all default
-   * databricks managed environmental variables are included as well.
+   * <p>In order to specify an additional set of {@code SPARK_DAEMON_JAVA_OPTS}, we recommend
+   * appending them to {@code $SPARK_DAEMON_JAVA_OPTS} as shown in the example below. This ensures
+   * that all default databricks managed environmental variables are included as well.
    *
-   * <p>Example Spark environment variables: `{"SPARK_WORKER_MEMORY": "28000m", "SPARK_LOCAL_DIRS":
-   * "/local_disk0"}` or `{"SPARK_DAEMON_JAVA_OPTS": "$SPARK_DAEMON_JAVA_OPTS
-   * -Dspark.shuffle.service.enabled=true"}`
+   * <p>Example Spark environment variables: {@code {"SPARK_WORKER_MEMORY": "28000m",
+   * "SPARK_LOCAL_DIRS": "/local_disk0"}} or {@code {"SPARK_DAEMON_JAVA_OPTS":
+   * "$SPARK_DAEMON_JAVA_OPTS -Dspark.shuffle.service.enabled=true"}}
    */
   @JsonProperty("spark_env_vars")
   private Map<String, String> sparkEnvVars;
 
   /**
-   * The Spark version of the cluster, e.g. `3.3.x-scala2.11`. A list of available Spark versions
-   * can be retrieved by using the :method:clusters/sparkVersions API call.
+   * The Spark version of the cluster, e.g. {@code 3.3.x-scala2.11}. A list of available Spark
+   * versions can be retrieved by using the :method:clusters/sparkVersions API call.
    */
   @JsonProperty("spark_version")
   private String sparkVersion;
@@ -321,15 +321,15 @@ public class ClusterDetails {
 
   /**
    * SSH public key contents that will be added to each Spark node in this cluster. The
-   * corresponding private keys can be used to login with the user name `ubuntu` on port `2200`. Up
-   * to 10 keys can be specified.
+   * corresponding private keys can be used to login with the user name {@code ubuntu} on port
+   * {@code 2200}. Up to 10 keys can be specified.
    */
   @JsonProperty("ssh_public_keys")
   private Collection<String> sshPublicKeys;
 
   /**
    * Time (in epoch milliseconds) when the cluster creation request was received (when the cluster
-   * entered a `PENDING` state).
+   * entered a {@code PENDING} state).
    */
   @JsonProperty("start_time")
   private Long startTime;
@@ -340,7 +340,7 @@ public class ClusterDetails {
 
   /**
    * A message associated with the most recent state transition (e.g., the reason why the cluster
-   * entered a `TERMINATED` state).
+   * entered a {@code TERMINATED} state).
    */
   @JsonProperty("state_message")
   private String stateMessage;
@@ -351,7 +351,7 @@ public class ClusterDetails {
 
   /**
    * Information about why the cluster was terminated. This field only appears when the cluster is
-   * in a `TERMINATING` or `TERMINATED` state.
+   * in a {@code TERMINATING} or {@code TERMINATED} state.
    */
   @JsonProperty("termination_reason")
   private TerminationReason terminationReason;
@@ -364,10 +364,10 @@ public class ClusterDetails {
   private Long totalInitialRemoteDiskSize;
 
   /**
-   * This field can only be used when `kind = CLASSIC_PREVIEW`.
+   * This field can only be used when {@code kind = CLASSIC_PREVIEW}.
    *
-   * <p>`effective_spark_version` is determined by `spark_version` (DBR release), this field
-   * `use_ml_runtime`, and whether `node_type_id` is gpu node or not.
+   * <p>{@code effective_spark_version} is determined by {@code spark_version} (DBR release), this
+   * field {@code use_ml_runtime}, and whether {@code node_type_id} is gpu node or not.
    */
   @JsonProperty("use_ml_runtime")
   private Boolean useMlRuntime;

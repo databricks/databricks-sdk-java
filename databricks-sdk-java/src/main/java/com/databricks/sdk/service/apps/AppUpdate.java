@@ -14,11 +14,11 @@ public class AppUpdate {
   @JsonProperty("budget_policy_id")
   private String budgetPolicyId;
 
-  /** Maximum number of app instances. Must be set together with `compute_min_instances`. */
+  /** Maximum number of app instances. Must be set together with {@code compute_min_instances}. */
   @JsonProperty("compute_max_instances")
   private Long computeMaxInstances;
 
-  /** Minimum number of app instances. Must be set together with `compute_max_instances`. */
+  /** Minimum number of app instances. Must be set together with {@code compute_max_instances}. */
   @JsonProperty("compute_min_instances")
   private Long computeMinInstances;
 

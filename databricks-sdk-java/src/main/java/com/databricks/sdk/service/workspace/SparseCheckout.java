@@ -12,10 +12,9 @@ import java.util.Objects;
 @Generated
 public class SparseCheckout {
   /**
-   * List of sparse checkout cone patterns, see [cone mode handling] for details.
-   *
-   * <p>[cone mode handling]:
-   * https://git-scm.com/docs/git-sparse-checkout#_internalscone_mode_handling
+   * List of sparse checkout cone patterns, see <a
+   * href="https://git-scm.com/docs/git-sparse-checkout#_internalscone_mode_handling">cone mode
+   * handling</a> for details.
    */
   @JsonProperty("patterns")
   private Collection<String> patterns;

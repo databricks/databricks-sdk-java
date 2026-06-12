@@ -7,8 +7,10 @@ import com.databricks.sdk.support.Generated;
 /**
  * Edit mode of the job.
  *
- * <p>* `UI_LOCKED`: The job is in a locked UI state and cannot be modified. * `EDITABLE`: The job
- * is in an editable state and can be modified.
+ * <ul>
+ *   <li>{@code UI_LOCKED}: The job is in a locked UI state and cannot be modified.
+ *   <li>{@code EDITABLE}: The job is in an editable state and can be modified.
+ * </ul>
  */
 @Generated
 public enum JobEditMode {

@@ -10,8 +10,8 @@ import java.util.Objects;
 @Generated
 public class JobDeployment {
   /**
-   * ID of the deployment that manages this job. Only set when `kind` is `BUNDLE`. Used to look up
-   * deployment metadata from the Deployment Metadata service.
+   * ID of the deployment that manages this job. Only set when {@code kind} is {@code BUNDLE}. Used
+   * to look up deployment metadata from the Deployment Metadata service.
    */
   @JsonProperty("deployment_id")
   private String deploymentId;
@@ -19,8 +19,10 @@ public class JobDeployment {
   /**
    * The kind of deployment that manages the job.
    *
-   * <p>* `BUNDLE`: The job is managed by Databricks Asset Bundle. * `SYSTEM_MANAGED`: The job is
-   * managed by Databricks and is read-only.
+   * <ul>
+   *   <li>{@code BUNDLE}: The job is managed by Databricks Asset Bundle.
+   *   <li>{@code SYSTEM_MANAGED}: The job is managed by Databricks and is read-only.
+   * </ul>
    */
   @JsonProperty("kind")
   private JobDeploymentKind kind;
@@ -30,8 +32,9 @@ public class JobDeployment {
   private String metadataFilePath;
 
   /**
-   * ID of the version of the deployment that produced this job. Only set when `kind` is `BUNDLE`.
-   * Identifies a specific snapshot of the deployment in the Deployment Metadata service.
+   * ID of the version of the deployment that produced this job. Only set when {@code kind} is
+   * {@code BUNDLE}. Identifies a specific snapshot of the deployment in the Deployment Metadata
+   * service.
    */
   @JsonProperty("version_id")
   private String versionId;

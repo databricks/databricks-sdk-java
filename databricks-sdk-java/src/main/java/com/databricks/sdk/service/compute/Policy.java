@@ -23,10 +23,9 @@ public class Policy {
   private String creatorUserName;
 
   /**
-   * Policy definition document expressed in [Databricks Cluster Policy Definition Language].
-   *
-   * <p>[Databricks Cluster Policy Definition Language]:
-   * https://docs.databricks.com/administration-guide/clusters/policy-definition.html
+   * Policy definition document expressed in <a
+   * href="https://docs.databricks.com/administration-guide/clusters/policy-definition.html">Databricks
+   * Cluster Policy Definition Language</a>.
    */
   @JsonProperty("definition")
   private String definition;
@@ -64,14 +63,13 @@ public class Policy {
   private String name;
 
   /**
-   * Policy definition JSON document expressed in [Databricks Policy Definition Language]. The JSON
-   * document must be passed as a string and cannot be embedded in the requests.
+   * Policy definition JSON document expressed in <a
+   * href="https://docs.databricks.com/administration-guide/clusters/policy-definition.html">Databricks
+   * Policy Definition Language</a>. The JSON document must be passed as a string and cannot be
+   * embedded in the requests.
    *
    * <p>You can use this to customize the policy definition inherited from the policy family. Policy
    * rules specified here are merged into the inherited policy definition.
-   *
-   * <p>[Databricks Policy Definition Language]:
-   * https://docs.databricks.com/administration-guide/clusters/policy-definition.html
    */
   @JsonProperty("policy_family_definition_overrides")
   private String policyFamilyDefinitionOverrides;
@@ -80,8 +78,8 @@ public class Policy {
    * ID of the policy family. The cluster policy's policy definition inherits the policy family's
    * policy definition.
    *
-   * <p>Cannot be used with `definition`. Use `policy_family_definition_overrides` instead to
-   * customize the policy definition.
+   * <p>Cannot be used with {@code definition}. Use {@code policy_family_definition_overrides}
+   * instead to customize the policy definition.
    */
   @JsonProperty("policy_family_id")
   private String policyFamilyId;

@@ -11,10 +11,15 @@ import java.util.Objects;
 @Generated
 public class ListFailoverGroupsRequest {
   /**
-   * Maximum number of failover groups to return per page: - when set to a value greater than 0, the
-   * page length is the minimum of this value and a server configured value; - when set to 0 or
-   * unset, the page length is set to a server configured value (recommended); - when set to a value
-   * less than 0, an invalid parameter error is returned.
+   * Maximum number of failover groups to return per page:
+   *
+   * <ul>
+   *   <li>when set to a value greater than 0, the page length is the minimum of this value and a
+   *       server configured value;
+   *   <li>when set to 0 or unset, the page length is set to a server configured value
+   *       (recommended);
+   *   <li>when set to a value less than 0, an invalid parameter error is returned.
+   * </ul>
    */
   @JsonIgnore
   @QueryParam("page_size")

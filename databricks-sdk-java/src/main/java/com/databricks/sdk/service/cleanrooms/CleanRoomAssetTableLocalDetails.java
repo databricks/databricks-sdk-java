@@ -12,7 +12,7 @@ import java.util.Objects;
 public class CleanRoomAssetTableLocalDetails {
   /**
    * The fully qualified name of the table in its owner's local metastore, in the format of
-   * *catalog*.*schema*.*table_name*
+   * <i>catalog</i>.<i>schema</i>.<i>table_name</i>
    */
   @JsonProperty("local_name")
   private String localName;

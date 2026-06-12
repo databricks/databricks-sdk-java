@@ -31,7 +31,10 @@ public class DataClassificationAPI {
    * Create Data Classification configuration for a catalog.
    *
    * <p>Creates a new config resource, which enables Data Classification for the specified catalog.
-   * - The config must not already exist for the catalog.
+   *
+   * <ul>
+   *   <li>The config must not already exist for the catalog.
+   * </ul>
    */
   public CatalogConfig createCatalogConfig(CreateCatalogConfigRequest request) {
     return impl.createCatalogConfig(request);
@@ -56,9 +59,13 @@ public class DataClassificationAPI {
   }
 
   /**
-   * Update the Data Classification configuration for a catalog. - The config must already exist for
-   * the catalog. - Updates fields specified in the update_mask. Use update_mask field to perform
-   * partial updates of the configuration.
+   * Update the Data Classification configuration for a catalog.
+   *
+   * <ul>
+   *   <li>The config must already exist for the catalog.
+   *   <li>Updates fields specified in the update_mask. Use update_mask field to perform partial
+   *       updates of the configuration.
+   * </ul>
    */
   public CatalogConfig updateCatalogConfig(UpdateCatalogConfigRequest request) {
     return impl.updateCatalogConfig(request);

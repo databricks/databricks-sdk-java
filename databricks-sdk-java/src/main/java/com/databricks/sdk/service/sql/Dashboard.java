@@ -21,7 +21,7 @@ public class Dashboard {
 
   /**
    * In the web application, query filters that share a name are coupled to a single selection box
-   * if this value is `true`.
+   * if this value is {@code true}.
    */
   @JsonProperty("dashboard_filters_enabled")
   private Boolean dashboardFiltersEnabled;
@@ -32,8 +32,8 @@ public class Dashboard {
 
   /**
    * Indicates whether a dashboard is trashed. Trashed dashboards won't appear in list views. If
-   * this boolean is `true`, the `options` property for this dashboard includes a
-   * `moved_to_trash_at` timestamp. Items in trash are permanently deleted after 30 days.
+   * this boolean is {@code true}, the {@code options} property for this dashboard includes a {@code
+   * moved_to_trash_at} timestamp. Items in trash are permanently deleted after 30 days.
    */
   @JsonProperty("is_archived")
   private Boolean isArchived;
@@ -64,15 +64,21 @@ public class Dashboard {
   private String parent;
 
   /**
-   * * `CAN_VIEW`: Can view the query * `CAN_RUN`: Can run the query * `CAN_EDIT`: Can edit the
-   * query * `CAN_MANAGE`: Can manage the query
+   *
+   *
+   * <ul>
+   *   <li>{@code CAN_VIEW}: Can view the query
+   *   <li>{@code CAN_RUN}: Can run the query
+   *   <li>{@code CAN_EDIT}: Can edit the query
+   *   <li>{@code CAN_MANAGE}: Can manage the query
+   * </ul>
    */
   @JsonProperty("permission_tier")
   private PermissionLevel permissionTier;
 
   /**
-   * URL slug. Usually mirrors the query name with dashes (`-`) instead of spaces. Appears in the
-   * URL for this query.
+   * URL slug. Usually mirrors the query name with dashes ({@code -}) instead of spaces. Appears in
+   * the URL for this query.
    */
   @JsonProperty("slug")
   private String slug;

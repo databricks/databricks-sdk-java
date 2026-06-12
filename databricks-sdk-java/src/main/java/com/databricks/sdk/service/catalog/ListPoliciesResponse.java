@@ -11,8 +11,8 @@ import java.util.Objects;
 @Generated
 public class ListPoliciesResponse {
   /**
-   * Optional opaque token for continuing pagination. `page_token` should be set to this value for
-   * the next request to retrieve the next page of results.
+   * Optional opaque token for continuing pagination. {@code page_token} should be set to this value
+   * for the next request to retrieve the next page of results.
    */
   @JsonProperty("next_page_token")
   private String nextPageToken;

@@ -16,8 +16,8 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface GenieService {
   /**
-   * Create new message in a [conversation](:method:genie/startconversation). The AI response uses
-   * all previously created messages in the conversation to respond.
+   * Create new message in a <a href=":method:genie/startconversation">conversation</a>. The AI
+   * response uses all previously created messages in the conversation to respond.
    */
   GenieMessage createMessage(
       GenieCreateConversationMessageRequest genieCreateConversationMessageRequest);
@@ -44,34 +44,36 @@ public interface GenieService {
       GenieExecuteMessageAttachmentQueryRequest genieExecuteMessageAttachmentQueryRequest);
 
   /**
-   * DEPRECATED: Use [Execute Message Attachment Query](:method:genie/executemessageattachmentquery)
-   * instead.
+   * DEPRECATED: Use <a href=":method:genie/executemessageattachmentquery">Execute Message
+   * Attachment Query</a> instead.
    */
   GenieGetMessageQueryResultResponse executeMessageQuery(
       GenieExecuteMessageQueryRequest genieExecuteMessageQueryRequest);
 
   /**
-   * Initiates a new SQL execution and returns a `download_id` and `download_id_signature` that you
-   * can use to track the progress of the download. The query result is stored in an external link
-   * and can be retrieved using the [Get Download Full Query
-   * Result](:method:genie/getdownloadfullqueryresult) API. Both `download_id` and
-   * `download_id_signature` must be provided when calling the Get endpoint.
+   * Initiates a new SQL execution and returns a {@code download_id} and {@code
+   * download_id_signature} that you can use to track the progress of the download. The query result
+   * is stored in an external link and can be retrieved using the <a
+   * href=":method:genie/getdownloadfullqueryresult">Get Download Full Query Result</a> API. Both
+   * {@code download_id} and {@code download_id_signature} must be provided when calling the Get
+   * endpoint.
    *
-   * <p>----
+   * <p><hr>
    *
-   * <p>### **Warning: Databricks strongly recommends that you protect the URLs that are returned by
-   * the `EXTERNAL_LINKS` disposition.**
+   * <p><b><b>Warning: Databricks strongly recommends that you protect the URLs that are returned by
+   * the {@code EXTERNAL_LINKS} disposition.</b></b>
    *
-   * <p>When you use the `EXTERNAL_LINKS` disposition, a short-lived, URL is generated, which can be
-   * used to download the results directly from . As a short-lived is embedded in this URL, you
-   * should protect the URL.
+   * <p>When you use the {@code EXTERNAL_LINKS} disposition, a short-lived, URL is generated, which
+   * can be used to download the results directly from . As a short-lived is embedded in this URL,
+   * you should protect the URL.
    *
-   * <p>Because URLs are already generated with embedded temporary s, you must not set an
-   * `Authorization` header in the download requests.
+   * <p>Because URLs are already generated with embedded temporary s, you must not set an {@code
+   * Authorization} header in the download requests.
    *
-   * <p>See [Execute Statement](:method:statementexecution/executestatement) for more details.
+   * <p>See <a href=":method:statementexecution/executestatement">Execute Statement</a> for more
+   * details.
    *
-   * <p>----
+   * <p><hr>
    */
   GenieGenerateDownloadFullQueryResultResponse generateDownloadFullQueryResult(
       GenieGenerateDownloadFullQueryResultRequest genieGenerateDownloadFullQueryResultRequest);
@@ -94,27 +96,29 @@ public interface GenieService {
   GenieListEvalRunsResponse genieListEvalRuns(GenieListEvalRunsRequest genieListEvalRunsRequest);
 
   /**
-   * After [Generating a Full Query Result Download](:method:genie/generatedownloadfullqueryresult)
-   * and successfully receiving a `download_id` and `download_id_signature`, use this API to poll
-   * the download progress. Both `download_id` and `download_id_signature` are required to call this
-   * endpoint. When the download is complete, the API returns the result in the `EXTERNAL_LINKS`
-   * disposition, containing one or more external links to the query result files.
+   * After <a href=":method:genie/generatedownloadfullqueryresult">Generating a Full Query Result
+   * Download</a> and successfully receiving a {@code download_id} and {@code
+   * download_id_signature}, use this API to poll the download progress. Both {@code download_id}
+   * and {@code download_id_signature} are required to call this endpoint. When the download is
+   * complete, the API returns the result in the {@code EXTERNAL_LINKS} disposition, containing one
+   * or more external links to the query result files.
    *
-   * <p>----
+   * <p><hr>
    *
-   * <p>### **Warning: Databricks strongly recommends that you protect the URLs that are returned by
-   * the `EXTERNAL_LINKS` disposition.**
+   * <p><b><b>Warning: Databricks strongly recommends that you protect the URLs that are returned by
+   * the {@code EXTERNAL_LINKS} disposition.</b></b>
    *
-   * <p>When you use the `EXTERNAL_LINKS` disposition, a short-lived, URL is generated, which can be
-   * used to download the results directly from . As a short-lived is embedded in this URL, you
-   * should protect the URL.
+   * <p>When you use the {@code EXTERNAL_LINKS} disposition, a short-lived, URL is generated, which
+   * can be used to download the results directly from . As a short-lived is embedded in this URL,
+   * you should protect the URL.
    *
-   * <p>Because URLs are already generated with embedded temporary s, you must not set an
-   * `Authorization` header in the download requests.
+   * <p>Because URLs are already generated with embedded temporary s, you must not set an {@code
+   * Authorization} header in the download requests.
    *
-   * <p>See [Execute Statement](:method:statementexecution/executestatement) for more details.
+   * <p>See <a href=":method:statementexecution/executestatement">Execute Statement</a> for more
+   * details.
    *
-   * <p>----
+   * <p><hr>
    */
   GenieGetDownloadFullQueryResultResponse getDownloadFullQueryResult(
       GenieGetDownloadFullQueryResultRequest genieGetDownloadFullQueryResultRequest);
@@ -124,21 +128,22 @@ public interface GenieService {
 
   /**
    * Get the result of SQL query if the message has a query attachment. This is only available if a
-   * message has a query attachment and the message status is `EXECUTING_QUERY` OR `COMPLETED`.
+   * message has a query attachment and the message status is {@code EXECUTING_QUERY} OR {@code
+   * COMPLETED}.
    */
   GenieGetMessageQueryResultResponse getMessageAttachmentQueryResult(
       GenieGetMessageAttachmentQueryResultRequest genieGetMessageAttachmentQueryResultRequest);
 
   /**
-   * DEPRECATED: Use [Get Message Attachment Query
-   * Result](:method:genie/getmessageattachmentqueryresult) instead.
+   * DEPRECATED: Use <a href=":method:genie/getmessageattachmentqueryresult">Get Message Attachment
+   * Query Result</a> instead.
    */
   GenieGetMessageQueryResultResponse getMessageQueryResult(
       GenieGetMessageQueryResultRequest genieGetMessageQueryResultRequest);
 
   /**
-   * DEPRECATED: Use [Get Message Attachment Query
-   * Result](:method:genie/getmessageattachmentqueryresult) instead.
+   * DEPRECATED: Use <a href=":method:genie/getmessageattachmentqueryresult">Get Message Attachment
+   * Query Result</a> instead.
    */
   GenieGetMessageQueryResultResponse getMessageQueryResultByAttachment(
       GenieGetQueryResultByAttachmentRequest genieGetQueryResultByAttachmentRequest);

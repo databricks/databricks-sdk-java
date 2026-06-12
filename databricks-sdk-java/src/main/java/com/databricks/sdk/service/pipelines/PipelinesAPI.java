@@ -90,8 +90,8 @@ public class PipelinesAPI {
   }
 
   /**
-   * * Applies the current pipeline environment onto the pipeline compute. The environment applied
-   * can be used by subsequent dev-mode updates.
+   * Applies the current pipeline environment onto the pipeline compute. The environment applied can
+   * be used by subsequent dev-mode updates.
    */
   public ApplyEnvironmentRequestResponse applyEnvironment(ApplyEnvironmentRequest request) {
     return impl.applyEnvironment(request);

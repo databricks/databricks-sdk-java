@@ -14,20 +14,20 @@ import java.util.Objects;
 public class UpdateSecretRequest {
   /**
    * The three-level (fully qualified) name of the secret (for example,
-   * **catalog_name.schema_name.secret_name**).
+   * <b>catalog_name.schema_name.secret_name</b>).
    */
   @JsonIgnore private String fullName;
 
   /**
-   * The secret object containing the fields to update. Only fields specified in **update_mask**
+   * The secret object containing the fields to update. Only fields specified in <b>update_mask</b>
    * will be updated.
    */
   @JsonProperty("secret")
   private Secret secret;
 
   /**
-   * The field mask specifying which fields of the secret to update. Supported fields: **value**,
-   * **comment**, **owner**, **expire_time**.
+   * The field mask specifying which fields of the secret to update. Supported fields: <b>value</b>,
+   * <b>comment</b>, <b>owner</b>, <b>expire_time</b>.
    */
   @JsonIgnore
   @QueryParam("update_mask")

@@ -11,8 +11,8 @@ import java.util.Objects;
 @Generated
 public class ListSchedulesResponse {
   /**
-   * A token that can be used as a `page_token` in subsequent requests to retrieve the next page of
-   * results. If this field is omitted, there are no subsequent schedules.
+   * A token that can be used as a {@code page_token} in subsequent requests to retrieve the next
+   * page of results. If this field is omitted, there are no subsequent schedules.
    */
   @JsonProperty("next_page_token")
   private String nextPageToken;

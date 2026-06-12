@@ -22,10 +22,15 @@ public class ListSummariesRequest {
 
   /**
    * Maximum number of summaries for tables to return. If not set, the page length is set to a
-   * server configured value (10000, as of 1/5/2024). - when set to a value greater than 0, the page
-   * length is the minimum of this value and a server configured value (10000, as of 1/5/2024); -
-   * when set to 0, the page length is set to a server configured value (10000, as of 1/5/2024)
-   * (recommended); - when set to a value less than 0, an invalid parameter error is returned;
+   * server configured value (10000, as of 1/5/2024).
+   *
+   * <ul>
+   *   <li>when set to a value greater than 0, the page length is the minimum of this value and a
+   *       server configured value (10000, as of 1/5/2024);
+   *   <li>when set to 0, the page length is set to a server configured value (10000, as of
+   *       1/5/2024) (recommended);
+   *   <li>when set to a value less than 0, an invalid parameter error is returned;
+   * </ul>
    */
   @JsonIgnore
   @QueryParam("max_results")

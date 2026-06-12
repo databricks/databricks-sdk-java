@@ -14,9 +14,11 @@ public class ListPipelinesRequest {
   /**
    * Select a subset of results based on the specified criteria. The supported filters are:
    *
-   * <p>* `notebook='<path>'` to select pipelines that reference the provided notebook path. * `name
-   * LIKE '[pattern]'` to select pipelines with a name that matches pattern. Wildcards are
-   * supported, for example: `name LIKE '%shopping%'`
+   * <ul>
+   *   <li>{@code notebook='<path>'} to select pipelines that reference the provided notebook path.
+   *   <li>{@code name LIKE '[pattern]'} to select pipelines with a name that matches pattern.
+   *       Wildcards are supported, for example: {@code name LIKE '%shopping%'}
+   * </ul>
    *
    * <p>Composite filters are not supported. This field is optional.
    */

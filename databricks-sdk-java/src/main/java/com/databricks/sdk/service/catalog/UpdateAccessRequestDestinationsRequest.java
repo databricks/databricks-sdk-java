@@ -13,21 +13,21 @@ import java.util.Objects;
 public class UpdateAccessRequestDestinationsRequest {
   /**
    * The access request destinations to assign to the securable. For each destination, a
-   * **destination_id** and **destination_type** must be defined.
+   * <b>destination_id</b> and <b>destination_type</b> must be defined.
    */
   @JsonProperty("access_request_destinations")
   private AccessRequestDestinations accessRequestDestinations;
 
   /**
    * The field mask must be a single string, with multiple fields separated by commas (no spaces).
-   * The field path is relative to the resource object, using a dot (`.`) to navigate sub-fields
-   * (e.g., `author.given_name`). Specification of elements in sequence or map fields is not
-   * allowed, as only the entire collection field can be specified. Field names must exactly match
-   * the resource field names.
+   * The field path is relative to the resource object, using a dot ({@code .}) to navigate
+   * sub-fields (e.g., {@code author.given_name}). Specification of elements in sequence or map
+   * fields is not allowed, as only the entire collection field can be specified. Field names must
+   * exactly match the resource field names.
    *
-   * <p>A field mask of `*` indicates full replacement. It’s recommended to always explicitly list
-   * the fields being updated and avoid using `*` wildcards, as it can lead to unintended results if
-   * the API changes in the future.
+   * <p>A field mask of {@code *} indicates full replacement. It’s recommended to always explicitly
+   * list the fields being updated and avoid using {@code *} wildcards, as it can lead to unintended
+   * results if the API changes in the future.
    */
   @JsonIgnore
   @QueryParam("update_mask")

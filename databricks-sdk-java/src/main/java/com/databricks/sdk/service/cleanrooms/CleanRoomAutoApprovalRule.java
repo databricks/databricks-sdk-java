@@ -10,15 +10,15 @@ import java.util.Objects;
 @Generated
 public class CleanRoomAutoApprovalRule {
   /**
-   * Collaborator alias of the author covered by the rule. Only one of `author_collaborator_alias`
-   * and `author_scope` can be set.
+   * Collaborator alias of the author covered by the rule. Only one of {@code
+   * author_collaborator_alias} and {@code author_scope} can be set.
    */
   @JsonProperty("author_collaborator_alias")
   private String authorCollaboratorAlias;
 
   /**
-   * Scope of authors covered by the rule. Only one of `author_collaborator_alias` and
-   * `author_scope` can be set.
+   * Scope of authors covered by the rule. Only one of {@code author_collaborator_alias} and {@code
+   * author_scope} can be set.
    */
   @JsonProperty("author_scope")
   private CleanRoomAutoApprovalRuleAuthorScope authorScope;

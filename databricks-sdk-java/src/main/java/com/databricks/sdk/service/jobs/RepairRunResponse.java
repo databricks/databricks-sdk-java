@@ -11,8 +11,8 @@ import java.util.Objects;
 @Generated
 public class RepairRunResponse {
   /**
-   * The ID of the repair. Must be provided in subsequent repairs using the `latest_repair_id` field
-   * to ensure sequential repairs.
+   * The ID of the repair. Must be provided in subsequent repairs using the {@code latest_repair_id}
+   * field to ensure sequential repairs.
    */
   @JsonProperty("repair_id")
   private Long repairId;

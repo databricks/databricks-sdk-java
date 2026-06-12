@@ -12,8 +12,8 @@ import java.util.Objects;
 public class RunInfo {
   /**
    * URI of the directory where artifacts should be uploaded. This can be a local path (starting
-   * with "/"), or a distributed file system (DFS) path, like ``s3://bucket/directory`` or
-   * ``dbfs:/my/directory``. If not set, the local ``./mlruns`` directory is chosen.
+   * with "/"), or a distributed file system (DFS) path, like {@code s3://bucket/directory} or
+   * {@code dbfs:/my/directory}. If not set, the local {@code ./mlruns} directory is chosen.
    */
   @JsonProperty("artifact_uri")
   private String artifactUri;

@@ -13,8 +13,9 @@ import java.util.Objects;
 public class MonitorTimeSeries {
   /**
    * Granularities for aggregating data into time windows based on their timestamp. Currently the
-   * following static granularities are supported: {``\"5 minutes\"``, ``\"30 minutes\"``, ``\"1
-   * hour\"``, ``\"1 day\"``, ``\"\u003cn\u003e week(s)\"``, ``\"1 month\"``, ``\"1 year\"``}.
+   * following static granularities are supported: {{@code \"5 minutes\"}, {@code \"30 minutes\"},
+   * {@code \"1 hour\"}, {@code \"1 day\"}, {@code \"\u003cn\u003e week(s)\"}, {@code \"1 month\"},
+   * {@code \"1 year\"}}.
    */
   @JsonProperty("granularities")
   private Collection<String> granularities;

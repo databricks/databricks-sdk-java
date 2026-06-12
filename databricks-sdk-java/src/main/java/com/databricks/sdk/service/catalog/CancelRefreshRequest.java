@@ -13,8 +13,8 @@ public class CancelRefreshRequest {
   @JsonIgnore private Long refreshId;
 
   /**
-   * UC table name in format `catalog.schema.table_name`. table_name is case insensitive and spaces
-   * are disallowed.
+   * UC table name in format {@code catalog.schema.table_name}. table_name is case insensitive and
+   * spaces are disallowed.
    */
   @JsonIgnore private String tableName;
 

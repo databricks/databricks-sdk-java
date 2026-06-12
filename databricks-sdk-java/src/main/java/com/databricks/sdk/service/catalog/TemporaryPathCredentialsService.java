@@ -34,11 +34,11 @@ public interface TemporaryPathCredentialsService {
    * Get a short-lived credential for directly accessing cloud storage locations registered in
    * Databricks. The Generate Temporary Path Credentials API is only supported for external storage
    * paths, specifically external locations and external tables. Managed tables are not supported by
-   * this API. The metastore must have **external_access_enabled** flag set to true (default false).
-   * The caller must have the **EXTERNAL_USE_LOCATION** privilege on the external location; this
-   * privilege can only be granted by external location owners. For requests on existing external
-   * tables, the caller must also have the **EXTERNAL_USE_SCHEMA** privilege on the parent schema;
-   * this privilege can only be granted by catalog owners.
+   * this API. The metastore must have <b>external_access_enabled</b> flag set to true (default
+   * false). The caller must have the <b>EXTERNAL_USE_LOCATION</b> privilege on the external
+   * location; this privilege can only be granted by external location owners. For requests on
+   * existing external tables, the caller must also have the <b>EXTERNAL_USE_SCHEMA</b> privilege on
+   * the parent schema; this privilege can only be granted by catalog owners.
    */
   GenerateTemporaryPathCredentialResponse generateTemporaryPathCredentials(
       GenerateTemporaryPathCredentialRequest generateTemporaryPathCredentialRequest);

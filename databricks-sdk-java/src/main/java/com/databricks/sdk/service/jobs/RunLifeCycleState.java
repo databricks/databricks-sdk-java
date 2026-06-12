@@ -5,17 +5,26 @@ package com.databricks.sdk.service.jobs;
 import com.databricks.sdk.support.Generated;
 
 /**
- * A value indicating the run's lifecycle state. The possible values are: * `QUEUED`: The run is
- * queued. * `PENDING`: The run is waiting to be executed while the cluster and execution context
- * are being prepared. * `RUNNING`: The task of this run is being executed. * `TERMINATING`: The
- * task of this run has completed, and the cluster and execution context are being cleaned up. *
- * `TERMINATED`: The task of this run has completed, and the cluster and execution context have been
- * cleaned up. This state is terminal. * `SKIPPED`: This run was aborted because a previous run of
- * the same job was already active. This state is terminal. * `INTERNAL_ERROR`: An exceptional state
- * that indicates a failure in the Jobs service, such as network failure over a long period. If a
- * run on a new cluster ends in the `INTERNAL_ERROR` state, the Jobs service terminates the cluster
- * as soon as possible. This state is terminal. * `BLOCKED`: The run is blocked on an upstream
- * dependency. * `WAITING_FOR_RETRY`: The run is waiting for a retry.
+ * A value indicating the run's lifecycle state. The possible values are:
+ *
+ * <ul>
+ *   <li>{@code QUEUED}: The run is queued.
+ *   <li>{@code PENDING}: The run is waiting to be executed while the cluster and execution context
+ *       are being prepared.
+ *   <li>{@code RUNNING}: The task of this run is being executed.
+ *   <li>{@code TERMINATING}: The task of this run has completed, and the cluster and execution
+ *       context are being cleaned up.
+ *   <li>{@code TERMINATED}: The task of this run has completed, and the cluster and execution
+ *       context have been cleaned up. This state is terminal.
+ *   <li>{@code SKIPPED}: This run was aborted because a previous run of the same job was already
+ *       active. This state is terminal.
+ *   <li>{@code INTERNAL_ERROR}: An exceptional state that indicates a failure in the Jobs service,
+ *       such as network failure over a long period. If a run on a new cluster ends in the {@code
+ *       INTERNAL_ERROR} state, the Jobs service terminates the cluster as soon as possible. This
+ *       state is terminal.
+ *   <li>{@code BLOCKED}: The run is blocked on an upstream dependency.
+ *   <li>{@code WAITING_FOR_RETRY}: The run is waiting for a retry.
+ * </ul>
  */
 @Generated
 public enum RunLifeCycleState {

@@ -21,7 +21,7 @@ public class UpdateRoleRequest {
   /**
    * The Postgres Role to update.
    *
-   * <p>The role's `name` field is used to identify the role to update. Format:
+   * <p>The role's {@code name} field is used to identify the role to update. Format:
    * projects/{project_id}/branches/{branch_id}/roles/{role_id}
    */
   @JsonProperty("role")

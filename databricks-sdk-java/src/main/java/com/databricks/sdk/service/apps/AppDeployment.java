@@ -50,10 +50,10 @@ public class AppDeployment {
 
   /**
    * The workspace file system path of the source code used to create the app deployment. This is
-   * different from `deployment_artifacts.source_code_path`, which is the path used by the deployed
-   * app. The former refers to the original source code location of the app in the workspace during
-   * deployment creation, whereas the latter provides a system generated stable snapshotted source
-   * code path used by the deployment.
+   * different from {@code deployment_artifacts.source_code_path}, which is the path used by the
+   * deployed app. The former refers to the original source code location of the app in the
+   * workspace during deployment creation, whereas the latter provides a system generated stable
+   * snapshotted source code path used by the deployment.
    */
   @JsonProperty("source_code_path")
   private String sourceCodePath;

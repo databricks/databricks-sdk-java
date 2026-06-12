@@ -5,8 +5,8 @@ package com.databricks.sdk.service.compute;
 import com.databricks.sdk.support.Generated;
 
 /**
- * Availability type used for all subsequent nodes past the `first_on_demand` ones. Note: If
- * `first_on_demand` is zero, this availability type will be used for the entire cluster.
+ * Availability type used for all subsequent nodes past the {@code first_on_demand} ones. Note: If
+ * {@code first_on_demand} is zero, this availability type will be used for the entire cluster.
  */
 @Generated
 public enum AzureAvailability {

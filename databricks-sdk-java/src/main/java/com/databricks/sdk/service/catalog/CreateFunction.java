@@ -49,7 +49,7 @@ public class CreateFunction {
   @JsonProperty("name")
   private String name;
 
-  /** Function parameter style. **S** is the value for SQL. */
+  /** Function parameter style. <b>S</b> is the value for SQL. */
   @JsonProperty("parameter_style")
   private CreateFunctionParameterStyle parameterStyle;
 
@@ -62,10 +62,10 @@ public class CreateFunction {
   private FunctionParameterInfos returnParams;
 
   /**
-   * Function language. When **EXTERNAL** is used, the language of the routine function should be
-   * specified in the **external_language** field, and the **return_params** of the function cannot
-   * be used (as **TABLE** return type is not supported), and the **sql_data_access** field must be
-   * **NO_SQL**.
+   * Function language. When <b>EXTERNAL</b> is used, the language of the routine function should be
+   * specified in the <b>external_language</b> field, and the <b>return_params</b> of the function
+   * cannot be used (as <b>TABLE</b> return type is not supported), and the <b>sql_data_access</b>
+   * field must be <b>NO_SQL</b>.
    */
   @JsonProperty("routine_body")
   private CreateFunctionRoutineBody routineBody;

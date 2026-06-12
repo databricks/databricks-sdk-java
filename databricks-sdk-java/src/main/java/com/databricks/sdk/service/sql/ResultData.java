@@ -9,16 +9,16 @@ import java.util.Collection;
 import java.util.Objects;
 
 /**
- * Contains the result data of a single chunk when using `INLINE` disposition. When using
- * `EXTERNAL_LINKS` disposition, the array `external_links` is used instead to provide URLs to the
- * result data in cloud storage. Exactly one of these alternatives is used. (While the
- * `external_links` array prepares the API to return multiple links in a single response. Currently
- * only a single link is returned.)
+ * Contains the result data of a single chunk when using {@code INLINE} disposition. When using
+ * {@code EXTERNAL_LINKS} disposition, the array {@code external_links} is used instead to provide
+ * URLs to the result data in cloud storage. Exactly one of these alternatives is used. (While the
+ * {@code external_links} array prepares the API to return multiple links in a single response.
+ * Currently only a single link is returned.)
  */
 @Generated
 public class ResultData {
   /**
-   * The number of bytes in the result chunk. This field is not available when using `INLINE`
+   * The number of bytes in the result chunk. This field is not available when using {@code INLINE}
    * disposition.
    */
   @JsonProperty("byte_count")
@@ -29,8 +29,8 @@ public class ResultData {
   private Long chunkIndex;
 
   /**
-   * The `JSON_ARRAY` format is an array of arrays of values, where each non-null value is formatted
-   * as a string. Null values are encoded as JSON `null`.
+   * The {@code JSON_ARRAY} format is an array of arrays of values, where each non-null value is
+   * formatted as a string. Null values are encoded as JSON {@code null}.
    */
   @JsonProperty("data_array")
   private Collection<Collection<String>> dataArray;
@@ -40,17 +40,18 @@ public class ResultData {
   private Collection<ExternalLink> externalLinks;
 
   /**
-   * When fetching, provides the `chunk_index` for the _next_ chunk. If absent, indicates there are
-   * no more chunks. The next chunk can be fetched with a
+   * When fetching, provides the {@code chunk_index} for the <i>next</i> chunk. If absent, indicates
+   * there are no more chunks. The next chunk can be fetched with a
    * :method:statementexecution/getstatementresultchunkn request.
    */
   @JsonProperty("next_chunk_index")
   private Long nextChunkIndex;
 
   /**
-   * When fetching, provides a link to fetch the _next_ chunk. If absent, indicates there are no
-   * more chunks. This link is an absolute `path` to be joined with your `$DATABRICKS_HOST`, and
-   * should be treated as an opaque link. This is an alternative to using `next_chunk_index`.
+   * When fetching, provides a link to fetch the <i>next</i> chunk. If absent, indicates there are
+   * no more chunks. This link is an absolute {@code path} to be joined with your {@code
+   * $DATABRICKS_HOST}, and should be treated as an opaque link. This is an alternative to using
+   * {@code next_chunk_index}.
    */
   @JsonProperty("next_chunk_internal_link")
   private String nextChunkInternalLink;

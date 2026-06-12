@@ -8,8 +8,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 /**
- * A dependency of a SQL object. One of the following fields must be defined: __table__,
- * __function__, __connection__, __credential__, __volume__, or __secret__.
+ * A dependency of a SQL object. One of the following fields must be defined: <b>table</b>,
+ * <b>function</b>, <b>connection</b>, <b>credential</b>, <b>volume</b>, or <b>secret</b>.
  */
 @Generated
 public class Dependency {

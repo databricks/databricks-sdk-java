@@ -10,7 +10,8 @@ import java.util.Objects;
 @Generated
 public class GetEndpointRequest {
   /**
-   * Full resource name of the endpoint. Format: `workspaces/{workspace_id}/endpoints/{endpoint_id}`
+   * Full resource name of the endpoint. Format: {@code
+   * workspaces/{workspace_id}/endpoints/{endpoint_id}}
    */
   @JsonIgnore private String name;
 

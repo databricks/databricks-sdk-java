@@ -11,52 +11,52 @@ import java.util.Objects;
 @Generated
 public class S3StorageInfo {
   /**
-   * (Optional) Set canned access control list for the logs, e.g. `bucket-owner-full-control`. If
-   * `canned_cal` is set, please make sure the cluster iam role has `s3:PutObjectAcl` permission on
-   * the destination bucket and prefix. The full list of possible canned acl can be found at
-   * http://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl. Please also note
-   * that by default only the object owner gets full controls. If you are using cross account role
-   * for writing data, you may want to set `bucket-owner-full-control` to make bucket owner able to
-   * read the logs.
+   * (Optional) Set canned access control list for the logs, e.g. {@code bucket-owner-full-control}.
+   * If {@code canned_cal} is set, please make sure the cluster iam role has {@code s3:PutObjectAcl}
+   * permission on the destination bucket and prefix. The full list of possible canned acl can be
+   * found at http://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl. Please
+   * also note that by default only the object owner gets full controls. If you are using cross
+   * account role for writing data, you may want to set {@code bucket-owner-full-control} to make
+   * bucket owner able to read the logs.
    */
   @JsonProperty("canned_acl")
   private String cannedAcl;
 
   /**
-   * S3 destination, e.g. `s3://my-bucket/some-prefix` Note that logs will be delivered using
+   * S3 destination, e.g. {@code s3://my-bucket/some-prefix} Note that logs will be delivered using
    * cluster iam role, please make sure you set cluster iam role and the role has write access to
    * the destination. Please also note that you cannot use AWS keys to deliver logs.
    */
   @JsonProperty("destination")
   private String destination;
 
-  /** (Optional) Flag to enable server side encryption, `false` by default. */
+  /** (Optional) Flag to enable server side encryption, {@code false} by default. */
   @JsonProperty("enable_encryption")
   private Boolean enableEncryption;
 
   /**
-   * (Optional) The encryption type, it could be `sse-s3` or `sse-kms`. It will be used only when
-   * encryption is enabled and the default type is `sse-s3`.
+   * (Optional) The encryption type, it could be {@code sse-s3} or {@code sse-kms}. It will be used
+   * only when encryption is enabled and the default type is {@code sse-s3}.
    */
   @JsonProperty("encryption_type")
   private String encryptionType;
 
   /**
-   * S3 endpoint, e.g. `https://s3-us-west-2.amazonaws.com`. Either region or endpoint needs to be
-   * set. If both are set, endpoint will be used.
+   * S3 endpoint, e.g. {@code https://s3-us-west-2.amazonaws.com}. Either region or endpoint needs
+   * to be set. If both are set, endpoint will be used.
    */
   @JsonProperty("endpoint")
   private String endpoint;
 
   /**
    * (Optional) Kms key which will be used if encryption is enabled and encryption type is set to
-   * `sse-kms`.
+   * {@code sse-kms}.
    */
   @JsonProperty("kms_key")
   private String kmsKey;
 
   /**
-   * S3 region, e.g. `us-west-2`. Either region or endpoint needs to be set. If both are set,
+   * S3 region, e.g. {@code us-west-2}. Either region or endpoint needs to be set. If both are set,
    * endpoint will be used.
    */
   @JsonProperty("region")

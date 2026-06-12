@@ -15,14 +15,14 @@ public class ApiKeyAuth {
 
   /**
    * The Databricks secret key reference for an API Key. If you prefer to paste your token directly,
-   * see `value_plaintext`.
+   * see {@code value_plaintext}.
    */
   @JsonProperty("value")
   private String value;
 
   /**
    * The API Key provided as a plaintext string. If you prefer to reference your token using
-   * Databricks Secrets, see `value`.
+   * Databricks Secrets, see {@code value}.
    */
   @JsonProperty("value_plaintext")
   private String valuePlaintext;

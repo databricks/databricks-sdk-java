@@ -71,8 +71,10 @@ public class SyncedTableSyncedTableSpec {
    *
    * <p>For the corresponding destination table, use any of the two:
    *
-   * <p>* synced_table_id used at the creation of the SyncedTable * "name" consisting of
-   * "synced_tables/" prefix and the full name of the destination table.
+   * <ul>
+   *   <li>synced_table_id used at the creation of the SyncedTable
+   *   <li>"name" consisting of "synced_tables/" prefix and the full name of the destination table.
+   * </ul>
    */
   @JsonProperty("source_table_full_name")
   private String sourceTableFullName;

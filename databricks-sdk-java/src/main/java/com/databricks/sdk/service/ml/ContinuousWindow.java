@@ -7,7 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Deprecated: use RollingWindow with `delay` instead. */
+/** Deprecated: use RollingWindow with {@code delay} instead. */
 @Generated
 public class ContinuousWindow {
   /** The offset of the continuous window (must be non-positive). */

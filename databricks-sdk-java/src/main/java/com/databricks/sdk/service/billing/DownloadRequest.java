@@ -10,7 +10,9 @@ import java.util.Objects;
 
 @Generated
 public class DownloadRequest {
-  /** Format: `YYYY-MM`. Last month to return billable usage logs for. This field is required. */
+  /**
+   * Format: {@code YYYY-MM}. Last month to return billable usage logs for. This field is required.
+   */
   @JsonIgnore
   @QueryParam("end_month")
   private String endMonth;
@@ -25,9 +27,9 @@ public class DownloadRequest {
   private Boolean personalData;
 
   /**
-   * Format specification for month in the format `YYYY-MM`. This is used to specify billable usage
-   * `start_month` and `end_month` properties. **Note**: Billable usage logs are unavailable before
-   * March 2019 (`2019-03`).
+   * Format specification for month in the format {@code YYYY-MM}. This is used to specify billable
+   * usage {@code start_month} and {@code end_month} properties. <b>Note</b>: Billable usage logs
+   * are unavailable before March 2019 ({@code 2019-03}).
    */
   @JsonIgnore
   @QueryParam("start_month")

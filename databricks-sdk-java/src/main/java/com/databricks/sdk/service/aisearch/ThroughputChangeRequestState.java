@@ -6,7 +6,7 @@ import com.databricks.sdk.support.Generated;
 
 /**
  * State of the most recent throughput change request issued against a Storage Optimized endpoint.
- * Surfaced on `EndpointThroughputInfo.change_request_state`.
+ * Surfaced on {@code EndpointThroughputInfo.change_request_state}.
  */
 @Generated
 public enum ThroughputChangeRequestState {

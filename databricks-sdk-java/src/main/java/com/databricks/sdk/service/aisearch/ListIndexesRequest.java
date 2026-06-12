@@ -12,8 +12,8 @@ import java.util.Objects;
 public class ListIndexesRequest {
   /**
    * Best-effort upper bound on the number of results to return. Honored as an upper bound by the
-   * shim: `page_size` only narrows the legacy backend's response, never widens it, so the practical
-   * cap is `min(page_size, legacy_fixed_page_size)`.
+   * shim: {@code page_size} only narrows the legacy backend's response, never widens it, so the
+   * practical cap is {@code min(page_size, legacy_fixed_page_size)}.
    */
   @JsonIgnore
   @QueryParam("page_size")
@@ -25,8 +25,8 @@ public class ListIndexesRequest {
   private String pageToken;
 
   /**
-   * The Endpoint that owns this collection of indexes. Format:
-   * `workspaces/{workspace_id}/endpoints/{endpoint_id}`
+   * The Endpoint that owns this collection of indexes. Format: {@code
+   * workspaces/{workspace_id}/endpoints/{endpoint_id}}
    */
   @JsonIgnore private String parent;
 

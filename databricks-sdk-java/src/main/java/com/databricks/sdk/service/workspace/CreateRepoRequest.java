@@ -11,17 +11,18 @@ import java.util.Objects;
 public class CreateRepoRequest {
   /**
    * Desired path for the repo in the workspace. Almost any path in the workspace can be chosen. If
-   * repo is created in `/Repos`, path must be in the format `/Repos/{folder}/{repo-name}`.
+   * repo is created in {@code /Repos}, path must be in the format {@code
+   * /Repos/{folder}/{repo-name}}.
    */
   @JsonProperty("path")
   private String path;
 
   /**
-   * Git provider. This field is case-insensitive. The available Git providers are `gitHub`,
-   * `bitbucketCloud`, `gitLab`, `azureDevOpsServices` (Azure DevOps Services, including Microsoft
-   * Entra ID authentication), `gitHubEnterprise`, `bitbucketServer` (Bitbucket Data Center),
-   * `gitLabEnterpriseEdition` (GitLab Self-Managed), and `awsCodeCommit` (deprecated by AWS, not
-   * accepting new customers).
+   * Git provider. This field is case-insensitive. The available Git providers are {@code gitHub},
+   * {@code bitbucketCloud}, {@code gitLab}, {@code azureDevOpsServices} (Azure DevOps Services,
+   * including Microsoft Entra ID authentication), {@code gitHubEnterprise}, {@code bitbucketServer}
+   * (Bitbucket Data Center), {@code gitLabEnterpriseEdition} (GitLab Self-Managed), and {@code
+   * awsCodeCommit} (deprecated by AWS, not accepting new customers).
    */
   @JsonProperty("provider")
   private String provider;

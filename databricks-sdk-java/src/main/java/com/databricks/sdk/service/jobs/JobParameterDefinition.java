@@ -14,7 +14,8 @@ public class JobParameterDefinition {
   private String defaultValue;
 
   /**
-   * The name of the defined parameter. May only contain alphanumeric characters, `_`, `-`, and `.`
+   * The name of the defined parameter. May only contain alphanumeric characters, {@code _}, {@code
+   * -}, and {@code .}
    */
   @JsonProperty("name")
   private String name;

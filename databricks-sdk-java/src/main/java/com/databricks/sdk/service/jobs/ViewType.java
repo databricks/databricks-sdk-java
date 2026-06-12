@@ -4,7 +4,14 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 
-/** * `NOTEBOOK`: Notebook view item. * `DASHBOARD`: Dashboard view item. */
+/**
+ *
+ *
+ * <ul>
+ *   <li>{@code NOTEBOOK}: Notebook view item.
+ *   <li>{@code DASHBOARD}: Dashboard view item.
+ * </ul>
+ */
 @Generated
 public enum ViewType {
   DASHBOARD, // Dashboard view item.

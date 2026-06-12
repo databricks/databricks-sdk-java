@@ -11,16 +11,16 @@ import java.util.Objects;
 public class AnthropicConfig {
   /**
    * The Databricks secret key reference for an Anthropic API key. If you prefer to paste your API
-   * key directly, see `anthropic_api_key_plaintext`. You must provide an API key using one of the
-   * following fields: `anthropic_api_key` or `anthropic_api_key_plaintext`.
+   * key directly, see {@code anthropic_api_key_plaintext}. You must provide an API key using one of
+   * the following fields: {@code anthropic_api_key} or {@code anthropic_api_key_plaintext}.
    */
   @JsonProperty("anthropic_api_key")
   private String anthropicApiKey;
 
   /**
    * The Anthropic API key provided as a plaintext string. If you prefer to reference your key using
-   * Databricks Secrets, see `anthropic_api_key`. You must provide an API key using one of the
-   * following fields: `anthropic_api_key` or `anthropic_api_key_plaintext`.
+   * Databricks Secrets, see {@code anthropic_api_key}. You must provide an API key using one of the
+   * following fields: {@code anthropic_api_key} or {@code anthropic_api_key_plaintext}.
    */
   @JsonProperty("anthropic_api_key_plaintext")
   private String anthropicApiKeyPlaintext;

@@ -11,17 +11,19 @@ import java.util.Objects;
 @Generated
 public class ListRunsRequest {
   /**
-   * If active_only is `true`, only active runs are included in the results; otherwise, lists both
-   * active and completed runs. An active run is a run in the `QUEUED`, `PENDING`, `RUNNING`, or
-   * `TERMINATING`. This field cannot be `true` when completed_only is `true`.
+   * If active_only is {@code true}, only active runs are included in the results; otherwise, lists
+   * both active and completed runs. An active run is a run in the {@code QUEUED}, {@code PENDING},
+   * {@code RUNNING}, or {@code TERMINATING}. This field cannot be {@code true} when completed_only
+   * is {@code true}.
    */
   @JsonIgnore
   @QueryParam("active_only")
   private Boolean activeOnly;
 
   /**
-   * If completed_only is `true`, only completed runs are included in the results; otherwise, lists
-   * both active and completed runs. This field cannot be `true` when active_only is `true`.
+   * If completed_only is {@code true}, only completed runs are included in the results; otherwise,
+   * lists both active and completed runs. This field cannot be {@code true} when active_only is
+   * {@code true}.
    */
   @JsonIgnore
   @QueryParam("completed_only")
@@ -50,15 +52,15 @@ public class ListRunsRequest {
 
   /**
    * The offset of the first run to return, relative to the most recent run. Deprecated since June
-   * 2023. Use `page_token` to iterate through the pages instead.
+   * 2023. Use {@code page_token} to iterate through the pages instead.
    */
   @JsonIgnore
   @QueryParam("offset")
   private Long offset;
 
   /**
-   * Use `next_page_token` or `prev_page_token` returned from the previous request to list the next
-   * or previous page of runs respectively.
+   * Use {@code next_page_token} or {@code prev_page_token} returned from the previous request to
+   * list the next or previous page of runs respectively.
    */
   @JsonIgnore
   @QueryParam("page_token")
@@ -70,16 +72,16 @@ public class ListRunsRequest {
   private RunType runType;
 
   /**
-   * Show runs that started _at or after_ this value. The value must be a UTC timestamp in
-   * milliseconds. Can be combined with _start_time_to_ to filter by a time range.
+   * Show runs that started <i>at or after</i> this value. The value must be a UTC timestamp in
+   * milliseconds. Can be combined with <i>start_time_to</i> to filter by a time range.
    */
   @JsonIgnore
   @QueryParam("start_time_from")
   private Long startTimeFrom;
 
   /**
-   * Show runs that started _at or before_ this value. The value must be a UTC timestamp in
-   * milliseconds. Can be combined with _start_time_from_ to filter by a time range.
+   * Show runs that started <i>at or before</i> this value. The value must be a UTC timestamp in
+   * milliseconds. Can be combined with <i>start_time_from</i> to filter by a time range.
    */
   @JsonIgnore
   @QueryParam("start_time_to")

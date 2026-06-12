@@ -23,17 +23,17 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface MetastoresService {
   /**
-   * Creates a new metastore assignment. If an assignment for the same __workspace_id__ exists, it
-   * will be overwritten by the new __metastore_id__ and __default_catalog_name__. The caller must
-   * be an account admin.
+   * Creates a new metastore assignment. If an assignment for the same <b>workspace_id</b> exists,
+   * it will be overwritten by the new <b>metastore_id</b> and <b>default_catalog_name</b>. The
+   * caller must be an account admin.
    */
   void assign(CreateMetastoreAssignment createMetastoreAssignment);
 
   /**
    * Creates a new metastore based on a provided name and optional storage root path. By default (if
-   * the __owner__ field is not set), the owner of the new metastore is the user calling the
-   * __createMetastore__ API. If the __owner__ field is set to the empty string (**""**), the
-   * ownership is assigned to the System User instead.
+   * the <b>owner</b> field is not set), the owner of the new metastore is the user calling the
+   * <b>createMetastore</b> API. If the <b>owner</b> field is set to the empty string (<b>""</b>),
+   * the ownership is assigned to the System User instead.
    */
   MetastoreInfo create(CreateMetastore createMetastore);
 
@@ -50,14 +50,14 @@ public interface MetastoresService {
   MetastoreInfo get(GetMetastoreRequest getMetastoreRequest);
 
   /**
-   * Gets an array of the available metastores (as __MetastoreInfo__ objects). The caller must be an
-   * admin to retrieve this info. There is no guarantee of a specific ordering of the elements in
+   * Gets an array of the available metastores (as <b>MetastoreInfo</b> objects). The caller must be
+   * an admin to retrieve this info. There is no guarantee of a specific ordering of the elements in
    * the array.
    *
    * <p>NOTE: we recommend using max_results=0 to use the paginated version of this API. Unpaginated
    * calls will be deprecated soon.
    *
-   * <p>PAGINATION BEHAVIOR: When using pagination (max_results >= 0), a page may contain zero
+   * <p>PAGINATION BEHAVIOR: When using pagination (max_results &gt;= 0), a page may contain zero
    * results while still providing a next_page_token. Clients must continue reading pages until
    * next_page_token is absent, which is the only indication that the end of results has been
    * reached.
@@ -75,15 +75,15 @@ public interface MetastoresService {
 
   /**
    * Updates information for a specific metastore. The caller must be a metastore admin. If the
-   * __owner__ field is set to the empty string (**""**), the ownership is updated to the System
-   * User.
+   * <b>owner</b> field is set to the empty string (<b>""</b>), the ownership is updated to the
+   * System User.
    */
   MetastoreInfo update(UpdateMetastore updateMetastore);
 
   /**
-   * Updates a metastore assignment. This operation can be used to update __metastore_id__ or
-   * __default_catalog_name__ for a specified Workspace, if the Workspace is already assigned a
-   * metastore. The caller must be an account admin to update __metastore_id__; otherwise, the
+   * Updates a metastore assignment. This operation can be used to update <b>metastore_id</b> or
+   * <b>default_catalog_name</b> for a specified Workspace, if the Workspace is already assigned a
+   * metastore. The caller must be an account admin to update <b>metastore_id</b>; otherwise, the
    * caller can be a Workspace admin.
    */
   void updateAssignment(UpdateMetastoreAssignment updateMetastoreAssignment);

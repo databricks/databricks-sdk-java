@@ -11,11 +11,15 @@ import java.util.Objects;
 @Generated
 public class ListSystemSchemasRequest {
   /**
-   * Maximum number of schemas to return. - When set to 0, the page length is set to a server
-   * configured value (recommended); - When set to a value greater than 0, the page length is the
-   * minimum of this value and a server configured value; - When set to a value less than 0, an
-   * invalid parameter error is returned; - If not set, all the schemas are returned (not
-   * recommended).
+   * Maximum number of schemas to return.
+   *
+   * <ul>
+   *   <li>When set to 0, the page length is set to a server configured value (recommended);
+   *   <li>When set to a value greater than 0, the page length is the minimum of this value and a
+   *       server configured value;
+   *   <li>When set to a value less than 0, an invalid parameter error is returned;
+   *   <li>If not set, all the schemas are returned (not recommended).
+   * </ul>
    */
   @JsonIgnore
   @QueryParam("max_results")

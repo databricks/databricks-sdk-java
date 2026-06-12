@@ -36,10 +36,10 @@ public class RestrictWorkspaceAdminsAPI {
 
   /**
    * Reverts the restrict workspace admins setting status for the workspace. A fresh etag needs to
-   * be provided in `DELETE` requests (as a query parameter). The etag can be retrieved by making a
-   * `GET` request before the DELETE request. If the setting is updated/deleted concurrently,
-   * `DELETE` fails with 409 and the request must be retried by using the fresh etag in the 409
-   * response.
+   * be provided in {@code DELETE} requests (as a query parameter). The etag can be retrieved by
+   * making a {@code GET} request before the DELETE request. If the setting is updated/deleted
+   * concurrently, {@code DELETE} fails with 409 and the request must be retried by using the fresh
+   * etag in the 409 response.
    */
   public DeleteRestrictWorkspaceAdminsSettingResponse delete(
       DeleteRestrictWorkspaceAdminsSettingRequest request) {
@@ -53,9 +53,9 @@ public class RestrictWorkspaceAdminsAPI {
 
   /**
    * Updates the restrict workspace admins setting for the workspace. A fresh etag needs to be
-   * provided in `PATCH` requests (as part of the setting field). The etag can be retrieved by
-   * making a GET request before the `PATCH` request. If the setting is updated concurrently,
-   * `PATCH` fails with 409 and the request must be retried by using the fresh etag in the 409
+   * provided in {@code PATCH} requests (as part of the setting field). The etag can be retrieved by
+   * making a GET request before the {@code PATCH} request. If the setting is updated concurrently,
+   * {@code PATCH} fails with 409 and the request must be retried by using the fresh etag in the 409
    * response.
    */
   public RestrictWorkspaceAdminsSetting update(

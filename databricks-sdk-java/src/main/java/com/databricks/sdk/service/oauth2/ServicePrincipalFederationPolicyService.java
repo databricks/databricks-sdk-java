@@ -19,30 +19,49 @@ import com.databricks.sdk.support.Generated;
  * clusters, among others.
  *
  * <p>Workload identity federation is configured in your Databricks account using a service
- * principal federation policy. A service principal federation policy specifies: * which IdP, or
- * issuer, the service principal is allowed to authenticate from * which workload identity, or
- * subject, is allowed to authenticate as the Databricks service principal
+ * principal federation policy. A service principal federation policy specifies:
  *
- * <p>To configure a federation policy, you provide the following: * The required token __issuer__,
- * as specified in the “iss” claim of workload identity tokens. The issuer is an https URL that
- * identifies the workload identity provider. * The required token __subject__, as specified in the
- * “sub” claim of workload identity tokens. The subject uniquely identifies the workload in the
- * workload runtime environment. * The allowed token __audiences__, as specified in the “aud” claim
- * of workload identity tokens. The audience is intended to represent the recipient of the token. As
- * long as the audience in the token matches at least one audience in the policy, the token is
- * considered a match. If unspecified, the default value is your Databricks account id. *
- * Optionally, the public keys used to validate the signature of the workload identity tokens, in
- * JWKS format. If unspecified (recommended), Databricks automatically fetches the public keys from
- * the issuer’s well known endpoint. Databricks strongly recommends relying on the issuer’s well
- * known endpoint for discovering public keys.
+ * <ul>
+ *   <li>which IdP, or issuer, the service principal is allowed to authenticate from
+ *   <li>which workload identity, or subject, is allowed to authenticate as the Databricks service
+ *       principal
+ * </ul>
  *
- * <p>An example service principal federation policy, for a Github Actions workload, is: ``` issuer:
- * "https://token.actions.githubusercontent.com" audiences: ["https://github.com/my-github-org"]
- * subject: "repo:my-github-org/my-repo:environment:prod" ```
+ * <p>To configure a federation policy, you provide the following:
+ *
+ * <ul>
+ *   <li>The required token <b>issuer</b>, as specified in the “iss” claim of workload identity
+ *       tokens. The issuer is an https URL that identifies the workload identity provider.
+ *   <li>The required token <b>subject</b>, as specified in the “sub” claim of workload identity
+ *       tokens. The subject uniquely identifies the workload in the workload runtime environment.
+ *   <li>The allowed token <b>audiences</b>, as specified in the “aud” claim of workload identity
+ *       tokens. The audience is intended to represent the recipient of the token. As long as the
+ *       audience in the token matches at least one audience in the policy, the token is considered
+ *       a match. If unspecified, the default value is your Databricks account id.
+ *   <li>Optionally, the public keys used to validate the signature of the workload identity tokens,
+ *       in JWKS format. If unspecified (recommended), Databricks automatically fetches the public
+ *       keys from the issuer’s well known endpoint. Databricks strongly recommends relying on the
+ *       issuer’s well known endpoint for discovering public keys.
+ * </ul>
+ *
+ * <p>An example service principal federation policy, for a Github Actions workload, is:
+ *
+ * <pre>{@code
+ * issuer: "https://token.actions.githubusercontent.com"
+ * audiences: ["https://github.com/my-github-org"]
+ * subject: "repo:my-github-org/my-repo:environment:prod"
+ * }</pre>
  *
  * <p>An example JWT token body that matches this policy and could be used to authenticate to
- * Databricks is: ``` { "iss": "https://token.actions.githubusercontent.com", "aud":
- * "https://github.com/my-github-org", "sub": "repo:my-github-org/my-repo:environment:prod" } ```
+ * Databricks is:
+ *
+ * <pre><code>
+ * &#123;
+ * "iss": "https://token.actions.githubusercontent.com",
+ * "aud": "https://github.com/my-github-org",
+ * "sub": "repo:my-github-org/my-repo:environment:prod"
+ * &#125;
+ * </code></pre>
  *
  * <p>You may also need to configure the workload runtime to generate tokens for your workloads.
  *

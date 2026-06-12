@@ -4,7 +4,7 @@ package com.databricks.sdk.service.aisearch;
 import com.databricks.sdk.support.Generated;
 
 /**
- * **AI Search Endpoint**: Represents the compute resources to host AI Search indexes.
+ * <b>AI Search Endpoint</b>: Represents the compute resources to host AI Search indexes.
  * AIP-conformant replacement for the legacy VectorSearchEndpoints API; functionally equivalent.
  *
  * <p>This is the high-level interface, that contains generated methods.

@@ -23,14 +23,12 @@ public interface CredentialsService {
    * Account API account ID) in the returned credential object, and configure the required access
    * policy.
    *
-   * <p>Save the response's `credentials_id` field, which is the ID for your new credential
+   * <p>Save the response's {@code credentials_id} field, which is the ID for your new credential
    * configuration object.
    *
-   * <p>For information about how to create a new workspace with this API, see [Create a new
-   * workspace using the Account API]
-   *
-   * <p>[Create a new workspace using the Account API]:
-   * http://docs.databricks.com/administration-guide/account-api/new-workspace.html
+   * <p>For information about how to create a new workspace with this API, see <a
+   * href="http://docs.databricks.com/administration-guide/account-api/new-workspace.html">Create a
+   * new workspace using the Account API</a>
    */
   Credential create(CreateCredentialRequest createCredentialRequest);
 

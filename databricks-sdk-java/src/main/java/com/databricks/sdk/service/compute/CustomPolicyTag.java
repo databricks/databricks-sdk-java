@@ -10,9 +10,13 @@ import java.util.Objects;
 @Generated
 public class CustomPolicyTag {
   /**
-   * The key of the tag. - Must be unique among all custom tags of the same policy - Cannot be
-   * “budget-policy-name”, “budget-policy-id” or "budget-policy-resolution-result" - these tags are
-   * preserved.
+   * The key of the tag.
+   *
+   * <ul>
+   *   <li>Must be unique among all custom tags of the same policy
+   *   <li>Cannot be “budget-policy-name”, “budget-policy-id” or "budget-policy-resolution-result" -
+   *       these tags are preserved.
+   * </ul>
    */
   @JsonProperty("key")
   private String key;

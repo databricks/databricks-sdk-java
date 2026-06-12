@@ -21,12 +21,16 @@ public class UpdatePolicyRequest {
   @JsonIgnore private String onSecurableType;
 
   /**
-   * Optional fields to update. This is the request body for updating a policy. Use `update_mask`
-   * field to specify which fields in the request is to be updated. - If `update_mask` is empty or
-   * "*", all specified fields will be updated. - If `update_mask` is specified, only the fields
-   * specified in the `update_mask` will be updated. If a field is specified in `update_mask` and
-   * not set in the request, the field will be cleared. Users can use the update mask to explicitly
-   * unset optional fields such as `exception_principals` and `when_condition`.
+   * Optional fields to update. This is the request body for updating a policy. Use {@code
+   * update_mask} field to specify which fields in the request is to be updated.
+   *
+   * <ul>
+   *   <li>If {@code update_mask} is empty or "*", all specified fields will be updated.
+   *   <li>If {@code update_mask} is specified, only the fields specified in the {@code update_mask}
+   *       will be updated. If a field is specified in {@code update_mask} and not set in the
+   *       request, the field will be cleared. Users can use the update mask to explicitly unset
+   *       optional fields such as {@code exception_principals} and {@code when_condition}.
+   * </ul>
    */
   @JsonProperty("policy_info")
   private PolicyInfo policyInfo;

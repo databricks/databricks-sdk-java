@@ -27,9 +27,9 @@ public class Deployment {
   private DeploymentMode deploymentMode;
 
   /**
-   * When the deployment was destroyed (i.e. `bundle destroy` completed). Unset if the deployment
-   * has not been destroyed. Named destroy_time (not delete_time) because this tracks the
-   * `databricks bundle destroy` command, not the API-level deletion.
+   * When the deployment was destroyed (i.e. {@code bundle destroy} completed). Unset if the
+   * deployment has not been destroyed. Named destroy_time (not delete_time) because this tracks the
+   * {@code databricks bundle destroy} command, not the API-level deletion.
    */
   @JsonProperty("destroy_time")
   private Timestamp destroyTime;

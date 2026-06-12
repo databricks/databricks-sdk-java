@@ -7,7 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** * */
+/** */
 @Generated
 public class VpcEndpoint {
   /**
@@ -22,13 +22,12 @@ public class VpcEndpoint {
   private String awsAccountId;
 
   /**
-   * The ID of the Databricks [endpoint service] that this VPC endpoint is connected to. For a list
-   * of endpoint service IDs for each supported AWS region, see the [Databricks PrivateLink
-   * documentation].
-   *
-   * <p>[Databricks PrivateLink documentation]:
-   * https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
-   * [endpoint service]: https://docs.aws.amazon.com/vpc/latest/privatelink/endpoint-service.html
+   * The ID of the Databricks <a
+   * href="https://docs.aws.amazon.com/vpc/latest/privatelink/endpoint-service.html">endpoint
+   * service</a> that this VPC endpoint is connected to. For a list of endpoint service IDs for each
+   * supported AWS region, see the <a
+   * href="https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html">Databricks
+   * PrivateLink documentation</a>.
    */
   @JsonProperty("aws_endpoint_service_id")
   private String awsEndpointServiceId;
@@ -46,11 +45,10 @@ public class VpcEndpoint {
   private String region;
 
   /**
-   * The current state (such as `available` or `rejected`) of the VPC endpoint. Derived from AWS.
-   * For the full set of values, see [AWS DescribeVpcEndpoint documentation].
-   *
-   * <p>[AWS DescribeVpcEndpoint documentation]:
-   * https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-vpc-endpoints.html
+   * The current state (such as {@code available} or {@code rejected}) of the VPC endpoint. Derived
+   * from AWS. For the full set of values, see <a
+   * href="https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-vpc-endpoints.html">AWS
+   * DescribeVpcEndpoint documentation</a>.
    */
   @JsonProperty("state")
   private String state;
@@ -67,7 +65,8 @@ public class VpcEndpoint {
 
   /**
    * Databricks VPC endpoint ID. This is the Databricks-specific name of the VPC endpoint. Do not
-   * confuse this with the `aws_vpc_endpoint_id`, which is the ID within AWS of the VPC endpoint.
+   * confuse this with the {@code aws_vpc_endpoint_id}, which is the ID within AWS of the VPC
+   * endpoint.
    */
   @JsonProperty("vpc_endpoint_id")
   private String vpcEndpointId;

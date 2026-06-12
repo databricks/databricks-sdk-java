@@ -11,7 +11,7 @@ import com.databricks.sdk.support.Paginator;
  * The alerts API can be used to perform CRUD operations on alerts. An alert is a Databricks SQL
  * object that periodically runs a query, evaluates a condition of its result, and notifies one or
  * more users and/or notification destinations if the condition was met. Alerts can be scheduled
- * using the `sql_task` type of the Jobs API, e.g. :method:jobs/create.
+ * using the {@code sql_task} type of the Jobs API, e.g. :method:jobs/create.
  */
 @Generated
 public class AlertsAPI {
@@ -57,7 +57,7 @@ public class AlertsAPI {
   }
 
   /**
-   * Gets a list of alerts accessible to the user, ordered by creation time. **Warning:** Calling
+   * Gets a list of alerts accessible to the user, ordered by creation time. <b>Warning:</b> Calling
    * this API concurrently 10 or more times could result in throttling, service degradation, or a
    * temporary ban.
    */
