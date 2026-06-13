@@ -122,7 +122,7 @@ public class FilesAPI {
 
   /**
    * Returns the contents of a directory. If there is no directory at the specified path, the API
-   * returns a HTTP 404 error.
+   * returns an HTTP 404 error.
    */
   public Iterable<DirectoryEntry> listDirectoryContents(ListDirectoryContentsRequest request) {
     return Paginator.newTokenPagination(
