@@ -8,7 +8,7 @@ import com.databricks.sdk.support.Generated;
 
 /**
  * In Databricks Runtime 13.3 and above, you can add libraries and init scripts to the `allowlist`
- * in UC so that users can leverage these artifacts on compute configured with shared access mode.
+ * in UC so that users can use these artifacts on compute configured with shared access mode.
  */
 @Generated
 public class ArtifactAllowlistsAPI {

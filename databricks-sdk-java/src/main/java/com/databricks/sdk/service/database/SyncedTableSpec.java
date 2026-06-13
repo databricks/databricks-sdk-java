@@ -12,6 +12,13 @@ import java.util.Objects;
 @Generated
 public class SyncedTableSpec {
   /**
+   * When true, enables accelerated sync mode for the initial data load. This significantly improves
+   * performance for large tables. Requires workspace-level enablement.
+   */
+  @JsonProperty("accelerated_sync")
+  private Boolean acceleratedSync;
+
+  /**
    * If true, the synced table's logical database and schema resources in PG will be created if they
    * do not already exist.
    */
@@ -56,6 +63,22 @@ public class SyncedTableSpec {
   /** Time series key to deduplicate (tie-break) rows with the same primary key. */
   @JsonProperty("timeseries_key")
   private String timeseriesKey;
+
+  /**
+   * Override the default Delta->PG type mapping for specific columns. A TypeOverride with
+   * PG_SPECIFIC_TYPE_UNSPECIFIED is rejected; a valid pg_type must be set.
+   */
+  @JsonProperty("type_overrides")
+  private Collection<SyncedTableSpecTypeOverride> typeOverrides;
+
+  public SyncedTableSpec setAcceleratedSync(Boolean acceleratedSync) {
+    this.acceleratedSync = acceleratedSync;
+    return this;
+  }
+
+  public Boolean getAcceleratedSync() {
+    return acceleratedSync;
+  }
 
   public SyncedTableSpec setCreateDatabaseObjectsIfMissing(Boolean createDatabaseObjectsIfMissing) {
     this.createDatabaseObjectsIfMissing = createDatabaseObjectsIfMissing;
@@ -120,35 +143,49 @@ public class SyncedTableSpec {
     return timeseriesKey;
   }
 
+  public SyncedTableSpec setTypeOverrides(Collection<SyncedTableSpecTypeOverride> typeOverrides) {
+    this.typeOverrides = typeOverrides;
+    return this;
+  }
+
+  public Collection<SyncedTableSpecTypeOverride> getTypeOverrides() {
+    return typeOverrides;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     SyncedTableSpec that = (SyncedTableSpec) o;
-    return Objects.equals(createDatabaseObjectsIfMissing, that.createDatabaseObjectsIfMissing)
+    return Objects.equals(acceleratedSync, that.acceleratedSync)
+        && Objects.equals(createDatabaseObjectsIfMissing, that.createDatabaseObjectsIfMissing)
         && Objects.equals(existingPipelineId, that.existingPipelineId)
         && Objects.equals(newPipelineSpec, that.newPipelineSpec)
         && Objects.equals(primaryKeyColumns, that.primaryKeyColumns)
         && Objects.equals(schedulingPolicy, that.schedulingPolicy)
         && Objects.equals(sourceTableFullName, that.sourceTableFullName)
-        && Objects.equals(timeseriesKey, that.timeseriesKey);
+        && Objects.equals(timeseriesKey, that.timeseriesKey)
+        && Objects.equals(typeOverrides, that.typeOverrides);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(
+        acceleratedSync,
         createDatabaseObjectsIfMissing,
         existingPipelineId,
         newPipelineSpec,
         primaryKeyColumns,
         schedulingPolicy,
         sourceTableFullName,
-        timeseriesKey);
+        timeseriesKey,
+        typeOverrides);
   }
 
   @Override
   public String toString() {
     return new ToStringer(SyncedTableSpec.class)
+        .add("acceleratedSync", acceleratedSync)
         .add("createDatabaseObjectsIfMissing", createDatabaseObjectsIfMissing)
         .add("existingPipelineId", existingPipelineId)
         .add("newPipelineSpec", newPipelineSpec)
@@ -156,6 +193,7 @@ public class SyncedTableSpec {
         .add("schedulingPolicy", schedulingPolicy)
         .add("sourceTableFullName", sourceTableFullName)
         .add("timeseriesKey", timeseriesKey)
+        .add("typeOverrides", typeOverrides)
         .toString();
   }
 }
