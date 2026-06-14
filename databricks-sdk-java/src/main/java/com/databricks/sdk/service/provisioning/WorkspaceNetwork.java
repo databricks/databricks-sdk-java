@@ -20,8 +20,7 @@ public class WorkspaceNetwork {
   /**
    * The mutually exclusive network deployment modes. The option decides which network mode the
    * workspace will use. The network config for GCP workspace with Databricks managed network. This
-   * object is input-only and will not be provided when listing workspaces. See
-   * go/gcp-byovpc-alpha-design for interface decisions.
+   * object is input-only and will not be provided when listing workspaces.
    */
   @JsonProperty("gcp_managed_network_config")
   private GcpManagedNetworkConfig gcpManagedNetworkConfig;

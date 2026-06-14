@@ -12,9 +12,9 @@ import java.util.Objects;
 public class AvgFunction {
   /**
    * The input column from which the average is computed. For Kafka sources, use dot-prefixed path
-   * notation (e.g., "value.amount"). For nested fields, the leaf node name is used. TODO(FS-939):
-   * Colon-prefixed notation (e.g., "value:amount") is supported for backwards compatibility but is
-   * deprecated; migrate to dot notation.
+   * notation (e.g., "value.amount"). For nested fields, the leaf node name is used. Colon-prefixed
+   * notation (e.g., "value:amount") is supported for backwards compatibility but is deprecated;
+   * migrate to dot notation.
    */
   @JsonProperty("input")
   private String input;

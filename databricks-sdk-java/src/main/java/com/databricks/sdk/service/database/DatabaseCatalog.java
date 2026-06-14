@@ -17,7 +17,7 @@ public class DatabaseCatalog {
   @JsonProperty("database_instance_name")
   private String databaseInstanceName;
 
-  /** The name of the database (in a instance) associated with the catalog. */
+  /** The name of the database (in an instance) associated with the catalog. */
   @JsonProperty("database_name")
   private String databaseName;
 

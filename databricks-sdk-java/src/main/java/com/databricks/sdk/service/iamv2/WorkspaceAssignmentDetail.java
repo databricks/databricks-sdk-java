@@ -15,7 +15,11 @@ public class WorkspaceAssignmentDetail {
   @JsonProperty("account_id")
   private String accountId;
 
-  /** */
+  /**
+   * Entitlements granted directly to the principal on this workspace. The only client-settable
+   * field: create and update manage exactly this set (including entitlements the principal also
+   * holds via a group).
+   */
   @JsonProperty("entitlements")
   private Collection<Entitlement> entitlements;
 

@@ -1247,6 +1247,8 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/database/SyncedTabl
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/database/SyncedTableProvisioningStatus.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/database/SyncedTableSchedulingPolicy.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/database/SyncedTableSpec.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/database/SyncedTableSpecPgSpecificType.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/database/SyncedTableSpecTypeOverride.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/database/SyncedTableState.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/database/SyncedTableStatus.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/database/SyncedTableTriggeredUpdateStatus.java linguist-generated=true
@@ -2586,7 +2588,9 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/SyncedTabl
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/SyncedTablePosition.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/SyncedTableState.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/SyncedTableSyncedTableSpec.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/SyncedTableSyncedTableSpecPgSpecificType.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/SyncedTableSyncedTableSpecSyncedTableSchedulingPolicy.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/SyncedTableSyncedTableSpecTypeOverride.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/SyncedTableSyncedTableStatus.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/UndeleteBranchOperation.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/UndeleteBranchRequest.java linguist-generated=true
