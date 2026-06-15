@@ -37,4 +37,21 @@ public class SemVerTest {
     int compareResult = parsedSemVer.compareTo(expectedSemVer);
     assertEquals(0, compareResult);
   }
+
+  @Test
+  void parseOrNullReturnsNullForInvalid() {
+    // Spark runtime key shape that crashed selectSparkVersion(): only two version segments and a
+    // leading "v", which is not a valid SemVer.
+    assertNull(SemVer.parseOrNull("v18.x-scala2.13"));
+    assertNull(SemVer.parseOrNull("not-a-version"));
+    assertNull(SemVer.parseOrNull(null));
+    assertNull(SemVer.parseOrNull(""));
+  }
+
+  @Test
+  void parseOrNullParsesValid() {
+    SemVer parsed = SemVer.parseOrNull("v1.2.3-alpha+build-20230510");
+    assertNotNull(parsed);
+    assertEquals(0, parsed.compareTo(new SemVer(1, 2, 3, "alpha", "build-20230510")));
+  }
 }

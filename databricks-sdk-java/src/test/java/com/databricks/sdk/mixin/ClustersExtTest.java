@@ -143,4 +143,34 @@ class ClustersExtTest {
         clustersExt.selectSparkVersion(new SparkVersionSelector().withSparkVersion("3.4.1"));
     assertEquals("13.3.x-scala2.12", sparkVersion);
   }
+
+  private GetSparkVersionsResponse testGetSparkVersionsWithUnparseableKey() {
+    Collection<SparkVersion> versions = new ArrayList<>();
+    versions.add(
+        new SparkVersion()
+            .setName("14.3 LTS (includes Apache Spark 3.5.0, Scala 2.12)")
+            .setKey("14.3.x-scala2.12"));
+    versions.add(
+        new SparkVersion()
+            .setName("15.4 LTS (includes Apache Spark 3.5.0, Scala 2.12)")
+            .setKey("15.4.x-scala2.12"));
+    // Non-SemVer runtime key returned by the API. Sorting this with SemVer.parse() previously threw
+    // "Not a valid SemVer: v18.x-scala2.13" and broke selection for every caller.
+    versions.add(
+        new SparkVersion()
+            .setName("18.x (includes Apache Spark 4.0.0, Scala 2.13)")
+            .setKey("v18.x-scala2.13"));
+    return new GetSparkVersionsResponse().setVersions(versions);
+  }
+
+  @Test
+  void selectLatestSparkVersionIgnoresUnparseableKey() {
+    ClustersExt clustersExt = new ClustersExt(clustersMock);
+    Mockito.doReturn(testGetSparkVersionsWithUnparseableKey()).when(clustersMock).sparkVersions();
+
+    // Must not throw on the non-SemVer key, and must return the latest parseable runtime - matching
+    // databricks-sdk-go, which ranks unparseable keys lowest rather than failing.
+    String sparkVersion = clustersExt.selectSparkVersion(new SparkVersionSelector().withLatest());
+    assertEquals("15.4.x-scala2.12", sparkVersion);
+  }
 }
