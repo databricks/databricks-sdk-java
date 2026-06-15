@@ -47,6 +47,19 @@ public class SemVer implements Comparable<SemVer> {
         m.group("build"));
   }
 
+  /**
+   * Parses the given version string, returning {@code null} instead of throwing when it is not a
+   * valid SemVer. Useful when sorting collections that may contain non-SemVer values (for example
+   * Spark runtime keys such as "v18.x-scala2.13").
+   */
+  public static SemVer parseOrNull(String v) {
+    try {
+      return parse(v);
+    } catch (IllegalArgumentException e) {
+      return null;
+    }
+  }
+
   @Override
   public int compareTo(SemVer other) {
     if (other == null) {

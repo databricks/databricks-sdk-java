@@ -63,9 +63,30 @@ public class ClustersExt extends ClustersAPI {
       if (!selector.latest) {
         throw new IllegalArgumentException("spark versions query returned multiple results");
       }
-      versions.sort((v1, v2) -> SemVer.parse(v2).compareTo(SemVer.parse(v1)));
+      versions.sort(ClustersExt::compareSparkVersionsDescending);
     }
     return versions.get(0);
+  }
+
+  /**
+   * Compares two Spark runtime keys so that the latest version sorts first. Mirrors the
+   * databricks-sdk-go behavior (golang.org/x/mod/semver.Compare), where keys that are not valid
+   * SemVer (for example "v18.x-scala2.13") are treated as lowest priority instead of throwing. This
+   * ensures a single unparseable runtime key returned by the API cannot break version selection.
+   */
+  private static int compareSparkVersionsDescending(String v1, String v2) {
+    SemVer s1 = SemVer.parseOrNull(v1);
+    SemVer s2 = SemVer.parseOrNull(v2);
+    if (s1 == null && s2 == null) {
+      return 0;
+    }
+    if (s1 == null) {
+      return 1; // v1 is unparseable: sort it after v2
+    }
+    if (s2 == null) {
+      return -1; // v2 is unparseable: keep v1 before v2
+    }
+    return s2.compareTo(s1); // descending order: latest first
   }
 
   public String selectNodeType(NodeTypeSelector selector) {
