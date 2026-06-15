@@ -9,8 +9,7 @@ import com.databricks.sdk.support.Generated;
  * owner of the catalog or schema that contains the object. Securable objects in Unity Catalog are
  * hierarchical and privileges are inherited downward.
  *
- * <p>Securable objects in Unity Catalog are hierarchical and privileges are inherited downward.
- * This means that granting a privilege on the catalog automatically grants the privilege to all
+ * <p>This means that granting a privilege on the catalog automatically grants the privilege to all
  * current and future objects within the catalog. Similarly, privileges granted on a schema are
  * inherited by all current and future objects within that schema.
  *

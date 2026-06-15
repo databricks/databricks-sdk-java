@@ -21,6 +21,10 @@ public class VectorIndex {
   @JsonProperty("direct_access_index_spec")
   private DirectAccessVectorIndexSpec directAccessIndexSpec;
 
+  /** ID of the endpoint associated with the index. */
+  @JsonProperty("endpoint_id")
+  private String endpointId;
+
   /** Name of the endpoint associated with the index */
   @JsonProperty("endpoint_name")
   private String endpointName;
@@ -70,6 +74,15 @@ public class VectorIndex {
 
   public DirectAccessVectorIndexSpec getDirectAccessIndexSpec() {
     return directAccessIndexSpec;
+  }
+
+  public VectorIndex setEndpointId(String endpointId) {
+    this.endpointId = endpointId;
+    return this;
+  }
+
+  public String getEndpointId() {
+    return endpointId;
   }
 
   public VectorIndex setEndpointName(String endpointName) {
@@ -134,6 +147,7 @@ public class VectorIndex {
     return Objects.equals(creator, that.creator)
         && Objects.equals(deltaSyncIndexSpec, that.deltaSyncIndexSpec)
         && Objects.equals(directAccessIndexSpec, that.directAccessIndexSpec)
+        && Objects.equals(endpointId, that.endpointId)
         && Objects.equals(endpointName, that.endpointName)
         && Objects.equals(indexSubtype, that.indexSubtype)
         && Objects.equals(indexType, that.indexType)
@@ -148,6 +162,7 @@ public class VectorIndex {
         creator,
         deltaSyncIndexSpec,
         directAccessIndexSpec,
+        endpointId,
         endpointName,
         indexSubtype,
         indexType,
@@ -162,6 +177,7 @@ public class VectorIndex {
         .add("creator", creator)
         .add("deltaSyncIndexSpec", deltaSyncIndexSpec)
         .add("directAccessIndexSpec", directAccessIndexSpec)
+        .add("endpointId", endpointId)
         .add("endpointName", endpointName)
         .add("indexSubtype", indexSubtype)
         .add("indexType", indexType)

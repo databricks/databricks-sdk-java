@@ -8,8 +8,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 /**
- * Direct connection configs for mTLS, as Kafka Connections do not support mTLS yet (XTA-18030).
- * Temporarily used until UC Kafka Connections gain mTLS support.
+ * Direct connection configs for mTLS, as Kafka Connections do not support mTLS yet . Temporarily
+ * used until UC Kafka Connections gain mTLS support.
  */
 @Generated
 public class DirectMtlsConfig {
