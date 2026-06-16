@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/** Matches workspace-level Databricks API endpoints for an ingress network policy rule. */
 @Generated
 public class CustomerFacingIngressNetworkPolicyWorkspaceApiDestination {
   /** Qualifies the breadth of API access for the listed scopes. See ApiScopeQualifier. */

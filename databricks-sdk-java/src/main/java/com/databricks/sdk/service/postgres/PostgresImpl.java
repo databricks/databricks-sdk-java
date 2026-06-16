@@ -53,6 +53,24 @@ class PostgresImpl implements PostgresService {
   }
 
   @Override
+  public Operation createDataApi(CreateDataApiRequest request) {
+    String path = String.format("/api/2.0/postgres/%s/data-api", request.getParent());
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request.getDataApi()));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, Operation.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public Operation createDatabase(CreateDatabaseRequest request) {
     String path = String.format("/api/2.0/postgres/%s/databases", request.getParent());
     try {
@@ -161,6 +179,23 @@ class PostgresImpl implements PostgresService {
 
   @Override
   public Operation deleteCatalog(DeleteCatalogRequest request) {
+    String path = String.format("/api/2.0/postgres/%s", request.getName());
+    try {
+      Request req = new Request("DELETE", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, Operation.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public Operation deleteDataApi(DeleteDataApiRequest request) {
     String path = String.format("/api/2.0/postgres/%s", request.getName());
     try {
       Request req = new Request("DELETE", path);
@@ -308,6 +343,23 @@ class PostgresImpl implements PostgresService {
         req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, Catalog.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public DataApi getDataApi(GetDataApiRequest request) {
+    String path = String.format("/api/2.0/postgres/%s", request.getName());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, DataApi.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -541,6 +593,24 @@ class PostgresImpl implements PostgresService {
     String path = String.format("/api/2.0/postgres/%s", request.getName());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request.getBranch()));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, Operation.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public Operation updateDataApi(UpdateDataApiRequest request) {
+    String path = String.format("/api/2.0/postgres/%s", request.getName());
+    try {
+      Request req = new Request("PATCH", path, apiClient.serialize(request.getDataApi()));
 
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");

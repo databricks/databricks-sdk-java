@@ -82,7 +82,12 @@ public class WorkspaceIamV2API {
     return impl.getWorkspaceAssignmentDetailProxy(request);
   }
 
-  /** Lists workspace assignment details for a workspace (workspace-level proxy). */
+  /**
+   * Lists workspace assignment details for a workspace (workspace-level proxy). For scalability,
+   * the response omits the per-principal entitlement fields (`entitlements` and
+   * `effective_entitlements`); call GetWorkspaceAssignmentDetailProxy to read entitlements for a
+   * single principal.
+   */
   public ListWorkspaceAssignmentDetailsResponse listWorkspaceAssignmentDetailsProxy(
       ListWorkspaceAssignmentDetailsProxyRequest request) {
     return impl.listWorkspaceAssignmentDetailsProxy(request);

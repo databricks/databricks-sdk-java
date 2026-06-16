@@ -13,6 +13,10 @@ public class MiniVectorIndex {
   @JsonProperty("creator")
   private String creator;
 
+  /** ID of the endpoint associated with the index. */
+  @JsonProperty("endpoint_id")
+  private String endpointId;
+
   /** Name of the endpoint associated with the index */
   @JsonProperty("endpoint_name")
   private String endpointName;
@@ -40,6 +44,15 @@ public class MiniVectorIndex {
 
   public String getCreator() {
     return creator;
+  }
+
+  public MiniVectorIndex setEndpointId(String endpointId) {
+    this.endpointId = endpointId;
+    return this;
+  }
+
+  public String getEndpointId() {
+    return endpointId;
   }
 
   public MiniVectorIndex setEndpointName(String endpointName) {
@@ -93,6 +106,7 @@ public class MiniVectorIndex {
     if (o == null || getClass() != o.getClass()) return false;
     MiniVectorIndex that = (MiniVectorIndex) o;
     return Objects.equals(creator, that.creator)
+        && Objects.equals(endpointId, that.endpointId)
         && Objects.equals(endpointName, that.endpointName)
         && Objects.equals(indexSubtype, that.indexSubtype)
         && Objects.equals(indexType, that.indexType)
@@ -102,13 +116,15 @@ public class MiniVectorIndex {
 
   @Override
   public int hashCode() {
-    return Objects.hash(creator, endpointName, indexSubtype, indexType, name, primaryKey);
+    return Objects.hash(
+        creator, endpointId, endpointName, indexSubtype, indexType, name, primaryKey);
   }
 
   @Override
   public String toString() {
     return new ToStringer(MiniVectorIndex.class)
         .add("creator", creator)
+        .add("endpointId", endpointId)
         .add("endpointName", endpointName)
         .add("indexSubtype", indexSubtype)
         .add("indexType", indexType)

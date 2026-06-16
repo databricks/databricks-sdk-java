@@ -15,10 +15,6 @@ import com.databricks.sdk.support.Generated;
  * Demand Driver with Spot Executors | On Demand Driver and Executors | | AZURE | On Demand Driver
  * and Executors | On Demand Driver and Executors |
  * +-------+--------------------------------------+--------------------------------+
- *
- * <p>While including "spot" in the enum name may limit the the future extensibility of this field
- * because it limits this enum to denoting "spot or not", this is the field that PM recommends after
- * discussion with customers per SC-48783.
  */
 @Generated
 public enum SpotInstancePolicy {

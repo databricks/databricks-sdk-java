@@ -15,7 +15,7 @@ public class FileParent {
   @QueryParam("file_parent_type")
   private FileParentType fileParentType;
 
-  /** TODO make the following fields required */
+  /** */
   @JsonProperty("parent_id")
   @QueryParam("parent_id")
   private String parentId;

@@ -18,6 +18,24 @@ public class AzureAttributes {
   private AzureAvailability availability;
 
   /**
+   * The Azure capacity reservation group resource ID to use for launching VMs. When specified, VMs
+   * will be launched using the provided capacity reservation.
+   *
+   * <p>Capacity reservations can only be specified when the workspace uses injected vnet (i.e.
+   * customer defined vnet not managed by databricks). Ensure the databricks-login-prod Enterprise
+   * Application is granted the following four permissions: 1.
+   * Microsoft.Compute/capacityReservationGroups/read 2.
+   * Microsoft.Compute/capacityReservationGroups/deploy/action 3.
+   * Microsoft.Compute/capacityReservationGroups/capacityReservations/read 4.
+   * Microsoft.Compute/capacityReservationGroups/capacityReservations/deploy/action
+   *
+   * <p>Format:
+   * `/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/capacityReservationGroups/{capacityReservationGroupName}`
+   */
+  @JsonProperty("capacity_reservation_group")
+  private String capacityReservationGroup;
+
+  /**
    * The first `first_on_demand` nodes of the cluster will be placed on on-demand instances. This
    * value should be greater than 0, to make sure the cluster driver node is placed on an on-demand
    * instance. If this value is greater than or equal to the current cluster size, all nodes will be
@@ -49,6 +67,15 @@ public class AzureAttributes {
 
   public AzureAvailability getAvailability() {
     return availability;
+  }
+
+  public AzureAttributes setCapacityReservationGroup(String capacityReservationGroup) {
+    this.capacityReservationGroup = capacityReservationGroup;
+    return this;
+  }
+
+  public String getCapacityReservationGroup() {
+    return capacityReservationGroup;
   }
 
   public AzureAttributes setFirstOnDemand(Long firstOnDemand) {
@@ -84,6 +111,7 @@ public class AzureAttributes {
     if (o == null || getClass() != o.getClass()) return false;
     AzureAttributes that = (AzureAttributes) o;
     return Objects.equals(availability, that.availability)
+        && Objects.equals(capacityReservationGroup, that.capacityReservationGroup)
         && Objects.equals(firstOnDemand, that.firstOnDemand)
         && Objects.equals(logAnalyticsInfo, that.logAnalyticsInfo)
         && Objects.equals(spotBidMaxPrice, that.spotBidMaxPrice);
@@ -91,13 +119,15 @@ public class AzureAttributes {
 
   @Override
   public int hashCode() {
-    return Objects.hash(availability, firstOnDemand, logAnalyticsInfo, spotBidMaxPrice);
+    return Objects.hash(
+        availability, capacityReservationGroup, firstOnDemand, logAnalyticsInfo, spotBidMaxPrice);
   }
 
   @Override
   public String toString() {
     return new ToStringer(AzureAttributes.class)
         .add("availability", availability)
+        .add("capacityReservationGroup", capacityReservationGroup)
         .add("firstOnDemand", firstOnDemand)
         .add("logAnalyticsInfo", logAnalyticsInfo)
         .add("spotBidMaxPrice", spotBidMaxPrice)

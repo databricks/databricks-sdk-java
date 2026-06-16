@@ -49,6 +49,12 @@ public class PostgresAPI {
     return new CreateCatalogOperation(impl, operation);
   }
 
+  /** Enable Data API for a database. */
+  public CreateDataApiOperation createDataApi(CreateDataApiRequest request) {
+    Operation operation = impl.createDataApi(request);
+    return new CreateDataApiOperation(impl, operation);
+  }
+
   /**
    * Create a Database.
    *
@@ -104,6 +110,16 @@ public class PostgresAPI {
   public DeleteCatalogOperation deleteCatalog(DeleteCatalogRequest request) {
     Operation operation = impl.deleteCatalog(request);
     return new DeleteCatalogOperation(impl, operation);
+  }
+
+  public DeleteDataApiOperation deleteDataApi(String name) {
+    return deleteDataApi(new DeleteDataApiRequest().setName(name));
+  }
+
+  /** Disable Data API for a database. */
+  public DeleteDataApiOperation deleteDataApi(DeleteDataApiRequest request) {
+    Operation operation = impl.deleteDataApi(request);
+    return new DeleteDataApiOperation(impl, operation);
   }
 
   public DeleteDatabaseOperation deleteDatabase(String name) {
@@ -177,6 +193,15 @@ public class PostgresAPI {
   /** Get a Database Catalog. */
   public Catalog getCatalog(GetCatalogRequest request) {
     return impl.getCatalog(request);
+  }
+
+  public DataApi getDataApi(String name) {
+    return getDataApi(new GetDataApiRequest().setName(name));
+  }
+
+  /** Get Data API configuration for a database. */
+  public DataApi getDataApi(GetDataApiRequest request) {
+    return impl.getDataApi(request);
   }
 
   public Database getDatabase(String name) {
@@ -352,6 +377,12 @@ public class PostgresAPI {
   public UpdateBranchOperation updateBranch(UpdateBranchRequest request) {
     Operation operation = impl.updateBranch(request);
     return new UpdateBranchOperation(impl, operation);
+  }
+
+  /** Update Data API configuration for a database. */
+  public UpdateDataApiOperation updateDataApi(UpdateDataApiRequest request) {
+    Operation operation = impl.updateDataApi(request);
+    return new UpdateDataApiOperation(impl, operation);
   }
 
   /** Update a Database. */

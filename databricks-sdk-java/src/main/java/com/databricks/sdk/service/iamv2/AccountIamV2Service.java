@@ -45,7 +45,11 @@ public interface AccountIamV2Service {
   WorkspaceAssignmentDetail getWorkspaceAssignmentDetail(
       GetWorkspaceAssignmentDetailRequest getWorkspaceAssignmentDetailRequest);
 
-  /** Lists workspace assignment details for a workspace. */
+  /**
+   * Lists workspace assignment details for a workspace. For scalability, the response omits the
+   * per-principal entitlement fields (`entitlements` and `effective_entitlements`); call
+   * GetWorkspaceAssignmentDetail to read entitlements for a single principal.
+   */
   ListWorkspaceAssignmentDetailsResponse listWorkspaceAssignmentDetails(
       ListWorkspaceAssignmentDetailsRequest listWorkspaceAssignmentDetailsRequest);
 

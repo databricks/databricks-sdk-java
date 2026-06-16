@@ -12,8 +12,8 @@ import java.util.Objects;
 public class StreamConnectionConfig {
   /**
    * Direct mTLS configuration for stream platform access. This is only used in the short term until
-   * UC Kafka Connections support mTLS (XTA-18030). Once UC Kafka Connections support mTLS, this
-   * will be deprecated.
+   * UC Kafka Connections support mTLS . Once UC Kafka Connections support mTLS, this will be
+   * deprecated.
    */
   @JsonProperty("direct_mtls_config")
   private DirectMtlsConfig directMtlsConfig;
