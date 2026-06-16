@@ -13,7 +13,7 @@ public class ForEachTaskErrorMessageStats {
   @JsonProperty("count")
   private Long count;
 
-  /** Describes the error message occured during the iterations. */
+  /** Describes the error message occurred during the iterations. */
   @JsonProperty("error_message")
   private String errorMessage;
 

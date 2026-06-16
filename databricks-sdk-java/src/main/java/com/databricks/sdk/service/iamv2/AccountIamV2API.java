@@ -91,7 +91,11 @@ public class AccountIamV2API {
         new ListWorkspaceAssignmentDetailsRequest().setWorkspaceId(workspaceId));
   }
 
-  /** Lists workspace assignment details for a workspace. */
+  /**
+   * Lists workspace assignment details for a workspace. For scalability, the response omits the
+   * per-principal entitlement fields (`entitlements` and `effective_entitlements`); call
+   * GetWorkspaceAssignmentDetail to read entitlements for a single principal.
+   */
   public ListWorkspaceAssignmentDetailsResponse listWorkspaceAssignmentDetails(
       ListWorkspaceAssignmentDetailsRequest request) {
     return impl.listWorkspaceAssignmentDetails(request);

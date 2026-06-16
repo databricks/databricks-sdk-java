@@ -29,6 +29,9 @@ public interface PostgresService {
   /** Register a Postgres database in the Unity Catalog. */
   Operation createCatalog(CreateCatalogRequest createCatalogRequest);
 
+  /** Enable Data API for a database. */
+  Operation createDataApi(CreateDataApiRequest createDataApiRequest);
+
   /**
    * Create a Database.
    *
@@ -57,6 +60,9 @@ public interface PostgresService {
   /** Delete a Database Catalog. */
   Operation deleteCatalog(DeleteCatalogRequest deleteCatalogRequest);
 
+  /** Disable Data API for a database. */
+  Operation deleteDataApi(DeleteDataApiRequest deleteDataApiRequest);
+
   /** Delete a Database. */
   Operation deleteDatabase(DeleteDatabaseRequest deleteDatabaseRequest);
 
@@ -81,6 +87,9 @@ public interface PostgresService {
 
   /** Get a Database Catalog. */
   Catalog getCatalog(GetCatalogRequest getCatalogRequest);
+
+  /** Get Data API configuration for a database. */
+  DataApi getDataApi(GetDataApiRequest getDataApiRequest);
 
   /** Get a Database. */
   Database getDatabase(GetDatabaseRequest getDatabaseRequest);
@@ -135,6 +144,9 @@ public interface PostgresService {
    * or protect/unprotect it.
    */
   Operation updateBranch(UpdateBranchRequest updateBranchRequest);
+
+  /** Update Data API configuration for a database. */
+  Operation updateDataApi(UpdateDataApiRequest updateDataApiRequest);
 
   /** Update a Database. */
   Operation updateDatabase(UpdateDatabaseRequest updateDatabaseRequest);

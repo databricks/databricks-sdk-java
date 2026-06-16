@@ -24,7 +24,7 @@ public class RunForEachTask {
 
   /**
    * Read only field. Populated for GetRun and ListRuns RPC calls and stores the execution stats of
-   * an For each task
+   * a `For each` task.
    */
   @JsonProperty("stats")
   private ForEachStats stats;

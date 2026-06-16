@@ -215,7 +215,7 @@ public class Run {
 
   /**
    * The list of tasks performed by the run. Each task has its own `run_id` which you can use to
-   * call `JobsGetOutput` to retrieve the run resutls. If more than 100 tasks are available, you can
+   * call `JobsGetOutput` to retrieve the run results. If more than 100 tasks are available, you can
    * paginate through them using :method:jobs/getrun. Use the `next_page_token` field at the object
    * root to determine if more results are available.
    */

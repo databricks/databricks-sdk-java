@@ -11,7 +11,7 @@ import java.util.Objects;
 @Generated
 public class DeleteDatabaseInstanceRequest {
   /**
-   * By default, a instance cannot be deleted if it has descendant instances created via PITR. If
+   * By default, an instance cannot be deleted if it has descendant instances created via PITR. If
    * this flag is specified as true, all descendent instances will be deleted as well.
    */
   @JsonIgnore

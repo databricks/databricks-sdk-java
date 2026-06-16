@@ -46,7 +46,12 @@ public interface WorkspaceIamV2Service {
   WorkspaceAssignmentDetail getWorkspaceAssignmentDetailProxy(
       GetWorkspaceAssignmentDetailProxyRequest getWorkspaceAssignmentDetailProxyRequest);
 
-  /** Lists workspace assignment details for a workspace (workspace-level proxy). */
+  /**
+   * Lists workspace assignment details for a workspace (workspace-level proxy). For scalability,
+   * the response omits the per-principal entitlement fields (`entitlements` and
+   * `effective_entitlements`); call GetWorkspaceAssignmentDetailProxy to read entitlements for a
+   * single principal.
+   */
   ListWorkspaceAssignmentDetailsResponse listWorkspaceAssignmentDetailsProxy(
       ListWorkspaceAssignmentDetailsProxyRequest listWorkspaceAssignmentDetailsProxyRequest);
 

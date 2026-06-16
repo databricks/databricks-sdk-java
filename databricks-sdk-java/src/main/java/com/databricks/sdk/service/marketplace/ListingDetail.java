@@ -63,7 +63,7 @@ public class ListingDetail {
 
   /**
    * What the pricing model is (e.g. paid, subscription, paid upfront); should only be present if
-   * cost is paid TODO: Not used yet, should deprecate if we will never use it
+   * cost is paid
    */
   @JsonProperty("pricing_model")
   private String pricingModel;

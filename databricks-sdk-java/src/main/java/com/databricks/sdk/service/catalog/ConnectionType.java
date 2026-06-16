@@ -4,12 +4,13 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 
-/** Next Id: 126 */
+/** Next Id: 127 */
 @Generated
 public enum ConnectionType {
   BIGQUERY,
   CONFLUENCE,
   DATABRICKS,
+  DYNAMICS365,
   GA4_RAW_DATA,
   GITHUB,
   GLUE,

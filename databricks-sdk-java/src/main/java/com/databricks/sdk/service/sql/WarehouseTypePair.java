@@ -14,8 +14,8 @@ import java.util.Objects;
 @Generated
 public class WarehouseTypePair {
   /**
-   * If set to false the specific warehouse type will not be be allowed as a value for
-   * warehouse_type in CreateWarehouse and EditWarehouse
+   * If set to false the specific warehouse type will not be allowed as a value for warehouse_type
+   * in CreateWarehouse and EditWarehouse
    */
   @JsonProperty("enabled")
   private Boolean enabled;

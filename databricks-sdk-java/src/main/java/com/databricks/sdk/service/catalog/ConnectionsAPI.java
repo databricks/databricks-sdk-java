@@ -8,15 +8,14 @@ import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.Paginator;
 
 /**
- * Connections allow for creating a connection to an external data source.
+ * A connection represents an external data source for use within Databricks.
  *
- * <p>A connection is an abstraction of an external data source that can be connected from
- * Databricks Compute. Creating a connection object is the first step to managing external data
- * sources within Unity Catalog, with the second step being creating a data object (catalog, schema,
- * or table) using the connection. Data objects derived from a connection can be written to or read
- * from similar to other Unity Catalog data objects based on cloud storage. Users may create
- * different types of connections with each connection having a unique set of configuration options
- * to support credential management and other settings.
+ * <p>Creating a connection object is the first step to managing external data sources within Unity
+ * Catalog. The second step is creating a data object (catalog, schema, or table) using the
+ * connection. Data objects derived from a connection can be written to or read from similar to
+ * other Unity Catalog data objects based on cloud storage. You can create different types of
+ * connections, and each connection has a unique set of configuration options to support credential
+ * management and other settings.
  */
 @Generated
 public class ConnectionsAPI {
