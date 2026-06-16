@@ -1,5 +1,19 @@
 # Version changelog
 
+## Release v0.120.0 (2026-06-16)
+
+### API Changes
+* Add `createDataApi()`, `deleteDataApi()`, `getDataApi()` and `updateDataApi()` methods for `workspaceClient.postgres()` service.
+* Add `capacityReservationGroup` field for `com.databricks.sdk.service.compute.AzureAttributes`.
+* Add `acceleratedSync` and `typeOverrides` fields for `com.databricks.sdk.service.database.SyncedTableSpec`.
+* Add `acceleratedSync` and `typeOverrides` fields for `com.databricks.sdk.service.postgres.SyncedTableSyncedTableSpec`.
+* Add `endpointId` field for `com.databricks.sdk.service.vectorsearch.MiniVectorIndex`.
+* Add `endpointId` field for `com.databricks.sdk.service.vectorsearch.VectorIndex`.
+* Add `DYNAMICS365` enum value for `com.databricks.sdk.service.catalog.ConnectionType`.
+* [Breaking] Change `resourceId` field for `com.databricks.sdk.service.bundledeployments.Operation` to no longer be required.
+* Change `resourceId` field for `com.databricks.sdk.service.bundledeployments.Operation` to no longer be required.
+
+
 ## Release v0.119.0 (2026-06-10)
 
 ### API Changes
