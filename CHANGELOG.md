@@ -1,5 +1,14 @@
 # Version changelog
 
+## Release v0.121.0 (2026-06-17)
+
+### API Changes
+* Add `serverlessComputeId` field for `com.databricks.sdk.service.pipelines.ClonePipelineRequest`.
+* Add `serverlessComputeId` field for `com.databricks.sdk.service.pipelines.CreatePipeline`.
+* Add `serverlessComputeId` field for `com.databricks.sdk.service.pipelines.EditPipeline`.
+* Add `serverlessComputeId` field for `com.databricks.sdk.service.pipelines.PipelineSpec`.
+
+
 ## Release v0.120.0 (2026-06-16)
 
 ### API Changes
