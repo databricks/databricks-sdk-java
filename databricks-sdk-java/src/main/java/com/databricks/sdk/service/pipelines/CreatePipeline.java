@@ -134,6 +134,10 @@ public class CreatePipeline {
   @JsonProperty("serverless")
   private Boolean serverless;
 
+  /** Serverless compute ID specified by the user for serverless pipelines. */
+  @JsonProperty("serverless_compute_id")
+  private String serverlessComputeId;
+
   /** DBFS root directory for storing checkpoints and tables. */
   @JsonProperty("storage")
   private String storage;
@@ -405,6 +409,15 @@ public class CreatePipeline {
     return serverless;
   }
 
+  public CreatePipeline setServerlessComputeId(String serverlessComputeId) {
+    this.serverlessComputeId = serverlessComputeId;
+    return this;
+  }
+
+  public String getServerlessComputeId() {
+    return serverlessComputeId;
+  }
+
   public CreatePipeline setStorage(String storage) {
     this.storage = storage;
     return this;
@@ -482,6 +495,7 @@ public class CreatePipeline {
         && Objects.equals(runAs, that.runAs)
         && Objects.equals(schema, that.schema)
         && Objects.equals(serverless, that.serverless)
+        && Objects.equals(serverlessComputeId, that.serverlessComputeId)
         && Objects.equals(storage, that.storage)
         && Objects.equals(tags, that.tags)
         && Objects.equals(target, that.target)
@@ -519,6 +533,7 @@ public class CreatePipeline {
         runAs,
         schema,
         serverless,
+        serverlessComputeId,
         storage,
         tags,
         target,
@@ -556,6 +571,7 @@ public class CreatePipeline {
         .add("runAs", runAs)
         .add("schema", schema)
         .add("serverless", serverless)
+        .add("serverlessComputeId", serverlessComputeId)
         .add("storage", storage)
         .add("tags", tags)
         .add("target", target)

@@ -115,6 +115,10 @@ public class PipelineSpec {
   @JsonProperty("serverless")
   private Boolean serverless;
 
+  /** Serverless compute ID specified by the user for serverless pipelines. */
+  @JsonProperty("serverless_compute_id")
+  private String serverlessComputeId;
+
   /** DBFS root directory for storing checkpoints and tables. */
   @JsonProperty("storage")
   private String storage;
@@ -350,6 +354,15 @@ public class PipelineSpec {
     return serverless;
   }
 
+  public PipelineSpec setServerlessComputeId(String serverlessComputeId) {
+    this.serverlessComputeId = serverlessComputeId;
+    return this;
+  }
+
+  public String getServerlessComputeId() {
+    return serverlessComputeId;
+  }
+
   public PipelineSpec setStorage(String storage) {
     this.storage = storage;
     return this;
@@ -423,6 +436,7 @@ public class PipelineSpec {
         && Objects.equals(rootPath, that.rootPath)
         && Objects.equals(schema, that.schema)
         && Objects.equals(serverless, that.serverless)
+        && Objects.equals(serverlessComputeId, that.serverlessComputeId)
         && Objects.equals(storage, that.storage)
         && Objects.equals(tags, that.tags)
         && Objects.equals(target, that.target)
@@ -456,6 +470,7 @@ public class PipelineSpec {
         rootPath,
         schema,
         serverless,
+        serverlessComputeId,
         storage,
         tags,
         target,
@@ -489,6 +504,7 @@ public class PipelineSpec {
         .add("rootPath", rootPath)
         .add("schema", schema)
         .add("serverless", serverless)
+        .add("serverlessComputeId", serverlessComputeId)
         .add("storage", storage)
         .add("tags", tags)
         .add("target", target)
