@@ -133,6 +133,10 @@ public class UserAgent {
     if (!agent.isEmpty()) {
       segments.add(String.format("agent/%s", agent));
     }
+    String metaHarness = metaHarnessProvider();
+    if (!metaHarness.isEmpty()) {
+      segments.add(String.format("meta-harness/%s", metaHarness));
+    }
     // Concurrent iteration over ArrayList must be guarded with synchronized.
     synchronized (otherInfo) {
       segments.addAll(
@@ -173,6 +177,8 @@ public class UserAgent {
   protected static volatile String cicdProvider = null;
 
   protected static volatile String agentProvider = null;
+
+  protected static volatile String metaHarnessProvider = null;
 
   protected static Environment env = null;
 
@@ -360,6 +366,47 @@ public class UserAgent {
       }
     }
     return agentProvider;
+  }
+
+  // Describes a single meta-harness: the env var that identifies it and the
+  // product name reported in the user agent.
+  private static class KnownMetaHarness {
+    private final String envVar;
+    private final String product;
+
+    KnownMetaHarness(String envVar, String product) {
+      this.envVar = envVar;
+      this.product = product;
+    }
+  }
+
+  // Canonical list of known meta-harnesses, detected by presence.
+  // Keep in sync with databricks-sdk-go and databricks-sdk-py.
+  // OMNIGENT is set by the omnigent meta-harness (https://github.com/omnigent-ai/omnigent).
+  private static List<KnownMetaHarness> listKnownMetaHarnesses() {
+    return Arrays.asList(new KnownMetaHarness("OMNIGENT", "omnigent"));
+  }
+
+  // Looks up the active meta-harness by env var presence, independent of the agent.
+  private static String lookupMetaHarnessProvider(Environment env) {
+    for (KnownMetaHarness h : listKnownMetaHarnesses()) {
+      if (env.get(h.envVar) != null) {
+        return h.product;
+      }
+    }
+    return "";
+  }
+
+  // Thread-safe lazy initialization of meta-harness detection
+  private static String metaHarnessProvider() {
+    if (metaHarnessProvider == null) {
+      synchronized (UserAgent.class) {
+        if (metaHarnessProvider == null) {
+          metaHarnessProvider = lookupMetaHarnessProvider(env());
+        }
+      }
+    }
+    return metaHarnessProvider;
   }
 
   private static Environment env() {
