@@ -7,7 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Config for an individual init script Next ID: 11 */
+/** Config for an individual init script */
 @Generated
 public class InitScriptInfo {
   /**
