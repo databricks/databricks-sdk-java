@@ -18,6 +18,7 @@ public class UserAgentTest {
   private void setupAgentEnv(Map<String, String> envMap) {
     UserAgent.agentProvider = null;
     UserAgent.cicdProvider = null;
+    UserAgent.metaHarnessProvider = null;
     UserAgent.env = new Environment(envMap, new ArrayList<>(), System.getProperty("os.name"));
   }
 
@@ -25,6 +26,7 @@ public class UserAgentTest {
     UserAgent.env = null;
     UserAgent.agentProvider = null;
     UserAgent.cicdProvider = null;
+    UserAgent.metaHarnessProvider = null;
   }
 
   @Test
@@ -616,5 +618,69 @@ public class UserAgentTest {
             System.getProperty("os.name"));
     Assertions.assertTrue(UserAgent.asString().contains("agent/cursor"));
     Assertions.assertFalse(UserAgent.asString().contains("agent/claude-code"));
+  }
+
+  @Test
+  public void testMetaHarnessProviderOmnigent() {
+    setupAgentEnv(
+        new HashMap<String, String>() {
+          {
+            put("OMNIGENT", "1");
+          }
+        });
+    Assertions.assertTrue(UserAgent.asString().contains("meta-harness/omnigent"));
+  }
+
+  @Test
+  public void testMetaHarnessProviderNoHarness() {
+    setupAgentEnv(new HashMap<>());
+    Assertions.assertFalse(UserAgent.asString().contains("meta-harness/"));
+  }
+
+  @Test
+  public void testMetaHarnessProviderEmptyValueStillSet() {
+    // Empty string still counts as "set" for presence-only detection,
+    // matching the agent dimension and databricks-sdk-go semantics.
+    setupAgentEnv(
+        new HashMap<String, String>() {
+          {
+            put("OMNIGENT", "");
+          }
+        });
+    Assertions.assertTrue(UserAgent.asString().contains("meta-harness/omnigent"));
+  }
+
+  @Test
+  public void testMetaHarnessProviderIndependentOfAgent() {
+    // Under omnigent both OMNIGENT and the agent marker are set: report both
+    // dimensions, and the meta-harness must not trip the agent "multiple" logic.
+    setupAgentEnv(
+        new HashMap<String, String>() {
+          {
+            put("OMNIGENT", "1");
+            put("CLAUDECODE", "1");
+          }
+        });
+    String userAgent = UserAgent.asString();
+    Assertions.assertTrue(userAgent.contains("agent/claude-code"));
+    Assertions.assertTrue(userAgent.contains("meta-harness/omnigent"));
+    Assertions.assertFalse(userAgent.contains("agent/multiple"));
+  }
+
+  @Test
+  public void testMetaHarnessProviderCached() {
+    // Set up with omnigent.
+    setupAgentEnv(
+        new HashMap<String, String>() {
+          {
+            put("OMNIGENT", "1");
+          }
+        });
+    Assertions.assertTrue(UserAgent.asString().contains("meta-harness/omnigent"));
+
+    // Change env after caching. Cached result should persist.
+    UserAgent.env =
+        new Environment(new HashMap<>(), new ArrayList<>(), System.getProperty("os.name"));
+    Assertions.assertTrue(UserAgent.asString().contains("meta-harness/omnigent"));
   }
 }
