@@ -15,3 +15,4 @@
 ### Internal Changes
 
 ### API Changes
+* Add `XLARGE` enum value for `com.databricks.sdk.service.apps.ComputeSize`.

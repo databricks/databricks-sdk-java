@@ -8,4 +8,5 @@ import com.databricks.sdk.support.Generated;
 public enum ComputeSize {
   LARGE,
   MEDIUM,
+  XLARGE,
 }
