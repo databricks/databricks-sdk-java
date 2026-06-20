@@ -46,8 +46,10 @@ public interface BundleDeploymentsService {
    * Creates a new version under a deployment.
    *
    * <p>Creating a version acquires an exclusive lock on the deployment, preventing concurrent
-   * deploys. The caller provides a `version_id` which the server validates equals `last_version_id
-   * + 1` on the deployment.
+   * deploys. The caller provides a `version_id`, a numeric string that must be numerically greater
+   * than the deployment's most recent version, and sets the version's `previous_version_id` to the
+   * deployment's most recent version (leaving it unset for the first version), which the server
+   * validates to detect concurrent deploys.
    */
   Version createVersion(CreateVersionRequest createVersionRequest);
 
@@ -90,6 +92,9 @@ public interface BundleDeploymentsService {
   /** Lists resources under a deployment. */
   ListResourcesResponse listResources(ListResourcesRequest listResourcesRequest);
 
-  /** Lists versions under a deployment, ordered by version_id descending (most recent first). */
+  /**
+   * Lists versions under a deployment, ordered numerically by version_id descending (most recent
+   * first).
+   */
   ListVersionsResponse listVersions(ListVersionsRequest listVersionsRequest);
 }

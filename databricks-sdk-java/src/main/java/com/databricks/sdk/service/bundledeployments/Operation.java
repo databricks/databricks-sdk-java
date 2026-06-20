@@ -10,8 +10,10 @@ import com.google.protobuf.Timestamp;
 import java.util.Objects;
 
 /**
- * An operation on a single resource performed during a version. Operations are append-only and
- * record the result of applying a resource change to the workspace.
+ * An operation on a single resource performed during a version. Operations record the result of
+ * applying a resource change to the workspace. Most fields are immutable once recorded; `state`,
+ * `error_message`, `resource_id`, and `status` may be updated afterwards (via UpdateOperation),
+ * guarded by `sequence_id` for optimistic concurrency control.
  */
 @Generated
 public class Operation {
@@ -25,7 +27,9 @@ public class Operation {
 
   /**
    * Error message if the operation failed. Set when status is OPERATION_STATUS_FAILED. Captures the
-   * error encountered while applying the resource to the workspace.
+   * error encountered while applying the resource to the workspace. Mutable: may be updated after
+   * creation via UpdateOperation; setting it to an empty string clears it. After an update is
+   * applied, an operation whose status is OPERATION_STATUS_SUCCEEDED cannot carry an error_message.
    */
   @JsonProperty("error_message")
   private String errorMessage;
@@ -38,9 +42,10 @@ public class Operation {
   private String name;
 
   /**
-   * ID of the actual resource in the workspace (e.g. the job ID, pipeline ID). Required for every
-   * operation except CREATE and RECREATE, which produce a new resource whose ID is not yet known
-   * when the operation is recorded.
+   * ID of the actual resource in the workspace (e.g. the job ID, pipeline ID). Optional at
+   * creation: CREATE and RECREATE operations produce a new resource whose ID is not yet known when
+   * the operation is recorded. Mutable: may be filled in (or corrected) later via UpdateOperation
+   * once the ID is known.
    */
   @JsonProperty("resource_id")
   private String resourceId;
@@ -60,11 +65,19 @@ public class Operation {
   @JsonProperty("resource_type")
   private DeploymentResourceType resourceType;
 
-  /** Serialized local config state after the operation. Should be unset for delete operations. */
+  /**
+   * Serialized local config state after the operation. Should be unset for delete operations.
+   * Mutable: may be updated after creation via UpdateOperation. When updating, the caller must echo
+   * the last-observed `sequence_id` as a concurrency precondition.
+   */
   @JsonProperty("state")
   private JsonNode state;
 
-  /** Whether the operation succeeded or failed. */
+  /**
+   * Whether the operation succeeded or failed. Mutable: may be updated after creation via
+   * UpdateOperation, e.g. when an operation recorded as failed is retried and eventually succeeds.
+   * A succeeded operation cannot carry an `error_message`.
+   */
   @JsonProperty("status")
   private OperationStatus status;
 

@@ -21,8 +21,12 @@ public class CreateVersionRequest {
   private Version version;
 
   /**
-   * The version ID the caller expects to create. The server validates this equals `last_version_id
-   * + 1` on the deployment. If it doesn't match, the server returns `ABORTED`.
+   * The ID to use for the version, which becomes the final component of the version's resource
+   * name. A numeric string (base-10, fits in a signed 64-bit integer) chosen by the caller; must be
+   * greater than or equal to 1. Must be numerically greater than the deployment's most recent
+   * version (see `version.previous_version_id`); it does not need to start at 1 or increase by
+   * exactly 1. If the value is not numerically greater, the server returns
+   * `INVALID_PARAMETER_VALUE`.
    */
   @JsonIgnore
   @QueryParam("version_id")
