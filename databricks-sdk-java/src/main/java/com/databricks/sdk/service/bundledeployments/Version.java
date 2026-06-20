@@ -72,8 +72,10 @@ public class Version {
   private String targetName;
 
   /**
-   * Monotonically increasing version identifier within the parent deployment. Assigned by the
-   * client on creation.
+   * Version identifier within the parent deployment, assigned by the client on creation. A numeric
+   * string (base-10, fits in a signed 64-bit integer) that is greater than or equal to 1. Version
+   * IDs are strictly increasing within a deployment but are not required to start at 1 or to be
+   * contiguous.
    */
   @JsonProperty("version_id")
   private String versionId;
