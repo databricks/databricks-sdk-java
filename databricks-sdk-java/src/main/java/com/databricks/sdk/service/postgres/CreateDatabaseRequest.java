@@ -34,6 +34,11 @@ public class CreateDatabaseRequest {
    */
   @JsonIgnore private String parent;
 
+  /** If true, update the database if it already exists instead of returning an error. */
+  @JsonIgnore
+  @QueryParam("replace_existing")
+  private Boolean replaceExisting;
+
   public CreateDatabaseRequest setDatabase(Database database) {
     this.database = database;
     return this;
@@ -61,6 +66,15 @@ public class CreateDatabaseRequest {
     return parent;
   }
 
+  public CreateDatabaseRequest setReplaceExisting(Boolean replaceExisting) {
+    this.replaceExisting = replaceExisting;
+    return this;
+  }
+
+  public Boolean getReplaceExisting() {
+    return replaceExisting;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -68,12 +82,13 @@ public class CreateDatabaseRequest {
     CreateDatabaseRequest that = (CreateDatabaseRequest) o;
     return Objects.equals(database, that.database)
         && Objects.equals(databaseId, that.databaseId)
-        && Objects.equals(parent, that.parent);
+        && Objects.equals(parent, that.parent)
+        && Objects.equals(replaceExisting, that.replaceExisting);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(database, databaseId, parent);
+    return Objects.hash(database, databaseId, parent, replaceExisting);
   }
 
   @Override
@@ -82,6 +97,7 @@ public class CreateDatabaseRequest {
         .add("database", database)
         .add("databaseId", databaseId)
         .add("parent", parent)
+        .add("replaceExisting", replaceExisting)
         .toString();
   }
 }

@@ -24,8 +24,10 @@ public class CatalogConfig {
   private Collection<AutoTaggingConfig> autoTagConfigs;
 
   /**
-   * Schemas to include in the scan. Empty list is not supported as it results in a no-op scan. If
-   * `included_schemas` is not set, all schemas are scanned.
+   * Schemas to include in the scan, each named relative to the parent catalog. If specified, only
+   * listed schemas will be scanned. Mutually exclusive with `excluded_schemas`: only one may be set
+   * per request. If neither `included_schemas` nor `excluded_schemas` is set, all schemas are
+   * scanned.
    */
   @JsonProperty("included_schemas")
   private CatalogConfigSchemaNames includedSchemas;

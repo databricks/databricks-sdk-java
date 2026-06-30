@@ -25,7 +25,7 @@ public class CreateRefreshRequest {
    */
   @JsonIgnore private String objectId;
 
-  /** The type of the monitored object. Can be one of the following: `schema`or `table`. */
+  /** The type of the monitored object. Can be one of the following: `schema` or `table`. */
   @JsonIgnore private String objectType;
 
   /** The refresh to create */

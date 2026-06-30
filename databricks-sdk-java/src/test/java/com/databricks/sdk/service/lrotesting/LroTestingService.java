@@ -15,7 +15,13 @@ public interface LroTestingService {
 
   void cancelOperation(CancelOperationRequest cancelOperationRequest);
 
-  /** Simple method to create test resource for LRO testing */
+  /**
+   * Simple method to create test resource for LRO testing.
+   *
+   * <p>Example:
+   *
+   * <p>```python op = w.lro_testing.create_test_resource(resource=resource) ```
+   */
   Operation createTestResource(CreateTestResourceRequest createTestResourceRequest);
 
   Operation deleteTestResource(DeleteTestResourceRequest deleteTestResourceRequest);

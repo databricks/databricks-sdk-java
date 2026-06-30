@@ -17,6 +17,10 @@ public class EnforceClusterComplianceResponse {
   @JsonProperty("changes")
   private Collection<ClusterSettingsChange> changes;
 
+  /** Describes whether changes have been applied to the cluster. */
+  @JsonProperty("enforce_result")
+  private EnforcePolicyComplianceForClusterResponseEnforceResult enforceResult;
+
   /**
    * Whether any changes have been made to the cluster settings for the cluster to become compliant
    * with its policy.
@@ -33,6 +37,16 @@ public class EnforceClusterComplianceResponse {
     return changes;
   }
 
+  public EnforceClusterComplianceResponse setEnforceResult(
+      EnforcePolicyComplianceForClusterResponseEnforceResult enforceResult) {
+    this.enforceResult = enforceResult;
+    return this;
+  }
+
+  public EnforcePolicyComplianceForClusterResponseEnforceResult getEnforceResult() {
+    return enforceResult;
+  }
+
   public EnforceClusterComplianceResponse setHasChanges(Boolean hasChanges) {
     this.hasChanges = hasChanges;
     return this;
@@ -47,18 +61,21 @@ public class EnforceClusterComplianceResponse {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     EnforceClusterComplianceResponse that = (EnforceClusterComplianceResponse) o;
-    return Objects.equals(changes, that.changes) && Objects.equals(hasChanges, that.hasChanges);
+    return Objects.equals(changes, that.changes)
+        && Objects.equals(enforceResult, that.enforceResult)
+        && Objects.equals(hasChanges, that.hasChanges);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(changes, hasChanges);
+    return Objects.hash(changes, enforceResult, hasChanges);
   }
 
   @Override
   public String toString() {
     return new ToStringer(EnforceClusterComplianceResponse.class)
         .add("changes", changes)
+        .add("enforceResult", enforceResult)
         .add("hasChanges", hasChanges)
         .toString();
   }

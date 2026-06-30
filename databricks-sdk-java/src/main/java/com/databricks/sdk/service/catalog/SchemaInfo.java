@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
 import java.util.Objects;
 
-/** Next ID: 45 */
 @Generated
 public class SchemaInfo {
   /**

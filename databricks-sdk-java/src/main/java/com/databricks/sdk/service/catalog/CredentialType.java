@@ -4,7 +4,6 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 
-/** Next Id: 20 */
 @Generated
 public enum CredentialType {
   ANY_STATIC_CREDENTIAL,

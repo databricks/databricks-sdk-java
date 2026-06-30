@@ -14,6 +14,10 @@ public class GenieStartConversationMessageRequest {
   @JsonProperty("content")
   private String content;
 
+  /** Enable visualization generation. */
+  @JsonProperty("enable_visualization")
+  private Boolean enableVisualization;
+
   /** The ID associated with the Genie space where you want to start a conversation. */
   @JsonIgnore private String spaceId;
 
@@ -24,6 +28,15 @@ public class GenieStartConversationMessageRequest {
 
   public String getContent() {
     return content;
+  }
+
+  public GenieStartConversationMessageRequest setEnableVisualization(Boolean enableVisualization) {
+    this.enableVisualization = enableVisualization;
+    return this;
+  }
+
+  public Boolean getEnableVisualization() {
+    return enableVisualization;
   }
 
   public GenieStartConversationMessageRequest setSpaceId(String spaceId) {
@@ -40,18 +53,21 @@ public class GenieStartConversationMessageRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GenieStartConversationMessageRequest that = (GenieStartConversationMessageRequest) o;
-    return Objects.equals(content, that.content) && Objects.equals(spaceId, that.spaceId);
+    return Objects.equals(content, that.content)
+        && Objects.equals(enableVisualization, that.enableVisualization)
+        && Objects.equals(spaceId, that.spaceId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(content, spaceId);
+    return Objects.hash(content, enableVisualization, spaceId);
   }
 
   @Override
   public String toString() {
     return new ToStringer(GenieStartConversationMessageRequest.class)
         .add("content", content)
+        .add("enableVisualization", enableVisualization)
         .add("spaceId", spaceId)
         .toString();
   }
