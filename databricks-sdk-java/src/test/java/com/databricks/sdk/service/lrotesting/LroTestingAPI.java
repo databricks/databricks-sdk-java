@@ -27,7 +27,13 @@ public class LroTestingAPI {
     impl.cancelOperation(request);
   }
 
-  /** Simple method to create test resource for LRO testing */
+  /**
+   * Simple method to create test resource for LRO testing.
+   *
+   * <p>Example:
+   *
+   * <p>```python op = w.lro_testing.create_test_resource(resource=resource) ```
+   */
   public CreateTestResourceOperation createTestResource(CreateTestResourceRequest request) {
     Operation operation = impl.createTestResource(request);
     return new CreateTestResourceOperation(impl, operation);

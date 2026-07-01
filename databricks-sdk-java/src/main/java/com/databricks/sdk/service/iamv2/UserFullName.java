@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 @Generated
-public class UserName {
+public class UserFullName {
   /** */
   @JsonProperty("family_name")
   private String familyName;
@@ -17,7 +17,7 @@ public class UserName {
   @JsonProperty("given_name")
   private String givenName;
 
-  public UserName setFamilyName(String familyName) {
+  public UserFullName setFamilyName(String familyName) {
     this.familyName = familyName;
     return this;
   }
@@ -26,7 +26,7 @@ public class UserName {
     return familyName;
   }
 
-  public UserName setGivenName(String givenName) {
+  public UserFullName setGivenName(String givenName) {
     this.givenName = givenName;
     return this;
   }
@@ -39,7 +39,7 @@ public class UserName {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    UserName that = (UserName) o;
+    UserFullName that = (UserFullName) o;
     return Objects.equals(familyName, that.familyName) && Objects.equals(givenName, that.givenName);
   }
 
@@ -50,7 +50,7 @@ public class UserName {
 
   @Override
   public String toString() {
-    return new ToStringer(UserName.class)
+    return new ToStringer(UserFullName.class)
         .add("familyName", familyName)
         .add("givenName", givenName)
         .toString();

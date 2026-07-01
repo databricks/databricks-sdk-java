@@ -12,6 +12,13 @@ import java.util.Objects;
 @Generated
 public class RunTask {
   /**
+   * The task runs a multi-node GPU compute workload on Databricks AI Runtime. External-facing
+   * surface; mirrors the AIR CLI (fka SGCLI) v2 YAML schema.
+   */
+  @JsonProperty("ai_runtime_task")
+  private AiRuntimeTask aiRuntimeTask;
+
+  /**
    * The task evaluates a Databricks alert and sends notifications to subscribers when the
    * `alert_task` field is present.
    */
@@ -352,6 +359,15 @@ public class RunTask {
    */
   @JsonProperty("webhook_notifications")
   private WebhookNotifications webhookNotifications;
+
+  public RunTask setAiRuntimeTask(AiRuntimeTask aiRuntimeTask) {
+    this.aiRuntimeTask = aiRuntimeTask;
+    return this;
+  }
+
+  public AiRuntimeTask getAiRuntimeTask() {
+    return aiRuntimeTask;
+  }
 
   public RunTask setAlertTask(AlertTask alertTask) {
     this.alertTask = alertTask;
@@ -844,7 +860,8 @@ public class RunTask {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     RunTask that = (RunTask) o;
-    return Objects.equals(alertTask, that.alertTask)
+    return Objects.equals(aiRuntimeTask, that.aiRuntimeTask)
+        && Objects.equals(alertTask, that.alertTask)
         && Objects.equals(attemptNumber, that.attemptNumber)
         && Objects.equals(cleanRoomsNotebookTask, that.cleanRoomsNotebookTask)
         && Objects.equals(cleanupDuration, that.cleanupDuration)
@@ -903,6 +920,7 @@ public class RunTask {
   @Override
   public int hashCode() {
     return Objects.hash(
+        aiRuntimeTask,
         alertTask,
         attemptNumber,
         cleanRoomsNotebookTask,
@@ -962,6 +980,7 @@ public class RunTask {
   @Override
   public String toString() {
     return new ToStringer(RunTask.class)
+        .add("aiRuntimeTask", aiRuntimeTask)
         .add("alertTask", alertTask)
         .add("attemptNumber", attemptNumber)
         .add("cleanRoomsNotebookTask", cleanRoomsNotebookTask)

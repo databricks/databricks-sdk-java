@@ -145,7 +145,9 @@ public class ClusterAttributes {
    * This field encodes, through a single value, the resources available to each of the Spark nodes
    * in this cluster. For example, the Spark nodes can be provisioned and optimized for memory or
    * compute intensive workloads. A list of available node types can be retrieved by using the
-   * :method:clusters/listNodeTypes API call.
+   * [clusters/listNodeTypes] API call.
+   *
+   * <p>[clusters/listNodeTypes]: https://docs.databricks.com/api/workspace/clusters/listnodetypes
    */
   @JsonProperty("node_type_id")
   private String nodeTypeId;
@@ -203,7 +205,9 @@ public class ClusterAttributes {
 
   /**
    * The Spark version of the cluster, e.g. `3.3.x-scala2.11`. A list of available Spark versions
-   * can be retrieved by using the :method:clusters/sparkVersions API call.
+   * can be retrieved by using the [clusters/sparkVersions] API call.
+   *
+   * <p>[clusters/sparkVersions]: https://docs.databricks.com/api/workspace/clusters/sparkversions
    */
   @JsonProperty("spark_version")
   private String sparkVersion;

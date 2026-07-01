@@ -22,13 +22,13 @@ public class User {
   @JsonProperty("external_id")
   private String externalId;
 
+  /** */
+  @JsonProperty("full_name")
+  private UserFullName fullName;
+
   /** Internal userId of the user in Databricks. */
   @JsonProperty("internal_id")
   private Long internalId;
-
-  /** */
-  @JsonProperty("name")
-  private UserName name;
 
   /** Username/email of the user. */
   @JsonProperty("username")
@@ -61,6 +61,15 @@ public class User {
     return externalId;
   }
 
+  public User setFullName(UserFullName fullName) {
+    this.fullName = fullName;
+    return this;
+  }
+
+  public UserFullName getFullName() {
+    return fullName;
+  }
+
   public User setInternalId(Long internalId) {
     this.internalId = internalId;
     return this;
@@ -68,15 +77,6 @@ public class User {
 
   public Long getInternalId() {
     return internalId;
-  }
-
-  public User setName(UserName name) {
-    this.name = name;
-    return this;
-  }
-
-  public UserName getName() {
-    return name;
   }
 
   public User setUsername(String username) {
@@ -96,14 +96,14 @@ public class User {
     return Objects.equals(accountId, that.accountId)
         && Objects.equals(accountUserStatus, that.accountUserStatus)
         && Objects.equals(externalId, that.externalId)
+        && Objects.equals(fullName, that.fullName)
         && Objects.equals(internalId, that.internalId)
-        && Objects.equals(name, that.name)
         && Objects.equals(username, that.username);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(accountId, accountUserStatus, externalId, internalId, name, username);
+    return Objects.hash(accountId, accountUserStatus, externalId, fullName, internalId, username);
   }
 
   @Override
@@ -112,8 +112,8 @@ public class User {
         .add("accountId", accountId)
         .add("accountUserStatus", accountUserStatus)
         .add("externalId", externalId)
+        .add("fullName", fullName)
         .add("internalId", internalId)
-        .add("name", name)
         .add("username", username)
         .toString();
   }

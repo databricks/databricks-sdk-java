@@ -31,7 +31,7 @@ public class ListDashboardsRequest {
   @QueryParam("show_trashed")
   private Boolean showTrashed;
 
-  /** `DASHBOARD_VIEW_BASIC`only includes summary metadata from the dashboard. */
+  /** `DASHBOARD_VIEW_BASIC` only includes summary metadata from the dashboard. */
   @JsonIgnore
   @QueryParam("view")
   private DashboardView view;

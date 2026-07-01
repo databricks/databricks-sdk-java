@@ -117,6 +117,24 @@ class GenieImpl implements GenieService {
   }
 
   @Override
+  public DownloadMessageAttachmentVisualizationResponse downloadMessageAttachmentVisualization(
+      DownloadMessageAttachmentVisualizationRequest request) {
+    String path = String.format("/api/2.0/genie/%s/download-visualization", request.getName());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/octet-stream");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, DownloadMessageAttachmentVisualizationResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public GenieGetMessageQueryResultResponse executeMessageAttachmentQuery(
       GenieExecuteMessageAttachmentQueryRequest request) {
     String path =

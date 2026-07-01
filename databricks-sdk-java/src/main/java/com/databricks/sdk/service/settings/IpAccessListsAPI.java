@@ -58,7 +58,9 @@ public class IpAccessListsAPI {
    * current IP, error 400 is returned with `error_code` value `INVALID_STATE`.
    *
    * <p>It can take a few minutes for the changes to take effect. **Note**: Your new IP access list
-   * has no effect until you enable the feature. See :method:workspaceconf/setStatus
+   * has no effect until you enable the feature. See [workspaceconf/setStatus]
+   *
+   * <p>[workspaceconf/setStatus]: https://docs.databricks.com/api/workspace/workspaceconf/setstatus
    */
   public CreateIpAccessListResponse create(CreateIpAccessList request) {
     return impl.create(request);
@@ -101,7 +103,9 @@ public class IpAccessListsAPI {
    * error 400 with `error_code` value `QUOTA_EXCEEDED`. * If the resulting list would block the
    * calling user's current IP, error 400 is returned with `error_code` value `INVALID_STATE`. It
    * can take a few minutes for the changes to take effect. Note that your resulting IP access list
-   * has no effect until you enable the feature. See :method:workspaceconf/setStatus.
+   * has no effect until you enable the feature. See [workspaceconf/setStatus].
+   *
+   * <p>[workspaceconf/setStatus]: https://docs.databricks.com/api/workspace/workspaceconf/setstatus
    */
   public void replace(ReplaceIpAccessList request) {
     impl.replace(request);
@@ -121,7 +125,9 @@ public class IpAccessListsAPI {
    * user's current IP, error 400 is returned with `error_code` value `INVALID_STATE`.
    *
    * <p>It can take a few minutes for the changes to take effect. Note that your resulting IP access
-   * list has no effect until you enable the feature. See :method:workspaceconf/setStatus.
+   * list has no effect until you enable the feature. See [workspaceconf/setStatus].
+   *
+   * <p>[workspaceconf/setStatus]: https://docs.databricks.com/api/workspace/workspaceconf/setstatus
    */
   public void update(UpdateIpAccessList request) {
     impl.update(request);

@@ -17,6 +17,25 @@ class PolicyComplianceForClustersImpl implements PolicyComplianceForClustersServ
   }
 
   @Override
+  public CancelPendingClusterEnforcementResponse cancelPendingClusterEnforcement(
+      CancelPendingClusterEnforcementRequest request) {
+    String path = "/api/2.0/policies/clusters:cancelPendingClusterEnforcement";
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, CancelPendingClusterEnforcementResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public EnforceClusterComplianceResponse enforceCompliance(
       EnforceClusterComplianceRequest request) {
     String path = "/api/2.0/policies/clusters/enforce-compliance";

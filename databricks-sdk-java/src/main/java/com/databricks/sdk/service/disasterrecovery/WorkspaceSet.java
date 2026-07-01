@@ -15,7 +15,10 @@ public class WorkspaceSet {
   @JsonProperty("name")
   private String name;
 
-  /** Whether to enable control plane DR (notebooks, jobs, clusters, etc.) for this set. */
+  /**
+   * Whether to enable control plane DR (notebooks, jobs, clusters, etc.) for this set. Defaults to
+   * false.
+   */
   @JsonProperty("replicate_workspace_assets")
   private Boolean replicateWorkspaceAssets;
 

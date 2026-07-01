@@ -22,6 +22,14 @@ public class Project {
   private Timestamp deleteTime;
 
   /**
+   * Configuration for the initial default branch created as part of project creation. Allows
+   * overriding branch protection. These settings only apply at creation time and do not affect
+   * resources created after project creation.
+   */
+  @JsonProperty("initial_branch_spec")
+  private InitialBranchSpec initialBranchSpec;
+
+  /**
    * Configuration settings for the initial Read/Write endpoint created inside the initial branch
    * for a newly created project. If omitted, the initial endpoint created will have default
    * settings, without high availability configured. This field does not apply to any endpoints
@@ -81,6 +89,15 @@ public class Project {
 
   public Timestamp getDeleteTime() {
     return deleteTime;
+  }
+
+  public Project setInitialBranchSpec(InitialBranchSpec initialBranchSpec) {
+    this.initialBranchSpec = initialBranchSpec;
+    return this;
+  }
+
+  public InitialBranchSpec getInitialBranchSpec() {
+    return initialBranchSpec;
   }
 
   public Project setInitialEndpointSpec(InitialEndpointSpec initialEndpointSpec) {
@@ -162,6 +179,7 @@ public class Project {
     Project that = (Project) o;
     return Objects.equals(createTime, that.createTime)
         && Objects.equals(deleteTime, that.deleteTime)
+        && Objects.equals(initialBranchSpec, that.initialBranchSpec)
         && Objects.equals(initialEndpointSpec, that.initialEndpointSpec)
         && Objects.equals(name, that.name)
         && Objects.equals(projectId, that.projectId)
@@ -177,6 +195,7 @@ public class Project {
     return Objects.hash(
         createTime,
         deleteTime,
+        initialBranchSpec,
         initialEndpointSpec,
         name,
         projectId,
@@ -192,6 +211,7 @@ public class Project {
     return new ToStringer(Project.class)
         .add("createTime", createTime)
         .add("deleteTime", deleteTime)
+        .add("initialBranchSpec", initialBranchSpec)
         .add("initialEndpointSpec", initialEndpointSpec)
         .add("name", name)
         .add("projectId", projectId)

@@ -13,6 +13,15 @@ import java.util.Objects;
 @Generated
 public class UpdateFailoverGroupRequest {
   /**
+   * Optional opaque version string for optimistic locking, obtained from a prior read of the
+   * failover group. If provided, the update is rejected unless it matches the failover group's
+   * current etag. If omitted, the update proceeds without an optimistic-lock check.
+   */
+  @JsonIgnore
+  @QueryParam("etag")
+  private String etag;
+
+  /**
    * The failover group with updated fields. The name field identifies the resource and is populated
    * from the URL path.
    */
@@ -29,6 +38,15 @@ public class UpdateFailoverGroupRequest {
   @JsonIgnore
   @QueryParam("update_mask")
   private FieldMask updateMask;
+
+  public UpdateFailoverGroupRequest setEtag(String etag) {
+    this.etag = etag;
+    return this;
+  }
+
+  public String getEtag() {
+    return etag;
+  }
 
   public UpdateFailoverGroupRequest setFailoverGroup(FailoverGroup failoverGroup) {
     this.failoverGroup = failoverGroup;
@@ -62,19 +80,21 @@ public class UpdateFailoverGroupRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     UpdateFailoverGroupRequest that = (UpdateFailoverGroupRequest) o;
-    return Objects.equals(failoverGroup, that.failoverGroup)
+    return Objects.equals(etag, that.etag)
+        && Objects.equals(failoverGroup, that.failoverGroup)
         && Objects.equals(name, that.name)
         && Objects.equals(updateMask, that.updateMask);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(failoverGroup, name, updateMask);
+    return Objects.hash(etag, failoverGroup, name, updateMask);
   }
 
   @Override
   public String toString() {
     return new ToStringer(UpdateFailoverGroupRequest.class)
+        .add("etag", etag)
         .add("failoverGroup", failoverGroup)
         .add("name", name)
         .add("updateMask", updateMask)

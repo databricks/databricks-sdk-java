@@ -109,7 +109,9 @@ public class InstancePoolAndStats {
    * This field encodes, through a single value, the resources available to each of the Spark nodes
    * in this cluster. For example, the Spark nodes can be provisioned and optimized for memory or
    * compute intensive workloads. A list of available node types can be retrieved by using the
-   * :method:clusters/listNodeTypes API call.
+   * [clusters/listNodeTypes] API call.
+   *
+   * <p>[clusters/listNodeTypes]: https://docs.databricks.com/api/workspace/clusters/listnodetypes
    */
   @JsonProperty("node_type_id")
   private String nodeTypeId;
@@ -121,7 +123,9 @@ public class InstancePoolAndStats {
   /**
    * A list containing at most one preloaded Spark image version for the pool. Pool-backed clusters
    * started with the preloaded Spark version will start faster. A list of available Spark versions
-   * can be retrieved by using the :method:clusters/sparkVersions API call.
+   * can be retrieved by using the [clusters/sparkVersions] API call.
+   *
+   * <p>[clusters/sparkVersions]: https://docs.databricks.com/api/workspace/clusters/sparkversions
    */
   @JsonProperty("preloaded_spark_versions")
   private Collection<String> preloadedSparkVersions;

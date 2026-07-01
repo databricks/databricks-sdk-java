@@ -11,7 +11,7 @@ import java.util.Objects;
 /** Wrapper message for a list of schema names. */
 @Generated
 public class CatalogConfigSchemaNames {
-  /** */
+  /** Schema names, each relative to the parent catalog. Must not be empty. */
   @JsonProperty("names")
   private Collection<String> names;
 

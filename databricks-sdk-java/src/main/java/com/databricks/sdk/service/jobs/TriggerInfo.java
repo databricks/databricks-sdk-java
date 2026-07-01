@@ -14,6 +14,10 @@ public class TriggerInfo {
   @JsonProperty("run_id")
   private Long runId;
 
+  /** SQL condition evaluation details for this run */
+  @JsonProperty("sql_condition")
+  private SqlConditionRunInfoDetails sqlCondition;
+
   public TriggerInfo setRunId(Long runId) {
     this.runId = runId;
     return this;
@@ -23,21 +27,33 @@ public class TriggerInfo {
     return runId;
   }
 
+  public TriggerInfo setSqlCondition(SqlConditionRunInfoDetails sqlCondition) {
+    this.sqlCondition = sqlCondition;
+    return this;
+  }
+
+  public SqlConditionRunInfoDetails getSqlCondition() {
+    return sqlCondition;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     TriggerInfo that = (TriggerInfo) o;
-    return Objects.equals(runId, that.runId);
+    return Objects.equals(runId, that.runId) && Objects.equals(sqlCondition, that.sqlCondition);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(runId);
+    return Objects.hash(runId, sqlCondition);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(TriggerInfo.class).add("runId", runId).toString();
+    return new ToStringer(TriggerInfo.class)
+        .add("runId", runId)
+        .add("sqlCondition", sqlCondition)
+        .toString();
   }
 }

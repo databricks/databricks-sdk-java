@@ -56,6 +56,13 @@ public class CreateServingEndpoint {
   @JsonProperty("tags")
   private Collection<EndpointTag> tags;
 
+  /**
+   * Configuration for persisting endpoint telemetry (logs, traces, and metrics) to Unity Catalog
+   * tables.
+   */
+  @JsonProperty("telemetry_config")
+  private TelemetryConfig telemetryConfig;
+
   public CreateServingEndpoint setAiGateway(AiGatewayConfig aiGateway) {
     this.aiGateway = aiGateway;
     return this;
@@ -137,6 +144,15 @@ public class CreateServingEndpoint {
     return tags;
   }
 
+  public CreateServingEndpoint setTelemetryConfig(TelemetryConfig telemetryConfig) {
+    this.telemetryConfig = telemetryConfig;
+    return this;
+  }
+
+  public TelemetryConfig getTelemetryConfig() {
+    return telemetryConfig;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -150,7 +166,8 @@ public class CreateServingEndpoint {
         && Objects.equals(name, that.name)
         && Objects.equals(rateLimits, that.rateLimits)
         && Objects.equals(routeOptimized, that.routeOptimized)
-        && Objects.equals(tags, that.tags);
+        && Objects.equals(tags, that.tags)
+        && Objects.equals(telemetryConfig, that.telemetryConfig);
   }
 
   @Override
@@ -164,7 +181,8 @@ public class CreateServingEndpoint {
         name,
         rateLimits,
         routeOptimized,
-        tags);
+        tags,
+        telemetryConfig);
   }
 
   @Override
@@ -179,6 +197,7 @@ public class CreateServingEndpoint {
         .add("rateLimits", rateLimits)
         .add("routeOptimized", routeOptimized)
         .add("tags", tags)
+        .add("telemetryConfig", telemetryConfig)
         .toString();
   }
 }

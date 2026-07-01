@@ -26,10 +26,7 @@ public class FailoverGroup {
   @JsonProperty("effective_primary_region")
   private String effectivePrimaryRegion;
 
-  /**
-   * Opaque version string for optimistic locking. Server-generated, returned in responses. Must be
-   * provided on Update requests to prevent concurrent modifications.
-   */
+  /** Opaque version string for optimistic locking. Server-generated and returned in responses. */
   @JsonProperty("etag")
   private String etag;
 

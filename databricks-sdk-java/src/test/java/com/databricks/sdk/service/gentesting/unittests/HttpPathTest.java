@@ -442,7 +442,28 @@ public class HttpPathTest {
               }
             },
             "/api/2.0/http-call/get_string/303/false?repeated_complex_query_param=ComplexQueryParam%5BnestedRepeatedQueryParam%3D%5Bitem1%2C+item2%2C+item3%5D%5D&repeated_complex_query_param=ComplexQueryParam%5BnestedRepeatedQueryParam%3D%5Bitem4%2C+item5%2C+item6%5D%5D",
-            null));
+            null),
+        new TestCase(
+            "SyncResourceNoBody",
+            client -> {
+              try {
+                client.syncResource(
+                    new SyncResourceRequest()
+                        .setPathParamString("sync_string")
+                        .setPathParamInt(123L)
+                        .setPathParamBool(true));
+              } catch (Exception e) {
+                throw new RuntimeException(e);
+              }
+            },
+            "/api/2.0/http-call/sync_string/123/true/state:sync",
+            () -> {
+              try {
+                return objectMapper.writeValueAsString(new SyncResourceRequest());
+              } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+              }
+            }));
   }
 
   @ParameterizedTest(name = "{0}")

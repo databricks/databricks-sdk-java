@@ -24,6 +24,14 @@ public class CronSchedule {
   private String quartzCronExpression;
 
   /**
+   * SQL condition that must be satisfied before a scheduled run is triggered. The condition is
+   * evaluated after the cron expression fires and must return a truthy result for the run to
+   * proceed.
+   */
+  @JsonProperty("sql_condition")
+  private SqlConditionConfiguration sqlCondition;
+
+  /**
    * A Java timezone ID. The schedule for a job is resolved with respect to this timezone. See [Java
    * TimeZone] for details. This field is required.
    *
@@ -50,6 +58,15 @@ public class CronSchedule {
     return quartzCronExpression;
   }
 
+  public CronSchedule setSqlCondition(SqlConditionConfiguration sqlCondition) {
+    this.sqlCondition = sqlCondition;
+    return this;
+  }
+
+  public SqlConditionConfiguration getSqlCondition() {
+    return sqlCondition;
+  }
+
   public CronSchedule setTimezoneId(String timezoneId) {
     this.timezoneId = timezoneId;
     return this;
@@ -66,12 +83,13 @@ public class CronSchedule {
     CronSchedule that = (CronSchedule) o;
     return Objects.equals(pauseStatus, that.pauseStatus)
         && Objects.equals(quartzCronExpression, that.quartzCronExpression)
+        && Objects.equals(sqlCondition, that.sqlCondition)
         && Objects.equals(timezoneId, that.timezoneId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(pauseStatus, quartzCronExpression, timezoneId);
+    return Objects.hash(pauseStatus, quartzCronExpression, sqlCondition, timezoneId);
   }
 
   @Override
@@ -79,6 +97,7 @@ public class CronSchedule {
     return new ToStringer(CronSchedule.class)
         .add("pauseStatus", pauseStatus)
         .add("quartzCronExpression", quartzCronExpression)
+        .add("sqlCondition", sqlCondition)
         .add("timezoneId", timezoneId)
         .toString();
   }

@@ -53,6 +53,10 @@ public class WorkspaceBaseEnvironment {
   @JsonProperty("name")
   private String name;
 
+  /** The environment specification containing version and dependencies. */
+  @JsonProperty("spec")
+  private EnvironmentSpec spec;
+
   /** The status of the materialized workspace base environment. */
   @JsonProperty("status")
   private WorkspaceBaseEnvironmentCacheStatus status;
@@ -142,6 +146,15 @@ public class WorkspaceBaseEnvironment {
     return name;
   }
 
+  public WorkspaceBaseEnvironment setSpec(EnvironmentSpec spec) {
+    this.spec = spec;
+    return this;
+  }
+
+  public EnvironmentSpec getSpec() {
+    return spec;
+  }
+
   public WorkspaceBaseEnvironment setStatus(WorkspaceBaseEnvironmentCacheStatus status) {
     this.status = status;
     return this;
@@ -174,6 +187,7 @@ public class WorkspaceBaseEnvironment {
         && Objects.equals(lastUpdatedUserId, that.lastUpdatedUserId)
         && Objects.equals(message, that.message)
         && Objects.equals(name, that.name)
+        && Objects.equals(spec, that.spec)
         && Objects.equals(status, that.status)
         && Objects.equals(updateTime, that.updateTime);
   }
@@ -190,6 +204,7 @@ public class WorkspaceBaseEnvironment {
         lastUpdatedUserId,
         message,
         name,
+        spec,
         status,
         updateTime);
   }
@@ -206,6 +221,7 @@ public class WorkspaceBaseEnvironment {
         .add("lastUpdatedUserId", lastUpdatedUserId)
         .add("message", message)
         .add("name", name)
+        .add("spec", spec)
         .add("status", status)
         .add("updateTime", updateTime)
         .toString();

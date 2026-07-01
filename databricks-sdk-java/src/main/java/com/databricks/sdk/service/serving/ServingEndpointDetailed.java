@@ -89,6 +89,10 @@ public class ServingEndpointDetailed {
   @JsonProperty("task")
   private String task;
 
+  /** Telemetry configuration for the endpoint, including inference-table payload logging. */
+  @JsonProperty("telemetry_config")
+  private TelemetryConfig telemetryConfig;
+
   public ServingEndpointDetailed setAiGateway(AiGatewayConfig aiGateway) {
     this.aiGateway = aiGateway;
     return this;
@@ -252,6 +256,15 @@ public class ServingEndpointDetailed {
     return task;
   }
 
+  public ServingEndpointDetailed setTelemetryConfig(TelemetryConfig telemetryConfig) {
+    this.telemetryConfig = telemetryConfig;
+    return this;
+  }
+
+  public TelemetryConfig getTelemetryConfig() {
+    return telemetryConfig;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -274,7 +287,8 @@ public class ServingEndpointDetailed {
         && Objects.equals(routeOptimized, that.routeOptimized)
         && Objects.equals(state, that.state)
         && Objects.equals(tags, that.tags)
-        && Objects.equals(task, that.task);
+        && Objects.equals(task, that.task)
+        && Objects.equals(telemetryConfig, that.telemetryConfig);
   }
 
   @Override
@@ -297,7 +311,8 @@ public class ServingEndpointDetailed {
         routeOptimized,
         state,
         tags,
-        task);
+        task,
+        telemetryConfig);
   }
 
   @Override
@@ -321,6 +336,7 @@ public class ServingEndpointDetailed {
         .add("state", state)
         .add("tags", tags)
         .add("task", task)
+        .add("telemetryConfig", telemetryConfig)
         .toString();
   }
 }

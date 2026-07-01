@@ -37,7 +37,7 @@ public class Refresh {
   @JsonProperty("object_id")
   private String objectId;
 
-  /** The type of the monitored object. Can be one of the following: `schema`or `table`. */
+  /** The type of the monitored object. Can be one of the following: `schema` or `table`. */
   @JsonProperty("object_type")
   private String objectType;
 

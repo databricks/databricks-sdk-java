@@ -10,6 +10,15 @@ import java.util.Objects;
 /** Run output was retrieved successfully. */
 @Generated
 public class RunOutput {
+  /**
+   * The output of an AiRuntimeTask, if available — MLflow identifiers, artifact paths, and
+   * per-replica allocated compute. Run lifecycle / termination status lives on the surrounding
+   * framework `RunTask.status` (`runs.proto:RunTask.status` of type `RunStatus`), not on this
+   * output. See `tasks/genai/ai_runtime_task.proto:AiRuntimeTaskOutput`.
+   */
+  @JsonProperty("ai_runtime_task_output")
+  private AiRuntimeTaskOutput aiRuntimeTaskOutput;
+
   /** The output of an alert task, if available */
   @JsonProperty("alert_output")
   private AlertTaskOutput alertOutput;
@@ -88,6 +97,15 @@ public class RunOutput {
   /** The output of a SQL task, if available. */
   @JsonProperty("sql_output")
   private SqlOutput sqlOutput;
+
+  public RunOutput setAiRuntimeTaskOutput(AiRuntimeTaskOutput aiRuntimeTaskOutput) {
+    this.aiRuntimeTaskOutput = aiRuntimeTaskOutput;
+    return this;
+  }
+
+  public AiRuntimeTaskOutput getAiRuntimeTaskOutput() {
+    return aiRuntimeTaskOutput;
+  }
 
   public RunOutput setAlertOutput(AlertTaskOutput alertOutput) {
     this.alertOutput = alertOutput;
@@ -230,7 +248,8 @@ public class RunOutput {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     RunOutput that = (RunOutput) o;
-    return Objects.equals(alertOutput, that.alertOutput)
+    return Objects.equals(aiRuntimeTaskOutput, that.aiRuntimeTaskOutput)
+        && Objects.equals(alertOutput, that.alertOutput)
         && Objects.equals(cleanRoomsNotebookOutput, that.cleanRoomsNotebookOutput)
         && Objects.equals(dashboardOutput, that.dashboardOutput)
         && Objects.equals(dbtCloudOutput, that.dbtCloudOutput)
@@ -250,6 +269,7 @@ public class RunOutput {
   @Override
   public int hashCode() {
     return Objects.hash(
+        aiRuntimeTaskOutput,
         alertOutput,
         cleanRoomsNotebookOutput,
         dashboardOutput,
@@ -270,6 +290,7 @@ public class RunOutput {
   @Override
   public String toString() {
     return new ToStringer(RunOutput.class)
+        .add("aiRuntimeTaskOutput", aiRuntimeTaskOutput)
         .add("alertOutput", alertOutput)
         .add("cleanRoomsNotebookOutput", cleanRoomsNotebookOutput)
         .add("dashboardOutput", dashboardOutput)

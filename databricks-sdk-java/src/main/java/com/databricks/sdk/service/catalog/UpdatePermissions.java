@@ -18,6 +18,13 @@ public class UpdatePermissions {
   /** Full name of securable. */
   @JsonIgnore private String fullName;
 
+  /**
+   * Optional, default false. Specifies whether all the permissions should be returned in the
+   * response.
+   */
+  @JsonProperty("omit_permissions_in_response")
+  private Boolean omitPermissionsInResponse;
+
   /** Type of securable. */
   @JsonIgnore private String securableType;
 
@@ -39,6 +46,15 @@ public class UpdatePermissions {
     return fullName;
   }
 
+  public UpdatePermissions setOmitPermissionsInResponse(Boolean omitPermissionsInResponse) {
+    this.omitPermissionsInResponse = omitPermissionsInResponse;
+    return this;
+  }
+
+  public Boolean getOmitPermissionsInResponse() {
+    return omitPermissionsInResponse;
+  }
+
   public UpdatePermissions setSecurableType(String securableType) {
     this.securableType = securableType;
     return this;
@@ -55,12 +71,13 @@ public class UpdatePermissions {
     UpdatePermissions that = (UpdatePermissions) o;
     return Objects.equals(changes, that.changes)
         && Objects.equals(fullName, that.fullName)
+        && Objects.equals(omitPermissionsInResponse, that.omitPermissionsInResponse)
         && Objects.equals(securableType, that.securableType);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(changes, fullName, securableType);
+    return Objects.hash(changes, fullName, omitPermissionsInResponse, securableType);
   }
 
   @Override
@@ -68,6 +85,7 @@ public class UpdatePermissions {
     return new ToStringer(UpdatePermissions.class)
         .add("changes", changes)
         .add("fullName", fullName)
+        .add("omitPermissionsInResponse", omitPermissionsInResponse)
         .add("securableType", securableType)
         .toString();
   }

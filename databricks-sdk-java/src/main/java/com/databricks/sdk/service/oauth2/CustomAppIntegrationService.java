@@ -16,13 +16,17 @@ public interface CustomAppIntegrationService {
   /**
    * Create Custom OAuth App Integration.
    *
-   * <p>You can retrieve the custom OAuth app integration via :method:CustomAppIntegration/get.
+   * <p>You can retrieve the custom OAuth app integration via [CustomAppIntegration/get].
+   *
+   * <p>[CustomAppIntegration/get]: https://docs.databricks.com/api/account/customappintegration/get
    */
   CreateCustomAppIntegrationOutput create(CreateCustomAppIntegration createCustomAppIntegration);
 
   /**
    * Delete an existing Custom OAuth App Integration. You can retrieve the custom OAuth app
-   * integration via :method:CustomAppIntegration/get.
+   * integration via [CustomAppIntegration/get].
+   *
+   * <p>[CustomAppIntegration/get]: https://docs.databricks.com/api/account/customappintegration/get
    */
   void delete(DeleteCustomAppIntegrationRequest deleteCustomAppIntegrationRequest);
 
@@ -35,7 +39,9 @@ public interface CustomAppIntegrationService {
 
   /**
    * Updates an existing custom OAuth App Integration. You can retrieve the custom OAuth app
-   * integration via :method:CustomAppIntegration/get.
+   * integration via [CustomAppIntegration/get].
+   *
+   * <p>[CustomAppIntegration/get]: https://docs.databricks.com/api/account/customappintegration/get
    */
   void update(UpdateCustomAppIntegration updateCustomAppIntegration);
 }
