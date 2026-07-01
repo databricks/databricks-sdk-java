@@ -6,6 +6,7 @@ import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.protobuf.Duration;
+import com.google.protobuf.Timestamp;
 import java.util.Objects;
 
 @Generated
@@ -48,6 +49,10 @@ public class EndpointStatus {
   /** Contains host information for connecting to the endpoint. */
   @JsonProperty("hosts")
   private EndpointHosts hosts;
+
+  /** A timestamp indicating when the compute endpoint was last active. */
+  @JsonProperty("last_active_time")
+  private Timestamp lastActiveTime;
 
   /** */
   @JsonProperty("pending_state")
@@ -133,6 +138,15 @@ public class EndpointStatus {
     return hosts;
   }
 
+  public EndpointStatus setLastActiveTime(Timestamp lastActiveTime) {
+    this.lastActiveTime = lastActiveTime;
+    return this;
+  }
+
+  public Timestamp getLastActiveTime() {
+    return lastActiveTime;
+  }
+
   public EndpointStatus setPendingState(EndpointStatusState pendingState) {
     this.pendingState = pendingState;
     return this;
@@ -173,6 +187,7 @@ public class EndpointStatus {
         && Objects.equals(endpointType, that.endpointType)
         && Objects.equals(group, that.group)
         && Objects.equals(hosts, that.hosts)
+        && Objects.equals(lastActiveTime, that.lastActiveTime)
         && Objects.equals(pendingState, that.pendingState)
         && Objects.equals(settings, that.settings)
         && Objects.equals(suspendTimeoutDuration, that.suspendTimeoutDuration);
@@ -189,6 +204,7 @@ public class EndpointStatus {
         endpointType,
         group,
         hosts,
+        lastActiveTime,
         pendingState,
         settings,
         suspendTimeoutDuration);
@@ -205,6 +221,7 @@ public class EndpointStatus {
         .add("endpointType", endpointType)
         .add("group", group)
         .add("hosts", hosts)
+        .add("lastActiveTime", lastActiveTime)
         .add("pendingState", pendingState)
         .add("settings", settings)
         .add("suspendTimeoutDuration", suspendTimeoutDuration)

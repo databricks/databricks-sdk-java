@@ -11,6 +11,13 @@ import java.util.Objects;
 @Generated
 public class WorkspaceInfo {
   /**
+   * Path of the bundle root (the directory containing databricks.yml) relative to git_folder_path.
+   * Empty when the deployment is not from a Databricks Git folder.
+   */
+  @JsonProperty("bundle_root_path")
+  private String bundleRootPath;
+
+  /**
    * Absolute workspace path where the deployed bundle files live. Mirrors the workspace.file_path
    * field in DABs bundle config.
    */
@@ -37,6 +44,15 @@ public class WorkspaceInfo {
    */
   @JsonProperty("source_linked")
   private Boolean sourceLinked;
+
+  public WorkspaceInfo setBundleRootPath(String bundleRootPath) {
+    this.bundleRootPath = bundleRootPath;
+    return this;
+  }
+
+  public String getBundleRootPath() {
+    return bundleRootPath;
+  }
 
   public WorkspaceInfo setFilePath(String filePath) {
     this.filePath = filePath;
@@ -79,7 +95,8 @@ public class WorkspaceInfo {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     WorkspaceInfo that = (WorkspaceInfo) o;
-    return Objects.equals(filePath, that.filePath)
+    return Objects.equals(bundleRootPath, that.bundleRootPath)
+        && Objects.equals(filePath, that.filePath)
         && Objects.equals(gitFolderPath, that.gitFolderPath)
         && Objects.equals(rootPath, that.rootPath)
         && Objects.equals(sourceLinked, that.sourceLinked);
@@ -87,12 +104,13 @@ public class WorkspaceInfo {
 
   @Override
   public int hashCode() {
-    return Objects.hash(filePath, gitFolderPath, rootPath, sourceLinked);
+    return Objects.hash(bundleRootPath, filePath, gitFolderPath, rootPath, sourceLinked);
   }
 
   @Override
   public String toString() {
     return new ToStringer(WorkspaceInfo.class)
+        .add("bundleRootPath", bundleRootPath)
         .add("filePath", filePath)
         .add("gitFolderPath", gitFolderPath)
         .add("rootPath", rootPath)

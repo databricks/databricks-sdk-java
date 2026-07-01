@@ -58,6 +58,27 @@ class HttpCallV2Impl implements HttpCallV2Service {
   }
 
   @Override
+  public Resource syncResource(SyncResourceRequest request) {
+    String path =
+        String.format(
+            "/api/2.0/http-call/%s/%s/%s/state:sync",
+            request.getPathParamString(), request.getPathParamInt(), request.getPathParamBool());
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, Resource.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public Resource updateResource(UpdateResourceRequest request) {
     String path =
         String.format(

@@ -36,14 +36,23 @@ public class PolicyComplianceForClustersAPI {
   }
 
   /**
-   * Updates a cluster to be compliant with the current version of its policy. A cluster can be
-   * updated if it is in a `RUNNING` or `TERMINATED` state.
-   *
-   * <p>If a cluster is updated while in a `RUNNING` state, it will be restarted so that the new
-   * attributes can take effect.
+   * Cancels a pending enforcement on a cluster. After canceling the pending enforcement, the
+   * cluster will no longer update on the next termination or restart. Pending enforcements cannot
+   * be canceled when a cluster is in `TERMINATING` state. Only workspace admins can cancel pending
+   * enforcements.
+   */
+  public CancelPendingClusterEnforcementResponse cancelPendingClusterEnforcement(
+      CancelPendingClusterEnforcementRequest request) {
+    return impl.cancelPendingClusterEnforcement(request);
+  }
+
+  /**
+   * Updates a cluster to be compliant with the current version of its policy.
    *
    * <p>If a cluster is updated while in a `TERMINATED` state, it will remain `TERMINATED`. The next
    * time the cluster is started, the new attributes will take effect.
+   *
+   * <p>For clusters in other states, the behavior depends on the `enforce_mode` used.
    *
    * <p>Clusters created by the Databricks Jobs, SDP, or Models services cannot be enforced by this
    * API. Instead, use the "Enforce job policy compliance" API to enforce policy compliance on jobs.

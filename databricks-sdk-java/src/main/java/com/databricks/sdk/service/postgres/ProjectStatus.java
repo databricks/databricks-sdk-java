@@ -6,6 +6,7 @@ import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.protobuf.Duration;
+import com.google.protobuf.Timestamp;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -18,6 +19,10 @@ public class ProjectStatus {
   /** The budget policy that is applied to the project. */
   @JsonProperty("budget_policy_id")
   private String budgetPolicyId;
+
+  /** The most recent time when any endpoint of this project was active. */
+  @JsonProperty("compute_last_active_time")
+  private Timestamp computeLastActiveTime;
 
   /** The effective custom tags associated with the project. */
   @JsonProperty("custom_tags")
@@ -75,6 +80,15 @@ public class ProjectStatus {
 
   public String getBudgetPolicyId() {
     return budgetPolicyId;
+  }
+
+  public ProjectStatus setComputeLastActiveTime(Timestamp computeLastActiveTime) {
+    this.computeLastActiveTime = computeLastActiveTime;
+    return this;
+  }
+
+  public Timestamp getComputeLastActiveTime() {
+    return computeLastActiveTime;
   }
 
   public ProjectStatus setCustomTags(Collection<ProjectCustomTag> customTags) {
@@ -175,6 +189,7 @@ public class ProjectStatus {
     ProjectStatus that = (ProjectStatus) o;
     return Objects.equals(branchLogicalSizeLimitBytes, that.branchLogicalSizeLimitBytes)
         && Objects.equals(budgetPolicyId, that.budgetPolicyId)
+        && Objects.equals(computeLastActiveTime, that.computeLastActiveTime)
         && Objects.equals(customTags, that.customTags)
         && Objects.equals(defaultBranch, that.defaultBranch)
         && Objects.equals(defaultEndpointSettings, that.defaultEndpointSettings)
@@ -192,6 +207,7 @@ public class ProjectStatus {
     return Objects.hash(
         branchLogicalSizeLimitBytes,
         budgetPolicyId,
+        computeLastActiveTime,
         customTags,
         defaultBranch,
         defaultEndpointSettings,
@@ -209,6 +225,7 @@ public class ProjectStatus {
     return new ToStringer(ProjectStatus.class)
         .add("branchLogicalSizeLimitBytes", branchLogicalSizeLimitBytes)
         .add("budgetPolicyId", budgetPolicyId)
+        .add("computeLastActiveTime", computeLastActiveTime)
         .add("customTags", customTags)
         .add("defaultBranch", defaultBranch)
         .add("defaultEndpointSettings", defaultEndpointSettings)

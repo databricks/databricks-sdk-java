@@ -1,0 +1,22 @@
+// Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
+
+package com.databricks.sdk.service.jobs;
+
+import com.databricks.sdk.support.Generated;
+
+/**
+ * The strategy used to evaluate a SQL condition trigger against a query result set.
+ *
+ * <p>* `SQL_CONDITION_TRIGGER_MODE_UNSPECIFIED`: Sentinel zero-value. Not a valid input — the
+ * validator rejects this when sent explicitly. Internally treated as `QUERY_RETURNS_ROWS` when
+ * reading legacy data that predates this field. * `QUERY_RETURNS_ROWS`: Fires whenever the result
+ * set has at least one row. Zero rows means the condition is not met. This is the original SQL
+ * condition behavior. * `RESULT_VALUE_CHANGES`: Fires whenever the query's single result value
+ * differs from the previous evaluation. The first evaluation always fires. Queries must return
+ * exactly one cell (one row, one column).
+ */
+@Generated
+public enum SqlConditionTriggerMode {
+  QUERY_RETURNS_ROWS, // Fires whenever the result set has at least one row. Zero rows means
+  RESULT_VALUE_CHANGES, // Fires whenever the query's single result value differs from the
+}

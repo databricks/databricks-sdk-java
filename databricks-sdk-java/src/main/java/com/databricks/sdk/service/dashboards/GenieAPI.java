@@ -143,6 +143,22 @@ public class GenieAPI {
     impl.deleteConversationMessage(request);
   }
 
+  public DownloadMessageAttachmentVisualizationResponse downloadMessageAttachmentVisualization(
+      String name) {
+    return downloadMessageAttachmentVisualization(
+        new DownloadMessageAttachmentVisualizationRequest().setName(name));
+  }
+
+  /**
+   * Download a rendered image of a message visualization attachment. The response body is the raw
+   * PNG image, not a JSON payload. This is only available if the attachment is a visualization and
+   * the message status is `COMPLETED`.
+   */
+  public DownloadMessageAttachmentVisualizationResponse downloadMessageAttachmentVisualization(
+      DownloadMessageAttachmentVisualizationRequest request) {
+    return impl.downloadMessageAttachmentVisualization(request);
+  }
+
   /**
    * Execute the SQL for a message query attachment. Use this API when the query attachment has
    * expired and needs to be re-executed.

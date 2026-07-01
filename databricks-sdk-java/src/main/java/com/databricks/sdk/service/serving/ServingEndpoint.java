@@ -62,6 +62,10 @@ public class ServingEndpoint {
   @JsonProperty("task")
   private String task;
 
+  /** Telemetry configuration for the endpoint, including inference-table payload logging. */
+  @JsonProperty("telemetry_config")
+  private TelemetryConfig telemetryConfig;
+
   /** The usage policy associated with serving endpoint. */
   @JsonProperty("usage_policy_id")
   private String usagePolicyId;
@@ -174,6 +178,15 @@ public class ServingEndpoint {
     return task;
   }
 
+  public ServingEndpoint setTelemetryConfig(TelemetryConfig telemetryConfig) {
+    this.telemetryConfig = telemetryConfig;
+    return this;
+  }
+
+  public TelemetryConfig getTelemetryConfig() {
+    return telemetryConfig;
+  }
+
   public ServingEndpoint setUsagePolicyId(String usagePolicyId) {
     this.usagePolicyId = usagePolicyId;
     return this;
@@ -200,6 +213,7 @@ public class ServingEndpoint {
         && Objects.equals(state, that.state)
         && Objects.equals(tags, that.tags)
         && Objects.equals(task, that.task)
+        && Objects.equals(telemetryConfig, that.telemetryConfig)
         && Objects.equals(usagePolicyId, that.usagePolicyId);
   }
 
@@ -218,6 +232,7 @@ public class ServingEndpoint {
         state,
         tags,
         task,
+        telemetryConfig,
         usagePolicyId);
   }
 
@@ -236,6 +251,7 @@ public class ServingEndpoint {
         .add("state", state)
         .add("tags", tags)
         .add("task", task)
+        .add("telemetryConfig", telemetryConfig)
         .add("usagePolicyId", usagePolicyId)
         .toString();
   }

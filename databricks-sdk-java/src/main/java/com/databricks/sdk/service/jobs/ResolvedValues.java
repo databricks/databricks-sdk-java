@@ -9,6 +9,13 @@ import java.util.Objects;
 
 @Generated
 public class ResolvedValues {
+  /**
+   * Resolved values for an AI Runtime task — env_vars with `{{tasks.<key>.values.<name>}}`
+   * references substituted to concrete values before submission to the training service.
+   */
+  @JsonProperty("ai_runtime_task")
+  private ResolvedValuesAiRuntimeTaskResolvedValues aiRuntimeTask;
+
   /** */
   @JsonProperty("condition_task")
   private ResolvedConditionTaskValues conditionTask;
@@ -52,6 +59,15 @@ public class ResolvedValues {
   /** */
   @JsonProperty("sql_task")
   private ResolvedParamPairValues sqlTask;
+
+  public ResolvedValues setAiRuntimeTask(ResolvedValuesAiRuntimeTaskResolvedValues aiRuntimeTask) {
+    this.aiRuntimeTask = aiRuntimeTask;
+    return this;
+  }
+
+  public ResolvedValuesAiRuntimeTaskResolvedValues getAiRuntimeTask() {
+    return aiRuntimeTask;
+  }
 
   public ResolvedValues setConditionTask(ResolvedConditionTaskValues conditionTask) {
     this.conditionTask = conditionTask;
@@ -157,7 +173,8 @@ public class ResolvedValues {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ResolvedValues that = (ResolvedValues) o;
-    return Objects.equals(conditionTask, that.conditionTask)
+    return Objects.equals(aiRuntimeTask, that.aiRuntimeTask)
+        && Objects.equals(conditionTask, that.conditionTask)
         && Objects.equals(dbtTask, that.dbtTask)
         && Objects.equals(notebookTask, that.notebookTask)
         && Objects.equals(pipelineTask, that.pipelineTask)
@@ -173,6 +190,7 @@ public class ResolvedValues {
   @Override
   public int hashCode() {
     return Objects.hash(
+        aiRuntimeTask,
         conditionTask,
         dbtTask,
         notebookTask,
@@ -189,6 +207,7 @@ public class ResolvedValues {
   @Override
   public String toString() {
     return new ToStringer(ResolvedValues.class)
+        .add("aiRuntimeTask", aiRuntimeTask)
         .add("conditionTask", conditionTask)
         .add("dbtTask", dbtTask)
         .add("notebookTask", notebookTask)

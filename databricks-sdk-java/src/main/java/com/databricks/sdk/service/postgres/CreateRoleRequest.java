@@ -14,6 +14,18 @@ public class CreateRoleRequest {
   /** The Branch where this Role is created. Format: projects/{project_id}/branches/{branch_id} */
   @JsonIgnore private String parent;
 
+  /**
+   * If true, update the role if it already exists instead of returning an error.
+   *
+   * <p>When the role already exists, the provided `role` spec fully replaces the existing one:
+   * `membership_roles` is overwritten, not merged. Leaving `membership_roles` empty clears all of
+   * the role's existing memberships, including `DATABRICKS_SUPERUSER`. Always send the complete
+   * desired list of memberships when using this field.
+   */
+  @JsonIgnore
+  @QueryParam("replace_existing")
+  private Boolean replaceExisting;
+
   /** The desired specification of a Role. */
   @JsonProperty("role")
   private Role role;
@@ -40,6 +52,15 @@ public class CreateRoleRequest {
     return parent;
   }
 
+  public CreateRoleRequest setReplaceExisting(Boolean replaceExisting) {
+    this.replaceExisting = replaceExisting;
+    return this;
+  }
+
+  public Boolean getReplaceExisting() {
+    return replaceExisting;
+  }
+
   public CreateRoleRequest setRole(Role role) {
     this.role = role;
     return this;
@@ -64,19 +85,21 @@ public class CreateRoleRequest {
     if (o == null || getClass() != o.getClass()) return false;
     CreateRoleRequest that = (CreateRoleRequest) o;
     return Objects.equals(parent, that.parent)
+        && Objects.equals(replaceExisting, that.replaceExisting)
         && Objects.equals(role, that.role)
         && Objects.equals(roleId, that.roleId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(parent, role, roleId);
+    return Objects.hash(parent, replaceExisting, role, roleId);
   }
 
   @Override
   public String toString() {
     return new ToStringer(CreateRoleRequest.class)
         .add("parent", parent)
+        .add("replaceExisting", replaceExisting)
         .add("role", role)
         .add("roleId", roleId)
         .toString();

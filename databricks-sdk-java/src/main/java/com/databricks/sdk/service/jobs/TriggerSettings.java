@@ -25,6 +25,13 @@ public class TriggerSettings {
   @JsonProperty("periodic")
   private PeriodicTriggerConfiguration periodic;
 
+  /**
+   * SQL condition that must be satisfied for the trigger to fire. Can be used in combination with
+   * other trigger types and runs *after* other trigger types conditions are evaluated.
+   */
+  @JsonProperty("sql_condition")
+  private SqlConditionConfiguration sqlCondition;
+
   /** */
   @JsonProperty("table_update")
   private TableUpdateTriggerConfiguration tableUpdate;
@@ -65,6 +72,15 @@ public class TriggerSettings {
     return periodic;
   }
 
+  public TriggerSettings setSqlCondition(SqlConditionConfiguration sqlCondition) {
+    this.sqlCondition = sqlCondition;
+    return this;
+  }
+
+  public SqlConditionConfiguration getSqlCondition() {
+    return sqlCondition;
+  }
+
   public TriggerSettings setTableUpdate(TableUpdateTriggerConfiguration tableUpdate) {
     this.tableUpdate = tableUpdate;
     return this;
@@ -83,12 +99,13 @@ public class TriggerSettings {
         && Objects.equals(model, that.model)
         && Objects.equals(pauseStatus, that.pauseStatus)
         && Objects.equals(periodic, that.periodic)
+        && Objects.equals(sqlCondition, that.sqlCondition)
         && Objects.equals(tableUpdate, that.tableUpdate);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(fileArrival, model, pauseStatus, periodic, tableUpdate);
+    return Objects.hash(fileArrival, model, pauseStatus, periodic, sqlCondition, tableUpdate);
   }
 
   @Override
@@ -98,6 +115,7 @@ public class TriggerSettings {
         .add("model", model)
         .add("pauseStatus", pauseStatus)
         .add("periodic", periodic)
+        .add("sqlCondition", sqlCondition)
         .add("tableUpdate", tableUpdate)
         .toString();
   }

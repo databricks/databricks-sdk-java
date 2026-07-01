@@ -31,8 +31,10 @@ public class PublishedAppIntegrationAPI {
   /**
    * Create Published OAuth App Integration.
    *
-   * <p>You can retrieve the published OAuth app integration via
-   * :method:PublishedAppIntegration/get.
+   * <p>You can retrieve the published OAuth app integration via [PublishedAppIntegration/get].
+   *
+   * <p>[PublishedAppIntegration/get]:
+   * https://docs.databricks.com/api/account/publishedappintegration/get
    */
   public CreatePublishedAppIntegrationOutput create(CreatePublishedAppIntegration request) {
     return impl.create(request);
@@ -44,7 +46,10 @@ public class PublishedAppIntegrationAPI {
 
   /**
    * Delete an existing Published OAuth App Integration. You can retrieve the published OAuth app
-   * integration via :method:PublishedAppIntegration/get.
+   * integration via [PublishedAppIntegration/get].
+   *
+   * <p>[PublishedAppIntegration/get]:
+   * https://docs.databricks.com/api/account/publishedappintegration/get
    */
   public void delete(DeletePublishedAppIntegrationRequest request) {
     impl.delete(request);
@@ -77,7 +82,10 @@ public class PublishedAppIntegrationAPI {
 
   /**
    * Updates an existing published OAuth App Integration. You can retrieve the published OAuth app
-   * integration via :method:PublishedAppIntegration/get.
+   * integration via [PublishedAppIntegration/get].
+   *
+   * <p>[PublishedAppIntegration/get]:
+   * https://docs.databricks.com/api/account/publishedappintegration/get
    */
   public void update(UpdatePublishedAppIntegration request) {
     impl.update(request);

@@ -16,7 +16,9 @@ public class CleanRoomAssetNotebook {
 
   /**
    * Base 64 representation of the notebook contents. This is the same format as returned by
-   * :method:workspace/export with the format of **HTML**.
+   * [workspace/export] with the format of **HTML**.
+   *
+   * <p>[workspace/export]: https://docs.databricks.com/api/workspace/workspace/export
    */
   @JsonProperty("notebook_content")
   private String notebookContent;

@@ -13,6 +13,10 @@ public class TriggerStateProto {
   @JsonProperty("file_arrival")
   private FileArrivalTriggerState fileArrival;
 
+  /** State for SQL condition evaluation, can coexist with other trigger states. */
+  @JsonProperty("sql_condition")
+  private SqlConditionState sqlCondition;
+
   /** */
   @JsonProperty("table")
   private TableTriggerState table;
@@ -24,6 +28,15 @@ public class TriggerStateProto {
 
   public FileArrivalTriggerState getFileArrival() {
     return fileArrival;
+  }
+
+  public TriggerStateProto setSqlCondition(SqlConditionState sqlCondition) {
+    this.sqlCondition = sqlCondition;
+    return this;
+  }
+
+  public SqlConditionState getSqlCondition() {
+    return sqlCondition;
   }
 
   public TriggerStateProto setTable(TableTriggerState table) {
@@ -40,18 +53,21 @@ public class TriggerStateProto {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     TriggerStateProto that = (TriggerStateProto) o;
-    return Objects.equals(fileArrival, that.fileArrival) && Objects.equals(table, that.table);
+    return Objects.equals(fileArrival, that.fileArrival)
+        && Objects.equals(sqlCondition, that.sqlCondition)
+        && Objects.equals(table, that.table);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(fileArrival, table);
+    return Objects.hash(fileArrival, sqlCondition, table);
   }
 
   @Override
   public String toString() {
     return new ToStringer(TriggerStateProto.class)
         .add("fileArrival", fileArrival)
+        .add("sqlCondition", sqlCondition)
         .add("table", table)
         .toString();
   }

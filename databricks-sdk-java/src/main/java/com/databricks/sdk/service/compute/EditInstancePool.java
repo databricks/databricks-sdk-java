@@ -56,7 +56,9 @@ public class EditInstancePool {
    * This field encodes, through a single value, the resources available to each of the Spark nodes
    * in this cluster. For example, the Spark nodes can be provisioned and optimized for memory or
    * compute intensive workloads. A list of available node types can be retrieved by using the
-   * :method:clusters/listNodeTypes API call.
+   * [clusters/listNodeTypes] API call.
+   *
+   * <p>[clusters/listNodeTypes]: https://docs.databricks.com/api/workspace/clusters/listnodetypes
    */
   @JsonProperty("node_type_id")
   private String nodeTypeId;
