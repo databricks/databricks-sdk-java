@@ -19,8 +19,8 @@ public class SyncedTableSyncedTableSpecTypeOverride {
   private SyncedTableSyncedTableSpecPgSpecificType pgType;
 
   /**
-   * Size parameter for the target type. Required when pg_type is PG_SPECIFIC_TYPE_VECTOR (specifies
-   * the vector dimension, e.g., 1024).
+   * Size parameter for the target type. Required when pg_type is PG_SPECIFIC_TYPE_VECTOR or
+   * PG_SPECIFIC_TYPE_HALFVEC (specifies the vector dimension, e.g., 1024).
    */
   @JsonProperty("size")
   private Long size;
