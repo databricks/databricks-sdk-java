@@ -8,17 +8,28 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * Configures how requests arriving over private connectivity, such as registered endpoints, are
+ * allowed or denied access.
+ */
 @Generated
 public class CustomerFacingIngressNetworkPolicyPrivateAccess {
-  /** */
+  /**
+   * Allow rules are evaluated after deny rules. A request matching any allow rule is allowed; a
+   * request matching no rule is denied by default. Only applies when restriction_mode is
+   * RESTRICTED_ACCESS.
+   */
   @JsonProperty("allow_rules")
   private Collection<CustomerFacingIngressNetworkPolicyPrivateIngressRule> allowRules;
 
-  /** */
+  /**
+   * Deny rules are evaluated first. A request matching any deny rule is denied, regardless of allow
+   * rules. Only applies when restriction_mode is RESTRICTED_ACCESS.
+   */
   @JsonProperty("deny_rules")
   private Collection<CustomerFacingIngressNetworkPolicyPrivateIngressRule> denyRules;
 
-  /** */
+  /** The restriction mode for private access. */
   @JsonProperty("restriction_mode")
   private CustomerFacingIngressNetworkPolicyPrivateAccessRestrictionMode restrictionMode;
 

@@ -31,8 +31,8 @@ public class AggregationFunction {
   private FirstFunction first;
 
   /** */
-  @JsonProperty("first_distinct_n")
-  private FirstDistinctNFunction firstDistinctN;
+  @JsonProperty("first_distinct")
+  private FirstDistinctFunction firstDistinct;
 
   /** */
   @JsonProperty("first_n")
@@ -43,8 +43,8 @@ public class AggregationFunction {
   private LastFunction last;
 
   /** */
-  @JsonProperty("last_distinct_n")
-  private LastDistinctNFunction lastDistinctN;
+  @JsonProperty("last_distinct")
+  private LastDistinctFunction lastDistinct;
 
   /** */
   @JsonProperty("last_n")
@@ -128,13 +128,13 @@ public class AggregationFunction {
     return first;
   }
 
-  public AggregationFunction setFirstDistinctN(FirstDistinctNFunction firstDistinctN) {
-    this.firstDistinctN = firstDistinctN;
+  public AggregationFunction setFirstDistinct(FirstDistinctFunction firstDistinct) {
+    this.firstDistinct = firstDistinct;
     return this;
   }
 
-  public FirstDistinctNFunction getFirstDistinctN() {
-    return firstDistinctN;
+  public FirstDistinctFunction getFirstDistinct() {
+    return firstDistinct;
   }
 
   public AggregationFunction setFirstN(FirstNFunction firstN) {
@@ -155,13 +155,13 @@ public class AggregationFunction {
     return last;
   }
 
-  public AggregationFunction setLastDistinctN(LastDistinctNFunction lastDistinctN) {
-    this.lastDistinctN = lastDistinctN;
+  public AggregationFunction setLastDistinct(LastDistinctFunction lastDistinct) {
+    this.lastDistinct = lastDistinct;
     return this;
   }
 
-  public LastDistinctNFunction getLastDistinctN() {
-    return lastDistinctN;
+  public LastDistinctFunction getLastDistinct() {
+    return lastDistinct;
   }
 
   public AggregationFunction setLastN(LastNFunction lastN) {
@@ -255,10 +255,10 @@ public class AggregationFunction {
         && Objects.equals(avg, that.avg)
         && Objects.equals(countFunction, that.countFunction)
         && Objects.equals(first, that.first)
-        && Objects.equals(firstDistinctN, that.firstDistinctN)
+        && Objects.equals(firstDistinct, that.firstDistinct)
         && Objects.equals(firstN, that.firstN)
         && Objects.equals(last, that.last)
-        && Objects.equals(lastDistinctN, that.lastDistinctN)
+        && Objects.equals(lastDistinct, that.lastDistinct)
         && Objects.equals(lastN, that.lastN)
         && Objects.equals(max, that.max)
         && Objects.equals(min, that.min)
@@ -278,10 +278,10 @@ public class AggregationFunction {
         avg,
         countFunction,
         first,
-        firstDistinctN,
+        firstDistinct,
         firstN,
         last,
-        lastDistinctN,
+        lastDistinct,
         lastN,
         max,
         min,
@@ -301,10 +301,10 @@ public class AggregationFunction {
         .add("avg", avg)
         .add("countFunction", countFunction)
         .add("first", first)
-        .add("firstDistinctN", firstDistinctN)
+        .add("firstDistinct", firstDistinct)
         .add("firstN", firstN)
         .add("last", last)
-        .add("lastDistinctN", lastDistinctN)
+        .add("lastDistinct", lastDistinct)
         .add("lastN", lastN)
         .add("max", max)
         .add("min", min)

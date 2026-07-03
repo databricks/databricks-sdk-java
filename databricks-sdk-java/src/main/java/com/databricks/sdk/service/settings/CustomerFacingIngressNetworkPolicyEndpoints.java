@@ -8,9 +8,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/** A set of registered endpoints, identified by their endpoint IDs. */
 @Generated
 public class CustomerFacingIngressNetworkPolicyEndpoints {
-  /** */
+  /** The IDs of the registered endpoints. Must contain at least one endpoint ID. */
   @JsonProperty("endpoint_ids")
   private Collection<String> endpointIds;
 

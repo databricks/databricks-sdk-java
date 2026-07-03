@@ -9,18 +9,20 @@ import java.util.Objects;
 
 @Generated
 public class CustomerFacingIngressNetworkPolicyRequestDestination {
-  /** */
+  /**
+   * Matches requests to account-level APIs. Can only be used in the account-level network policy.
+   */
   @JsonProperty("account_api")
   private CustomerFacingIngressNetworkPolicyAccountApiDestination accountApi;
 
-  /**
-   * Account DatabricksOne destination is not supported. DO NOT change the stage of this destination
-   * past PRIVATE_PREVIEW.
-   */
+  /** Account DatabricksOne destination is not supported. */
   @JsonProperty("account_databricks_one")
   private CustomerFacingIngressNetworkPolicyAccountDatabricksOneDestination accountDatabricksOne;
 
-  /** */
+  /**
+   * Matches requests to the account console UI. Can only be used in the account-level network
+   * policy.
+   */
   @JsonProperty("account_ui")
   private CustomerFacingIngressNetworkPolicyAccountUiDestination accountUi;
 

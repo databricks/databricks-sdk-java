@@ -2092,7 +2092,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/FieldDefinition.
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/FileInfo.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/FinalizeLoggedModelRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/FinalizeLoggedModelResponse.java linguist-generated=true
-databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/FirstDistinctNFunction.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/FirstDistinctFunction.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/FirstFunction.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/FirstNFunction.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/FlatSchema.java linguist-generated=true
@@ -2148,7 +2148,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/KafkaConfig.java
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/KafkaSource.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/KafkaStreamConfig.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/KafkaSubscriptionMode.java linguist-generated=true
-databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/LastDistinctNFunction.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/LastDistinctFunction.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/LastFunction.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/LastNFunction.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/LineageContext.java linguist-generated=true
@@ -2188,6 +2188,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/LoggedModelInfo.
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/LoggedModelParameter.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/LoggedModelStatus.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/LoggedModelTag.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/LongRollingWindow.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/MaterializedFeature.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/MaterializedFeaturePipelineScheduleState.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/MaterializedFeaturesAPI.java linguist-generated=true
@@ -2215,6 +2216,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/OnlineStoreConfi
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/OnlineStoreState.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/Param.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/PermissionLevel.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/ProtoSchemaSpec.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/PublishSpec.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/PublishSpecPublishMode.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/PublishTableRequest.java linguist-generated=true

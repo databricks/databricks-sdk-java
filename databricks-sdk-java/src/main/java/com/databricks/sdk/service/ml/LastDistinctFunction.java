@@ -7,10 +7,10 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Returns the first N distinct values, ordered by the feature's timeseries column. */
+/** Returns the last N distinct values, ordered by the feature's timeseries column. */
 @Generated
-public class FirstDistinctNFunction {
-  /** The input column from which the first N distinct values are returned. */
+public class LastDistinctFunction {
+  /** The input column from which the last N distinct values are returned. */
   @JsonProperty("input")
   private String input;
 
@@ -18,7 +18,7 @@ public class FirstDistinctNFunction {
   @JsonProperty("n")
   private Long n;
 
-  public FirstDistinctNFunction setInput(String input) {
+  public LastDistinctFunction setInput(String input) {
     this.input = input;
     return this;
   }
@@ -27,7 +27,7 @@ public class FirstDistinctNFunction {
     return input;
   }
 
-  public FirstDistinctNFunction setN(Long n) {
+  public LastDistinctFunction setN(Long n) {
     this.n = n;
     return this;
   }
@@ -40,7 +40,7 @@ public class FirstDistinctNFunction {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    FirstDistinctNFunction that = (FirstDistinctNFunction) o;
+    LastDistinctFunction that = (LastDistinctFunction) o;
     return Objects.equals(input, that.input) && Objects.equals(n, that.n);
   }
 
@@ -51,6 +51,6 @@ public class FirstDistinctNFunction {
 
   @Override
   public String toString() {
-    return new ToStringer(FirstDistinctNFunction.class).add("input", input).add("n", n).toString();
+    return new ToStringer(LastDistinctFunction.class).add("input", input).add("n", n).toString();
   }
 }

@@ -86,6 +86,11 @@ public class RunNow {
   /**
    * A list of task keys to run inside of the job. If this field is not provided, all tasks in the
    * job will be run.
+   *
+   * <p>Prefix a task key with `+` to also run its upstream tasks, or suffix it with `+` to also run
+   * its downstream tasks. For example, `+my_task` runs `my_task` and everything upstream of it,
+   * `my_task+` runs `my_task` and everything downstream of it, and `+my_task+` runs both. A task
+   * key with no `+` runs only that task.
    */
   @JsonProperty("only")
   private Collection<String> only;
