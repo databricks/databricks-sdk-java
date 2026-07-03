@@ -15,7 +15,7 @@ public class CustomerFacingIngressNetworkPolicyAccountApiDestination {
   @JsonProperty("scope_qualifier")
   private CustomerFacingIngressNetworkPolicyApiScopeQualifier scopeQualifier;
 
-  /** */
+  /** The API scopes to match. Use "all-apis" to match any account-level API. */
   @JsonProperty("scopes")
   private Collection<String> scopes;
 

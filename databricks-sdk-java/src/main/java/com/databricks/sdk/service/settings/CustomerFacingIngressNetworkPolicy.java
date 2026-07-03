@@ -7,10 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/**
- * This proto is under development. The network policies applying for ingress traffic. Any changes
- * here should also be synced to estore/namespaces/lakehousenetworkmanager/latest.proto.
- */
+/** The network policies applying for ingress traffic. */
 @Generated
 public class CustomerFacingIngressNetworkPolicy {
   /** */
@@ -18,8 +15,8 @@ public class CustomerFacingIngressNetworkPolicy {
   private CustomerFacingIngressNetworkPolicyCrossWorkspaceAccess crossWorkspaceAccess;
 
   /**
-   * The network policy restrictions for private access to the workspace. Configures how registered
-   * private endpoints are allowed or denied access.
+   * The network policy restrictions for private access. Configures how requests arriving over
+   * private connectivity are governed.
    */
   @JsonProperty("private_access")
   private CustomerFacingIngressNetworkPolicyPrivateAccess privateAccess;

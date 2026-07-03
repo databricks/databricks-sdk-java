@@ -7,21 +7,36 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * The origin of a private access request, identified by the endpoint through which the request
+ * arrives.
+ */
 @Generated
 public class CustomerFacingIngressNetworkPolicyPrivateRequestOrigin {
-  /** */
+  /**
+   * Matches requests arriving over any private connectivity, including registered endpoints and the
+   * workspace's Azure Private Link (ui-api) endpoints. Can only be used in deny rules of
+   * workspace-level network policies. Must be set to true when specified.
+   */
   @JsonProperty("all_private_access")
   private Boolean allPrivateAccess;
 
-  /** */
+  /**
+   * Matches requests arriving through any endpoint registered to the account. Must be set to true
+   * when specified.
+   */
   @JsonProperty("all_registered_endpoints")
   private Boolean allRegisteredEndpoints;
 
-  /** */
+  /**
+   * Matches requests arriving through the workspace's Azure Private Link (ui-api) endpoints. Can
+   * only be used in deny rules of workspace-level network policies. Must be set to true when
+   * specified.
+   */
   @JsonProperty("azure_workspace_private_link")
   private Boolean azureWorkspacePrivateLink;
 
-  /** */
+  /** Matches requests arriving through any of the specified registered endpoints. */
   @JsonProperty("endpoints")
   private CustomerFacingIngressNetworkPolicyEndpoints endpoints;
 

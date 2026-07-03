@@ -7,13 +7,25 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * An ingress rule is enforced when a request satisfies all specified attributes — including request
+ * origin, destination, and authentication.
+ */
 @Generated
 public class CustomerFacingIngressNetworkPolicyPrivateIngressRule {
-  /** */
+  /**
+   * The authenticated identity the request must match. When unset, the rule matches all users and
+   * service principals. On the account-level network policy, scoping to specific identities is not
+   * currently supported, so this field must be unset (the rule matches all users and service
+   * principals).
+   */
   @JsonProperty("authentication")
   private CustomerFacingIngressNetworkPolicyAuthentication authentication;
 
-  /** */
+  /**
+   * The destination the request must match — the resource being accessed, for example the workspace
+   * UI, workspace APIs, or account-level APIs. See RequestDestination.
+   */
   @JsonProperty("destination")
   private CustomerFacingIngressNetworkPolicyRequestDestination destination;
 
@@ -21,7 +33,11 @@ public class CustomerFacingIngressNetworkPolicyPrivateIngressRule {
   @JsonProperty("label")
   private String label;
 
-  /** */
+  /**
+   * The origin the request must match — the private connectivity the request arrives through, for
+   * example a specific set of registered endpoints or any endpoint registered to the account. See
+   * PrivateRequestOrigin.
+   */
   @JsonProperty("origin")
   private CustomerFacingIngressNetworkPolicyPrivateRequestOrigin origin;
 
