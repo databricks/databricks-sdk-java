@@ -46,6 +46,20 @@ public interface GrantsService {
    */
   EffectivePermissionsList getEffective(GetEffectiveRequest getEffectiveRequest);
 
+  /**
+   * Lists the privilege assignments for a securable. Does not include inherited privileges.
+   * Paginated version of Get Permissions API.
+   */
+  ListPrivilegeAssignmentsResponse list(
+      ListPrivilegeAssignmentsRequest listPrivilegeAssignmentsRequest);
+
+  /**
+   * Lists the effective privilege assignments for a securable. Includes inherited privileges.
+   * Paginated version of Get Effective Permissions API.
+   */
+  ListEffectivePrivilegeAssignmentsResponse listEffective(
+      ListEffectivePrivilegeAssignmentsRequest listEffectivePrivilegeAssignmentsRequest);
+
   /** Updates the permissions for a securable. */
   UpdatePermissionsResponse update(UpdatePermissions updatePermissions);
 }

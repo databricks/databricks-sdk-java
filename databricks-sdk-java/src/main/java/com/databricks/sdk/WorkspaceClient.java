@@ -1565,7 +1565,7 @@ public class WorkspaceClient {
   }
 
   /**
-   * This is an evolving API that facilitates the addition and removal of vizualisations from
+   * This is an evolving API that facilitates the addition and removal of visualizations from
    * existing queries within the Databricks Workspace. Data structures may change over time.
    *
    * <p>**Warning**: This API is deprecated. Please see the latest version of the Databricks SQL

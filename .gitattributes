@@ -571,6 +571,8 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ListConnect
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ListConnectionsResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ListCredentialsRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ListCredentialsResponse.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ListEffectivePrivilegeAssignmentsRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ListEffectivePrivilegeAssignmentsResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ListEntityTagAssignmentsRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ListEntityTagAssignmentsResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ListExternalLineageRelationshipsRequest.java linguist-generated=true
@@ -587,6 +589,8 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ListModelVe
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ListModelVersionsResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ListPoliciesRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ListPoliciesResponse.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ListPrivilegeAssignmentsRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ListPrivilegeAssignmentsResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ListQuotasRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ListQuotasResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ListRefreshesRequest.java linguist-generated=true

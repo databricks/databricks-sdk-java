@@ -19,19 +19,11 @@ public class ListSecretsRequest {
   private String catalogName;
 
   /**
-   * Whether to include secrets in the response for which you only have the **BROWSE** privilege,
-   * which limits access to metadata.
-   */
-  @JsonIgnore
-  @QueryParam("include_browse")
-  private Boolean includeBrowse;
-
-  /**
    * Maximum number of secrets to return.
    *
-   * <p>- If not specified, at most 10000 secrets are returned. - If set to a value greater than 0,
-   * the page length is the minimum of this value and 10000. - If set to 0, the page length is set
-   * to 10000. - If set to a value less than 0, an invalid parameter error is returned.
+   * <p>- If not specified, at most 1000 secrets are returned. - If set to a value greater than 0,
+   * the page length is the minimum of this value and 1000. - If set to 0, the page length is set to
+   * 1000. - If set to a value less than 0, an invalid parameter error is returned.
    */
   @JsonIgnore
   @QueryParam("page_size")
@@ -60,15 +52,6 @@ public class ListSecretsRequest {
 
   public String getCatalogName() {
     return catalogName;
-  }
-
-  public ListSecretsRequest setIncludeBrowse(Boolean includeBrowse) {
-    this.includeBrowse = includeBrowse;
-    return this;
-  }
-
-  public Boolean getIncludeBrowse() {
-    return includeBrowse;
   }
 
   public ListSecretsRequest setPageSize(Long pageSize) {
@@ -104,7 +87,6 @@ public class ListSecretsRequest {
     if (o == null || getClass() != o.getClass()) return false;
     ListSecretsRequest that = (ListSecretsRequest) o;
     return Objects.equals(catalogName, that.catalogName)
-        && Objects.equals(includeBrowse, that.includeBrowse)
         && Objects.equals(pageSize, that.pageSize)
         && Objects.equals(pageToken, that.pageToken)
         && Objects.equals(schemaName, that.schemaName);
@@ -112,14 +94,13 @@ public class ListSecretsRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(catalogName, includeBrowse, pageSize, pageToken, schemaName);
+    return Objects.hash(catalogName, pageSize, pageToken, schemaName);
   }
 
   @Override
   public String toString() {
     return new ToStringer(ListSecretsRequest.class)
         .add("catalogName", catalogName)
-        .add("includeBrowse", includeBrowse)
         .add("pageSize", pageSize)
         .add("pageToken", pageToken)
         .add("schemaName", schemaName)

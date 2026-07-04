@@ -5,6 +5,7 @@ import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.core.logging.Logger;
 import com.databricks.sdk.core.logging.LoggerFactory;
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
 
 /**
  * In Unity Catalog, data is secure by default. Initially, users have no access to data in a
@@ -70,6 +71,58 @@ public class GrantsAPI {
    */
   public EffectivePermissionsList getEffective(GetEffectiveRequest request) {
     return impl.getEffective(request);
+  }
+
+  public Iterable<PrivilegeAssignment> list(String securableType, String fullName) {
+    return list(
+        new ListPrivilegeAssignmentsRequest()
+            .setSecurableType(securableType)
+            .setFullName(fullName));
+  }
+
+  /**
+   * Lists the privilege assignments for a securable. Does not include inherited privileges.
+   * Paginated version of Get Permissions API.
+   */
+  public Iterable<PrivilegeAssignment> list(ListPrivilegeAssignmentsRequest request) {
+    return Paginator.newTokenPagination(
+        request,
+        impl::list,
+        ListPrivilegeAssignmentsResponse::getPrivilegeAssignments,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
+  }
+
+  public Iterable<EffectivePrivilegeAssignment> listEffective(
+      String securableType, String fullName) {
+    return listEffective(
+        new ListEffectivePrivilegeAssignmentsRequest()
+            .setSecurableType(securableType)
+            .setFullName(fullName));
+  }
+
+  /**
+   * Lists the effective privilege assignments for a securable. Includes inherited privileges.
+   * Paginated version of Get Effective Permissions API.
+   */
+  public Iterable<EffectivePrivilegeAssignment> listEffective(
+      ListEffectivePrivilegeAssignmentsRequest request) {
+    return Paginator.newTokenPagination(
+        request,
+        impl::listEffective,
+        ListEffectivePrivilegeAssignmentsResponse::getEffectivePrivilegeAssignments,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   /** Updates the permissions for a securable. */

@@ -15,13 +15,6 @@ import java.util.Objects;
  */
 @Generated
 public class Secret {
-  /**
-   * Indicates whether the principal is limited to retrieving metadata for the associated object
-   * through the **BROWSE** privilege when **include_browse** is enabled in the request.
-   */
-  @JsonProperty("browse_only")
-  private Boolean browseOnly;
-
   /** The name of the catalog where the schema and the secret reside. */
   @JsonProperty("catalog_name")
   private String catalogName;
@@ -59,10 +52,6 @@ public class Secret {
    */
   @JsonProperty("expire_time")
   private Timestamp expireTime;
-
-  /** */
-  @JsonProperty("external_secret_id")
-  private String externalSecretId;
 
   /**
    * The three-level (fully qualified) name of the secret, in the form of
@@ -106,15 +95,6 @@ public class Secret {
    */
   @JsonProperty("value")
   private String value;
-
-  public Secret setBrowseOnly(Boolean browseOnly) {
-    this.browseOnly = browseOnly;
-    return this;
-  }
-
-  public Boolean getBrowseOnly() {
-    return browseOnly;
-  }
 
   public Secret setCatalogName(String catalogName) {
     this.catalogName = catalogName;
@@ -177,15 +157,6 @@ public class Secret {
 
   public Timestamp getExpireTime() {
     return expireTime;
-  }
-
-  public Secret setExternalSecretId(String externalSecretId) {
-    this.externalSecretId = externalSecretId;
-    return this;
-  }
-
-  public String getExternalSecretId() {
-    return externalSecretId;
   }
 
   public Secret setFullName(String fullName) {
@@ -265,15 +236,13 @@ public class Secret {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Secret that = (Secret) o;
-    return Objects.equals(browseOnly, that.browseOnly)
-        && Objects.equals(catalogName, that.catalogName)
+    return Objects.equals(catalogName, that.catalogName)
         && Objects.equals(comment, that.comment)
         && Objects.equals(createTime, that.createTime)
         && Objects.equals(createdBy, that.createdBy)
         && Objects.equals(effectiveOwner, that.effectiveOwner)
         && Objects.equals(effectiveValue, that.effectiveValue)
         && Objects.equals(expireTime, that.expireTime)
-        && Objects.equals(externalSecretId, that.externalSecretId)
         && Objects.equals(fullName, that.fullName)
         && Objects.equals(metastoreId, that.metastoreId)
         && Objects.equals(name, that.name)
@@ -287,7 +256,6 @@ public class Secret {
   @Override
   public int hashCode() {
     return Objects.hash(
-        browseOnly,
         catalogName,
         comment,
         createTime,
@@ -295,7 +263,6 @@ public class Secret {
         effectiveOwner,
         effectiveValue,
         expireTime,
-        externalSecretId,
         fullName,
         metastoreId,
         name,
@@ -309,7 +276,6 @@ public class Secret {
   @Override
   public String toString() {
     return new ToStringer(Secret.class)
-        .add("browseOnly", browseOnly)
         .add("catalogName", catalogName)
         .add("comment", comment)
         .add("createTime", createTime)
@@ -317,7 +283,6 @@ public class Secret {
         .add("effectiveOwner", effectiveOwner)
         .add("effectiveValue", effectiveValue)
         .add("expireTime", expireTime)
-        .add("externalSecretId", externalSecretId)
         .add("fullName", fullName)
         .add("metastoreId", metastoreId)
         .add("name", name)
