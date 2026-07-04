@@ -4,7 +4,7 @@ package com.databricks.sdk.service.sql;
 import com.databricks.sdk.support.Generated;
 
 /**
- * This is an evolving API that facilitates the addition and removal of vizualisations from existing
+ * This is an evolving API that facilitates the addition and removal of visualizations from existing
  * queries within the Databricks Workspace. Data structures may change over time.
  *
  * <p>**Warning**: This API is deprecated. Please see the latest version of the Databricks SQL API.

@@ -26,8 +26,11 @@ public class UpdateSecretRequest {
   private Secret secret;
 
   /**
-   * The field mask specifying which fields of the secret to update. Supported fields: **value**,
-   * **comment**, **owner**, **expire_time**.
+   * The field mask specifying which fields of the secret to update. - If **update_mask** is
+   * **"*"**, all fields specified in **secret** are updated. - If **update_mask** specifies one or
+   * more fields, only those fields are updated. Each specified field must be set in **secret**.
+   * Supported fields: **value**, **comment**, **owner**, **expire_time**. To change the secret
+   * name, delete and recreate the secret.
    */
   @JsonIgnore
   @QueryParam("update_mask")

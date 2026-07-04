@@ -57,6 +57,47 @@ class GrantsImpl implements GrantsService {
   }
 
   @Override
+  public ListPrivilegeAssignmentsResponse list(ListPrivilegeAssignmentsRequest request) {
+    String path =
+        String.format(
+            "/api/2.1/unity-catalog/privilege-assignments/%s/%s",
+            request.getSecurableType(), request.getFullName());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, ListPrivilegeAssignmentsResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public ListEffectivePrivilegeAssignmentsResponse listEffective(
+      ListEffectivePrivilegeAssignmentsRequest request) {
+    String path =
+        String.format(
+            "/api/2.1/unity-catalog/effective-privilege-assignments/%s/%s",
+            request.getSecurableType(), request.getFullName());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, ListEffectivePrivilegeAssignmentsResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public UpdatePermissionsResponse update(UpdatePermissions request) {
     String path =
         String.format(

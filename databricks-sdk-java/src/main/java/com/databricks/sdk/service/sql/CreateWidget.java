@@ -24,7 +24,7 @@ public class CreateWidget {
   @JsonProperty("text")
   private String text;
 
-  /** Query Vizualization ID returned by :method:queryvisualizations/create. */
+  /** Query Visualization ID returned by :method:queryvisualizations/create. */
   @JsonProperty("visualization_id")
   private String visualizationId;
 
