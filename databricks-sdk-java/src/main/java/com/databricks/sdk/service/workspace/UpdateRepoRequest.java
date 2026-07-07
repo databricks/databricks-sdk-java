@@ -29,6 +29,13 @@ public class UpdateRepoRequest {
   @JsonProperty("dangerously_force_discard_all")
   private Boolean dangerouslyForceDiscardAll;
 
+  /**
+   * Git credential ID to use for this update operation. The Git credential must be configured for
+   * the current user.
+   */
+  @JsonProperty("git_credential_id")
+  private Long gitCredentialId;
+
   /** ID of the Git folder (repo) object in the workspace. */
   @JsonIgnore private Long repoId;
 
@@ -65,6 +72,15 @@ public class UpdateRepoRequest {
     return dangerouslyForceDiscardAll;
   }
 
+  public UpdateRepoRequest setGitCredentialId(Long gitCredentialId) {
+    this.gitCredentialId = gitCredentialId;
+    return this;
+  }
+
+  public Long getGitCredentialId() {
+    return gitCredentialId;
+  }
+
   public UpdateRepoRequest setRepoId(Long repoId) {
     this.repoId = repoId;
     return this;
@@ -99,6 +115,7 @@ public class UpdateRepoRequest {
     UpdateRepoRequest that = (UpdateRepoRequest) o;
     return Objects.equals(branch, that.branch)
         && Objects.equals(dangerouslyForceDiscardAll, that.dangerouslyForceDiscardAll)
+        && Objects.equals(gitCredentialId, that.gitCredentialId)
         && Objects.equals(repoId, that.repoId)
         && Objects.equals(sparseCheckout, that.sparseCheckout)
         && Objects.equals(tag, that.tag);
@@ -106,7 +123,8 @@ public class UpdateRepoRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(branch, dangerouslyForceDiscardAll, repoId, sparseCheckout, tag);
+    return Objects.hash(
+        branch, dangerouslyForceDiscardAll, gitCredentialId, repoId, sparseCheckout, tag);
   }
 
   @Override
@@ -114,6 +132,7 @@ public class UpdateRepoRequest {
     return new ToStringer(UpdateRepoRequest.class)
         .add("branch", branch)
         .add("dangerouslyForceDiscardAll", dangerouslyForceDiscardAll)
+        .add("gitCredentialId", gitCredentialId)
         .add("repoId", repoId)
         .add("sparseCheckout", sparseCheckout)
         .add("tag", tag)

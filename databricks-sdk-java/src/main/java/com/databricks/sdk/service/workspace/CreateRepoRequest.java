@@ -10,6 +10,13 @@ import java.util.Objects;
 @Generated
 public class CreateRepoRequest {
   /**
+   * Git credential ID to use when cloning the repository. The Git credential must be configured for
+   * the current user.
+   */
+  @JsonProperty("git_credential_id")
+  private Long gitCredentialId;
+
+  /**
    * Desired path for the repo in the workspace. Almost any path in the workspace can be chosen. If
    * repo is created in `/Repos`, path must be in the format `/Repos/{folder}/{repo-name}`.
    */
@@ -36,6 +43,15 @@ public class CreateRepoRequest {
   /** URL of the Git repository to be linked. */
   @JsonProperty("url")
   private String url;
+
+  public CreateRepoRequest setGitCredentialId(Long gitCredentialId) {
+    this.gitCredentialId = gitCredentialId;
+    return this;
+  }
+
+  public Long getGitCredentialId() {
+    return gitCredentialId;
+  }
 
   public CreateRepoRequest setPath(String path) {
     this.path = path;
@@ -78,7 +94,8 @@ public class CreateRepoRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     CreateRepoRequest that = (CreateRepoRequest) o;
-    return Objects.equals(path, that.path)
+    return Objects.equals(gitCredentialId, that.gitCredentialId)
+        && Objects.equals(path, that.path)
         && Objects.equals(provider, that.provider)
         && Objects.equals(sparseCheckout, that.sparseCheckout)
         && Objects.equals(url, that.url);
@@ -86,12 +103,13 @@ public class CreateRepoRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(path, provider, sparseCheckout, url);
+    return Objects.hash(gitCredentialId, path, provider, sparseCheckout, url);
   }
 
   @Override
   public String toString() {
     return new ToStringer(CreateRepoRequest.class)
+        .add("gitCredentialId", gitCredentialId)
         .add("path", path)
         .add("provider", provider)
         .add("sparseCheckout", sparseCheckout)

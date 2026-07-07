@@ -8,6 +8,8 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum ServedModelInputWorkloadType {
   CPU,
+  CPU_LARGE,
+  CPU_MEDIUM,
   GPU_LARGE,
   GPU_MEDIUM,
   GPU_SMALL,
