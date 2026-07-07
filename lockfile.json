@@ -1,7 +1,7 @@
 {
   "artifactId": "databricks-sdk-parent",
   "groupId": "com.databricks",
-  "version": "0.124.0",
+  "version": "0.125.0",
   "lockFileVersion": 1,
   "dependencies": [],
   "mavenPlugins": [],
