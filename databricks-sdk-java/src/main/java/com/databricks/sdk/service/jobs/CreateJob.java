@@ -128,6 +128,13 @@ public class CreateJob {
   private Collection<JobParameterDefinition> parameters;
 
   /**
+   * Path of the job parent folder in workspace file tree. If absent, the job doesn't have a
+   * workspace object.
+   */
+  @JsonProperty("parent_path")
+  private String parentPath;
+
+  /**
    * The performance mode on a serverless job. This field determines the level of compute
    * performance or cost-efficiency for the run. The performance target does not apply to tasks that
    * run on Serverless GPU compute.
@@ -344,6 +351,15 @@ public class CreateJob {
     return parameters;
   }
 
+  public CreateJob setParentPath(String parentPath) {
+    this.parentPath = parentPath;
+    return this;
+  }
+
+  public String getParentPath() {
+    return parentPath;
+  }
+
   public CreateJob setPerformanceTarget(PerformanceTarget performanceTarget) {
     this.performanceTarget = performanceTarget;
     return this;
@@ -455,6 +471,7 @@ public class CreateJob {
         && Objects.equals(name, that.name)
         && Objects.equals(notificationSettings, that.notificationSettings)
         && Objects.equals(parameters, that.parameters)
+        && Objects.equals(parentPath, that.parentPath)
         && Objects.equals(performanceTarget, that.performanceTarget)
         && Objects.equals(queue, that.queue)
         && Objects.equals(runAs, that.runAs)
@@ -486,6 +503,7 @@ public class CreateJob {
         name,
         notificationSettings,
         parameters,
+        parentPath,
         performanceTarget,
         queue,
         runAs,
@@ -517,6 +535,7 @@ public class CreateJob {
         .add("name", name)
         .add("notificationSettings", notificationSettings)
         .add("parameters", parameters)
+        .add("parentPath", parentPath)
         .add("performanceTarget", performanceTarget)
         .add("queue", queue)
         .add("runAs", runAs)
