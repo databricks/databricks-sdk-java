@@ -6,6 +6,7 @@ import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.google.protobuf.Timestamp;
 import java.util.Objects;
 
 /**
@@ -44,6 +45,13 @@ public class Resource {
   /** Serialized local config state (what the CLI deployed). */
   @JsonProperty("state")
   private JsonNode state;
+
+  /**
+   * When the last operation that updated this resource's recorded state was applied. Pairs with
+   * last_action_type and last_version_id (all three advance together on that write).
+   */
+  @JsonProperty("update_time")
+  private Timestamp updateTime;
 
   public Resource setLastActionType(OperationActionType lastActionType) {
     this.lastActionType = lastActionType;
@@ -108,6 +116,15 @@ public class Resource {
     return state;
   }
 
+  public Resource setUpdateTime(Timestamp updateTime) {
+    this.updateTime = updateTime;
+    return this;
+  }
+
+  public Timestamp getUpdateTime() {
+    return updateTime;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -119,13 +136,21 @@ public class Resource {
         && Objects.equals(resourceId, that.resourceId)
         && Objects.equals(resourceKey, that.resourceKey)
         && Objects.equals(resourceType, that.resourceType)
-        && Objects.equals(state, that.state);
+        && Objects.equals(state, that.state)
+        && Objects.equals(updateTime, that.updateTime);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(
-        lastActionType, lastVersionId, name, resourceId, resourceKey, resourceType, state);
+        lastActionType,
+        lastVersionId,
+        name,
+        resourceId,
+        resourceKey,
+        resourceType,
+        state,
+        updateTime);
   }
 
   @Override
@@ -138,6 +163,7 @@ public class Resource {
         .add("resourceKey", resourceKey)
         .add("resourceType", resourceType)
         .add("state", state)
+        .add("updateTime", updateTime)
         .toString();
   }
 }
