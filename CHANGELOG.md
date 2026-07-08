@@ -1,5 +1,13 @@
 # Version changelog
 
+## Release v0.126.0 (2026-07-08)
+
+### API Changes
+* Add `updateTime` field for `com.databricks.sdk.service.bundledeployments.Resource`.
+* [Breaking] Change `role` field for `com.databricks.sdk.service.postgres.DatabaseDatabaseSpec` to be required.
+* Change `role` field for `com.databricks.sdk.service.postgres.DatabaseDatabaseSpec` to be required.
+
+
 ## Release v0.125.0 (2026-07-07)
 
 ### API Changes
