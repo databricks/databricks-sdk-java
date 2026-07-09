@@ -30,6 +30,14 @@ public class CreateExperiment {
   @JsonProperty("tags")
   private Collection<ExperimentTag> tags;
 
+  /**
+   * The location where the experiment's traces are stored. When set, the underlying storage is
+   * provisioned and the experiment's traces are routed to it. When unset, traces are stored in the
+   * default MLflow backend. This field cannot be updated after the experiment is created.
+   */
+  @JsonProperty("trace_location")
+  private ExperimentTraceLocation traceLocation;
+
   public CreateExperiment setArtifactLocation(String artifactLocation) {
     this.artifactLocation = artifactLocation;
     return this;
@@ -57,6 +65,15 @@ public class CreateExperiment {
     return tags;
   }
 
+  public CreateExperiment setTraceLocation(ExperimentTraceLocation traceLocation) {
+    this.traceLocation = traceLocation;
+    return this;
+  }
+
+  public ExperimentTraceLocation getTraceLocation() {
+    return traceLocation;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -64,12 +81,13 @@ public class CreateExperiment {
     CreateExperiment that = (CreateExperiment) o;
     return Objects.equals(artifactLocation, that.artifactLocation)
         && Objects.equals(name, that.name)
-        && Objects.equals(tags, that.tags);
+        && Objects.equals(tags, that.tags)
+        && Objects.equals(traceLocation, that.traceLocation);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(artifactLocation, name, tags);
+    return Objects.hash(artifactLocation, name, tags, traceLocation);
   }
 
   @Override
@@ -78,6 +96,7 @@ public class CreateExperiment {
         .add("artifactLocation", artifactLocation)
         .add("name", name)
         .add("tags", tags)
+        .add("traceLocation", traceLocation)
         .toString();
   }
 }

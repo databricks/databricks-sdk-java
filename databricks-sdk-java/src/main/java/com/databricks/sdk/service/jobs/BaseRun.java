@@ -47,6 +47,14 @@ public class BaseRun {
   @JsonProperty("creator_user_name")
   private String creatorUserName;
 
+  /**
+   * ID of the deployment that produced the job when this run was created. Used to look up
+   * deployment metadata from the Deployment Metadata service. Only set for job runs of jobs with a
+   * `BUNDLE` deployment.
+   */
+  @JsonProperty("deployment_id")
+  private String deploymentId;
+
   /** Description of the run */
   @JsonProperty("description")
   private String description;
@@ -221,6 +229,14 @@ public class BaseRun {
   @JsonProperty("trigger_info")
   private TriggerInfo triggerInfo;
 
+  /**
+   * ID of the deployment version that produced the job when this run was created. Identifies a
+   * specific snapshot of the deployment in the Deployment Metadata service. Only set for job runs
+   * of jobs with a `BUNDLE` deployment.
+   */
+  @JsonProperty("version_id")
+  private String versionId;
+
   public BaseRun setAttemptNumber(Long attemptNumber) {
     this.attemptNumber = attemptNumber;
     return this;
@@ -264,6 +280,15 @@ public class BaseRun {
 
   public String getCreatorUserName() {
     return creatorUserName;
+  }
+
+  public BaseRun setDeploymentId(String deploymentId) {
+    this.deploymentId = deploymentId;
+    return this;
+  }
+
+  public String getDeploymentId() {
+    return deploymentId;
   }
 
   public BaseRun setDescription(String description) {
@@ -527,6 +552,15 @@ public class BaseRun {
     return triggerInfo;
   }
 
+  public BaseRun setVersionId(String versionId) {
+    this.versionId = versionId;
+    return this;
+  }
+
+  public String getVersionId() {
+    return versionId;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -537,6 +571,7 @@ public class BaseRun {
         && Objects.equals(clusterInstance, that.clusterInstance)
         && Objects.equals(clusterSpec, that.clusterSpec)
         && Objects.equals(creatorUserName, that.creatorUserName)
+        && Objects.equals(deploymentId, that.deploymentId)
         && Objects.equals(description, that.description)
         && Objects.equals(effectivePerformanceTarget, that.effectivePerformanceTarget)
         && Objects.equals(effectiveUsagePolicyId, that.effectiveUsagePolicyId)
@@ -565,7 +600,8 @@ public class BaseRun {
         && Objects.equals(status, that.status)
         && Objects.equals(tasks, that.tasks)
         && Objects.equals(trigger, that.trigger)
-        && Objects.equals(triggerInfo, that.triggerInfo);
+        && Objects.equals(triggerInfo, that.triggerInfo)
+        && Objects.equals(versionId, that.versionId);
   }
 
   @Override
@@ -576,6 +612,7 @@ public class BaseRun {
         clusterInstance,
         clusterSpec,
         creatorUserName,
+        deploymentId,
         description,
         effectivePerformanceTarget,
         effectiveUsagePolicyId,
@@ -604,7 +641,8 @@ public class BaseRun {
         status,
         tasks,
         trigger,
-        triggerInfo);
+        triggerInfo,
+        versionId);
   }
 
   @Override
@@ -615,6 +653,7 @@ public class BaseRun {
         .add("clusterInstance", clusterInstance)
         .add("clusterSpec", clusterSpec)
         .add("creatorUserName", creatorUserName)
+        .add("deploymentId", deploymentId)
         .add("description", description)
         .add("effectivePerformanceTarget", effectivePerformanceTarget)
         .add("effectiveUsagePolicyId", effectiveUsagePolicyId)
@@ -644,6 +683,7 @@ public class BaseRun {
         .add("tasks", tasks)
         .add("trigger", trigger)
         .add("triggerInfo", triggerInfo)
+        .add("versionId", versionId)
         .toString();
   }
 }

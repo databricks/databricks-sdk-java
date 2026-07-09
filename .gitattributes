@@ -2076,6 +2076,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/ExperimentPermis
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/ExperimentPermissionsDescription.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/ExperimentPermissionsRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/ExperimentTag.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/ExperimentTraceLocation.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/ExperimentsAPI.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/ExperimentsImpl.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/ExperimentsService.java linguist-generated=true
@@ -2294,6 +2295,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/TransitionModelV
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/TransitionRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/TransitionStageResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/TumblingWindow.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/UcTraceLocation.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/UpdateComment.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/UpdateCommentResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/UpdateExperiment.java linguist-generated=true

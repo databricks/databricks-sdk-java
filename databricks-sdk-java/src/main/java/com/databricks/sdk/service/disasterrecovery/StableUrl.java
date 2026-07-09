@@ -33,6 +33,14 @@ public class StableUrl {
   private String name;
 
   /**
+   * The stable workspace ID for this stable URL. Generated on creation and immutable thereafter;
+   * identifies the URL across failovers and is the same value embedded in the `url` (as the `w=`
+   * query parameter for SPOG URLs, or in the `conn-<id>` hostname for Private-Link URLs).
+   */
+  @JsonProperty("stable_workspace_id")
+  private String stableWorkspaceId;
+
+  /**
    * The stable URL endpoint. Generated on creation and immutable thereafter. For non-Private-Link
    * workspaces this is `https://<spog_host>/?w=<connection_id>`. For Private-Link workspaces this
    * is the per-connection hostname.
@@ -67,6 +75,15 @@ public class StableUrl {
     return name;
   }
 
+  public StableUrl setStableWorkspaceId(String stableWorkspaceId) {
+    this.stableWorkspaceId = stableWorkspaceId;
+    return this;
+  }
+
+  public String getStableWorkspaceId() {
+    return stableWorkspaceId;
+  }
+
   public StableUrl setUrl(String url) {
     this.url = url;
     return this;
@@ -84,12 +101,13 @@ public class StableUrl {
     return Objects.equals(failoverGroupName, that.failoverGroupName)
         && Objects.equals(initialWorkspaceId, that.initialWorkspaceId)
         && Objects.equals(name, that.name)
+        && Objects.equals(stableWorkspaceId, that.stableWorkspaceId)
         && Objects.equals(url, that.url);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(failoverGroupName, initialWorkspaceId, name, url);
+    return Objects.hash(failoverGroupName, initialWorkspaceId, name, stableWorkspaceId, url);
   }
 
   @Override
@@ -98,6 +116,7 @@ public class StableUrl {
         .add("failoverGroupName", failoverGroupName)
         .add("initialWorkspaceId", initialWorkspaceId)
         .add("name", name)
+        .add("stableWorkspaceId", stableWorkspaceId)
         .add("url", url)
         .toString();
   }
