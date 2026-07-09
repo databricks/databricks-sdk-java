@@ -1,5 +1,15 @@
 # Version changelog
 
+## Release v0.127.0 (2026-07-09)
+
+### API Changes
+* Add `stableWorkspaceId` field for `com.databricks.sdk.service.disasterrecovery.StableUrl`.
+* Add `deploymentId` and `versionId` fields for `com.databricks.sdk.service.jobs.BaseRun`.
+* Add `deploymentId` and `versionId` fields for `com.databricks.sdk.service.jobs.Run`.
+* Add `traceLocation` field for `com.databricks.sdk.service.ml.CreateExperiment`.
+* Add `traceLocation` field for `com.databricks.sdk.service.ml.Experiment`.
+
+
 ## Release v0.126.0 (2026-07-08)
 
 ### API Changes
