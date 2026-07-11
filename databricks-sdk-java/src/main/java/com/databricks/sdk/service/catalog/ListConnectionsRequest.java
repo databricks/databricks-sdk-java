@@ -26,6 +26,14 @@ public class ListConnectionsRequest {
   @QueryParam("page_token")
   private String pageToken;
 
+  /**
+   * Optional. Parent schema filter for listing schema-level connections, in format
+   * "schemas/{catalog}.{schema}".
+   */
+  @JsonIgnore
+  @QueryParam("parent")
+  private String parent;
+
   public ListConnectionsRequest setMaxResults(Long maxResults) {
     this.maxResults = maxResults;
     return this;
@@ -44,17 +52,28 @@ public class ListConnectionsRequest {
     return pageToken;
   }
 
+  public ListConnectionsRequest setParent(String parent) {
+    this.parent = parent;
+    return this;
+  }
+
+  public String getParent() {
+    return parent;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ListConnectionsRequest that = (ListConnectionsRequest) o;
-    return Objects.equals(maxResults, that.maxResults) && Objects.equals(pageToken, that.pageToken);
+    return Objects.equals(maxResults, that.maxResults)
+        && Objects.equals(pageToken, that.pageToken)
+        && Objects.equals(parent, that.parent);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(maxResults, pageToken);
+    return Objects.hash(maxResults, pageToken, parent);
   }
 
   @Override
@@ -62,6 +81,7 @@ public class ListConnectionsRequest {
     return new ToStringer(ListConnectionsRequest.class)
         .add("maxResults", maxResults)
         .add("pageToken", pageToken)
+        .add("parent", parent)
         .toString();
   }
 }

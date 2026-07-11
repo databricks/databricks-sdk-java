@@ -29,6 +29,13 @@ public interface PostgresService {
   /** Register a Postgres database in the Unity Catalog. */
   Operation createCatalog(CreateCatalogRequest createCatalogRequest);
 
+  /**
+   * Create a Lakebase CDF configuration (CdfConfig). Replicates the tables of a Postgres schema
+   * into a Unity Catalog schema. Returns ALREADY_EXISTS if a config with the requested id exists,
+   * or if another config already replicates the target Postgres schema.
+   */
+  Operation createCdfConfig(CreateCdfConfigRequest createCdfConfigRequest);
+
   /** Enable Data API for a database. */
   Operation createDataApi(CreateDataApiRequest createDataApiRequest);
 
@@ -60,6 +67,12 @@ public interface PostgresService {
   /** Delete a Database Catalog. */
   Operation deleteCatalog(DeleteCatalogRequest deleteCatalogRequest);
 
+  /**
+   * Delete a Lakebase CDF configuration (CdfConfig). Stops replication and removes the config. When
+   * force is true, also drops the replicated Delta tables in Unity Catalog.
+   */
+  Operation deleteCdfConfig(DeleteCdfConfigRequest deleteCdfConfigRequest);
+
   /** Disable Data API for a database. */
   Operation deleteDataApi(DeleteDataApiRequest deleteDataApiRequest);
 
@@ -87,6 +100,14 @@ public interface PostgresService {
 
   /** Get a Database Catalog. */
   Catalog getCatalog(GetCatalogRequest getCatalogRequest);
+
+  /** Get a single Lakebase CDF configuration (CdfConfig). */
+  CdfConfig getCdfConfig(GetCdfConfigRequest getCdfConfigRequest);
+
+  /**
+   * Get the replication status of a single replicated table within a Lakebase CDF configuration.
+   */
+  CdfStatus getCdfStatus(GetCdfStatusRequest getCdfStatusRequest);
 
   /** Get Data API configuration for a database. */
   DataApi getDataApi(GetDataApiRequest getDataApiRequest);
@@ -117,6 +138,12 @@ public interface PostgresService {
 
   /** Returns a paginated list of database branches in the project. */
   ListBranchesResponse listBranches(ListBranchesRequest listBranchesRequest);
+
+  /** List the Lakebase CDF configurations (CdfConfigs) under a database. */
+  ListCdfConfigsResponse listCdfConfigs(ListCdfConfigsRequest listCdfConfigsRequest);
+
+  /** List the replication statuses of all tables replicated under a Lakebase CDF configuration. */
+  ListCdfStatusesResponse listCdfStatuses(ListCdfStatusesRequest listCdfStatusesRequest);
 
   /** List Databases. */
   ListDatabasesResponse listDatabases(ListDatabasesRequest listDatabasesRequest);

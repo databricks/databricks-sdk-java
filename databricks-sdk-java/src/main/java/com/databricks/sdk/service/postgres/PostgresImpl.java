@@ -53,6 +53,24 @@ class PostgresImpl implements PostgresService {
   }
 
   @Override
+  public Operation createCdfConfig(CreateCdfConfigRequest request) {
+    String path = String.format("/api/2.0/postgres/%s/cdf-configs", request.getParent());
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request.getCdfConfig()));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, Operation.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public Operation createDataApi(CreateDataApiRequest request) {
     String path = String.format("/api/2.0/postgres/%s/data-api", request.getParent());
     try {
@@ -179,6 +197,23 @@ class PostgresImpl implements PostgresService {
 
   @Override
   public Operation deleteCatalog(DeleteCatalogRequest request) {
+    String path = String.format("/api/2.0/postgres/%s", request.getName());
+    try {
+      Request req = new Request("DELETE", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, Operation.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public Operation deleteCdfConfig(DeleteCdfConfigRequest request) {
     String path = String.format("/api/2.0/postgres/%s", request.getName());
     try {
       Request req = new Request("DELETE", path);
@@ -349,6 +384,40 @@ class PostgresImpl implements PostgresService {
   }
 
   @Override
+  public CdfConfig getCdfConfig(GetCdfConfigRequest request) {
+    String path = String.format("/api/2.0/postgres/%s", request.getName());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, CdfConfig.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public CdfStatus getCdfStatus(GetCdfStatusRequest request) {
+    String path = String.format("/api/2.0/postgres/%s", request.getName());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, CdfStatus.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public DataApi getDataApi(GetDataApiRequest request) {
     String path = String.format("/api/2.0/postgres/%s", request.getName());
     try {
@@ -479,6 +548,40 @@ class PostgresImpl implements PostgresService {
         req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, ListBranchesResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public ListCdfConfigsResponse listCdfConfigs(ListCdfConfigsRequest request) {
+    String path = String.format("/api/2.0/postgres/%s/cdf-configs", request.getParent());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, ListCdfConfigsResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public ListCdfStatusesResponse listCdfStatuses(ListCdfStatusesRequest request) {
+    String path = String.format("/api/2.0/postgres/%s/cdf-statuses", request.getParent());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, ListCdfStatusesResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

@@ -49,6 +49,16 @@ public class PostgresAPI {
     return new CreateCatalogOperation(impl, operation);
   }
 
+  /**
+   * Create a Lakebase CDF configuration (CdfConfig). Replicates the tables of a Postgres schema
+   * into a Unity Catalog schema. Returns ALREADY_EXISTS if a config with the requested id exists,
+   * or if another config already replicates the target Postgres schema.
+   */
+  public CreateCdfConfigOperation createCdfConfig(CreateCdfConfigRequest request) {
+    Operation operation = impl.createCdfConfig(request);
+    return new CreateCdfConfigOperation(impl, operation);
+  }
+
   /** Enable Data API for a database. */
   public CreateDataApiOperation createDataApi(CreateDataApiRequest request) {
     Operation operation = impl.createDataApi(request);
@@ -110,6 +120,19 @@ public class PostgresAPI {
   public DeleteCatalogOperation deleteCatalog(DeleteCatalogRequest request) {
     Operation operation = impl.deleteCatalog(request);
     return new DeleteCatalogOperation(impl, operation);
+  }
+
+  public DeleteCdfConfigOperation deleteCdfConfig(String name) {
+    return deleteCdfConfig(new DeleteCdfConfigRequest().setName(name));
+  }
+
+  /**
+   * Delete a Lakebase CDF configuration (CdfConfig). Stops replication and removes the config. When
+   * force is true, also drops the replicated Delta tables in Unity Catalog.
+   */
+  public DeleteCdfConfigOperation deleteCdfConfig(DeleteCdfConfigRequest request) {
+    Operation operation = impl.deleteCdfConfig(request);
+    return new DeleteCdfConfigOperation(impl, operation);
   }
 
   public DeleteDataApiOperation deleteDataApi(String name) {
@@ -195,6 +218,26 @@ public class PostgresAPI {
     return impl.getCatalog(request);
   }
 
+  public CdfConfig getCdfConfig(String name) {
+    return getCdfConfig(new GetCdfConfigRequest().setName(name));
+  }
+
+  /** Get a single Lakebase CDF configuration (CdfConfig). */
+  public CdfConfig getCdfConfig(GetCdfConfigRequest request) {
+    return impl.getCdfConfig(request);
+  }
+
+  public CdfStatus getCdfStatus(String name) {
+    return getCdfStatus(new GetCdfStatusRequest().setName(name));
+  }
+
+  /**
+   * Get the replication status of a single replicated table within a Lakebase CDF configuration.
+   */
+  public CdfStatus getCdfStatus(GetCdfStatusRequest request) {
+    return impl.getCdfStatus(request);
+  }
+
   public DataApi getDataApi(String name) {
     return getDataApi(new GetDataApiRequest().setName(name));
   }
@@ -274,6 +317,44 @@ public class PostgresAPI {
         request,
         impl::listBranches,
         ListBranchesResponse::getBranches,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
+  }
+
+  public Iterable<CdfConfig> listCdfConfigs(String parent) {
+    return listCdfConfigs(new ListCdfConfigsRequest().setParent(parent));
+  }
+
+  /** List the Lakebase CDF configurations (CdfConfigs) under a database. */
+  public Iterable<CdfConfig> listCdfConfigs(ListCdfConfigsRequest request) {
+    return Paginator.newTokenPagination(
+        request,
+        impl::listCdfConfigs,
+        ListCdfConfigsResponse::getCdfConfigs,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
+  }
+
+  public Iterable<CdfStatus> listCdfStatuses(String parent) {
+    return listCdfStatuses(new ListCdfStatusesRequest().setParent(parent));
+  }
+
+  /** List the replication statuses of all tables replicated under a Lakebase CDF configuration. */
+  public Iterable<CdfStatus> listCdfStatuses(ListCdfStatusesRequest request) {
+    return Paginator.newTokenPagination(
+        request,
+        impl::listCdfStatuses,
+        ListCdfStatusesResponse::getCdfStatuses,
         response -> {
           String token = response.getNextPageToken();
           if (token == null || token.isEmpty()) {
