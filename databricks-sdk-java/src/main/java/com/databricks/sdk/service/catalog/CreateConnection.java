@@ -30,6 +30,13 @@ public class CreateConnection {
   @JsonProperty("options")
   private Map<String, String> options;
 
+  /**
+   * Parent schema for schema-level connections, in format "schemas/{catalog}.{schema}". Absent for
+   * metastore-level (L1) connections.
+   */
+  @JsonProperty("parent")
+  private String parent;
+
   /** A map of key-value properties attached to the securable. */
   @JsonProperty("properties")
   private Map<String, String> properties;
@@ -83,6 +90,15 @@ public class CreateConnection {
     return options;
   }
 
+  public CreateConnection setParent(String parent) {
+    this.parent = parent;
+    return this;
+  }
+
+  public String getParent() {
+    return parent;
+  }
+
   public CreateConnection setProperties(Map<String, String> properties) {
     this.properties = properties;
     return this;
@@ -111,6 +127,7 @@ public class CreateConnection {
         && Objects.equals(environmentSettings, that.environmentSettings)
         && Objects.equals(name, that.name)
         && Objects.equals(options, that.options)
+        && Objects.equals(parent, that.parent)
         && Objects.equals(properties, that.properties)
         && Objects.equals(readOnly, that.readOnly);
   }
@@ -118,7 +135,7 @@ public class CreateConnection {
   @Override
   public int hashCode() {
     return Objects.hash(
-        comment, connectionType, environmentSettings, name, options, properties, readOnly);
+        comment, connectionType, environmentSettings, name, options, parent, properties, readOnly);
   }
 
   @Override
@@ -129,6 +146,7 @@ public class CreateConnection {
         .add("environmentSettings", environmentSettings)
         .add("name", name)
         .add("options", options)
+        .add("parent", parent)
         .add("properties", properties)
         .add("readOnly", readOnly)
         .toString();

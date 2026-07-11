@@ -21,9 +21,10 @@ public interface SupervisorAgentsService {
   /**
    * Creates a Tool under a Supervisor Agent. Specify one of "genie_space", "knowledge_assistant",
    * "uc_function", "uc_connection", "app", "volume", "dashboard", "table", "vector_search_index",
-   * "catalog", "schema", "supervisor_agent", "web_search", "skill" in the request body. The legacy
-   * values "lakeview_dashboard" and "uc_table" are also accepted and remain equivalent to
-   * "dashboard" and "table" respectively.
+   * "catalog", "schema", "supervisor_agent", "databricks_web_search", "skill" in the request body.
+   * The legacy values "lakeview_dashboard", "uc_table", and "web_search" are also accepted and
+   * remain equivalent to "dashboard", "table", and "databricks_web_search" respectively. The
+   * "databricks_web_search" tool_type maps to the `web_search` spec field.
    */
   Tool createTool(CreateToolRequest createToolRequest);
 
