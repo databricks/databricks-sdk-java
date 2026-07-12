@@ -32,7 +32,7 @@ public class ServicePrincipal {
 
   /** Internal service principal ID of the service principal in Databricks. */
   @JsonProperty("internal_id")
-  private Long internalId;
+  private String internalId;
 
   public ServicePrincipal setAccountId(String accountId) {
     this.accountId = accountId;
@@ -79,12 +79,12 @@ public class ServicePrincipal {
     return externalId;
   }
 
-  public ServicePrincipal setInternalId(Long internalId) {
+  public ServicePrincipal setInternalId(String internalId) {
     this.internalId = internalId;
     return this;
   }
 
-  public Long getInternalId() {
+  public String getInternalId() {
     return internalId;
   }
 

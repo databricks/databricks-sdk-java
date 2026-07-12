@@ -28,7 +28,7 @@ public class User {
 
   /** Internal userId of the user in Databricks. */
   @JsonProperty("internal_id")
-  private Long internalId;
+  private String internalId;
 
   /** Username/email of the user. */
   @JsonProperty("username")
@@ -70,12 +70,12 @@ public class User {
     return fullName;
   }
 
-  public User setInternalId(Long internalId) {
+  public User setInternalId(String internalId) {
     this.internalId = internalId;
     return this;
   }
 
-  public Long getInternalId() {
+  public String getInternalId() {
     return internalId;
   }
 
