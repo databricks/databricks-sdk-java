@@ -7,6 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
+/** Starts a SQL warehouse. This API is idempotent. */
 @Generated
 public class StartRequest {
   /** Required. Id of the SQL warehouse. */

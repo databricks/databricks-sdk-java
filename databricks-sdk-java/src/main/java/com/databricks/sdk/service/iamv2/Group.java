@@ -24,7 +24,7 @@ public class Group {
 
   /** Internal group ID of the group in Databricks. */
   @JsonProperty("internal_id")
-  private Long internalId;
+  private String internalId;
 
   public Group setAccountId(String accountId) {
     this.accountId = accountId;
@@ -53,12 +53,12 @@ public class Group {
     return groupName;
   }
 
-  public Group setInternalId(Long internalId) {
+  public Group setInternalId(String internalId) {
     this.internalId = internalId;
     return this;
   }
 
-  public Long getInternalId() {
+  public String getInternalId() {
     return internalId;
   }
 

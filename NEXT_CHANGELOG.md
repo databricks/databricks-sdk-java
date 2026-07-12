@@ -19,3 +19,6 @@
 * Add `parent` field for `com.databricks.sdk.service.catalog.CreateConnection`.
 * Add `parent` field for `com.databricks.sdk.service.catalog.ListConnectionsRequest`.
 * Add `MINUTES` enum value for `com.databricks.sdk.service.jobs.PeriodicTriggerConfigurationTimeUnit`.
+* [Breaking] Change `internalId` field for `com.databricks.sdk.service.iamv2.Group` to type `String` class.
+* [Breaking] Change `internalId` field for `com.databricks.sdk.service.iamv2.ServicePrincipal` to type `String` class.
+* [Breaking] Change `internalId` field for `com.databricks.sdk.service.iamv2.User` to type `String` class.
