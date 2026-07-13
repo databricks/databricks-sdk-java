@@ -22,7 +22,7 @@ public class CdfStatus {
   @JsonProperty("create_time")
   private Timestamp createTime;
 
-  /** The last time wal2delta wrote changes for this table. */
+  /** The last time changes for this table were written to Delta Lake. */
   @JsonProperty("last_sync_time")
   private Timestamp lastSyncTime;
 
