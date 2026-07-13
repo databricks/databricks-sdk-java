@@ -1,5 +1,17 @@
 # Version changelog
 
+## Release v0.128.0 (2026-07-13)
+
+### API Changes
+* Add `createCdfConfig()`, `deleteCdfConfig()`, `getCdfConfig()`, `getCdfStatus()`, `listCdfConfigs()` and `listCdfStatuses()` methods for `workspaceClient.postgres()` service.
+* Add `parent` field for `com.databricks.sdk.service.catalog.CreateConnection`.
+* Add `parent` field for `com.databricks.sdk.service.catalog.ListConnectionsRequest`.
+* Add `MINUTES` enum value for `com.databricks.sdk.service.jobs.PeriodicTriggerConfigurationTimeUnit`.
+* [Breaking] Change `internalId` field for `com.databricks.sdk.service.iamv2.Group` to type `String` class.
+* [Breaking] Change `internalId` field for `com.databricks.sdk.service.iamv2.ServicePrincipal` to type `String` class.
+* [Breaking] Change `internalId` field for `com.databricks.sdk.service.iamv2.User` to type `String` class.
+
+
 ## Release v0.127.0 (2026-07-09)
 
 ### API Changes
