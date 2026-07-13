@@ -4,10 +4,7 @@ package com.databricks.sdk.service.postgres;
 
 import com.databricks.sdk.support.Generated;
 
-/**
- * The replication state of a single replicated table (CdfStatus), as reported by the wal2delta
- * extension on the primary compute.
- */
+/** The replication state of a single replicated table (CdfStatus). */
 @Generated
 public enum CdfState {
   CDF_STATE_SKIPPED,
