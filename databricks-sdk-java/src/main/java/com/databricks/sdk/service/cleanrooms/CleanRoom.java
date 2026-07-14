@@ -25,6 +25,14 @@ public class CleanRoom {
   @JsonProperty("created_at")
   private Long createdAt;
 
+  /**
+   * Whether allow task to write to shared output schema. When enabled, clean room task runs
+   * triggered by the current collaborator can write to the run-scoped shared output schema which is
+   * accessible by all collaborators.
+   */
+  @JsonProperty("enable_shared_output")
+  private Boolean enableSharedOutput;
+
   /** The alias of the collaborator tied to the local clean room. */
   @JsonProperty("local_collaborator_alias")
   private String localCollaboratorAlias;
@@ -92,6 +100,15 @@ public class CleanRoom {
 
   public Long getCreatedAt() {
     return createdAt;
+  }
+
+  public CleanRoom setEnableSharedOutput(Boolean enableSharedOutput) {
+    this.enableSharedOutput = enableSharedOutput;
+    return this;
+  }
+
+  public Boolean getEnableSharedOutput() {
+    return enableSharedOutput;
   }
 
   public CleanRoom setLocalCollaboratorAlias(String localCollaboratorAlias) {
@@ -165,6 +182,7 @@ public class CleanRoom {
     return Objects.equals(accessRestricted, that.accessRestricted)
         && Objects.equals(comment, that.comment)
         && Objects.equals(createdAt, that.createdAt)
+        && Objects.equals(enableSharedOutput, that.enableSharedOutput)
         && Objects.equals(localCollaboratorAlias, that.localCollaboratorAlias)
         && Objects.equals(name, that.name)
         && Objects.equals(outputCatalog, that.outputCatalog)
@@ -180,6 +198,7 @@ public class CleanRoom {
         accessRestricted,
         comment,
         createdAt,
+        enableSharedOutput,
         localCollaboratorAlias,
         name,
         outputCatalog,
@@ -195,6 +214,7 @@ public class CleanRoom {
         .add("accessRestricted", accessRestricted)
         .add("comment", comment)
         .add("createdAt", createdAt)
+        .add("enableSharedOutput", enableSharedOutput)
         .add("localCollaboratorAlias", localCollaboratorAlias)
         .add("name", name)
         .add("outputCatalog", outputCatalog)

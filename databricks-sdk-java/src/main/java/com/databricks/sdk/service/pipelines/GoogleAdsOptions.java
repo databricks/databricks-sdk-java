@@ -14,6 +14,15 @@ import java.util.Objects;
 @Generated
 public class GoogleAdsOptions {
   /**
+   * (Optional) Custom report definition. When set, the table is treated as a user-defined Google
+   * Ads custom report: the connector synthesizes a GAQL query from the resource, fields, segments,
+   * and metrics specified here. When unset, the table must match one of the connector's prebuilt
+   * sources.
+   */
+  @JsonProperty("custom_report_options")
+  private GoogleAdsCustomReportOptions customReportOptions;
+
+  /**
    * (Optional) Number of days to look back for report tables to capture late-arriving data. If not
    * specified, defaults to 30 days.
    */
@@ -35,6 +44,15 @@ public class GoogleAdsOptions {
    */
   @JsonProperty("sync_start_date")
   private String syncStartDate;
+
+  public GoogleAdsOptions setCustomReportOptions(GoogleAdsCustomReportOptions customReportOptions) {
+    this.customReportOptions = customReportOptions;
+    return this;
+  }
+
+  public GoogleAdsCustomReportOptions getCustomReportOptions() {
+    return customReportOptions;
+  }
 
   public GoogleAdsOptions setLookbackWindowDays(Long lookbackWindowDays) {
     this.lookbackWindowDays = lookbackWindowDays;
@@ -68,19 +86,21 @@ public class GoogleAdsOptions {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GoogleAdsOptions that = (GoogleAdsOptions) o;
-    return Objects.equals(lookbackWindowDays, that.lookbackWindowDays)
+    return Objects.equals(customReportOptions, that.customReportOptions)
+        && Objects.equals(lookbackWindowDays, that.lookbackWindowDays)
         && Objects.equals(managerAccountId, that.managerAccountId)
         && Objects.equals(syncStartDate, that.syncStartDate);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(lookbackWindowDays, managerAccountId, syncStartDate);
+    return Objects.hash(customReportOptions, lookbackWindowDays, managerAccountId, syncStartDate);
   }
 
   @Override
   public String toString() {
     return new ToStringer(GoogleAdsOptions.class)
+        .add("customReportOptions", customReportOptions)
         .add("lookbackWindowDays", lookbackWindowDays)
         .add("managerAccountId", managerAccountId)
         .add("syncStartDate", syncStartDate)

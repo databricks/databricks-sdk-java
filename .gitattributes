@@ -2426,6 +2426,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/GetPipeli
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/GetUpdateRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/GetUpdateResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/GoogleAdsConfig.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/GoogleAdsCustomReportOptions.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/GoogleAdsOptions.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/GoogleDriveOptions.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/GoogleDriveOptionsGoogleDriveEntityType.java linguist-generated=true
@@ -2448,6 +2449,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/ListUpdat
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/ManualTrigger.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/MaturityLevel.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/MetaMarketingOptions.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/MetaMarketingOptionsMetaMarketingCustomReportOptions.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/NotebookLibrary.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/Notifications.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/OperationTimeWindow.java linguist-generated=true
@@ -2504,6 +2506,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/TableSpec
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/TableSpecificConfig.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/TableSpecificConfigScdType.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/TikTokAdsOptions.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/TikTokAdsOptionsTikTokAdsCustomReportOptions.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/TikTokAdsOptionsTikTokDataLevel.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/TikTokAdsOptionsTikTokReportType.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/Transformer.java linguist-generated=true

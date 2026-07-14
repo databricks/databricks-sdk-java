@@ -11,6 +11,15 @@ import java.util.Objects;
 /** TikTok Ads specific options for ingestion */
 @Generated
 public class TikTokAdsOptions {
+  /**
+   * (Optional) Custom report definition. When set, the table is treated as a user-defined TikTok
+   * Ads custom report: the connector synthesizes a report request from the dimensions, metrics,
+   * report type, and data level specified here. Supersedes the deprecated top-level
+   * dimensions/metrics/report_type/ data_level/query_lifetime fields above.
+   */
+  @JsonProperty("custom_report_options")
+  private TikTokAdsOptionsTikTokAdsCustomReportOptions customReportOptions;
+
   /** Deprecated. Use custom_report_options.data_level instead. */
   @JsonProperty("data_level")
   private TikTokAdsOptionsTikTokDataLevel dataLevel;
@@ -44,6 +53,16 @@ public class TikTokAdsOptions {
    */
   @JsonProperty("sync_start_date")
   private String syncStartDate;
+
+  public TikTokAdsOptions setCustomReportOptions(
+      TikTokAdsOptionsTikTokAdsCustomReportOptions customReportOptions) {
+    this.customReportOptions = customReportOptions;
+    return this;
+  }
+
+  public TikTokAdsOptionsTikTokAdsCustomReportOptions getCustomReportOptions() {
+    return customReportOptions;
+  }
 
   public TikTokAdsOptions setDataLevel(TikTokAdsOptionsTikTokDataLevel dataLevel) {
     this.dataLevel = dataLevel;
@@ -113,7 +132,8 @@ public class TikTokAdsOptions {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     TikTokAdsOptions that = (TikTokAdsOptions) o;
-    return Objects.equals(dataLevel, that.dataLevel)
+    return Objects.equals(customReportOptions, that.customReportOptions)
+        && Objects.equals(dataLevel, that.dataLevel)
         && Objects.equals(dimensions, that.dimensions)
         && Objects.equals(lookbackWindowDays, that.lookbackWindowDays)
         && Objects.equals(metrics, that.metrics)
@@ -125,6 +145,7 @@ public class TikTokAdsOptions {
   @Override
   public int hashCode() {
     return Objects.hash(
+        customReportOptions,
         dataLevel,
         dimensions,
         lookbackWindowDays,
@@ -137,6 +158,7 @@ public class TikTokAdsOptions {
   @Override
   public String toString() {
     return new ToStringer(TikTokAdsOptions.class)
+        .add("customReportOptions", customReportOptions)
         .add("dataLevel", dataLevel)
         .add("dimensions", dimensions)
         .add("lookbackWindowDays", lookbackWindowDays)

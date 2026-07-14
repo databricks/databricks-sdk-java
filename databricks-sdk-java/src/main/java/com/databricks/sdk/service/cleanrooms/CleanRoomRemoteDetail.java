@@ -42,6 +42,22 @@ public class CleanRoomRemoteDetail {
   @JsonProperty("egress_network_policy")
   private com.databricks.sdk.service.settings.EgressNetworkPolicy egressNetworkPolicy;
 
+  /**
+   * Whether to enable shared output for the central clean room. When enabled, clean room task runs
+   * can write to the run-scoped shared output schema which is accessible by all collaborators.
+   */
+  @JsonProperty("enable_shared_output")
+  private Boolean enableSharedOutput;
+
+  /**
+   * Alias of the provider collaborator. If set, packaged clean rooms mode is enabled. The
+   * consumer's experience is restricted: they can view notebook names and READMEs, add their own
+   * data assets, and trigger runs, but cannot view notebook code, provider data assets, or notebook
+   * run output.
+   */
+  @JsonProperty("package_provider_collaborator_alias")
+  private String packageProviderCollaboratorAlias;
+
   /** Region of the central clean room. */
   @JsonProperty("region")
   private String region;
@@ -102,6 +118,25 @@ public class CleanRoomRemoteDetail {
     return egressNetworkPolicy;
   }
 
+  public CleanRoomRemoteDetail setEnableSharedOutput(Boolean enableSharedOutput) {
+    this.enableSharedOutput = enableSharedOutput;
+    return this;
+  }
+
+  public Boolean getEnableSharedOutput() {
+    return enableSharedOutput;
+  }
+
+  public CleanRoomRemoteDetail setPackageProviderCollaboratorAlias(
+      String packageProviderCollaboratorAlias) {
+    this.packageProviderCollaboratorAlias = packageProviderCollaboratorAlias;
+    return this;
+  }
+
+  public String getPackageProviderCollaboratorAlias() {
+    return packageProviderCollaboratorAlias;
+  }
+
   public CleanRoomRemoteDetail setRegion(String region) {
     this.region = region;
     return this;
@@ -122,6 +157,8 @@ public class CleanRoomRemoteDetail {
         && Objects.equals(complianceSecurityProfile, that.complianceSecurityProfile)
         && Objects.equals(creator, that.creator)
         && Objects.equals(egressNetworkPolicy, that.egressNetworkPolicy)
+        && Objects.equals(enableSharedOutput, that.enableSharedOutput)
+        && Objects.equals(packageProviderCollaboratorAlias, that.packageProviderCollaboratorAlias)
         && Objects.equals(region, that.region);
   }
 
@@ -134,6 +171,8 @@ public class CleanRoomRemoteDetail {
         complianceSecurityProfile,
         creator,
         egressNetworkPolicy,
+        enableSharedOutput,
+        packageProviderCollaboratorAlias,
         region);
   }
 
@@ -146,6 +185,8 @@ public class CleanRoomRemoteDetail {
         .add("complianceSecurityProfile", complianceSecurityProfile)
         .add("creator", creator)
         .add("egressNetworkPolicy", egressNetworkPolicy)
+        .add("enableSharedOutput", enableSharedOutput)
+        .add("packageProviderCollaboratorAlias", packageProviderCollaboratorAlias)
         .add("region", region)
         .toString();
   }
