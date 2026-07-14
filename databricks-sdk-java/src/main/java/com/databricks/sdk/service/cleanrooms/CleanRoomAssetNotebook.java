@@ -10,6 +10,17 @@ import java.util.Objects;
 
 @Generated
 public class CleanRoomAssetNotebook {
+  /** Optional description of the notebook shown to all collaborators. */
+  @JsonProperty("description")
+  private String description;
+
+  /**
+   * The serverless environment version used to execute the notebook (e.g. "4"). Defaults to "2" if
+   * not specified.
+   */
+  @JsonProperty("environment_version")
+  private String environmentVersion;
+
   /** Server generated etag that represents the notebook version. */
   @JsonProperty("etag")
   private String etag;
@@ -34,6 +45,24 @@ public class CleanRoomAssetNotebook {
   /** Aliases of collaborators that can run the notebook. */
   @JsonProperty("runner_collaborator_aliases")
   private Collection<String> runnerCollaboratorAliases;
+
+  public CleanRoomAssetNotebook setDescription(String description) {
+    this.description = description;
+    return this;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public CleanRoomAssetNotebook setEnvironmentVersion(String environmentVersion) {
+    this.environmentVersion = environmentVersion;
+    return this;
+  }
+
+  public String getEnvironmentVersion() {
+    return environmentVersion;
+  }
 
   public CleanRoomAssetNotebook setEtag(String etag) {
     this.etag = etag;
@@ -87,7 +116,9 @@ public class CleanRoomAssetNotebook {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     CleanRoomAssetNotebook that = (CleanRoomAssetNotebook) o;
-    return Objects.equals(etag, that.etag)
+    return Objects.equals(description, that.description)
+        && Objects.equals(environmentVersion, that.environmentVersion)
+        && Objects.equals(etag, that.etag)
         && Objects.equals(notebookContent, that.notebookContent)
         && Objects.equals(reviewState, that.reviewState)
         && Objects.equals(reviews, that.reviews)
@@ -96,12 +127,21 @@ public class CleanRoomAssetNotebook {
 
   @Override
   public int hashCode() {
-    return Objects.hash(etag, notebookContent, reviewState, reviews, runnerCollaboratorAliases);
+    return Objects.hash(
+        description,
+        environmentVersion,
+        etag,
+        notebookContent,
+        reviewState,
+        reviews,
+        runnerCollaboratorAliases);
   }
 
   @Override
   public String toString() {
     return new ToStringer(CleanRoomAssetNotebook.class)
+        .add("description", description)
+        .add("environmentVersion", environmentVersion)
         .add("etag", etag)
         .add("notebookContent", notebookContent)
         .add("reviewState", reviewState)

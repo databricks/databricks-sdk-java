@@ -46,6 +46,19 @@ public class CleanRoomNotebookTaskRun {
   @JsonProperty("run_duration")
   private Long runDuration;
 
+  /**
+   * Expiration time of the shared output schema of the task run (if any), in epoch milliseconds.
+   */
+  @JsonProperty("shared_output_schema_expiration_time")
+  private Long sharedOutputSchemaExpirationTime;
+
+  /**
+   * Name of the shared output schema associated with the clean rooms notebook task run. This schema
+   * is accessible by all collaborators when enable_shared_output is true.
+   */
+  @JsonProperty("shared_output_schema_name")
+  private String sharedOutputSchemaName;
+
   /** When the task run started, in epoch milliseconds. */
   @JsonProperty("start_time")
   private Long startTime;
@@ -124,6 +137,25 @@ public class CleanRoomNotebookTaskRun {
     return runDuration;
   }
 
+  public CleanRoomNotebookTaskRun setSharedOutputSchemaExpirationTime(
+      Long sharedOutputSchemaExpirationTime) {
+    this.sharedOutputSchemaExpirationTime = sharedOutputSchemaExpirationTime;
+    return this;
+  }
+
+  public Long getSharedOutputSchemaExpirationTime() {
+    return sharedOutputSchemaExpirationTime;
+  }
+
+  public CleanRoomNotebookTaskRun setSharedOutputSchemaName(String sharedOutputSchemaName) {
+    this.sharedOutputSchemaName = sharedOutputSchemaName;
+    return this;
+  }
+
+  public String getSharedOutputSchemaName() {
+    return sharedOutputSchemaName;
+  }
+
   public CleanRoomNotebookTaskRun setStartTime(Long startTime) {
     this.startTime = startTime;
     return this;
@@ -146,6 +178,8 @@ public class CleanRoomNotebookTaskRun {
         && Objects.equals(outputSchemaExpirationTime, that.outputSchemaExpirationTime)
         && Objects.equals(outputSchemaName, that.outputSchemaName)
         && Objects.equals(runDuration, that.runDuration)
+        && Objects.equals(sharedOutputSchemaExpirationTime, that.sharedOutputSchemaExpirationTime)
+        && Objects.equals(sharedOutputSchemaName, that.sharedOutputSchemaName)
         && Objects.equals(startTime, that.startTime);
   }
 
@@ -160,6 +194,8 @@ public class CleanRoomNotebookTaskRun {
         outputSchemaExpirationTime,
         outputSchemaName,
         runDuration,
+        sharedOutputSchemaExpirationTime,
+        sharedOutputSchemaName,
         startTime);
   }
 
@@ -174,6 +210,8 @@ public class CleanRoomNotebookTaskRun {
         .add("outputSchemaExpirationTime", outputSchemaExpirationTime)
         .add("outputSchemaName", outputSchemaName)
         .add("runDuration", runDuration)
+        .add("sharedOutputSchemaExpirationTime", sharedOutputSchemaExpirationTime)
+        .add("sharedOutputSchemaName", sharedOutputSchemaName)
         .add("startTime", startTime)
         .toString();
   }

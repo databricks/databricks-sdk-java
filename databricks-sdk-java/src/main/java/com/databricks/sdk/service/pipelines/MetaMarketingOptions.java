@@ -41,6 +41,14 @@ public class MetaMarketingOptions {
   private Long customInsightsLookbackWindow;
 
   /**
+   * (Optional) Per-table custom report definition. When set, defines the shape of the insights call
+   * for this table (level/fields/breakdowns/action_breakdowns/etc.). Supersedes the deprecated flat
+   * report-shape fields above.
+   */
+  @JsonProperty("custom_report_options")
+  private MetaMarketingOptionsMetaMarketingCustomReportOptions customReportOptions;
+
+  /**
    * (Optional, DEPRECATED — use custom_report_options.level) Granularity of data to pull (account,
    * ad, adset, campaign)
    */
@@ -107,6 +115,16 @@ public class MetaMarketingOptions {
     return customInsightsLookbackWindow;
   }
 
+  public MetaMarketingOptions setCustomReportOptions(
+      MetaMarketingOptionsMetaMarketingCustomReportOptions customReportOptions) {
+    this.customReportOptions = customReportOptions;
+    return this;
+  }
+
+  public MetaMarketingOptionsMetaMarketingCustomReportOptions getCustomReportOptions() {
+    return customReportOptions;
+  }
+
   public MetaMarketingOptions setLevel(String level) {
     this.level = level;
     return this;
@@ -144,6 +162,7 @@ public class MetaMarketingOptions {
         && Objects.equals(actionReportTime, that.actionReportTime)
         && Objects.equals(breakdowns, that.breakdowns)
         && Objects.equals(customInsightsLookbackWindow, that.customInsightsLookbackWindow)
+        && Objects.equals(customReportOptions, that.customReportOptions)
         && Objects.equals(level, that.level)
         && Objects.equals(startDate, that.startDate)
         && Objects.equals(timeIncrement, that.timeIncrement);
@@ -157,6 +176,7 @@ public class MetaMarketingOptions {
         actionReportTime,
         breakdowns,
         customInsightsLookbackWindow,
+        customReportOptions,
         level,
         startDate,
         timeIncrement);
@@ -170,6 +190,7 @@ public class MetaMarketingOptions {
         .add("actionReportTime", actionReportTime)
         .add("breakdowns", breakdowns)
         .add("customInsightsLookbackWindow", customInsightsLookbackWindow)
+        .add("customReportOptions", customReportOptions)
         .add("level", level)
         .add("startDate", startDate)
         .add("timeIncrement", timeIncrement)
