@@ -8,6 +8,8 @@
 
 ### Bug Fixes
 
+- Avoid NullPointerException in UserAgent when PATH is missing
+
 ### Security Vulnerabilities
 
 ### Documentation

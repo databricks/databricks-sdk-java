@@ -411,10 +411,12 @@ public class UserAgent {
 
   private static Environment env() {
     if (env == null) {
+      String path = System.getenv("PATH");
+      String[] pathParts = path != null ? path.split(File.pathSeparator) : new String[0];
       env =
           new Environment(
               System.getenv(),
-              System.getenv("PATH").split(File.pathSeparator),
+              pathParts,
               System.getProperty("os.name"));
     }
     return env;
