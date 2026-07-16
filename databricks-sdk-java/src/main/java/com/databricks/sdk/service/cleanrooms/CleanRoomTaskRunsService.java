@@ -4,7 +4,7 @@ package com.databricks.sdk.service.cleanrooms;
 import com.databricks.sdk.support.Generated;
 
 /**
- * Clean room task runs are the executions of notebooks in a clean room.
+ * Clean room task runs are the executions of notebooks and JAR analyses in a clean room.
  *
  * <p>This is the high-level interface, that contains generated methods.
  *
@@ -15,4 +15,8 @@ public interface CleanRoomTaskRunsService {
   /** List all the historical notebook task runs in a clean room. */
   ListCleanRoomNotebookTaskRunsResponse list(
       ListCleanRoomNotebookTaskRunsRequest listCleanRoomNotebookTaskRunsRequest);
+
+  /** List all the historical task runs in a clean room. */
+  ListCleanRoomTaskRunsResponse listCleanRoomTaskRunsHandler(
+      ListCleanRoomTaskRunsRequest listCleanRoomTaskRunsRequest);
 }

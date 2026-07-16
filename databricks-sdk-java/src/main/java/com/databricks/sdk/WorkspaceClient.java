@@ -688,7 +688,7 @@ public class WorkspaceClient {
     return cleanRoomAutoApprovalRulesAPI;
   }
 
-  /** Clean room task runs are the executions of notebooks in a clean room. */
+  /** Clean room task runs are the executions of notebooks and JAR analyses in a clean room. */
   public CleanRoomTaskRunsAPI cleanRoomTaskRuns() {
     return cleanRoomTaskRunsAPI;
   }

@@ -17,9 +17,17 @@ import java.util.Objects;
 @Generated
 public class DeploymentSpec {
   /**
-   * Workspace path of the bash script to execute on each node in this deployment. The CLI uploads
-   * the user's script and populates this. Customers calling the Jobs API directly should upload
-   * their script to the workspace first and supply the resulting path here.
+   * Workspace path of the script to run on each node in this deployment. Upload the script to this
+   * path and supply the path here. When the task runs, the file at this path is run on each node;
+   * if it fails, the task fails with its exit code.
+   *
+   * <p>Example script contents:
+   *
+   * <p># Plain Python: python train.py --epochs 10
+   *
+   * <p># Multi-GPU via accelerate: accelerate launch train.py --config config.yaml
+   *
+   * <p># Distributed via torchrun: torchrun --nproc_per_node=8 train.py
    */
   @JsonProperty("command_path")
   private String commandPath;

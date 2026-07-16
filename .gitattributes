@@ -800,6 +800,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/CleanRoo
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/CleanRoomAssetAssetType.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/CleanRoomAssetForeignTable.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/CleanRoomAssetForeignTableLocalDetails.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/CleanRoomAssetJarAnalysis.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/CleanRoomAssetNotebook.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/CleanRoomAssetRevisionsAPI.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/CleanRoomAssetRevisionsImpl.java linguist-generated=true
@@ -819,6 +820,9 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/CleanRoo
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/CleanRoomAutoApprovalRulesImpl.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/CleanRoomAutoApprovalRulesService.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/CleanRoomCollaborator.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/CleanRoomJarAnalysisReview.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/CleanRoomJarAnalysisReviewJarAnalysisReviewState.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/CleanRoomJarAnalysisReviewJarAnalysisReviewSubReason.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/CleanRoomNotebookReview.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/CleanRoomNotebookReviewNotebookReviewState.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/CleanRoomNotebookReviewNotebookReviewSubReason.java linguist-generated=true
@@ -827,9 +831,13 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/CleanRoo
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/CleanRoomOutputCatalogOutputCatalogStatus.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/CleanRoomRemoteDetail.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/CleanRoomStatusEnum.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/CleanRoomTaskRun.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/CleanRoomTaskRunCleanRoomTaskAnalysisDetails.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/CleanRoomTaskRunOutputInfo.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/CleanRoomTaskRunsAPI.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/CleanRoomTaskRunsImpl.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/CleanRoomTaskRunsService.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/CleanRoomTaskType.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/CleanRoomsAPI.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/CleanRoomsImpl.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/CleanRoomsService.java linguist-generated=true
@@ -849,6 +857,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/GetClean
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/GetCleanRoomAssetRevisionRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/GetCleanRoomAutoApprovalRuleRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/GetCleanRoomRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/JarAnalysisVersionReview.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/ListCleanRoomAssetRevisionsRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/ListCleanRoomAssetRevisionsResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/ListCleanRoomAssetsRequest.java linguist-generated=true
@@ -857,6 +866,8 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/ListClea
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/ListCleanRoomAutoApprovalRulesResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/ListCleanRoomNotebookTaskRunsRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/ListCleanRoomNotebookTaskRunsResponse.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/ListCleanRoomTaskRunsRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/ListCleanRoomTaskRunsResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/ListCleanRoomsRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/ListCleanRoomsResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/NotebookVersionReview.java linguist-generated=true
@@ -2156,6 +2167,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/KafkaSubscriptio
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/LastDistinctFunction.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/LastFunction.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/LastNFunction.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/LifetimeWindow.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/LineageContext.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/LinkedFeature.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/ListArtifactsRequest.java linguist-generated=true

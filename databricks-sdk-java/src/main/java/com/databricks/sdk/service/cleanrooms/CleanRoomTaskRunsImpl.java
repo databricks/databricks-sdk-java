@@ -32,4 +32,22 @@ class CleanRoomTaskRunsImpl implements CleanRoomTaskRunsService {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
   }
+
+  @Override
+  public ListCleanRoomTaskRunsResponse listCleanRoomTaskRunsHandler(
+      ListCleanRoomTaskRunsRequest request) {
+    String path = String.format("/api/2.0/clean-rooms/%s/task-runs", request.getCleanRoomName());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, ListCleanRoomTaskRunsResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
 }
