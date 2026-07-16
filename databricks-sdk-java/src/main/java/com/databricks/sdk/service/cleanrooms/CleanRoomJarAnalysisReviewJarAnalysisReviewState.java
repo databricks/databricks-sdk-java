@@ -5,11 +5,8 @@ package com.databricks.sdk.service.cleanrooms;
 import com.databricks.sdk.support.Generated;
 
 @Generated
-public enum CleanRoomAssetAssetType {
-  FOREIGN_TABLE,
-  JAR_ANALYSIS,
-  NOTEBOOK_FILE,
-  TABLE,
-  VIEW,
-  VOLUME,
+public enum CleanRoomJarAnalysisReviewJarAnalysisReviewState {
+  APPROVED,
+  PENDING,
+  REJECTED,
 }

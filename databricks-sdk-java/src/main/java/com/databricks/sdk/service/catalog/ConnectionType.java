@@ -16,6 +16,7 @@ public enum ConnectionType {
   HIVE_METASTORE,
   HTTP,
   HUBSPOT,
+  JDBC,
   META_MARKETING,
   MYSQL,
   ORACLE,

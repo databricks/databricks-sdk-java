@@ -94,6 +94,13 @@ public class TableSpecificConfig {
   private Collection<String> sequenceBy;
 
   /**
+   * (Optional) Name of the struct column added to each ingested record to hold per row source
+   * metadata.
+   */
+  @JsonProperty("source_metadata_column")
+  private String sourceMetadataColumn;
+
+  /**
    * Table properties to set on the destination table. These are key-value pairs that configure
    * various Delta table behaviors or any user defined properties. Example:
    * {"delta.feature.variantType": "supported", "delta.enableTypeWidening": "true"} Note:
@@ -210,6 +217,15 @@ public class TableSpecificConfig {
     return sequenceBy;
   }
 
+  public TableSpecificConfig setSourceMetadataColumn(String sourceMetadataColumn) {
+    this.sourceMetadataColumn = sourceMetadataColumn;
+    return this;
+  }
+
+  public String getSourceMetadataColumn() {
+    return sourceMetadataColumn;
+  }
+
   public TableSpecificConfig setTableProperties(Map<String, String> tableProperties) {
     this.tableProperties = tableProperties;
     return this;
@@ -245,6 +261,7 @@ public class TableSpecificConfig {
         && Objects.equals(salesforceIncludeFormulaFields, that.salesforceIncludeFormulaFields)
         && Objects.equals(scdType, that.scdType)
         && Objects.equals(sequenceBy, that.sequenceBy)
+        && Objects.equals(sourceMetadataColumn, that.sourceMetadataColumn)
         && Objects.equals(tableProperties, that.tableProperties)
         && Objects.equals(workdayReportParameters, that.workdayReportParameters);
   }
@@ -263,6 +280,7 @@ public class TableSpecificConfig {
         salesforceIncludeFormulaFields,
         scdType,
         sequenceBy,
+        sourceMetadataColumn,
         tableProperties,
         workdayReportParameters);
   }
@@ -281,6 +299,7 @@ public class TableSpecificConfig {
         .add("salesforceIncludeFormulaFields", salesforceIncludeFormulaFields)
         .add("scdType", scdType)
         .add("sequenceBy", sequenceBy)
+        .add("sourceMetadataColumn", sourceMetadataColumn)
         .add("tableProperties", tableProperties)
         .add("workdayReportParameters", workdayReportParameters)
         .toString();

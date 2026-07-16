@@ -14,6 +14,16 @@ import java.util.Objects;
 @Generated
 public class StableUrl {
   /**
+   * The workspace this stable URL currently routes to. Set to `initial_workspace_id` at creation,
+   * advanced to the failover group's primary while attached (including across a failover), and
+   * preserved when the stable URL is detached from its failover group. Read this to see where an
+   * unattached stable URL points: after a failover followed by a detach it reflects the
+   * post-failover primary, not `initial_workspace_id`.
+   */
+  @JsonProperty("effective_workspace_id")
+  private String effectiveWorkspaceId;
+
+  /**
    * Fully qualified resource name of the FailoverGroup this stable URL is currently linked to, in
    * the format `accounts/{account_id}/failover-groups/{failover_group_id}`. Empty when the stable
    * URL is not attached to any failover group.
@@ -47,6 +57,15 @@ public class StableUrl {
    */
   @JsonProperty("url")
   private String url;
+
+  public StableUrl setEffectiveWorkspaceId(String effectiveWorkspaceId) {
+    this.effectiveWorkspaceId = effectiveWorkspaceId;
+    return this;
+  }
+
+  public String getEffectiveWorkspaceId() {
+    return effectiveWorkspaceId;
+  }
 
   public StableUrl setFailoverGroupName(String failoverGroupName) {
     this.failoverGroupName = failoverGroupName;
@@ -98,7 +117,8 @@ public class StableUrl {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     StableUrl that = (StableUrl) o;
-    return Objects.equals(failoverGroupName, that.failoverGroupName)
+    return Objects.equals(effectiveWorkspaceId, that.effectiveWorkspaceId)
+        && Objects.equals(failoverGroupName, that.failoverGroupName)
         && Objects.equals(initialWorkspaceId, that.initialWorkspaceId)
         && Objects.equals(name, that.name)
         && Objects.equals(stableWorkspaceId, that.stableWorkspaceId)
@@ -107,12 +127,14 @@ public class StableUrl {
 
   @Override
   public int hashCode() {
-    return Objects.hash(failoverGroupName, initialWorkspaceId, name, stableWorkspaceId, url);
+    return Objects.hash(
+        effectiveWorkspaceId, failoverGroupName, initialWorkspaceId, name, stableWorkspaceId, url);
   }
 
   @Override
   public String toString() {
     return new ToStringer(StableUrl.class)
+        .add("effectiveWorkspaceId", effectiveWorkspaceId)
         .add("failoverGroupName", failoverGroupName)
         .add("initialWorkspaceId", initialWorkspaceId)
         .add("name", name)

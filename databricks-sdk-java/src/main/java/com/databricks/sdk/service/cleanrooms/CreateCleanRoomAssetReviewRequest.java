@@ -16,6 +16,10 @@ public class CreateCleanRoomAssetReviewRequest {
   /** Name of the clean room */
   @JsonIgnore private String cleanRoomName;
 
+  /** */
+  @JsonProperty("jar_analysis_review")
+  private JarAnalysisVersionReview jarAnalysisReview;
+
   /** Name of the asset */
   @JsonIgnore private String name;
 
@@ -39,6 +43,16 @@ public class CreateCleanRoomAssetReviewRequest {
 
   public String getCleanRoomName() {
     return cleanRoomName;
+  }
+
+  public CreateCleanRoomAssetReviewRequest setJarAnalysisReview(
+      JarAnalysisVersionReview jarAnalysisReview) {
+    this.jarAnalysisReview = jarAnalysisReview;
+    return this;
+  }
+
+  public JarAnalysisVersionReview getJarAnalysisReview() {
+    return jarAnalysisReview;
   }
 
   public CreateCleanRoomAssetReviewRequest setName(String name) {
@@ -66,13 +80,14 @@ public class CreateCleanRoomAssetReviewRequest {
     CreateCleanRoomAssetReviewRequest that = (CreateCleanRoomAssetReviewRequest) o;
     return Objects.equals(assetType, that.assetType)
         && Objects.equals(cleanRoomName, that.cleanRoomName)
+        && Objects.equals(jarAnalysisReview, that.jarAnalysisReview)
         && Objects.equals(name, that.name)
         && Objects.equals(notebookReview, that.notebookReview);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(assetType, cleanRoomName, name, notebookReview);
+    return Objects.hash(assetType, cleanRoomName, jarAnalysisReview, name, notebookReview);
   }
 
   @Override
@@ -80,6 +95,7 @@ public class CreateCleanRoomAssetReviewRequest {
     return new ToStringer(CreateCleanRoomAssetReviewRequest.class)
         .add("assetType", assetType)
         .add("cleanRoomName", cleanRoomName)
+        .add("jarAnalysisReview", jarAnalysisReview)
         .add("name", name)
         .add("notebookReview", notebookReview)
         .toString();

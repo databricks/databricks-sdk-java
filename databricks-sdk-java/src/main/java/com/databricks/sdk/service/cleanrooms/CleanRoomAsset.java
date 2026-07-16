@@ -40,6 +40,13 @@ public class CleanRoomAsset {
   private CleanRoomAssetForeignTableLocalDetails foreignTableLocalDetails;
 
   /**
+   * Jar analysis details available to all collaborators of the clean room. Present if and only if
+   * **asset_type** is **JAR_ANALYSIS**
+   */
+  @JsonProperty("jar_analysis")
+  private CleanRoomAssetJarAnalysis jarAnalysis;
+
+  /**
    * A fully qualified name that uniquely identifies the asset within the clean room. This is also
    * the name displayed in the clean room UI.
    *
@@ -148,6 +155,15 @@ public class CleanRoomAsset {
     return foreignTableLocalDetails;
   }
 
+  public CleanRoomAsset setJarAnalysis(CleanRoomAssetJarAnalysis jarAnalysis) {
+    this.jarAnalysis = jarAnalysis;
+    return this;
+  }
+
+  public CleanRoomAssetJarAnalysis getJarAnalysis() {
+    return jarAnalysis;
+  }
+
   public CleanRoomAsset setName(String name) {
     this.name = name;
     return this;
@@ -239,6 +255,7 @@ public class CleanRoomAsset {
         && Objects.equals(cleanRoomName, that.cleanRoomName)
         && Objects.equals(foreignTable, that.foreignTable)
         && Objects.equals(foreignTableLocalDetails, that.foreignTableLocalDetails)
+        && Objects.equals(jarAnalysis, that.jarAnalysis)
         && Objects.equals(name, that.name)
         && Objects.equals(notebook, that.notebook)
         && Objects.equals(ownerCollaboratorAlias, that.ownerCollaboratorAlias)
@@ -258,6 +275,7 @@ public class CleanRoomAsset {
         cleanRoomName,
         foreignTable,
         foreignTableLocalDetails,
+        jarAnalysis,
         name,
         notebook,
         ownerCollaboratorAlias,
@@ -277,6 +295,7 @@ public class CleanRoomAsset {
         .add("cleanRoomName", cleanRoomName)
         .add("foreignTable", foreignTable)
         .add("foreignTableLocalDetails", foreignTableLocalDetails)
+        .add("jarAnalysis", jarAnalysis)
         .add("name", name)
         .add("notebook", notebook)
         .add("ownerCollaboratorAlias", ownerCollaboratorAlias)

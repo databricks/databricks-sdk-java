@@ -52,6 +52,16 @@ public class Deployment {
   @JsonProperty("git_info")
   private GitInfo gitInfo;
 
+  /**
+   * The workspace path of the folder where the deployment is initially created. Includes a leading
+   * slash and no trailing slash. On create, the deployment is registered as a typed
+   * BUNDLE_DEPLOYMENT tree node under this folder, which must already exist. This field is input
+   * only and is not returned in create, get, or list responses. The service rejects create requests
+   * that omit it.
+   */
+  @JsonProperty("initial_parent_path")
+  private String initialParentPath;
+
   /** The version_id of the most recent deployment version. */
   @JsonProperty("last_version_id")
   private String lastVersionId;
@@ -142,6 +152,15 @@ public class Deployment {
     return gitInfo;
   }
 
+  public Deployment setInitialParentPath(String initialParentPath) {
+    this.initialParentPath = initialParentPath;
+    return this;
+  }
+
+  public String getInitialParentPath() {
+    return initialParentPath;
+  }
+
   public Deployment setLastVersionId(String lastVersionId) {
     this.lastVersionId = lastVersionId;
     return this;
@@ -208,6 +227,7 @@ public class Deployment {
         && Objects.equals(destroyedBy, that.destroyedBy)
         && Objects.equals(displayName, that.displayName)
         && Objects.equals(gitInfo, that.gitInfo)
+        && Objects.equals(initialParentPath, that.initialParentPath)
         && Objects.equals(lastVersionId, that.lastVersionId)
         && Objects.equals(name, that.name)
         && Objects.equals(status, that.status)
@@ -226,6 +246,7 @@ public class Deployment {
         destroyedBy,
         displayName,
         gitInfo,
+        initialParentPath,
         lastVersionId,
         name,
         status,
@@ -244,6 +265,7 @@ public class Deployment {
         .add("destroyedBy", destroyedBy)
         .add("displayName", displayName)
         .add("gitInfo", gitInfo)
+        .add("initialParentPath", initialParentPath)
         .add("lastVersionId", lastVersionId)
         .add("name", name)
         .add("status", status)

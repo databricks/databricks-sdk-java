@@ -7,7 +7,7 @@ import com.databricks.sdk.core.logging.LoggerFactory;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.Paginator;
 
-/** Clean room task runs are the executions of notebooks in a clean room. */
+/** Clean room task runs are the executions of notebooks and JAR analyses in a clean room. */
 @Generated
 public class CleanRoomTaskRunsAPI {
   private static final Logger LOG = LoggerFactory.getLogger(CleanRoomTaskRunsAPI.class);
@@ -34,6 +34,27 @@ public class CleanRoomTaskRunsAPI {
         request,
         impl::list,
         ListCleanRoomNotebookTaskRunsResponse::getRuns,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
+  }
+
+  public Iterable<CleanRoomTaskRun> listCleanRoomTaskRunsHandler(String cleanRoomName) {
+    return listCleanRoomTaskRunsHandler(
+        new ListCleanRoomTaskRunsRequest().setCleanRoomName(cleanRoomName));
+  }
+
+  /** List all the historical task runs in a clean room. */
+  public Iterable<CleanRoomTaskRun> listCleanRoomTaskRunsHandler(
+      ListCleanRoomTaskRunsRequest request) {
+    return Paginator.newTokenPagination(
+        request,
+        impl::listCleanRoomTaskRunsHandler,
+        ListCleanRoomTaskRunsResponse::getRuns,
         response -> {
           String token = response.getNextPageToken();
           if (token == null || token.isEmpty()) {
