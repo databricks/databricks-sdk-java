@@ -15,3 +15,4 @@
 ### Internal Changes
 
 ### API Changes
+* Add `dataframeSchema` and `transformationSql` fields for `com.databricks.sdk.service.ml.StreamSource`.
