@@ -50,9 +50,9 @@ public class PostgresAPI {
   }
 
   /**
-   * Create a Lakebase CDF configuration (CdfConfig). Replicates the tables of a Postgres schema
-   * into a Unity Catalog schema. Returns ALREADY_EXISTS if a config with the requested id exists,
-   * or if another config already replicates the target Postgres schema.
+   * Create a CDF configuration that materializes the change data feed for all tables in a Postgres
+   * schema as open-format Delta tables in Unity Catalog. Once created, each table's change history
+   * is continuously written to its corresponding Lakehouse table.
    */
   public CreateCdfConfigOperation createCdfConfig(CreateCdfConfigRequest request) {
     Operation operation = impl.createCdfConfig(request);
@@ -127,8 +127,9 @@ public class PostgresAPI {
   }
 
   /**
-   * Delete a Lakebase CDF configuration (CdfConfig). Stops replication and removes the config. When
-   * force is true, also drops the replicated Delta tables in Unity Catalog.
+   * Delete a CDF configuration and stop materializing the change data feed. When force=true, also
+   * drops the Delta tables in Unity Catalog. When force=false (default), the existing tables are
+   * preserved at their last state.
    */
   public DeleteCdfConfigOperation deleteCdfConfig(DeleteCdfConfigRequest request) {
     Operation operation = impl.deleteCdfConfig(request);
@@ -222,7 +223,10 @@ public class PostgresAPI {
     return getCdfConfig(new GetCdfConfigRequest().setName(name));
   }
 
-  /** Get a single Lakebase CDF configuration (CdfConfig). */
+  /**
+   * Get a single Lakebase CDF configuration, including the source Postgres schema, target Unity
+   * Catalog schema, and the identity under which writes are authorized.
+   */
   public CdfConfig getCdfConfig(GetCdfConfigRequest request) {
     return impl.getCdfConfig(request);
   }
@@ -232,7 +236,8 @@ public class PostgresAPI {
   }
 
   /**
-   * Get the replication status of a single replicated table within a Lakebase CDF configuration.
+   * Get the CDF status of a single table within a Lakebase CDF configuration, including its current
+   * state and the last committed position in the feed.
    */
   public CdfStatus getCdfStatus(GetCdfStatusRequest request) {
     return impl.getCdfStatus(request);
@@ -330,7 +335,10 @@ public class PostgresAPI {
     return listCdfConfigs(new ListCdfConfigsRequest().setParent(parent));
   }
 
-  /** List the Lakebase CDF configurations (CdfConfigs) under a database. */
+  /**
+   * List all CDF configurations for a Lakebase database. Each configuration maps a Postgres schema
+   * to a Unity Catalog schema where the change data feed is materialized.
+   */
   public Iterable<CdfConfig> listCdfConfigs(ListCdfConfigsRequest request) {
     return Paginator.newTokenPagination(
         request,
@@ -349,7 +357,10 @@ public class PostgresAPI {
     return listCdfStatuses(new ListCdfStatusesRequest().setParent(parent));
   }
 
-  /** List the replication statuses of all tables replicated under a Lakebase CDF configuration. */
+  /**
+   * List the per-table CDF statuses within a Lakebase CDF configuration. Each status shows whether
+   * a table's change data feed is snapshotting, streaming, or skipped.
+   */
   public Iterable<CdfStatus> listCdfStatuses(ListCdfStatusesRequest request) {
     return Paginator.newTokenPagination(
         request,
