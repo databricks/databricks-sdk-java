@@ -21,7 +21,7 @@ class AccountIamV2Impl implements AccountIamV2Service {
       CreateWorkspaceAssignmentDetailRequest request) {
     String path =
         String.format(
-            "/api/2.0/identity/accounts/%s/workspaces/%s/workspaceAssignmentDetails",
+            "/api/2.0/identity/accounts/%s/workspaces/%s/workspace-assignment-details",
             apiClient.configuredAccountID(), request.getWorkspaceId());
     try {
       Request req =
@@ -40,7 +40,7 @@ class AccountIamV2Impl implements AccountIamV2Service {
   public void deleteWorkspaceAssignmentDetail(DeleteWorkspaceAssignmentDetailRequest request) {
     String path =
         String.format(
-            "/api/2.0/identity/accounts/%s/workspaces/%s/workspaceAssignmentDetails/%s",
+            "/api/2.0/identity/accounts/%s/workspaces/%s/workspace-assignment-details/%s",
             apiClient.configuredAccountID(), request.getWorkspaceId(), request.getPrincipalId());
     try {
       Request req = new Request("DELETE", path);
@@ -57,7 +57,7 @@ class AccountIamV2Impl implements AccountIamV2Service {
   public WorkspaceAccessDetail getWorkspaceAccessDetail(GetWorkspaceAccessDetailRequest request) {
     String path =
         String.format(
-            "/api/2.0/identity/accounts/%s/workspaces/%s/workspaceAccessDetails/%s",
+            "/api/2.0/identity/accounts/%s/workspaces/%s/workspace-access-details/%s",
             apiClient.configuredAccountID(), request.getWorkspaceId(), request.getPrincipalId());
     try {
       Request req = new Request("GET", path);
@@ -75,7 +75,7 @@ class AccountIamV2Impl implements AccountIamV2Service {
       GetWorkspaceAssignmentDetailRequest request) {
     String path =
         String.format(
-            "/api/2.0/identity/accounts/%s/workspaces/%s/workspaceAssignmentDetails/%s",
+            "/api/2.0/identity/accounts/%s/workspaces/%s/workspace-assignment-details/%s",
             apiClient.configuredAccountID(), request.getWorkspaceId(), request.getPrincipalId());
     try {
       Request req = new Request("GET", path);
@@ -93,7 +93,7 @@ class AccountIamV2Impl implements AccountIamV2Service {
       ListWorkspaceAssignmentDetailsRequest request) {
     String path =
         String.format(
-            "/api/2.0/identity/accounts/%s/workspaces/%s/workspaceAssignmentDetails",
+            "/api/2.0/identity/accounts/%s/workspaces/%s/workspace-assignment-details",
             apiClient.configuredAccountID(), request.getWorkspaceId());
     try {
       Request req = new Request("GET", path);
@@ -110,7 +110,7 @@ class AccountIamV2Impl implements AccountIamV2Service {
   public ResolveGroupResponse resolveGroup(ResolveGroupRequest request) {
     String path =
         String.format(
-            "/api/2.0/identity/accounts/%s/groups/resolveByExternalId",
+            "/api/2.0/identity/accounts/%s/groups/resolve-by-external-id",
             apiClient.configuredAccountID());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
@@ -129,7 +129,7 @@ class AccountIamV2Impl implements AccountIamV2Service {
       ResolveServicePrincipalRequest request) {
     String path =
         String.format(
-            "/api/2.0/identity/accounts/%s/servicePrincipals/resolveByExternalId",
+            "/api/2.0/identity/accounts/%s/service-principals/resolve-by-external-id",
             apiClient.configuredAccountID());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
@@ -147,7 +147,7 @@ class AccountIamV2Impl implements AccountIamV2Service {
   public ResolveUserResponse resolveUser(ResolveUserRequest request) {
     String path =
         String.format(
-            "/api/2.0/identity/accounts/%s/users/resolveByExternalId",
+            "/api/2.0/identity/accounts/%s/users/resolve-by-external-id",
             apiClient.configuredAccountID());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
@@ -166,7 +166,7 @@ class AccountIamV2Impl implements AccountIamV2Service {
       UpdateWorkspaceAssignmentDetailRequest request) {
     String path =
         String.format(
-            "/api/2.0/identity/accounts/%s/workspaces/%s/workspaceAssignmentDetails/%s",
+            "/api/2.0/identity/accounts/%s/workspaces/%s/workspace-assignment-details/%s",
             apiClient.configuredAccountID(), request.getWorkspaceId(), request.getPrincipalId());
     try {
       Request req =

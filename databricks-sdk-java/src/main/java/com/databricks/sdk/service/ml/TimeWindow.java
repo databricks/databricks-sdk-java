@@ -17,10 +17,6 @@ public class TimeWindow {
   @JsonProperty("lifetime")
   private LifetimeWindow lifetime;
 
-  /** A long (multi-day) rolling window served via the hybrid batch + streaming path. */
-  @JsonProperty("long_rolling")
-  private LongRollingWindow longRolling;
-
   /** */
   @JsonProperty("rolling")
   private RollingWindow rolling;
@@ -49,15 +45,6 @@ public class TimeWindow {
 
   public LifetimeWindow getLifetime() {
     return lifetime;
-  }
-
-  public TimeWindow setLongRolling(LongRollingWindow longRolling) {
-    this.longRolling = longRolling;
-    return this;
-  }
-
-  public LongRollingWindow getLongRolling() {
-    return longRolling;
   }
 
   public TimeWindow setRolling(RollingWindow rolling) {
@@ -94,7 +81,6 @@ public class TimeWindow {
     TimeWindow that = (TimeWindow) o;
     return Objects.equals(continuous, that.continuous)
         && Objects.equals(lifetime, that.lifetime)
-        && Objects.equals(longRolling, that.longRolling)
         && Objects.equals(rolling, that.rolling)
         && Objects.equals(sliding, that.sliding)
         && Objects.equals(tumbling, that.tumbling);
@@ -102,7 +88,7 @@ public class TimeWindow {
 
   @Override
   public int hashCode() {
-    return Objects.hash(continuous, lifetime, longRolling, rolling, sliding, tumbling);
+    return Objects.hash(continuous, lifetime, rolling, sliding, tumbling);
   }
 
   @Override
@@ -110,7 +96,6 @@ public class TimeWindow {
     return new ToStringer(TimeWindow.class)
         .add("continuous", continuous)
         .add("lifetime", lifetime)
-        .add("longRolling", longRolling)
         .add("rolling", rolling)
         .add("sliding", sliding)
         .add("tumbling", tumbling)

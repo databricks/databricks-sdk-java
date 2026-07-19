@@ -7,9 +7,8 @@ import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /**
- * Resolved env_vars for an AiRuntimeTask after dynamic-value substitution. Mirrors the task's
- * `resolved_parameters_field` (env_vars) so Jobs can expand `{{tasks.<key>.values.<name>}}`
- * references before submission.
+ * Resolved values for an AiRuntimeTask after dynamic-value substitution, so Jobs can expand
+ * `{{tasks.<key>.values.<name>}}` references before submission.
  */
 @Generated
 public class ResolvedValuesAiRuntimeTaskResolvedValues {
