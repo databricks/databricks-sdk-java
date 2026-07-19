@@ -19,7 +19,7 @@ class WorkspaceIamV2Impl implements WorkspaceIamV2Service {
   @Override
   public WorkspaceAssignmentDetail createWorkspaceAssignmentDetailProxy(
       CreateWorkspaceAssignmentDetailProxyRequest request) {
-    String path = "/api/2.0/identity/workspaceAssignmentDetails";
+    String path = "/api/2.0/identity/workspace-assignment-details";
     try {
       Request req =
           new Request("POST", path, apiClient.serialize(request.getWorkspaceAssignmentDetail()));
@@ -40,7 +40,8 @@ class WorkspaceIamV2Impl implements WorkspaceIamV2Service {
   public void deleteWorkspaceAssignmentDetailProxy(
       DeleteWorkspaceAssignmentDetailProxyRequest request) {
     String path =
-        String.format("/api/2.0/identity/workspaceAssignmentDetails/%s", request.getPrincipalId());
+        String.format(
+            "/api/2.0/identity/workspace-assignment-details/%s", request.getPrincipalId());
     try {
       Request req = new Request("DELETE", path);
 
@@ -59,7 +60,7 @@ class WorkspaceIamV2Impl implements WorkspaceIamV2Service {
   public WorkspaceAccessDetail getWorkspaceAccessDetailLocal(
       GetWorkspaceAccessDetailLocalRequest request) {
     String path =
-        String.format("/api/2.0/identity/workspaceAccessDetails/%s", request.getPrincipalId());
+        String.format("/api/2.0/identity/workspace-access-details/%s", request.getPrincipalId());
     try {
       Request req = new Request("GET", path);
 
@@ -78,7 +79,8 @@ class WorkspaceIamV2Impl implements WorkspaceIamV2Service {
   public WorkspaceAssignmentDetail getWorkspaceAssignmentDetailProxy(
       GetWorkspaceAssignmentDetailProxyRequest request) {
     String path =
-        String.format("/api/2.0/identity/workspaceAssignmentDetails/%s", request.getPrincipalId());
+        String.format(
+            "/api/2.0/identity/workspace-assignment-details/%s", request.getPrincipalId());
     try {
       Request req = new Request("GET", path);
 
@@ -96,7 +98,7 @@ class WorkspaceIamV2Impl implements WorkspaceIamV2Service {
   @Override
   public ListWorkspaceAssignmentDetailsResponse listWorkspaceAssignmentDetailsProxy(
       ListWorkspaceAssignmentDetailsProxyRequest request) {
-    String path = "/api/2.0/identity/workspaceAssignmentDetails";
+    String path = "/api/2.0/identity/workspace-assignment-details";
     try {
       Request req = new Request("GET", path);
 
@@ -113,7 +115,7 @@ class WorkspaceIamV2Impl implements WorkspaceIamV2Service {
 
   @Override
   public ResolveGroupResponse resolveGroupProxy(ResolveGroupProxyRequest request) {
-    String path = "/api/2.0/identity/groups/resolveByExternalId";
+    String path = "/api/2.0/identity/groups/resolve-by-external-id";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
 
@@ -132,7 +134,7 @@ class WorkspaceIamV2Impl implements WorkspaceIamV2Service {
   @Override
   public ResolveServicePrincipalResponse resolveServicePrincipalProxy(
       ResolveServicePrincipalProxyRequest request) {
-    String path = "/api/2.0/identity/servicePrincipals/resolveByExternalId";
+    String path = "/api/2.0/identity/service-principals/resolve-by-external-id";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
 
@@ -150,7 +152,7 @@ class WorkspaceIamV2Impl implements WorkspaceIamV2Service {
 
   @Override
   public ResolveUserResponse resolveUserProxy(ResolveUserProxyRequest request) {
-    String path = "/api/2.0/identity/users/resolveByExternalId";
+    String path = "/api/2.0/identity/users/resolve-by-external-id";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
 
@@ -170,7 +172,8 @@ class WorkspaceIamV2Impl implements WorkspaceIamV2Service {
   public WorkspaceAssignmentDetail updateWorkspaceAssignmentDetailProxy(
       UpdateWorkspaceAssignmentDetailProxyRequest request) {
     String path =
-        String.format("/api/2.0/identity/workspaceAssignmentDetails/%s", request.getPrincipalId());
+        String.format(
+            "/api/2.0/identity/workspace-assignment-details/%s", request.getPrincipalId());
     try {
       Request req =
           new Request("PATCH", path, apiClient.serialize(request.getWorkspaceAssignmentDetail()));

@@ -18,6 +18,10 @@ public class Endpoint {
   @JsonProperty("account_id")
   private String accountId;
 
+  /** Info for an AWS VPC endpoint. */
+  @JsonProperty("aws_vpc_endpoint_info")
+  private AwsVpcEndpointInfo awsVpcEndpointInfo;
+
   /** Info for an Azure private endpoint. */
   @JsonProperty("azure_private_endpoint_info")
   private AzurePrivateEndpointInfo azurePrivateEndpointInfo;
@@ -43,6 +47,10 @@ public class Endpoint {
    */
   @JsonProperty("endpoint_id")
   private String endpointId;
+
+  /** Info for a GCP Private Service Connect endpoint. */
+  @JsonProperty("gcp_psc_endpoint_info")
+  private GcpPscEndpointInfo gcpPscEndpointInfo;
 
   /** The resource name of the endpoint, which uniquely identifies the endpoint. */
   @JsonProperty("name")
@@ -71,6 +79,15 @@ public class Endpoint {
 
   public String getAccountId() {
     return accountId;
+  }
+
+  public Endpoint setAwsVpcEndpointInfo(AwsVpcEndpointInfo awsVpcEndpointInfo) {
+    this.awsVpcEndpointInfo = awsVpcEndpointInfo;
+    return this;
+  }
+
+  public AwsVpcEndpointInfo getAwsVpcEndpointInfo() {
+    return awsVpcEndpointInfo;
   }
 
   public Endpoint setAzurePrivateEndpointInfo(AzurePrivateEndpointInfo azurePrivateEndpointInfo) {
@@ -107,6 +124,15 @@ public class Endpoint {
 
   public String getEndpointId() {
     return endpointId;
+  }
+
+  public Endpoint setGcpPscEndpointInfo(GcpPscEndpointInfo gcpPscEndpointInfo) {
+    this.gcpPscEndpointInfo = gcpPscEndpointInfo;
+    return this;
+  }
+
+  public GcpPscEndpointInfo getGcpPscEndpointInfo() {
+    return gcpPscEndpointInfo;
   }
 
   public Endpoint setName(String name) {
@@ -151,10 +177,12 @@ public class Endpoint {
     if (o == null || getClass() != o.getClass()) return false;
     Endpoint that = (Endpoint) o;
     return Objects.equals(accountId, that.accountId)
+        && Objects.equals(awsVpcEndpointInfo, that.awsVpcEndpointInfo)
         && Objects.equals(azurePrivateEndpointInfo, that.azurePrivateEndpointInfo)
         && Objects.equals(createTime, that.createTime)
         && Objects.equals(displayName, that.displayName)
         && Objects.equals(endpointId, that.endpointId)
+        && Objects.equals(gcpPscEndpointInfo, that.gcpPscEndpointInfo)
         && Objects.equals(name, that.name)
         && Objects.equals(region, that.region)
         && Objects.equals(state, that.state)
@@ -165,10 +193,12 @@ public class Endpoint {
   public int hashCode() {
     return Objects.hash(
         accountId,
+        awsVpcEndpointInfo,
         azurePrivateEndpointInfo,
         createTime,
         displayName,
         endpointId,
+        gcpPscEndpointInfo,
         name,
         region,
         state,
@@ -179,10 +209,12 @@ public class Endpoint {
   public String toString() {
     return new ToStringer(Endpoint.class)
         .add("accountId", accountId)
+        .add("awsVpcEndpointInfo", awsVpcEndpointInfo)
         .add("azurePrivateEndpointInfo", azurePrivateEndpointInfo)
         .add("createTime", createTime)
         .add("displayName", displayName)
         .add("endpointId", endpointId)
+        .add("gcpPscEndpointInfo", gcpPscEndpointInfo)
         .add("name", name)
         .add("region", region)
         .add("state", state)

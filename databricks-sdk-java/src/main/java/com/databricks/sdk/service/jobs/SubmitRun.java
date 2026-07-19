@@ -75,6 +75,18 @@ public class SubmitRun {
   @JsonProperty("notification_settings")
   private JobNotificationSettings notificationSettings;
 
+  /**
+   * The performance mode on a serverless one-time run. This field determines the level of compute
+   * performance or cost-efficiency for the run. The performance target does not apply to tasks that
+   * run on Serverless GPU compute.
+   *
+   * <p>* `STANDARD`: Enables cost-efficient execution of serverless workloads. *
+   * `PERFORMANCE_OPTIMIZED`: Prioritizes fast startup and execution times through rapid scaling and
+   * optimized cluster performance.
+   */
+  @JsonProperty("performance_target")
+  private PerformanceTarget performanceTarget;
+
   /** The queue settings of the one-time run. */
   @JsonProperty("queue")
   private QueueSettings queue;
@@ -181,6 +193,15 @@ public class SubmitRun {
     return notificationSettings;
   }
 
+  public SubmitRun setPerformanceTarget(PerformanceTarget performanceTarget) {
+    this.performanceTarget = performanceTarget;
+    return this;
+  }
+
+  public PerformanceTarget getPerformanceTarget() {
+    return performanceTarget;
+  }
+
   public SubmitRun setQueue(QueueSettings queue) {
     this.queue = queue;
     return this;
@@ -257,6 +278,7 @@ public class SubmitRun {
         && Objects.equals(health, that.health)
         && Objects.equals(idempotencyToken, that.idempotencyToken)
         && Objects.equals(notificationSettings, that.notificationSettings)
+        && Objects.equals(performanceTarget, that.performanceTarget)
         && Objects.equals(queue, that.queue)
         && Objects.equals(runAs, that.runAs)
         && Objects.equals(runName, that.runName)
@@ -277,6 +299,7 @@ public class SubmitRun {
         health,
         idempotencyToken,
         notificationSettings,
+        performanceTarget,
         queue,
         runAs,
         runName,
@@ -297,6 +320,7 @@ public class SubmitRun {
         .add("health", health)
         .add("idempotencyToken", idempotencyToken)
         .add("notificationSettings", notificationSettings)
+        .add("performanceTarget", performanceTarget)
         .add("queue", queue)
         .add("runAs", runAs)
         .add("runName", runName)

@@ -13,6 +13,13 @@ public class GetRepoResponse {
   @JsonProperty("branch")
   private String branch;
 
+  /**
+   * Whether the Git CLI is enabled for this Git folder (repo). When true, Git commands can be run
+   * directly against this Git folder using the Git CLI.
+   */
+  @JsonProperty("git_cli_enabled")
+  private Boolean gitCliEnabled;
+
   /** SHA-1 hash representing the commit ID of the current HEAD of the repo. */
   @JsonProperty("head_commit_id")
   private String headCommitId;
@@ -48,6 +55,15 @@ public class GetRepoResponse {
 
   public String getBranch() {
     return branch;
+  }
+
+  public GetRepoResponse setGitCliEnabled(Boolean gitCliEnabled) {
+    this.gitCliEnabled = gitCliEnabled;
+    return this;
+  }
+
+  public Boolean getGitCliEnabled() {
+    return gitCliEnabled;
   }
 
   public GetRepoResponse setHeadCommitId(String headCommitId) {
@@ -110,6 +126,7 @@ public class GetRepoResponse {
     if (o == null || getClass() != o.getClass()) return false;
     GetRepoResponse that = (GetRepoResponse) o;
     return Objects.equals(branch, that.branch)
+        && Objects.equals(gitCliEnabled, that.gitCliEnabled)
         && Objects.equals(headCommitId, that.headCommitId)
         && Objects.equals(id, that.id)
         && Objects.equals(path, that.path)
@@ -120,13 +137,15 @@ public class GetRepoResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(branch, headCommitId, id, path, provider, sparseCheckout, url);
+    return Objects.hash(
+        branch, gitCliEnabled, headCommitId, id, path, provider, sparseCheckout, url);
   }
 
   @Override
   public String toString() {
     return new ToStringer(GetRepoResponse.class)
         .add("branch", branch)
+        .add("gitCliEnabled", gitCliEnabled)
         .add("headCommitId", headCommitId)
         .add("id", id)
         .add("path", path)
