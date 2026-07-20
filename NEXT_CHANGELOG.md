@@ -24,3 +24,4 @@
 * [Breaking] Change `createWorkspaceAssignmentDetail()`, `deleteWorkspaceAssignmentDetail()`, `getWorkspaceAccessDetail()`, `getWorkspaceAssignmentDetail()`, `listWorkspaceAssignmentDetails()`, `resolveGroup()`, `resolveServicePrincipal()`, `resolveUser()` and `updateWorkspaceAssignmentDetail()` methods for `accountClient.accountIamV2()` service. Method path has changed.
 * [Breaking] Change `createWorkspaceAssignmentDetailProxy()`, `deleteWorkspaceAssignmentDetailProxy()`, `getWorkspaceAccessDetailLocal()`, `getWorkspaceAssignmentDetailProxy()`, `listWorkspaceAssignmentDetailsProxy()`, `resolveGroupProxy()`, `resolveServicePrincipalProxy()`, `resolveUserProxy()` and `updateWorkspaceAssignmentDetailProxy()` methods for `workspaceClient.workspaceIamV2()` service. Method path has changed.
 * [Breaking] Remove `longRolling` field for `com.databricks.sdk.service.ml.TimeWindow`.
+* Add `sawtooth` field for `com.databricks.sdk.service.ml.TimeWindow`.

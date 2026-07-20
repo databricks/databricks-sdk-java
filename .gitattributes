@@ -2264,6 +2264,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/RunInfo.java lin
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/RunInfoStatus.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/RunInputs.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/RunTag.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/SawtoothWindow.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/ScalarDataType.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/SchemaConfig.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/SearchExperiments.java linguist-generated=true
