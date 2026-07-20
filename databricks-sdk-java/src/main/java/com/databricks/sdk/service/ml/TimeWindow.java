@@ -21,6 +21,10 @@ public class TimeWindow {
   @JsonProperty("rolling")
   private RollingWindow rolling;
 
+  /** A sawtooth window served via the hybrid batch + streaming path. */
+  @JsonProperty("sawtooth")
+  private SawtoothWindow sawtooth;
+
   /** */
   @JsonProperty("sliding")
   private SlidingWindow sliding;
@@ -56,6 +60,15 @@ public class TimeWindow {
     return rolling;
   }
 
+  public TimeWindow setSawtooth(SawtoothWindow sawtooth) {
+    this.sawtooth = sawtooth;
+    return this;
+  }
+
+  public SawtoothWindow getSawtooth() {
+    return sawtooth;
+  }
+
   public TimeWindow setSliding(SlidingWindow sliding) {
     this.sliding = sliding;
     return this;
@@ -82,13 +95,14 @@ public class TimeWindow {
     return Objects.equals(continuous, that.continuous)
         && Objects.equals(lifetime, that.lifetime)
         && Objects.equals(rolling, that.rolling)
+        && Objects.equals(sawtooth, that.sawtooth)
         && Objects.equals(sliding, that.sliding)
         && Objects.equals(tumbling, that.tumbling);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(continuous, lifetime, rolling, sliding, tumbling);
+    return Objects.hash(continuous, lifetime, rolling, sawtooth, sliding, tumbling);
   }
 
   @Override
@@ -97,6 +111,7 @@ public class TimeWindow {
         .add("continuous", continuous)
         .add("lifetime", lifetime)
         .add("rolling", rolling)
+        .add("sawtooth", sawtooth)
         .add("sliding", sliding)
         .add("tumbling", tumbling)
         .toString();
