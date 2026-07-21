@@ -22,7 +22,10 @@ public class RollingWindow {
   @JsonProperty("delay")
   private Duration delay;
 
-  /** The duration of the rolling window (must be positive). */
+  /**
+   * The duration of the rolling window. Must be positive when set; absent means lifetime (aggregate
+   * over the entity's entire history).
+   */
   @JsonProperty("window_duration")
   private Duration windowDuration;
 

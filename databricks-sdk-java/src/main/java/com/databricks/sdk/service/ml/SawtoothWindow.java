@@ -25,9 +25,10 @@ public class SawtoothWindow {
   private Duration delay;
 
   /**
-   * The duration of the window. Must be positive and span more than two days, so that both the
-   * batch (N-1 day) and stale-path (N-2 day) partial aggregates are well defined. The duration need
-   * not be a whole number of days (e.g. 3 days 15 minutes is allowed).
+   * The duration of the window. Must be positive and span more than two days when set, so that both
+   * the batch (N-1 day) and stale-path (N-2 day) partial aggregates are well defined. The duration
+   * need not be a whole number of days (e.g. 3 days 15 minutes is allowed). Absent means lifetime
+   * (aggregate over the entity's entire history).
    */
   @JsonProperty("window_duration")
   private Duration windowDuration;

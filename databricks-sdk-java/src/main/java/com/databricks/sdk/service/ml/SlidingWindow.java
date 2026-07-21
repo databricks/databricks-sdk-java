@@ -16,7 +16,10 @@ public class SlidingWindow {
   @JsonProperty("slide_duration")
   private String slideDuration;
 
-  /** The duration of the sliding window. */
+  /**
+   * The duration of the sliding window. Must be positive when set; absent means lifetime (aggregate
+   * over the entity's entire history).
+   */
   @JsonProperty("window_duration")
   private String windowDuration;
 
