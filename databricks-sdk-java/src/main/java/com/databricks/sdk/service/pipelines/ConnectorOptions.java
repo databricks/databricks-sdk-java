@@ -39,6 +39,10 @@ public class ConnectorOptions {
   private OutlookOptions outlookOptions;
 
   /** */
+  @JsonProperty("reddit_ads_options")
+  private RedditAdsOptions redditAdsOptions;
+
+  /** */
   @JsonProperty("sharepoint_options")
   private SharepointOptions sharepointOptions;
 
@@ -117,6 +121,15 @@ public class ConnectorOptions {
     return outlookOptions;
   }
 
+  public ConnectorOptions setRedditAdsOptions(RedditAdsOptions redditAdsOptions) {
+    this.redditAdsOptions = redditAdsOptions;
+    return this;
+  }
+
+  public RedditAdsOptions getRedditAdsOptions() {
+    return redditAdsOptions;
+  }
+
   public ConnectorOptions setSharepointOptions(SharepointOptions sharepointOptions) {
     this.sharepointOptions = sharepointOptions;
     return this;
@@ -165,6 +178,7 @@ public class ConnectorOptions {
         && Objects.equals(kafkaOptions, that.kafkaOptions)
         && Objects.equals(metaAdsOptions, that.metaAdsOptions)
         && Objects.equals(outlookOptions, that.outlookOptions)
+        && Objects.equals(redditAdsOptions, that.redditAdsOptions)
         && Objects.equals(sharepointOptions, that.sharepointOptions)
         && Objects.equals(smartsheetOptions, that.smartsheetOptions)
         && Objects.equals(tiktokAdsOptions, that.tiktokAdsOptions)
@@ -181,6 +195,7 @@ public class ConnectorOptions {
         kafkaOptions,
         metaAdsOptions,
         outlookOptions,
+        redditAdsOptions,
         sharepointOptions,
         smartsheetOptions,
         tiktokAdsOptions,
@@ -197,6 +212,7 @@ public class ConnectorOptions {
         .add("kafkaOptions", kafkaOptions)
         .add("metaAdsOptions", metaAdsOptions)
         .add("outlookOptions", outlookOptions)
+        .add("redditAdsOptions", redditAdsOptions)
         .add("sharepointOptions", sharepointOptions)
         .add("smartsheetOptions", smartsheetOptions)
         .add("tiktokAdsOptions", tiktokAdsOptions)
