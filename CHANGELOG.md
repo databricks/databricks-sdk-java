@@ -1,5 +1,17 @@
 # Version changelog
 
+## Release v0.132.0 (2026-07-21)
+
+### API Changes
+* Add `redditAdsOptions` field for `com.databricks.sdk.service.pipelines.ConnectorOptions`.
+* Change `windowDuration` field for `com.databricks.sdk.service.ml.RollingWindow` to no longer be required.
+* [Breaking] Change `windowDuration` field for `com.databricks.sdk.service.ml.RollingWindow` to no longer be required.
+* Change `windowDuration` field for `com.databricks.sdk.service.ml.SawtoothWindow` to no longer be required.
+* [Breaking] Change `windowDuration` field for `com.databricks.sdk.service.ml.SawtoothWindow` to no longer be required.
+* Change `windowDuration` field for `com.databricks.sdk.service.ml.SlidingWindow` to no longer be required.
+* [Breaking] Change `windowDuration` field for `com.databricks.sdk.service.ml.SlidingWindow` to no longer be required.
+
+
 ## Release v0.131.0 (2026-07-20)
 
 ### API Changes
