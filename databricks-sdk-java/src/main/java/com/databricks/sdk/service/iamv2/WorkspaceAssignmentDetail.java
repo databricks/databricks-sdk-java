@@ -16,6 +16,13 @@ public class WorkspaceAssignmentDetail {
   private String accountId;
 
   /**
+   * The principal's full effective entitlements granted in this workspace: every entitlement it
+   * holds whether granted directly or via group membership. Populated on Get; empty on List.
+   */
+  @JsonProperty("effective_entitlements")
+  private Collection<Entitlement> effectiveEntitlements;
+
+  /**
    * Entitlements granted directly to the principal on this workspace. The only client-settable
    * field: create and update manage exactly this set (including entitlements the principal also
    * holds via a group). Not populated by ListWorkspaceAssignmentDetails (omitted for scalability);
@@ -43,6 +50,16 @@ public class WorkspaceAssignmentDetail {
 
   public String getAccountId() {
     return accountId;
+  }
+
+  public WorkspaceAssignmentDetail setEffectiveEntitlements(
+      Collection<Entitlement> effectiveEntitlements) {
+    this.effectiveEntitlements = effectiveEntitlements;
+    return this;
+  }
+
+  public Collection<Entitlement> getEffectiveEntitlements() {
+    return effectiveEntitlements;
   }
 
   public WorkspaceAssignmentDetail setEntitlements(Collection<Entitlement> entitlements) {
@@ -87,6 +104,7 @@ public class WorkspaceAssignmentDetail {
     if (o == null || getClass() != o.getClass()) return false;
     WorkspaceAssignmentDetail that = (WorkspaceAssignmentDetail) o;
     return Objects.equals(accountId, that.accountId)
+        && Objects.equals(effectiveEntitlements, that.effectiveEntitlements)
         && Objects.equals(entitlements, that.entitlements)
         && Objects.equals(principalId, that.principalId)
         && Objects.equals(principalType, that.principalType)
@@ -95,13 +113,15 @@ public class WorkspaceAssignmentDetail {
 
   @Override
   public int hashCode() {
-    return Objects.hash(accountId, entitlements, principalId, principalType, workspaceId);
+    return Objects.hash(
+        accountId, effectiveEntitlements, entitlements, principalId, principalType, workspaceId);
   }
 
   @Override
   public String toString() {
     return new ToStringer(WorkspaceAssignmentDetail.class)
         .add("accountId", accountId)
+        .add("effectiveEntitlements", effectiveEntitlements)
         .add("entitlements", entitlements)
         .add("principalId", principalId)
         .add("principalType", principalType)

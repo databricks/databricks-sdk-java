@@ -21,6 +21,14 @@ public class JobCluster {
   @JsonProperty("new_cluster")
   private com.databricks.sdk.service.compute.ClusterSpec newCluster;
 
+  /**
+   * The ID of the serverless compute object to bind this cluster to. At most one JobCluster per job
+   * may set this field; the rate limit defined on the referenced serverless compute applies across
+   * all tasks bound to this cluster.
+   */
+  @JsonProperty("serverless_compute_id")
+  private String serverlessComputeId;
+
   public JobCluster setJobClusterKey(String jobClusterKey) {
     this.jobClusterKey = jobClusterKey;
     return this;
@@ -39,18 +47,28 @@ public class JobCluster {
     return newCluster;
   }
 
+  public JobCluster setServerlessComputeId(String serverlessComputeId) {
+    this.serverlessComputeId = serverlessComputeId;
+    return this;
+  }
+
+  public String getServerlessComputeId() {
+    return serverlessComputeId;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     JobCluster that = (JobCluster) o;
     return Objects.equals(jobClusterKey, that.jobClusterKey)
-        && Objects.equals(newCluster, that.newCluster);
+        && Objects.equals(newCluster, that.newCluster)
+        && Objects.equals(serverlessComputeId, that.serverlessComputeId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(jobClusterKey, newCluster);
+    return Objects.hash(jobClusterKey, newCluster, serverlessComputeId);
   }
 
   @Override
@@ -58,6 +76,7 @@ public class JobCluster {
     return new ToStringer(JobCluster.class)
         .add("jobClusterKey", jobClusterKey)
         .add("newCluster", newCluster)
+        .add("serverlessComputeId", serverlessComputeId)
         .toString();
   }
 }

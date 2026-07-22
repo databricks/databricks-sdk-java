@@ -2898,6 +2898,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/serving/ServingMode
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/serving/TelemetryConfig.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/serving/TelemetryInferenceTableConfig.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/serving/TrafficConfig.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/serving/UnityCatalogTableNames.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/serving/UpdateInferenceEndpointNotifications.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/serving/UpdateInferenceEndpointNotificationsResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/serving/UpdateProvisionedThroughputEndpointConfigRequest.java linguist-generated=true
