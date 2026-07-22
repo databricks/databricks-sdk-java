@@ -1,5 +1,13 @@
 # Version changelog
 
+## Release v0.133.0 (2026-07-22)
+
+### API Changes
+* Add `effectiveEntitlements` field for `com.databricks.sdk.service.iamv2.WorkspaceAssignmentDetail`.
+* Add `serverlessComputeId` field for `com.databricks.sdk.service.jobs.JobCluster`.
+* Add `tableNames` and `telemetryProfileId` fields for `com.databricks.sdk.service.serving.TelemetryConfig`.
+
+
 ## Release v0.132.0 (2026-07-21)
 
 ### API Changes
