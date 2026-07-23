@@ -86,6 +86,10 @@ public class ClusterSpec {
   @JsonProperty("data_security_mode")
   private DataSecurityMode dataSecurityMode;
 
+  /** Controls dependency configuration for the cluster. */
+  @JsonProperty("dependency_mode")
+  private DependencyMode dependencyMode;
+
   /** Custom docker image BYOC */
   @JsonProperty("docker_image")
   private DockerImage dockerImage;
@@ -352,6 +356,15 @@ public class ClusterSpec {
     return dataSecurityMode;
   }
 
+  public ClusterSpec setDependencyMode(DependencyMode dependencyMode) {
+    this.dependencyMode = dependencyMode;
+    return this;
+  }
+
+  public DependencyMode getDependencyMode() {
+    return dependencyMode;
+  }
+
   public ClusterSpec setDockerImage(DockerImage dockerImage) {
     this.dockerImage = dockerImage;
     return this;
@@ -591,6 +604,7 @@ public class ClusterSpec {
         && Objects.equals(clusterName, that.clusterName)
         && Objects.equals(customTags, that.customTags)
         && Objects.equals(dataSecurityMode, that.dataSecurityMode)
+        && Objects.equals(dependencyMode, that.dependencyMode)
         && Objects.equals(dockerImage, that.dockerImage)
         && Objects.equals(driverInstancePoolId, that.driverInstancePoolId)
         && Objects.equals(driverNodeTypeFlexibility, that.driverNodeTypeFlexibility)
@@ -630,6 +644,7 @@ public class ClusterSpec {
         clusterName,
         customTags,
         dataSecurityMode,
+        dependencyMode,
         dockerImage,
         driverInstancePoolId,
         driverNodeTypeFlexibility,
@@ -669,6 +684,7 @@ public class ClusterSpec {
         .add("clusterName", clusterName)
         .add("customTags", customTags)
         .add("dataSecurityMode", dataSecurityMode)
+        .add("dependencyMode", dependencyMode)
         .add("dockerImage", dockerImage)
         .add("driverInstancePoolId", driverInstancePoolId)
         .add("driverNodeTypeFlexibility", driverNodeTypeFlexibility)

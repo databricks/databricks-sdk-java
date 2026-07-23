@@ -9,7 +9,7 @@ import java.util.Objects;
 
 /**
  * Schema definitions provided directly on the Stream, as opposed to referencing a schema registry.
- * In a future milestone, we will support schema registries through a UC Connection.
+ * To resolve schemas from a registry instead, use SchemaRegistryConfig.
  */
 @Generated
 public class DirectSchemas {

@@ -19,6 +19,13 @@ import java.util.Objects;
 @Generated
 public class AiRuntimeTask {
   /**
+   * Workspace or UC volume path of the code-source archive, unpacked on each node and exposed
+   * through `$CODE_SOURCE`. Set by first-party tooling; not for direct callers.
+   */
+  @JsonProperty("code_source_path")
+  private String codeSourcePath;
+
+  /**
    * Deployment specs for this task. Exactly one deployment is currently supported (a single entry
    * where every node runs the same command); this is a current-Preview constraint. Role-split
    * workloads (driver + worker, parameter server, separate eval node, etc.) with multiple entries
@@ -50,6 +57,15 @@ public class AiRuntimeTask {
    */
   @JsonProperty("mlflow_run")
   private String mlflowRun;
+
+  public AiRuntimeTask setCodeSourcePath(String codeSourcePath) {
+    this.codeSourcePath = codeSourcePath;
+    return this;
+  }
+
+  public String getCodeSourcePath() {
+    return codeSourcePath;
+  }
 
   public AiRuntimeTask setDeployments(Collection<DeploymentSpec> deployments) {
     this.deployments = deployments;
@@ -92,7 +108,8 @@ public class AiRuntimeTask {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     AiRuntimeTask that = (AiRuntimeTask) o;
-    return Objects.equals(deployments, that.deployments)
+    return Objects.equals(codeSourcePath, that.codeSourcePath)
+        && Objects.equals(deployments, that.deployments)
         && Objects.equals(experiment, that.experiment)
         && Objects.equals(mlflowExperimentDirectory, that.mlflowExperimentDirectory)
         && Objects.equals(mlflowRun, that.mlflowRun);
@@ -100,12 +117,14 @@ public class AiRuntimeTask {
 
   @Override
   public int hashCode() {
-    return Objects.hash(deployments, experiment, mlflowExperimentDirectory, mlflowRun);
+    return Objects.hash(
+        codeSourcePath, deployments, experiment, mlflowExperimentDirectory, mlflowRun);
   }
 
   @Override
   public String toString() {
     return new ToStringer(AiRuntimeTask.class)
+        .add("codeSourcePath", codeSourcePath)
         .add("deployments", deployments)
         .add("experiment", experiment)
         .add("mlflowExperimentDirectory", mlflowExperimentDirectory)

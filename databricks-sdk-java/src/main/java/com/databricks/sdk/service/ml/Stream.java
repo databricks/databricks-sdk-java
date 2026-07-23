@@ -49,8 +49,8 @@ public class Stream {
   private String name;
 
   /**
-   * Schema definitions for the stream. Currently only direct schemas are supported. In a future
-   * milestone, we will support schema registries through a UC Connection.
+   * Schema definitions for the stream, provided either directly on the Stream or resolved from an
+   * external schema registry through a UC Connection.
    */
   @JsonProperty("schema_config")
   private StreamSchemaConfig schemaConfig;
