@@ -13,10 +13,6 @@ public class TimeWindow {
   @JsonProperty("continuous")
   private ContinuousWindow continuous;
 
-  /** A window that spans the entire lifetime of the data source. */
-  @JsonProperty("lifetime")
-  private LifetimeWindow lifetime;
-
   /** */
   @JsonProperty("rolling")
   private RollingWindow rolling;
@@ -40,15 +36,6 @@ public class TimeWindow {
 
   public ContinuousWindow getContinuous() {
     return continuous;
-  }
-
-  public TimeWindow setLifetime(LifetimeWindow lifetime) {
-    this.lifetime = lifetime;
-    return this;
-  }
-
-  public LifetimeWindow getLifetime() {
-    return lifetime;
   }
 
   public TimeWindow setRolling(RollingWindow rolling) {
@@ -93,7 +80,6 @@ public class TimeWindow {
     if (o == null || getClass() != o.getClass()) return false;
     TimeWindow that = (TimeWindow) o;
     return Objects.equals(continuous, that.continuous)
-        && Objects.equals(lifetime, that.lifetime)
         && Objects.equals(rolling, that.rolling)
         && Objects.equals(sawtooth, that.sawtooth)
         && Objects.equals(sliding, that.sliding)
@@ -102,14 +88,13 @@ public class TimeWindow {
 
   @Override
   public int hashCode() {
-    return Objects.hash(continuous, lifetime, rolling, sawtooth, sliding, tumbling);
+    return Objects.hash(continuous, rolling, sawtooth, sliding, tumbling);
   }
 
   @Override
   public String toString() {
     return new ToStringer(TimeWindow.class)
         .add("continuous", continuous)
-        .add("lifetime", lifetime)
         .add("rolling", rolling)
         .add("sawtooth", sawtooth)
         .add("sliding", sliding)

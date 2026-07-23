@@ -45,6 +45,10 @@ public class SyncedTableSyncedTableSpec {
   @JsonProperty("existing_pipeline_id")
   private String existingPipelineId;
 
+  /** Extra PostgreSQL-only columns to add to the synced table. */
+  @JsonProperty("extra_columns")
+  private Collection<SyncedTableSyncedTableSpecExtraColumn> extraColumns;
+
   /**
    * Specification for creating a new pipeline. At most one of existing_pipeline_id and
    * new_pipeline_spec should be defined.
@@ -133,6 +137,16 @@ public class SyncedTableSyncedTableSpec {
     return existingPipelineId;
   }
 
+  public SyncedTableSyncedTableSpec setExtraColumns(
+      Collection<SyncedTableSyncedTableSpecExtraColumn> extraColumns) {
+    this.extraColumns = extraColumns;
+    return this;
+  }
+
+  public Collection<SyncedTableSyncedTableSpecExtraColumn> getExtraColumns() {
+    return extraColumns;
+  }
+
   public SyncedTableSyncedTableSpec setNewPipelineSpec(NewPipelineSpec newPipelineSpec) {
     this.newPipelineSpec = newPipelineSpec;
     return this;
@@ -207,6 +221,7 @@ public class SyncedTableSyncedTableSpec {
         && Objects.equals(branch, that.branch)
         && Objects.equals(createDatabaseObjectsIfMissing, that.createDatabaseObjectsIfMissing)
         && Objects.equals(existingPipelineId, that.existingPipelineId)
+        && Objects.equals(extraColumns, that.extraColumns)
         && Objects.equals(newPipelineSpec, that.newPipelineSpec)
         && Objects.equals(postgresDatabase, that.postgresDatabase)
         && Objects.equals(primaryKeyColumns, that.primaryKeyColumns)
@@ -223,6 +238,7 @@ public class SyncedTableSyncedTableSpec {
         branch,
         createDatabaseObjectsIfMissing,
         existingPipelineId,
+        extraColumns,
         newPipelineSpec,
         postgresDatabase,
         primaryKeyColumns,
@@ -239,6 +255,7 @@ public class SyncedTableSyncedTableSpec {
         .add("branch", branch)
         .add("createDatabaseObjectsIfMissing", createDatabaseObjectsIfMissing)
         .add("existingPipelineId", existingPipelineId)
+        .add("extraColumns", extraColumns)
         .add("newPipelineSpec", newPipelineSpec)
         .add("postgresDatabase", postgresDatabase)
         .add("primaryKeyColumns", primaryKeyColumns)

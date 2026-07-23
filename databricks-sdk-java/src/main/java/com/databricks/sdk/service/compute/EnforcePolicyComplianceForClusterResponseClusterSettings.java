@@ -75,6 +75,10 @@ public class EnforcePolicyComplianceForClusterResponseClusterSettings {
   @JsonProperty("data_security_mode")
   private DataSecurityMode dataSecurityMode;
 
+  /** Controls dependency configuration for the cluster. */
+  @JsonProperty("dependency_mode")
+  private DependencyMode dependencyMode;
+
   /** Custom docker image BYOC */
   @JsonProperty("docker_image")
   private DockerImage dockerImage;
@@ -340,6 +344,16 @@ public class EnforcePolicyComplianceForClusterResponseClusterSettings {
     return dataSecurityMode;
   }
 
+  public EnforcePolicyComplianceForClusterResponseClusterSettings setDependencyMode(
+      DependencyMode dependencyMode) {
+    this.dependencyMode = dependencyMode;
+    return this;
+  }
+
+  public DependencyMode getDependencyMode() {
+    return dependencyMode;
+  }
+
   public EnforcePolicyComplianceForClusterResponseClusterSettings setDockerImage(
       DockerImage dockerImage) {
     this.dockerImage = dockerImage;
@@ -600,6 +614,7 @@ public class EnforcePolicyComplianceForClusterResponseClusterSettings {
         && Objects.equals(clusterName, that.clusterName)
         && Objects.equals(customTags, that.customTags)
         && Objects.equals(dataSecurityMode, that.dataSecurityMode)
+        && Objects.equals(dependencyMode, that.dependencyMode)
         && Objects.equals(dockerImage, that.dockerImage)
         && Objects.equals(driverInstancePoolId, that.driverInstancePoolId)
         && Objects.equals(driverNodeTypeFlexibility, that.driverNodeTypeFlexibility)
@@ -638,6 +653,7 @@ public class EnforcePolicyComplianceForClusterResponseClusterSettings {
         clusterName,
         customTags,
         dataSecurityMode,
+        dependencyMode,
         dockerImage,
         driverInstancePoolId,
         driverNodeTypeFlexibility,
@@ -676,6 +692,7 @@ public class EnforcePolicyComplianceForClusterResponseClusterSettings {
         .add("clusterName", clusterName)
         .add("customTags", customTags)
         .add("dataSecurityMode", dataSecurityMode)
+        .add("dependencyMode", dependencyMode)
         .add("dockerImage", dockerImage)
         .add("driverInstancePoolId", driverInstancePoolId)
         .add("driverNodeTypeFlexibility", driverNodeTypeFlexibility)
