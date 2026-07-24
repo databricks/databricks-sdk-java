@@ -21,13 +21,7 @@ public interface BundleDeploymentsService {
    */
   Version completeVersion(CompleteVersionRequest completeVersionRequest);
 
-  /**
-   * Creates a new deployment in the workspace.
-   *
-   * <p>The caller must provide a `deployment_id` which becomes the final component of the
-   * deployment's resource name. If a deployment with the same ID already exists, the server returns
-   * `ALREADY_EXISTS`.
-   */
+  /** Creates a new deployment in the workspace. */
   Deployment createDeployment(CreateDeploymentRequest createDeploymentRequest);
 
   /**
@@ -53,13 +47,7 @@ public interface BundleDeploymentsService {
    */
   Version createVersion(CreateVersionRequest createVersionRequest);
 
-  /**
-   * Deletes a deployment.
-   *
-   * <p>The deployment is marked as deleted. It and all its children (versions and their operations)
-   * will be permanently deleted after the retention policy expires. If the deployment has an
-   * in-progress version, the server returns `RESOURCE_CONFLICT`.
-   */
+  /** Deletes a deployment. */
   void deleteDeployment(DeleteDeploymentRequest deleteDeploymentRequest);
 
   /** Retrieves a deployment by its resource name. */

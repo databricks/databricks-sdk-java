@@ -27,9 +27,8 @@ public class Deployment {
   private DeploymentMode deploymentMode;
 
   /**
-   * When the deployment was destroyed (i.e. `bundle destroy` completed). Unset if the deployment
-   * has not been destroyed. Named destroy_time (not delete_time) because this tracks the
-   * `databricks bundle destroy` command, not the API-level deletion.
+   * When deletion was recorded. Unset if deletion has not been recorded. This response metadata
+   * does not determine the deployment's lifecycle status.
    */
   @JsonProperty("destroy_time")
   private Timestamp destroyTime;
@@ -42,8 +41,8 @@ public class Deployment {
   private String destroyedBy;
 
   /**
-   * Human-readable name for the deployment. Output only: it is denormalized from the latest
-   * version, not set directly on the deployment.
+   * Human-readable name for the deployment, up to 256 characters. Output only: clients update it by
+   * setting `display_name` when creating a version.
    */
   @JsonProperty("display_name")
   private String displayName;
@@ -53,11 +52,12 @@ public class Deployment {
   private GitInfo gitInfo;
 
   /**
-   * The workspace path of the folder where the deployment is initially created. Includes a leading
-   * slash and no trailing slash. On create, the deployment is registered as a typed
-   * BUNDLE_DEPLOYMENT tree node under this folder, which must already exist. This field is input
-   * only and is not returned in create, get, or list responses. The service rejects create requests
-   * that omit it.
+   * The workspace path of the existing folder where the deployment is initially created. Must be
+   * absolute and canonical, with single separators, no `.` or `..` segments, and no trailing slash
+   * unless the path is `/`. It may contain at most 24 path segments, excluding an optional leading
+   * `/Workspace` segment. The complete path may contain up to 1,024 characters, and each segment
+   * may contain up to 511 characters. This field is input only and is not returned in create, get,
+   * or list responses.
    */
   @JsonProperty("initial_parent_path")
   private String initialParentPath;

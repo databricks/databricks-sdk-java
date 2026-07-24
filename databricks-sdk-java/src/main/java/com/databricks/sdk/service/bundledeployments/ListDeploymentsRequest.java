@@ -12,8 +12,8 @@ import java.util.Objects;
 public class ListDeploymentsRequest {
   /**
    * The maximum number of deployments to return. The service may return fewer than this value. If
-   * unspecified, at most 50 deployments will be returned. The maximum value is 1000; values above
-   * 1000 will be coerced to 1000.
+   * unspecified, at most 20 deployments will be returned. The maximum value is 100; values above
+   * 100 will be coerced to 100.
    */
   @JsonIgnore
   @QueryParam("page_size")

@@ -51,7 +51,11 @@ public class Version {
   @JsonProperty("deployment_mode")
   private DeploymentMode deploymentMode;
 
-  /** Display name for the deployment, captured at the time of this version. */
+  /**
+   * Display name for the deployment, captured at the time of this version. Up to 256 characters.
+   * When present, creating the version updates the deployment display name. An empty value clears
+   * it; an absent value leaves the current deployment display name unchanged.
+   */
   @JsonProperty("display_name")
   private String displayName;
 
