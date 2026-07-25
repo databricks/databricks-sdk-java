@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class FileInfo {
-  /** The length of the file in bytes. This field is omitted for directories. */
+  /** The length of the file in bytes. Set to 0 for directories. */
   @JsonProperty("file_size")
   private Long fileSize;
 
