@@ -25,6 +25,14 @@ public class SchemaSpec {
   @JsonProperty("destination_schema")
   private String destinationSchema;
 
+  /**
+   * Fanout options for multi-table routing from streaming sources. When set, records are routed to
+   * destination tables based on a per-record routing key. The key value becomes the table name:
+   * {destination_catalog}.{destination_schema}.{key_value}.
+   */
+  @JsonProperty("fanout_options")
+  private IngestionPipelineDefinitionFanoutOptions fanoutOptions;
+
   /** The source catalog name. Might be optional depending on the type of source. */
   @JsonProperty("source_catalog")
   private String sourceCatalog;
@@ -68,6 +76,15 @@ public class SchemaSpec {
     return destinationSchema;
   }
 
+  public SchemaSpec setFanoutOptions(IngestionPipelineDefinitionFanoutOptions fanoutOptions) {
+    this.fanoutOptions = fanoutOptions;
+    return this;
+  }
+
+  public IngestionPipelineDefinitionFanoutOptions getFanoutOptions() {
+    return fanoutOptions;
+  }
+
   public SchemaSpec setSourceCatalog(String sourceCatalog) {
     this.sourceCatalog = sourceCatalog;
     return this;
@@ -103,6 +120,7 @@ public class SchemaSpec {
     return Objects.equals(connectorOptions, that.connectorOptions)
         && Objects.equals(destinationCatalog, that.destinationCatalog)
         && Objects.equals(destinationSchema, that.destinationSchema)
+        && Objects.equals(fanoutOptions, that.fanoutOptions)
         && Objects.equals(sourceCatalog, that.sourceCatalog)
         && Objects.equals(sourceSchema, that.sourceSchema)
         && Objects.equals(tableConfiguration, that.tableConfiguration);
@@ -114,6 +132,7 @@ public class SchemaSpec {
         connectorOptions,
         destinationCatalog,
         destinationSchema,
+        fanoutOptions,
         sourceCatalog,
         sourceSchema,
         tableConfiguration);
@@ -125,6 +144,7 @@ public class SchemaSpec {
         .add("connectorOptions", connectorOptions)
         .add("destinationCatalog", destinationCatalog)
         .add("destinationSchema", destinationSchema)
+        .add("fanoutOptions", fanoutOptions)
         .add("sourceCatalog", sourceCatalog)
         .add("sourceSchema", sourceSchema)
         .add("tableConfiguration", tableConfiguration)
