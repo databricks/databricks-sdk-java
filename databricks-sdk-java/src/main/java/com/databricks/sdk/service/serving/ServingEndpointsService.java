@@ -72,6 +72,10 @@ public interface ServingEndpointsService {
   /** Used to batch add and delete tags from a serving endpoint with a single API call. */
   EndpointTags patch(PatchServingEndpointTags patchServingEndpointTags);
 
+  /** Updates the telemetry configuration of a serving endpoint. */
+  ServingEndpointDetailed patchTelemetryConfig(
+      PatchTelemetryConfigRequest patchTelemetryConfigRequest);
+
   /** Deprecated: Please use AI Gateway to manage rate limits instead. */
   PutResponse put(PutRequest putRequest);
 
