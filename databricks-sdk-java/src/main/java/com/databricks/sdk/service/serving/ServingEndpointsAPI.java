@@ -211,6 +211,11 @@ public class ServingEndpointsAPI {
     return impl.patch(request);
   }
 
+  /** Updates the telemetry configuration of a serving endpoint. */
+  public ServingEndpointDetailed patchTelemetryConfig(PatchTelemetryConfigRequest request) {
+    return impl.patchTelemetryConfig(request);
+  }
+
   /** Deprecated: Please use AI Gateway to manage rate limits instead. */
   public PutResponse put(PutRequest request) {
     return impl.put(request);

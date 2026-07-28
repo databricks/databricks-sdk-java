@@ -15,3 +15,6 @@
 ### Internal Changes
 
 ### API Changes
+* Add `patchTelemetryConfig()` method for `workspaceClient.servingEndpoints()` service.
+* Add `fanoutOptions` field for `com.databricks.sdk.service.pipelines.SchemaSpec`.
+* Add `parameters` field for `com.databricks.sdk.service.sql.AlertV2`.

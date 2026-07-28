@@ -2451,6 +2451,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/GoogleDri
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/IngestionConfig.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/IngestionGatewayPipelineDefinition.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/IngestionPipelineDefinition.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/IngestionPipelineDefinitionFanoutOptions.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/IngestionPipelineDefinitionTableSpecificConfigQueryBasedConnectorConfig.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/IngestionPipelineDefinitionWorkdayReportParameters.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/IngestionPipelineDefinitionWorkdayReportParametersQueryKeyValue.java linguist-generated=true
@@ -2860,6 +2861,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/serving/ModelDataPl
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/serving/OpenAiConfig.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/serving/PaLmConfig.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/serving/PatchServingEndpointTags.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/serving/PatchTelemetryConfigRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/serving/PayloadTable.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/serving/PtEndpointCoreConfig.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/serving/PtServedModel.java linguist-generated=true
@@ -3424,6 +3426,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/sql/AlertOptions.ja
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sql/AlertOptionsEmptyResultState.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sql/AlertQuery.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sql/AlertState.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/sql/AlertStatementParameter.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sql/AlertV2.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sql/AlertV2Evaluation.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sql/AlertV2Notification.java linguist-generated=true

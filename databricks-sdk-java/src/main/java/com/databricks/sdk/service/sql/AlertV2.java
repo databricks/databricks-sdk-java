@@ -5,6 +5,7 @@ package com.databricks.sdk.service.sql;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
 
 @Generated
@@ -47,6 +48,13 @@ public class AlertV2 {
   /** The owner's username. This field is set to "Unavailable" if the user has been deleted. */
   @JsonProperty("owner_user_name")
   private String ownerUserName;
+
+  /**
+   * Query parameters bound when executing the alert query, referenced in the query text with
+   * `:name` syntax. Static values only.
+   */
+  @JsonProperty("parameters")
+  private Collection<AlertStatementParameter> parameters;
 
   /**
    * The workspace path of the folder containing the alert. Can only be set on create, and cannot be
@@ -171,6 +179,15 @@ public class AlertV2 {
     return ownerUserName;
   }
 
+  public AlertV2 setParameters(Collection<AlertStatementParameter> parameters) {
+    this.parameters = parameters;
+    return this;
+  }
+
+  public Collection<AlertStatementParameter> getParameters() {
+    return parameters;
+  }
+
   public AlertV2 setParentPath(String parentPath) {
     this.parentPath = parentPath;
     return this;
@@ -248,6 +265,7 @@ public class AlertV2 {
         && Objects.equals(id, that.id)
         && Objects.equals(lifecycleState, that.lifecycleState)
         && Objects.equals(ownerUserName, that.ownerUserName)
+        && Objects.equals(parameters, that.parameters)
         && Objects.equals(parentPath, that.parentPath)
         && Objects.equals(queryText, that.queryText)
         && Objects.equals(runAs, that.runAs)
@@ -269,6 +287,7 @@ public class AlertV2 {
         id,
         lifecycleState,
         ownerUserName,
+        parameters,
         parentPath,
         queryText,
         runAs,
@@ -290,6 +309,7 @@ public class AlertV2 {
         .add("id", id)
         .add("lifecycleState", lifecycleState)
         .add("ownerUserName", ownerUserName)
+        .add("parameters", parameters)
         .add("parentPath", parentPath)
         .add("queryText", queryText)
         .add("runAs", runAs)
