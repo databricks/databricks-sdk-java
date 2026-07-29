@@ -25,6 +25,10 @@ public class Operation {
   @JsonProperty("create_time")
   private Timestamp createTime;
 
+  /** Dashboard-specific metadata; set only for dashboard resources. */
+  @JsonProperty("dashboard_metadata")
+  private DashboardMetadata dashboardMetadata;
+
   /**
    * Error message if the operation failed. Set when status is OPERATION_STATUS_FAILED. Captures the
    * error encountered while applying the resource to the workspace. Mutable: may be updated after
@@ -66,6 +70,19 @@ public class Operation {
   private DeploymentResourceType resourceType;
 
   /**
+   * Monotonically increasing revision used for optimistic concurrency control (the AIP-154
+   * concurrency token for this resource, realized as a sequence number rather than an opaque etag).
+   * The server assigns 1 on creation and increments it on every successful UpdateOperation. It is
+   * OPTIONAL rather than OUTPUT_ONLY because it is dual-purpose: CreateOperation/GetOperation
+   * return the current value, and UpdateOperation reads the caller-supplied value as a
+   * precondition. The caller must echo the value it last observed; if it no longer matches the
+   * server's value, the update is rejected with ABORTED so the caller can re-read and retry.
+   * Ignored on CreateOperation.
+   */
+  @JsonProperty("sequence_id")
+  private Long sequenceId;
+
+  /**
    * Serialized local config state after the operation. Should be unset for delete operations.
    * Mutable: may be updated after creation via UpdateOperation. When updating, the caller must echo
    * the last-observed `sequence_id` as a concurrency precondition.
@@ -80,6 +97,13 @@ public class Operation {
    */
   @JsonProperty("status")
   private OperationStatus status;
+
+  /**
+   * When the operation was last updated. Set to `create_time` when the operation is created and to
+   * the server timestamp on each successful UpdateOperation.
+   */
+  @JsonProperty("update_time")
+  private Timestamp updateTime;
 
   public Operation setActionType(OperationActionType actionType) {
     this.actionType = actionType;
@@ -97,6 +121,15 @@ public class Operation {
 
   public Timestamp getCreateTime() {
     return createTime;
+  }
+
+  public Operation setDashboardMetadata(DashboardMetadata dashboardMetadata) {
+    this.dashboardMetadata = dashboardMetadata;
+    return this;
+  }
+
+  public DashboardMetadata getDashboardMetadata() {
+    return dashboardMetadata;
   }
 
   public Operation setErrorMessage(String errorMessage) {
@@ -144,6 +177,15 @@ public class Operation {
     return resourceType;
   }
 
+  public Operation setSequenceId(Long sequenceId) {
+    this.sequenceId = sequenceId;
+    return this;
+  }
+
+  public Long getSequenceId() {
+    return sequenceId;
+  }
+
   public Operation setState(JsonNode state) {
     this.state = state;
     return this;
@@ -162,6 +204,15 @@ public class Operation {
     return status;
   }
 
+  public Operation setUpdateTime(Timestamp updateTime) {
+    this.updateTime = updateTime;
+    return this;
+  }
+
+  public Timestamp getUpdateTime() {
+    return updateTime;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -169,13 +220,16 @@ public class Operation {
     Operation that = (Operation) o;
     return Objects.equals(actionType, that.actionType)
         && Objects.equals(createTime, that.createTime)
+        && Objects.equals(dashboardMetadata, that.dashboardMetadata)
         && Objects.equals(errorMessage, that.errorMessage)
         && Objects.equals(name, that.name)
         && Objects.equals(resourceId, that.resourceId)
         && Objects.equals(resourceKey, that.resourceKey)
         && Objects.equals(resourceType, that.resourceType)
+        && Objects.equals(sequenceId, that.sequenceId)
         && Objects.equals(state, that.state)
-        && Objects.equals(status, that.status);
+        && Objects.equals(status, that.status)
+        && Objects.equals(updateTime, that.updateTime);
   }
 
   @Override
@@ -183,13 +237,16 @@ public class Operation {
     return Objects.hash(
         actionType,
         createTime,
+        dashboardMetadata,
         errorMessage,
         name,
         resourceId,
         resourceKey,
         resourceType,
+        sequenceId,
         state,
-        status);
+        status,
+        updateTime);
   }
 
   @Override
@@ -197,13 +254,16 @@ public class Operation {
     return new ToStringer(Operation.class)
         .add("actionType", actionType)
         .add("createTime", createTime)
+        .add("dashboardMetadata", dashboardMetadata)
         .add("errorMessage", errorMessage)
         .add("name", name)
         .add("resourceId", resourceId)
         .add("resourceKey", resourceKey)
         .add("resourceType", resourceType)
+        .add("sequenceId", sequenceId)
         .add("state", state)
         .add("status", status)
+        .add("updateTime", updateTime)
         .toString();
   }
 }

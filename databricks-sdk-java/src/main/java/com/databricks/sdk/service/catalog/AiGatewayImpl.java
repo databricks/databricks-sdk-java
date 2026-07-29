@@ -1,5 +1,5 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
-package com.databricks.sdk.service.bundledeployments;
+package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.core.DatabricksException;
@@ -7,20 +7,20 @@ import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.support.Generated;
 import java.io.IOException;
 
-/** Package-local implementation of BundleDeployments */
+/** Package-local implementation of AiGateway */
 @Generated
-class BundleDeploymentsImpl implements BundleDeploymentsService {
+class AiGatewayImpl implements AiGatewayService {
   private final ApiClient apiClient;
 
-  public BundleDeploymentsImpl(ApiClient apiClient) {
+  public AiGatewayImpl(ApiClient apiClient) {
     this.apiClient = apiClient;
   }
 
   @Override
-  public Version completeVersion(CompleteVersionRequest request) {
-    String path = String.format("/api/2.0/bundle/%s/complete", request.getName());
+  public McpService createMcpService(CreateMcpServiceRequest request) {
+    String path = "/api/2.1/unity-catalog/mcp-services";
     try {
-      Request req = new Request("POST", path, apiClient.serialize(request));
+      Request req = new Request("POST", path, apiClient.serialize(request.getMcpService()));
 
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
@@ -28,17 +28,19 @@ class BundleDeploymentsImpl implements BundleDeploymentsService {
       if (apiClient.workspaceId() != null) {
         req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
-      return apiClient.execute(req, Version.class);
+      return apiClient.execute(req, McpService.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
   }
 
   @Override
-  public Deployment createDeployment(CreateDeploymentRequest request) {
-    String path = "/api/2.0/bundle/deployments";
+  public ModelProviderService createModelProviderService(
+      CreateModelProviderServiceRequest request) {
+    String path = "/api/2.1/unity-catalog/model-provider-services";
     try {
-      Request req = new Request("POST", path, apiClient.serialize(request.getDeployment()));
+      Request req =
+          new Request("POST", path, apiClient.serialize(request.getModelProviderService()));
 
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
@@ -46,17 +48,17 @@ class BundleDeploymentsImpl implements BundleDeploymentsService {
       if (apiClient.workspaceId() != null) {
         req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
-      return apiClient.execute(req, Deployment.class);
+      return apiClient.execute(req, ModelProviderService.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
   }
 
   @Override
-  public Operation createOperation(CreateOperationRequest request) {
-    String path = String.format("/api/2.0/bundle/%s/operations", request.getParent());
+  public ModelService createModelService(CreateModelServiceRequest request) {
+    String path = "/api/2.1/unity-catalog/model-services";
     try {
-      Request req = new Request("POST", path, apiClient.serialize(request.getOperation()));
+      Request req = new Request("POST", path, apiClient.serialize(request.getModelService()));
 
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
@@ -64,33 +66,15 @@ class BundleDeploymentsImpl implements BundleDeploymentsService {
       if (apiClient.workspaceId() != null) {
         req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
-      return apiClient.execute(req, Operation.class);
+      return apiClient.execute(req, ModelService.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
   }
 
   @Override
-  public Version createVersion(CreateVersionRequest request) {
-    String path = String.format("/api/2.0/bundle/%s/versions", request.getParent());
-    try {
-      Request req = new Request("POST", path, apiClient.serialize(request.getVersion()));
-
-      ApiClient.setQuery(req, request);
-      req.withHeader("Accept", "application/json");
-      req.withHeader("Content-Type", "application/json");
-      if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
-      }
-      return apiClient.execute(req, Version.class);
-    } catch (IOException e) {
-      throw new DatabricksException("IO error: " + e.getMessage(), e);
-    }
-  }
-
-  @Override
-  public void deleteDeployment(DeleteDeploymentRequest request) {
-    String path = String.format("/api/2.0/bundle/%s", request.getName());
+  public void deleteMcpService(DeleteMcpServiceRequest request) {
+    String path = String.format("/api/2.1/unity-catalog/%s", request.getName());
     try {
       Request req = new Request("DELETE", path);
 
@@ -106,8 +90,42 @@ class BundleDeploymentsImpl implements BundleDeploymentsService {
   }
 
   @Override
-  public Deployment getDeployment(GetDeploymentRequest request) {
-    String path = String.format("/api/2.0/bundle/%s", request.getName());
+  public void deleteModelProviderService(DeleteModelProviderServiceRequest request) {
+    String path = String.format("/api/2.1/unity-catalog/%s", request.getName());
+    try {
+      Request req = new Request("DELETE", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      apiClient.execute(req, Void.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public void deleteModelService(DeleteModelServiceRequest request) {
+    String path = String.format("/api/2.1/unity-catalog/%s", request.getName());
+    try {
+      Request req = new Request("DELETE", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      apiClient.execute(req, Void.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public McpService getMcpService(GetMcpServiceRequest request) {
+    String path = String.format("/api/2.1/unity-catalog/%s", request.getName());
     try {
       Request req = new Request("GET", path);
 
@@ -116,15 +134,15 @@ class BundleDeploymentsImpl implements BundleDeploymentsService {
       if (apiClient.workspaceId() != null) {
         req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
-      return apiClient.execute(req, Deployment.class);
+      return apiClient.execute(req, McpService.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
   }
 
   @Override
-  public Operation getOperation(GetOperationRequest request) {
-    String path = String.format("/api/2.0/bundle/%s", request.getName());
+  public ModelProviderService getModelProviderService(GetModelProviderServiceRequest request) {
+    String path = String.format("/api/2.1/unity-catalog/%s", request.getName());
     try {
       Request req = new Request("GET", path);
 
@@ -133,15 +151,15 @@ class BundleDeploymentsImpl implements BundleDeploymentsService {
       if (apiClient.workspaceId() != null) {
         req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
-      return apiClient.execute(req, Operation.class);
+      return apiClient.execute(req, ModelProviderService.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
   }
 
   @Override
-  public Resource getResource(GetResourceRequest request) {
-    String path = String.format("/api/2.0/bundle/%s", request.getName());
+  public ModelService getModelService(GetModelServiceRequest request) {
+    String path = String.format("/api/2.1/unity-catalog/%s", request.getName());
     try {
       Request req = new Request("GET", path);
 
@@ -150,15 +168,15 @@ class BundleDeploymentsImpl implements BundleDeploymentsService {
       if (apiClient.workspaceId() != null) {
         req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
-      return apiClient.execute(req, Resource.class);
+      return apiClient.execute(req, ModelService.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
   }
 
   @Override
-  public Version getVersion(GetVersionRequest request) {
-    String path = String.format("/api/2.0/bundle/%s", request.getName());
+  public ListMcpServicesResponse listMcpServices(ListMcpServicesRequest request) {
+    String path = "/api/2.1/unity-catalog/mcp-services";
     try {
       Request req = new Request("GET", path);
 
@@ -167,17 +185,52 @@ class BundleDeploymentsImpl implements BundleDeploymentsService {
       if (apiClient.workspaceId() != null) {
         req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
-      return apiClient.execute(req, Version.class);
+      return apiClient.execute(req, ListMcpServicesResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
   }
 
   @Override
-  public HeartbeatResponse heartbeat(HeartbeatRequest request) {
-    String path = String.format("/api/2.0/bundle/%s/heartbeat", request.getName());
+  public ListModelProviderServicesResponse listModelProviderServices(
+      ListModelProviderServicesRequest request) {
+    String path = "/api/2.1/unity-catalog/model-provider-services";
     try {
-      Request req = new Request("POST", path, apiClient.serialize(request));
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, ListModelProviderServicesResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public ListModelServicesResponse listModelServices(ListModelServicesRequest request) {
+    String path = "/api/2.1/unity-catalog/model-services";
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, ListModelServicesResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public McpService updateMcpService(UpdateMcpServiceRequest request) {
+    String path = String.format("/api/2.1/unity-catalog/%s", request.getName());
+    try {
+      Request req = new Request("PATCH", path, apiClient.serialize(request.getMcpService()));
 
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
@@ -185,85 +238,19 @@ class BundleDeploymentsImpl implements BundleDeploymentsService {
       if (apiClient.workspaceId() != null) {
         req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
-      return apiClient.execute(req, HeartbeatResponse.class);
+      return apiClient.execute(req, McpService.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
   }
 
   @Override
-  public ListDeploymentsResponse listDeployments(ListDeploymentsRequest request) {
-    String path = "/api/2.0/bundle/deployments";
+  public ModelProviderService updateModelProviderService(
+      UpdateModelProviderServiceRequest request) {
+    String path = String.format("/api/2.1/unity-catalog/%s", request.getName());
     try {
-      Request req = new Request("GET", path);
-
-      ApiClient.setQuery(req, request);
-      req.withHeader("Accept", "application/json");
-      if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
-      }
-      return apiClient.execute(req, ListDeploymentsResponse.class);
-    } catch (IOException e) {
-      throw new DatabricksException("IO error: " + e.getMessage(), e);
-    }
-  }
-
-  @Override
-  public ListOperationsResponse listOperations(ListOperationsRequest request) {
-    String path = String.format("/api/2.0/bundle/%s/operations", request.getParent());
-    try {
-      Request req = new Request("GET", path);
-
-      ApiClient.setQuery(req, request);
-      req.withHeader("Accept", "application/json");
-      if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
-      }
-      return apiClient.execute(req, ListOperationsResponse.class);
-    } catch (IOException e) {
-      throw new DatabricksException("IO error: " + e.getMessage(), e);
-    }
-  }
-
-  @Override
-  public ListResourcesResponse listResources(ListResourcesRequest request) {
-    String path = String.format("/api/2.0/bundle/%s/resources", request.getParent());
-    try {
-      Request req = new Request("GET", path);
-
-      ApiClient.setQuery(req, request);
-      req.withHeader("Accept", "application/json");
-      if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
-      }
-      return apiClient.execute(req, ListResourcesResponse.class);
-    } catch (IOException e) {
-      throw new DatabricksException("IO error: " + e.getMessage(), e);
-    }
-  }
-
-  @Override
-  public ListVersionsResponse listVersions(ListVersionsRequest request) {
-    String path = String.format("/api/2.0/bundle/%s/versions", request.getParent());
-    try {
-      Request req = new Request("GET", path);
-
-      ApiClient.setQuery(req, request);
-      req.withHeader("Accept", "application/json");
-      if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
-      }
-      return apiClient.execute(req, ListVersionsResponse.class);
-    } catch (IOException e) {
-      throw new DatabricksException("IO error: " + e.getMessage(), e);
-    }
-  }
-
-  @Override
-  public Operation updateOperation(UpdateOperationRequest request) {
-    String path = String.format("/api/2.0/bundle/%s", request.getName());
-    try {
-      Request req = new Request("PATCH", path, apiClient.serialize(request.getOperation()));
+      Request req =
+          new Request("PATCH", path, apiClient.serialize(request.getModelProviderService()));
 
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
@@ -271,7 +258,25 @@ class BundleDeploymentsImpl implements BundleDeploymentsService {
       if (apiClient.workspaceId() != null) {
         req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
-      return apiClient.execute(req, Operation.class);
+      return apiClient.execute(req, ModelProviderService.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public ModelService updateModelService(UpdateModelServiceRequest request) {
+    String path = String.format("/api/2.1/unity-catalog/%s", request.getName());
+    try {
+      Request req = new Request("PATCH", path, apiClient.serialize(request.getModelService()));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, ModelService.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

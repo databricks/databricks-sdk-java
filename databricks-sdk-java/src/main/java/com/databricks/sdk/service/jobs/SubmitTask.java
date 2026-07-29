@@ -11,8 +11,8 @@ import java.util.Objects;
 @Generated
 public class SubmitTask {
   /**
-   * The task runs a multi-node GPU compute workload on Databricks AI Runtime. External-facing
-   * surface; mirrors the AIR CLI (fka SGCLI) v2 YAML schema.
+   * The task runs a multi-gpu compute workload on Databricks AI Runtime. Specify the accelerator
+   * type and count, the command to run, and where the workload's code and MLflow output are stored.
    */
   @JsonProperty("ai_runtime_task")
   private AiRuntimeTask aiRuntimeTask;

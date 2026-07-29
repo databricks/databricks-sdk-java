@@ -62,6 +62,15 @@ public class Deployment {
   @JsonProperty("initial_parent_path")
   private String initialParentPath;
 
+  /**
+   * The version_id of the most recent version that completed successfully. Unset until a version
+   * has completed successfully. Unlike last_version_id, it is not advanced when a version fails, so
+   * it always points at the last known-good deployment state (or is unset if there has never been
+   * one).
+   */
+  @JsonProperty("last_successful_version_id")
+  private String lastSuccessfulVersionId;
+
   /** The version_id of the most recent deployment version. */
   @JsonProperty("last_version_id")
   private String lastVersionId;
@@ -84,6 +93,10 @@ public class Deployment {
   /** When the deployment was last updated. */
   @JsonProperty("update_time")
   private Timestamp updateTime;
+
+  /** The user who most recently updated the deployment (email or principal name). */
+  @JsonProperty("updated_by")
+  private String updatedBy;
 
   /** Workspace location of the deployment, derived from the latest version. */
   @JsonProperty("workspace_info")
@@ -161,6 +174,15 @@ public class Deployment {
     return initialParentPath;
   }
 
+  public Deployment setLastSuccessfulVersionId(String lastSuccessfulVersionId) {
+    this.lastSuccessfulVersionId = lastSuccessfulVersionId;
+    return this;
+  }
+
+  public String getLastSuccessfulVersionId() {
+    return lastSuccessfulVersionId;
+  }
+
   public Deployment setLastVersionId(String lastVersionId) {
     this.lastVersionId = lastVersionId;
     return this;
@@ -206,6 +228,15 @@ public class Deployment {
     return updateTime;
   }
 
+  public Deployment setUpdatedBy(String updatedBy) {
+    this.updatedBy = updatedBy;
+    return this;
+  }
+
+  public String getUpdatedBy() {
+    return updatedBy;
+  }
+
   public Deployment setWorkspaceInfo(WorkspaceInfo workspaceInfo) {
     this.workspaceInfo = workspaceInfo;
     return this;
@@ -228,11 +259,13 @@ public class Deployment {
         && Objects.equals(displayName, that.displayName)
         && Objects.equals(gitInfo, that.gitInfo)
         && Objects.equals(initialParentPath, that.initialParentPath)
+        && Objects.equals(lastSuccessfulVersionId, that.lastSuccessfulVersionId)
         && Objects.equals(lastVersionId, that.lastVersionId)
         && Objects.equals(name, that.name)
         && Objects.equals(status, that.status)
         && Objects.equals(targetName, that.targetName)
         && Objects.equals(updateTime, that.updateTime)
+        && Objects.equals(updatedBy, that.updatedBy)
         && Objects.equals(workspaceInfo, that.workspaceInfo);
   }
 
@@ -247,11 +280,13 @@ public class Deployment {
         displayName,
         gitInfo,
         initialParentPath,
+        lastSuccessfulVersionId,
         lastVersionId,
         name,
         status,
         targetName,
         updateTime,
+        updatedBy,
         workspaceInfo);
   }
 
@@ -266,11 +301,13 @@ public class Deployment {
         .add("displayName", displayName)
         .add("gitInfo", gitInfo)
         .add("initialParentPath", initialParentPath)
+        .add("lastSuccessfulVersionId", lastSuccessfulVersionId)
         .add("lastVersionId", lastVersionId)
         .add("name", name)
         .add("status", status)
         .add("targetName", targetName)
         .add("updateTime", updateTime)
+        .add("updatedBy", updatedBy)
         .add("workspaceInfo", workspaceInfo)
         .toString();
   }
