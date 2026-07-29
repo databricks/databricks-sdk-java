@@ -20,7 +20,8 @@ public class StreamConnectionConfig {
 
   /**
    * Name of an existing UC Connection for stream platform access. Must be the correct type for the
-   * streaming platform (e.g. a Kafka Connection for a Kafka Stream).
+   * streaming platform (e.g. a Kafka Connection for a Kafka Stream, or a Kinesis Connection for a
+   * Kinesis Stream).
    */
   @JsonProperty("uc_connection_name")
   private String ucConnectionName;

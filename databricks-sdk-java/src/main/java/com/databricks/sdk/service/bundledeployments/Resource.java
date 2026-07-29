@@ -15,6 +15,10 @@ import java.util.Objects;
  */
 @Generated
 public class Resource {
+  /** Dashboard-specific metadata; set only for dashboard resources. */
+  @JsonProperty("dashboard_metadata")
+  private DashboardMetadata dashboardMetadata;
+
   /** The action performed on this resource during the last version. */
   @JsonProperty("last_action_type")
   private OperationActionType lastActionType;
@@ -52,6 +56,15 @@ public class Resource {
    */
   @JsonProperty("update_time")
   private Timestamp updateTime;
+
+  public Resource setDashboardMetadata(DashboardMetadata dashboardMetadata) {
+    this.dashboardMetadata = dashboardMetadata;
+    return this;
+  }
+
+  public DashboardMetadata getDashboardMetadata() {
+    return dashboardMetadata;
+  }
 
   public Resource setLastActionType(OperationActionType lastActionType) {
     this.lastActionType = lastActionType;
@@ -130,7 +143,8 @@ public class Resource {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Resource that = (Resource) o;
-    return Objects.equals(lastActionType, that.lastActionType)
+    return Objects.equals(dashboardMetadata, that.dashboardMetadata)
+        && Objects.equals(lastActionType, that.lastActionType)
         && Objects.equals(lastVersionId, that.lastVersionId)
         && Objects.equals(name, that.name)
         && Objects.equals(resourceId, that.resourceId)
@@ -143,6 +157,7 @@ public class Resource {
   @Override
   public int hashCode() {
     return Objects.hash(
+        dashboardMetadata,
         lastActionType,
         lastVersionId,
         name,
@@ -156,6 +171,7 @@ public class Resource {
   @Override
   public String toString() {
     return new ToStringer(Resource.class)
+        .add("dashboardMetadata", dashboardMetadata)
         .add("lastActionType", lastActionType)
         .add("lastVersionId", lastVersionId)
         .add("name", name)

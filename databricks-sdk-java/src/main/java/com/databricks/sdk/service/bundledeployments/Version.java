@@ -67,6 +67,19 @@ public class Version {
   @JsonProperty("name")
   private String name;
 
+  /**
+   * The version_id this version was created on top of — the deployment's most recent version at
+   * creation time. Leave unset when creating the first version (the deployment has no prior
+   * versions). Set by the client on creation and immutable thereafter.
+   *
+   * <p>Acts as an optimistic-concurrency precondition: the server requires it to equal the
+   * deployment's current most-recent version (and to be unset when the deployment has no versions)
+   * and returns `INVALID_PARAMETER_VALUE` on mismatch, so a deploy racing against a concurrent
+   * deploy is rejected rather than silently overwriting it.
+   */
+  @JsonProperty("previous_version_id")
+  private String previousVersionId;
+
   /** Status of the version: IN_PROGRESS or COMPLETED. */
   @JsonProperty("status")
   private VersionStatus status;
@@ -182,6 +195,15 @@ public class Version {
     return name;
   }
 
+  public Version setPreviousVersionId(String previousVersionId) {
+    this.previousVersionId = previousVersionId;
+    return this;
+  }
+
+  public String getPreviousVersionId() {
+    return previousVersionId;
+  }
+
   public Version setStatus(VersionStatus status) {
     this.status = status;
     return this;
@@ -242,6 +264,7 @@ public class Version {
         && Objects.equals(displayName, that.displayName)
         && Objects.equals(gitInfo, that.gitInfo)
         && Objects.equals(name, that.name)
+        && Objects.equals(previousVersionId, that.previousVersionId)
         && Objects.equals(status, that.status)
         && Objects.equals(targetName, that.targetName)
         && Objects.equals(versionId, that.versionId)
@@ -262,6 +285,7 @@ public class Version {
         displayName,
         gitInfo,
         name,
+        previousVersionId,
         status,
         targetName,
         versionId,
@@ -282,6 +306,7 @@ public class Version {
         .add("displayName", displayName)
         .add("gitInfo", gitInfo)
         .add("name", name)
+        .add("previousVersionId", previousVersionId)
         .add("status", status)
         .add("targetName", targetName)
         .add("versionId", versionId)

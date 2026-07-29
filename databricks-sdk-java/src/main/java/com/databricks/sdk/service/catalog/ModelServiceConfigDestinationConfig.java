@@ -1,0 +1,158 @@
+// Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
+
+package com.databricks.sdk.service.catalog;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
+
+/**
+ * A destination the model service can route traffic to. Exactly one of the per-type configs inside
+ * `type_config` must be set, and it must match `destination_type`.
+ */
+@Generated
+public class ModelServiceConfigDestinationConfig {
+  /** Backing-model category. Determines which oneof variant is populated. */
+  @JsonProperty("destination_type")
+  private ModelServiceConfigDestinationConfigDestinationType destinationType;
+
+  /** */
+  @JsonProperty("external_model_config")
+  private ModelServiceConfigExternalModelConfig externalModelConfig;
+
+  /**
+   * True when the destination's backing UC entity (MODEL for foundation-model destinations,
+   * MODEL_PROVIDER_SERVICE for external destinations) has been deleted but the destination row
+   * still references it. The dangling destination is surfaced (not silently dropped) so callers can
+   * see the broken routing. Inference traffic through this destination fails closed (BAD_REQUEST /
+   * FAILED_PRECONDITION).
+   */
+  @JsonProperty("is_deleted")
+  private Boolean isDeleted;
+
+  /** User-facing label for this destination, used in routing references. */
+  @JsonProperty("name")
+  private String name;
+
+  /** */
+  @JsonProperty("pay_per_token_config")
+  private ModelServiceConfigPayPerTokenConfig payPerTokenConfig;
+
+  /** */
+  @JsonProperty("provisioned_throughput_config")
+  private ModelServiceConfigProvisionedThroughputConfig provisionedThroughputConfig;
+
+  /**
+   * Share of traffic sent to this destination, 0-100. Optional on fallback destinations; see
+   * FallbackConfig.
+   */
+  @JsonProperty("traffic_percentage")
+  private Long trafficPercentage;
+
+  public ModelServiceConfigDestinationConfig setDestinationType(
+      ModelServiceConfigDestinationConfigDestinationType destinationType) {
+    this.destinationType = destinationType;
+    return this;
+  }
+
+  public ModelServiceConfigDestinationConfigDestinationType getDestinationType() {
+    return destinationType;
+  }
+
+  public ModelServiceConfigDestinationConfig setExternalModelConfig(
+      ModelServiceConfigExternalModelConfig externalModelConfig) {
+    this.externalModelConfig = externalModelConfig;
+    return this;
+  }
+
+  public ModelServiceConfigExternalModelConfig getExternalModelConfig() {
+    return externalModelConfig;
+  }
+
+  public ModelServiceConfigDestinationConfig setIsDeleted(Boolean isDeleted) {
+    this.isDeleted = isDeleted;
+    return this;
+  }
+
+  public Boolean getIsDeleted() {
+    return isDeleted;
+  }
+
+  public ModelServiceConfigDestinationConfig setName(String name) {
+    this.name = name;
+    return this;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public ModelServiceConfigDestinationConfig setPayPerTokenConfig(
+      ModelServiceConfigPayPerTokenConfig payPerTokenConfig) {
+    this.payPerTokenConfig = payPerTokenConfig;
+    return this;
+  }
+
+  public ModelServiceConfigPayPerTokenConfig getPayPerTokenConfig() {
+    return payPerTokenConfig;
+  }
+
+  public ModelServiceConfigDestinationConfig setProvisionedThroughputConfig(
+      ModelServiceConfigProvisionedThroughputConfig provisionedThroughputConfig) {
+    this.provisionedThroughputConfig = provisionedThroughputConfig;
+    return this;
+  }
+
+  public ModelServiceConfigProvisionedThroughputConfig getProvisionedThroughputConfig() {
+    return provisionedThroughputConfig;
+  }
+
+  public ModelServiceConfigDestinationConfig setTrafficPercentage(Long trafficPercentage) {
+    this.trafficPercentage = trafficPercentage;
+    return this;
+  }
+
+  public Long getTrafficPercentage() {
+    return trafficPercentage;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ModelServiceConfigDestinationConfig that = (ModelServiceConfigDestinationConfig) o;
+    return Objects.equals(destinationType, that.destinationType)
+        && Objects.equals(externalModelConfig, that.externalModelConfig)
+        && Objects.equals(isDeleted, that.isDeleted)
+        && Objects.equals(name, that.name)
+        && Objects.equals(payPerTokenConfig, that.payPerTokenConfig)
+        && Objects.equals(provisionedThroughputConfig, that.provisionedThroughputConfig)
+        && Objects.equals(trafficPercentage, that.trafficPercentage);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        destinationType,
+        externalModelConfig,
+        isDeleted,
+        name,
+        payPerTokenConfig,
+        provisionedThroughputConfig,
+        trafficPercentage);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ModelServiceConfigDestinationConfig.class)
+        .add("destinationType", destinationType)
+        .add("externalModelConfig", externalModelConfig)
+        .add("isDeleted", isDeleted)
+        .add("name", name)
+        .add("payPerTokenConfig", payPerTokenConfig)
+        .add("provisionedThroughputConfig", provisionedThroughputConfig)
+        .add("trafficPercentage", trafficPercentage)
+        .toString();
+  }
+}

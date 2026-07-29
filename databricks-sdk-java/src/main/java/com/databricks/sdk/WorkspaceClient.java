@@ -18,6 +18,8 @@ import com.databricks.sdk.service.apps.AppsSettingsAPI;
 import com.databricks.sdk.service.apps.AppsSettingsService;
 import com.databricks.sdk.service.bundledeployments.BundleDeploymentsAPI;
 import com.databricks.sdk.service.bundledeployments.BundleDeploymentsService;
+import com.databricks.sdk.service.catalog.AiGatewayAPI;
+import com.databricks.sdk.service.catalog.AiGatewayService;
 import com.databricks.sdk.service.catalog.ArtifactAllowlistsAPI;
 import com.databricks.sdk.service.catalog.ArtifactAllowlistsService;
 import com.databricks.sdk.service.catalog.CatalogsAPI;
@@ -282,6 +284,7 @@ public class WorkspaceClient {
   private AccessControlAPI accessControlAPI;
   private AccountAccessControlProxyAPI accountAccessControlProxyAPI;
   private AgentBricksAPI agentBricksAPI;
+  private AiGatewayAPI aiGatewayAPI;
   private AiSearchAPI aiSearchAPI;
   private AlertsAPI alertsAPI;
   private AlertsLegacyAPI alertsLegacyAPI;
@@ -423,6 +426,7 @@ public class WorkspaceClient {
     accessControlAPI = new AccessControlAPI(apiClient);
     accountAccessControlProxyAPI = new AccountAccessControlProxyAPI(apiClient);
     agentBricksAPI = new AgentBricksAPI(apiClient);
+    aiGatewayAPI = new AiGatewayAPI(apiClient);
     aiSearchAPI = new AiSearchAPI(apiClient);
     alertsAPI = new AlertsAPI(apiClient);
     alertsLegacyAPI = new AlertsLegacyAPI(apiClient);
@@ -585,6 +589,17 @@ public class WorkspaceClient {
   /** The Custom LLMs service manages state and powers the UI for the Custom LLM product. */
   public AgentBricksAPI agentBricks() {
     return agentBricksAPI;
+  }
+
+  /**
+   * Govern AI workloads in Unity Catalog. This API manages the Unity Catalog securables that bring
+   * centralized access control, lineage, and auditing to AI-serving entities: model services
+   * (governed access to foundation models and external LLMs), model provider services (governed
+   * connections to external model providers), MCP services (governed Model Context Protocol
+   * servers), and agent services (governed agents).
+   */
+  public AiGatewayAPI aiGateway() {
+    return aiGatewayAPI;
   }
 
   /**
@@ -2266,6 +2281,17 @@ public class WorkspaceClient {
   /** Replace the default AgentBricksAPI with a custom implementation. */
   public WorkspaceClient withAgentBricksAPI(AgentBricksAPI agentBricks) {
     this.agentBricksAPI = agentBricks;
+    return this;
+  }
+
+  /** Replace the default AiGatewayService with a custom implementation. */
+  public WorkspaceClient withAiGatewayImpl(AiGatewayService aiGateway) {
+    return this.withAiGatewayAPI(new AiGatewayAPI(aiGateway));
+  }
+
+  /** Replace the default AiGatewayAPI with a custom implementation. */
+  public WorkspaceClient withAiGatewayAPI(AiGatewayAPI aiGateway) {
+    this.aiGatewayAPI = aiGateway;
     return this;
   }
 
