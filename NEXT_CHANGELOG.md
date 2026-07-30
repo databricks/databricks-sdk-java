@@ -1,6 +1,6 @@
 # NEXT CHANGELOG
 
-## Release v0.138.0
+## Release v0.139.0
 
 ### New Features and Improvements
 
@@ -15,6 +15,3 @@
 ### Internal Changes
 
 ### API Changes
-* Add `awsAccessKey` field for `com.databricks.sdk.service.catalog.ModelProviderServiceConfigAmazonBedrockProviderDirectConfig`.
-* Add `entraServicePrincipal` field for `com.databricks.sdk.service.catalog.ModelProviderServiceConfigAzureOpenAiProviderDirectConfig`.
-* Add `entraServicePrincipal` field for `com.databricks.sdk.service.catalog.ModelProviderServiceConfigMicrosoftFoundryProviderDirectConfig`.
