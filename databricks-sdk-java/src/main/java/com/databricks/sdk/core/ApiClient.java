@@ -275,6 +275,22 @@ public class ApiClient {
       if (!retryStrategy.isRetriable(databricksError)) {
         throw databricksError;
       }
+
+      // A streaming request body (e.g. Files.upload) is backed by a single-use InputStream that the
+      // first attempt consumes as it is sent. Receiving an HTTP response (response != null) proves
+      // the body was already transmitted, so retrying would re-send an empty body and silently
+      // upload 0 bytes (or surface as a confusing downstream error). Since the stream cannot be
+      // rewound, surface the original error instead so the caller can retry with a fresh stream.
+      // Transport-level IOErrors (response == null, e.g. a pre-send ConnectException) are left to
+      // retry as before, since in that case the stream may not have been read.
+      if (in.isBodyStreaming() && response != null) {
+        LOG.debug(
+            "Not retrying {} despite a retriable error: the request has a non-repeatable streaming"
+                + " body that was already consumed by the previous attempt",
+            in.getRequestLine());
+        throw databricksError;
+      }
+
       if (attemptNumber == maxAttempts) {
         throw new DatabricksException(
             String.format("Request %s failed after %d retries", in, maxAttempts), databricksError);

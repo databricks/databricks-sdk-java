@@ -6,6 +6,7 @@ import com.databricks.sdk.core.error.ApiErrorBody;
 import com.databricks.sdk.core.error.PrivateLinkValidationError;
 import com.databricks.sdk.core.error.details.ErrorDetails;
 import com.databricks.sdk.core.error.details.ErrorInfo;
+import com.databricks.sdk.core.error.platform.TemporarilyUnavailable;
 import com.databricks.sdk.core.error.platform.TooManyRequests;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
@@ -15,10 +16,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
+import java.nio.charset.StandardCharsets;
 import java.time.*;
 import java.util.*;
 import org.apache.http.impl.EnglishReasonPhraseCatalog;
@@ -482,6 +485,45 @@ public class ApiClientTest {
                 client.execute(
                     new Request("GET", req.getUri().getPath()), MyEndpointResponse.class));
     assertTrue(e.getMessage().contains("AWS PrivateLink"));
+  }
+
+  @Test
+  void doesNotRetryStreamingBodyAfterResponse() throws IOException {
+    // Regression test: a streaming request body (e.g. Files.upload) is backed by a single-use
+    // InputStream that the first attempt consumes. Receiving a retriable HTTP response means the
+    // body was already sent, so a retry would upload an empty body. Verify the client surfaces the
+    // original error to the caller instead of retrying.
+    String path = "/api/2.0/fs/files/Volumes/main/default/vol/f.json";
+    String url = "http://my.host" + path;
+    byte[] contents = "file-contents".getBytes(StandardCharsets.UTF_8);
+    Request stub = new Request("PUT", url, new ByteArrayInputStream(contents));
+    // If the guard fails and a retry is issued, it would consume the success response and pass.
+    ApiClient client =
+        getApiClient(
+            stub,
+            Arrays.asList(getTransientError(stub, 503, (String) null), getSuccessResponse(stub)));
+
+    ByteArrayInputStream body = new ByteArrayInputStream(contents);
+    DatabricksError exception =
+        assertThrows(
+            DatabricksError.class,
+            () -> client.execute(new Request("PUT", path, body), Void.class));
+
+    assertInstanceOf(TemporarilyUnavailable.class, exception);
+    assertEquals(503, exception.getStatusCode());
+  }
+
+  @Test
+  void retriesNonStreamingBodyOn503() throws IOException {
+    // Complement to doesNotRetryStreamingBodyAfterResponse: a string-bodied request is repeatable
+    // (a fresh entity is built per attempt), so the same 503 must still be retried as before. This
+    // confirms the streaming guard is scoped narrowly and does not regress ordinary requests.
+    Request req = getExampleNonIdempotentRequest();
+    runApiClientTest(
+        req,
+        Arrays.asList(getTransientError(req, 503, (String) null), getSuccessResponse(req)),
+        MyEndpointResponse.class,
+        new MyEndpointResponse().setKey("value"));
   }
 
   @Test
