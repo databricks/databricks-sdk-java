@@ -40,7 +40,8 @@ public interface AccountUsersV2Service {
 
   /**
    * Partially updates a user resource by applying the supplied operations on specific user
-   * attributes.
+   * attributes. The `userName` and `emails` attributes cannot be updated through this API; any
+   * supplied changes to them are ignored (no-op).
    */
   void patch(PatchAccountUserRequest patchAccountUserRequest);
 

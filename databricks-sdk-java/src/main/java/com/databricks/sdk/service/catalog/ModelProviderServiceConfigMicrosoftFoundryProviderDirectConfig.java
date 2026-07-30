@@ -11,20 +11,20 @@ import java.util.Objects;
  * Direct form of Microsoft Foundry provider config.
  *
  * <p>Authentication is one of three mutually exclusive modes, exactly one of which must be supplied
- * on Create: - API key: set `api_key`, leave the Entra fields and `service_credential` unset. -
- * Entra ID (service principal): set all of `tenant_id`, `client_id`, and `client_secret`, leave
- * `api_key` and `service_credential` unset. AI Gateway exchanges these for an Entra bearer token on
- * outbound requests via the OAuth2 client-credentials grant. - UC service credential: set
+ * on Create: - API key: set `api_key`, leave `entra_service_principal` and `service_credential`
+ * unset. - Entra ID (service principal): set `entra_service_principal`, leave `api_key` and
+ * `service_credential` unset. AI Gateway exchanges these for an Entra bearer token on outbound
+ * requests via the OAuth2 client-credentials grant. - UC service credential: set
  * `service_credential.name` to the AIP-122 resource-name form `credentials/{name}`, leave `api_key`
- * and all Entra fields unset. The credential value lives in UC and is referenced by name, not held
- * on this message. Only supported on Azure-hosted workspaces. Setting more than one mode, or an
- * incomplete Entra triple, is rejected.
+ * and `entra_service_principal` unset. The credential value lives in UC and is referenced by name,
+ * not held on this message. Only supported on Azure-hosted workspaces. Setting more than one mode
+ * is rejected.
  */
 @Generated
 public class ModelProviderServiceConfigMicrosoftFoundryProviderDirectConfig {
   /**
-   * Microsoft AI Foundry API key. Mutually exclusive with the Entra fields. Supplied as inline
-   * plaintext via `ProviderSecret.plaintext`.
+   * Microsoft AI Foundry API key. Mutually exclusive with the Entra and service-credential modes.
+   * Supplied as inline plaintext via `ProviderSecret.plaintext`.
    */
   @JsonProperty("api_key")
   private ModelProviderServiceConfigProviderSecret apiKey;
@@ -34,35 +34,42 @@ public class ModelProviderServiceConfigMicrosoftFoundryProviderDirectConfig {
   private String baseUrl;
 
   /**
-   * Entra ID client (application) ID for service-principal auth. Set together with `tenant_id` and
-   * `client_secret`; mutually exclusive with `api_key` and `service_credential`.
+   * Deprecated flat Entra client ID. Superseded by `entra_service_principal.client_id`. Kept for
+   * one migration cycle; the handler mirrors it to/from `entra_service_principal`.
    */
   @JsonProperty("client_id")
   private String clientId;
 
   /**
-   * Entra ID client secret for service-principal auth. Set together with `tenant_id` and
-   * `client_id`; mutually exclusive with `api_key` and `service_credential`. Supplied as inline
-   * plaintext via `ProviderSecret.plaintext`.
+   * Deprecated flat Entra client secret. Superseded by `entra_service_principal.client_secret`.
+   * Kept for one migration cycle; the handler mirrors it to/from `entra_service_principal`.
+   * Supplied as inline plaintext via `ProviderSecret.plaintext`.
    */
   @JsonProperty("client_secret")
   private ModelProviderServiceConfigProviderSecret clientSecret;
 
   /**
+   * Entra ID (service principal) auth. Mutually exclusive with `api_key` and `service_credential`.
+   * Supersedes the flat `tenant_id` / `client_id` / `client_secret` fields.
+   */
+  @JsonProperty("entra_service_principal")
+  private ModelProviderServiceConfigEntraServicePrincipal entraServicePrincipal;
+
+  /**
    * Reference to a UC service credential authorizing Microsoft Foundry requests. On Create the
    * caller supplies `service_credential.name` in the AIP-122 resource-name form
    * `credentials/{name}`. Required on Create when using UC-service-credential auth; mutually
-   * exclusive with `api_key` and with the Entra triple (tenant_id + client_id + client_secret). The
-   * credential is referenced by name; its value is not carried here. On read the resolved `id` and
-   * `is_deleted` are also populated. Only supported on Azure-hosted workspaces; Create requests
-   * from other clouds are rejected with INVALID_PARAMETER_VALUE.
+   * exclusive with `api_key` and `entra_service_principal`. The credential is referenced by name;
+   * its value is not carried here. On read the resolved `id` and `is_deleted` are also populated.
+   * Only supported on Azure-hosted workspaces; Create requests from other clouds are rejected with
+   * INVALID_PARAMETER_VALUE.
    */
   @JsonProperty("service_credential")
   private ModelProviderServiceConfigServiceCredential serviceCredential;
 
   /**
-   * Entra ID (Azure AD) tenant ID for service-principal auth. Set together with `client_id` and
-   * `client_secret`; mutually exclusive with `api_key` and `service_credential`.
+   * Deprecated flat Entra tenant ID. Superseded by `entra_service_principal.tenant_id`. Kept for
+   * one migration cycle; the handler mirrors it to/from `entra_service_principal`.
    */
   @JsonProperty("tenant_id")
   private String tenantId;
@@ -106,6 +113,16 @@ public class ModelProviderServiceConfigMicrosoftFoundryProviderDirectConfig {
     return clientSecret;
   }
 
+  public ModelProviderServiceConfigMicrosoftFoundryProviderDirectConfig setEntraServicePrincipal(
+      ModelProviderServiceConfigEntraServicePrincipal entraServicePrincipal) {
+    this.entraServicePrincipal = entraServicePrincipal;
+    return this;
+  }
+
+  public ModelProviderServiceConfigEntraServicePrincipal getEntraServicePrincipal() {
+    return entraServicePrincipal;
+  }
+
   public ModelProviderServiceConfigMicrosoftFoundryProviderDirectConfig setServiceCredential(
       ModelProviderServiceConfigServiceCredential serviceCredential) {
     this.serviceCredential = serviceCredential;
@@ -136,13 +153,21 @@ public class ModelProviderServiceConfigMicrosoftFoundryProviderDirectConfig {
         && Objects.equals(baseUrl, that.baseUrl)
         && Objects.equals(clientId, that.clientId)
         && Objects.equals(clientSecret, that.clientSecret)
+        && Objects.equals(entraServicePrincipal, that.entraServicePrincipal)
         && Objects.equals(serviceCredential, that.serviceCredential)
         && Objects.equals(tenantId, that.tenantId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(apiKey, baseUrl, clientId, clientSecret, serviceCredential, tenantId);
+    return Objects.hash(
+        apiKey,
+        baseUrl,
+        clientId,
+        clientSecret,
+        entraServicePrincipal,
+        serviceCredential,
+        tenantId);
   }
 
   @Override
@@ -152,6 +177,7 @@ public class ModelProviderServiceConfigMicrosoftFoundryProviderDirectConfig {
         .add("baseUrl", baseUrl)
         .add("clientId", clientId)
         .add("clientSecret", clientSecret)
+        .add("entraServicePrincipal", entraServicePrincipal)
         .add("serviceCredential", serviceCredential)
         .add("tenantId", tenantId)
         .toString();

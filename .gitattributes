@@ -652,10 +652,12 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ModelProvid
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ModelProviderServiceConfigAnthropicProviderDirectConfig.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ModelProviderServiceConfigAnthropicProviderRelayedConfig.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ModelProviderServiceConfigAnthropicProviderRelayedConfigAnthropicRelayedPlanType.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ModelProviderServiceConfigAwsAccessKey.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ModelProviderServiceConfigAzureOpenAiProviderConfig.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ModelProviderServiceConfigAzureOpenAiProviderDirectConfig.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ModelProviderServiceConfigCustomProviderConfig.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ModelProviderServiceConfigCustomProviderDirectConfig.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ModelProviderServiceConfigEntraServicePrincipal.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ModelProviderServiceConfigExternalModelProviderType.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ModelProviderServiceConfigGeminiEnterpriseProviderConfig.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ModelProviderServiceConfigGeminiEnterpriseProviderDirectConfig.java linguist-generated=true

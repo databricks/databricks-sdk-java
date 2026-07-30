@@ -85,7 +85,8 @@ public class AccountUsersV2API {
 
   /**
    * Partially updates a user resource by applying the supplied operations on specific user
-   * attributes.
+   * attributes. The `userName` and `emails` attributes cannot be updated through this API; any
+   * supplied changes to them are ignored (no-op).
    */
   public void patch(PatchAccountUserRequest request) {
     impl.patch(request);

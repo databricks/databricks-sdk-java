@@ -15,3 +15,6 @@
 ### Internal Changes
 
 ### API Changes
+* Add `awsAccessKey` field for `com.databricks.sdk.service.catalog.ModelProviderServiceConfigAmazonBedrockProviderDirectConfig`.
+* Add `entraServicePrincipal` field for `com.databricks.sdk.service.catalog.ModelProviderServiceConfigAzureOpenAiProviderDirectConfig`.
+* Add `entraServicePrincipal` field for `com.databricks.sdk.service.catalog.ModelProviderServiceConfigMicrosoftFoundryProviderDirectConfig`.
