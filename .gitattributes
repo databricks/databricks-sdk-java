@@ -3891,6 +3891,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/workspace/DeleteCre
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/workspace/DeleteRepoRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/workspace/DeleteScope.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/workspace/DeleteSecret.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/workspace/DirectoryInfo.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/workspace/ExportFormat.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/workspace/ExportRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/workspace/ExportResponse.java linguist-generated=true

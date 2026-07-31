@@ -19,7 +19,10 @@ public class UpdateAccountUserRequest {
   @JsonProperty("displayName")
   private String displayName;
 
-  /** All the emails associated with the Databricks user. */
+  /**
+   * All the emails associated with the Databricks user. This attribute cannot be updated through
+   * the SCIM PATCH or PUT APIs; any supplied change is ignored.
+   */
   @JsonProperty("emails")
   private Collection<ComplexValue> emails;
 
@@ -38,7 +41,10 @@ public class UpdateAccountUserRequest {
   @JsonProperty("roles")
   private Collection<ComplexValue> roles;
 
-  /** Email address of the Databricks user. */
+  /**
+   * Email address of the Databricks user. This attribute cannot be updated through the SCIM PATCH
+   * or PUT APIs; any supplied change is ignored.
+   */
   @JsonProperty("userName")
   private String userName;
 

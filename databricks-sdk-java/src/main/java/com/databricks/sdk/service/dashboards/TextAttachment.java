@@ -7,6 +7,10 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * A text response on a conversation message: the answer, the final summary, or a clarifying
+ * follow-up question, along with optional phase and verification metadata.
+ */
 @Generated
 public class TextAttachment {
   /** AI generated message */
@@ -17,7 +21,12 @@ public class TextAttachment {
   @JsonProperty("id")
   private String id;
 
-  /** Purpose/intent of this text attachment */
+  /**
+   * Purpose of this text attachment. A completed message may contain more than one text attachment
+   * (for example a clarifying follow-up question alongside the final answer); use this field to
+   * tell them apart. `TEXT_ATTACHMENT_PURPOSE_ANSWER` marks the final answer/summary and
+   * `FOLLOW_UP_QUESTION` marks a clarifying question.
+   */
   @JsonProperty("purpose")
   private TextAttachmentPurpose purpose;
 

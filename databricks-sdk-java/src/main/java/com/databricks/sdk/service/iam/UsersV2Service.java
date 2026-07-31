@@ -61,7 +61,11 @@ public interface UsersV2Service {
    */
   PasswordPermissions setPermissions(PasswordPermissionsRequest passwordPermissionsRequest);
 
-  /** Replaces a user's information with the data supplied in request. */
+  /**
+   * Replaces a user's information with the data supplied in request. The `userName` and `emails`
+   * attributes cannot be updated through this API; any supplied changes to them are ignored
+   * (no-op).
+   */
   void update(UpdateUserRequest updateUserRequest);
 
   /**

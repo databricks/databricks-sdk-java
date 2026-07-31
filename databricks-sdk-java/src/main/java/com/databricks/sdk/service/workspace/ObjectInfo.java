@@ -16,6 +16,10 @@ public class ObjectInfo {
   @JsonProperty("created_at")
   private Long createdAt;
 
+  /** Additional metadata about the directory. Only set for objects of type ``DIRECTORY``. */
+  @JsonProperty("directory_info")
+  private DirectoryInfo directoryInfo;
+
   /**
    * The language of the object. This value is set only if the object type is ``NOTEBOOK``. For
    * Jupyter (.ipynb) notebooks, this is always ``PYTHON``.
@@ -60,6 +64,15 @@ public class ObjectInfo {
 
   public Long getCreatedAt() {
     return createdAt;
+  }
+
+  public ObjectInfo setDirectoryInfo(DirectoryInfo directoryInfo) {
+    this.directoryInfo = directoryInfo;
+    return this;
+  }
+
+  public DirectoryInfo getDirectoryInfo() {
+    return directoryInfo;
   }
 
   public ObjectInfo setLanguage(Language language) {
@@ -131,6 +144,7 @@ public class ObjectInfo {
     if (o == null || getClass() != o.getClass()) return false;
     ObjectInfo that = (ObjectInfo) o;
     return Objects.equals(createdAt, that.createdAt)
+        && Objects.equals(directoryInfo, that.directoryInfo)
         && Objects.equals(language, that.language)
         && Objects.equals(modifiedAt, that.modifiedAt)
         && Objects.equals(objectId, that.objectId)
@@ -143,13 +157,22 @@ public class ObjectInfo {
   @Override
   public int hashCode() {
     return Objects.hash(
-        createdAt, language, modifiedAt, objectId, objectType, path, resourceId, size);
+        createdAt,
+        directoryInfo,
+        language,
+        modifiedAt,
+        objectId,
+        objectType,
+        path,
+        resourceId,
+        size);
   }
 
   @Override
   public String toString() {
     return new ToStringer(ObjectInfo.class)
         .add("createdAt", createdAt)
+        .add("directoryInfo", directoryInfo)
         .add("language", language)
         .add("modifiedAt", modifiedAt)
         .add("objectId", objectId)
