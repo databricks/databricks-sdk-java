@@ -17,3 +17,5 @@
 ### Internal Changes
 
 ### API Changes
+* Add `pauseStatus` field for `com.databricks.sdk.service.jobs.TriggerStateProto`.
+* Add `directoryInfo` field for `com.databricks.sdk.service.workspace.ObjectInfo`.
