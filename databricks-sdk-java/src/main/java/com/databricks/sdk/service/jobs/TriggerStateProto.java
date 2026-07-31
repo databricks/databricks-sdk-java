@@ -13,6 +13,14 @@ public class TriggerStateProto {
   @JsonProperty("file_arrival")
   private FileArrivalTriggerState fileArrival;
 
+  /**
+   * Whether this trigger is paused or not. For continuous schedules, it can differ from the
+   * configured pause_status whenever a paused continuous job is kickstarted by an operation other
+   * than an update, such as a run-now.
+   */
+  @JsonProperty("pause_status")
+  private PauseStatus pauseStatus;
+
   /** State for SQL condition evaluation, can coexist with other trigger states. */
   @JsonProperty("sql_condition")
   private SqlConditionState sqlCondition;
@@ -28,6 +36,15 @@ public class TriggerStateProto {
 
   public FileArrivalTriggerState getFileArrival() {
     return fileArrival;
+  }
+
+  public TriggerStateProto setPauseStatus(PauseStatus pauseStatus) {
+    this.pauseStatus = pauseStatus;
+    return this;
+  }
+
+  public PauseStatus getPauseStatus() {
+    return pauseStatus;
   }
 
   public TriggerStateProto setSqlCondition(SqlConditionState sqlCondition) {
@@ -54,19 +71,21 @@ public class TriggerStateProto {
     if (o == null || getClass() != o.getClass()) return false;
     TriggerStateProto that = (TriggerStateProto) o;
     return Objects.equals(fileArrival, that.fileArrival)
+        && Objects.equals(pauseStatus, that.pauseStatus)
         && Objects.equals(sqlCondition, that.sqlCondition)
         && Objects.equals(table, that.table);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(fileArrival, sqlCondition, table);
+    return Objects.hash(fileArrival, pauseStatus, sqlCondition, table);
   }
 
   @Override
   public String toString() {
     return new ToStringer(TriggerStateProto.class)
         .add("fileArrival", fileArrival)
+        .add("pauseStatus", pauseStatus)
         .add("sqlCondition", sqlCondition)
         .add("table", table)
         .toString();
