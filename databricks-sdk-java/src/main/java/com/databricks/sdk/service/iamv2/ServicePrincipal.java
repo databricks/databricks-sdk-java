@@ -31,8 +31,8 @@ public class ServicePrincipal {
   private String externalId;
 
   /** Internal service principal ID of the service principal in Databricks. */
-  @JsonProperty("internal_id")
-  private String internalId;
+  @JsonProperty("service_principal_id")
+  private String servicePrincipalId;
 
   public ServicePrincipal setAccountId(String accountId) {
     this.accountId = accountId;
@@ -79,13 +79,13 @@ public class ServicePrincipal {
     return externalId;
   }
 
-  public ServicePrincipal setInternalId(String internalId) {
-    this.internalId = internalId;
+  public ServicePrincipal setServicePrincipalId(String servicePrincipalId) {
+    this.servicePrincipalId = servicePrincipalId;
     return this;
   }
 
-  public String getInternalId() {
-    return internalId;
+  public String getServicePrincipalId() {
+    return servicePrincipalId;
   }
 
   @Override
@@ -98,13 +98,13 @@ public class ServicePrincipal {
         && Objects.equals(applicationId, that.applicationId)
         && Objects.equals(displayName, that.displayName)
         && Objects.equals(externalId, that.externalId)
-        && Objects.equals(internalId, that.internalId);
+        && Objects.equals(servicePrincipalId, that.servicePrincipalId);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(
-        accountId, accountSpStatus, applicationId, displayName, externalId, internalId);
+        accountId, accountSpStatus, applicationId, displayName, externalId, servicePrincipalId);
   }
 
   @Override
@@ -115,7 +115,7 @@ public class ServicePrincipal {
         .add("applicationId", applicationId)
         .add("displayName", displayName)
         .add("externalId", externalId)
-        .add("internalId", internalId)
+        .add("servicePrincipalId", servicePrincipalId)
         .toString();
   }
 }
