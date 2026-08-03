@@ -8,6 +8,7 @@ import com.databricks.sdk.core.error.details.ErrorDetails;
 import com.databricks.sdk.core.error.details.ErrorInfo;
 import com.databricks.sdk.core.error.platform.TemporarilyUnavailable;
 import com.databricks.sdk.core.error.platform.TooManyRequests;
+import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
 import com.databricks.sdk.core.utils.FakeTimer;
@@ -18,6 +19,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
@@ -487,43 +489,116 @@ public class ApiClientTest {
     assertTrue(e.getMessage().contains("AWS PrivateLink"));
   }
 
-  @Test
-  void doesNotRetryStreamingBodyAfterResponse() throws IOException {
-    // Regression test: a streaming request body (e.g. Files.upload) is backed by a single-use
-    // InputStream that the first attempt consumes. Receiving a retriable HTTP response means the
-    // body was already sent, so a retry would upload an empty body. Verify the client surfaces the
-    // original error to the caller instead of retrying.
-    String path = "/api/2.0/fs/files/Volumes/main/default/vol/f.json";
-    String url = "http://my.host" + path;
-    byte[] contents = "file-contents".getBytes(StandardCharsets.UTF_8);
-    Request stub = new Request("PUT", url, new ByteArrayInputStream(contents));
-    // If the guard fails and a retry is issued, it would consume the success response and pass.
-    ApiClient client =
-        getApiClient(
-            stub,
-            Arrays.asList(getTransientError(stub, 503, (String) null), getSuccessResponse(stub)));
+  /**
+   * A fake HttpClient that reads the request body to EOF on every call, mirroring how the real
+   * CommonsHttpClient drains the entity onto the wire. It records the number of body bytes actually
+   * transmitted per attempt, so tests can assert what a retry would (or would not) send. The status
+   * code returned for each attempt is supplied up front.
+   */
+  private static class BodyReadingHttpClient implements HttpClient {
+    private final Deque<Integer> statusCodes;
+    final List<Integer> bytesReadPerAttempt = new ArrayList<>();
 
-    ByteArrayInputStream body = new ByteArrayInputStream(contents);
-    DatabricksError exception =
-        assertThrows(
-            DatabricksError.class,
-            () -> client.execute(new Request("PUT", path, body), Void.class));
+    BodyReadingHttpClient(Integer... statusCodesInOrder) {
+      this.statusCodes = new ArrayDeque<>(Arrays.asList(statusCodesInOrder));
+    }
 
-    assertInstanceOf(TemporarilyUnavailable.class, exception);
-    assertEquals(503, exception.getStatusCode());
+    @Override
+    public Response execute(Request in) throws IOException {
+      // The SDK issues a best-effort GET /.well-known/databricks-config host-metadata pre-flight
+      // through this same client before the request under test. Ignore it: return a benign 404
+      // (the SDK falls back to user config) without recording it or consuming a status code.
+      if (in.getUrl().contains("/.well-known/")) {
+        return new Response(in, 404, "Not Found", Collections.emptyMap());
+      }
+      int total = 0;
+      if (in.isBodyStreaming() && in.getBodyStream() != null) {
+        InputStream is = in.getBodyStream();
+        byte[] buf = new byte[4096];
+        int r;
+        while ((r = is.read(buf)) != -1) {
+          total += r;
+        }
+      } else if (in.isBodyString() && in.getBodyString() != null) {
+        total = in.getBodyString().getBytes(StandardCharsets.UTF_8).length;
+      }
+      bytesReadPerAttempt.add(total);
+      int status = statusCodes.isEmpty() ? 204 : statusCodes.removeFirst();
+      String reason = EnglishReasonPhraseCatalog.INSTANCE.getReason(status, Locale.ENGLISH);
+      return new Response(in, status, reason, Collections.emptyMap());
+    }
+  }
+
+  private ApiClient apiClientWith(HttpClient httpClient) {
+    DatabricksConfig config =
+        new DatabricksConfig()
+            .setHost("http://my.host")
+            .setCredentialsProvider(new DummyCredentialsProvider())
+            .setHttpClient(httpClient);
+    return new ApiClient(config, new FakeTimer());
   }
 
   @Test
-  void retriesNonStreamingBodyOn503() throws IOException {
-    // Complement to doesNotRetryStreamingBodyAfterResponse: a string-bodied request is repeatable
-    // (a fresh entity is built per attempt), so the same 503 must still be retried as before. This
-    // confirms the streaming guard is scoped narrowly and does not regress ordinary requests.
-    Request req = getExampleNonIdempotentRequest();
-    runApiClientTest(
-        req,
-        Arrays.asList(getTransientError(req, 503, (String) null), getSuccessResponse(req)),
-        MyEndpointResponse.class,
-        new MyEndpointResponse().setKey("value"));
+  void doesNotRetryStreamingBodyAfterResponse() throws IOException {
+    // Regression test for the streaming-upload retry bug: a streaming request body (e.g.
+    // Files.upload) is backed by a single-use InputStream that the first attempt consumes as it is
+    // sent. If the SDK retried after a 503, it would re-send the now-exhausted stream as a 0-byte
+    // body, silently uploading an empty file. Using a transport that actually reads the body (like
+    // the real CommonsHttpClient) and would return 204 on a retry, we assert on the bytes actually
+    // transmitted per attempt: without the fix this records [13, 0] (an empty retry that "succeeds"
+    // with 204); with the fix the upload is attempted exactly once and the original 503 is thrown.
+    byte[] contents = "file-contents".getBytes(StandardCharsets.UTF_8);
+    // Second status (204) is what a buggy empty-body retry would receive; the fix means it is never
+    // reached, but supplying it lets this test capture the empty retry as a byte count if it were.
+    BodyReadingHttpClient hc = new BodyReadingHttpClient(503, 204);
+    ApiClient client = apiClientWith(hc);
+
+    InputStream body = new ByteArrayInputStream(contents);
+    DatabricksError thrown = null;
+    try {
+      client.execute(new Request("PUT", "/api/2.0/fs/files/Volumes/c/s/v/f", body), Void.class);
+    } catch (DatabricksError e) {
+      thrown = e;
+    }
+
+    // The upload must be attempted exactly once: retrying is unsafe once the body has been sent.
+    // Without the guard this is [13, 0] (the empty-body retry) — the message points right at it.
+    assertEquals(
+        1,
+        hc.bytesReadPerAttempt.size(),
+        "streaming upload must not be retried after the body was sent; the retry would send an empty"
+            + " body. Bytes sent per attempt: "
+            + hc.bytesReadPerAttempt);
+    // That single attempt transmitted the full body ...
+    assertEquals(contents.length, hc.bytesReadPerAttempt.get(0));
+    // ... and the stream is now exhausted, which is exactly why a resend would upload 0 bytes.
+    assertEquals(-1, body.read(), "stream is single-use and should be fully consumed");
+    // The original transient error is surfaced to the caller (who can retry with a fresh stream)
+    // rather than being masked by a bogus 204 success.
+    assertNotNull(thrown, "the original 503 must be surfaced to the caller");
+    assertInstanceOf(TemporarilyUnavailable.class, thrown);
+    assertEquals(503, thrown.getStatusCode());
+  }
+
+  @Test
+  void retriesNonStreamingBodyOn503AndResendsFullBody() throws IOException {
+    // Complement to doesNotRetryStreamingBodyAfterResponse: a string-bodied request is repeatable,
+    // so the same 503 must still be retried, and crucially the retry must re-send the full body
+    // (a fresh entity is built per attempt). This confirms the streaming guard is scoped narrowly
+    // and does not regress ordinary requests.
+    String jsonBody = "{\"key\":\"value\"}";
+    BodyReadingHttpClient hc = new BodyReadingHttpClient(503, 200);
+    ApiClient client = apiClientWith(hc);
+
+    client.execute(
+        new Request("POST", "/api/2.0/sql/statements/", jsonBody), MyEndpointResponse.class);
+
+    // Two attempts were made: the 503 was retried ...
+    assertEquals(2, hc.bytesReadPerAttempt.size());
+    // ... and both attempts sent the full body (the string body is re-sendable, unlike a stream).
+    int expected = jsonBody.getBytes(StandardCharsets.UTF_8).length;
+    assertEquals(expected, hc.bytesReadPerAttempt.get(0));
+    assertEquals(expected, hc.bytesReadPerAttempt.get(1));
   }
 
   @Test
