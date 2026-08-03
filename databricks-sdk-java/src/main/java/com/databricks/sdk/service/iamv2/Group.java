@@ -18,13 +18,13 @@ public class Group {
   @JsonProperty("external_id")
   private String externalId;
 
+  /** Internal group ID of the group in Databricks. */
+  @JsonProperty("group_id")
+  private String groupId;
+
   /** Display name of the group. */
   @JsonProperty("group_name")
   private String groupName;
-
-  /** Internal group ID of the group in Databricks. */
-  @JsonProperty("internal_id")
-  private String internalId;
 
   public Group setAccountId(String accountId) {
     this.accountId = accountId;
@@ -44,6 +44,15 @@ public class Group {
     return externalId;
   }
 
+  public Group setGroupId(String groupId) {
+    this.groupId = groupId;
+    return this;
+  }
+
+  public String getGroupId() {
+    return groupId;
+  }
+
   public Group setGroupName(String groupName) {
     this.groupName = groupName;
     return this;
@@ -53,15 +62,6 @@ public class Group {
     return groupName;
   }
 
-  public Group setInternalId(String internalId) {
-    this.internalId = internalId;
-    return this;
-  }
-
-  public String getInternalId() {
-    return internalId;
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -69,13 +69,13 @@ public class Group {
     Group that = (Group) o;
     return Objects.equals(accountId, that.accountId)
         && Objects.equals(externalId, that.externalId)
-        && Objects.equals(groupName, that.groupName)
-        && Objects.equals(internalId, that.internalId);
+        && Objects.equals(groupId, that.groupId)
+        && Objects.equals(groupName, that.groupName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(accountId, externalId, groupName, internalId);
+    return Objects.hash(accountId, externalId, groupId, groupName);
   }
 
   @Override
@@ -83,8 +83,8 @@ public class Group {
     return new ToStringer(Group.class)
         .add("accountId", accountId)
         .add("externalId", externalId)
+        .add("groupId", groupId)
         .add("groupName", groupName)
-        .add("internalId", internalId)
         .toString();
   }
 }
