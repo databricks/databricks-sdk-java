@@ -60,10 +60,6 @@ public class SubmitRun {
    * Databricks guarantees that exactly one run is launched with that idempotency token.
    *
    * <p>This token must have at most 64 characters.
-   *
-   * <p>For more information, see [How to ensure idempotency for jobs].
-   *
-   * <p>[How to ensure idempotency for jobs]: https://kb.databricks.com/jobs/jobs-idempotency.html
    */
   @JsonProperty("idempotency_token")
   private String idempotencyToken;

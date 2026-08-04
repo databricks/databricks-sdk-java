@@ -34,21 +34,6 @@ public class ModelProviderServiceConfigMicrosoftFoundryProviderDirectConfig {
   private String baseUrl;
 
   /**
-   * Deprecated flat Entra client ID. Superseded by `entra_service_principal.client_id`. Kept for
-   * one migration cycle; the handler mirrors it to/from `entra_service_principal`.
-   */
-  @JsonProperty("client_id")
-  private String clientId;
-
-  /**
-   * Deprecated flat Entra client secret. Superseded by `entra_service_principal.client_secret`.
-   * Kept for one migration cycle; the handler mirrors it to/from `entra_service_principal`.
-   * Supplied as inline plaintext via `ProviderSecret.plaintext`.
-   */
-  @JsonProperty("client_secret")
-  private ModelProviderServiceConfigProviderSecret clientSecret;
-
-  /**
    * Entra ID (service principal) auth. Mutually exclusive with `api_key` and `service_credential`.
    * Supersedes the flat `tenant_id` / `client_id` / `client_secret` fields.
    */
@@ -67,13 +52,6 @@ public class ModelProviderServiceConfigMicrosoftFoundryProviderDirectConfig {
   @JsonProperty("service_credential")
   private ModelProviderServiceConfigServiceCredential serviceCredential;
 
-  /**
-   * Deprecated flat Entra tenant ID. Superseded by `entra_service_principal.tenant_id`. Kept for
-   * one migration cycle; the handler mirrors it to/from `entra_service_principal`.
-   */
-  @JsonProperty("tenant_id")
-  private String tenantId;
-
   public ModelProviderServiceConfigMicrosoftFoundryProviderDirectConfig setApiKey(
       ModelProviderServiceConfigProviderSecret apiKey) {
     this.apiKey = apiKey;
@@ -91,26 +69,6 @@ public class ModelProviderServiceConfigMicrosoftFoundryProviderDirectConfig {
 
   public String getBaseUrl() {
     return baseUrl;
-  }
-
-  public ModelProviderServiceConfigMicrosoftFoundryProviderDirectConfig setClientId(
-      String clientId) {
-    this.clientId = clientId;
-    return this;
-  }
-
-  public String getClientId() {
-    return clientId;
-  }
-
-  public ModelProviderServiceConfigMicrosoftFoundryProviderDirectConfig setClientSecret(
-      ModelProviderServiceConfigProviderSecret clientSecret) {
-    this.clientSecret = clientSecret;
-    return this;
-  }
-
-  public ModelProviderServiceConfigProviderSecret getClientSecret() {
-    return clientSecret;
   }
 
   public ModelProviderServiceConfigMicrosoftFoundryProviderDirectConfig setEntraServicePrincipal(
@@ -133,16 +91,6 @@ public class ModelProviderServiceConfigMicrosoftFoundryProviderDirectConfig {
     return serviceCredential;
   }
 
-  public ModelProviderServiceConfigMicrosoftFoundryProviderDirectConfig setTenantId(
-      String tenantId) {
-    this.tenantId = tenantId;
-    return this;
-  }
-
-  public String getTenantId() {
-    return tenantId;
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -151,23 +99,13 @@ public class ModelProviderServiceConfigMicrosoftFoundryProviderDirectConfig {
         (ModelProviderServiceConfigMicrosoftFoundryProviderDirectConfig) o;
     return Objects.equals(apiKey, that.apiKey)
         && Objects.equals(baseUrl, that.baseUrl)
-        && Objects.equals(clientId, that.clientId)
-        && Objects.equals(clientSecret, that.clientSecret)
         && Objects.equals(entraServicePrincipal, that.entraServicePrincipal)
-        && Objects.equals(serviceCredential, that.serviceCredential)
-        && Objects.equals(tenantId, that.tenantId);
+        && Objects.equals(serviceCredential, that.serviceCredential);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        apiKey,
-        baseUrl,
-        clientId,
-        clientSecret,
-        entraServicePrincipal,
-        serviceCredential,
-        tenantId);
+    return Objects.hash(apiKey, baseUrl, entraServicePrincipal, serviceCredential);
   }
 
   @Override
@@ -175,11 +113,8 @@ public class ModelProviderServiceConfigMicrosoftFoundryProviderDirectConfig {
     return new ToStringer(ModelProviderServiceConfigMicrosoftFoundryProviderDirectConfig.class)
         .add("apiKey", apiKey)
         .add("baseUrl", baseUrl)
-        .add("clientId", clientId)
-        .add("clientSecret", clientSecret)
         .add("entraServicePrincipal", entraServicePrincipal)
         .add("serviceCredential", serviceCredential)
-        .add("tenantId", tenantId)
         .toString();
   }
 }

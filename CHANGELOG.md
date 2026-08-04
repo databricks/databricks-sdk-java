@@ -1,5 +1,37 @@
 # Version changelog
 
+## Release v0.141.0 (2026-08-04)
+
+### Internal Changes
+
+* Bump Jackson and Apache Commons Configuration dependencies to address security vulnerabilities.
+
+
+## Release v0.140.0 (2026-08-04)
+
+### API Changes
+* Add `kinesisStreamConfig` field for `com.databricks.sdk.service.ml.StreamSourceConfig`.
+* Add `mode` field for `com.databricks.sdk.service.pipelines.UpdateInfo`.
+* [Breaking] Change `state` field for `com.databricks.sdk.service.bundledeployments.Operation` to type `String` class.
+* [Breaking] Change `state` field for `com.databricks.sdk.service.bundledeployments.Resource` to type `String` class.
+* [Breaking] Remove `awsAccessKeyId` and `awsSecretAccessKey` fields for `com.databricks.sdk.service.catalog.ModelProviderServiceConfigAmazonBedrockProviderDirectConfig`.
+* [Breaking] Remove `clientId`, `clientSecret` and `tenantId` fields for `com.databricks.sdk.service.catalog.ModelProviderServiceConfigAzureOpenAiProviderDirectConfig`.
+* [Breaking] Remove `clientId`, `clientSecret` and `tenantId` fields for `com.databricks.sdk.service.catalog.ModelProviderServiceConfigMicrosoftFoundryProviderDirectConfig`.
+
+
+## Release v0.139.0 (2026-08-03)
+
+### API Changes
+* Add `pauseStatus` field for `com.databricks.sdk.service.jobs.TriggerStateProto`.
+* Add `directoryInfo` field for `com.databricks.sdk.service.workspace.ObjectInfo`.
+* Add `groupId` field for `com.databricks.sdk.service.iamv2.Group`.
+* Add `servicePrincipalId` field for `com.databricks.sdk.service.iamv2.ServicePrincipal`.
+* Add `userId` field for `com.databricks.sdk.service.iamv2.User`.
+* [Breaking] Remove `internalId` field for `com.databricks.sdk.service.iamv2.Group`.
+* [Breaking] Remove `internalId` field for `com.databricks.sdk.service.iamv2.ServicePrincipal`.
+* [Breaking] Remove `internalId` field for `com.databricks.sdk.service.iamv2.User`.
+
+
 ## Release v0.138.0 (2026-07-30)
 
 ### API Changes

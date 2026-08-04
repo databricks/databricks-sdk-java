@@ -9,7 +9,7 @@ import java.util.Objects;
 
 /**
  * Request message for resolving a service principal with the given external ID from the customer's
- * IdP into Databricks. Will resolve metadata such as the service principal's displayname, status,
+ * IdP into Databricks. Will resolve metadata such as the service principal's display name, status,
  * and inherited parent groups.
  */
 @Generated

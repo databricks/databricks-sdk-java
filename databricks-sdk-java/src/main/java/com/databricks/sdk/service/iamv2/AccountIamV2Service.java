@@ -14,19 +14,18 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface AccountIamV2Service {
   /**
-   * Creates a workspace assignment detail for a principal. Entitlement grants are applied
-   * individually and non-atomically — if a failure occurs partway through, the principal will be
-   * assigned to the workspace but with only a subset of the requested entitlements. Use
-   * GetWorkspaceAssignmentDetail to confirm which entitlements were successfully granted.
+   * Creates a workspace assignment detail for a principal. Entitlements are granted one at a time
+   * rather than atomically. If the request fails partway through, the principal stays assigned to
+   * the workspace with only some of the requested entitlements. Get the assignment detail
+   * afterwards to confirm which entitlements were granted.
    */
   WorkspaceAssignmentDetail createWorkspaceAssignmentDetail(
       CreateWorkspaceAssignmentDetailRequest createWorkspaceAssignmentDetailRequest);
 
   /**
-   * Deletes a workspace assignment detail for a principal, revoking all associated entitlements.
-   * Entitlement revocations are applied individually and non-atomically — if a failure occurs
-   * partway through, the principal remains assigned with a subset of its original entitlements, and
-   * the operation is safe to retry.
+   * Deletes a workspace assignment detail for a principal, revoking all of its entitlements.
+   * Entitlements are revoked one at a time rather than atomically. If the request fails partway
+   * through, the principal stays assigned with some of its original entitlements. Retrying is safe.
    */
   void deleteWorkspaceAssignmentDetail(
       DeleteWorkspaceAssignmentDetailRequest deleteWorkspaceAssignmentDetailRequest);
@@ -46,9 +45,9 @@ public interface AccountIamV2Service {
       GetWorkspaceAssignmentDetailRequest getWorkspaceAssignmentDetailRequest);
 
   /**
-   * Lists workspace assignment details for a workspace. For scalability, the response omits the
-   * per-principal entitlement fields (`entitlements` and `effective_entitlements`); call
-   * GetWorkspaceAssignmentDetail to read entitlements for a single principal.
+   * Lists workspace assignment details for a workspace. The response omits the per-principal
+   * entitlement fields (`entitlements` and `effective_entitlements`). To read the entitlements for
+   * a single principal, get that principal's assignment detail.
    */
   ListWorkspaceAssignmentDetailsResponse listWorkspaceAssignmentDetails(
       ListWorkspaceAssignmentDetailsRequest listWorkspaceAssignmentDetailsRequest);
@@ -61,9 +60,9 @@ public interface AccountIamV2Service {
   ResolveGroupResponse resolveGroup(ResolveGroupRequest resolveGroupRequest);
 
   /**
-   * Resolves an SP with the given external ID from the customer's IdP. If the SP does not exist, it
-   * will be created. If the customer is not onboarded onto Automatic Identity Management (AIM),
-   * this will return an error.
+   * Resolves a service principal with the given external ID from the customer's IdP. If the service
+   * principal does not exist, it will be created. If the customer is not onboarded onto Automatic
+   * Identity Management (AIM), this will return an error.
    */
   ResolveServicePrincipalResponse resolveServicePrincipal(
       ResolveServicePrincipalRequest resolveServicePrincipalRequest);
@@ -76,10 +75,9 @@ public interface AccountIamV2Service {
   ResolveUserResponse resolveUser(ResolveUserRequest resolveUserRequest);
 
   /**
-   * Updates the entitlements of a directly assigned principal in a workspace. Entitlement changes
-   * are applied individually and non-atomically — if a failure occurs partway through, only a
-   * subset of the requested changes may have been applied. Use GetWorkspaceAssignmentDetail to
-   * confirm the final state.
+   * Updates the entitlements of a directly assigned principal in a workspace. Changes are applied
+   * one at a time rather than atomically. If the request fails partway through, only some of the
+   * requested changes take effect. Get the assignment detail afterwards to confirm the final state.
    */
   WorkspaceAssignmentDetail updateWorkspaceAssignmentDetail(
       UpdateWorkspaceAssignmentDetailRequest updateWorkspaceAssignmentDetailRequest);

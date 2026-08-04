@@ -27,8 +27,8 @@ public class User {
   private UserFullName fullName;
 
   /** Internal userId of the user in Databricks. */
-  @JsonProperty("internal_id")
-  private String internalId;
+  @JsonProperty("user_id")
+  private String userId;
 
   /** Username/email of the user. */
   @JsonProperty("username")
@@ -70,13 +70,13 @@ public class User {
     return fullName;
   }
 
-  public User setInternalId(String internalId) {
-    this.internalId = internalId;
+  public User setUserId(String userId) {
+    this.userId = userId;
     return this;
   }
 
-  public String getInternalId() {
-    return internalId;
+  public String getUserId() {
+    return userId;
   }
 
   public User setUsername(String username) {
@@ -97,13 +97,13 @@ public class User {
         && Objects.equals(accountUserStatus, that.accountUserStatus)
         && Objects.equals(externalId, that.externalId)
         && Objects.equals(fullName, that.fullName)
-        && Objects.equals(internalId, that.internalId)
+        && Objects.equals(userId, that.userId)
         && Objects.equals(username, that.username);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(accountId, accountUserStatus, externalId, fullName, internalId, username);
+    return Objects.hash(accountId, accountUserStatus, externalId, fullName, userId, username);
   }
 
   @Override
@@ -113,7 +113,7 @@ public class User {
         .add("accountUserStatus", accountUserStatus)
         .add("externalId", externalId)
         .add("fullName", fullName)
-        .add("internalId", internalId)
+        .add("userId", userId)
         .add("username", username)
         .toString();
   }

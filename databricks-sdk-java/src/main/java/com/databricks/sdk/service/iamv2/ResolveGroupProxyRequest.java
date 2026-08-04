@@ -9,7 +9,7 @@ import java.util.Objects;
 
 /**
  * Request message for resolving a group with the given external ID from the customer's IdP into
- * Databricks. Will resolve metadata such as the group's groupname, and inherited parent groups.
+ * Databricks. Will resolve metadata such as the group's name and inherited parent groups.
  */
 @Generated
 public class ResolveGroupProxyRequest {

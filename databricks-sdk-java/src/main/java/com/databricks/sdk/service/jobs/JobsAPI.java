@@ -244,7 +244,10 @@ public class JobsAPI {
         });
   }
 
-  /** List runs in descending order by start time. */
+  /**
+   * List runs in descending order by end time. If a run has not finished, it falls back to start
+   * time.
+   */
   public Iterable<BaseRun> listRuns(ListRunsRequest request) {
     return Paginator.newTokenPagination(
         request,

@@ -9,7 +9,7 @@ import java.util.Objects;
 
 /**
  * Request message for resolving a user with the given external ID from the customer's IdP into
- * Databricks. Will resolve metadata such as the user's displayname, status, and inherited parent
+ * Databricks. Will resolve metadata such as the user's display name, status, and inherited parent
  * groups.
  */
 @Generated

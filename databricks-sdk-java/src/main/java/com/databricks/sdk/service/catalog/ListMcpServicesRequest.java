@@ -16,7 +16,7 @@ public class ListMcpServicesRequest {
   private Boolean includeBrowse;
 
   /**
-   * Maximum number of MCP services to return. Defaults to 100 when unset or 0; the maximum is 1000.
+   * Maximum number of MCP services to return. Defaults to 100 when unset or 0; the maximum is 100.
    * Use `next_page_token` to retrieve additional pages.
    */
   @JsonIgnore

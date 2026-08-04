@@ -18,10 +18,7 @@ public class ListWorkspaceAssignmentDetailsProxyRequest {
   @QueryParam("page_size")
   private Long pageSize;
 
-  /**
-   * A page token, received from a previous ListWorkspaceAssignmentDetailsProxy call. Provide this
-   * to retrieve the subsequent page.
-   */
+  /** A page token from a previous list call. Provide this to retrieve the subsequent page. */
   @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
