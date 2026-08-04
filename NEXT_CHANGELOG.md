@@ -1,6 +1,6 @@
 # NEXT CHANGELOG
 
-## Release v0.141.0
+## Release v0.142.0
 
 ### New Features and Improvements
 
@@ -13,7 +13,5 @@
 ### Documentation
 
 ### Internal Changes
-
-* Bump Jackson and Apache Commons Configuration dependencies to address security vulnerabilities.
 
 ### API Changes

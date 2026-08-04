@@ -1,5 +1,12 @@
 # Version changelog
 
+## Release v0.141.0 (2026-08-04)
+
+### Internal Changes
+
+* Bump Jackson and Apache Commons Configuration dependencies to address security vulnerabilities.
+
+
 ## Release v0.140.0 (2026-08-04)
 
 ### API Changes
