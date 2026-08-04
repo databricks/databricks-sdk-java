@@ -20,7 +20,7 @@ public class ListModelProviderServicesRequest {
 
   /**
    * Maximum number of provider services to return. Defaults to 100 when unset or 0; the maximum is
-   * 1000. Use `next_page_token` to retrieve additional pages.
+   * 100. Use `next_page_token` to retrieve additional pages.
    */
   @JsonIgnore
   @QueryParam("page_size")

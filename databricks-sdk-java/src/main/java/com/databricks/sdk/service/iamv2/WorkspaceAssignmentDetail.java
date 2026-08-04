@@ -12,18 +12,19 @@ import java.util.Objects;
  * The direct assignment of a provisioned account-level principal (user, service principal, or
  * group) to a workspace, together with the entitlements that assignment grants in the workspace.
  *
- * <p>A WorkspaceAssignmentDetail exists only for principals that are directly assigned to the
- * workspace; principals that merely inherit workspace access through a group are not represented
- * here (see WorkspaceAccessDetail / WorkspaceIdentityDetail for the effective, direct-or-indirect
- * view). Creating the resource assigns the principal to the workspace; deleting it removes the
- * assignment. The `entitlements` field is the only client-settable field and defines the
- * entitlements granted directly on this assignment; `effective_entitlements` is the read-only union
- * of those plus any granted via group membership.
+ * <p>This resource covers only principals assigned directly to the workspace. Principals that
+ * inherit workspace access through a group are not represented here. See WorkspaceAccessDetail and
+ * WorkspaceIdentityDetail for the effective, direct-or-indirect view. Creating the resource assigns
+ * the principal to the workspace, and deleting it removes the assignment.
  *
- * <p>A direct assignment always carries at least one directly-assigned entitlement: the assignment
- * is what grants the entitlement, so a WorkspaceAssignmentDetail with an empty `entitlements` set
- * is not a valid state. Both create and update require a non-empty `entitlements` set (an empty set
- * is rejected); to remove a principal's assignment entirely, delete the resource.
+ * <p>`entitlements` is the only client-settable field. It holds the entitlements granted directly
+ * on this assignment, including any the principal also holds through a group.
+ * `effective_entitlements` is the read-only union of those and any granted through group
+ * membership.
+ *
+ * <p>A direct assignment always carries at least one directly-assigned entitlement, because the
+ * assignment is what grants it. Create and update both reject an empty `entitlements` set. To
+ * remove a principal's assignment entirely, delete the resource.
  *
  * <p>This resource replaces workspace assignment previously managed through the workspace SCIM and
  * permission-assignment APIs, and is intended for account and workspace admins.
@@ -35,17 +36,17 @@ public class WorkspaceAssignmentDetail {
   private String accountId;
 
   /**
-   * The principal's full effective entitlements granted in this workspace: every entitlement it
-   * holds whether granted directly or via group membership. Populated on Get; empty on List.
+   * Every entitlement the principal holds in this workspace, whether granted directly or through
+   * group membership. Get responses populate this field. List responses leave it empty.
    */
   @JsonProperty("effective_entitlements")
   private Collection<Entitlement> effectiveEntitlements;
 
   /**
-   * Entitlements granted directly to the principal on this workspace. The only client-settable
-   * field: create and update manage exactly this set (including entitlements the principal also
-   * holds via a group). Not populated by ListWorkspaceAssignmentDetails (omitted for scalability);
-   * call GetWorkspaceAssignmentDetail to read the entitlements for a single principal.
+   * Entitlements granted directly to the principal on this workspace. This is the only
+   * client-settable field. Create and update manage exactly this set, including entitlements the
+   * principal also holds through a group. List responses leave this field empty. Get a single
+   * principal to read its entitlements.
    */
   @JsonProperty("entitlements")
   private Collection<Entitlement> entitlements;

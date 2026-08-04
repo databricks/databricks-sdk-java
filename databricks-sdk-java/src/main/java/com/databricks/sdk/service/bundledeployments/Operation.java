@@ -5,7 +5,6 @@ package com.databricks.sdk.service.bundledeployments;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.google.protobuf.Timestamp;
 import java.util.Objects;
 
@@ -86,9 +85,20 @@ public class Operation {
    * Serialized local config state after the operation. Should be unset for delete operations.
    * Mutable: may be updated after creation via UpdateOperation. When updating, the caller must echo
    * the last-observed `sequence_id` as a concurrency precondition.
+   *
+   * <p>Opaque to this service: the string is stored and returned unchanged. This is deliberately
+   * not google.protobuf.Value, whose only numeric case is `double number_value`, so parsing the
+   * client's JSON into it rewrites every integer as a double - `1` reads back as `1.0`, which no
+   * longer deserializes into an integer field - and silently loses precision above 2^53, which is
+   * within range for IDs the client records.
+   *
+   * <p>A string rather than bytes: the payload is always UTF-8 JSON, and proto3 JSON maps bytes to
+   * base64, which inflates every request and response by a third and makes state unreadable in logs
+   * and API responses. Both generate the same OpenAPI schema ("type": "string"), so the SDKs are
+   * identical either way.
    */
   @JsonProperty("state")
-  private JsonNode state;
+  private String state;
 
   /**
    * Whether the operation succeeded or failed. Mutable: may be updated after creation via
@@ -186,12 +196,12 @@ public class Operation {
     return sequenceId;
   }
 
-  public Operation setState(JsonNode state) {
+  public Operation setState(String state) {
     this.state = state;
     return this;
   }
 
-  public JsonNode getState() {
+  public String getState() {
     return state;
   }
 

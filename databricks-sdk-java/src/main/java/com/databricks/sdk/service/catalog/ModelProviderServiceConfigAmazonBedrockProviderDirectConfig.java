@@ -25,22 +25,6 @@ public class ModelProviderServiceConfigAmazonBedrockProviderDirectConfig {
   @JsonProperty("aws_access_key")
   private ModelProviderServiceConfigAwsAccessKey awsAccessKey;
 
-  /**
-   * Deprecated flat AWS access key ID. Superseded by `aws_access_key.access_key_id`. Kept for one
-   * migration cycle; the handler mirrors it to/from `aws_access_key`. Treated as
-   * username-equivalent (not a secret value): round-trips on reads and is scrubbed from audit logs.
-   */
-  @JsonProperty("aws_access_key_id")
-  private String awsAccessKeyId;
-
-  /**
-   * Deprecated flat AWS secret access key. Superseded by `aws_access_key.secret_access_key`. Kept
-   * for one migration cycle; the handler mirrors it to/from `aws_access_key`. Supplied as inline
-   * plaintext via `ProviderSecret.plaintext`.
-   */
-  @JsonProperty("aws_secret_access_key")
-  private ModelProviderServiceConfigProviderSecret awsSecretAccessKey;
-
   /** AWS region where the Bedrock endpoint is hosted (e.g., `us-east-1`). Required on Create. */
   @JsonProperty("region")
   private String region;
@@ -64,26 +48,6 @@ public class ModelProviderServiceConfigAmazonBedrockProviderDirectConfig {
 
   public ModelProviderServiceConfigAwsAccessKey getAwsAccessKey() {
     return awsAccessKey;
-  }
-
-  public ModelProviderServiceConfigAmazonBedrockProviderDirectConfig setAwsAccessKeyId(
-      String awsAccessKeyId) {
-    this.awsAccessKeyId = awsAccessKeyId;
-    return this;
-  }
-
-  public String getAwsAccessKeyId() {
-    return awsAccessKeyId;
-  }
-
-  public ModelProviderServiceConfigAmazonBedrockProviderDirectConfig setAwsSecretAccessKey(
-      ModelProviderServiceConfigProviderSecret awsSecretAccessKey) {
-    this.awsSecretAccessKey = awsSecretAccessKey;
-    return this;
-  }
-
-  public ModelProviderServiceConfigProviderSecret getAwsSecretAccessKey() {
-    return awsSecretAccessKey;
   }
 
   public ModelProviderServiceConfigAmazonBedrockProviderDirectConfig setRegion(String region) {
@@ -112,24 +76,19 @@ public class ModelProviderServiceConfigAmazonBedrockProviderDirectConfig {
     ModelProviderServiceConfigAmazonBedrockProviderDirectConfig that =
         (ModelProviderServiceConfigAmazonBedrockProviderDirectConfig) o;
     return Objects.equals(awsAccessKey, that.awsAccessKey)
-        && Objects.equals(awsAccessKeyId, that.awsAccessKeyId)
-        && Objects.equals(awsSecretAccessKey, that.awsSecretAccessKey)
         && Objects.equals(region, that.region)
         && Objects.equals(serviceCredential, that.serviceCredential);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        awsAccessKey, awsAccessKeyId, awsSecretAccessKey, region, serviceCredential);
+    return Objects.hash(awsAccessKey, region, serviceCredential);
   }
 
   @Override
   public String toString() {
     return new ToStringer(ModelProviderServiceConfigAmazonBedrockProviderDirectConfig.class)
         .add("awsAccessKey", awsAccessKey)
-        .add("awsAccessKeyId", awsAccessKeyId)
-        .add("awsSecretAccessKey", awsSecretAccessKey)
         .add("region", region)
         .add("serviceCredential", serviceCredential)
         .toString();

@@ -27,11 +27,10 @@ public class WorkspaceIamV2API {
   }
 
   /**
-   * Creates a workspace assignment detail for a principal (workspace-level proxy). Entitlement
-   * grants are applied individually and non-atomically — if a failure occurs partway through, the
-   * principal will be assigned to the workspace but with only a subset of the requested
-   * entitlements. Use GetWorkspaceAssignmentDetail to confirm which entitlements were successfully
-   * granted.
+   * Creates a workspace assignment detail for a principal in the calling workspace. Entitlements
+   * are granted one at a time rather than atomically. If the request fails partway through, the
+   * principal stays assigned to the workspace with only some of the requested entitlements. Get the
+   * assignment detail afterwards to confirm which entitlements were granted.
    */
   public WorkspaceAssignmentDetail createWorkspaceAssignmentDetailProxy(
       CreateWorkspaceAssignmentDetailProxyRequest request) {
@@ -44,10 +43,10 @@ public class WorkspaceIamV2API {
   }
 
   /**
-   * Deletes a workspace assignment detail for a principal (workspace-level proxy), revoking all
-   * associated entitlements. Entitlement revocations are applied individually and non-atomically —
-   * if a failure occurs partway through, the principal remains assigned with a subset of its
-   * original entitlements, and the operation is safe to retry.
+   * Deletes a workspace assignment detail for a principal in the calling workspace, revoking all of
+   * its entitlements. Entitlements are revoked one at a time rather than atomically. If the request
+   * fails partway through, the principal stays assigned with some of its original entitlements.
+   * Retrying is safe.
    */
   public void deleteWorkspaceAssignmentDetailProxy(
       DeleteWorkspaceAssignmentDetailProxyRequest request) {
@@ -76,17 +75,16 @@ public class WorkspaceIamV2API {
         new GetWorkspaceAssignmentDetailProxyRequest().setPrincipalId(principalId));
   }
 
-  /** Returns the assignment details for a principal in a workspace (workspace-level proxy). */
+  /** Returns the assignment details for a principal in the calling workspace. */
   public WorkspaceAssignmentDetail getWorkspaceAssignmentDetailProxy(
       GetWorkspaceAssignmentDetailProxyRequest request) {
     return impl.getWorkspaceAssignmentDetailProxy(request);
   }
 
   /**
-   * Lists workspace assignment details for a workspace (workspace-level proxy). For scalability,
-   * the response omits the per-principal entitlement fields (`entitlements` and
-   * `effective_entitlements`); call GetWorkspaceAssignmentDetailProxy to read entitlements for a
-   * single principal.
+   * Lists workspace assignment details for the calling workspace. The response omits the
+   * per-principal entitlement fields (`entitlements` and `effective_entitlements`). To read the
+   * entitlements for a single principal, get that principal's assignment detail.
    */
   public ListWorkspaceAssignmentDetailsResponse listWorkspaceAssignmentDetailsProxy(
       ListWorkspaceAssignmentDetailsProxyRequest request) {
@@ -103,9 +101,9 @@ public class WorkspaceIamV2API {
   }
 
   /**
-   * Resolves an SP with the given external ID from the customer's IdP. If the SP does not exist, it
-   * will be created. If the customer is not onboarded onto Automatic Identity Management (AIM),
-   * this will return an error.
+   * Resolves a service principal with the given external ID from the customer's IdP. If the service
+   * principal does not exist, it will be created. If the customer is not onboarded onto Automatic
+   * Identity Management (AIM), this will return an error.
    */
   public ResolveServicePrincipalResponse resolveServicePrincipalProxy(
       ResolveServicePrincipalProxyRequest request) {
@@ -122,10 +120,10 @@ public class WorkspaceIamV2API {
   }
 
   /**
-   * Updates the entitlements of a directly assigned principal in a workspace (workspace-level
-   * proxy). Entitlement changes are applied individually and non-atomically — if a failure occurs
-   * partway through, only a subset of the requested changes may have been applied. Use
-   * GetWorkspaceAssignmentDetail to confirm the final state.
+   * Updates the entitlements of a directly assigned principal in the calling workspace. Changes are
+   * applied one at a time rather than atomically. If the request fails partway through, only some
+   * of the requested changes take effect. Get the assignment detail afterwards to confirm the final
+   * state.
    */
   public WorkspaceAssignmentDetail updateWorkspaceAssignmentDetailProxy(
       UpdateWorkspaceAssignmentDetailProxyRequest request) {
