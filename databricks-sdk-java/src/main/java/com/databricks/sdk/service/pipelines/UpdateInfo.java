@@ -42,6 +42,13 @@ public class UpdateInfo {
   @JsonProperty("full_refresh_selection")
   private Collection<String> fullRefreshSelection;
 
+  /**
+   * Indicates whether the update is either part of a continuous job run, or running in legacy
+   * continuous pipeline mode. Returned only for GetUpdate; not populated in ListUpdates responses.
+   */
+  @JsonProperty("mode")
+  private UpdateMode mode;
+
   /** Key/value map of parameters used to initiate the update */
   @JsonProperty("parameters")
   private Map<String, String> parameters;
@@ -127,6 +134,15 @@ public class UpdateInfo {
     return fullRefreshSelection;
   }
 
+  public UpdateInfo setMode(UpdateMode mode) {
+    this.mode = mode;
+    return this;
+  }
+
+  public UpdateMode getMode() {
+    return mode;
+  }
+
   public UpdateInfo setParameters(Map<String, String> parameters) {
     this.parameters = parameters;
     return this;
@@ -192,6 +208,7 @@ public class UpdateInfo {
         && Objects.equals(creationTime, that.creationTime)
         && Objects.equals(fullRefresh, that.fullRefresh)
         && Objects.equals(fullRefreshSelection, that.fullRefreshSelection)
+        && Objects.equals(mode, that.mode)
         && Objects.equals(parameters, that.parameters)
         && Objects.equals(pipelineId, that.pipelineId)
         && Objects.equals(refreshSelection, that.refreshSelection)
@@ -209,6 +226,7 @@ public class UpdateInfo {
         creationTime,
         fullRefresh,
         fullRefreshSelection,
+        mode,
         parameters,
         pipelineId,
         refreshSelection,
@@ -226,6 +244,7 @@ public class UpdateInfo {
         .add("creationTime", creationTime)
         .add("fullRefresh", fullRefresh)
         .add("fullRefreshSelection", fullRefreshSelection)
+        .add("mode", mode)
         .add("parameters", parameters)
         .add("pipelineId", pipelineId)
         .add("refreshSelection", refreshSelection)

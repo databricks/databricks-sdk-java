@@ -2232,6 +2232,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/KafkaConfig.java
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/KafkaSource.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/KafkaStreamConfig.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/KafkaSubscriptionMode.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/KinesisStreamConfig.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/LastDistinctFunction.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/LastFunction.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/LastNFunction.java linguist-generated=true
@@ -2361,7 +2362,9 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/Status.java ling
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/StddevPopFunction.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/StddevSampFunction.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/Stream.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/StreamArnList.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/StreamConnectionConfig.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/StreamNameList.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/StreamSchemaConfig.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/StreamSource.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/StreamSourceConfig.java linguist-generated=true
@@ -2604,6 +2607,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/Truncatio
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/UpdateInfo.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/UpdateInfoCause.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/UpdateInfoState.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/UpdateMode.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/UpdateStateInfo.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/UpdateStateInfoState.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/ZendeskSupportOptions.java linguist-generated=true

@@ -7,11 +7,18 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Direct form of Gemini Enterprise provider config. */
+/**
+ * Direct form of Gemini Enterprise provider config.
+ *
+ * <p>Authentication is one of two mutually exclusive modes; exactly one must be supplied on Create:
+ * - API key: set `api_key`, leave `service_credential` unset. - UC service credential: set
+ * `service_credential`, leave `api_key` unset.
+ */
 @Generated
 public class ModelProviderServiceConfigGeminiEnterpriseProviderDirectConfig {
   /**
-   * Google Gemini Enterprise API key. Required on Create. Supplied as inline plaintext via
+   * Google Gemini Enterprise API key. Required on Create when using API-key auth; mutually
+   * exclusive with `service_credential`. Supplied as inline plaintext via
    * `ProviderSecret.plaintext`.
    */
   @JsonProperty("api_key")

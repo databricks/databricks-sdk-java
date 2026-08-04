@@ -5,7 +5,6 @@ package com.databricks.sdk.service.bundledeployments;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.google.protobuf.Timestamp;
 import java.util.Objects;
 
@@ -46,9 +45,12 @@ public class Resource {
   @JsonProperty("resource_type")
   private DeploymentResourceType resourceType;
 
-  /** Serialized local config state (what the CLI deployed). */
+  /**
+   * Serialized local config state (what the CLI deployed). Opaque to this service; see
+   * Operation.state for why this is a string and not google.protobuf.Value.
+   */
   @JsonProperty("state")
-  private JsonNode state;
+  private String state;
 
   /**
    * When the last operation that updated this resource's recorded state was applied. Pairs with
@@ -120,12 +122,12 @@ public class Resource {
     return resourceType;
   }
 
-  public Resource setState(JsonNode state) {
+  public Resource setState(String state) {
     this.state = state;
     return this;
   }
 
-  public JsonNode getState() {
+  public String getState() {
     return state;
   }
 

@@ -34,21 +34,6 @@ public class ModelProviderServiceConfigAzureOpenAiProviderDirectConfig {
   private String baseUrl;
 
   /**
-   * Deprecated flat Entra client ID. Superseded by `entra_service_principal.client_id`. Kept for
-   * one migration cycle; the handler mirrors it to/from `entra_service_principal`.
-   */
-  @JsonProperty("client_id")
-  private String clientId;
-
-  /**
-   * Deprecated flat Entra client secret. Superseded by `entra_service_principal.client_secret`.
-   * Kept for one migration cycle; the handler mirrors it to/from `entra_service_principal`.
-   * Supplied as inline plaintext via `ProviderSecret.plaintext`.
-   */
-  @JsonProperty("client_secret")
-  private ModelProviderServiceConfigProviderSecret clientSecret;
-
-  /**
    * Entra ID (service principal) auth. Mutually exclusive with `api_key` and `service_credential`.
    * Supersedes the flat `tenant_id` / `client_id` / `client_secret` fields.
    */
@@ -65,13 +50,6 @@ public class ModelProviderServiceConfigAzureOpenAiProviderDirectConfig {
    */
   @JsonProperty("service_credential")
   private ModelProviderServiceConfigServiceCredential serviceCredential;
-
-  /**
-   * Deprecated flat Entra tenant ID. Superseded by `entra_service_principal.tenant_id`. Kept for
-   * one migration cycle; the handler mirrors it to/from `entra_service_principal`.
-   */
-  @JsonProperty("tenant_id")
-  private String tenantId;
 
   public ModelProviderServiceConfigAzureOpenAiProviderDirectConfig setApiKey(
       ModelProviderServiceConfigProviderSecret apiKey) {
@@ -90,25 +68,6 @@ public class ModelProviderServiceConfigAzureOpenAiProviderDirectConfig {
 
   public String getBaseUrl() {
     return baseUrl;
-  }
-
-  public ModelProviderServiceConfigAzureOpenAiProviderDirectConfig setClientId(String clientId) {
-    this.clientId = clientId;
-    return this;
-  }
-
-  public String getClientId() {
-    return clientId;
-  }
-
-  public ModelProviderServiceConfigAzureOpenAiProviderDirectConfig setClientSecret(
-      ModelProviderServiceConfigProviderSecret clientSecret) {
-    this.clientSecret = clientSecret;
-    return this;
-  }
-
-  public ModelProviderServiceConfigProviderSecret getClientSecret() {
-    return clientSecret;
   }
 
   public ModelProviderServiceConfigAzureOpenAiProviderDirectConfig setEntraServicePrincipal(
@@ -131,15 +90,6 @@ public class ModelProviderServiceConfigAzureOpenAiProviderDirectConfig {
     return serviceCredential;
   }
 
-  public ModelProviderServiceConfigAzureOpenAiProviderDirectConfig setTenantId(String tenantId) {
-    this.tenantId = tenantId;
-    return this;
-  }
-
-  public String getTenantId() {
-    return tenantId;
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -148,23 +98,13 @@ public class ModelProviderServiceConfigAzureOpenAiProviderDirectConfig {
         (ModelProviderServiceConfigAzureOpenAiProviderDirectConfig) o;
     return Objects.equals(apiKey, that.apiKey)
         && Objects.equals(baseUrl, that.baseUrl)
-        && Objects.equals(clientId, that.clientId)
-        && Objects.equals(clientSecret, that.clientSecret)
         && Objects.equals(entraServicePrincipal, that.entraServicePrincipal)
-        && Objects.equals(serviceCredential, that.serviceCredential)
-        && Objects.equals(tenantId, that.tenantId);
+        && Objects.equals(serviceCredential, that.serviceCredential);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        apiKey,
-        baseUrl,
-        clientId,
-        clientSecret,
-        entraServicePrincipal,
-        serviceCredential,
-        tenantId);
+    return Objects.hash(apiKey, baseUrl, entraServicePrincipal, serviceCredential);
   }
 
   @Override
@@ -172,11 +112,8 @@ public class ModelProviderServiceConfigAzureOpenAiProviderDirectConfig {
     return new ToStringer(ModelProviderServiceConfigAzureOpenAiProviderDirectConfig.class)
         .add("apiKey", apiKey)
         .add("baseUrl", baseUrl)
-        .add("clientId", clientId)
-        .add("clientSecret", clientSecret)
         .add("entraServicePrincipal", entraServicePrincipal)
         .add("serviceCredential", serviceCredential)
-        .add("tenantId", tenantId)
         .toString();
   }
 }
