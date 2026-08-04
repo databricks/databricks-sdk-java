@@ -14,4 +14,6 @@
 
 ### Internal Changes
 
+* Bump Jackson and Apache Commons Configuration dependencies to address security vulnerabilities.
+
 ### API Changes
