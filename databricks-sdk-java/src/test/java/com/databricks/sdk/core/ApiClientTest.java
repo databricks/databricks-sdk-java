@@ -540,20 +540,17 @@ public class ApiClientTest {
 
   @Test
   void doesNotRetryStreamingBodyAfterResponse() throws IOException {
-    // Regression test for the streaming-upload retry bug: a streaming request body (e.g.
-    // Files.upload) is backed by a single-use InputStream that the first attempt consumes as it is
-    // sent. If the SDK retried after a 503, it would re-send the now-exhausted stream as a 0-byte
-    // body, silently uploading an empty file. Using a transport that actually reads the body (like
-    // the real CommonsHttpClient) and would return 204 on a retry, we assert on the bytes actually
-    // transmitted per attempt: without the fix this records [13, 0] (an empty retry that "succeeds"
-    // with 204); with the fix the upload is attempted exactly once and the original 503 is thrown.
+    // A streaming body (e.g. Files.upload) is a single-use InputStream consumed by the first
+    // attempt, so retrying a 503 would re-send an empty stream and silently upload 0 bytes. The
+    // upload must be attempted exactly once and the 503 surfaced to the caller.
     byte[] contents = "file-contents".getBytes(StandardCharsets.UTF_8);
-    // Second status (204) is what a buggy empty-body retry would receive; the fix means it is never
-    // reached, but supplying it lets this test capture the empty retry as a byte count if it were.
+    // The 204 is what a buggy empty-body retry would receive; the guard means it is never reached.
     BodyReadingHttpClient hc = new BodyReadingHttpClient(503, 204);
     ApiClient client = apiClientWith(hc);
 
     InputStream body = new ByteArrayInputStream(contents);
+    // Catch rather than assertThrows so the byte-count assertions below run first: without the fix
+    // no exception is thrown, and those assertions give the more informative [13, 0] failure.
     DatabricksError thrown = null;
     try {
       client.execute(new Request("PUT", "/api/2.0/fs/files/Volumes/c/s/v/f", body), Void.class);
@@ -561,21 +558,14 @@ public class ApiClientTest {
       thrown = e;
     }
 
-    // The upload must be attempted exactly once: retrying is unsafe once the body has been sent.
-    // Without the guard this is [13, 0] (the empty-body retry) — the message points right at it.
+    // Exactly one attempt, sending the full body. Without the guard this is [13, 0]: a full first
+    // attempt followed by an empty-body retry.
     assertEquals(
         1,
         hc.bytesReadPerAttempt.size(),
-        "streaming upload must not be retried after the body was sent; the retry would send an empty"
-            + " body. Bytes sent per attempt: "
-            + hc.bytesReadPerAttempt);
-    // That single attempt transmitted the full body ...
+        "streaming upload must not be retried; bytes sent per attempt: " + hc.bytesReadPerAttempt);
     assertEquals(contents.length, hc.bytesReadPerAttempt.get(0));
-    // ... and the stream is now exhausted, which is exactly why a resend would upload 0 bytes.
     assertEquals(-1, body.read(), "stream is single-use and should be fully consumed");
-    // The original transient error is surfaced to the caller (who can retry with a fresh stream)
-    // rather than being masked by a bogus 204 success.
-    assertNotNull(thrown, "the original 503 must be surfaced to the caller");
     assertInstanceOf(TemporarilyUnavailable.class, thrown);
     assertEquals(503, thrown.getStatusCode());
   }
@@ -593,10 +583,9 @@ public class ApiClientTest {
     client.execute(
         new Request("POST", "/api/2.0/sql/statements/", jsonBody), MyEndpointResponse.class);
 
-    // Two attempts were made: the 503 was retried ...
-    assertEquals(2, hc.bytesReadPerAttempt.size());
-    // ... and both attempts sent the full body (the string body is re-sendable, unlike a stream).
+    // The 503 was retried, and both attempts sent the full body (a string body is re-sendable).
     int expected = jsonBody.getBytes(StandardCharsets.UTF_8).length;
+    assertEquals(2, hc.bytesReadPerAttempt.size());
     assertEquals(expected, hc.bytesReadPerAttempt.get(0));
     assertEquals(expected, hc.bytesReadPerAttempt.get(1));
   }

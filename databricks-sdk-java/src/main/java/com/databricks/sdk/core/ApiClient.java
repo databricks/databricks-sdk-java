@@ -277,12 +277,10 @@ public class ApiClient {
       }
 
       // A streaming request body (e.g. Files.upload) is backed by a single-use InputStream that the
-      // first attempt consumes as it is sent. Receiving an HTTP response (response != null) proves
-      // the body was already transmitted, so retrying would re-send an empty body and silently
-      // upload 0 bytes (or surface as a confusing downstream error). Since the stream cannot be
-      // rewound, surface the original error instead so the caller can retry with a fresh stream.
-      // Transport-level IOErrors (response == null, e.g. a pre-send ConnectException) are left to
-      // retry as before, since in that case the stream may not have been read.
+      // first attempt consumes as it is sent. Receiving an HTTP response (response != null) means
+      // the body was already sent, so retrying would re-send an empty stream and upload 0 bytes.
+      // The stream cannot be rewound, so surface the original error and let the caller retry with a
+      // fresh stream. Transport IOErrors (response == null) still retry, as the body may be unsent.
       if (in.isBodyStreaming() && response != null) {
         LOG.debug(
             "Not retrying {} despite a retriable error: the request has a non-repeatable streaming"
