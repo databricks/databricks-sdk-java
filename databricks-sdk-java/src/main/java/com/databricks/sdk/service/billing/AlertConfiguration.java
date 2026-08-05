@@ -22,6 +22,13 @@ public class AlertConfiguration {
   private String alertConfigurationId;
 
   /**
+   * Per-principal threshold overrides for this alert. Only applies to per-user alerts (`scope_type`
+   * = `ALERT_CONFIGURATION_SCOPE_TYPE_PER_USER`); ignored for shared alerts.
+   */
+  @JsonProperty("principal_overrides")
+  private Collection<PrincipalOverride> principalOverrides;
+
+  /**
    * The threshold for the budget alert to determine if it is in a triggered state. The number is
    * evaluated based on `quantity_type`.
    */
@@ -34,6 +41,13 @@ public class AlertConfiguration {
    */
   @JsonProperty("quantity_type")
   private AlertConfigurationQuantityType quantityType;
+
+  /**
+   * How the alert threshold is evaluated. Determines whether spend is tracked in aggregate or per
+   * individual user.
+   */
+  @JsonProperty("scope_type")
+  private AlertConfigurationScopeType scopeType;
 
   /** The time window of usage data for the budget. */
   @JsonProperty("time_period")
@@ -62,6 +76,16 @@ public class AlertConfiguration {
     return alertConfigurationId;
   }
 
+  public AlertConfiguration setPrincipalOverrides(
+      Collection<PrincipalOverride> principalOverrides) {
+    this.principalOverrides = principalOverrides;
+    return this;
+  }
+
+  public Collection<PrincipalOverride> getPrincipalOverrides() {
+    return principalOverrides;
+  }
+
   public AlertConfiguration setQuantityThreshold(String quantityThreshold) {
     this.quantityThreshold = quantityThreshold;
     return this;
@@ -78,6 +102,15 @@ public class AlertConfiguration {
 
   public AlertConfigurationQuantityType getQuantityType() {
     return quantityType;
+  }
+
+  public AlertConfiguration setScopeType(AlertConfigurationScopeType scopeType) {
+    this.scopeType = scopeType;
+    return this;
+  }
+
+  public AlertConfigurationScopeType getScopeType() {
+    return scopeType;
   }
 
   public AlertConfiguration setTimePeriod(AlertConfigurationTimePeriod timePeriod) {
@@ -105,8 +138,10 @@ public class AlertConfiguration {
     AlertConfiguration that = (AlertConfiguration) o;
     return Objects.equals(actionConfigurations, that.actionConfigurations)
         && Objects.equals(alertConfigurationId, that.alertConfigurationId)
+        && Objects.equals(principalOverrides, that.principalOverrides)
         && Objects.equals(quantityThreshold, that.quantityThreshold)
         && Objects.equals(quantityType, that.quantityType)
+        && Objects.equals(scopeType, that.scopeType)
         && Objects.equals(timePeriod, that.timePeriod)
         && Objects.equals(triggerType, that.triggerType);
   }
@@ -116,8 +151,10 @@ public class AlertConfiguration {
     return Objects.hash(
         actionConfigurations,
         alertConfigurationId,
+        principalOverrides,
         quantityThreshold,
         quantityType,
+        scopeType,
         timePeriod,
         triggerType);
   }
@@ -127,8 +164,10 @@ public class AlertConfiguration {
     return new ToStringer(AlertConfiguration.class)
         .add("actionConfigurations", actionConfigurations)
         .add("alertConfigurationId", alertConfigurationId)
+        .add("principalOverrides", principalOverrides)
         .add("quantityThreshold", quantityThreshold)
         .add("quantityType", quantityType)
+        .add("scopeType", scopeType)
         .add("timePeriod", timePeriod)
         .add("triggerType", triggerType)
         .toString();

@@ -41,6 +41,13 @@ public class BudgetConfiguration {
   @JsonProperty("filter")
   private BudgetConfigurationFilter filter;
 
+  /**
+   * The resource scope for this budget. Determines whether the budget tracks all resources or a
+   * specific resource.
+   */
+  @JsonProperty("resource_type")
+  private BudgetResourceType resourceType;
+
   /** Update time of this budget configuration. */
   @JsonProperty("update_time")
   private Long updateTime;
@@ -100,6 +107,15 @@ public class BudgetConfiguration {
     return filter;
   }
 
+  public BudgetConfiguration setResourceType(BudgetResourceType resourceType) {
+    this.resourceType = resourceType;
+    return this;
+  }
+
+  public BudgetResourceType getResourceType() {
+    return resourceType;
+  }
+
   public BudgetConfiguration setUpdateTime(Long updateTime) {
     this.updateTime = updateTime;
     return this;
@@ -120,6 +136,7 @@ public class BudgetConfiguration {
         && Objects.equals(createTime, that.createTime)
         && Objects.equals(displayName, that.displayName)
         && Objects.equals(filter, that.filter)
+        && Objects.equals(resourceType, that.resourceType)
         && Objects.equals(updateTime, that.updateTime);
   }
 
@@ -132,6 +149,7 @@ public class BudgetConfiguration {
         createTime,
         displayName,
         filter,
+        resourceType,
         updateTime);
   }
 
@@ -144,6 +162,7 @@ public class BudgetConfiguration {
         .add("createTime", createTime)
         .add("displayName", displayName)
         .add("filter", filter)
+        .add("resourceType", resourceType)
         .add("updateTime", updateTime)
         .toString();
   }

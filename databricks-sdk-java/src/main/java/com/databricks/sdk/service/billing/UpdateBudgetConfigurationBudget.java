@@ -37,6 +37,13 @@ public class UpdateBudgetConfigurationBudget {
   @JsonProperty("filter")
   private BudgetConfigurationFilter filter;
 
+  /**
+   * The resource scope for this budget. Determines whether the budget tracks all resources or a
+   * specific resource.
+   */
+  @JsonProperty("resource_type")
+  private BudgetResourceType resourceType;
+
   public UpdateBudgetConfigurationBudget setAccountId(String accountId) {
     this.accountId = accountId;
     return this;
@@ -83,6 +90,15 @@ public class UpdateBudgetConfigurationBudget {
     return filter;
   }
 
+  public UpdateBudgetConfigurationBudget setResourceType(BudgetResourceType resourceType) {
+    this.resourceType = resourceType;
+    return this;
+  }
+
+  public BudgetResourceType getResourceType() {
+    return resourceType;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -92,12 +108,14 @@ public class UpdateBudgetConfigurationBudget {
         && Objects.equals(alertConfigurations, that.alertConfigurations)
         && Objects.equals(budgetConfigurationId, that.budgetConfigurationId)
         && Objects.equals(displayName, that.displayName)
-        && Objects.equals(filter, that.filter);
+        && Objects.equals(filter, that.filter)
+        && Objects.equals(resourceType, that.resourceType);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(accountId, alertConfigurations, budgetConfigurationId, displayName, filter);
+    return Objects.hash(
+        accountId, alertConfigurations, budgetConfigurationId, displayName, filter, resourceType);
   }
 
   @Override
@@ -108,6 +126,7 @@ public class UpdateBudgetConfigurationBudget {
         .add("budgetConfigurationId", budgetConfigurationId)
         .add("displayName", displayName)
         .add("filter", filter)
+        .add("resourceType", resourceType)
         .toString();
   }
 }

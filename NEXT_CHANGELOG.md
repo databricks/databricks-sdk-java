@@ -17,3 +17,11 @@
 ### Internal Changes
 
 ### API Changes
+* Add `principalOverrides` and `scopeType` fields for `com.databricks.sdk.service.billing.AlertConfiguration`.
+* Add `resourceType` field for `com.databricks.sdk.service.billing.BudgetConfiguration`.
+* Add `resourceType` field for `com.databricks.sdk.service.billing.CreateBudgetConfigurationBudget`.
+* Add `principalOverrides` and `scopeType` fields for `com.databricks.sdk.service.billing.CreateBudgetConfigurationBudgetAlertConfigurations`.
+* Add `resourceType` field for `com.databricks.sdk.service.billing.UpdateBudgetConfigurationBudget`.
+* Add `grant` field for `com.databricks.sdk.service.catalog.PolicyInfo`.
+* Add `BLOCK_USAGE` enum value for `com.databricks.sdk.service.billing.ActionConfigurationType`.
+* Add `POLICY_TYPE_GRANT` enum value for `com.databricks.sdk.service.catalog.PolicyType`.

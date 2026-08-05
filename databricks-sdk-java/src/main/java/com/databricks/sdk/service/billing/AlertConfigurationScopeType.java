@@ -4,9 +4,9 @@ package com.databricks.sdk.service.billing;
 
 import com.databricks.sdk.support.Generated;
 
-/** Type of action that a budget alert executes when its threshold is crossed. */
+/** Evaluation scope for an alert configuration. */
 @Generated
-public enum ActionConfigurationType {
-  BLOCK_USAGE,
-  EMAIL_NOTIFICATION,
+public enum AlertConfigurationScopeType {
+  ALERT_CONFIGURATION_SCOPE_TYPE_PER_USER,
+  ALERT_CONFIGURATION_SCOPE_TYPE_SHARED,
 }
