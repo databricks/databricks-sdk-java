@@ -18,6 +18,13 @@ public class CreateBudgetConfigurationBudgetAlertConfigurations {
   private Collection<CreateBudgetConfigurationBudgetActionConfigurations> actionConfigurations;
 
   /**
+   * Per-principal threshold overrides for this alert. Only applies to per-user alerts (`scope_type`
+   * = `ALERT_CONFIGURATION_SCOPE_TYPE_PER_USER`); ignored for shared alerts.
+   */
+  @JsonProperty("principal_overrides")
+  private Collection<PrincipalOverride> principalOverrides;
+
+  /**
    * The threshold for the budget alert to determine if it is in a triggered state. The number is
    * evaluated based on `quantity_type`.
    */
@@ -30,6 +37,13 @@ public class CreateBudgetConfigurationBudgetAlertConfigurations {
    */
   @JsonProperty("quantity_type")
   private AlertConfigurationQuantityType quantityType;
+
+  /**
+   * How the alert threshold is evaluated. Determines whether spend is tracked in aggregate or per
+   * individual user.
+   */
+  @JsonProperty("scope_type")
+  private AlertConfigurationScopeType scopeType;
 
   /** The time window of usage data for the budget. */
   @JsonProperty("time_period")
@@ -47,6 +61,16 @@ public class CreateBudgetConfigurationBudgetAlertConfigurations {
 
   public Collection<CreateBudgetConfigurationBudgetActionConfigurations> getActionConfigurations() {
     return actionConfigurations;
+  }
+
+  public CreateBudgetConfigurationBudgetAlertConfigurations setPrincipalOverrides(
+      Collection<PrincipalOverride> principalOverrides) {
+    this.principalOverrides = principalOverrides;
+    return this;
+  }
+
+  public Collection<PrincipalOverride> getPrincipalOverrides() {
+    return principalOverrides;
   }
 
   public CreateBudgetConfigurationBudgetAlertConfigurations setQuantityThreshold(
@@ -67,6 +91,16 @@ public class CreateBudgetConfigurationBudgetAlertConfigurations {
 
   public AlertConfigurationQuantityType getQuantityType() {
     return quantityType;
+  }
+
+  public CreateBudgetConfigurationBudgetAlertConfigurations setScopeType(
+      AlertConfigurationScopeType scopeType) {
+    this.scopeType = scopeType;
+    return this;
+  }
+
+  public AlertConfigurationScopeType getScopeType() {
+    return scopeType;
   }
 
   public CreateBudgetConfigurationBudgetAlertConfigurations setTimePeriod(
@@ -96,8 +130,10 @@ public class CreateBudgetConfigurationBudgetAlertConfigurations {
     CreateBudgetConfigurationBudgetAlertConfigurations that =
         (CreateBudgetConfigurationBudgetAlertConfigurations) o;
     return Objects.equals(actionConfigurations, that.actionConfigurations)
+        && Objects.equals(principalOverrides, that.principalOverrides)
         && Objects.equals(quantityThreshold, that.quantityThreshold)
         && Objects.equals(quantityType, that.quantityType)
+        && Objects.equals(scopeType, that.scopeType)
         && Objects.equals(timePeriod, that.timePeriod)
         && Objects.equals(triggerType, that.triggerType);
   }
@@ -105,15 +141,23 @@ public class CreateBudgetConfigurationBudgetAlertConfigurations {
   @Override
   public int hashCode() {
     return Objects.hash(
-        actionConfigurations, quantityThreshold, quantityType, timePeriod, triggerType);
+        actionConfigurations,
+        principalOverrides,
+        quantityThreshold,
+        quantityType,
+        scopeType,
+        timePeriod,
+        triggerType);
   }
 
   @Override
   public String toString() {
     return new ToStringer(CreateBudgetConfigurationBudgetAlertConfigurations.class)
         .add("actionConfigurations", actionConfigurations)
+        .add("principalOverrides", principalOverrides)
         .add("quantityThreshold", quantityThreshold)
         .add("quantityType", quantityType)
+        .add("scopeType", scopeType)
         .add("timePeriod", timePeriod)
         .add("triggerType", triggerType)
         .toString();

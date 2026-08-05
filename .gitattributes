@@ -206,6 +206,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/ActionConfi
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/ActionConfigurationType.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/AlertConfiguration.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/AlertConfigurationQuantityType.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/AlertConfigurationScopeType.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/AlertConfigurationTimePeriod.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/AlertConfigurationTriggerType.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/BillableUsageAPI.java linguist-generated=true
@@ -221,6 +222,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/BudgetPolic
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/BudgetPolicyAPI.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/BudgetPolicyImpl.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/BudgetPolicyService.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/BudgetResourceType.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/BudgetsAPI.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/BudgetsImpl.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/BudgetsService.java linguist-generated=true
@@ -260,6 +262,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/LogDelivery
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/LogDeliveryStatus.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/LogType.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/OutputFormat.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/PrincipalOverride.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/SortSpec.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/SortSpecField.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/UpdateBudgetConfigurationBudget.java linguist-generated=true
@@ -570,6 +573,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/GetStorageC
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/GetTableRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/GetWorkspaceBindingRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/GetWorkspaceBindingsResponse.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/GrantOptions.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/GrantsAPI.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/GrantsImpl.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/GrantsService.java linguist-generated=true
