@@ -15,10 +15,6 @@ import java.util.Objects;
  */
 @Generated
 public class McpService {
-  /** Whether the caller sees only metadata available through the BROWSE privilege. */
-  @JsonProperty("browse_only")
-  private Boolean browseOnly;
-
   /** User-provided description. */
   @JsonProperty("comment")
   private String comment;
@@ -78,15 +74,6 @@ public class McpService {
   /** Identity of the last updater. */
   @JsonProperty("updated_by")
   private String updatedBy;
-
-  public McpService setBrowseOnly(Boolean browseOnly) {
-    this.browseOnly = browseOnly;
-    return this;
-  }
-
-  public Boolean getBrowseOnly() {
-    return browseOnly;
-  }
 
   public McpService setComment(String comment) {
     this.comment = comment;
@@ -192,8 +179,7 @@ public class McpService {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     McpService that = (McpService) o;
-    return Objects.equals(browseOnly, that.browseOnly)
-        && Objects.equals(comment, that.comment)
+    return Objects.equals(comment, that.comment)
         && Objects.equals(config, that.config)
         && Objects.equals(createTime, that.createTime)
         && Objects.equals(createdBy, that.createdBy)
@@ -209,7 +195,6 @@ public class McpService {
   @Override
   public int hashCode() {
     return Objects.hash(
-        browseOnly,
         comment,
         config,
         createTime,
@@ -226,7 +211,6 @@ public class McpService {
   @Override
   public String toString() {
     return new ToStringer(McpService.class)
-        .add("browseOnly", browseOnly)
         .add("comment", comment)
         .add("config", config)
         .add("createTime", createTime)

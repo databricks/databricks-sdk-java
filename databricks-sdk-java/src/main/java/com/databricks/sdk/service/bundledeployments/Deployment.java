@@ -15,7 +15,10 @@ public class Deployment {
   @JsonProperty("create_time")
   private Timestamp createTime;
 
-  /** The user who created the deployment (email or principal name). */
+  /**
+   * The user who created the deployment (email or principal name). Empty if authoritative
+   * deployment metadata does not identify a creator or the principal cannot be resolved.
+   */
   @JsonProperty("created_by")
   private String createdBy;
 
@@ -94,7 +97,11 @@ public class Deployment {
   @JsonProperty("update_time")
   private Timestamp updateTime;
 
-  /** The user who most recently updated the deployment (email or principal name). */
+  /**
+   * The user who most recently updated the deployment (email or principal name). Empty if
+   * authoritative deployment metadata does not identify a modifier or the principal cannot be
+   * resolved.
+   */
   @JsonProperty("updated_by")
   private String updatedBy;
 

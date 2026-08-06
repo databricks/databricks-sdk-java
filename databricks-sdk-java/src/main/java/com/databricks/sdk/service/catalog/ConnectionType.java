@@ -19,6 +19,7 @@ public enum ConnectionType {
   JDBC,
   META_MARKETING,
   MYSQL,
+  NETSUITE,
   ORACLE,
   OUTLOOK,
   POSTGRESQL,
