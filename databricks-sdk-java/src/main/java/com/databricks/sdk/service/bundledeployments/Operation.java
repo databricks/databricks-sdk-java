@@ -45,10 +45,10 @@ public class Operation {
   private String name;
 
   /**
-   * ID of the actual resource in the workspace (e.g. the job ID, pipeline ID). Optional at
-   * creation: CREATE and RECREATE operations produce a new resource whose ID is not yet known when
-   * the operation is recorded. Mutable: may be filled in (or corrected) later via UpdateOperation
-   * once the ID is known.
+   * ID of the actual resource in the workspace (e.g. the job ID, pipeline ID). Required whenever
+   * `state` is set, because state records a resource that exists. A CREATE or RECREATE that has not
+   * produced its resource yet records neither. Mutable: may be filled in (or corrected) later via
+   * UpdateOperation once the ID is known.
    */
   @JsonProperty("resource_id")
   private String resourceId;
@@ -82,9 +82,14 @@ public class Operation {
   private Long sequenceId;
 
   /**
-   * Serialized local config state after the operation. Should be unset for delete operations.
-   * Mutable: may be updated after creation via UpdateOperation. When updating, the caller must echo
-   * the last-observed `sequence_id` as a concurrency precondition.
+   * Serialized local config state after the operation. Its presence records whether the resource
+   * still exists, so an operation that records no state removes its resource from the deployment.
+   * It may be unset only for an operation that left no resource behind: a `DELETE` that succeeded,
+   * or a `CREATE` or `RECREATE` that failed. It is required otherwise, including for a failed
+   * `DELETE`, whose resource survives.
+   *
+   * <p>Mutable: may be updated after creation via UpdateOperation. When updating, the caller must
+   * echo the last-observed `sequence_id` as a concurrency precondition.
    *
    * <p>Opaque to this service: the string is stored and returned unchanged. This is deliberately
    * not google.protobuf.Value, whose only numeric case is `double number_value`, so parsing the

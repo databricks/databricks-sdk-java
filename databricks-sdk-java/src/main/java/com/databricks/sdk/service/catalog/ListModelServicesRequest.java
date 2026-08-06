@@ -11,13 +11,6 @@ import java.util.Objects;
 @Generated
 public class ListModelServicesRequest {
   /**
-   * Whether to include model services for which the principal can only access selective metadata.
-   */
-  @JsonIgnore
-  @QueryParam("include_browse")
-  private Boolean includeBrowse;
-
-  /**
    * Maximum number of model services to return. Defaults to 100 when unset or 0; the maximum is
    * 100. Use `next_page_token` to retrieve additional pages.
    */
@@ -42,15 +35,6 @@ public class ListModelServicesRequest {
   @JsonIgnore
   @QueryParam("view")
   private ListModelServicesRequestView view;
-
-  public ListModelServicesRequest setIncludeBrowse(Boolean includeBrowse) {
-    this.includeBrowse = includeBrowse;
-    return this;
-  }
-
-  public Boolean getIncludeBrowse() {
-    return includeBrowse;
-  }
 
   public ListModelServicesRequest setPageSize(Long pageSize) {
     this.pageSize = pageSize;
@@ -93,8 +77,7 @@ public class ListModelServicesRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ListModelServicesRequest that = (ListModelServicesRequest) o;
-    return Objects.equals(includeBrowse, that.includeBrowse)
-        && Objects.equals(pageSize, that.pageSize)
+    return Objects.equals(pageSize, that.pageSize)
         && Objects.equals(pageToken, that.pageToken)
         && Objects.equals(parent, that.parent)
         && Objects.equals(view, that.view);
@@ -102,13 +85,12 @@ public class ListModelServicesRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(includeBrowse, pageSize, pageToken, parent, view);
+    return Objects.hash(pageSize, pageToken, parent, view);
   }
 
   @Override
   public String toString() {
     return new ToStringer(ListModelServicesRequest.class)
-        .add("includeBrowse", includeBrowse)
         .add("pageSize", pageSize)
         .add("pageToken", pageToken)
         .add("parent", parent)

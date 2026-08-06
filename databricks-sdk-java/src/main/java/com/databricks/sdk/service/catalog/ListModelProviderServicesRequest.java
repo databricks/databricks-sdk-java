@@ -11,14 +11,6 @@ import java.util.Objects;
 @Generated
 public class ListModelProviderServicesRequest {
   /**
-   * Whether to include provider services for which the principal can only access selective
-   * metadata.
-   */
-  @JsonIgnore
-  @QueryParam("include_browse")
-  private Boolean includeBrowse;
-
-  /**
    * Maximum number of provider services to return. Defaults to 100 when unset or 0; the maximum is
    * 100. Use `next_page_token` to retrieve additional pages.
    */
@@ -43,15 +35,6 @@ public class ListModelProviderServicesRequest {
   @JsonIgnore
   @QueryParam("view")
   private ListModelProviderServicesRequestView view;
-
-  public ListModelProviderServicesRequest setIncludeBrowse(Boolean includeBrowse) {
-    this.includeBrowse = includeBrowse;
-    return this;
-  }
-
-  public Boolean getIncludeBrowse() {
-    return includeBrowse;
-  }
 
   public ListModelProviderServicesRequest setPageSize(Long pageSize) {
     this.pageSize = pageSize;
@@ -94,8 +77,7 @@ public class ListModelProviderServicesRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ListModelProviderServicesRequest that = (ListModelProviderServicesRequest) o;
-    return Objects.equals(includeBrowse, that.includeBrowse)
-        && Objects.equals(pageSize, that.pageSize)
+    return Objects.equals(pageSize, that.pageSize)
         && Objects.equals(pageToken, that.pageToken)
         && Objects.equals(parent, that.parent)
         && Objects.equals(view, that.view);
@@ -103,13 +85,12 @@ public class ListModelProviderServicesRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(includeBrowse, pageSize, pageToken, parent, view);
+    return Objects.hash(pageSize, pageToken, parent, view);
   }
 
   @Override
   public String toString() {
     return new ToStringer(ListModelProviderServicesRequest.class)
-        .add("includeBrowse", includeBrowse)
         .add("pageSize", pageSize)
         .add("pageToken", pageToken)
         .add("parent", parent)

@@ -47,8 +47,9 @@ public class BundleDeploymentsAPI {
    * operation's name. If an operation with the same key already exists under the version, the
    * server returns `ALREADY_EXISTS`.
    *
-   * <p>On success the server also updates the corresponding deployment-level Resource (creating it
-   * if this is the first operation for that resource_key, or removing it if action_type is DELETE).
+   * <p>On success the server also updates the corresponding deployment-level resource, creating it
+   * if this is the first operation for that resource_key and removing it if the operation records
+   * no `state` (see that field).
    */
   public Operation createOperation(CreateOperationRequest request) {
     return impl.createOperation(request);
@@ -206,9 +207,11 @@ public class BundleDeploymentsAPI {
    * guarded by an optimistic-concurrency check: the caller sets `operation.sequence_id` to the
    * value it last observed, and the server rejects the update with `ABORTED` if the operation has
    * been modified since. On success the server increments `sequence_id`; updates to `state` and
-   * `resource_id` are mirrored onto the corresponding deployment-level Resource projection. The
-   * parent version must be in progress, delete operations cannot be updated, and after the update
-   * is applied a succeeded operation cannot carry an `error_message`.
+   * `resource_id` are mirrored onto the corresponding deployment-level resource. Listing `state` in
+   * `update_mask` with no value clears it, which removes the resource, so a delete that is retried
+   * until it succeeds must clear `state`. The parent version must be in progress, and after the
+   * update is applied a succeeded operation cannot carry an `error_message`. See the `state` and
+   * `resource_id` fields for the rest.
    */
   public Operation updateOperation(UpdateOperationRequest request) {
     return impl.updateOperation(request);

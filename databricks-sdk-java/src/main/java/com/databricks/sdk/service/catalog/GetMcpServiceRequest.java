@@ -3,32 +3,17 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 @Generated
 public class GetMcpServiceRequest {
-  /** Whether to include MCP services for which the principal can only access selective metadata. */
-  @JsonIgnore
-  @QueryParam("include_browse")
-  private Boolean includeBrowse;
-
   /**
    * Resource name of the MCP service. Format: `mcp-services/{catalog}.{schema}.{mcp_service}`. Each
    * `{...}` component is capped at 255 characters individually.
    */
   @JsonIgnore private String name;
-
-  public GetMcpServiceRequest setIncludeBrowse(Boolean includeBrowse) {
-    this.includeBrowse = includeBrowse;
-    return this;
-  }
-
-  public Boolean getIncludeBrowse() {
-    return includeBrowse;
-  }
 
   public GetMcpServiceRequest setName(String name) {
     this.name = name;
@@ -44,19 +29,16 @@ public class GetMcpServiceRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GetMcpServiceRequest that = (GetMcpServiceRequest) o;
-    return Objects.equals(includeBrowse, that.includeBrowse) && Objects.equals(name, that.name);
+    return Objects.equals(name, that.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(includeBrowse, name);
+    return Objects.hash(name);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(GetMcpServiceRequest.class)
-        .add("includeBrowse", includeBrowse)
-        .add("name", name)
-        .toString();
+    return new ToStringer(GetMcpServiceRequest.class).add("name", name).toString();
   }
 }

@@ -20,10 +20,6 @@ import java.util.Objects;
  */
 @Generated
 public class ModelProviderService {
-  /** Whether the caller sees only metadata available through the BROWSE privilege. */
-  @JsonProperty("browse_only")
-  private Boolean browseOnly;
-
   /** User-provided description. */
   @JsonProperty("comment")
   private String comment;
@@ -85,15 +81,6 @@ public class ModelProviderService {
   /** Identity of the last updater. */
   @JsonProperty("updated_by")
   private String updatedBy;
-
-  public ModelProviderService setBrowseOnly(Boolean browseOnly) {
-    this.browseOnly = browseOnly;
-    return this;
-  }
-
-  public Boolean getBrowseOnly() {
-    return browseOnly;
-  }
 
   public ModelProviderService setComment(String comment) {
     this.comment = comment;
@@ -199,8 +186,7 @@ public class ModelProviderService {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ModelProviderService that = (ModelProviderService) o;
-    return Objects.equals(browseOnly, that.browseOnly)
-        && Objects.equals(comment, that.comment)
+    return Objects.equals(comment, that.comment)
         && Objects.equals(config, that.config)
         && Objects.equals(createTime, that.createTime)
         && Objects.equals(createdBy, that.createdBy)
@@ -216,7 +202,6 @@ public class ModelProviderService {
   @Override
   public int hashCode() {
     return Objects.hash(
-        browseOnly,
         comment,
         config,
         createTime,
@@ -233,7 +218,6 @@ public class ModelProviderService {
   @Override
   public String toString() {
     return new ToStringer(ModelProviderService.class)
-        .add("browseOnly", browseOnly)
         .add("comment", comment)
         .add("config", config)
         .add("createTime", createTime)
