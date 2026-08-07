@@ -15,7 +15,9 @@ public class TelemetryConfig {
 
   /**
    * The Unity Catalog tables to which endpoint telemetry (logs, traces, and metrics) is exported.
-   * Provide this to create a new telemetry profile for the endpoint from the given tables.
+   * Provide this to create a new telemetry profile for the endpoint from the given tables. This
+   * field selects the tables when writing a telemetry configuration; it is not returned when
+   * reading one. Responses identify the resulting profile with `telemetry_profile_id` instead.
    */
   @JsonProperty("table_names")
   private UnityCatalogTableNames tableNames;
