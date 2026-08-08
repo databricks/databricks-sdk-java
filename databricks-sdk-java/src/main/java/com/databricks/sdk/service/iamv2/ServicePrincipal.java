@@ -18,7 +18,10 @@ public class ServicePrincipal {
   @JsonProperty("account_sp_status")
   private State accountSpStatus;
 
-  /** Application ID of the service principal. */
+  /**
+   * Application ID of the service principal. Set at creation time and cannot be changed afterwards;
+   * when omitted, the server generates one.
+   */
   @JsonProperty("application_id")
   private String applicationId;
 
