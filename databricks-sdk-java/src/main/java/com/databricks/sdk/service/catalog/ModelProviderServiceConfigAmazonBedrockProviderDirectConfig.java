@@ -18,10 +18,7 @@ import java.util.Objects;
  */
 @Generated
 public class ModelProviderServiceConfigAmazonBedrockProviderDirectConfig {
-  /**
-   * AWS access-key-pair auth. Mutually exclusive with `service_credential`. Supersedes the flat
-   * `aws_access_key_id` / `aws_secret_access_key` fields.
-   */
+  /** AWS access-key-pair auth. Mutually exclusive with `service_credential`. */
   @JsonProperty("aws_access_key")
   private ModelProviderServiceConfigAwsAccessKey awsAccessKey;
 
