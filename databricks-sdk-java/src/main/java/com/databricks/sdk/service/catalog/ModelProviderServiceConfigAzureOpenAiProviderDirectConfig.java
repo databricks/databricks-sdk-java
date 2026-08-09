@@ -35,7 +35,6 @@ public class ModelProviderServiceConfigAzureOpenAiProviderDirectConfig {
 
   /**
    * Entra ID (service principal) auth. Mutually exclusive with `api_key` and `service_credential`.
-   * Supersedes the flat `tenant_id` / `client_id` / `client_secret` fields.
    */
   @JsonProperty("entra_service_principal")
   private ModelProviderServiceConfigEntraServicePrincipal entraServicePrincipal;

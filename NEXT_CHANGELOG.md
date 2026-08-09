@@ -15,3 +15,9 @@
 ### Internal Changes
 
 ### API Changes
+* Add `includeValue` field for `com.databricks.sdk.service.catalog.GetSecretRequest`.
+* Add `dockerImageUrl` field for `com.databricks.sdk.service.jobs.AiRuntimeTask`.
+* Add `GPU_XLARGE_8` enum value for `com.databricks.sdk.service.serving.ServedModelInputWorkloadType`.
+* Add `GPU_XLARGE_8` enum value for `com.databricks.sdk.service.serving.ServingModelWorkloadType`.
+* Change `accountSpStatus` and `displayName` fields for `com.databricks.sdk.service.iamv2.ServicePrincipal` to be required.
+* Change `accountUserStatus`, `fullName` and `username` fields for `com.databricks.sdk.service.iamv2.User` to be required.
