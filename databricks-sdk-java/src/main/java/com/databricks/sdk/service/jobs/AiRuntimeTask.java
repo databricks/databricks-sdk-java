@@ -35,6 +35,14 @@ public class AiRuntimeTask {
   private Collection<DeploymentSpec> deployments;
 
   /**
+   * Optional Docker image URL for a custom container image. When set, the task runs on the
+   * specified container image instead of the default Databricks client image. Format:
+   * `{organization}/{repository}:{tag}`
+   */
+  @JsonProperty("docker_image_url")
+  private String dockerImageUrl;
+
+  /**
    * MLflow experiment name for this run. If an experiment with this name already exists under the
    * calling user, the run is appended to it; otherwise a new experiment is created. To target a
    * specific MLflow storage location (for example, when running as a service principal), set
@@ -76,6 +84,15 @@ public class AiRuntimeTask {
     return deployments;
   }
 
+  public AiRuntimeTask setDockerImageUrl(String dockerImageUrl) {
+    this.dockerImageUrl = dockerImageUrl;
+    return this;
+  }
+
+  public String getDockerImageUrl() {
+    return dockerImageUrl;
+  }
+
   public AiRuntimeTask setExperiment(String experiment) {
     this.experiment = experiment;
     return this;
@@ -110,6 +127,7 @@ public class AiRuntimeTask {
     AiRuntimeTask that = (AiRuntimeTask) o;
     return Objects.equals(codeSourcePath, that.codeSourcePath)
         && Objects.equals(deployments, that.deployments)
+        && Objects.equals(dockerImageUrl, that.dockerImageUrl)
         && Objects.equals(experiment, that.experiment)
         && Objects.equals(mlflowExperimentDirectory, that.mlflowExperimentDirectory)
         && Objects.equals(mlflowRun, that.mlflowRun);
@@ -118,7 +136,12 @@ public class AiRuntimeTask {
   @Override
   public int hashCode() {
     return Objects.hash(
-        codeSourcePath, deployments, experiment, mlflowExperimentDirectory, mlflowRun);
+        codeSourcePath,
+        deployments,
+        dockerImageUrl,
+        experiment,
+        mlflowExperimentDirectory,
+        mlflowRun);
   }
 
   @Override
@@ -126,6 +149,7 @@ public class AiRuntimeTask {
     return new ToStringer(AiRuntimeTask.class)
         .add("codeSourcePath", codeSourcePath)
         .add("deployments", deployments)
+        .add("dockerImageUrl", dockerImageUrl)
         .add("experiment", experiment)
         .add("mlflowExperimentDirectory", mlflowExperimentDirectory)
         .add("mlflowRun", mlflowRun)
