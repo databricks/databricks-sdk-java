@@ -39,13 +39,13 @@ Using the SDK is as simple as instantiating the `WorkspaceClient` class:
 import com.databricks.sdk.WorkspaceClient;
 import com.databricks.sdk.AccountClient;
 import com.databricks.sdk.core.DatabricksConfig;
-import com.databricks.sdk.service.compute.ClusterInfo;
+import com.databricks.sdk.service.compute.ClusterDetails;
 import com.databricks.sdk.service.compute.ListClustersRequest;
 
 public class App {
    public static void main(String[] args) {
       WorkspaceClient workspace = new WorkspaceClient();
-      for (ClusterInfo c : workspace.clusters().list(new ListClustersRequest())) {
+      for (ClusterDetails c : workspace.clusters().list(new ListClustersRequest())) {
          System.out.println(c.getClusterName());
       }
    }
@@ -58,7 +58,7 @@ To access account-level APIs, you can instantiate the `AccountClient` class:
 import com.databricks.sdk.WorkspaceClient;
 import com.databricks.sdk.AccountClient;
 import com.databricks.sdk.core.DatabricksConfig;
-import com.databricks.sdk.service.compute.ClusterInfo;
+import com.databricks.sdk.service.compute.ClusterDetails;
 import com.databricks.sdk.service.compute.ListClustersRequest;
 
 public class App {
@@ -333,7 +333,7 @@ For example, in the Clusters API, once you create a cluster, you receive a clust
 
 Another example is the API for running a job or repairing the run: right after the run starts, the run is in the `PENDING` state. The job is only considered to be finished when it is in either the `TERMINATED` or `SKIPPED` state. Also you would likely need the error message if the long-running operation times out failed with an error code. Other times you may want to configure a custom timeout other than the default of 20 minutes.
 
-In the following example, `workspace.clusters().create()` returns `ClusterInfo` only once the cluster is in the `RUNNING` state, otherwise it will timeout in 10 minutes:
+In the following example, `workspace.clusters().create()` returns `ClusterDetails` only once the cluster is in the `RUNNING` state, otherwise it will timeout in 10 minutes:
 
 ```java
 CreateCluster request = new CreateCluster()
@@ -342,7 +342,7 @@ CreateCluster request = new CreateCluster()
    .setNodeTypeId("i3.xlarge")
    .setAutoterminationMinutes(10L)
    .setNumWorkers(1L);
-ClusterInfo cluster = workspace.clusters().create(request).get(Duration.ofMinutes(10));
+ClusterDetails cluster = workspace.clusters().create(request).get(Duration.ofMinutes(10));
 ```
 
 ## Paginated responses
@@ -510,7 +510,7 @@ Use the SDK in this package by prepending `shaded.` to all imports:
 import shaded.com.databricks.sdk.WorkspaceClient;
 import shaded.com.databricks.sdk.AccountClient;
 import shaded.com.databricks.sdk.core.DatabricksConfig;
-import shaded.com.databricks.sdk.service.compute.ClusterInfo;
+import shaded.com.databricks.sdk.service.compute.ClusterDetails;
 import shaded.com.databricks.sdk.service.compute.ListClustersRequest;
 
 // ...
