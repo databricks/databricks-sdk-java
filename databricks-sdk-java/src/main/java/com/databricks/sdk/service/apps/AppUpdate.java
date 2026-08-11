@@ -30,6 +30,13 @@ public class AppUpdate {
   @JsonProperty("description")
   private String description;
 
+  /**
+   * Forward the user's access token to the app. Requires stopping and starting app compute to take
+   * effect.
+   */
+  @JsonProperty("forward_user_access_token")
+  private Boolean forwardUserAccessToken;
+
   /** */
   @JsonProperty("git_repository")
   private GitRepository gitRepository;
@@ -95,6 +102,15 @@ public class AppUpdate {
     return description;
   }
 
+  public AppUpdate setForwardUserAccessToken(Boolean forwardUserAccessToken) {
+    this.forwardUserAccessToken = forwardUserAccessToken;
+    return this;
+  }
+
+  public Boolean getForwardUserAccessToken() {
+    return forwardUserAccessToken;
+  }
+
   public AppUpdate setGitRepository(GitRepository gitRepository) {
     this.gitRepository = gitRepository;
     return this;
@@ -150,6 +166,7 @@ public class AppUpdate {
         && Objects.equals(computeMinInstances, that.computeMinInstances)
         && Objects.equals(computeSize, that.computeSize)
         && Objects.equals(description, that.description)
+        && Objects.equals(forwardUserAccessToken, that.forwardUserAccessToken)
         && Objects.equals(gitRepository, that.gitRepository)
         && Objects.equals(resources, that.resources)
         && Objects.equals(status, that.status)
@@ -165,6 +182,7 @@ public class AppUpdate {
         computeMinInstances,
         computeSize,
         description,
+        forwardUserAccessToken,
         gitRepository,
         resources,
         status,
@@ -180,6 +198,7 @@ public class AppUpdate {
         .add("computeMinInstances", computeMinInstances)
         .add("computeSize", computeSize)
         .add("description", description)
+        .add("forwardUserAccessToken", forwardUserAccessToken)
         .add("gitRepository", gitRepository)
         .add("resources", resources)
         .add("status", status)
