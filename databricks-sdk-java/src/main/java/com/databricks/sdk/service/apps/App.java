@@ -73,6 +73,13 @@ public class App {
   private Collection<String> effectiveUserApiScopes;
 
   /**
+   * Forward the user's access token to the app. Requires stopping and starting app compute to take
+   * effect.
+   */
+  @JsonProperty("forward_user_access_token")
+  private Boolean forwardUserAccessToken;
+
+  /**
    * Git repository configuration for app deployments. When specified, deployments can reference
    * code from this repository by providing only the git reference (branch, tag, or commit).
    */
@@ -279,6 +286,15 @@ public class App {
     return effectiveUserApiScopes;
   }
 
+  public App setForwardUserAccessToken(Boolean forwardUserAccessToken) {
+    this.forwardUserAccessToken = forwardUserAccessToken;
+    return this;
+  }
+
+  public Boolean getForwardUserAccessToken() {
+    return forwardUserAccessToken;
+  }
+
   public App setGitRepository(GitRepository gitRepository) {
     this.gitRepository = gitRepository;
     return this;
@@ -461,6 +477,7 @@ public class App {
         && Objects.equals(effectiveBudgetPolicyId, that.effectiveBudgetPolicyId)
         && Objects.equals(effectiveUsagePolicyId, that.effectiveUsagePolicyId)
         && Objects.equals(effectiveUserApiScopes, that.effectiveUserApiScopes)
+        && Objects.equals(forwardUserAccessToken, that.forwardUserAccessToken)
         && Objects.equals(gitRepository, that.gitRepository)
         && Objects.equals(id, that.id)
         && Objects.equals(name, that.name)
@@ -498,6 +515,7 @@ public class App {
         effectiveBudgetPolicyId,
         effectiveUsagePolicyId,
         effectiveUserApiScopes,
+        forwardUserAccessToken,
         gitRepository,
         id,
         name,
@@ -535,6 +553,7 @@ public class App {
         .add("effectiveBudgetPolicyId", effectiveBudgetPolicyId)
         .add("effectiveUsagePolicyId", effectiveUsagePolicyId)
         .add("effectiveUserApiScopes", effectiveUserApiScopes)
+        .add("forwardUserAccessToken", forwardUserAccessToken)
         .add("gitRepository", gitRepository)
         .add("id", id)
         .add("name", name)

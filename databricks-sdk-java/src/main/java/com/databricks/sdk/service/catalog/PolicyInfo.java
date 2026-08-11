@@ -35,8 +35,8 @@ public class PolicyInfo {
   private Collection<String> exceptPrincipals;
 
   /**
-   * Type of securables that the policy should take effect on. Only `TABLE` is supported at this
-   * moment. Required on create and optional on update.
+   * Type of securables that the policy should take effect on. Required on create and optional on
+   * update.
    */
   @JsonProperty("for_securable_type")
   private SecurableType forSecurableType;
