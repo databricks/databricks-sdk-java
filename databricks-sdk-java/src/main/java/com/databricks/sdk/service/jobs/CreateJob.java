@@ -196,6 +196,15 @@ public class CreateJob {
   private TriggerSettings trigger;
 
   /**
+   * List of triggers attached to this job. A run starts when any active trigger evaluates to true.
+   * Cannot be set in the same request as the legacy `schedule`, `trigger`, or `continuous` fields.
+   * The 10-trigger cap is the design's hard limit; rollout steps the effective cap 3 -> 5 -> 10 via
+   * internal validation during the preview.
+   */
+  @JsonProperty("triggers")
+  private Collection<TriggerConfiguration> triggers;
+
+  /**
    * The id of the user specified usage policy to use for this job. If not specified, a default
    * usage policy may be applied when creating or modifying the job. See `effective_usage_policy_id`
    * for the usage policy used by this workload.
@@ -432,6 +441,15 @@ public class CreateJob {
     return trigger;
   }
 
+  public CreateJob setTriggers(Collection<TriggerConfiguration> triggers) {
+    this.triggers = triggers;
+    return this;
+  }
+
+  public Collection<TriggerConfiguration> getTriggers() {
+    return triggers;
+  }
+
   public CreateJob setUsagePolicyId(String usagePolicyId) {
     this.usagePolicyId = usagePolicyId;
     return this;
@@ -480,6 +498,7 @@ public class CreateJob {
         && Objects.equals(tasks, that.tasks)
         && Objects.equals(timeoutSeconds, that.timeoutSeconds)
         && Objects.equals(trigger, that.trigger)
+        && Objects.equals(triggers, that.triggers)
         && Objects.equals(usagePolicyId, that.usagePolicyId)
         && Objects.equals(webhookNotifications, that.webhookNotifications);
   }
@@ -512,6 +531,7 @@ public class CreateJob {
         tasks,
         timeoutSeconds,
         trigger,
+        triggers,
         usagePolicyId,
         webhookNotifications);
   }
@@ -544,6 +564,7 @@ public class CreateJob {
         .add("tasks", tasks)
         .add("timeoutSeconds", timeoutSeconds)
         .add("trigger", trigger)
+        .add("triggers", triggers)
         .add("usagePolicyId", usagePolicyId)
         .add("webhookNotifications", webhookNotifications)
         .toString();

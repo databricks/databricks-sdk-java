@@ -5,6 +5,7 @@ package com.databricks.sdk.service.jobs;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
 
 @Generated
@@ -53,6 +54,15 @@ public class BaseJob {
    */
   @JsonProperty("settings")
   private JobSettings settings;
+
+  /**
+   * Per-trigger runtime information for the multi-trigger surface. Same length and order as
+   * `JobSettings.triggers`; `trigger_details[i]` corresponds to `triggers[i]`. Sub-fields (`state`,
+   * `history`) are populated independently based on the `GetJob.include_trigger_state` /
+   * `include_trigger_history` flags.
+   */
+  @JsonProperty("trigger_details")
+  private Collection<TriggerDetails> triggerDetails;
 
   /** State of the trigger associated with the job. */
   @JsonProperty("trigger_state")
@@ -121,6 +131,15 @@ public class BaseJob {
     return settings;
   }
 
+  public BaseJob setTriggerDetails(Collection<TriggerDetails> triggerDetails) {
+    this.triggerDetails = triggerDetails;
+    return this;
+  }
+
+  public Collection<TriggerDetails> getTriggerDetails() {
+    return triggerDetails;
+  }
+
   public BaseJob setTriggerState(TriggerStateProto triggerState) {
     this.triggerState = triggerState;
     return this;
@@ -142,6 +161,7 @@ public class BaseJob {
         && Objects.equals(hasMore, that.hasMore)
         && Objects.equals(jobId, that.jobId)
         && Objects.equals(settings, that.settings)
+        && Objects.equals(triggerDetails, that.triggerDetails)
         && Objects.equals(triggerState, that.triggerState);
   }
 
@@ -155,6 +175,7 @@ public class BaseJob {
         hasMore,
         jobId,
         settings,
+        triggerDetails,
         triggerState);
   }
 
@@ -168,6 +189,7 @@ public class BaseJob {
         .add("hasMore", hasMore)
         .add("jobId", jobId)
         .add("settings", settings)
+        .add("triggerDetails", triggerDetails)
         .add("triggerState", triggerState)
         .toString();
   }
