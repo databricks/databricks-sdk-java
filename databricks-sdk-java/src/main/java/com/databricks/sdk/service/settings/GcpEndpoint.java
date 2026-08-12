@@ -9,6 +9,14 @@ import java.util.Objects;
 
 @Generated
 public class GcpEndpoint {
+  /** All Google APIs that support VPC Service Controls (a subset of all Google APIs). */
+  @JsonProperty("all_vpc_sc_services")
+  private Boolean allVpcScServices;
+
+  /** Selected Google API hostnames, e.g. "storage.googleapis.com", "bigquery.googleapis.com". */
+  @JsonProperty("google_api_endpoints")
+  private GoogleApiEndpoints googleApiEndpoints;
+
   /** Output only. The URI of the created PSC endpoint. */
   @JsonProperty("psc_endpoint_uri")
   private String pscEndpointUri;
@@ -19,6 +27,24 @@ public class GcpEndpoint {
    */
   @JsonProperty("service_attachment")
   private String serviceAttachment;
+
+  public GcpEndpoint setAllVpcScServices(Boolean allVpcScServices) {
+    this.allVpcScServices = allVpcScServices;
+    return this;
+  }
+
+  public Boolean getAllVpcScServices() {
+    return allVpcScServices;
+  }
+
+  public GcpEndpoint setGoogleApiEndpoints(GoogleApiEndpoints googleApiEndpoints) {
+    this.googleApiEndpoints = googleApiEndpoints;
+    return this;
+  }
+
+  public GoogleApiEndpoints getGoogleApiEndpoints() {
+    return googleApiEndpoints;
+  }
 
   public GcpEndpoint setPscEndpointUri(String pscEndpointUri) {
     this.pscEndpointUri = pscEndpointUri;
@@ -43,18 +69,22 @@ public class GcpEndpoint {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GcpEndpoint that = (GcpEndpoint) o;
-    return Objects.equals(pscEndpointUri, that.pscEndpointUri)
+    return Objects.equals(allVpcScServices, that.allVpcScServices)
+        && Objects.equals(googleApiEndpoints, that.googleApiEndpoints)
+        && Objects.equals(pscEndpointUri, that.pscEndpointUri)
         && Objects.equals(serviceAttachment, that.serviceAttachment);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(pscEndpointUri, serviceAttachment);
+    return Objects.hash(allVpcScServices, googleApiEndpoints, pscEndpointUri, serviceAttachment);
   }
 
   @Override
   public String toString() {
     return new ToStringer(GcpEndpoint.class)
+        .add("allVpcScServices", allVpcScServices)
+        .add("googleApiEndpoints", googleApiEndpoints)
         .add("pscEndpointUri", pscEndpointUri)
         .add("serviceAttachment", serviceAttachment)
         .toString();

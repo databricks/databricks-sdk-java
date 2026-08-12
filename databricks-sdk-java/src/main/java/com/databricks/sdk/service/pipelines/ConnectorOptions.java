@@ -10,6 +10,10 @@ import java.util.Objects;
 /** Wrapper message for source-specific options to support multiple connector types */
 @Generated
 public class ConnectorOptions {
+  /** Connector-specific options for API Source connectors. */
+  @JsonProperty("api_source_connector_options")
+  private ApiSourceConnectorOptions apiSourceConnectorOptions;
+
   /** */
   @JsonProperty("confluence_options")
   private ConfluenceConnectorOptions confluenceOptions;
@@ -57,6 +61,16 @@ public class ConnectorOptions {
   /** */
   @JsonProperty("zendesk_support_options")
   private ZendeskSupportOptions zendeskSupportOptions;
+
+  public ConnectorOptions setApiSourceConnectorOptions(
+      ApiSourceConnectorOptions apiSourceConnectorOptions) {
+    this.apiSourceConnectorOptions = apiSourceConnectorOptions;
+    return this;
+  }
+
+  public ApiSourceConnectorOptions getApiSourceConnectorOptions() {
+    return apiSourceConnectorOptions;
+  }
 
   public ConnectorOptions setConfluenceOptions(ConfluenceConnectorOptions confluenceOptions) {
     this.confluenceOptions = confluenceOptions;
@@ -171,7 +185,8 @@ public class ConnectorOptions {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ConnectorOptions that = (ConnectorOptions) o;
-    return Objects.equals(confluenceOptions, that.confluenceOptions)
+    return Objects.equals(apiSourceConnectorOptions, that.apiSourceConnectorOptions)
+        && Objects.equals(confluenceOptions, that.confluenceOptions)
         && Objects.equals(gdriveOptions, that.gdriveOptions)
         && Objects.equals(googleAdsOptions, that.googleAdsOptions)
         && Objects.equals(jiraOptions, that.jiraOptions)
@@ -188,6 +203,7 @@ public class ConnectorOptions {
   @Override
   public int hashCode() {
     return Objects.hash(
+        apiSourceConnectorOptions,
         confluenceOptions,
         gdriveOptions,
         googleAdsOptions,
@@ -205,6 +221,7 @@ public class ConnectorOptions {
   @Override
   public String toString() {
     return new ToStringer(ConnectorOptions.class)
+        .add("apiSourceConnectorOptions", apiSourceConnectorOptions)
         .add("confluenceOptions", confluenceOptions)
         .add("gdriveOptions", gdriveOptions)
         .add("googleAdsOptions", googleAdsOptions)

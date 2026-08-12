@@ -52,6 +52,16 @@ public class AiRuntimeTask {
   private String experiment;
 
   /**
+   * Optional root location for MLflow artifacts logged by the run. If this field isn't specified
+   * the default artifact location will be in dbfs i.e.
+   * `dbfs:/databricks/mlflow-tracking/<experiment_id>/...` If dbfs access is restricted or UC is
+   * preferred this can be a custom location in UC: `dbfs:/Volumes/<catalog>/<schema>/<volume>/...`
+   * The location should be unique for each experiment.
+   */
+  @JsonProperty("mlflow_artifact_location")
+  private String mlflowArtifactLocation;
+
+  /**
    * Optional workspace directory under which the MLflow experiment named in `experiment` is
    * created. Must start with `/Workspace`. Set this when running as a service principal that has no
    * default user directory; for regular users the experiment defaults to the user's home directory.
@@ -102,6 +112,15 @@ public class AiRuntimeTask {
     return experiment;
   }
 
+  public AiRuntimeTask setMlflowArtifactLocation(String mlflowArtifactLocation) {
+    this.mlflowArtifactLocation = mlflowArtifactLocation;
+    return this;
+  }
+
+  public String getMlflowArtifactLocation() {
+    return mlflowArtifactLocation;
+  }
+
   public AiRuntimeTask setMlflowExperimentDirectory(String mlflowExperimentDirectory) {
     this.mlflowExperimentDirectory = mlflowExperimentDirectory;
     return this;
@@ -129,6 +148,7 @@ public class AiRuntimeTask {
         && Objects.equals(deployments, that.deployments)
         && Objects.equals(dockerImageUrl, that.dockerImageUrl)
         && Objects.equals(experiment, that.experiment)
+        && Objects.equals(mlflowArtifactLocation, that.mlflowArtifactLocation)
         && Objects.equals(mlflowExperimentDirectory, that.mlflowExperimentDirectory)
         && Objects.equals(mlflowRun, that.mlflowRun);
   }
@@ -140,6 +160,7 @@ public class AiRuntimeTask {
         deployments,
         dockerImageUrl,
         experiment,
+        mlflowArtifactLocation,
         mlflowExperimentDirectory,
         mlflowRun);
   }
@@ -151,6 +172,7 @@ public class AiRuntimeTask {
         .add("deployments", deployments)
         .add("dockerImageUrl", dockerImageUrl)
         .add("experiment", experiment)
+        .add("mlflowArtifactLocation", mlflowArtifactLocation)
         .add("mlflowExperimentDirectory", mlflowExperimentDirectory)
         .add("mlflowRun", mlflowRun)
         .toString();

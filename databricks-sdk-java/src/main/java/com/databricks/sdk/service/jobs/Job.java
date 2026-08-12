@@ -5,6 +5,7 @@ package com.databricks.sdk.service.jobs;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
 
 /** Job was retrieved successfully. */
@@ -70,6 +71,15 @@ public class Job {
    */
   @JsonProperty("settings")
   private JobSettings settings;
+
+  /**
+   * Per-trigger runtime information for the multi-trigger surface. Same length and order as
+   * `JobSettings.triggers`; `trigger_details[i]` corresponds to `triggers[i]`. Sub-fields (`state`,
+   * `history`) are populated independently based on the `GetJob.include_trigger_state` /
+   * `include_trigger_history` flags.
+   */
+  @JsonProperty("trigger_details")
+  private Collection<TriggerDetails> triggerDetails;
 
   /** State of the trigger associated with the job. */
   @JsonProperty("trigger_state")
@@ -156,6 +166,15 @@ public class Job {
     return settings;
   }
 
+  public Job setTriggerDetails(Collection<TriggerDetails> triggerDetails) {
+    this.triggerDetails = triggerDetails;
+    return this;
+  }
+
+  public Collection<TriggerDetails> getTriggerDetails() {
+    return triggerDetails;
+  }
+
   public Job setTriggerState(TriggerStateProto triggerState) {
     this.triggerState = triggerState;
     return this;
@@ -179,6 +198,7 @@ public class Job {
         && Objects.equals(nextPageToken, that.nextPageToken)
         && Objects.equals(runAsUserName, that.runAsUserName)
         && Objects.equals(settings, that.settings)
+        && Objects.equals(triggerDetails, that.triggerDetails)
         && Objects.equals(triggerState, that.triggerState);
   }
 
@@ -194,6 +214,7 @@ public class Job {
         nextPageToken,
         runAsUserName,
         settings,
+        triggerDetails,
         triggerState);
   }
 
@@ -209,6 +230,7 @@ public class Job {
         .add("nextPageToken", nextPageToken)
         .add("runAsUserName", runAsUserName)
         .add("settings", settings)
+        .add("triggerDetails", triggerDetails)
         .add("triggerState", triggerState)
         .toString();
   }

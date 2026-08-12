@@ -1693,9 +1693,12 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/Condition.java
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/ConditionTask.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/ConditionTaskOp.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/Continuous.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/ContinuousTriggerConfiguration.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/ContinuousTriggerState.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/CreateJob.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/CreateResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/CronSchedule.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/CronTriggerConfiguration.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/DashboardPageSnapshot.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/DashboardTask.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/DashboardTaskOutput.java linguist-generated=true
@@ -1772,13 +1775,16 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/ListRunsReques
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/ListRunsResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/ModelTriggerConfiguration.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/ModelTriggerConfigurationCondition.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/ModelTriggerState.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/NotebookOutput.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/NotebookTask.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/OutputSchemaInfo.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/PauseStatus.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/PerTriggerState.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/PerformanceTarget.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/PeriodicTriggerConfiguration.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/PeriodicTriggerConfigurationTimeUnit.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/PeriodicTriggerState.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/PipelineParams.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/PipelineTask.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/PolicyComplianceForJobsAPI.java linguist-generated=true
@@ -1825,6 +1831,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/RunState.java 
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/RunStatus.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/RunTask.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/RunType.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/ScheduleTriggerState.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/Source.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/SparkJarTask.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/SparkPythonTask.java linguist-generated=true
@@ -1866,6 +1873,10 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/TaskRetryMode.
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/TerminationCodeCode.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/TerminationDetails.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/TerminationTypeType.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/TriggerConfiguration.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/TriggerDetails.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/TriggerEvaluation.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/TriggerHistory.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/TriggerInfo.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/TriggerSettings.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/TriggerStateProto.java linguist-generated=true
@@ -2481,6 +2492,8 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/oauth2/UpdateAccoun
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/oauth2/UpdateCustomAppIntegration.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/oauth2/UpdatePublishedAppIntegration.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/oauth2/UpdateServicePrincipalFederationPolicyRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/ApiSourceConnectorConfig.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/ApiSourceConnectorOptions.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/ApplyEnvironmentRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/ApplyEnvironmentRequestResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/AutoFullRefreshPolicy.java linguist-generated=true
@@ -3220,6 +3233,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/GetTokenMa
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/GetTokenPermissionLevelsResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/GetTokenResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/GetWorkspaceNetworkOptionRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/GoogleApiEndpoints.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/IpAccessListInfo.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/IpAccessListsAPI.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/IpAccessListsImpl.java linguist-generated=true
