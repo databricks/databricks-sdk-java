@@ -5,6 +5,7 @@ import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.core.logging.Logger;
 import com.databricks.sdk.core.logging.LoggerFactory;
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
 
 /**
  * These APIs are used to manage identities and the workspace access of these identities in
@@ -26,6 +27,58 @@ public class AccountIamV2API {
     impl = mock;
   }
 
+  /** Creates a group membership (assigns a principal to a group). */
+  public DirectGroupMember createDirectGroupMember(CreateDirectGroupMemberRequest request) {
+    return impl.createDirectGroupMember(request);
+  }
+
+  /**
+   * Creates a local group in the Databricks account and returns the created group. A local group is
+   * one that is not synced from the customer's identity provider, and can be created whether or not
+   * Account Identity Management (AIM) is enabled.
+   *
+   * <p>When AIM is enabled, supplying an external ID returns an error. Use the ExternalGroup
+   * resource to sync groups from the identity provider instead.
+   */
+  public Group createGroup(CreateGroupRequest request) {
+    return impl.createGroup(request);
+  }
+
+  /**
+   * Creates a local service principal in the Databricks account and returns the created service
+   * principal. A local service principal is one that is not synced from the customer's identity
+   * provider, and can be created whether or not Account Identity Management (AIM) is enabled.
+   *
+   * <p>When AIM is enabled, supplying an external ID returns an error. Use the
+   * ExternalServicePrincipal resource to sync service principals from the identity provider
+   * instead.
+   */
+  public ServicePrincipal createServicePrincipal(CreateServicePrincipalRequest request) {
+    return impl.createServicePrincipal(request);
+  }
+
+  /**
+   * Creates a local user in the Databricks account and returns the created user. A local user is
+   * one that is not synced from the customer's identity provider, and can be created whether or not
+   * Account Identity Management (AIM) is enabled.
+   *
+   * <p>When AIM is enabled, supplying an external ID returns an error. Use the ExternalUser
+   * resource to sync users from the identity provider instead.
+   */
+  public User createUser(CreateUserRequest request) {
+    return impl.createUser(request);
+  }
+
+  /**
+   * Creates a workspace assignment for a principal. Entitlements are granted one at a time rather
+   * than atomically. If the request fails partway through, the principal stays assigned to the
+   * workspace with only some of the requested entitlements. Get the assignment afterwards to
+   * confirm which entitlements were granted.
+   */
+  public WorkspaceAssignment createWorkspaceAssignment(CreateWorkspaceAssignmentRequest request) {
+    return impl.createWorkspaceAssignment(request);
+  }
+
   /**
    * Creates a workspace assignment detail for a principal. Entitlements are granted one at a time
    * rather than atomically. If the request fails partway through, the principal stays assigned to
@@ -35,6 +88,60 @@ public class AccountIamV2API {
   public WorkspaceAssignmentDetail createWorkspaceAssignmentDetail(
       CreateWorkspaceAssignmentDetailRequest request) {
     return impl.createWorkspaceAssignmentDetail(request);
+  }
+
+  public void deleteDirectGroupMember(long groupId, long principalId) {
+    deleteDirectGroupMember(
+        new DeleteDirectGroupMemberRequest().setGroupId(groupId).setPrincipalId(principalId));
+  }
+
+  /** Deletes a group membership (unassigns a principal from a group). */
+  public void deleteDirectGroupMember(DeleteDirectGroupMemberRequest request) {
+    impl.deleteDirectGroupMember(request);
+  }
+
+  public void deleteGroup(String groupId) {
+    deleteGroup(new DeleteGroupRequest().setGroupId(groupId));
+  }
+
+  /** Deletes a group from the Databricks account by its internal ID. */
+  public void deleteGroup(DeleteGroupRequest request) {
+    impl.deleteGroup(request);
+  }
+
+  public void deleteServicePrincipal(String servicePrincipalId) {
+    deleteServicePrincipal(
+        new DeleteServicePrincipalRequest().setServicePrincipalId(servicePrincipalId));
+  }
+
+  /** Deletes a service principal from the Databricks account by its internal ID. */
+  public void deleteServicePrincipal(DeleteServicePrincipalRequest request) {
+    impl.deleteServicePrincipal(request);
+  }
+
+  public void deleteUser(String userId) {
+    deleteUser(new DeleteUserRequest().setUserId(userId));
+  }
+
+  /** Deletes a user from the Databricks account by its internal ID. */
+  public void deleteUser(DeleteUserRequest request) {
+    impl.deleteUser(request);
+  }
+
+  public void deleteWorkspaceAssignment(long workspaceId, long principalId) {
+    deleteWorkspaceAssignment(
+        new DeleteWorkspaceAssignmentRequest()
+            .setWorkspaceId(workspaceId)
+            .setPrincipalId(principalId));
+  }
+
+  /**
+   * Deletes a workspace assignment for a principal, revoking all of its entitlements. Entitlements
+   * are revoked one at a time rather than atomically. If the request fails partway through, the
+   * principal stays assigned with some of its original entitlements. Retrying is safe.
+   */
+  public void deleteWorkspaceAssignment(DeleteWorkspaceAssignmentRequest request) {
+    impl.deleteWorkspaceAssignment(request);
   }
 
   public void deleteWorkspaceAssignmentDetail(long workspaceId, long principalId) {
@@ -51,6 +158,44 @@ public class AccountIamV2API {
    */
   public void deleteWorkspaceAssignmentDetail(DeleteWorkspaceAssignmentDetailRequest request) {
     impl.deleteWorkspaceAssignmentDetail(request);
+  }
+
+  public DirectGroupMember getDirectGroupMember(long groupId, long principalId) {
+    return getDirectGroupMember(
+        new GetDirectGroupMemberRequest().setGroupId(groupId).setPrincipalId(principalId));
+  }
+
+  /** Gets a provisioned direct member of a group. */
+  public DirectGroupMember getDirectGroupMember(GetDirectGroupMemberRequest request) {
+    return impl.getDirectGroupMember(request);
+  }
+
+  public Group getGroup(String groupId) {
+    return getGroup(new GetGroupRequest().setGroupId(groupId));
+  }
+
+  /** Fetches a group from the Databricks account by its internal ID. */
+  public Group getGroup(GetGroupRequest request) {
+    return impl.getGroup(request);
+  }
+
+  public ServicePrincipal getServicePrincipal(String servicePrincipalId) {
+    return getServicePrincipal(
+        new GetServicePrincipalRequest().setServicePrincipalId(servicePrincipalId));
+  }
+
+  /** Fetches a service principal from the Databricks account by its internal ID. */
+  public ServicePrincipal getServicePrincipal(GetServicePrincipalRequest request) {
+    return impl.getServicePrincipal(request);
+  }
+
+  public User getUser(String userId) {
+    return getUser(new GetUserRequest().setUserId(userId));
+  }
+
+  /** Fetches a user from the Databricks account by its internal ID. */
+  public User getUser(GetUserRequest request) {
+    return impl.getUser(request);
   }
 
   public WorkspaceAccessDetail getWorkspaceAccessDetail(long workspaceId, long principalId) {
@@ -71,6 +216,18 @@ public class AccountIamV2API {
     return impl.getWorkspaceAccessDetail(request);
   }
 
+  public WorkspaceAssignment getWorkspaceAssignment(long workspaceId, long principalId) {
+    return getWorkspaceAssignment(
+        new GetWorkspaceAssignmentRequest()
+            .setWorkspaceId(workspaceId)
+            .setPrincipalId(principalId));
+  }
+
+  /** Returns the assignment for a principal in a workspace. */
+  public WorkspaceAssignment getWorkspaceAssignment(GetWorkspaceAssignmentRequest request) {
+    return impl.getWorkspaceAssignment(request);
+  }
+
   public WorkspaceAssignmentDetail getWorkspaceAssignmentDetail(
       long workspaceId, long principalId) {
     return getWorkspaceAssignmentDetail(
@@ -83,6 +240,84 @@ public class AccountIamV2API {
   public WorkspaceAssignmentDetail getWorkspaceAssignmentDetail(
       GetWorkspaceAssignmentDetailRequest request) {
     return impl.getWorkspaceAssignmentDetail(request);
+  }
+
+  public ListDirectGroupMembersResponse listDirectGroupMembers(long groupId) {
+    return listDirectGroupMembers(new ListDirectGroupMembersRequest().setGroupId(groupId));
+  }
+
+  /**
+   * Lists provisioned direct members of a group with their membership source (internal or from
+   * identity provider).
+   */
+  public ListDirectGroupMembersResponse listDirectGroupMembers(
+      ListDirectGroupMembersRequest request) {
+    return impl.listDirectGroupMembers(request);
+  }
+
+  /**
+   * Lists the groups in the Databricks account, returning one page per call. Supports filtering by
+   * group name or external ID.
+   */
+  public Iterable<Group> listGroups(ListGroupsRequest request) {
+    return Paginator.newTokenPagination(
+        request,
+        impl::listGroups,
+        ListGroupsResponse::getGroups,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
+  }
+
+  /**
+   * Lists the service principals in the Databricks account, returning one page per call. Supports
+   * filtering by application ID or external ID.
+   */
+  public Iterable<ServicePrincipal> listServicePrincipals(ListServicePrincipalsRequest request) {
+    return Paginator.newTokenPagination(
+        request,
+        impl::listServicePrincipals,
+        ListServicePrincipalsResponse::getServicePrincipals,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
+  }
+
+  public ListTransitiveParentGroupsResponse listTransitiveParentGroups(long principalId) {
+    return listTransitiveParentGroups(
+        new ListTransitiveParentGroupsRequest().setPrincipalId(principalId));
+  }
+
+  /** Lists all transitive parent groups of a principal. */
+  public ListTransitiveParentGroupsResponse listTransitiveParentGroups(
+      ListTransitiveParentGroupsRequest request) {
+    return impl.listTransitiveParentGroups(request);
+  }
+
+  /**
+   * Lists the users in the Databricks account, returning one page per call. Supports filtering by
+   * username or external ID.
+   */
+  public Iterable<User> listUsers(ListUsersRequest request) {
+    return Paginator.newTokenPagination(
+        request,
+        impl::listUsers,
+        ListUsersResponse::getUsers,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   public ListWorkspaceAssignmentDetailsResponse listWorkspaceAssignmentDetails(long workspaceId) {
@@ -98,6 +333,21 @@ public class AccountIamV2API {
   public ListWorkspaceAssignmentDetailsResponse listWorkspaceAssignmentDetails(
       ListWorkspaceAssignmentDetailsRequest request) {
     return impl.listWorkspaceAssignmentDetails(request);
+  }
+
+  public ListWorkspaceAssignmentsResponse listWorkspaceAssignments(long workspaceId) {
+    return listWorkspaceAssignments(
+        new ListWorkspaceAssignmentsRequest().setWorkspaceId(workspaceId));
+  }
+
+  /**
+   * Lists workspace assignments for a workspace. The response omits the per-principal entitlement
+   * fields (`entitlements` and `effective_entitlements`). To read the entitlements for a single
+   * principal, get that principal's assignment.
+   */
+  public ListWorkspaceAssignmentsResponse listWorkspaceAssignments(
+      ListWorkspaceAssignmentsRequest request) {
+    return impl.listWorkspaceAssignments(request);
   }
 
   /**
@@ -126,6 +376,41 @@ public class AccountIamV2API {
    */
   public ResolveUserResponse resolveUser(ResolveUserRequest request) {
     return impl.resolveUser(request);
+  }
+
+  /**
+   * Updates an existing group in the Databricks account. Only the fields named in the update mask
+   * are modified. Returns the updated Group resource.
+   */
+  public Group updateGroup(UpdateGroupRequest request) {
+    return impl.updateGroup(request);
+  }
+
+  /**
+   * Updates an existing service principal in the Databricks account. Only the fields named in the
+   * update mask are modified. Returns the updated ServicePrincipal resource.
+   */
+  public ServicePrincipal updateServicePrincipal(UpdateServicePrincipalRequest request) {
+    return impl.updateServicePrincipal(request);
+  }
+
+  /**
+   * Updates an existing user in the Databricks account and returns the updated user. Only the
+   * fields named in the update mask are modified. The updatable fields are fullName.givenName,
+   * fullName.familyName, status, and externalId. The behavior is the same whether or not Account
+   * Identity Management (AIM) is enabled.
+   */
+  public User updateUser(UpdateUserRequest request) {
+    return impl.updateUser(request);
+  }
+
+  /**
+   * Updates the entitlements of a directly assigned principal in a workspace. Changes are applied
+   * one at a time rather than atomically. If the request fails partway through, only some of the
+   * requested changes take effect. Get the assignment afterwards to confirm the final state.
+   */
+  public WorkspaceAssignment updateWorkspaceAssignment(UpdateWorkspaceAssignmentRequest request) {
+    return impl.updateWorkspaceAssignment(request);
   }
 
   /**

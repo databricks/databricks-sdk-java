@@ -5,6 +5,7 @@ import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.core.logging.Logger;
 import com.databricks.sdk.core.logging.LoggerFactory;
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
 
 /**
  * These APIs are used to manage identities and the workspace access of these identities in
@@ -26,6 +27,50 @@ public class WorkspaceIamV2API {
     impl = mock;
   }
 
+  /** Creates a group membership (assigns a principal to a group). */
+  public DirectGroupMember createDirectGroupMemberProxy(
+      CreateDirectGroupMemberProxyRequest request) {
+    return impl.createDirectGroupMemberProxy(request);
+  }
+
+  /**
+   * Creates a local group in the Databricks account that parents the calling workspace and returns
+   * the created group. A local group is one that is not synced from the customer's identity
+   * provider, and can be created whether or not Account Identity Management (AIM) is enabled.
+   *
+   * <p>When AIM is enabled, supplying an external ID returns an error. Use the ExternalGroup
+   * resource to sync groups from the identity provider instead.
+   */
+  public Group createGroupProxy(CreateGroupProxyRequest request) {
+    return impl.createGroupProxy(request);
+  }
+
+  /**
+   * Creates a local service principal in the Databricks account that parents the calling workspace
+   * and returns the created service principal. A local service principal is one that is not synced
+   * from the customer's identity provider, and can be created whether or not Account Identity
+   * Management (AIM) is enabled.
+   *
+   * <p>When AIM is enabled, supplying an external ID returns an error. Use the
+   * ExternalServicePrincipal resource to sync service principals from the identity provider
+   * instead.
+   */
+  public ServicePrincipal createServicePrincipalProxy(CreateServicePrincipalProxyRequest request) {
+    return impl.createServicePrincipalProxy(request);
+  }
+
+  /**
+   * Creates a local user in the Databricks account that parents the calling workspace and returns
+   * the created user. A local user is one that is not synced from the customer's identity provider,
+   * and can be created whether or not Account Identity Management (AIM) is enabled.
+   *
+   * <p>When AIM is enabled, supplying an external ID returns an error. Use the ExternalUser
+   * resource to sync users from the identity provider instead.
+   */
+  public User createUserProxy(CreateUserProxyRequest request) {
+    return impl.createUserProxy(request);
+  }
+
   /**
    * Creates a workspace assignment detail for a principal in the calling workspace. Entitlements
    * are granted one at a time rather than atomically. If the request fails partway through, the
@@ -35,6 +80,64 @@ public class WorkspaceIamV2API {
   public WorkspaceAssignmentDetail createWorkspaceAssignmentDetailProxy(
       CreateWorkspaceAssignmentDetailProxyRequest request) {
     return impl.createWorkspaceAssignmentDetailProxy(request);
+  }
+
+  /**
+   * Creates a workspace assignment for a principal in the calling workspace. Entitlements are
+   * granted one at a time rather than atomically. If the request fails partway through, the
+   * principal stays assigned to the workspace with only some of the requested entitlements. Get the
+   * assignment afterwards to confirm which entitlements were granted.
+   */
+  public WorkspaceAssignment createWorkspaceAssignmentProxy(
+      CreateWorkspaceAssignmentProxyRequest request) {
+    return impl.createWorkspaceAssignmentProxy(request);
+  }
+
+  public void deleteDirectGroupMemberProxy(long groupId, long principalId) {
+    deleteDirectGroupMemberProxy(
+        new DeleteDirectGroupMemberProxyRequest().setGroupId(groupId).setPrincipalId(principalId));
+  }
+
+  /** Deletes a group membership (unassigns a principal from a group). */
+  public void deleteDirectGroupMemberProxy(DeleteDirectGroupMemberProxyRequest request) {
+    impl.deleteDirectGroupMemberProxy(request);
+  }
+
+  public void deleteGroupProxy(String groupId) {
+    deleteGroupProxy(new DeleteGroupProxyRequest().setGroupId(groupId));
+  }
+
+  /**
+   * Deletes a group by its internal ID from the Databricks account that parents the calling
+   * workspace.
+   */
+  public void deleteGroupProxy(DeleteGroupProxyRequest request) {
+    impl.deleteGroupProxy(request);
+  }
+
+  public void deleteServicePrincipalProxy(String servicePrincipalId) {
+    deleteServicePrincipalProxy(
+        new DeleteServicePrincipalProxyRequest().setServicePrincipalId(servicePrincipalId));
+  }
+
+  /**
+   * Deletes a service principal by its internal ID from the Databricks account that parents the
+   * calling workspace.
+   */
+  public void deleteServicePrincipalProxy(DeleteServicePrincipalProxyRequest request) {
+    impl.deleteServicePrincipalProxy(request);
+  }
+
+  public void deleteUserProxy(String userId) {
+    deleteUserProxy(new DeleteUserProxyRequest().setUserId(userId));
+  }
+
+  /**
+   * Deletes a user by its internal ID from the Databricks account that parents the calling
+   * workspace.
+   */
+  public void deleteUserProxy(DeleteUserProxyRequest request) {
+    impl.deleteUserProxy(request);
   }
 
   public void deleteWorkspaceAssignmentDetailProxy(long principalId) {
@@ -51,6 +154,68 @@ public class WorkspaceIamV2API {
   public void deleteWorkspaceAssignmentDetailProxy(
       DeleteWorkspaceAssignmentDetailProxyRequest request) {
     impl.deleteWorkspaceAssignmentDetailProxy(request);
+  }
+
+  public void deleteWorkspaceAssignmentProxy(long principalId) {
+    deleteWorkspaceAssignmentProxy(
+        new DeleteWorkspaceAssignmentProxyRequest().setPrincipalId(principalId));
+  }
+
+  /**
+   * Deletes a workspace assignment for a principal in the calling workspace, revoking all of its
+   * entitlements. Entitlements are revoked one at a time rather than atomically. If the request
+   * fails partway through, the principal stays assigned with some of its original entitlements.
+   * Retrying is safe.
+   */
+  public void deleteWorkspaceAssignmentProxy(DeleteWorkspaceAssignmentProxyRequest request) {
+    impl.deleteWorkspaceAssignmentProxy(request);
+  }
+
+  public DirectGroupMember getDirectGroupMemberProxy(long groupId, long principalId) {
+    return getDirectGroupMemberProxy(
+        new GetDirectGroupMemberProxyRequest().setGroupId(groupId).setPrincipalId(principalId));
+  }
+
+  /** Gets a provisioned direct member of a group. */
+  public DirectGroupMember getDirectGroupMemberProxy(GetDirectGroupMemberProxyRequest request) {
+    return impl.getDirectGroupMemberProxy(request);
+  }
+
+  public Group getGroupProxy(String groupId) {
+    return getGroupProxy(new GetGroupProxyRequest().setGroupId(groupId));
+  }
+
+  /**
+   * Fetches a group by its internal ID from the Databricks account that parents the calling
+   * workspace.
+   */
+  public Group getGroupProxy(GetGroupProxyRequest request) {
+    return impl.getGroupProxy(request);
+  }
+
+  public ServicePrincipal getServicePrincipalProxy(String servicePrincipalId) {
+    return getServicePrincipalProxy(
+        new GetServicePrincipalProxyRequest().setServicePrincipalId(servicePrincipalId));
+  }
+
+  /**
+   * Fetches a service principal by its internal ID from the Databricks account that parents the
+   * calling workspace.
+   */
+  public ServicePrincipal getServicePrincipalProxy(GetServicePrincipalProxyRequest request) {
+    return impl.getServicePrincipalProxy(request);
+  }
+
+  public User getUserProxy(String userId) {
+    return getUserProxy(new GetUserProxyRequest().setUserId(userId));
+  }
+
+  /**
+   * Fetches a user by its internal ID from the Databricks account that parents the calling
+   * workspace.
+   */
+  public User getUserProxy(GetUserProxyRequest request) {
+    return impl.getUserProxy(request);
   }
 
   public WorkspaceAccessDetail getWorkspaceAccessDetailLocal(long principalId) {
@@ -81,6 +246,108 @@ public class WorkspaceIamV2API {
     return impl.getWorkspaceAssignmentDetailProxy(request);
   }
 
+  public WorkspaceAssignment getWorkspaceAssignmentProxy(long principalId) {
+    return getWorkspaceAssignmentProxy(
+        new GetWorkspaceAssignmentProxyRequest().setPrincipalId(principalId));
+  }
+
+  /** Returns the assignment for a principal in the calling workspace. */
+  public WorkspaceAssignment getWorkspaceAssignmentProxy(
+      GetWorkspaceAssignmentProxyRequest request) {
+    return impl.getWorkspaceAssignmentProxy(request);
+  }
+
+  public WorkspaceIdentityDetail getWorkspaceIdentityDetail(long principalId) {
+    return getWorkspaceIdentityDetail(
+        new GetWorkspaceIdentityDetailRequest().setPrincipalId(principalId));
+  }
+
+  /** Returns the identity details for a principal in a workspace. */
+  public WorkspaceIdentityDetail getWorkspaceIdentityDetail(
+      GetWorkspaceIdentityDetailRequest request) {
+    return impl.getWorkspaceIdentityDetail(request);
+  }
+
+  public ListDirectGroupMembersResponse listDirectGroupMembersProxy(long groupId) {
+    return listDirectGroupMembersProxy(
+        new ListDirectGroupMembersProxyRequest().setGroupId(groupId));
+  }
+
+  /**
+   * Lists provisioned direct members of a group with their membership source (internal or from
+   * identity provider).
+   */
+  public ListDirectGroupMembersResponse listDirectGroupMembersProxy(
+      ListDirectGroupMembersProxyRequest request) {
+    return impl.listDirectGroupMembersProxy(request);
+  }
+
+  /**
+   * Lists the groups in the Databricks account that parents the calling workspace, returning one
+   * page per call. Supports filtering by group name or external ID.
+   */
+  public Iterable<Group> listGroupsProxy(ListGroupsProxyRequest request) {
+    return Paginator.newTokenPagination(
+        request,
+        impl::listGroupsProxy,
+        ListGroupsResponse::getGroups,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
+  }
+
+  /**
+   * Lists the service principals in the Databricks account that parents the calling workspace,
+   * returning one page per call. Supports filtering by application ID or external ID.
+   */
+  public Iterable<ServicePrincipal> listServicePrincipalsProxy(
+      ListServicePrincipalsProxyRequest request) {
+    return Paginator.newTokenPagination(
+        request,
+        impl::listServicePrincipalsProxy,
+        ListServicePrincipalsResponse::getServicePrincipals,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
+  }
+
+  public ListTransitiveParentGroupsResponse listTransitiveParentGroupsProxy(long principalId) {
+    return listTransitiveParentGroupsProxy(
+        new ListTransitiveParentGroupsProxyRequest().setPrincipalId(principalId));
+  }
+
+  /** Lists all transitive parent groups of a principal. */
+  public ListTransitiveParentGroupsResponse listTransitiveParentGroupsProxy(
+      ListTransitiveParentGroupsProxyRequest request) {
+    return impl.listTransitiveParentGroupsProxy(request);
+  }
+
+  /**
+   * Lists the users in the Databricks account that parents the calling workspace, returning one
+   * page per call. Supports filtering by username or external ID.
+   */
+  public Iterable<User> listUsersProxy(ListUsersProxyRequest request) {
+    return Paginator.newTokenPagination(
+        request,
+        impl::listUsersProxy,
+        ListUsersResponse::getUsers,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
+  }
+
   /**
    * Lists workspace assignment details for the calling workspace. The response omits the
    * per-principal entitlement fields (`entitlements` and `effective_entitlements`). To read the
@@ -89,6 +356,16 @@ public class WorkspaceIamV2API {
   public ListWorkspaceAssignmentDetailsResponse listWorkspaceAssignmentDetailsProxy(
       ListWorkspaceAssignmentDetailsProxyRequest request) {
     return impl.listWorkspaceAssignmentDetailsProxy(request);
+  }
+
+  /**
+   * Lists workspace assignments for the calling workspace. The response omits the per-principal
+   * entitlement fields (`entitlements` and `effective_entitlements`). To read the entitlements for
+   * a single principal, get that principal's assignment.
+   */
+  public ListWorkspaceAssignmentsResponse listWorkspaceAssignmentsProxy(
+      ListWorkspaceAssignmentsProxyRequest request) {
+    return impl.listWorkspaceAssignmentsProxy(request);
   }
 
   /**
@@ -120,6 +397,32 @@ public class WorkspaceIamV2API {
   }
 
   /**
+   * Updates an existing group in the Databricks account that parents the calling workspace. Only
+   * the fields named in the update mask are modified. Returns the updated Group resource.
+   */
+  public Group updateGroupProxy(UpdateGroupProxyRequest request) {
+    return impl.updateGroupProxy(request);
+  }
+
+  /**
+   * Updates an existing service principal in the Databricks account that parents the calling
+   * workspace. Only the fields named in the update mask are modified. Returns the updated
+   * ServicePrincipal resource.
+   */
+  public ServicePrincipal updateServicePrincipalProxy(UpdateServicePrincipalProxyRequest request) {
+    return impl.updateServicePrincipalProxy(request);
+  }
+
+  /**
+   * Updates an existing user in the Databricks account that parents the calling workspace and
+   * returns the updated user. Only the fields named in the update mask are modified. The updatable
+   * fields are fullName.givenName, fullName.familyName, status, and externalId.
+   */
+  public User updateUserProxy(UpdateUserProxyRequest request) {
+    return impl.updateUserProxy(request);
+  }
+
+  /**
    * Updates the entitlements of a directly assigned principal in the calling workspace. Changes are
    * applied one at a time rather than atomically. If the request fails partway through, only some
    * of the requested changes take effect. Get the assignment detail afterwards to confirm the final
@@ -128,6 +431,22 @@ public class WorkspaceIamV2API {
   public WorkspaceAssignmentDetail updateWorkspaceAssignmentDetailProxy(
       UpdateWorkspaceAssignmentDetailProxyRequest request) {
     return impl.updateWorkspaceAssignmentDetailProxy(request);
+  }
+
+  /**
+   * Updates the entitlements of a directly assigned principal in the calling workspace. Changes are
+   * applied one at a time rather than atomically. If the request fails partway through, only some
+   * of the requested changes take effect. Get the assignment afterwards to confirm the final state.
+   */
+  public WorkspaceAssignment updateWorkspaceAssignmentProxy(
+      UpdateWorkspaceAssignmentProxyRequest request) {
+    return impl.updateWorkspaceAssignmentProxy(request);
+  }
+
+  /** Updates a workspace identity detail for a principal. */
+  public WorkspaceIdentityDetail updateWorkspaceIdentityDetail(
+      UpdateWorkspaceIdentityDetailRequest request) {
+    return impl.updateWorkspaceIdentityDetail(request);
   }
 
   public WorkspaceIamV2Service impl() {
