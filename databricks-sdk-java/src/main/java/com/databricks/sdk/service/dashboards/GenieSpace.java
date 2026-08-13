@@ -5,10 +5,15 @@ package com.databricks.sdk.service.dashboards;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.protobuf.Timestamp;
 import java.util.Objects;
 
 @Generated
 public class GenieSpace {
+  /** Time when the Genie space was created. */
+  @JsonProperty("create_time")
+  private Timestamp createTime;
+
   /** Description of the Genie Space */
   @JsonProperty("description")
   private String description;
@@ -41,9 +46,24 @@ public class GenieSpace {
   @JsonProperty("title")
   private String title;
 
+  /**
+   * Time when the Genie space was last modified, matching the value shown in the Genie Agent UI.
+   */
+  @JsonProperty("update_time")
+  private Timestamp updateTime;
+
   /** Warehouse associated with the Genie Space */
   @JsonProperty("warehouse_id")
   private String warehouseId;
+
+  public GenieSpace setCreateTime(Timestamp createTime) {
+    this.createTime = createTime;
+    return this;
+  }
+
+  public Timestamp getCreateTime() {
+    return createTime;
+  }
 
   public GenieSpace setDescription(String description) {
     this.description = description;
@@ -99,6 +119,15 @@ public class GenieSpace {
     return title;
   }
 
+  public GenieSpace setUpdateTime(Timestamp updateTime) {
+    this.updateTime = updateTime;
+    return this;
+  }
+
+  public Timestamp getUpdateTime() {
+    return updateTime;
+  }
+
   public GenieSpace setWarehouseId(String warehouseId) {
     this.warehouseId = warehouseId;
     return this;
@@ -113,30 +142,42 @@ public class GenieSpace {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GenieSpace that = (GenieSpace) o;
-    return Objects.equals(description, that.description)
+    return Objects.equals(createTime, that.createTime)
+        && Objects.equals(description, that.description)
         && Objects.equals(etag, that.etag)
         && Objects.equals(parentPath, that.parentPath)
         && Objects.equals(serializedSpace, that.serializedSpace)
         && Objects.equals(spaceId, that.spaceId)
         && Objects.equals(title, that.title)
+        && Objects.equals(updateTime, that.updateTime)
         && Objects.equals(warehouseId, that.warehouseId);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(
-        description, etag, parentPath, serializedSpace, spaceId, title, warehouseId);
+        createTime,
+        description,
+        etag,
+        parentPath,
+        serializedSpace,
+        spaceId,
+        title,
+        updateTime,
+        warehouseId);
   }
 
   @Override
   public String toString() {
     return new ToStringer(GenieSpace.class)
+        .add("createTime", createTime)
         .add("description", description)
         .add("etag", etag)
         .add("parentPath", parentPath)
         .add("serializedSpace", serializedSpace)
         .add("spaceId", spaceId)
         .add("title", title)
+        .add("updateTime", updateTime)
         .add("warehouseId", warehouseId)
         .toString();
   }

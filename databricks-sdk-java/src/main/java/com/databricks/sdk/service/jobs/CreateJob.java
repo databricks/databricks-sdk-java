@@ -198,8 +198,7 @@ public class CreateJob {
   /**
    * List of triggers attached to this job. A run starts when any active trigger evaluates to true.
    * Cannot be set in the same request as the legacy `schedule`, `trigger`, or `continuous` fields.
-   * The 10-trigger cap is the design's hard limit; rollout steps the effective cap 3 -> 5 -> 10 via
-   * internal validation during the preview.
+   * Gated behind the "Multiple Triggers" feature preview.
    */
   @JsonProperty("triggers")
   private Collection<TriggerConfiguration> triggers;
