@@ -19,7 +19,7 @@ public class UpdateDataApiRequest {
   /** Resource name: projects/{project_id}/branches/{branch_id}/databases/{database_id}/data-api */
   @JsonIgnore private String name;
 
-  /** The list of fields to update. If unspecified, all fields will be updated when possible. */
+  /** The list of fields to update. */
   @JsonIgnore
   @QueryParam("update_mask")
   private FieldMask updateMask;

@@ -126,6 +126,13 @@ public class RunTask {
   private PerformanceTarget effectivePerformanceTarget;
 
   /**
+   * The id of the serverless compute this task ran on, either explicitly configured on the task or
+   * the workspace default. Only set once the compute has been resolved at run trigger.
+   */
+  @JsonProperty("effective_serverless_compute_id")
+  private String effectiveServerlessComputeId;
+
+  /**
    * An optional set of email addresses notified when the task run begins or completes. The default
    * behavior is to not send any emails.
    */
@@ -513,6 +520,15 @@ public class RunTask {
     return effectivePerformanceTarget;
   }
 
+  public RunTask setEffectiveServerlessComputeId(String effectiveServerlessComputeId) {
+    this.effectiveServerlessComputeId = effectiveServerlessComputeId;
+    return this;
+  }
+
+  public String getEffectiveServerlessComputeId() {
+    return effectiveServerlessComputeId;
+  }
+
   public RunTask setEmailNotifications(JobEmailNotifications emailNotifications) {
     this.emailNotifications = emailNotifications;
     return this;
@@ -877,6 +893,7 @@ public class RunTask {
         && Objects.equals(disableAutoOptimization, that.disableAutoOptimization)
         && Objects.equals(disabled, that.disabled)
         && Objects.equals(effectivePerformanceTarget, that.effectivePerformanceTarget)
+        && Objects.equals(effectiveServerlessComputeId, that.effectiveServerlessComputeId)
         && Objects.equals(emailNotifications, that.emailNotifications)
         && Objects.equals(endTime, that.endTime)
         && Objects.equals(environmentKey, that.environmentKey)
@@ -937,6 +954,7 @@ public class RunTask {
         disableAutoOptimization,
         disabled,
         effectivePerformanceTarget,
+        effectiveServerlessComputeId,
         emailNotifications,
         endTime,
         environmentKey,
@@ -997,6 +1015,7 @@ public class RunTask {
         .add("disableAutoOptimization", disableAutoOptimization)
         .add("disabled", disabled)
         .add("effectivePerformanceTarget", effectivePerformanceTarget)
+        .add("effectiveServerlessComputeId", effectiveServerlessComputeId)
         .add("emailNotifications", emailNotifications)
         .add("endTime", endTime)
         .add("environmentKey", environmentKey)

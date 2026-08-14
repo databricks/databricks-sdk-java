@@ -9,6 +9,13 @@ import java.util.Objects;
 
 @Generated
 public class GenieConversationSummary {
+  /**
+   * Whether this is a classic chat or an agent-mode conversation. Allows callers to route message
+   * retrieval (chat vs. agent endpoint) without an extra lookup.
+   */
+  @JsonProperty("agent_type")
+  private GenieConversationType agentType;
+
   /** */
   @JsonProperty("conversation_id")
   private String conversationId;
@@ -20,6 +27,15 @@ public class GenieConversationSummary {
   /** */
   @JsonProperty("title")
   private String title;
+
+  public GenieConversationSummary setAgentType(GenieConversationType agentType) {
+    this.agentType = agentType;
+    return this;
+  }
+
+  public GenieConversationType getAgentType() {
+    return agentType;
+  }
 
   public GenieConversationSummary setConversationId(String conversationId) {
     this.conversationId = conversationId;
@@ -53,19 +69,21 @@ public class GenieConversationSummary {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GenieConversationSummary that = (GenieConversationSummary) o;
-    return Objects.equals(conversationId, that.conversationId)
+    return Objects.equals(agentType, that.agentType)
+        && Objects.equals(conversationId, that.conversationId)
         && Objects.equals(createdTimestamp, that.createdTimestamp)
         && Objects.equals(title, that.title);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(conversationId, createdTimestamp, title);
+    return Objects.hash(agentType, conversationId, createdTimestamp, title);
   }
 
   @Override
   public String toString() {
     return new ToStringer(GenieConversationSummary.class)
+        .add("agentType", agentType)
         .add("conversationId", conversationId)
         .add("createdTimestamp", createdTimestamp)
         .add("title", title)

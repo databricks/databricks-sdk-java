@@ -38,8 +38,9 @@ public class WorkspaceIamV2API {
    * the created group. A local group is one that is not synced from the customer's identity
    * provider, and can be created whether or not Account Identity Management (AIM) is enabled.
    *
-   * <p>When AIM is enabled, supplying an external ID returns an error. Use the ExternalGroup
-   * resource to sync groups from the identity provider instead.
+   * <p>When AIM is enabled, supplying an external ID returns an error. To provision the identity
+   * from your identity provider, resolve it by its external ID with ResolveGroup; to read an
+   * existing external identity, use the ExternalGroup resource.
    */
   public Group createGroupProxy(CreateGroupProxyRequest request) {
     return impl.createGroupProxy(request);
@@ -51,9 +52,9 @@ public class WorkspaceIamV2API {
    * from the customer's identity provider, and can be created whether or not Account Identity
    * Management (AIM) is enabled.
    *
-   * <p>When AIM is enabled, supplying an external ID returns an error. Use the
-   * ExternalServicePrincipal resource to sync service principals from the identity provider
-   * instead.
+   * <p>When AIM is enabled, supplying an external ID returns an error. To provision the identity
+   * from your identity provider, resolve it by its external ID with ResolveServicePrincipal; to
+   * read an existing external identity, use the ExternalServicePrincipal resource.
    */
   public ServicePrincipal createServicePrincipalProxy(CreateServicePrincipalProxyRequest request) {
     return impl.createServicePrincipalProxy(request);
@@ -64,8 +65,9 @@ public class WorkspaceIamV2API {
    * the created user. A local user is one that is not synced from the customer's identity provider,
    * and can be created whether or not Account Identity Management (AIM) is enabled.
    *
-   * <p>When AIM is enabled, supplying an external ID returns an error. Use the ExternalUser
-   * resource to sync users from the identity provider instead.
+   * <p>When AIM is enabled, supplying an external ID returns an error. To provision the identity
+   * from your identity provider, resolve it by its external ID with ResolveUser; to read an
+   * existing external identity, use the ExternalUser resource.
    */
   public User createUserProxy(CreateUserProxyRequest request) {
     return impl.createUserProxy(request);
@@ -268,7 +270,7 @@ public class WorkspaceIamV2API {
     return impl.getWorkspaceIdentityDetail(request);
   }
 
-  public ListDirectGroupMembersResponse listDirectGroupMembersProxy(long groupId) {
+  public Iterable<DirectGroupMember> listDirectGroupMembersProxy(long groupId) {
     return listDirectGroupMembersProxy(
         new ListDirectGroupMembersProxyRequest().setGroupId(groupId));
   }
@@ -277,9 +279,19 @@ public class WorkspaceIamV2API {
    * Lists provisioned direct members of a group with their membership source (internal or from
    * identity provider).
    */
-  public ListDirectGroupMembersResponse listDirectGroupMembersProxy(
+  public Iterable<DirectGroupMember> listDirectGroupMembersProxy(
       ListDirectGroupMembersProxyRequest request) {
-    return impl.listDirectGroupMembersProxy(request);
+    return Paginator.newTokenPagination(
+        request,
+        impl::listDirectGroupMembersProxy,
+        ListDirectGroupMembersResponse::getDirectGroupMembers,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   /**
@@ -353,9 +365,19 @@ public class WorkspaceIamV2API {
    * per-principal entitlement fields (`entitlements` and `effective_entitlements`). To read the
    * entitlements for a single principal, get that principal's assignment detail.
    */
-  public ListWorkspaceAssignmentDetailsResponse listWorkspaceAssignmentDetailsProxy(
+  public Iterable<WorkspaceAssignmentDetail> listWorkspaceAssignmentDetailsProxy(
       ListWorkspaceAssignmentDetailsProxyRequest request) {
-    return impl.listWorkspaceAssignmentDetailsProxy(request);
+    return Paginator.newTokenPagination(
+        request,
+        impl::listWorkspaceAssignmentDetailsProxy,
+        ListWorkspaceAssignmentDetailsResponse::getWorkspaceAssignmentDetails,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   /**
@@ -399,6 +421,9 @@ public class WorkspaceIamV2API {
   /**
    * Updates an existing group in the Databricks account that parents the calling workspace. Only
    * the fields named in the update mask are modified. Returns the updated Group resource.
+   *
+   * <p>When AIM is enabled and the group is an external identity (its external_id is set), only
+   * external_id can be updated; its other fields are sourced from your identity provider.
    */
   public Group updateGroupProxy(UpdateGroupProxyRequest request) {
     return impl.updateGroupProxy(request);
@@ -408,6 +433,10 @@ public class WorkspaceIamV2API {
    * Updates an existing service principal in the Databricks account that parents the calling
    * workspace. Only the fields named in the update mask are modified. Returns the updated
    * ServicePrincipal resource.
+   *
+   * <p>When AIM is enabled and the service principal is an external identity (its external_id is
+   * set), only external_id can be updated; its other fields are sourced from your identity
+   * provider.
    */
   public ServicePrincipal updateServicePrincipalProxy(UpdateServicePrincipalProxyRequest request) {
     return impl.updateServicePrincipalProxy(request);
@@ -417,6 +446,9 @@ public class WorkspaceIamV2API {
    * Updates an existing user in the Databricks account that parents the calling workspace and
    * returns the updated user. Only the fields named in the update mask are modified. The updatable
    * fields are fullName.givenName, fullName.familyName, status, and externalId.
+   *
+   * <p>When AIM is enabled and the user is an external identity (its external_id is set), only
+   * external_id can be updated; its other fields are sourced from your identity provider.
    */
   public User updateUserProxy(UpdateUserProxyRequest request) {
     return impl.updateUserProxy(request);
