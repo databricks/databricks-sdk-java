@@ -8,4 +8,5 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum TextAttachmentPurpose {
   FOLLOW_UP_QUESTION,
+  TEXT_ATTACHMENT_PURPOSE_ANSWER,
 }

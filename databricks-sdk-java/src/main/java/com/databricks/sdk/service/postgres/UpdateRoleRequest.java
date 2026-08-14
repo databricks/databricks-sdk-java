@@ -27,10 +27,7 @@ public class UpdateRoleRequest {
   @JsonProperty("role")
   private Role role;
 
-  /**
-   * The list of fields to update in Postgres Role. If unspecified, all fields will be updated when
-   * possible.
-   */
+  /** The list of fields to update. */
   @JsonIgnore
   @QueryParam("update_mask")
   private FieldMask updateMask;

@@ -18,6 +18,10 @@ public class DirectGroupMember {
   @JsonProperty("external_id")
   private String externalId;
 
+  /** The internal ID of the group this member belongs to. */
+  @JsonProperty("group_id")
+  private Long groupId;
+
   /** The source of group membership (internal or from identity provider). */
   @JsonProperty("membership_source")
   private GroupMembershipSource membershipSource;
@@ -46,6 +50,15 @@ public class DirectGroupMember {
 
   public String getExternalId() {
     return externalId;
+  }
+
+  public DirectGroupMember setGroupId(Long groupId) {
+    this.groupId = groupId;
+    return this;
+  }
+
+  public Long getGroupId() {
+    return groupId;
   }
 
   public DirectGroupMember setMembershipSource(GroupMembershipSource membershipSource) {
@@ -82,6 +95,7 @@ public class DirectGroupMember {
     DirectGroupMember that = (DirectGroupMember) o;
     return Objects.equals(displayName, that.displayName)
         && Objects.equals(externalId, that.externalId)
+        && Objects.equals(groupId, that.groupId)
         && Objects.equals(membershipSource, that.membershipSource)
         && Objects.equals(principalId, that.principalId)
         && Objects.equals(principalType, that.principalType);
@@ -89,7 +103,8 @@ public class DirectGroupMember {
 
   @Override
   public int hashCode() {
-    return Objects.hash(displayName, externalId, membershipSource, principalId, principalType);
+    return Objects.hash(
+        displayName, externalId, groupId, membershipSource, principalId, principalType);
   }
 
   @Override
@@ -97,6 +112,7 @@ public class DirectGroupMember {
     return new ToStringer(DirectGroupMember.class)
         .add("displayName", displayName)
         .add("externalId", externalId)
+        .add("groupId", groupId)
         .add("membershipSource", membershipSource)
         .add("principalId", principalId)
         .add("principalType", principalType)

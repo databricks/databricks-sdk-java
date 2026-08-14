@@ -22,8 +22,9 @@ public interface WorkspaceIamV2Service {
    * the created group. A local group is one that is not synced from the customer's identity
    * provider, and can be created whether or not Account Identity Management (AIM) is enabled.
    *
-   * <p>When AIM is enabled, supplying an external ID returns an error. Use the ExternalGroup
-   * resource to sync groups from the identity provider instead.
+   * <p>When AIM is enabled, supplying an external ID returns an error. To provision the identity
+   * from your identity provider, resolve it by its external ID with ResolveGroup; to read an
+   * existing external identity, use the ExternalGroup resource.
    */
   Group createGroupProxy(CreateGroupProxyRequest createGroupProxyRequest);
 
@@ -33,9 +34,9 @@ public interface WorkspaceIamV2Service {
    * from the customer's identity provider, and can be created whether or not Account Identity
    * Management (AIM) is enabled.
    *
-   * <p>When AIM is enabled, supplying an external ID returns an error. Use the
-   * ExternalServicePrincipal resource to sync service principals from the identity provider
-   * instead.
+   * <p>When AIM is enabled, supplying an external ID returns an error. To provision the identity
+   * from your identity provider, resolve it by its external ID with ResolveServicePrincipal; to
+   * read an existing external identity, use the ExternalServicePrincipal resource.
    */
   ServicePrincipal createServicePrincipalProxy(
       CreateServicePrincipalProxyRequest createServicePrincipalProxyRequest);
@@ -45,8 +46,9 @@ public interface WorkspaceIamV2Service {
    * the created user. A local user is one that is not synced from the customer's identity provider,
    * and can be created whether or not Account Identity Management (AIM) is enabled.
    *
-   * <p>When AIM is enabled, supplying an external ID returns an error. Use the ExternalUser
-   * resource to sync users from the identity provider instead.
+   * <p>When AIM is enabled, supplying an external ID returns an error. To provision the identity
+   * from your identity provider, resolve it by its external ID with ResolveUser; to read an
+   * existing external identity, use the ExternalUser resource.
    */
   User createUserProxy(CreateUserProxyRequest createUserProxyRequest);
 
@@ -225,6 +227,9 @@ public interface WorkspaceIamV2Service {
   /**
    * Updates an existing group in the Databricks account that parents the calling workspace. Only
    * the fields named in the update mask are modified. Returns the updated Group resource.
+   *
+   * <p>When AIM is enabled and the group is an external identity (its external_id is set), only
+   * external_id can be updated; its other fields are sourced from your identity provider.
    */
   Group updateGroupProxy(UpdateGroupProxyRequest updateGroupProxyRequest);
 
@@ -232,6 +237,10 @@ public interface WorkspaceIamV2Service {
    * Updates an existing service principal in the Databricks account that parents the calling
    * workspace. Only the fields named in the update mask are modified. Returns the updated
    * ServicePrincipal resource.
+   *
+   * <p>When AIM is enabled and the service principal is an external identity (its external_id is
+   * set), only external_id can be updated; its other fields are sourced from your identity
+   * provider.
    */
   ServicePrincipal updateServicePrincipalProxy(
       UpdateServicePrincipalProxyRequest updateServicePrincipalProxyRequest);
@@ -240,6 +249,9 @@ public interface WorkspaceIamV2Service {
    * Updates an existing user in the Databricks account that parents the calling workspace and
    * returns the updated user. Only the fields named in the update mask are modified. The updatable
    * fields are fullName.givenName, fullName.familyName, status, and externalId.
+   *
+   * <p>When AIM is enabled and the user is an external identity (its external_id is set), only
+   * external_id can be updated; its other fields are sourced from your identity provider.
    */
   User updateUserProxy(UpdateUserProxyRequest updateUserProxyRequest);
 

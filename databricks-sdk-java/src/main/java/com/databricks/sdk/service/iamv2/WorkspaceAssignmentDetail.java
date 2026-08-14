@@ -59,7 +59,7 @@ public class WorkspaceAssignmentDetail {
   @JsonProperty("principal_type")
   private PrincipalType principalType;
 
-  /** The workspace ID where the principal is assigned */
+  /** The workspace ID where the principal is assigned. */
   @JsonProperty("workspace_id")
   private Long workspaceId;
 

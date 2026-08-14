@@ -14,6 +14,13 @@ public class NewPipelineSpec {
   private String budgetPolicyId;
 
   /**
+   * Release channel of the underlying pipeline's runtime. Some source table configurations (e.g.,
+   * read-time CDF) require PREVIEW. Defaults to CURRENT if not specified.
+   */
+  @JsonProperty("pipeline_channel")
+  private NewPipelineSpecPipelineChannel pipelineChannel;
+
+  /**
    * UC catalog for the pipeline to store intermediate files (checkpoints, event logs etc). This
    * needs to be a standard catalog where the user has permissions to create Delta tables.
    */
@@ -34,6 +41,15 @@ public class NewPipelineSpec {
 
   public String getBudgetPolicyId() {
     return budgetPolicyId;
+  }
+
+  public NewPipelineSpec setPipelineChannel(NewPipelineSpecPipelineChannel pipelineChannel) {
+    this.pipelineChannel = pipelineChannel;
+    return this;
+  }
+
+  public NewPipelineSpecPipelineChannel getPipelineChannel() {
+    return pipelineChannel;
   }
 
   public NewPipelineSpec setStorageCatalog(String storageCatalog) {
@@ -60,19 +76,21 @@ public class NewPipelineSpec {
     if (o == null || getClass() != o.getClass()) return false;
     NewPipelineSpec that = (NewPipelineSpec) o;
     return Objects.equals(budgetPolicyId, that.budgetPolicyId)
+        && Objects.equals(pipelineChannel, that.pipelineChannel)
         && Objects.equals(storageCatalog, that.storageCatalog)
         && Objects.equals(storageSchema, that.storageSchema);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(budgetPolicyId, storageCatalog, storageSchema);
+    return Objects.hash(budgetPolicyId, pipelineChannel, storageCatalog, storageSchema);
   }
 
   @Override
   public String toString() {
     return new ToStringer(NewPipelineSpec.class)
         .add("budgetPolicyId", budgetPolicyId)
+        .add("pipelineChannel", pipelineChannel)
         .add("storageCatalog", storageCatalog)
         .add("storageSchema", storageSchema)
         .toString();

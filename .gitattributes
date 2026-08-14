@@ -1190,6 +1190,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/GenieAPI
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/GenieAttachment.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/GenieConversation.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/GenieConversationSummary.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/GenieConversationType.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/GenieCreateConversationMessageRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/GenieCreateEvalRunRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/GenieCreateMessageCommentRequest.java linguist-generated=true
@@ -2792,6 +2793,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/ListProjec
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/ListRolesRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/ListRolesResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/NewPipelineSpec.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/NewPipelineSpecPipelineChannel.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/OpenApiMode.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/Operation.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/PostgresAPI.java linguist-generated=true
