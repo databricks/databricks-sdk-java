@@ -7,8 +7,8 @@ import com.databricks.sdk.support.Generated;
  * Govern AI workloads in Unity Catalog. This API manages the Unity Catalog securables that bring
  * centralized access control, lineage, and auditing to AI-serving entities: model services
  * (governed access to foundation models and external LLMs), model provider services (governed
- * connections to external model providers), MCP services (governed Model Context Protocol servers),
- * and agent services (governed agents).
+ * connections to external model providers), and MCP services (governed Model Context Protocol
+ * servers).
  *
  * <p>This is the high-level interface, that contains generated methods.
  *

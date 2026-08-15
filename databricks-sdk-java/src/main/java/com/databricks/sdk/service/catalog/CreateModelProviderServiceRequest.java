@@ -18,17 +18,14 @@ public class CreateModelProviderServiceRequest {
   @JsonProperty("model_provider_service")
   private ModelProviderService modelProviderService;
 
-  /**
-   * Leaf identifier for the provider service (the unqualified name within the parent schema, e.g.
-   * "openai_prod").
-   */
+  /** Name for the model provider service, e.g. "openai_prod". */
   @JsonIgnore
   @QueryParam("model_provider_service_id")
   private String modelProviderServiceId;
 
   /**
-   * Resource name of the parent schema. Format: `schemas/{catalog}.{schema}`. Each `{...}`
-   * component is capped at 255 characters individually.
+   * Name of the parent schema. Format: `schemas/{catalog}.{schema}`. Each `{...}` component is
+   * capped at 255 characters individually.
    */
   @JsonIgnore
   @QueryParam("parent")

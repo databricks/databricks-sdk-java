@@ -18,17 +18,14 @@ public class CreateMcpServiceRequest {
   @JsonProperty("mcp_service")
   private McpService mcpService;
 
-  /**
-   * Leaf identifier for the MCP service (the unqualified name within the parent schema, e.g.
-   * "my_mcp_service").
-   */
+  /** Name for the MCP service, e.g. "my_mcp_service". */
   @JsonIgnore
   @QueryParam("mcp_service_id")
   private String mcpServiceId;
 
   /**
-   * Resource name of the parent schema. Format: `schemas/{catalog}.{schema}`. Each `{...}`
-   * component is capped at 255 characters individually.
+   * Name of the parent schema. Format: `schemas/{catalog}.{schema}`. Each `{...}` component is
+   * capped at 255 characters individually.
    */
   @JsonIgnore
   @QueryParam("parent")

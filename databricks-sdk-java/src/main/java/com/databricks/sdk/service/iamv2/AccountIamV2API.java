@@ -356,7 +356,7 @@ public class AccountIamV2API {
         });
   }
 
-  public ListWorkspaceAssignmentsResponse listWorkspaceAssignments(long workspaceId) {
+  public Iterable<WorkspaceAssignment> listWorkspaceAssignments(long workspaceId) {
     return listWorkspaceAssignments(
         new ListWorkspaceAssignmentsRequest().setWorkspaceId(workspaceId));
   }
@@ -366,9 +366,19 @@ public class AccountIamV2API {
    * fields (`entitlements` and `effective_entitlements`). To read the entitlements for a single
    * principal, get that principal's assignment.
    */
-  public ListWorkspaceAssignmentsResponse listWorkspaceAssignments(
+  public Iterable<WorkspaceAssignment> listWorkspaceAssignments(
       ListWorkspaceAssignmentsRequest request) {
-    return impl.listWorkspaceAssignments(request);
+    return Paginator.newTokenPagination(
+        request,
+        impl::listWorkspaceAssignments,
+        ListWorkspaceAssignmentsResponse::getWorkspaceAssignments,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   /**

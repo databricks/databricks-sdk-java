@@ -12,7 +12,7 @@ import java.util.Objects;
 public class ListMcpServicesRequest {
   /**
    * Maximum number of MCP services to return. Defaults to 100 when unset or 0; the maximum is 100.
-   * Use `next_page_token` to retrieve additional pages.
+   * Use `page_token` to retrieve additional pages.
    */
   @JsonIgnore
   @QueryParam("page_size")
@@ -24,14 +24,18 @@ public class ListMcpServicesRequest {
   private String pageToken;
 
   /**
-   * Resource name of the parent schema to list within, as `schemas/{catalog}.{schema}`. Each
-   * `{...}` component is capped at 255 characters individually.
+   * Name of the parent schema to list within, as `schemas/{catalog}.{schema}`. Each `{...}`
+   * component is capped at 255 characters individually.
    */
   @JsonIgnore
   @QueryParam("parent")
   private String parent;
 
-  /** View selector controlling which fields are populated per row. */
+  /**
+   * View selector controlling which fields are populated per row. `FULL` returns the full
+   * representation of the service; `BASIC` returns a more compact version. Defaults to `BASIC` when
+   * unset.
+   */
   @JsonIgnore
   @QueryParam("view")
   private ListMcpServicesRequestView view;

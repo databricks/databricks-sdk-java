@@ -18,17 +18,14 @@ public class CreateModelServiceRequest {
   @JsonProperty("model_service")
   private ModelService modelService;
 
-  /**
-   * Leaf identifier for the model service (the unqualified name within the parent schema, e.g.
-   * "my_model_service").
-   */
+  /** Name for the model service, e.g. "my_model_service". */
   @JsonIgnore
   @QueryParam("model_service_id")
   private String modelServiceId;
 
   /**
-   * Resource name of the parent schema. Format: `schemas/{catalog}.{schema}`. Each `{...}`
-   * component is capped at 255 characters individually.
+   * Name of the parent schema. Format: `schemas/{catalog}.{schema}`. Each `{...}` component is
+   * capped at 255 characters individually.
    */
   @JsonIgnore
   @QueryParam("parent")
