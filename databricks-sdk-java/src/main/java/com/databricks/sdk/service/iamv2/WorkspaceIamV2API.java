@@ -385,9 +385,19 @@ public class WorkspaceIamV2API {
    * entitlement fields (`entitlements` and `effective_entitlements`). To read the entitlements for
    * a single principal, get that principal's assignment.
    */
-  public ListWorkspaceAssignmentsResponse listWorkspaceAssignmentsProxy(
+  public Iterable<WorkspaceAssignment> listWorkspaceAssignmentsProxy(
       ListWorkspaceAssignmentsProxyRequest request) {
-    return impl.listWorkspaceAssignmentsProxy(request);
+    return Paginator.newTokenPagination(
+        request,
+        impl::listWorkspaceAssignmentsProxy,
+        ListWorkspaceAssignmentsResponse::getWorkspaceAssignments,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   /**

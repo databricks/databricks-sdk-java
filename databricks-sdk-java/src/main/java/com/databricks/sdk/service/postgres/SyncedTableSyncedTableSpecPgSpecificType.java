@@ -7,5 +7,7 @@ import com.databricks.sdk.support.Generated;
 /** PostgreSQL-specific target types that can override the default Delta-to-PG mapping. */
 @Generated
 public enum SyncedTableSyncedTableSpecPgSpecificType {
+  PG_SPECIFIC_TYPE_HALFVEC,
+  PG_SPECIFIC_TYPE_VARCHAR,
   PG_SPECIFIC_TYPE_VECTOR,
 }

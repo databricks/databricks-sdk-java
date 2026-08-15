@@ -19,7 +19,10 @@ public class McpServiceConfigSourceConnection {
   @JsonProperty("is_deleted")
   private Boolean isDeleted;
 
-  /** */
+  /**
+   * Name of the UC connection that hosts the MCP server, as
+   * `connections/{catalog}.{schema}.{connection}`.
+   */
   @JsonProperty("name")
   private String name;
 
