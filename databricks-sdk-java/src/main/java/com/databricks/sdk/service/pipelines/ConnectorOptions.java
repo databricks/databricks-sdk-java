@@ -35,6 +35,14 @@ public class ConnectorOptions {
   private KafkaOptions kafkaOptions;
 
   /** */
+  @JsonProperty("linkedin_ads_options")
+  private LinkedInAdsOptions linkedinAdsOptions;
+
+  /** */
+  @JsonProperty("marketo_options")
+  private MarketoOptions marketoOptions;
+
+  /** */
   @JsonProperty("meta_ads_options")
   private MetaMarketingOptions metaAdsOptions;
 
@@ -117,6 +125,24 @@ public class ConnectorOptions {
     return kafkaOptions;
   }
 
+  public ConnectorOptions setLinkedinAdsOptions(LinkedInAdsOptions linkedinAdsOptions) {
+    this.linkedinAdsOptions = linkedinAdsOptions;
+    return this;
+  }
+
+  public LinkedInAdsOptions getLinkedinAdsOptions() {
+    return linkedinAdsOptions;
+  }
+
+  public ConnectorOptions setMarketoOptions(MarketoOptions marketoOptions) {
+    this.marketoOptions = marketoOptions;
+    return this;
+  }
+
+  public MarketoOptions getMarketoOptions() {
+    return marketoOptions;
+  }
+
   public ConnectorOptions setMetaAdsOptions(MetaMarketingOptions metaAdsOptions) {
     this.metaAdsOptions = metaAdsOptions;
     return this;
@@ -191,6 +217,8 @@ public class ConnectorOptions {
         && Objects.equals(googleAdsOptions, that.googleAdsOptions)
         && Objects.equals(jiraOptions, that.jiraOptions)
         && Objects.equals(kafkaOptions, that.kafkaOptions)
+        && Objects.equals(linkedinAdsOptions, that.linkedinAdsOptions)
+        && Objects.equals(marketoOptions, that.marketoOptions)
         && Objects.equals(metaAdsOptions, that.metaAdsOptions)
         && Objects.equals(outlookOptions, that.outlookOptions)
         && Objects.equals(redditAdsOptions, that.redditAdsOptions)
@@ -209,6 +237,8 @@ public class ConnectorOptions {
         googleAdsOptions,
         jiraOptions,
         kafkaOptions,
+        linkedinAdsOptions,
+        marketoOptions,
         metaAdsOptions,
         outlookOptions,
         redditAdsOptions,
@@ -227,6 +257,8 @@ public class ConnectorOptions {
         .add("googleAdsOptions", googleAdsOptions)
         .add("jiraOptions", jiraOptions)
         .add("kafkaOptions", kafkaOptions)
+        .add("linkedinAdsOptions", linkedinAdsOptions)
+        .add("marketoOptions", marketoOptions)
         .add("metaAdsOptions", metaAdsOptions)
         .add("outlookOptions", outlookOptions)
         .add("redditAdsOptions", redditAdsOptions)

@@ -28,3 +28,4 @@
 * Add `PG_SPECIFIC_TYPE_HALFVEC` and `PG_SPECIFIC_TYPE_VARCHAR` enum values for `com.databricks.sdk.service.postgres.SyncedTableSyncedTableSpecPgSpecificType`.
 * [Breaking] Add pagination for `accountClient.accountIamV2().listWorkspaceAssignments()` method.
 * [Breaking] Add pagination for `workspaceClient.workspaceIamV2().listWorkspaceAssignmentsProxy()` method.
+* Add `linkedinAdsOptions` and `marketoOptions` fields for `com.databricks.sdk.service.pipelines.ConnectorOptions`.
