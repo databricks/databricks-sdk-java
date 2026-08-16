@@ -1,0 +1,13 @@
+// Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
+
+package com.databricks.sdk.service.pipelines;
+
+import com.databricks.sdk.support.Generated;
+
+/** Entity pivot to group by. */
+@Generated
+public enum LinkedInAdsOptionsLinkedInAdsCustomReportOptionsLinkedInAdsEntityGranularity {
+  CAMPAIGN,
+  CAMPAIGN_GROUP,
+  CREATIVE,
+}

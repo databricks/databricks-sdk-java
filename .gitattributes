@@ -2611,6 +2611,11 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/Ingestion
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/JiraConnectorOptions.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/JsonTransformerOptions.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/KafkaOptions.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/LinkedInAdsOptions.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/LinkedInAdsOptionsLinkedInAdsCustomReportOptions.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/LinkedInAdsOptionsLinkedInAdsCustomReportOptionsLinkedInAdsEntityGranularity.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/LinkedInAdsOptionsLinkedInAdsCustomReportOptionsLinkedInAdsFinder.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/LinkedInAdsOptionsLinkedInAdsCustomReportOptionsLinkedInAdsTimeGranularity.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/ListPipelineEventsRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/ListPipelineEventsResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/ListPipelinesRequest.java linguist-generated=true
@@ -2618,6 +2623,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/ListPipel
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/ListUpdatesRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/ListUpdatesResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/ManualTrigger.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/MarketoOptions.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/MaturityLevel.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/MetaMarketingOptions.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/MetaMarketingOptionsMetaMarketingCustomReportOptions.java linguist-generated=true
