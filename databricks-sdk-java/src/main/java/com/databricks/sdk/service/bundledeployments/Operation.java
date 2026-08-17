@@ -9,14 +9,20 @@ import com.google.protobuf.Timestamp;
 import java.util.Objects;
 
 /**
- * An operation on a single resource performed during a version. Operations record the result of
- * applying a resource change to the workspace. Most fields are immutable once recorded; `state`,
- * `error_message`, `resource_id`, and `status` may be updated afterwards (via UpdateOperation),
- * guarded by `sequence_id` for optimistic concurrency control.
+ * An operation on a single resource performed during a version. The full set of operations for a
+ * version is recorded when the version is created: each carries its `resource_key` and
+ * `action_type` and starts in `OPERATION_STATUS_PENDING`. As each resource is applied, its
+ * operation is updated (via UpdateOperation) to record the result of applying the change to the
+ * workspace. `state`, `error_message`, `resource_id`, `status`, and `dashboard_metadata` may be
+ * updated afterwards, guarded by `sequence_id` for optimistic concurrency control; all other fields
+ * are immutable once recorded.
  */
 @Generated
 public class Operation {
-  /** The type of operation performed on this resource. */
+  /**
+   * The type of operation performed on this resource. Set when the version is created and immutable
+   * thereafter.
+   */
   @JsonProperty("action_type")
   private OperationActionType actionType;
 
@@ -24,7 +30,11 @@ public class Operation {
   @JsonProperty("create_time")
   private Timestamp createTime;
 
-  /** Dashboard-specific metadata; set only for dashboard resources. */
+  /**
+   * Dashboard-specific metadata; set only for dashboard resources. Mutable: may be set or updated
+   * via UpdateOperation as the resource is applied, and is mirrored onto the corresponding
+   * deployment-level resource.
+   */
   @JsonProperty("dashboard_metadata")
   private DashboardMetadata dashboardMetadata;
 
@@ -56,7 +66,8 @@ public class Operation {
   /**
    * Resource identifier within the bundle (e.g. "jobs.foo", "pipelines.bar",
    * "jobs.foo.permissions", "files.<rel-path>"). Can be an arbitrary UTF-8 encoded string key. This
-   * key links the operation to the corresponding deployment-level Resource.
+   * key links the operation to the corresponding deployment-level Resource. Set when the version is
+   * created and immutable thereafter.
    */
   @JsonProperty("resource_key")
   private String resourceKey;
@@ -71,12 +82,12 @@ public class Operation {
   /**
    * Monotonically increasing revision used for optimistic concurrency control (the AIP-154
    * concurrency token for this resource, realized as a sequence number rather than an opaque etag).
-   * The server assigns 1 on creation and increments it on every successful UpdateOperation. It is
-   * OPTIONAL rather than OUTPUT_ONLY because it is dual-purpose: CreateOperation/GetOperation
-   * return the current value, and UpdateOperation reads the caller-supplied value as a
-   * precondition. The caller must echo the value it last observed; if it no longer matches the
-   * server's value, the update is rejected with ABORTED so the caller can re-read and retry.
-   * Ignored on CreateOperation.
+   * The server assigns 0 when the operation is created and increments it on every successful
+   * UpdateOperation, so a never-updated operation is at 0 and the first successful update makes it
+   * 1. It is OPTIONAL rather than OUTPUT_ONLY because it is dual-purpose: GetOperation returns the
+   * current value, and UpdateOperation reads the caller-supplied value as a precondition. The
+   * caller must echo the value it last observed; if it no longer matches the server's value, the
+   * update is rejected with ABORTED so the caller can re-read and retry.
    */
   @JsonProperty("sequence_id")
   private Long sequenceId;
@@ -106,9 +117,10 @@ public class Operation {
   private String state;
 
   /**
-   * Whether the operation succeeded or failed. Mutable: may be updated after creation via
-   * UpdateOperation, e.g. when an operation recorded as failed is retried and eventually succeeds.
-   * A succeeded operation cannot carry an `error_message`.
+   * Status of the operation. Starts as OPERATION_STATUS_PENDING when the version is created and
+   * moves to a terminal status once the resource is applied. Mutable: updated via UpdateOperation,
+   * e.g. when an operation recorded as failed is retried and eventually succeeds. A succeeded
+   * operation cannot carry an `error_message`.
    */
   @JsonProperty("status")
   private OperationStatus status;

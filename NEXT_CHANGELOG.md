@@ -29,3 +29,6 @@
 * [Breaking] Add pagination for `accountClient.accountIamV2().listWorkspaceAssignments()` method.
 * [Breaking] Add pagination for `workspaceClient.workspaceIamV2().listWorkspaceAssignmentsProxy()` method.
 * Add `linkedinAdsOptions` and `marketoOptions` fields for `com.databricks.sdk.service.pipelines.ConnectorOptions`.
+* [Breaking] Change `actionType` and `status` fields for `com.databricks.sdk.service.bundledeployments.Operation` to no longer be required.
+* Change `actionType` and `status` fields for `com.databricks.sdk.service.bundledeployments.Operation` to no longer be required.
+* [Breaking] Remove `createOperation()` method for `workspaceClient.bundleDeployments()` service.
