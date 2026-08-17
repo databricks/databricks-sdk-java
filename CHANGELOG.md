@@ -1,5 +1,27 @@
 # Version changelog
 
+## Release v0.147.0 (2026-08-17)
+
+### API Changes
+* Add `agentType` field for `com.databricks.sdk.service.dashboards.GenieConversationSummary`.
+* Add `groupId` field for `com.databricks.sdk.service.iamv2.DirectGroupMember`.
+* Add `effectiveServerlessComputeId` field for `com.databricks.sdk.service.jobs.RunTask`.
+* Add `pipelineChannel` field for `com.databricks.sdk.service.postgres.NewPipelineSpec`.
+* Add `TEXT_ATTACHMENT_PURPOSE_ANSWER` enum value for `com.databricks.sdk.service.dashboards.TextAttachmentPurpose`.
+* [Breaking] Add pagination for `accountClient.accountIamV2().listDirectGroupMembers()` method.
+* [Breaking] Add pagination for `accountClient.accountIamV2().listWorkspaceAssignmentDetails()` method.
+* [Breaking] Add pagination for `workspaceClient.workspaceIamV2().listDirectGroupMembersProxy()` method.
+* [Breaking] Add pagination for `workspaceClient.workspaceIamV2().listWorkspaceAssignmentDetailsProxy()` method.
+* Add `PG_SPECIFIC_TYPE_HALFVEC` and `PG_SPECIFIC_TYPE_VARCHAR` enum values for `com.databricks.sdk.service.database.SyncedTableSpecPgSpecificType`.
+* Add `PG_SPECIFIC_TYPE_HALFVEC` and `PG_SPECIFIC_TYPE_VARCHAR` enum values for `com.databricks.sdk.service.postgres.SyncedTableSyncedTableSpecPgSpecificType`.
+* [Breaking] Add pagination for `accountClient.accountIamV2().listWorkspaceAssignments()` method.
+* [Breaking] Add pagination for `workspaceClient.workspaceIamV2().listWorkspaceAssignmentsProxy()` method.
+* Add `linkedinAdsOptions` and `marketoOptions` fields for `com.databricks.sdk.service.pipelines.ConnectorOptions`.
+* [Breaking] Change `actionType` and `status` fields for `com.databricks.sdk.service.bundledeployments.Operation` to no longer be required.
+* Change `actionType` and `status` fields for `com.databricks.sdk.service.bundledeployments.Operation` to no longer be required.
+* [Breaking] Remove `createOperation()` method for `workspaceClient.bundleDeployments()` service.
+
+
 ## Release v0.146.0 (2026-08-13)
 
 ### API Changes
