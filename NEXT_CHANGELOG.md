@@ -8,6 +8,8 @@
 
 ### Bug Fixes
 
+- Accept both JSON numbers and decimal strings when deserializing int64 (`Long`) response fields.
+
 ### Security Vulnerabilities
 
 ### Documentation
