@@ -283,7 +283,6 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/bundledeployments/B
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/bundledeployments/BundleDeploymentsService.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/bundledeployments/CompleteVersionRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/bundledeployments/CreateDeploymentRequest.java linguist-generated=true
-databricks-sdk-java/src/main/java/com/databricks/sdk/service/bundledeployments/CreateOperationRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/bundledeployments/CreateVersionRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/bundledeployments/DashboardMetadata.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/bundledeployments/DeleteDeploymentRequest.java linguist-generated=true

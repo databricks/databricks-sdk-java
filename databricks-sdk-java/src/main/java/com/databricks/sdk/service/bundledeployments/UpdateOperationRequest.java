@@ -28,8 +28,8 @@ public class UpdateOperationRequest {
 
   /**
    * The set of fields to update. Required; supported paths are `state`, `error_message`,
-   * `resource_id`, and `status`. An empty mask or any other path is rejected with
-   * INVALID_PARAMETER_VALUE.
+   * `resource_id`, `status`, and `dashboard_metadata`. An empty mask or any other path is rejected
+   * with INVALID_PARAMETER_VALUE.
    */
   @JsonIgnore
   @QueryParam("update_mask")

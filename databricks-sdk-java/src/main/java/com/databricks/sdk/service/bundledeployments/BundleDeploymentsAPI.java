@@ -41,21 +41,6 @@ public class BundleDeploymentsAPI {
   }
 
   /**
-   * Creates a resource operation under a version.
-   *
-   * <p>The caller must provide a `resource_key` which becomes the final component of the
-   * operation's name. If an operation with the same key already exists under the version, the
-   * server returns `ALREADY_EXISTS`.
-   *
-   * <p>On success the server also updates the corresponding deployment-level resource, creating it
-   * if this is the first operation for that resource_key and removing it if the operation records
-   * no `state` (see that field).
-   */
-  public Operation createOperation(CreateOperationRequest request) {
-    return impl.createOperation(request);
-  }
-
-  /**
    * Creates a new version under a deployment.
    *
    * <p>Creating a version acquires an exclusive lock on the deployment, preventing concurrent
@@ -63,6 +48,12 @@ public class BundleDeploymentsAPI {
    * than the deployment's most recent version, and sets the version's `previous_version_id` to the
    * deployment's most recent version (leaving it unset for the first version), which the server
    * validates to detect concurrent deploys.
+   *
+   * <p>The caller also provides the full set of `operations` planned for this version, each
+   * identified by a `resource_key` and an `action_type`. The server records one operation per
+   * resource in `OPERATION_STATUS_PENDING` in the same transaction as the version, so the plan is
+   * captured atomically. The outcome of each operation is recorded later via UpdateOperation as the
+   * resource is applied; the set of operations cannot be changed after the version is created.
    */
   public Version createVersion(CreateVersionRequest request) {
     return impl.createVersion(request);
@@ -202,16 +193,16 @@ public class BundleDeploymentsAPI {
   /**
    * Updates a resource operation's mutable fields.
    *
-   * <p>`state`, `error_message`, `resource_id`, and `status` may be updated, independently;
-   * `update_mask` must contain only those paths. All other fields are immutable. The update is
-   * guarded by an optimistic-concurrency check: the caller sets `operation.sequence_id` to the
-   * value it last observed, and the server rejects the update with `ABORTED` if the operation has
-   * been modified since. On success the server increments `sequence_id`; updates to `state` and
-   * `resource_id` are mirrored onto the corresponding deployment-level resource. Listing `state` in
-   * `update_mask` with no value clears it, which removes the resource, so a delete that is retried
-   * until it succeeds must clear `state`. The parent version must be in progress, and after the
-   * update is applied a succeeded operation cannot carry an `error_message`. See the `state` and
-   * `resource_id` fields for the rest.
+   * <p>`state`, `error_message`, `resource_id`, `status`, and `dashboard_metadata` may be updated,
+   * independently; `update_mask` must contain only those paths. All other fields are immutable. The
+   * update is guarded by an optimistic-concurrency check: the caller sets `operation.sequence_id`
+   * to the value it last observed, and the server rejects the update with `ABORTED` if the
+   * operation has been modified since. On success the server increments `sequence_id`; updates to
+   * `state`, `resource_id`, and `dashboard_metadata` are mirrored onto the corresponding
+   * deployment-level resource. Listing `state` in `update_mask` with no value clears it, which
+   * removes the resource, so a delete that is retried until it succeeds must clear `state`. The
+   * parent version must be in progress, and after the update is applied a succeeded operation
+   * cannot carry an `error_message`. See the `state` and `resource_id` fields for the rest.
    */
   public Operation updateOperation(UpdateOperationRequest request) {
     return impl.updateOperation(request);
