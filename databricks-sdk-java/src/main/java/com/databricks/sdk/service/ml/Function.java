@@ -18,6 +18,10 @@ public class Function {
   @JsonProperty("column_selection")
   private ColumnSelection columnSelection;
 
+  /** Applies a registered Unity Catalog function row-wise to source columns. */
+  @JsonProperty("custom_udf")
+  private CustomUdf customUdf;
+
   /**
    * Deprecated: Use the function oneof with AggregationFunction instead. Kept for backwards
    * compatibility. Extra parameters for parameterized functions.
@@ -50,6 +54,15 @@ public class Function {
     return columnSelection;
   }
 
+  public Function setCustomUdf(CustomUdf customUdf) {
+    this.customUdf = customUdf;
+    return this;
+  }
+
+  public CustomUdf getCustomUdf() {
+    return customUdf;
+  }
+
   public Function setExtraParameters(Collection<FunctionExtraParameter> extraParameters) {
     this.extraParameters = extraParameters;
     return this;
@@ -75,13 +88,15 @@ public class Function {
     Function that = (Function) o;
     return Objects.equals(aggregationFunction, that.aggregationFunction)
         && Objects.equals(columnSelection, that.columnSelection)
+        && Objects.equals(customUdf, that.customUdf)
         && Objects.equals(extraParameters, that.extraParameters)
         && Objects.equals(functionType, that.functionType);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(aggregationFunction, columnSelection, extraParameters, functionType);
+    return Objects.hash(
+        aggregationFunction, columnSelection, customUdf, extraParameters, functionType);
   }
 
   @Override
@@ -89,6 +104,7 @@ public class Function {
     return new ToStringer(Function.class)
         .add("aggregationFunction", aggregationFunction)
         .add("columnSelection", columnSelection)
+        .add("customUdf", customUdf)
         .add("extraParameters", extraParameters)
         .add("functionType", functionType)
         .toString();
