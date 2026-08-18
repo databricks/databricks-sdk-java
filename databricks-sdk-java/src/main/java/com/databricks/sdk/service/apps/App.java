@@ -50,6 +50,14 @@ public class App {
   private String creator;
 
   /**
+   * The Git source of the app's most recent active deployment, including the repository
+   * configuration and the resolved reference. Populated by the system after a Git-based deployment
+   * and used as the default reference when automatic deployments are enabled.
+   */
+  @JsonProperty("default_git_source")
+  private GitSource defaultGitSource;
+
+  /**
    * The default workspace file system path of the source code from which app deployment are
    * created. This field tracks the workspace source code path of the last active deployment.
    */
@@ -85,6 +93,13 @@ public class App {
    */
   @JsonProperty("git_repository")
   private GitRepository gitRepository;
+
+  /**
+   * The Git source to deploy from, specifying the reference to check out (branch, tag, or commit)
+   * and an optional path to the app source code within the repository configured in git_repository.
+   */
+  @JsonProperty("git_source")
+  private GitSource gitSource;
 
   /** The unique identifier of the app. */
   @JsonProperty("id")
@@ -127,6 +142,10 @@ public class App {
   /** */
   @JsonProperty("service_principal_name")
   private String servicePrincipalName;
+
+  /** */
+  @JsonProperty("source_code_path")
+  private String sourceCodePath;
 
   /** Name of the space this app belongs to. */
   @JsonProperty("space")
@@ -241,6 +260,15 @@ public class App {
     return creator;
   }
 
+  public App setDefaultGitSource(GitSource defaultGitSource) {
+    this.defaultGitSource = defaultGitSource;
+    return this;
+  }
+
+  public GitSource getDefaultGitSource() {
+    return defaultGitSource;
+  }
+
   public App setDefaultSourceCodePath(String defaultSourceCodePath) {
     this.defaultSourceCodePath = defaultSourceCodePath;
     return this;
@@ -302,6 +330,15 @@ public class App {
 
   public GitRepository getGitRepository() {
     return gitRepository;
+  }
+
+  public App setGitSource(GitSource gitSource) {
+    this.gitSource = gitSource;
+    return this;
+  }
+
+  public GitSource getGitSource() {
+    return gitSource;
   }
 
   public App setId(String id) {
@@ -383,6 +420,15 @@ public class App {
 
   public String getServicePrincipalName() {
     return servicePrincipalName;
+  }
+
+  public App setSourceCodePath(String sourceCodePath) {
+    this.sourceCodePath = sourceCodePath;
+    return this;
+  }
+
+  public String getSourceCodePath() {
+    return sourceCodePath;
   }
 
   public App setSpace(String space) {
@@ -472,6 +518,7 @@ public class App {
         && Objects.equals(computeStatus, that.computeStatus)
         && Objects.equals(createTime, that.createTime)
         && Objects.equals(creator, that.creator)
+        && Objects.equals(defaultGitSource, that.defaultGitSource)
         && Objects.equals(defaultSourceCodePath, that.defaultSourceCodePath)
         && Objects.equals(description, that.description)
         && Objects.equals(effectiveBudgetPolicyId, that.effectiveBudgetPolicyId)
@@ -479,6 +526,7 @@ public class App {
         && Objects.equals(effectiveUserApiScopes, that.effectiveUserApiScopes)
         && Objects.equals(forwardUserAccessToken, that.forwardUserAccessToken)
         && Objects.equals(gitRepository, that.gitRepository)
+        && Objects.equals(gitSource, that.gitSource)
         && Objects.equals(id, that.id)
         && Objects.equals(name, that.name)
         && Objects.equals(oauth2AppClientId, that.oauth2AppClientId)
@@ -488,6 +536,7 @@ public class App {
         && Objects.equals(servicePrincipalClientId, that.servicePrincipalClientId)
         && Objects.equals(servicePrincipalId, that.servicePrincipalId)
         && Objects.equals(servicePrincipalName, that.servicePrincipalName)
+        && Objects.equals(sourceCodePath, that.sourceCodePath)
         && Objects.equals(space, that.space)
         && Objects.equals(telemetryExportDestinations, that.telemetryExportDestinations)
         && Objects.equals(thumbnailUrl, that.thumbnailUrl)
@@ -510,6 +559,7 @@ public class App {
         computeStatus,
         createTime,
         creator,
+        defaultGitSource,
         defaultSourceCodePath,
         description,
         effectiveBudgetPolicyId,
@@ -517,6 +567,7 @@ public class App {
         effectiveUserApiScopes,
         forwardUserAccessToken,
         gitRepository,
+        gitSource,
         id,
         name,
         oauth2AppClientId,
@@ -526,6 +577,7 @@ public class App {
         servicePrincipalClientId,
         servicePrincipalId,
         servicePrincipalName,
+        sourceCodePath,
         space,
         telemetryExportDestinations,
         thumbnailUrl,
@@ -548,6 +600,7 @@ public class App {
         .add("computeStatus", computeStatus)
         .add("createTime", createTime)
         .add("creator", creator)
+        .add("defaultGitSource", defaultGitSource)
         .add("defaultSourceCodePath", defaultSourceCodePath)
         .add("description", description)
         .add("effectiveBudgetPolicyId", effectiveBudgetPolicyId)
@@ -555,6 +608,7 @@ public class App {
         .add("effectiveUserApiScopes", effectiveUserApiScopes)
         .add("forwardUserAccessToken", forwardUserAccessToken)
         .add("gitRepository", gitRepository)
+        .add("gitSource", gitSource)
         .add("id", id)
         .add("name", name)
         .add("oauth2AppClientId", oauth2AppClientId)
@@ -564,6 +618,7 @@ public class App {
         .add("servicePrincipalClientId", servicePrincipalClientId)
         .add("servicePrincipalId", servicePrincipalId)
         .add("servicePrincipalName", servicePrincipalName)
+        .add("sourceCodePath", sourceCodePath)
         .add("space", space)
         .add("telemetryExportDestinations", telemetryExportDestinations)
         .add("thumbnailUrl", thumbnailUrl)

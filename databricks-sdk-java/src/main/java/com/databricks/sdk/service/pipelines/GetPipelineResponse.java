@@ -31,6 +31,10 @@ public class GetPipelineResponse {
   @JsonProperty("effective_publishing_mode")
   private PublishingMode effectivePublishingMode;
 
+  /** Serverless compute ID resolved for the pipeline. */
+  @JsonProperty("effective_serverless_compute_id")
+  private String effectiveServerlessComputeId;
+
   /** The health of a pipeline. */
   @JsonProperty("health")
   private GetPipelineResponseHealth health;
@@ -121,6 +125,15 @@ public class GetPipelineResponse {
 
   public PublishingMode getEffectivePublishingMode() {
     return effectivePublishingMode;
+  }
+
+  public GetPipelineResponse setEffectiveServerlessComputeId(String effectiveServerlessComputeId) {
+    this.effectiveServerlessComputeId = effectiveServerlessComputeId;
+    return this;
+  }
+
+  public String getEffectiveServerlessComputeId() {
+    return effectiveServerlessComputeId;
   }
 
   public GetPipelineResponse setHealth(GetPipelineResponseHealth health) {
@@ -223,6 +236,7 @@ public class GetPipelineResponse {
         && Objects.equals(creatorUserName, that.creatorUserName)
         && Objects.equals(effectiveBudgetPolicyId, that.effectiveBudgetPolicyId)
         && Objects.equals(effectivePublishingMode, that.effectivePublishingMode)
+        && Objects.equals(effectiveServerlessComputeId, that.effectiveServerlessComputeId)
         && Objects.equals(health, that.health)
         && Objects.equals(lastModified, that.lastModified)
         && Objects.equals(latestUpdates, that.latestUpdates)
@@ -243,6 +257,7 @@ public class GetPipelineResponse {
         creatorUserName,
         effectiveBudgetPolicyId,
         effectivePublishingMode,
+        effectiveServerlessComputeId,
         health,
         lastModified,
         latestUpdates,
@@ -263,6 +278,7 @@ public class GetPipelineResponse {
         .add("creatorUserName", creatorUserName)
         .add("effectiveBudgetPolicyId", effectiveBudgetPolicyId)
         .add("effectivePublishingMode", effectivePublishingMode)
+        .add("effectiveServerlessComputeId", effectiveServerlessComputeId)
         .add("health", health)
         .add("lastModified", lastModified)
         .add("latestUpdates", latestUpdates)

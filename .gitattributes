@@ -2196,6 +2196,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/CreateTransition
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/CreateTransitionRequestResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/CreateWebhookResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/CronSchedule.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/CustomUdf.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/DataSource.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/Dataset.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/DatasetInput.java linguist-generated=true
@@ -2303,6 +2304,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/HttpUrlSpec.java
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/HttpUrlSpecWithoutSecret.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/IngestionConfig.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/IngestionDestination.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/InputBinding.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/InputTag.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/JobContext.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/JobSpec.java linguist-generated=true
