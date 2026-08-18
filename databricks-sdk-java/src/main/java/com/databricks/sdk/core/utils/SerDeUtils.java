@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.cfg.CoercionAction;
+import com.fasterxml.jackson.databind.cfg.CoercionInputShape;
+import com.fasterxml.jackson.databind.type.LogicalType;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -26,6 +29,13 @@ public class SerDeUtils {
         .configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true)
         .configure(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_AS_NULL, true)
         .setSerializationInclusion(JsonInclude.Include.NON_NULL);
+
+    // Databricks services return int64 fields as either JSON numbers (123) or decimal strings
+    // ("123"). Pin String->integer coercion so both deserialize into Long. Jackson does this by
+    // default; pinning it guards against a silent regression if that default is ever tightened.
+    mapper
+        .coercionConfigFor(LogicalType.Integer)
+        .setCoercion(CoercionInputShape.String, CoercionAction.TryConvert);
     return mapper;
   }
 }
