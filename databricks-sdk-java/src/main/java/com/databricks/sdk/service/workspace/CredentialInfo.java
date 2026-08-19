@@ -26,7 +26,7 @@ public class CredentialInfo {
    * The Git provider associated with the credential. One of `gitHub`, `bitbucketCloud`, `gitLab`,
    * `azureDevOpsServices` (Azure DevOps Services, including Microsoft Entra ID authentication),
    * `gitHubEnterprise`, `bitbucketServer` (Bitbucket Data Center), `gitLabEnterpriseEdition`
-   * (GitLab Self-Managed), or `awsCodeCommit` (deprecated).
+   * (GitLab Self-Managed), or `awsCodeCommit`.
    */
   @JsonProperty("git_provider")
   private String gitProvider;

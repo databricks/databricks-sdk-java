@@ -17,3 +17,4 @@
 ### Internal Changes
 
 ### API Changes
+* Add `enabledTelemetryFeatures` field for `com.databricks.sdk.service.serving.TelemetryConfig`.

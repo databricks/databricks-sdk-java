@@ -29,7 +29,7 @@ public class RepoInfo {
   /**
    * Git provider of the remote git repository, e.g. `gitHub`, `azureDevOpsServices`,
    * `bitbucketServer` (Bitbucket Data Center), `gitLabEnterpriseEdition` (GitLab Self-Managed), or
-   * `awsCodeCommit` (deprecated).
+   * `awsCodeCommit`.
    */
   @JsonProperty("provider")
   private String provider;
