@@ -16,8 +16,9 @@ import java.util.Objects;
 @Generated
 public class RollingWindow {
   /**
-   * The delay applied to the end of the rolling window (must be non-negative). For example,
-   * delay=1d shifts the window end 1 day before the evaluation time.
+   * Non-negative analytic lag that evaluates the window this far in the past. Use this for timing
+   * variations unrelated to source lateness, such as a 30-day count as of one week ago. If unset,
+   * the analytic lag is zero. It composes with source.lateness when both are set.
    */
   @JsonProperty("delay")
   private Duration delay;

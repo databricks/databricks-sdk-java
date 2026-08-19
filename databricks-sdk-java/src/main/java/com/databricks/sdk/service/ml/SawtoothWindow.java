@@ -17,10 +17,7 @@ import java.util.Objects;
  */
 @Generated
 public class SawtoothWindow {
-  /**
-   * The delay applied to the end of the window (must be non-negative). For example, delay=1d shifts
-   * the window end 1 day before the evaluation time.
-   */
+  /** Delay is not currently supported for Sawtooth windows. */
   @JsonProperty("delay")
   private Duration delay;
 

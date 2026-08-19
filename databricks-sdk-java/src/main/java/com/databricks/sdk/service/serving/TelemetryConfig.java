@@ -5,10 +5,18 @@ package com.databricks.sdk.service.serving;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
 
 @Generated
 public class TelemetryConfig {
+  /**
+   * The telemetry signals to enable for this endpoint. If empty or omitted, all signals are
+   * enabled; otherwise only the listed signals are enabled.
+   */
+  @JsonProperty("enabled_telemetry_features")
+  private Collection<TelemetryFeature> enabledTelemetryFeatures;
+
   /** Configuration for inference table payload logging, including sampling. */
   @JsonProperty("inference_table_config")
   private TelemetryInferenceTableConfig inferenceTableConfig;
@@ -26,6 +34,16 @@ public class TelemetryConfig {
    */
   @JsonProperty("telemetry_profile_id")
   private String telemetryProfileId;
+
+  public TelemetryConfig setEnabledTelemetryFeatures(
+      Collection<TelemetryFeature> enabledTelemetryFeatures) {
+    this.enabledTelemetryFeatures = enabledTelemetryFeatures;
+    return this;
+  }
+
+  public Collection<TelemetryFeature> getEnabledTelemetryFeatures() {
+    return enabledTelemetryFeatures;
+  }
 
   public TelemetryConfig setInferenceTableConfig(
       TelemetryInferenceTableConfig inferenceTableConfig) {
@@ -60,19 +78,22 @@ public class TelemetryConfig {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     TelemetryConfig that = (TelemetryConfig) o;
-    return Objects.equals(inferenceTableConfig, that.inferenceTableConfig)
+    return Objects.equals(enabledTelemetryFeatures, that.enabledTelemetryFeatures)
+        && Objects.equals(inferenceTableConfig, that.inferenceTableConfig)
         && Objects.equals(tableNames, that.tableNames)
         && Objects.equals(telemetryProfileId, that.telemetryProfileId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(inferenceTableConfig, tableNames, telemetryProfileId);
+    return Objects.hash(
+        enabledTelemetryFeatures, inferenceTableConfig, tableNames, telemetryProfileId);
   }
 
   @Override
   public String toString() {
     return new ToStringer(TelemetryConfig.class)
+        .add("enabledTelemetryFeatures", enabledTelemetryFeatures)
         .add("inferenceTableConfig", inferenceTableConfig)
         .add("tableNames", tableNames)
         .add("telemetryProfileId", telemetryProfileId)
