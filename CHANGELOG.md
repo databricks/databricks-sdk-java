@@ -1,5 +1,15 @@
 # Version changelog
 
+## Release v0.149.0 (2026-08-19)
+
+### Bug Fixes
+
+- Accept both JSON numbers and decimal strings when deserializing int64 (`Long`) response fields.
+
+### API Changes
+* Add `enabledTelemetryFeatures` field for `com.databricks.sdk.service.serving.TelemetryConfig`.
+
+
 ## Release v0.148.0 (2026-08-18)
 
 ### API Changes
