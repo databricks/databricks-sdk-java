@@ -12,6 +12,7 @@ import com.databricks.sdk.core.oauth.OpenIDConnectEndpoints;
 import com.databricks.sdk.core.oauth.Token;
 import com.databricks.sdk.core.oauth.TokenSource;
 import com.databricks.sdk.core.utils.Environment;
+import com.databricks.sdk.core.utils.TestOSUtils;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.ArrayList;
@@ -351,7 +352,7 @@ public class DatabricksConfigTest {
   @MethodSource("provideConfigFileScopesTestCases")
   public void testConfigFileScopes(String testName, String profile, List<String> expectedScopes) {
     Map<String, String> env = new HashMap<>();
-    env.put("HOME", "src/test/resources/testdata");
+    env.put("HOME", TestOSUtils.resource("/testdata"));
 
     DatabricksConfig config = new DatabricksConfig().setProfile(profile);
     config.resolve(new Environment(env, new ArrayList<>(), System.getProperty("os.name")));
