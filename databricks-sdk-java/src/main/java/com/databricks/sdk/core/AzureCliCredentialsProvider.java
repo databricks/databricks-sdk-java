@@ -81,6 +81,8 @@ public class AzureCliCredentialsProvider implements CredentialsProvider {
       return null;
     }
 
+    GroupAssumption.rejectUnsupportedAuth(config, authType());
+
     try {
       AzureUtils.ensureHostPresent(config, mapper, this::tokenSourceFor);
       String resource = config.getEffectiveAzureLoginAppId();

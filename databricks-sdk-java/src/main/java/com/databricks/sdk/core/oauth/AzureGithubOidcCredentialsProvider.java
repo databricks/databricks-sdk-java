@@ -33,6 +33,8 @@ public class AzureGithubOidcCredentialsProvider implements CredentialsProvider {
       return null;
     }
 
+    GroupAssumption.rejectUnsupportedAuth(config, authType());
+
     Optional<String> idToken = requestIdToken(config);
     if (!idToken.isPresent()) {
       return null;

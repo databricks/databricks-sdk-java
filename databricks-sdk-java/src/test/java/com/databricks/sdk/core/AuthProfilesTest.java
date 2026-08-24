@@ -1,13 +1,15 @@
 package com.databricks.sdk.core;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
-import com.databricks.sdk.core.http.Response;
+import com.databricks.sdk.core.oauth.Consent;
+import com.databricks.sdk.core.oauth.OAuthClient;
+import com.databricks.sdk.core.oauth.OpenIDConnectEndpoints;
 import com.databricks.sdk.core.utils.Environment;
 import java.io.IOException;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -317,6 +319,27 @@ public class AuthProfilesTest {
     assertEquals("oauth-m2m", config.getAuthType());
   }
 
+  // Verifies that M2M sends assume_group in the token form for workspace, account, and unified
+  // hosts without changing the discovered token endpoint.
+  @ParameterizedTest(name = "{0}")
+  @MethodSource("allProfiles")
+  void oauthM2MForwardsGroupOnExistingEndpoint(HostProfile p) {
+    DatabricksConfig config =
+        profileConfig(p)
+            .setClientId("test-client")
+            .setClientSecret("test-secret")
+            .setGroupId("group-123")
+            .setAuthType("oauth-m2m");
+    MappingHttpClient client = withOidc(httpClientFor(p), p);
+    config.setHttpClient(client);
+
+    assertEquals("Bearer test-token", resolveAndAuthenticate(config, emptyEnvironment()));
+
+    Request tokenRequest = client.singleRequest("POST", p.tokenPath());
+    assertTrue(tokenRequest.getBodyString().contains("assume_group=group-123"));
+    assertFalse(tokenRequest.getUrl().contains("?o="));
+  }
+
   // ---- GitHub OIDC -----------------------------------------------------------
 
   @ParameterizedTest(name = "{0}")
@@ -350,6 +373,74 @@ public class AuthProfilesTest {
         resolveAndAuthenticate(
             config, environmentWith("DATABRICKS_OIDC_TOKEN", "test-oidc-token")));
     assertEquals("env-oidc", config.getAuthType());
+  }
+
+  // Verifies that workload identity federation sends assume_group in the token-exchange form for
+  // every host type without adding the historical o=<workspace-id> routing query parameter.
+  @ParameterizedTest(name = "{0}")
+  @MethodSource("allProfiles")
+  void envOIDCForwardsGroupOnExistingEndpoint(HostProfile p) {
+    DatabricksConfig config =
+        profileConfig(p).setClientId("test-client").setGroupId("group-123").setAuthType("env-oidc");
+    MappingHttpClient client = withOidc(httpClientFor(p), p);
+    config.setHttpClient(client);
+
+    assertEquals(
+        "Bearer test-token",
+        resolveAndAuthenticate(
+            config, environmentWith("DATABRICKS_OIDC_TOKEN", "test-oidc-token")));
+
+    Request tokenRequest = client.singleRequest("POST", p.tokenPath());
+    assertTrue(tokenRequest.getBodyString().contains("assume_group=group-123"));
+    assertFalse(tokenRequest.getUrl().contains("?o="));
+  }
+
+  // Verifies that browser OAuth on workspace, account, and unified hosts adds assume_group only to
+  // the authorization request. The discovered endpoints remain unchanged, and the authorization
+  // code exchange neither receives assume_group nor adds the historical o=<workspace-id> routing
+  // query parameter.
+  @ParameterizedTest(name = "{0}")
+  @MethodSource("allProfiles")
+  void externalBrowserForwardsGroupOnlyOnAuthorization(HostProfile p) throws IOException {
+    DatabricksConfig config =
+        profileConfig(p)
+            .setClientId("test-client")
+            .setClientSecret("test-secret")
+            .setGroupId("group-123")
+            .setAuthType("external-browser");
+    MappingHttpClient client = withOidc(httpClientFor(p), p);
+    config.setHttpClient(client);
+    config.resolve(emptyEnvironment());
+
+    OpenIDConnectEndpoints endpoints = config.getDatabricksOidcEndpoints();
+    OAuthClient oauthClient =
+        new OAuthClient.Builder()
+            .withHttpClient(client)
+            .withClientId(config.getClientId())
+            .withClientSecret(config.getClientSecret())
+            .withHost(config.getHost())
+            .withAccountId(config.getAccountId())
+            .withGroupId(config.getGroupId())
+            .withRedirectUrl(config.getEffectiveOAuthRedirectUrl())
+            .withScopes(config.getScopes())
+            .withOpenIDConnectEndpoints(endpoints)
+            .build();
+
+    Consent consent = oauthClient.initiateConsent();
+    assertEquals(p.authorizationEndpoint(), consent.getAuthUrl().split("\\?", 2)[0]);
+    assertTrue(consent.getAuthUrl().contains("assume_group=group-123"));
+    assertFalse(consent.getAuthUrl().contains("?o="));
+    assertEquals(p.tokenEndpoint(), consent.getTokenUrl());
+
+    Map<String, String> callback = new HashMap<>();
+    callback.put("code", "authorization-code");
+    callback.put("state", consent.getState());
+    consent.exchangeCallbackParameters(callback);
+
+    Request tokenRequest = client.singleRequest("POST", p.tokenPath());
+    assertTrue(tokenRequest.getBodyString().contains("grant_type=authorization_code"));
+    assertFalse(tokenRequest.getBodyString().contains("assume_group"));
+    assertFalse(tokenRequest.getUrl().contains("?o="));
   }
 
   // ---- File OIDC -------------------------------------------------------------
@@ -438,35 +529,6 @@ public class AuthProfilesTest {
     assertEquals(TEST_ACCOUNT_ID, config.getAccountId());
     if (p.kind != ProfileKind.ACCOUNT && p.kind != ProfileKind.UNIFIED) {
       assertEquals(TEST_WORKSPACE_ID, config.getWorkspaceId());
-    }
-  }
-
-  // ---- Minimal HttpClient fixture -------------------------------------------
-
-  /**
-   * Matches requests on {@code "METHOD path"} and returns a stubbed JSON body with HTTP 200. Every
-   * test must register a mapping for {@code GET /.well-known/databricks-config} (see {@link
-   * #httpClientFor(HostProfile)}); unmapped requests fail loudly with {@link IOException} so a
-   * missing fixture cannot silently fall through.
-   */
-  private static class MappingHttpClient implements HttpClient {
-    private final Map<String, String> mappings = new HashMap<>();
-
-    MappingHttpClient put(String key, String jsonBody) {
-      mappings.put(key, jsonBody);
-      return this;
-    }
-
-    @Override
-    public Response execute(Request in) throws IOException {
-      String rawUrl = in.getUrl();
-      URL url = new URL(rawUrl);
-      String key = in.getMethod() + " " + url.getPath();
-      String body = mappings.get(key);
-      if (body == null) {
-        throw new IOException("No mock for " + key + " (url=" + rawUrl + ")");
-      }
-      return new Response(body, 200, "OK", url);
     }
   }
 }

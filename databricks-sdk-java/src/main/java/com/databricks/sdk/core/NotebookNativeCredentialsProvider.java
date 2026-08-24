@@ -27,6 +27,8 @@ public class NotebookNativeCredentialsProvider implements CredentialsProvider {
 
   @Override
   public HeaderFactory configure(DatabricksConfig config) {
+    GroupAssumption.rejectUnsupportedAuth(config, authType());
+
     if (System.getenv("DATABRICKS_RUNTIME_VERSION") == null) {
       LOG.debug("DBR not detected, skipping runtime auth");
       return null;

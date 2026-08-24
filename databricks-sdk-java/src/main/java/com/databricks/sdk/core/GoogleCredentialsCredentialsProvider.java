@@ -34,6 +34,8 @@ public class GoogleCredentialsCredentialsProvider implements CredentialsProvider
       return null;
     }
 
+    GroupAssumption.rejectUnsupportedAuth(config, authType());
+
     ServiceAccountCredentials serviceAccountCredentials;
 
     try {

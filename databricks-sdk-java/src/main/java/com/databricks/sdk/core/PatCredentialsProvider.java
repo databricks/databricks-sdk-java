@@ -20,6 +20,9 @@ public class PatCredentialsProvider implements CredentialsProvider {
     if (token == null || host == null) {
       return null;
     }
+
+    GroupAssumption.rejectUnsupportedAuth(config, authType());
+
     Map<String, String> headers = new HashMap<>();
     headers.put("Authorization", String.format("Bearer %s", token));
     return () -> headers;

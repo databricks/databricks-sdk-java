@@ -42,6 +42,8 @@ public class AzureMsiCredentialsProvider implements CredentialsProvider {
       return null;
     }
 
+    GroupAssumption.rejectUnsupportedAuth(config, authType());
+
     LOG.debug("Generating AAD token via Azure MSI");
 
     AzureUtils.ensureHostPresent(config, mapper, this::tokenSourceFor);

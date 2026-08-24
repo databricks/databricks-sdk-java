@@ -180,6 +180,7 @@ public class DatabricksConfigTest {
             .setAuthType("oauth-m2m")
             .setClientId("my-client-id")
             .setClientSecret("my-client-secret")
+            .setGroupId("group-123")
             .setAccountId("account-id")
             .setHost("https://account.cloud.databricks.com");
     String workspaceHost = "https://workspace.cloud.databricks.com";
@@ -190,6 +191,7 @@ public class DatabricksConfigTest {
     assert newWorkspaceConfig.getAuthType().equals("oauth-m2m");
     assert newWorkspaceConfig.getClientId().equals("my-client-id");
     assert newWorkspaceConfig.getClientSecret().equals("my-client-secret");
+    assert newWorkspaceConfig.getGroupId().equals("group-123");
   }
 
   @Test
@@ -199,6 +201,7 @@ public class DatabricksConfigTest {
             .setAuthType("oauth-m2m")
             .setClientId("my-client-id")
             .setClientSecret("my-client-secret")
+            .setGroupId("group-123")
             .setAccountId("account-id")
             .setHost("https://account.cloud.databricks.com");
 
@@ -208,6 +211,7 @@ public class DatabricksConfigTest {
     assert newWorkspaceConfig.getAuthType().equals("oauth-m2m");
     assert newWorkspaceConfig.getClientId().equals("my-client-id");
     assert newWorkspaceConfig.getClientSecret().equals("my-client-secret");
+    assert newWorkspaceConfig.getGroupId().equals("group-123");
   }
 
   @Test
@@ -281,6 +285,7 @@ public class DatabricksConfigTest {
     env.put("DATABRICKS_OAUTH_BROWSER_AUTH_TIMEOUT", "30");
     env.put("DATABRICKS_DEBUG_TRUNCATE_BYTES", "100");
     env.put("DATABRICKS_RATE_LIMIT", "50");
+    env.put("DATABRICKS_GROUP_ID", "environment-group");
 
     DatabricksConfig config = new DatabricksConfig();
     config.resolve(new Environment(env, new ArrayList<>(), System.getProperty("os.name")));
@@ -288,6 +293,61 @@ public class DatabricksConfigTest {
     assertEquals(Duration.ofSeconds(30), config.getOAuthBrowserAuthTimeout());
     assertEquals(Integer.valueOf(100), config.getDebugTruncateBytes());
     assertEquals(Integer.valueOf(50), config.getRateLimit());
+    assertEquals("environment-group", config.getGroupId());
+  }
+
+  // Verifies that group ID follows the standard configuration precedence: code, environment, then
+  // profile.
+  @Test
+  public void testGroupIdCodeEnvironmentProfilePrecedence() {
+    Map<String, String> env = new HashMap<>();
+    env.put("HOME", TestOSUtils.resource("/testdata"));
+    Environment profileEnvironment =
+        new Environment(env, new ArrayList<>(), System.getProperty("os.name"));
+
+    DatabricksConfig fromProfile =
+        new DatabricksConfig()
+            .setProfile("group")
+            .setHttpClient(
+                request -> {
+                  throw new IOException("offline test");
+                });
+    fromProfile.resolve(profileEnvironment);
+    assertEquals("profile-group", fromProfile.getGroupId());
+
+    DatabricksConfig withoutGroup =
+        new DatabricksConfig()
+            .setProfile("scope-empty")
+            .setHttpClient(
+                request -> {
+                  throw new IOException("offline test");
+                });
+    withoutGroup.resolve(profileEnvironment);
+    assertNull(withoutGroup.getGroupId());
+
+    env.put("DATABRICKS_GROUP_ID", "environment-group");
+    Environment environmentOverride =
+        new Environment(env, new ArrayList<>(), System.getProperty("os.name"));
+    DatabricksConfig fromEnvironment =
+        new DatabricksConfig()
+            .setProfile("group")
+            .setHttpClient(
+                request -> {
+                  throw new IOException("offline test");
+                });
+    fromEnvironment.resolve(environmentOverride);
+    assertEquals("environment-group", fromEnvironment.getGroupId());
+
+    DatabricksConfig fromCode =
+        new DatabricksConfig()
+            .setProfile("group")
+            .setGroupId("code-group")
+            .setHttpClient(
+                request -> {
+                  throw new IOException("offline test");
+                });
+    fromCode.resolve(environmentOverride);
+    assertEquals("code-group", fromCode.getGroupId());
   }
 
   @Test

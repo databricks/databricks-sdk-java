@@ -9,6 +9,7 @@ import com.databricks.sdk.core.HeaderFactory;
 import java.time.Instant;
 import java.util.Map;
 import java.util.stream.Stream;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -43,6 +44,19 @@ class TokenSourceCredentialsProviderTest {
 
     verify(mockTokenSource, atLeastOnce()).getToken();
     assertEquals(TEST_AUTH_TYPE, provider.authType());
+  }
+
+  // Verifies that configuring a group does not change how an ordinary token-source failure is
+  // handled by the credential chain.
+  @Test
+  void groupDoesNotChangeTokenFailureHandling() {
+    TokenSource tokenSource = mock(TokenSource.class);
+    when(tokenSource.getToken()).thenThrow(new DatabricksException("Token retrieval failed"));
+
+    provider = new TokenSourceCredentialsProvider(tokenSource, TEST_AUTH_TYPE);
+    DatabricksConfig config = new DatabricksConfig().setGroupId("group-123");
+
+    assertNull(provider.configure(config));
   }
 
   /** Provides test scenarios */

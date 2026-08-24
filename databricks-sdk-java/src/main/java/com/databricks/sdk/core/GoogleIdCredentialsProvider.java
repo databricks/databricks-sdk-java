@@ -31,6 +31,8 @@ public class GoogleIdCredentialsProvider implements CredentialsProvider {
       return null;
     }
 
+    GroupAssumption.rejectUnsupportedAuth(config, authType());
+
     GoogleCredentials googleCredentials;
     try {
       googleCredentials = GoogleCredentials.getApplicationDefault();

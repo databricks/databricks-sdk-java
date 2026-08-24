@@ -33,6 +33,8 @@ public class AzureServicePrincipalCredentialsProvider implements CredentialsProv
       return null;
     }
 
+    GroupAssumption.rejectUnsupportedAuth(config, authType());
+
     try {
       this.tenantId =
           config.getAzureTenantId() != null
