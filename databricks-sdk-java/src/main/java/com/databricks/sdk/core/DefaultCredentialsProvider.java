@@ -77,13 +77,6 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
         authType = provider.authType();
         return headerFactory;
       } catch (DatabricksException e) {
-        // When no auth type is explicitly selected, an unsupported provider should not stop the
-        // default credential chain; explicitly selected providers must report the error.
-        if (e instanceof UnsupportedGroupAuthException
-            && Strings.isNullOrEmpty(config.getAuthType())) {
-          LOG.info("Ignoring {} auth: {}", provider.authType(), e.getMessage());
-          continue;
-        }
         throw new DatabricksException(
             String.format("%s: %s", provider.authType(), e.getMessage()), e);
       }

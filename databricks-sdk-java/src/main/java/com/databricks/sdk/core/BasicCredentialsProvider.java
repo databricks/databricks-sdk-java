@@ -23,7 +23,15 @@ public class BasicCredentialsProvider implements CredentialsProvider {
       return null;
     }
 
-    GroupAssumption.rejectUnsupportedAuth(config, authType());
+    if (GroupAssumption.isRequested(config)) {
+      // Return null during automatic discovery so the chain can continue. If the user explicitly
+      // requested this provider, throw an actionable error explaining why it cannot be used.
+      if (authType().equals(config.getAuthType())) {
+        throw GroupAssumption.unsupportedAuth(authType());
+      }
+
+      return null;
+    }
 
     byte[] bytes = String.format("%s:%s", config.getUsername(), config.getPassword()).getBytes();
     String base64 = Base64.getEncoder().encodeToString(bytes);

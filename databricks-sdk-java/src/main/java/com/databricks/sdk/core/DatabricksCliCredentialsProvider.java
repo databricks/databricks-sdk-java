@@ -84,9 +84,15 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
       return null;
     }
 
-    // Group assumption is not implemented for CLI authentication. Reject before invoking the
-    // CLI; the default credential chain can catch this typed error and try another provider.
-    GroupAssumption.rejectUnsupportedAuth(config, authType());
+    if (GroupAssumption.isRequested(config)) {
+      // Return null during automatic discovery so the chain can continue. If the user explicitly
+      // requested this provider, throw an actionable error explaining why it cannot be used.
+      if (authType().equals(config.getAuthType())) {
+        throw GroupAssumption.unsupportedAuth(authType());
+      }
+
+      return null;
+    }
 
     try {
       CliTokenSource tokenSource = getDatabricksCliTokenSource(config);

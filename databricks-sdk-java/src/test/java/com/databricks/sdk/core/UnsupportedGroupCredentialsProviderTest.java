@@ -1,5 +1,7 @@
 package com.databricks.sdk.core;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -11,8 +13,8 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 class UnsupportedGroupCredentialsProviderTest {
-  // Verifies that every applicable auth strategy without group support returns the typed error
-  // used by the default credential chain, while retaining an actionable message.
+  // Verifies that explicitly selecting an applicable provider without group support throws the
+  // existing SDK error type with an actionable message.
   @ParameterizedTest(name = "{0}")
   @MethodSource("unsupportedProviders")
   void applicableUnsupportedProviderRejectsGroup(
@@ -22,9 +24,20 @@ class UnsupportedGroupCredentialsProviderTest {
     DatabricksException error =
         assertThrows(DatabricksException.class, () -> provider.configure(config));
 
-    assertTrue(error instanceof UnsupportedGroupAuthException);
+    assertEquals(DatabricksException.class, error.getClass());
     assertTrue(error.getMessage().contains(authType));
     assertTrue(error.getMessage().contains("does not support group assumption"));
+  }
+
+  // Verifies that an applicable provider without group support returns null during automatic
+  // discovery, allowing the credential chain to continue to another provider.
+  @ParameterizedTest(name = "{0}")
+  @MethodSource("unsupportedProviders")
+  void automaticChainSkipsApplicableUnsupportedProvider(
+      String authType, CredentialsProvider provider, DatabricksConfig config) {
+    config.setGroupId("group-123").setAuthType(null);
+
+    assertNull(provider.configure(config));
   }
 
   private static Stream<Arguments> unsupportedProviders() {
