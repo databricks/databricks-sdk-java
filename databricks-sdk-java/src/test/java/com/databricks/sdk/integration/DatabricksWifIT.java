@@ -112,7 +112,7 @@ public class DatabricksWifIT {
                 String.format(
                     "accounts/%s/groups/%s/ruleSets/default",
                     a.config().getAccountId(), group.getId());
-            RuleSetResponse ruleSet = a.accessControl().getRuleSet(ruleSetName, null);
+            RuleSetResponse ruleSet = a.accessControl().getRuleSet(ruleSetName, "");
             ArrayList<GrantRule> grantRules =
                 ruleSet.getGrantRules() == null
                     ? new ArrayList<>()
