@@ -18,7 +18,17 @@ class OAuthM2MServicePrincipalCredentialsProviderTest {
   // minted, rather than only on the initial request.
   @Test
   void everyTokenMintIncludesTheGroup() {
-    RecordingHttpClient httpClient = new RecordingHttpClient();
+    TokenHttpClient httpClient =
+        new TokenHttpClient(
+            (request, requestNumber) ->
+                new Response(
+                    String.format(
+                        "{\"access_token\":\"token-%d\",\"token_type\":\"Bearer\",\"expires_in\":0}",
+                        requestNumber),
+                    200,
+                    "OK",
+                    new URL(request.getUrl())));
+
     DatabricksConfig config =
         new DatabricksConfig()
             .setHost("https://accounts.cloud.databricks.com")
@@ -47,7 +57,15 @@ class OAuthM2MServicePrincipalCredentialsProviderTest {
   // retried without assume_group.
   @Test
   void groupServerRejectionDoesNotFallback() {
-    RejectingHttpClient httpClient = new RejectingHttpClient();
+    TokenHttpClient httpClient =
+        new TokenHttpClient(
+            (request, ignoredRequestNumber) ->
+                new Response(
+                    "{\"error\":\"invalid_target\"}",
+                    400,
+                    "Bad Request",
+                    new URL(request.getUrl())));
+
     DatabricksConfig config = config(httpClient, "group-123");
 
     OAuthHeaderFactory headers =
@@ -62,7 +80,27 @@ class OAuthM2MServicePrincipalCredentialsProviderTest {
   // their own access token.
   @Test
   void cachesAreIsolatedByClient() {
-    GroupTokenHttpClient httpClient = new GroupTokenHttpClient();
+    TokenHttpClient httpClient =
+        new TokenHttpClient(
+            (request, ignoredRequestNumber) -> {
+              String body = request.getBodyString();
+              String token = "token-normal";
+
+              if (body.contains("assume_group=group-a")) {
+                token = "token-group-a";
+              } else if (body.contains("assume_group=group-b")) {
+                token = "token-group-b";
+              }
+
+              return new Response(
+                  String.format(
+                      "{\"access_token\":\"%s\",\"token_type\":\"Bearer\",\"expires_in\":3600}",
+                      token),
+                  200,
+                  "OK",
+                  new URL(request.getUrl()));
+            });
+
     String[][] testCases = {
       {null, "Bearer token-normal"},
       {"group-a", "Bearer token-group-a"},
@@ -94,8 +132,21 @@ class OAuthM2MServicePrincipalCredentialsProviderTest {
         .setDisableAsyncTokenRefresh(true);
   }
 
-  private abstract static class TokenHttpClient implements HttpClient {
+  /** Produces the token endpoint response for a recorded token request. */
+  @FunctionalInterface
+  private interface TokenResponder {
+    Response respond(Request request, int requestNumber) throws IOException;
+  }
+
+  /** Handles discovery uniformly while allowing each test to define token endpoint behavior. */
+  private static class TokenHttpClient implements HttpClient {
     final List<String> tokenBodies = new ArrayList<>();
+    private final TokenResponder tokenResponder;
+
+    /** Creates a client using the supplied behavior for token endpoint requests. */
+    TokenHttpClient(TokenResponder tokenResponder) {
+      this.tokenResponder = tokenResponder;
+    }
 
     /** Returns OIDC discovery metadata for GET requests and records every token request body. */
     @Override
@@ -110,64 +161,7 @@ class OAuthM2MServicePrincipalCredentialsProviderTest {
       }
 
       tokenBodies.add(request.getBodyString());
-      return tokenResponse(request);
-    }
-
-    /** Creates the response for a recorded token request. */
-    abstract Response tokenResponse(Request request) throws IOException;
-  }
-
-  private static class RejectingHttpClient extends TokenHttpClient {
-    /** Simulates a token endpoint that rejects group assumption. */
-    @Override
-    Response tokenResponse(Request request) throws IOException {
-      return new Response(
-          "{\"error\":\"invalid_target\"}", 400, "Bad Request", new URL(request.getUrl()));
-    }
-  }
-
-  private static class GroupTokenHttpClient extends TokenHttpClient {
-    /** Returns a distinct token for normal access and for each assumed group. */
-    @Override
-    Response tokenResponse(Request request) throws IOException {
-      String body = request.getBodyString();
-      String token = "token-normal";
-      if (body.contains("assume_group=group-a")) {
-        token = "token-group-a";
-      } else if (body.contains("assume_group=group-b")) {
-        token = "token-group-b";
-      }
-
-      return new Response(
-          String.format(
-              "{\"access_token\":\"%s\",\"token_type\":\"Bearer\",\"expires_in\":3600}", token),
-          200,
-          "OK",
-          new URL(request.getUrl()));
-    }
-  }
-
-  private static class RecordingHttpClient implements HttpClient {
-    private final List<String> tokenBodies = new ArrayList<>();
-
-    @Override
-    public Response execute(Request request) throws IOException {
-      if (request.getMethod().equals("GET")) {
-        return new Response(
-            "{\"token_endpoint\":\"https://accounts.cloud.databricks.com/oidc/accounts/account-123/v1/token\","
-                + "\"authorization_endpoint\":\"https://accounts.cloud.databricks.com/oidc/accounts/account-123/v1/authorize\"}",
-            200,
-            "OK",
-            new URL(request.getUrl()));
-      }
-      tokenBodies.add(request.getBodyString());
-      return new Response(
-          String.format(
-              "{\"access_token\":\"token-%d\",\"token_type\":\"Bearer\",\"expires_in\":0}",
-              tokenBodies.size()),
-          200,
-          "OK",
-          new URL(request.getUrl()));
+      return tokenResponder.respond(request, tokenBodies.size());
     }
   }
 }

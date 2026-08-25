@@ -69,19 +69,21 @@ public class FileTokenCacheTest {
   // Verifies that existing non-group cache paths remain compatible while each group receives an
   // isolated cache entry.
   @Test
-  void testGroupCacheIsolationAndNormalCompatibility() {
-    Path legacy = TokenCacheUtils.getCacheFilePath(TEST_HOST, TEST_CLIENT_ID, TEST_SCOPES);
-    Path normal = TokenCacheUtils.getCacheFilePath(TEST_HOST, TEST_CLIENT_ID, TEST_SCOPES, null);
-    Path empty = TokenCacheUtils.getCacheFilePath(TEST_HOST, TEST_CLIENT_ID, TEST_SCOPES, "");
-    Path groupA =
+  void testGroupCacheIsolationAndNoGroupCompatibility() {
+    Path legacyPath = TokenCacheUtils.getCacheFilePath(TEST_HOST, TEST_CLIENT_ID, TEST_SCOPES);
+    Path nullGroupPath =
+        TokenCacheUtils.getCacheFilePath(TEST_HOST, TEST_CLIENT_ID, TEST_SCOPES, null);
+    Path emptyGroupPath =
+        TokenCacheUtils.getCacheFilePath(TEST_HOST, TEST_CLIENT_ID, TEST_SCOPES, "");
+    Path groupAPath =
         TokenCacheUtils.getCacheFilePath(TEST_HOST, TEST_CLIENT_ID, TEST_SCOPES, "group-a");
-    Path groupB =
+    Path groupBPath =
         TokenCacheUtils.getCacheFilePath(TEST_HOST, TEST_CLIENT_ID, TEST_SCOPES, "group-b");
 
-    assertEquals(legacy, normal);
-    assertEquals(legacy, empty);
-    assertNotEquals(legacy, groupA);
-    assertNotEquals(groupA, groupB);
+    assertEquals(legacyPath, nullGroupPath);
+    assertEquals(legacyPath, emptyGroupPath);
+    assertNotEquals(legacyPath, groupAPath);
+    assertNotEquals(groupAPath, groupBPath);
   }
 
   @Test
