@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.core.http.FormRequest;
 import com.databricks.sdk.core.http.HttpClient;
@@ -15,6 +16,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -345,22 +347,23 @@ class DatabricksOAuthTokenSourceTest {
     }
   }
 
-  // Verifies that workload identity token exchanges send the configured group to the token
-  // endpoint.
+  // Verifies that every workload identity token exchange sends the configured group to the token
+  // endpoint, rather than only the first exchange.
   @Test
-  void groupIsIncludedInTokenExchangeForm() throws Exception {
+  void everyTokenExchangeIncludesTheGroup() throws Exception {
     OpenIDConnectEndpoints endpoints =
         new OpenIDConnectEndpoints(TEST_TOKEN_ENDPOINT, TEST_AUTHORIZATION_ENDPOINT);
     IDTokenSource idTokenSource = mock(IDTokenSource.class);
     when(idTokenSource.getIDToken(any())).thenReturn(new IDToken(TEST_ID_TOKEN));
     HttpClient httpClient = mock(HttpClient.class);
     when(httpClient.execute(any()))
-        .thenReturn(
-            new Response(
-                "{\"access_token\":\"token\",\"token_type\":\"Bearer\",\"expires_in\":3600}",
-                200,
-                "OK",
-                new URL(TEST_HOST)));
+        .thenAnswer(
+            invocation ->
+                new Response(
+                    "{\"access_token\":\"token\",\"token_type\":\"Bearer\",\"expires_in\":3600}",
+                    200,
+                    "OK",
+                    new URL(TEST_HOST)));
 
     DatabricksOAuthTokenSource source =
         new DatabricksOAuthTokenSource.Builder(
@@ -370,10 +373,67 @@ class DatabricksOAuthTokenSourceTest {
             .build();
 
     assertEquals("token", source.getToken().getAccessToken());
+    assertEquals("token", source.getToken().getAccessToken());
     org.mockito.ArgumentCaptor<Request> request =
         org.mockito.ArgumentCaptor.forClass(Request.class);
-    verify(httpClient).execute(request.capture());
-    assertTrue(request.getValue().getBodyString().contains("assume_group=group-123"));
+    verify(httpClient, times(2)).execute(request.capture());
+    for (Request tokenRequest : request.getAllValues()) {
+      assertTrue(tokenRequest.getBodyString().contains("assume_group=group-123"));
+    }
+  }
+
+  // Verifies that separate WIF clients for normal access and different groups each cache only
+  // their own access token.
+  @Test
+  void groupCachesAreIsolatedByClient() throws Exception {
+    OpenIDConnectEndpoints endpoints =
+        new OpenIDConnectEndpoints(TEST_TOKEN_ENDPOINT, TEST_AUTHORIZATION_ENDPOINT);
+    IDTokenSource idTokenSource = mock(IDTokenSource.class);
+    when(idTokenSource.getIDToken(any())).thenReturn(new IDToken(TEST_ID_TOKEN));
+    AtomicInteger tokenCalls = new AtomicInteger();
+    HttpClient httpClient = mock(HttpClient.class);
+    when(httpClient.execute(any()))
+        .thenAnswer(
+            invocation -> {
+              Request request = invocation.getArgument(0);
+              String body = request.getBodyString();
+              String token = "token-normal";
+              if (body.contains("assume_group=group-a")) {
+                token = "token-group-a";
+              } else if (body.contains("assume_group=group-b")) {
+                token = "token-group-b";
+              }
+              tokenCalls.incrementAndGet();
+              return new Response(
+                  String.format(
+                      "{\"access_token\":\"%s\",\"token_type\":\"Bearer\",\"expires_in\":3600}",
+                      token),
+                  200,
+                  "OK",
+                  new URL(TEST_HOST));
+            });
+    String[][] testCases = {
+      {null, "Bearer token-normal"},
+      {"group-a", "Bearer token-group-a"},
+      {"group-b", "Bearer token-group-b"}
+    };
+
+    for (String[] testCase : testCases) {
+      DatabricksOAuthTokenSource source =
+          new DatabricksOAuthTokenSource.Builder(
+                  TEST_CLIENT_ID, TEST_HOST, endpoints, idTokenSource, httpClient)
+              .groupId(testCase[0])
+              .build();
+      TokenSourceCredentialsProvider provider =
+          new TokenSourceCredentialsProvider(source, "test-oidc");
+      OAuthHeaderFactory headers =
+          provider.configure(new DatabricksConfig().setDisableAsyncTokenRefresh(true));
+
+      assertEquals(testCase[1], headers.headers().get("Authorization"));
+      assertEquals(testCase[1], headers.headers().get("Authorization"));
+    }
+
+    assertEquals(testCases.length, tokenCalls.get());
   }
 
   // Verifies that adding a group does not wrap or otherwise change errors returned by the token
@@ -388,7 +448,8 @@ class DatabricksOAuthTokenSourceTest {
     when(httpClient.execute(any()))
         .thenReturn(
             new Response(
-                "{\"error\":\"invalid_request\",\"error_description\":\"assume_group is not supported at the account level\"}",
+                "{\"error\":\"invalid_request\",\"error_description\":\"assume_group is not"
+                    + " supported at the account level\"}",
                 400,
                 "Bad Request",
                 new URL(TEST_HOST)));
