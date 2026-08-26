@@ -33,6 +33,16 @@ public class AzureServicePrincipalCredentialsProvider implements CredentialsProv
       return null;
     }
 
+    if (GroupAssumption.isRequested(config)) {
+      // Return null during automatic discovery so the chain can continue. If the user explicitly
+      // requested this provider, throw an actionable error explaining why it cannot be used.
+      if (authType().equals(config.getAuthType())) {
+        throw GroupAssumption.unsupportedAuth(authType());
+      }
+
+      return null;
+    }
+
     try {
       this.tenantId =
           config.getAzureTenantId() != null
