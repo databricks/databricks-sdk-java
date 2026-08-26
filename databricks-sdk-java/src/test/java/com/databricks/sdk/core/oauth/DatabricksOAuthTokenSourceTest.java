@@ -4,17 +4,23 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.core.http.FormRequest;
 import com.databricks.sdk.core.http.HttpClient;
+import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.Mockito;
@@ -286,13 +292,12 @@ class DatabricksOAuthTokenSourceTest {
     }
   }
 
-  private static HttpClient createMockHttpClient(
-      FormRequest expectedRequest, int statusCode, String responseBody) {
+  private static HttpClient createMockHttpClient(FormRequest request, int status, String body) {
     try {
       HttpClient mockHttpClient = Mockito.mock(HttpClient.class);
-      String statusMessage = statusCode == 200 ? "OK" : "Bad Request";
-      when(mockHttpClient.execute(expectedRequest))
-          .thenReturn(new Response(responseBody, statusCode, statusMessage, new URL(TEST_HOST)));
+      String statusMessage = status == 200 ? "OK" : "Bad Request";
+      when(mockHttpClient.execute(request))
+          .thenReturn(new Response(body, status, statusMessage, new URL(TEST_HOST)));
       return mockHttpClient;
     } catch (IOException e) {
       throw new RuntimeException("Failed to create mock HTTP client", e);
@@ -340,6 +345,140 @@ class DatabricksOAuthTokenSourceTest {
 
       // Verify correct audience was used
       verify(testCase.idTokenSource, atLeastOnce()).getIDToken(testCase.expectedAudience);
+    }
+  }
+
+  // Verifies that every workload identity token exchange sends the configured group to the token
+  // endpoint, rather than only the first exchange.
+  @Test
+  void everyTokenExchangeIncludesTheGroup() throws Exception {
+    RecordingClient httpClient = new RecordingClient(ignored -> tokenResponse("token"));
+
+    DatabricksOAuthTokenSource source =
+        builder(httpClient, "group-123").scopes(Collections.singletonList("all-apis")).build();
+
+    assertEquals("token", source.getToken().getAccessToken());
+    assertEquals("token", source.getToken().getAccessToken());
+    assertEquals(2, httpClient.requests.size());
+    assertAllRequestsContain(httpClient, "assume_group=group-123");
+  }
+
+  // Verifies that separate WIF clients for normal access and different groups each cache only
+  // their own access token.
+  @Test
+  void groupCachesAreIsolatedByClient() throws Exception {
+    RecordingClient httpClient =
+        new RecordingClient(
+            request -> {
+              String requestBody = request.getBodyString();
+              if (requestBody.contains("assume_group=group-a")) {
+                return tokenResponse("token-group-a");
+              }
+              if (requestBody.contains("assume_group=group-b")) {
+                return tokenResponse("token-group-b");
+              }
+              return tokenResponse("token-normal");
+            });
+
+    assertCachedToken(httpClient, null, "Bearer token-normal");
+    assertCachedToken(httpClient, "group-a", "Bearer token-group-a");
+    assertCachedToken(httpClient, "group-b", "Bearer token-group-b");
+
+    assertEquals(3, httpClient.requests.size());
+  }
+
+  // Verifies that adding a group does not wrap or otherwise change errors returned by the token
+  // endpoint.
+  @Test
+  void groupServerFailureIsReturnedNormally() throws Exception {
+    RecordingClient httpClient =
+        new RecordingClient(
+            ignored ->
+                new Response(
+                    "{\"error\":\"invalid_request\",\"error_description\":\"assume_group is not"
+                        + " supported at the account level\"}",
+                    400,
+                    "Bad Request",
+                    new URL(TEST_HOST)));
+
+    DatabricksOAuthTokenSource source = builder(httpClient, "group-123").build();
+
+    DatabricksException error = assertThrows(DatabricksException.class, source::getToken);
+    assertEquals(DatabricksException.class, error.getClass());
+    assertEquals(
+        "Token request failed with error: invalid_request - "
+            + "assume_group is not supported at the account level",
+        error.getMessage());
+    assertNull(error.getCause());
+    assertEquals(1, httpClient.requests.size());
+  }
+
+  /** Verifies that every request recorded by the client contains the expected form field. */
+  private static void assertAllRequestsContain(RecordingClient client, String field) {
+    for (Request request : client.requests) {
+      assertTrue(request.getBodyString().contains(field));
+    }
+  }
+
+  /** Creates a token source builder with the fixed WIF configuration used by these tests. */
+  private static DatabricksOAuthTokenSource.Builder builder(HttpClient client, String groupId) {
+    try {
+      OpenIDConnectEndpoints endpoints =
+          new OpenIDConnectEndpoints(TEST_TOKEN_ENDPOINT, TEST_AUTHORIZATION_ENDPOINT);
+      IDTokenSource idTokenSource = mock(IDTokenSource.class);
+      when(idTokenSource.getIDToken(any())).thenReturn(new IDToken(TEST_ID_TOKEN));
+
+      return new DatabricksOAuthTokenSource.Builder(
+              TEST_CLIENT_ID, TEST_HOST, endpoints, idTokenSource, client)
+          .groupId(groupId);
+    } catch (MalformedURLException e) {
+      throw new RuntimeException("Failed to create test OIDC endpoints", e);
+    }
+  }
+
+  /** Creates a successful OAuth response containing the requested access token. */
+  private static Response tokenResponse(String token) throws MalformedURLException {
+    return new Response(
+        String.format(
+            "{\"access_token\":\"%s\",\"token_type\":\"Bearer\",\"expires_in\":3600}", token),
+        200,
+        "OK",
+        new URL(TEST_HOST));
+  }
+
+  /** Verifies that one client fetches its expected token once and then reuses the cached token. */
+  private static void assertCachedToken(RecordingClient client, String group, String header) {
+    DatabricksOAuthTokenSource source = builder(client, group).build();
+    TokenSourceCredentialsProvider provider =
+        new TokenSourceCredentialsProvider(source, "test-oidc");
+    OAuthHeaderFactory headers =
+        provider.configure(new DatabricksConfig().setDisableAsyncTokenRefresh(true));
+
+    assertEquals(header, headers.headers().get("Authorization"));
+    assertEquals(header, headers.headers().get("Authorization"));
+  }
+
+  /** Produces an HTTP response for a recorded token request. */
+  @FunctionalInterface
+  private interface TokenResponseFactory {
+    Response create(Request request) throws IOException;
+  }
+
+  /** Records token requests and delegates response creation to a test-specific factory. */
+  private static class RecordingClient implements HttpClient {
+    private final List<Request> requests = new ArrayList<>();
+    private final TokenResponseFactory responseFactory;
+
+    /** Creates a recording client that uses the supplied factory for every response. */
+    private RecordingClient(TokenResponseFactory responseFactory) {
+      this.responseFactory = responseFactory;
+    }
+
+    /** Records the request before returning the response selected by the test. */
+    @Override
+    public Response execute(Request request) throws IOException {
+      requests.add(request);
+      return responseFactory.create(request);
     }
   }
 }

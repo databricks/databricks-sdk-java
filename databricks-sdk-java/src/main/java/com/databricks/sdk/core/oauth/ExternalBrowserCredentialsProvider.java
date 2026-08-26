@@ -70,7 +70,8 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
       if (tokenCache == null) {
         // Create a default FileTokenCache based on config
         Path cachePath =
-            TokenCacheUtils.getCacheFilePath(config.getHost(), clientId, config.getScopes());
+            TokenCacheUtils.getCacheFilePath(
+                config.getHost(), clientId, config.getScopes(), config.getGroupId());
         tokenCache = new FileTokenCache(cachePath);
       }
 
@@ -147,6 +148,7 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
             .withClientSecret(clientSecret)
             .withHost(config.getHost())
             .withAccountId(config.getAccountId())
+            .withGroupId(config.getGroupId())
             .withRedirectUrl(config.getEffectiveOAuthRedirectUrl())
             .withBrowserTimeout(config.getOAuthBrowserAuthTimeout())
             .withScopes(getScopes(config, oidcEndpoints))

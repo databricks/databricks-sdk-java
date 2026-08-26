@@ -17,6 +17,7 @@ public class ClientCredentials implements TokenSource {
   public static class Builder {
     private String clientId;
     private String clientSecret;
+    private String groupId;
     private String tokenUrl;
     private HttpClient hc = new CommonsHttpClient.Builder().withTimeoutSeconds(30).build();
 
@@ -34,6 +35,11 @@ public class ClientCredentials implements TokenSource {
 
     public Builder withClientSecret(String clientSecret) {
       this.clientSecret = clientSecret;
+      return this;
+    }
+
+    public Builder withGroupId(String groupId) {
+      this.groupId = groupId;
       return this;
     }
 
@@ -67,13 +73,14 @@ public class ClientCredentials implements TokenSource {
       Objects.requireNonNull(this.clientId, "clientId must be specified");
       Objects.requireNonNull(this.tokenUrl, "tokenUrl must be specified");
       return new ClientCredentials(
-          hc, clientId, clientSecret, tokenUrl, endpointParamsSupplier, scopes, position);
+          hc, clientId, clientSecret, groupId, tokenUrl, endpointParamsSupplier, scopes, position);
     }
   }
 
   private HttpClient hc;
   private String clientId;
   private String clientSecret;
+  private String groupId;
   private String tokenUrl;
   private List<String> scopes;
   private AuthParameterPosition position;
@@ -83,6 +90,7 @@ public class ClientCredentials implements TokenSource {
       HttpClient hc,
       String clientId,
       String clientSecret,
+      String groupId,
       String tokenUrl,
       Supplier<Map<String, String>> endpointParamsSupplier,
       List<String> scopes,
@@ -90,6 +98,7 @@ public class ClientCredentials implements TokenSource {
     this.hc = hc;
     this.clientId = clientId;
     this.clientSecret = clientSecret;
+    this.groupId = groupId;
     this.tokenUrl = tokenUrl;
     this.endpointParamsSupplier = endpointParamsSupplier;
     this.scopes = scopes;
@@ -102,6 +111,9 @@ public class ClientCredentials implements TokenSource {
     params.put("grant_type", "client_credentials");
     if (scopes != null) {
       params.put("scope", String.join(" ", scopes));
+    }
+    if (groupId != null && !groupId.isEmpty()) {
+      params.put("assume_group", groupId);
     }
     if (endpointParamsSupplier != null) {
       params.putAll(endpointParamsSupplier.get());

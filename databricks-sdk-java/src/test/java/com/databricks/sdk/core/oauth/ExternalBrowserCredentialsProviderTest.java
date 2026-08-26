@@ -41,6 +41,7 @@ public class ExternalBrowserCredentialsProviderTest {
               .setAuthType("external-browser")
               .setHost(fixtures.getUrl())
               .setClientId("test-client-id")
+              .setGroupId("group-123")
               .setHttpClient(new CommonsHttpClient.Builder().withTimeoutSeconds(30).build());
       config.resolve();
 
@@ -53,6 +54,7 @@ public class ExternalBrowserCredentialsProviderTest {
               .withClientId(config.getClientId())
               .withClientSecret(config.getClientSecret())
               .withHost(config.getHost())
+              .withGroupId(config.getGroupId())
               .withOpenIDConnectEndpoints(config.getDatabricksOidcEndpoints())
               .withRedirectUrl(config.getEffectiveOAuthRedirectUrl())
               .withScopes(config.getScopes())
@@ -68,6 +70,8 @@ public class ExternalBrowserCredentialsProviderTest {
       assertTrue(authUrl.contains("client_id=test-client-id"));
       assertTrue(authUrl.contains("redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Fcallback"));
       assertTrue(authUrl.contains("scope=all-apis"));
+      assertTrue(authUrl.contains("assume_group=group-123"));
+      assertFalse(testConsent.getTokenUrl().contains("assume_group"));
     }
   }
 
@@ -117,6 +121,9 @@ public class ExternalBrowserCredentialsProviderTest {
       assertTrue(authUrl.contains("client_id=test-client-id"));
       assertTrue(authUrl.contains("redirect_uri=http%3A%2F%2Flocalhost%3A8010"));
       assertTrue(authUrl.contains("scope=sql"));
+      // Verifies that existing browser authorization requests remain unchanged when no group is
+      // configured.
+      assertFalse(authUrl.contains("assume_group"));
     }
   }
 
@@ -420,6 +427,7 @@ public class ExternalBrowserCredentialsProviderTest {
             .setAuthType("external-browser")
             .setHost("https://test.databricks.com")
             .setClientId("test-client-id")
+            .setGroupId("group-123")
             .setHttpClient(mockHttpClient);
 
     // We need to provide OIDC endpoints for token refresh
@@ -447,7 +455,10 @@ public class ExternalBrowserCredentialsProviderTest {
     Mockito.verify(mockTokenCache, Mockito.times(1)).load();
 
     // Verify HTTP call was made to refresh the token
-    Mockito.verify(mockHttpClient, Mockito.times(1)).execute(any(Request.class));
+    ArgumentCaptor<Request> requestCaptor = ArgumentCaptor.forClass(Request.class);
+    Mockito.verify(mockHttpClient, Mockito.times(1)).execute(requestCaptor.capture());
+    assertTrue(requestCaptor.getValue().getBodyString().contains("grant_type=refresh_token"));
+    assertFalse(requestCaptor.getValue().getBodyString().contains("assume_group"));
 
     // Verify performBrowserAuth was NOT called since refresh succeeded
     Mockito.verify(provider, Mockito.never())

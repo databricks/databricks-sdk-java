@@ -43,6 +43,9 @@ public class DatabricksOAuthTokenSource implements TokenSource {
   /** Scopes to request during token exchange. */
   private final List<String> scopes;
 
+  /** Group the exchanged token assumes. */
+  private final String groupId;
+
   private static final String GRANT_TYPE = "urn:ietf:params:oauth:grant-type:token-exchange";
   private static final String SUBJECT_TOKEN_TYPE = "urn:ietf:params:oauth:token-type:jwt";
   private static final String GRANT_TYPE_PARAM = "grant_type";
@@ -50,6 +53,7 @@ public class DatabricksOAuthTokenSource implements TokenSource {
   private static final String SUBJECT_TOKEN_TYPE_PARAM = "subject_token_type";
   private static final String SCOPE_PARAM = "scope";
   private static final String CLIENT_ID_PARAM = "client_id";
+  private static final String ASSUME_GROUP_PARAM = "assume_group";
 
   private DatabricksOAuthTokenSource(Builder builder) {
     this.clientId = builder.clientId;
@@ -60,6 +64,7 @@ public class DatabricksOAuthTokenSource implements TokenSource {
     this.idTokenSource = builder.idTokenSource;
     this.httpClient = builder.httpClient;
     this.scopes = builder.scopes == null ? Arrays.asList() : builder.scopes;
+    this.groupId = builder.groupId;
   }
 
   /**
@@ -75,6 +80,7 @@ public class DatabricksOAuthTokenSource implements TokenSource {
     private String accountId;
     private String audience;
     private List<String> scopes;
+    private String groupId;
 
     /**
      * Creates a new Builder with required parameters.
@@ -133,6 +139,12 @@ public class DatabricksOAuthTokenSource implements TokenSource {
       return this;
     }
 
+    /** Sets the Databricks group the exchanged token should assume. */
+    public Builder groupId(String groupId) {
+      this.groupId = groupId;
+      return this;
+    }
+
     /**
      * Builds a new DatabricksOAuthTokenSource instance.
      *
@@ -177,6 +189,9 @@ public class DatabricksOAuthTokenSource implements TokenSource {
     // perform account-wide token federation without one.
     if (!Strings.isNullOrEmpty(clientId)) {
       params.put(CLIENT_ID_PARAM, clientId);
+    }
+    if (!Strings.isNullOrEmpty(groupId)) {
+      params.put(ASSUME_GROUP_PARAM, groupId);
     }
 
     OAuthResponse response;

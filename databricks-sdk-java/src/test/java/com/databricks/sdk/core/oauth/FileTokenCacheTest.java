@@ -66,6 +66,26 @@ public class FileTokenCacheTest {
         "Should throw NullPointerException for null path");
   }
 
+  // Verifies that existing non-group cache paths remain compatible while each group receives an
+  // isolated cache entry.
+  @Test
+  void testGroupCacheIsolationAndNoGroupCompatibility() {
+    Path legacyPath = TokenCacheUtils.getCacheFilePath(TEST_HOST, TEST_CLIENT_ID, TEST_SCOPES);
+    Path nullGroupPath =
+        TokenCacheUtils.getCacheFilePath(TEST_HOST, TEST_CLIENT_ID, TEST_SCOPES, null);
+    Path emptyGroupPath =
+        TokenCacheUtils.getCacheFilePath(TEST_HOST, TEST_CLIENT_ID, TEST_SCOPES, "");
+    Path groupAPath =
+        TokenCacheUtils.getCacheFilePath(TEST_HOST, TEST_CLIENT_ID, TEST_SCOPES, "group-a");
+    Path groupBPath =
+        TokenCacheUtils.getCacheFilePath(TEST_HOST, TEST_CLIENT_ID, TEST_SCOPES, "group-b");
+
+    assertEquals(legacyPath, nullGroupPath);
+    assertEquals(legacyPath, emptyGroupPath);
+    assertNotEquals(legacyPath, groupAPath);
+    assertNotEquals(groupAPath, groupBPath);
+  }
+
   @Test
   void testOverwriteToken() {
     // Given two tokens saved in sequence
