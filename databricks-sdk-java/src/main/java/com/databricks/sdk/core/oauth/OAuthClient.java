@@ -44,6 +44,7 @@ public class OAuthClient {
     private String clientSecret;
     private HttpClient hc;
     private String accountId;
+    private String groupId;
     private Optional<Duration> browserTimeout = Optional.empty();
     private OpenIDConnectEndpoints openIDConnectEndpoints;
 
@@ -93,6 +94,11 @@ public class OAuthClient {
       return this;
     }
 
+    public Builder withGroupId(String groupId) {
+      this.groupId = groupId;
+      return this;
+    }
+
     public Builder withBrowserTimeout(Duration browserTimeout) {
       this.browserTimeout = Optional.of(browserTimeout);
       return this;
@@ -112,6 +118,7 @@ public class OAuthClient {
   private final boolean isAzure;
   private final OpenIDConnectEndpoints openIDConnectEndpoints;
   private final Optional<Duration> browserTimeout;
+  private final String groupId;
 
   private OAuthClient(Builder b) throws IOException {
     this.clientId = Objects.requireNonNull(b.clientId);
@@ -121,7 +128,11 @@ public class OAuthClient {
     this.hc = b.hc;
 
     DatabricksConfig config =
-        new DatabricksConfig().setHost(b.host).setAccountId(b.accountId).resolve();
+        new DatabricksConfig()
+            .setHost(b.host)
+            .setAccountId(b.accountId)
+            .setHttpClient(b.hc)
+            .resolve();
     openIDConnectEndpoints = b.openIDConnectEndpoints;
     if (openIDConnectEndpoints == null) {
       throw new DatabricksException(b.host + " does not support OAuth");
@@ -133,6 +144,7 @@ public class OAuthClient {
     this.authUrl = openIDConnectEndpoints.getAuthorizationEndpoint();
     this.browserTimeout = b.browserTimeout;
     this.scopes = b.scopes;
+    this.groupId = b.groupId;
   }
 
   public String getHost() {
@@ -235,6 +247,9 @@ public class OAuthClient {
     params.put("state", state);
     params.put("code_challenge", challenge);
     params.put("code_challenge_method", "S256");
+    if (groupId != null && !groupId.isEmpty()) {
+      params.put("assume_group", groupId);
+    }
 
     String url = urlEncode(authUrl, params);
 

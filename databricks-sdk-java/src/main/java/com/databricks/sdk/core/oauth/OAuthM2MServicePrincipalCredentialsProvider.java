@@ -33,6 +33,7 @@ public class OAuthM2MServicePrincipalCredentialsProvider implements CredentialsP
               .withHttpClient(config.getHttpClient())
               .withClientId(config.getClientId())
               .withClientSecret(config.getClientSecret())
+              .withGroupId(config.getGroupId())
               .withTokenUrl(jsonResponse.getTokenEndpoint())
               .withScopes(config.getScopes())
               .withAuthParameterPosition(AuthParameterPosition.HEADER)

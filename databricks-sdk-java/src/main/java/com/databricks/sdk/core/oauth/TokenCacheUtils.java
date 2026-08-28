@@ -24,6 +24,15 @@ public class TokenCacheUtils {
    * @return The path to the token cache file
    */
   public static Path getCacheFilePath(String host, String clientId, List<String> scopes) {
+    return getCacheFilePath(host, clientId, scopes, null);
+  }
+
+  /**
+   * Returns the cache path for an OAuth configuration and its fixed assumed group. The empty-group
+   * path intentionally remains byte-for-byte compatible with older SDK versions.
+   */
+  public static Path getCacheFilePath(
+      String host, String clientId, List<String> scopes, String groupId) {
     try {
       // Create SHA-256 hash of host, client_id, and scopes
       MessageDigest hash = MessageDigest.getInstance("SHA-256");
@@ -31,9 +40,24 @@ public class TokenCacheUtils {
         hash.update(chunk.getBytes(StandardCharsets.UTF_8));
       }
 
+      // Finalize the legacy cache key before including the group. Keeping this digest unchanged is
+      // important because users without a group may already have tokens stored at the path created
+      // by older SDK versions.
+      byte[] cacheKeyDigest = hash.digest();
+
+      if (groupId != null && !groupId.isEmpty()) {
+        // A token issued for one assumed group must never be reused for another group or for a
+        // non-group session. Hash the fixed-length legacy digest together with the group ID to
+        // create a separate cache namespace.
+        hash.reset();
+        hash.update(cacheKeyDigest);
+        hash.update(groupId.getBytes(StandardCharsets.UTF_8));
+        cacheKeyDigest = hash.digest();
+      }
+
       // Convert hash bytes to hexadecimal string
       StringBuilder hexString = new StringBuilder();
-      for (byte b : hash.digest()) {
+      for (byte b : cacheKeyDigest) {
         String hex = Integer.toHexString(0xff & b);
         if (hex.length() == 1) {
           hexString.append('0');
