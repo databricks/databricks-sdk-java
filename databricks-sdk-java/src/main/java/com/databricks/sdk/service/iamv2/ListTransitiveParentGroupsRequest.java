@@ -12,7 +12,8 @@ import java.util.Objects;
 public class ListTransitiveParentGroupsRequest {
   /**
    * The maximum number of parent groups to return. The service may return fewer than this value. If
-   * not provided, defaults to 1000 (also the maximum allowed).
+   * not provided, defaults to 1000, which is also the maximum allowed. Requests for more than the
+   * maximum are clamped to 1000.
    */
   @JsonIgnore
   @QueryParam("page_size")

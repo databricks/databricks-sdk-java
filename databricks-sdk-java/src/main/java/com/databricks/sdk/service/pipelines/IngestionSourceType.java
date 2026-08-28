@@ -19,6 +19,7 @@ public enum IngestionSourceType {
   NETSUITE,
   ORACLE,
   POSTGRESQL,
+  RABBITMQ,
   SALESFORCE,
   SERVICENOW,
   SHAREPOINT,

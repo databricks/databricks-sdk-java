@@ -51,6 +51,10 @@ public class ConnectorOptions {
   private OutlookOptions outlookOptions;
 
   /** */
+  @JsonProperty("rabbitmq_options")
+  private RabbitmqOptions rabbitmqOptions;
+
+  /** */
   @JsonProperty("reddit_ads_options")
   private RedditAdsOptions redditAdsOptions;
 
@@ -161,6 +165,15 @@ public class ConnectorOptions {
     return outlookOptions;
   }
 
+  public ConnectorOptions setRabbitmqOptions(RabbitmqOptions rabbitmqOptions) {
+    this.rabbitmqOptions = rabbitmqOptions;
+    return this;
+  }
+
+  public RabbitmqOptions getRabbitmqOptions() {
+    return rabbitmqOptions;
+  }
+
   public ConnectorOptions setRedditAdsOptions(RedditAdsOptions redditAdsOptions) {
     this.redditAdsOptions = redditAdsOptions;
     return this;
@@ -221,6 +234,7 @@ public class ConnectorOptions {
         && Objects.equals(marketoOptions, that.marketoOptions)
         && Objects.equals(metaAdsOptions, that.metaAdsOptions)
         && Objects.equals(outlookOptions, that.outlookOptions)
+        && Objects.equals(rabbitmqOptions, that.rabbitmqOptions)
         && Objects.equals(redditAdsOptions, that.redditAdsOptions)
         && Objects.equals(sharepointOptions, that.sharepointOptions)
         && Objects.equals(smartsheetOptions, that.smartsheetOptions)
@@ -241,6 +255,7 @@ public class ConnectorOptions {
         marketoOptions,
         metaAdsOptions,
         outlookOptions,
+        rabbitmqOptions,
         redditAdsOptions,
         sharepointOptions,
         smartsheetOptions,
@@ -261,6 +276,7 @@ public class ConnectorOptions {
         .add("marketoOptions", marketoOptions)
         .add("metaAdsOptions", metaAdsOptions)
         .add("outlookOptions", outlookOptions)
+        .add("rabbitmqOptions", rabbitmqOptions)
         .add("redditAdsOptions", redditAdsOptions)
         .add("sharepointOptions", sharepointOptions)
         .add("smartsheetOptions", smartsheetOptions)

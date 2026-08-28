@@ -84,6 +84,13 @@ public interface GenieService {
   GenieGenerateDownloadFullQueryResultResponse generateDownloadFullQueryResult(
       GenieGenerateDownloadFullQueryResultRequest genieGenerateDownloadFullQueryResultRequest);
 
+  /**
+   * Cancels an in-flight agent-mode response. `response_id` is the id returned in the
+   * `response.created` event from the agent-mode responses endpoint. The response stops at the next
+   * agent boundary and its terminal state is returned.
+   */
+  GenieMessage genieCancelResponse(GenieCancelResponseRequest genieCancelResponseRequest);
+
   /** Create and run evaluations for multiple benchmark questions in a Genie space. */
   GenieEvalRunResponse genieCreateEvalRun(GenieCreateEvalRunRequest genieCreateEvalRunRequest);
 

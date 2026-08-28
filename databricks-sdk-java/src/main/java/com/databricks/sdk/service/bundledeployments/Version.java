@@ -6,6 +6,7 @@ import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.protobuf.Timestamp;
+import java.util.Collection;
 import java.util.Objects;
 
 /**
@@ -66,6 +67,14 @@ public class Version {
   /** Resource name of the version. Format: deployments/{deployment_id}/versions/{version_id} */
   @JsonProperty("name")
   private String name;
+
+  /**
+   * The full operation plan for this version: one PENDING operation per entry, recorded in the same
+   * transaction. Input only -- supplied on create and never returned by create/get/list; read the
+   * recorded operations via ListOperations.
+   */
+  @JsonProperty("operations")
+  private Collection<StagedOperation> operations;
 
   /**
    * The version_id this version was created on top of — the deployment's most recent version at
@@ -195,6 +204,15 @@ public class Version {
     return name;
   }
 
+  public Version setOperations(Collection<StagedOperation> operations) {
+    this.operations = operations;
+    return this;
+  }
+
+  public Collection<StagedOperation> getOperations() {
+    return operations;
+  }
+
   public Version setPreviousVersionId(String previousVersionId) {
     this.previousVersionId = previousVersionId;
     return this;
@@ -264,6 +282,7 @@ public class Version {
         && Objects.equals(displayName, that.displayName)
         && Objects.equals(gitInfo, that.gitInfo)
         && Objects.equals(name, that.name)
+        && Objects.equals(operations, that.operations)
         && Objects.equals(previousVersionId, that.previousVersionId)
         && Objects.equals(status, that.status)
         && Objects.equals(targetName, that.targetName)
@@ -285,6 +304,7 @@ public class Version {
         displayName,
         gitInfo,
         name,
+        operations,
         previousVersionId,
         status,
         targetName,
@@ -306,6 +326,7 @@ public class Version {
         .add("displayName", displayName)
         .add("gitInfo", gitInfo)
         .add("name", name)
+        .add("operations", operations)
         .add("previousVersionId", previousVersionId)
         .add("status", status)
         .add("targetName", targetName)

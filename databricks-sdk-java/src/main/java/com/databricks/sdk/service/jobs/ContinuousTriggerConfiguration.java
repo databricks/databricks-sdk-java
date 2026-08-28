@@ -13,9 +13,25 @@ import java.util.Objects;
  */
 @Generated
 public class ContinuousTriggerConfiguration {
+  /**
+   * Defines when platform-initiated maintenance may run for this trigger. If unspecified,
+   * maintenance may run at any time.
+   */
+  @JsonProperty("maintenance_window")
+  private MaintenanceWindow maintenanceWindow;
+
   /** Whether the continuous job applies task-level retries. Defaults to NEVER. */
   @JsonProperty("task_retry_mode")
   private TaskRetryMode taskRetryMode;
+
+  public ContinuousTriggerConfiguration setMaintenanceWindow(MaintenanceWindow maintenanceWindow) {
+    this.maintenanceWindow = maintenanceWindow;
+    return this;
+  }
+
+  public MaintenanceWindow getMaintenanceWindow() {
+    return maintenanceWindow;
+  }
 
   public ContinuousTriggerConfiguration setTaskRetryMode(TaskRetryMode taskRetryMode) {
     this.taskRetryMode = taskRetryMode;
@@ -31,17 +47,19 @@ public class ContinuousTriggerConfiguration {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ContinuousTriggerConfiguration that = (ContinuousTriggerConfiguration) o;
-    return Objects.equals(taskRetryMode, that.taskRetryMode);
+    return Objects.equals(maintenanceWindow, that.maintenanceWindow)
+        && Objects.equals(taskRetryMode, that.taskRetryMode);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(taskRetryMode);
+    return Objects.hash(maintenanceWindow, taskRetryMode);
   }
 
   @Override
   public String toString() {
     return new ToStringer(ContinuousTriggerConfiguration.class)
+        .add("maintenanceWindow", maintenanceWindow)
         .add("taskRetryMode", taskRetryMode)
         .toString();
   }

@@ -22,10 +22,7 @@ public class Deployment {
   @JsonProperty("created_by")
   private String createdBy;
 
-  /**
-   * Bundle target deployment mode (development or production), derived from the most recent
-   * version's mode.
-   */
+  /** Bundle target deployment mode (development or production). */
   @JsonProperty("deployment_mode")
   private DeploymentMode deploymentMode;
 
@@ -43,10 +40,7 @@ public class Deployment {
   @JsonProperty("destroyed_by")
   private String destroyedBy;
 
-  /**
-   * Human-readable name for the deployment, up to 256 characters. Output only: clients update it by
-   * setting `display_name` when creating a version.
-   */
+  /** Human-readable name for the deployment, up to 256 characters. */
   @JsonProperty("display_name")
   private String displayName;
 
@@ -86,10 +80,7 @@ public class Deployment {
   @JsonProperty("status")
   private DeploymentStatus status;
 
-  /**
-   * The bundle target name associated with this deployment. Output only: it is denormalized from
-   * the latest version, not set directly on the deployment.
-   */
+  /** The bundle target name associated with this deployment. */
   @JsonProperty("target_name")
   private String targetName;
 
@@ -105,7 +96,7 @@ public class Deployment {
   @JsonProperty("updated_by")
   private String updatedBy;
 
-  /** Workspace location of the deployment, derived from the latest version. */
+  /** Workspace location of the deployment. */
   @JsonProperty("workspace_info")
   private WorkspaceInfo workspaceInfo;
 

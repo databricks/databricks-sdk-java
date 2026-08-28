@@ -10,6 +10,13 @@ import java.util.Objects;
 @Generated
 public class Continuous {
   /**
+   * Defines when platform-initiated maintenance may run for this job. If unspecified, maintenance
+   * may run at any time.
+   */
+  @JsonProperty("maintenance_window")
+  private MaintenanceWindow maintenanceWindow;
+
+  /**
    * Indicate whether the continuous execution of the job is paused or not. Defaults to UNPAUSED.
    */
   @JsonProperty("pause_status")
@@ -20,6 +27,15 @@ public class Continuous {
    */
   @JsonProperty("task_retry_mode")
   private TaskRetryMode taskRetryMode;
+
+  public Continuous setMaintenanceWindow(MaintenanceWindow maintenanceWindow) {
+    this.maintenanceWindow = maintenanceWindow;
+    return this;
+  }
+
+  public MaintenanceWindow getMaintenanceWindow() {
+    return maintenanceWindow;
+  }
 
   public Continuous setPauseStatus(PauseStatus pauseStatus) {
     this.pauseStatus = pauseStatus;
@@ -44,18 +60,20 @@ public class Continuous {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Continuous that = (Continuous) o;
-    return Objects.equals(pauseStatus, that.pauseStatus)
+    return Objects.equals(maintenanceWindow, that.maintenanceWindow)
+        && Objects.equals(pauseStatus, that.pauseStatus)
         && Objects.equals(taskRetryMode, that.taskRetryMode);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(pauseStatus, taskRetryMode);
+    return Objects.hash(maintenanceWindow, pauseStatus, taskRetryMode);
   }
 
   @Override
   public String toString() {
     return new ToStringer(Continuous.class)
+        .add("maintenanceWindow", maintenanceWindow)
         .add("pauseStatus", pauseStatus)
         .add("taskRetryMode", taskRetryMode)
         .toString();

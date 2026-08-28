@@ -17,6 +17,13 @@ public class FunctionArgument {
   @JsonProperty("constant")
   private String constant;
 
+  /**
+   * An expression evaluated at query time. Wraps per-request expression variants (e.g., tag
+   * introspection) so new variants can be added without extending the FunctionArgument oneof.
+   */
+  @JsonProperty("function_arg_expression")
+  private FunctionArgExpression functionArgExpression;
+
   public FunctionArgument setAlias(String alias) {
     this.alias = alias;
     return this;
@@ -35,17 +42,28 @@ public class FunctionArgument {
     return constant;
   }
 
+  public FunctionArgument setFunctionArgExpression(FunctionArgExpression functionArgExpression) {
+    this.functionArgExpression = functionArgExpression;
+    return this;
+  }
+
+  public FunctionArgExpression getFunctionArgExpression() {
+    return functionArgExpression;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     FunctionArgument that = (FunctionArgument) o;
-    return Objects.equals(alias, that.alias) && Objects.equals(constant, that.constant);
+    return Objects.equals(alias, that.alias)
+        && Objects.equals(constant, that.constant)
+        && Objects.equals(functionArgExpression, that.functionArgExpression);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(alias, constant);
+    return Objects.hash(alias, constant, functionArgExpression);
   }
 
   @Override
@@ -53,6 +71,7 @@ public class FunctionArgument {
     return new ToStringer(FunctionArgument.class)
         .add("alias", alias)
         .add("constant", constant)
+        .add("functionArgExpression", functionArgExpression)
         .toString();
   }
 }

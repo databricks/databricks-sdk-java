@@ -205,6 +205,15 @@ public class GenieAPI {
     return impl.generateDownloadFullQueryResult(request);
   }
 
+  /**
+   * Cancels an in-flight agent-mode response. `response_id` is the id returned in the
+   * `response.created` event from the agent-mode responses endpoint. The response stops at the next
+   * agent boundary and its terminal state is returned.
+   */
+  public GenieMessage genieCancelResponse(GenieCancelResponseRequest request) {
+    return impl.genieCancelResponse(request);
+  }
+
   /** Create and run evaluations for multiple benchmark questions in a Genie space. */
   public GenieEvalRunResponse genieCreateEvalRun(GenieCreateEvalRunRequest request) {
     return impl.genieCreateEvalRun(request);

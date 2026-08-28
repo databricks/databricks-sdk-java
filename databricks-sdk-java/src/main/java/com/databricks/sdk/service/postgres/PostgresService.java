@@ -58,6 +58,9 @@ public interface PostgresService {
   /** Creates a new Postgres role in the branch. */
   Operation createRole(CreateRoleRequest createRoleRequest);
 
+  /** Creates a snapshot, an immutable point-in-time copy of a branch's data, within the project. */
+  Operation createSnapshot(CreateSnapshotRequest createSnapshotRequest);
+
   /** Create a Synced Table. */
   Operation createSyncedTable(CreateSyncedTableRequest createSyncedTableRequest);
 
@@ -88,6 +91,9 @@ public interface PostgresService {
 
   /** Deletes the specified Postgres role. */
   Operation deleteRole(DeleteRoleRequest deleteRoleRequest);
+
+  /** Deletes the specified snapshot. */
+  Operation deleteSnapshot(DeleteSnapshotRequest deleteSnapshotRequest);
 
   /** Delete a Synced Table. */
   Operation deleteSyncedTable(DeleteSyncedTableRequest deleteSyncedTableRequest);
@@ -138,6 +144,15 @@ public interface PostgresService {
    */
   Role getRole(GetRoleRequest getRoleRequest);
 
+  /** Retrieves information about the specified snapshot. */
+  Snapshot getSnapshot(GetSnapshotRequest getSnapshotRequest);
+
+  /**
+   * Retrieves the snapshot schedule for a branch. A branch with no configured schedule returns an
+   * empty schedule (not NOT_FOUND).
+   */
+  SnapshotSchedule getSnapshotSchedule(GetSnapshotScheduleRequest getSnapshotScheduleRequest);
+
   /** Get a Synced Table. */
   SyncedTable getSyncedTable(GetSyncedTableRequest getSyncedTableRequest);
 
@@ -171,6 +186,9 @@ public interface PostgresService {
   /** Returns a paginated list of Postgres roles in the branch. */
   ListRolesResponse listRoles(ListRolesRequest listRolesRequest);
 
+  /** Returns a paginated list of snapshots in the project. */
+  ListSnapshotsResponse listSnapshots(ListSnapshotsRequest listSnapshotsRequest);
+
   /** Undeletes the specified database branch. */
   Operation undeleteBranch(UndeleteBranchRequest undeleteBranchRequest);
 
@@ -200,4 +218,10 @@ public interface PostgresService {
 
   /** Update a role for a branch. */
   Operation updateRole(UpdateRoleRequest updateRoleRequest);
+
+  /**
+   * Sets the snapshot schedule for a branch. The `schedule` field is replaced wholesale; an empty
+   * schedule disables automatic snapshots.
+   */
+  Operation updateSnapshotSchedule(UpdateSnapshotScheduleRequest updateSnapshotScheduleRequest);
 }

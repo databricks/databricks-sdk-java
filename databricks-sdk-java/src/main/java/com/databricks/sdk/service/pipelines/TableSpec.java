@@ -37,11 +37,9 @@ public class TableSpec {
   private String sourceSchema;
 
   /**
-   * Table name in the source database. Currently required; this field will become optional in an
-   * upcoming release, since some source types (for example streaming / message-bus connectors) do
-   * not use it. When that change ships, this field's type in the generated SDKs and CLI will change
-   * from required to optional (nullable); clients that assume it is always present should handle
-   * its absence.
+   * Table name in the source database. Optional: some source types (for example streaming or
+   * message-bus connectors) do not use it, so it may be absent from a pipeline's definition.
+   * Clients that assume it is always present should handle its absence.
    */
   @JsonProperty("source_table")
   private String sourceTable;

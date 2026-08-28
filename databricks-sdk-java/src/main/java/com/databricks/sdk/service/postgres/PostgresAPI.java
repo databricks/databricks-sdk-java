@@ -96,6 +96,12 @@ public class PostgresAPI {
     return new CreateRoleOperation(impl, operation);
   }
 
+  /** Creates a snapshot, an immutable point-in-time copy of a branch's data, within the project. */
+  public CreateSnapshotOperation createSnapshot(CreateSnapshotRequest request) {
+    Operation operation = impl.createSnapshot(request);
+    return new CreateSnapshotOperation(impl, operation);
+  }
+
   /** Create a Synced Table. */
   public CreateSyncedTableOperation createSyncedTable(CreateSyncedTableRequest request) {
     Operation operation = impl.createSyncedTable(request);
@@ -184,6 +190,16 @@ public class PostgresAPI {
   public DeleteRoleOperation deleteRole(DeleteRoleRequest request) {
     Operation operation = impl.deleteRole(request);
     return new DeleteRoleOperation(impl, operation);
+  }
+
+  public DeleteSnapshotOperation deleteSnapshot(String name) {
+    return deleteSnapshot(new DeleteSnapshotRequest().setName(name));
+  }
+
+  /** Deletes the specified snapshot. */
+  public DeleteSnapshotOperation deleteSnapshot(DeleteSnapshotRequest request) {
+    Operation operation = impl.deleteSnapshot(request);
+    return new DeleteSnapshotOperation(impl, operation);
   }
 
   public DeleteSyncedTableOperation deleteSyncedTable(String name) {
@@ -301,6 +317,27 @@ public class PostgresAPI {
    */
   public Role getRole(GetRoleRequest request) {
     return impl.getRole(request);
+  }
+
+  public Snapshot getSnapshot(String name) {
+    return getSnapshot(new GetSnapshotRequest().setName(name));
+  }
+
+  /** Retrieves information about the specified snapshot. */
+  public Snapshot getSnapshot(GetSnapshotRequest request) {
+    return impl.getSnapshot(request);
+  }
+
+  public SnapshotSchedule getSnapshotSchedule(String name) {
+    return getSnapshotSchedule(new GetSnapshotScheduleRequest().setName(name));
+  }
+
+  /**
+   * Retrieves the snapshot schedule for a branch. A branch with no configured schedule returns an
+   * empty schedule (not NOT_FOUND).
+   */
+  public SnapshotSchedule getSnapshotSchedule(GetSnapshotScheduleRequest request) {
+    return impl.getSnapshotSchedule(request);
   }
 
   public SyncedTable getSyncedTable(String name) {
@@ -450,6 +487,25 @@ public class PostgresAPI {
         });
   }
 
+  public Iterable<Snapshot> listSnapshots(String parent) {
+    return listSnapshots(new ListSnapshotsRequest().setParent(parent));
+  }
+
+  /** Returns a paginated list of snapshots in the project. */
+  public Iterable<Snapshot> listSnapshots(ListSnapshotsRequest request) {
+    return Paginator.newTokenPagination(
+        request,
+        impl::listSnapshots,
+        ListSnapshotsResponse::getSnapshots,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
+  }
+
   /** Undeletes the specified database branch. */
   public UndeleteBranchOperation undeleteBranch(UndeleteBranchRequest request) {
     Operation operation = impl.undeleteBranch(request);
@@ -502,6 +558,16 @@ public class PostgresAPI {
   public UpdateRoleOperation updateRole(UpdateRoleRequest request) {
     Operation operation = impl.updateRole(request);
     return new UpdateRoleOperation(impl, operation);
+  }
+
+  /**
+   * Sets the snapshot schedule for a branch. The `schedule` field is replaced wholesale; an empty
+   * schedule disables automatic snapshots.
+   */
+  public UpdateSnapshotScheduleOperation updateSnapshotSchedule(
+      UpdateSnapshotScheduleRequest request) {
+    Operation operation = impl.updateSnapshotSchedule(request);
+    return new UpdateSnapshotScheduleOperation(impl, operation);
   }
 
   public PostgresService impl() {

@@ -60,12 +60,7 @@ public interface AccountIamV2Service {
   WorkspaceAssignment createWorkspaceAssignment(
       CreateWorkspaceAssignmentRequest createWorkspaceAssignmentRequest);
 
-  /**
-   * Creates a workspace assignment detail for a principal. Entitlements are granted one at a time
-   * rather than atomically. If the request fails partway through, the principal stays assigned to
-   * the workspace with only some of the requested entitlements. Get the assignment detail
-   * afterwards to confirm which entitlements were granted.
-   */
+  /** Creates a workspace assignment detail for a principal. */
   WorkspaceAssignmentDetail createWorkspaceAssignmentDetail(
       CreateWorkspaceAssignmentDetailRequest createWorkspaceAssignmentDetailRequest);
 
@@ -98,6 +93,28 @@ public interface AccountIamV2Service {
 
   /** Gets a provisioned direct member of a group. */
   DirectGroupMember getDirectGroupMember(GetDirectGroupMemberRequest getDirectGroupMemberRequest);
+
+  /**
+   * Retrieves an external group with the given external ID from the customer's IdP. If the group
+   * does not exist, it will be created in the account. If the customer is not onboarded onto
+   * Automatic Identity Management (AIM), this will return an error.
+   */
+  ExternalGroup getExternalGroup(GetExternalGroupRequest getExternalGroupRequest);
+
+  /**
+   * Retrieves an external service principal with the given external ID from the customer's IdP. If
+   * the service principal does not exist, it will be created. If the customer is not onboarded onto
+   * Automatic Identity Management (AIM), this will return an error.
+   */
+  ExternalServicePrincipal getExternalServicePrincipal(
+      GetExternalServicePrincipalRequest getExternalServicePrincipalRequest);
+
+  /**
+   * Retrieves an external user with the given external ID from the customer's IdP. If the user does
+   * not exist, it will be created. If the customer is not onboarded onto Automatic Identity
+   * Management (AIM), this will return an error.
+   */
+  ExternalUser getExternalUser(GetExternalUserRequest getExternalUserRequest);
 
   /** Fetches a group from the Databricks account by its internal ID. */
   Group getGroup(GetGroupRequest getGroupRequest);

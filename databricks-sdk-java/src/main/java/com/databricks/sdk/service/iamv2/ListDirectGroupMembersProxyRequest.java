@@ -15,7 +15,8 @@ public class ListDirectGroupMembersProxyRequest {
 
   /**
    * The maximum number of members to return. The service may return fewer than this value. If not
-   * provided, defaults to 1000 (also the maximum allowed).
+   * provided, defaults to 1000, which is also the maximum allowed. Requests for more than the
+   * maximum are clamped to 1000.
    */
   @JsonIgnore
   @QueryParam("page_size")

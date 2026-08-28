@@ -73,12 +73,7 @@ public class WorkspaceIamV2API {
     return impl.createUserProxy(request);
   }
 
-  /**
-   * Creates a workspace assignment detail for a principal in the calling workspace. Entitlements
-   * are granted one at a time rather than atomically. If the request fails partway through, the
-   * principal stays assigned to the workspace with only some of the requested entitlements. Get the
-   * assignment detail afterwards to confirm which entitlements were granted.
-   */
+  /** Creates a workspace assignment detail for a principal in the calling workspace. */
   public WorkspaceAssignmentDetail createWorkspaceAssignmentDetailProxy(
       CreateWorkspaceAssignmentDetailProxyRequest request) {
     return impl.createWorkspaceAssignmentDetailProxy(request);
@@ -181,6 +176,50 @@ public class WorkspaceIamV2API {
   /** Gets a provisioned direct member of a group. */
   public DirectGroupMember getDirectGroupMemberProxy(GetDirectGroupMemberProxyRequest request) {
     return impl.getDirectGroupMemberProxy(request);
+  }
+
+  public ExternalGroup getExternalGroupProxy(String name) {
+    return getExternalGroupProxy(new GetExternalGroupProxyRequest().setName(name));
+  }
+
+  /**
+   * Retrieves an external group with the given external ID from the customer's IdP. If the group
+   * does not exist, it will be created in the account. If the customer is not onboarded onto
+   * Automatic Identity Management (AIM), this will return an error. Workspace-scoped variant for
+   * workspace-authenticated callers.
+   */
+  public ExternalGroup getExternalGroupProxy(GetExternalGroupProxyRequest request) {
+    return impl.getExternalGroupProxy(request);
+  }
+
+  public ExternalServicePrincipal getExternalServicePrincipalProxy(String name) {
+    return getExternalServicePrincipalProxy(
+        new GetExternalServicePrincipalProxyRequest().setName(name));
+  }
+
+  /**
+   * Retrieves an external service principal with the given external ID from the customer's IdP. If
+   * the service principal does not exist, it will be created. If the customer is not onboarded onto
+   * Automatic Identity Management (AIM), this will return an error. Workspace-scoped variant for
+   * workspace-authenticated callers.
+   */
+  public ExternalServicePrincipal getExternalServicePrincipalProxy(
+      GetExternalServicePrincipalProxyRequest request) {
+    return impl.getExternalServicePrincipalProxy(request);
+  }
+
+  public ExternalUser getExternalUserProxy(String name) {
+    return getExternalUserProxy(new GetExternalUserProxyRequest().setName(name));
+  }
+
+  /**
+   * Retrieves an external user with the given external ID from the customer's IdP. If the user does
+   * not exist, it will be created. If the customer is not onboarded onto Automatic Identity
+   * Management (AIM), this will return an error. Workspace-scoped variant for
+   * workspace-authenticated callers.
+   */
+  public ExternalUser getExternalUserProxy(GetExternalUserProxyRequest request) {
+    return impl.getExternalUserProxy(request);
   }
 
   public Group getGroupProxy(String groupId) {

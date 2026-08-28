@@ -242,6 +242,49 @@ class AccountIamV2Impl implements AccountIamV2Service {
   }
 
   @Override
+  public ExternalGroup getExternalGroup(GetExternalGroupRequest request) {
+    String path = String.format("/api/2.0/identity/%s", request.getName());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, ExternalGroup.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public ExternalServicePrincipal getExternalServicePrincipal(
+      GetExternalServicePrincipalRequest request) {
+    String path = String.format("/api/2.0/identity/%s", request.getName());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, ExternalServicePrincipal.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public ExternalUser getExternalUser(GetExternalUserRequest request) {
+    String path = String.format("/api/2.0/identity/%s", request.getName());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, ExternalUser.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public Group getGroup(GetGroupRequest request) {
     String path =
         String.format(

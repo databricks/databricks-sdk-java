@@ -15,9 +15,9 @@ public class TableRowFilter {
   private String functionName;
 
   /**
-   * The list of additional table columns or literals to be passed as additional arguments to a row
-   * filter function. This is the replacement of the deprecated input_column_names field and carries
-   * information about the types (alias or constant) of the arguments to the filter function.
+   * The list of table columns or literals to be passed as additional arguments to a row filter
+   * function, carrying the type (column reference vs constant literal) of each argument.
+   * Deprecated: use input_column_names instead.
    */
   @JsonProperty("input_arguments")
   private Collection<PolicyFunctionArgument> inputArguments;

@@ -22,6 +22,9 @@ public class JobSettings {
   /**
    * An optional continuous property for this job. The continuous property will ensure that there is
    * always one run executing. Only one of `schedule` and `continuous` can be used.
+   *
+   * <p>Pipelines started by a continuous job also run continuously, regardless of their own
+   * pipeline mode setting.
    */
   @JsonProperty("continuous")
   private Continuous continuous;

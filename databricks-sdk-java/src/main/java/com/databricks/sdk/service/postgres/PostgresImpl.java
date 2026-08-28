@@ -161,6 +161,24 @@ class PostgresImpl implements PostgresService {
   }
 
   @Override
+  public Operation createSnapshot(CreateSnapshotRequest request) {
+    String path = String.format("/api/2.0/postgres/%s/snapshots", request.getParent());
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request.getSnapshot()));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, Operation.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public Operation createSyncedTable(CreateSyncedTableRequest request) {
     String path = "/api/2.0/postgres/synced_tables";
     try {
@@ -299,6 +317,23 @@ class PostgresImpl implements PostgresService {
 
   @Override
   public Operation deleteRole(DeleteRoleRequest request) {
+    String path = String.format("/api/2.0/postgres/%s", request.getName());
+    try {
+      Request req = new Request("DELETE", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, Operation.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public Operation deleteSnapshot(DeleteSnapshotRequest request) {
     String path = String.format("/api/2.0/postgres/%s", request.getName());
     try {
       Request req = new Request("DELETE", path);
@@ -520,6 +555,40 @@ class PostgresImpl implements PostgresService {
   }
 
   @Override
+  public Snapshot getSnapshot(GetSnapshotRequest request) {
+    String path = String.format("/api/2.0/postgres/%s", request.getName());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, Snapshot.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public SnapshotSchedule getSnapshotSchedule(GetSnapshotScheduleRequest request) {
+    String path = String.format("/api/2.0/postgres/%s", request.getName());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, SnapshotSchedule.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public SyncedTable getSyncedTable(GetSyncedTableRequest request) {
     String path = String.format("/api/2.0/postgres/%s", request.getName());
     try {
@@ -656,6 +725,23 @@ class PostgresImpl implements PostgresService {
   }
 
   @Override
+  public ListSnapshotsResponse listSnapshots(ListSnapshotsRequest request) {
+    String path = String.format("/api/2.0/postgres/%s/snapshots", request.getParent());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, ListSnapshotsResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public Operation undeleteBranch(UndeleteBranchRequest request) {
     String path = String.format("/api/2.0/postgres/%s/undelete", request.getName());
     try {
@@ -786,6 +872,24 @@ class PostgresImpl implements PostgresService {
     String path = String.format("/api/2.0/postgres/%s", request.getName());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request.getRole()));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, Operation.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public Operation updateSnapshotSchedule(UpdateSnapshotScheduleRequest request) {
+    String path = String.format("/api/2.0/postgres/%s", request.getName());
+    try {
+      Request req = new Request("PATCH", path, apiClient.serialize(request.getSnapshotSchedule()));
 
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");

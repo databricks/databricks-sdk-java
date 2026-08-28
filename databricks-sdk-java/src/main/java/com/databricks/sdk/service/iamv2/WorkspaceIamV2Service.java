@@ -52,12 +52,7 @@ public interface WorkspaceIamV2Service {
    */
   User createUserProxy(CreateUserProxyRequest createUserProxyRequest);
 
-  /**
-   * Creates a workspace assignment detail for a principal in the calling workspace. Entitlements
-   * are granted one at a time rather than atomically. If the request fails partway through, the
-   * principal stays assigned to the workspace with only some of the requested entitlements. Get the
-   * assignment detail afterwards to confirm which entitlements were granted.
-   */
+  /** Creates a workspace assignment detail for a principal in the calling workspace. */
   WorkspaceAssignmentDetail createWorkspaceAssignmentDetailProxy(
       CreateWorkspaceAssignmentDetailProxyRequest createWorkspaceAssignmentDetailProxyRequest);
 
@@ -114,6 +109,31 @@ public interface WorkspaceIamV2Service {
   /** Gets a provisioned direct member of a group. */
   DirectGroupMember getDirectGroupMemberProxy(
       GetDirectGroupMemberProxyRequest getDirectGroupMemberProxyRequest);
+
+  /**
+   * Retrieves an external group with the given external ID from the customer's IdP. If the group
+   * does not exist, it will be created in the account. If the customer is not onboarded onto
+   * Automatic Identity Management (AIM), this will return an error. Workspace-scoped variant for
+   * workspace-authenticated callers.
+   */
+  ExternalGroup getExternalGroupProxy(GetExternalGroupProxyRequest getExternalGroupProxyRequest);
+
+  /**
+   * Retrieves an external service principal with the given external ID from the customer's IdP. If
+   * the service principal does not exist, it will be created. If the customer is not onboarded onto
+   * Automatic Identity Management (AIM), this will return an error. Workspace-scoped variant for
+   * workspace-authenticated callers.
+   */
+  ExternalServicePrincipal getExternalServicePrincipalProxy(
+      GetExternalServicePrincipalProxyRequest getExternalServicePrincipalProxyRequest);
+
+  /**
+   * Retrieves an external user with the given external ID from the customer's IdP. If the user does
+   * not exist, it will be created. If the customer is not onboarded onto Automatic Identity
+   * Management (AIM), this will return an error. Workspace-scoped variant for
+   * workspace-authenticated callers.
+   */
+  ExternalUser getExternalUserProxy(GetExternalUserProxyRequest getExternalUserProxyRequest);
 
   /**
    * Fetches a group by its internal ID from the Databricks account that parents the calling

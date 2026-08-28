@@ -11,6 +11,14 @@ import java.util.Objects;
 
 @Generated
 public class Space {
+  /**
+   * The group whose permissions users assume via Role Authorization for apps in this space. When
+   * set, user tokens assume the role of this group instead of doing regular obo token downscoping.
+   * Set only at space creation.
+   */
+  @JsonProperty("assume_group_id")
+  private String assumeGroupId;
+
   /** The creation time of the app space. Formatted timestamp in ISO 6801. */
   @JsonProperty("create_time")
   private Timestamp createTime;
@@ -80,6 +88,15 @@ public class Space {
   /** OAuth scopes for apps in the space. */
   @JsonProperty("user_api_scopes")
   private Collection<String> userApiScopes;
+
+  public Space setAssumeGroupId(String assumeGroupId) {
+    this.assumeGroupId = assumeGroupId;
+    return this;
+  }
+
+  public String getAssumeGroupId() {
+    return assumeGroupId;
+  }
 
   public Space setCreateTime(Timestamp createTime) {
     this.createTime = createTime;
@@ -230,7 +247,8 @@ public class Space {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Space that = (Space) o;
-    return Objects.equals(createTime, that.createTime)
+    return Objects.equals(assumeGroupId, that.assumeGroupId)
+        && Objects.equals(createTime, that.createTime)
         && Objects.equals(creator, that.creator)
         && Objects.equals(description, that.description)
         && Objects.equals(effectiveUsagePolicyId, that.effectiveUsagePolicyId)
@@ -251,6 +269,7 @@ public class Space {
   @Override
   public int hashCode() {
     return Objects.hash(
+        assumeGroupId,
         createTime,
         creator,
         description,
@@ -272,6 +291,7 @@ public class Space {
   @Override
   public String toString() {
     return new ToStringer(Space.class)
+        .add("assumeGroupId", assumeGroupId)
         .add("createTime", createTime)
         .add("creator", creator)
         .add("description", description)

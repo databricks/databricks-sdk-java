@@ -242,6 +242,24 @@ class BundleDeploymentsImpl implements BundleDeploymentsService {
   }
 
   @Override
+  public Deployment updateDeployment(UpdateDeploymentRequest request) {
+    String path = String.format("/api/2.0/bundle/%s", request.getName());
+    try {
+      Request req = new Request("PATCH", path, apiClient.serialize(request.getDeployment()));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, Deployment.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public Operation updateOperation(UpdateOperationRequest request) {
     String path = String.format("/api/2.0/bundle/%s", request.getName());
     try {

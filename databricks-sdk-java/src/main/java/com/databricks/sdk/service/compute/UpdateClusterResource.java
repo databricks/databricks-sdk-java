@@ -241,8 +241,8 @@ public class UpdateClusterResource {
   private Collection<String> sshPublicKeys;
 
   /**
-   * If set, what the total initial volume size (in GB) of the remote disks should be. Currently
-   * only supported for GCP HYPERDISK_BALANCED disks.
+   * If set, what the total initial volume size (in GB) of the remote disks should be. Supported for
+   * GCP.
    */
   @JsonProperty("total_initial_remote_disk_size")
   private Long totalInitialRemoteDiskSize;

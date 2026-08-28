@@ -15,6 +15,9 @@ public interface LakeviewEmbeddedService {
   /**
    * Get a required authorization details and scopes of a published dashboard to mint an OAuth
    * token.
+   *
+   * <p>Requires one of the following entitlements: Workspace access, Databricks SQL access, or
+   * Consumer access.
    */
   GetPublishedDashboardTokenInfoResponse getPublishedDashboardTokenInfo(
       GetPublishedDashboardTokenInfoRequest getPublishedDashboardTokenInfoRequest);
