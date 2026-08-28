@@ -64,6 +64,13 @@ public class BranchStatus {
   @JsonProperty("source_branch_time")
   private Timestamp sourceBranchTime;
 
+  /**
+   * The snapshot this branch was restored from. Set only for branches created by restoring a
+   * snapshot; unset for all other branches. Format: projects/{project_id}/snapshots/{snapshot_id}
+   */
+  @JsonProperty("source_snapshot")
+  private String sourceSnapshot;
+
   /** A timestamp indicating when the `current_state` began. */
   @JsonProperty("state_change_time")
   private Timestamp stateChangeTime;
@@ -176,6 +183,15 @@ public class BranchStatus {
     return sourceBranchTime;
   }
 
+  public BranchStatus setSourceSnapshot(String sourceSnapshot) {
+    this.sourceSnapshot = sourceSnapshot;
+    return this;
+  }
+
+  public String getSourceSnapshot() {
+    return sourceSnapshot;
+  }
+
   public BranchStatus setStateChangeTime(Timestamp stateChangeTime) {
     this.stateChangeTime = stateChangeTime;
     return this;
@@ -202,6 +218,7 @@ public class BranchStatus {
         && Objects.equals(sourceBranch, that.sourceBranch)
         && Objects.equals(sourceBranchLsn, that.sourceBranchLsn)
         && Objects.equals(sourceBranchTime, that.sourceBranchTime)
+        && Objects.equals(sourceSnapshot, that.sourceSnapshot)
         && Objects.equals(stateChangeTime, that.stateChangeTime);
   }
 
@@ -220,6 +237,7 @@ public class BranchStatus {
         sourceBranch,
         sourceBranchLsn,
         sourceBranchTime,
+        sourceSnapshot,
         stateChangeTime);
   }
 
@@ -238,6 +256,7 @@ public class BranchStatus {
         .add("sourceBranch", sourceBranch)
         .add("sourceBranchLsn", sourceBranchLsn)
         .add("sourceBranchTime", sourceBranchTime)
+        .add("sourceSnapshot", sourceSnapshot)
         .add("stateChangeTime", stateChangeTime)
         .toString();
   }

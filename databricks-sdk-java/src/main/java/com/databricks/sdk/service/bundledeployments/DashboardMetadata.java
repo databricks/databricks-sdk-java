@@ -12,7 +12,7 @@ import java.util.Objects;
 public class DashboardMetadata {
   /**
    * Path of the file that declares this dashboard, relative to the bundle's workspace.file_path
-   * (Version.workspace_info.file_path) — join the two to get the file's absolute workspace path.
+   * (Deployment.workspace_info.file_path) — join the two to get the file's absolute workspace path.
    *
    * <p>For now this lives only on the dashboard metadata, and is a single string because it was a
    * single string (`relative_path`) in the legacy bundle metadata.json. We may generalize it in the

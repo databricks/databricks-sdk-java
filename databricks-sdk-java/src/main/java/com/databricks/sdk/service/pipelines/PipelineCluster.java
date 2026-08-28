@@ -96,9 +96,10 @@ public class PipelineCluster {
   private String instancePoolId;
 
   /**
-   * A label for the cluster specification, either `default` to configure the default cluster, or
-   * `maintenance` to configure the maintenance cluster. This field is optional. The default value
-   * is `default`.
+   * A label for the cluster specification, either `default` to configure the default cluster
+   * settings applied to both the update and maintenance clusters, `updates` to configure the update
+   * cluster, or `maintenance` to configure the maintenance cluster. This field is optional. The
+   * default value is `default`.
    */
   @JsonProperty("label")
   private String label;

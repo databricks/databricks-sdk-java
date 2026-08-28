@@ -27,7 +27,11 @@ public class LakeviewAPI {
     impl = mock;
   }
 
-  /** Create a draft dashboard. */
+  /**
+   * Create a draft dashboard.
+   *
+   * <p>Requires the Databricks SQL access entitlement.
+   */
   public Dashboard create(CreateDashboardRequest request) {
     return impl.create(request);
   }
@@ -69,7 +73,11 @@ public class LakeviewAPI {
     return get(new GetDashboardRequest().setDashboardId(dashboardId));
   }
 
-  /** Get a draft dashboard. */
+  /**
+   * Get a draft dashboard.
+   *
+   * <p>Requires the Databricks SQL access entitlement.
+   */
   public Dashboard get(GetDashboardRequest request) {
     return impl.get(request);
   }
@@ -78,7 +86,12 @@ public class LakeviewAPI {
     return getPublished(new GetPublishedDashboardRequest().setDashboardId(dashboardId));
   }
 
-  /** Get the current published dashboard. */
+  /**
+   * Get the current published dashboard.
+   *
+   * <p>Requires one of the following entitlements: Workspace access, Databricks SQL access, or
+   * Consumer access.
+   */
   public PublishedDashboard getPublished(GetPublishedDashboardRequest request) {
     return impl.getPublished(request);
   }
@@ -107,7 +120,11 @@ public class LakeviewAPI {
     return impl.getSubscription(request);
   }
 
-  /** List dashboards. */
+  /**
+   * List dashboards.
+   *
+   * <p>Requires the Databricks SQL access entitlement.
+   */
   public Iterable<Dashboard> list(ListDashboardsRequest request) {
     return Paginator.newTokenPagination(
         request,
@@ -166,12 +183,20 @@ public class LakeviewAPI {
     return impl.migrate(request);
   }
 
-  /** Publish the current draft dashboard. */
+  /**
+   * Publish the current draft dashboard.
+   *
+   * <p>Requires the Databricks SQL access entitlement.
+   */
   public PublishedDashboard publish(PublishRequest request) {
     return impl.publish(request);
   }
 
-  /** Revert a dashboard's definition in draft mode to the last published version. */
+  /**
+   * Revert a dashboard's definition in draft mode to the last published version.
+   *
+   * <p>Requires the Databricks SQL access entitlement.
+   */
   public RevertDashboardResponse revert(RevertDashboardRequest request) {
     return impl.revert(request);
   }
@@ -180,7 +205,11 @@ public class LakeviewAPI {
     trash(new TrashDashboardRequest().setDashboardId(dashboardId));
   }
 
-  /** Trash a dashboard. */
+  /**
+   * Trash a dashboard.
+   *
+   * <p>Requires the Databricks SQL access entitlement.
+   */
   public void trash(TrashDashboardRequest request) {
     impl.trash(request);
   }
@@ -189,12 +218,20 @@ public class LakeviewAPI {
     unpublish(new UnpublishDashboardRequest().setDashboardId(dashboardId));
   }
 
-  /** Unpublish the dashboard. */
+  /**
+   * Unpublish the dashboard.
+   *
+   * <p>Requires the Databricks SQL access entitlement.
+   */
   public void unpublish(UnpublishDashboardRequest request) {
     impl.unpublish(request);
   }
 
-  /** Update a draft dashboard. */
+  /**
+   * Update a draft dashboard.
+   *
+   * <p>Requires the Databricks SQL access entitlement.
+   */
   public Dashboard update(UpdateDashboardRequest request) {
     return impl.update(request);
   }

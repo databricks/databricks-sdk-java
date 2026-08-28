@@ -50,6 +50,15 @@ public class BranchSpec {
   private Timestamp sourceBranchTime;
 
   /**
+   * The snapshot this branch was created from. When set, the branch's data comes from the snapshot
+   * rather than a source branch, so source_branch, source_branch_lsn, and source_branch_time must
+   * be empty. The snapshot must be AVAILABLE and belong to this branch's project. Format:
+   * projects/{project_id}/snapshots/{snapshot_id}
+   */
+  @JsonProperty("source_snapshot")
+  private String sourceSnapshot;
+
+  /**
    * Relative time-to-live duration. When set, the branch will expire at creation_time + ttl.
    * Mutually exclusive with `expire_time` and `no_expiry`. When updating, use `spec.expiration` in
    * the update_mask.
@@ -111,6 +120,15 @@ public class BranchSpec {
     return sourceBranchTime;
   }
 
+  public BranchSpec setSourceSnapshot(String sourceSnapshot) {
+    this.sourceSnapshot = sourceSnapshot;
+    return this;
+  }
+
+  public String getSourceSnapshot() {
+    return sourceSnapshot;
+  }
+
   public BranchSpec setTtl(Duration ttl) {
     this.ttl = ttl;
     return this;
@@ -131,13 +149,21 @@ public class BranchSpec {
         && Objects.equals(sourceBranch, that.sourceBranch)
         && Objects.equals(sourceBranchLsn, that.sourceBranchLsn)
         && Objects.equals(sourceBranchTime, that.sourceBranchTime)
+        && Objects.equals(sourceSnapshot, that.sourceSnapshot)
         && Objects.equals(ttl, that.ttl);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(
-        expireTime, isProtected, noExpiry, sourceBranch, sourceBranchLsn, sourceBranchTime, ttl);
+        expireTime,
+        isProtected,
+        noExpiry,
+        sourceBranch,
+        sourceBranchLsn,
+        sourceBranchTime,
+        sourceSnapshot,
+        ttl);
   }
 
   @Override
@@ -149,6 +175,7 @@ public class BranchSpec {
         .add("sourceBranch", sourceBranch)
         .add("sourceBranchLsn", sourceBranchLsn)
         .add("sourceBranchTime", sourceBranchTime)
+        .add("sourceSnapshot", sourceSnapshot)
         .add("ttl", ttl)
         .toString();
   }

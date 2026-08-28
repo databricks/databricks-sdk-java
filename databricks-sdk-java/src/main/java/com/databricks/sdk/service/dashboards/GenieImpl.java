@@ -207,6 +207,27 @@ class GenieImpl implements GenieService {
   }
 
   @Override
+  public GenieMessage genieCancelResponse(GenieCancelResponseRequest request) {
+    String path =
+        String.format(
+            "/api/2.0/genie/agents/%s/conversations/%s/responses/%s/cancel",
+            request.getAgentId(), request.getConversationId(), request.getResponseId());
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, GenieMessage.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public GenieEvalRunResponse genieCreateEvalRun(GenieCreateEvalRunRequest request) {
     String path = String.format("/api/2.0/genie/spaces/%s/eval-runs", request.getSpaceId());
     try {

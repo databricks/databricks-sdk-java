@@ -80,6 +80,9 @@ public interface BundleDeploymentsService {
    */
   ListVersionsResponse listVersions(ListVersionsRequest listVersionsRequest);
 
+  /** Updates a deployment. */
+  Deployment updateDeployment(UpdateDeploymentRequest updateDeploymentRequest);
+
   /**
    * Updates a resource operation's mutable fields.
    *

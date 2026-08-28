@@ -18,6 +18,13 @@ public class DataSource {
   @JsonProperty("kafka_source")
   private KafkaSource kafkaSource;
 
+  /**
+   * Completeness timing for this Feature's use of the source. This configuration is part of the
+   * Feature definition; it does not modify the underlying table or stream.
+   */
+  @JsonProperty("lateness")
+  private SourceLateness lateness;
+
   /** A request-time data source. */
   @JsonProperty("request_source")
   private RequestSource requestSource;
@@ -42,6 +49,15 @@ public class DataSource {
 
   public KafkaSource getKafkaSource() {
     return kafkaSource;
+  }
+
+  public DataSource setLateness(SourceLateness lateness) {
+    this.lateness = lateness;
+    return this;
+  }
+
+  public SourceLateness getLateness() {
+    return lateness;
   }
 
   public DataSource setRequestSource(RequestSource requestSource) {
@@ -69,13 +85,14 @@ public class DataSource {
     DataSource that = (DataSource) o;
     return Objects.equals(deltaTableSource, that.deltaTableSource)
         && Objects.equals(kafkaSource, that.kafkaSource)
+        && Objects.equals(lateness, that.lateness)
         && Objects.equals(requestSource, that.requestSource)
         && Objects.equals(streamSource, that.streamSource);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(deltaTableSource, kafkaSource, requestSource, streamSource);
+    return Objects.hash(deltaTableSource, kafkaSource, lateness, requestSource, streamSource);
   }
 
   @Override
@@ -83,6 +100,7 @@ public class DataSource {
     return new ToStringer(DataSource.class)
         .add("deltaTableSource", deltaTableSource)
         .add("kafkaSource", kafkaSource)
+        .add("lateness", lateness)
         .add("requestSource", requestSource)
         .add("streamSource", streamSource)
         .toString();

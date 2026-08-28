@@ -36,7 +36,13 @@ public class PipelineSpec {
   @JsonProperty("configuration")
   private Map<String, String> configuration;
 
-  /** Whether the pipeline is continuous or triggered. This replaces `trigger`. */
+  /**
+   * Whether the pipeline is continuous or triggered. This replaces `trigger`.
+   *
+   * <p>Deprecated: wrap the pipeline in a continuous job instead, which also lets you take
+   * advantage of job-level settings such as performance mode. When the pipeline is started by a
+   * continuous job, the job's setting takes precedence and this field is ignored.
+   */
   @JsonProperty("continuous")
   private Boolean continuous;
 

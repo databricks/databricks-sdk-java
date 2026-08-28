@@ -15,9 +15,9 @@ public class ColumnMask {
   private String functionName;
 
   /**
-   * The list of additional table columns or literals to be passed as additional arguments to a
-   * column mask function. This is the replacement of the deprecated using_column_names field and
-   * carries information about the types (alias or constant) of the arguments to the mask function.
+   * The list of table columns or literals to be passed as additional arguments to a column mask
+   * function, carrying the type (column reference vs constant literal) of each argument.
+   * Deprecated: use using_column_names instead.
    */
   @JsonProperty("using_arguments")
   private Collection<PolicyFunctionArgument> usingArguments;

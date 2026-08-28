@@ -190,6 +190,11 @@ public class BundleDeploymentsAPI {
         });
   }
 
+  /** Updates a deployment. */
+  public Deployment updateDeployment(UpdateDeploymentRequest request) {
+    return impl.updateDeployment(request);
+  }
+
   /**
    * Updates a resource operation's mutable fields.
    *

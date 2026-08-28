@@ -15,7 +15,7 @@ public class UpdateAlertV2Request {
   @JsonProperty("alert")
   private AlertV2 alert;
 
-  /** UUID identifying the alert. */
+  /** The canonical identifier of the alert to retrieve information about. */
   @JsonIgnore private String id;
 
   /**

@@ -10,8 +10,9 @@ import java.util.Objects;
 @Generated
 public class CreateDeploymentRequest {
   /**
-   * The deployment to create. The caller must set `initial_parent_path`. Other fields are ignored
-   * on input and populated by the service.
+   * The deployment to create. `initial_parent_path` is required. `display_name`, `target_name`,
+   * `deployment_mode`, and `workspace_info` may be set; every other field is assigned by the
+   * service and ignored on input.
    */
   @JsonProperty("deployment")
   private Deployment deployment;

@@ -18,6 +18,13 @@ public class NodeTypeFlexibility {
   @JsonProperty("alternate_node_type_ids")
   private Collection<String> alternateNodeTypeIds;
 
+  /**
+   * The AWS Context ID for EC2 Fleet. When set (non-empty), the value is passed to AWS CreateFleet
+   * API to create the EC2 Fleet.
+   */
+  @JsonProperty("aws_context_id")
+  private String awsContextId;
+
   public NodeTypeFlexibility setAlternateNodeTypeIds(Collection<String> alternateNodeTypeIds) {
     this.alternateNodeTypeIds = alternateNodeTypeIds;
     return this;
@@ -27,23 +34,34 @@ public class NodeTypeFlexibility {
     return alternateNodeTypeIds;
   }
 
+  public NodeTypeFlexibility setAwsContextId(String awsContextId) {
+    this.awsContextId = awsContextId;
+    return this;
+  }
+
+  public String getAwsContextId() {
+    return awsContextId;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     NodeTypeFlexibility that = (NodeTypeFlexibility) o;
-    return Objects.equals(alternateNodeTypeIds, that.alternateNodeTypeIds);
+    return Objects.equals(alternateNodeTypeIds, that.alternateNodeTypeIds)
+        && Objects.equals(awsContextId, that.awsContextId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(alternateNodeTypeIds);
+    return Objects.hash(alternateNodeTypeIds, awsContextId);
   }
 
   @Override
   public String toString() {
     return new ToStringer(NodeTypeFlexibility.class)
         .add("alternateNodeTypeIds", alternateNodeTypeIds)
+        .add("awsContextId", awsContextId)
         .toString();
   }
 }

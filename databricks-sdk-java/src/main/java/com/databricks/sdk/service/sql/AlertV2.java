@@ -37,7 +37,7 @@ public class AlertV2 {
   @JsonProperty("evaluation")
   private AlertV2Evaluation evaluation;
 
-  /** UUID identifying the alert. */
+  /** The canonical identifier of the alert to retrieve information about. */
   @JsonProperty("id")
   private String id;
 
@@ -50,8 +50,20 @@ public class AlertV2 {
   private String ownerUserName;
 
   /**
-   * Query parameters bound when executing the alert query, referenced in the query text with
-   * `:name` syntax. Static values only.
+   * A list of parameters to pass into the alert SQL query statement containing parameter markers.
+   * Static values only.
+   *
+   * <p>Reference a parameter in the query text as `:name`. Each parameter must have a unique,
+   * non-empty name. Each parameter consists of a name, a value, and optionally a type. To represent
+   * a NULL value, the `value` field may be omitted or set to `null` explicitly. If the `type` field
+   * is omitted, the value is interpreted as a string.
+   *
+   * <p>If the type is given, parameters will be checked for type correctness according to the given
+   * type. A value is correct if the provided string can be converted to the requested type using
+   * the `cast` function. The exact semantics are described in the section [`cast` function] of the
+   * SQL language reference.
+   *
+   * <p>[`cast` function]: https://docs.databricks.com/sql/language-manual/functions/cast.html
    */
   @JsonProperty("parameters")
   private Collection<AlertStatementParameter> parameters;

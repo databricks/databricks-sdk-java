@@ -32,14 +32,6 @@ public class Feature {
   private Collection<EntityColumn> entities;
 
   /**
-   * Deprecated: Use DeltaTableSource.filter_condition or KafkaSource.filter_condition instead. Kept
-   * for backwards compatibility. The filter condition applied to the source data before
-   * aggregation.
-   */
-  @JsonProperty("filter_condition")
-  private String filterCondition;
-
-  /**
    * The full three-part name (catalog, schema, name) of the feature. This is the feature's resource
    * identifier; the catalog_name, schema_name, and name fields below are OUTPUT_ONLY decomposed
    * views of this value.
@@ -50,13 +42,6 @@ public class Feature {
   /** The function by which the feature is computed. */
   @JsonProperty("function")
   private Function function;
-
-  /**
-   * Deprecated: Use AggregationFunction.inputs instead. Kept for backwards compatibility. The input
-   * columns from which the feature is computed.
-   */
-  @JsonProperty("inputs")
-  private Collection<String> inputs;
 
   /**
    * Lineage context information for this feature. WARNING: This field is primarily intended for
@@ -79,13 +64,6 @@ public class Feature {
   /** The data source of the feature. */
   @JsonProperty("source")
   private DataSource source;
-
-  /**
-   * Deprecated: Use Function.aggregation_function.time_window instead. Kept for backwards
-   * compatibility. The time window in which the feature is computed.
-   */
-  @JsonProperty("time_window")
-  private TimeWindow timeWindow;
 
   /** Column recording time, used for point-in-time joins, backfills, and aggregations. */
   @JsonProperty("timeseries_column")
@@ -136,15 +114,6 @@ public class Feature {
     return entities;
   }
 
-  public Feature setFilterCondition(String filterCondition) {
-    this.filterCondition = filterCondition;
-    return this;
-  }
-
-  public String getFilterCondition() {
-    return filterCondition;
-  }
-
   public Feature setFullName(String fullName) {
     this.fullName = fullName;
     return this;
@@ -161,15 +130,6 @@ public class Feature {
 
   public Function getFunction() {
     return function;
-  }
-
-  public Feature setInputs(Collection<String> inputs) {
-    this.inputs = inputs;
-    return this;
-  }
-
-  public Collection<String> getInputs() {
-    return inputs;
   }
 
   public Feature setLineageContext(LineageContext lineageContext) {
@@ -208,15 +168,6 @@ public class Feature {
     return source;
   }
 
-  public Feature setTimeWindow(TimeWindow timeWindow) {
-    this.timeWindow = timeWindow;
-    return this;
-  }
-
-  public TimeWindow getTimeWindow() {
-    return timeWindow;
-  }
-
   public Feature setTimeseriesColumn(TimeseriesColumn timeseriesColumn) {
     this.timeseriesColumn = timeseriesColumn;
     return this;
@@ -236,15 +187,12 @@ public class Feature {
         && Objects.equals(createdBy, that.createdBy)
         && Objects.equals(description, that.description)
         && Objects.equals(entities, that.entities)
-        && Objects.equals(filterCondition, that.filterCondition)
         && Objects.equals(fullName, that.fullName)
         && Objects.equals(function, that.function)
-        && Objects.equals(inputs, that.inputs)
         && Objects.equals(lineageContext, that.lineageContext)
         && Objects.equals(name, that.name)
         && Objects.equals(schemaName, that.schemaName)
         && Objects.equals(source, that.source)
-        && Objects.equals(timeWindow, that.timeWindow)
         && Objects.equals(timeseriesColumn, that.timeseriesColumn);
   }
 
@@ -256,15 +204,12 @@ public class Feature {
         createdBy,
         description,
         entities,
-        filterCondition,
         fullName,
         function,
-        inputs,
         lineageContext,
         name,
         schemaName,
         source,
-        timeWindow,
         timeseriesColumn);
   }
 
@@ -276,15 +221,12 @@ public class Feature {
         .add("createdBy", createdBy)
         .add("description", description)
         .add("entities", entities)
-        .add("filterCondition", filterCondition)
         .add("fullName", fullName)
         .add("function", function)
-        .add("inputs", inputs)
         .add("lineageContext", lineageContext)
         .add("name", name)
         .add("schemaName", schemaName)
         .add("source", source)
-        .add("timeWindow", timeWindow)
         .add("timeseriesColumn", timeseriesColumn)
         .toString();
   }

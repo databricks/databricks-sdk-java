@@ -260,6 +260,58 @@ class WorkspaceIamV2Impl implements WorkspaceIamV2Service {
   }
 
   @Override
+  public ExternalGroup getExternalGroupProxy(GetExternalGroupProxyRequest request) {
+    String path = String.format("/api/2.0/identity/%s", request.getName());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, ExternalGroup.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public ExternalServicePrincipal getExternalServicePrincipalProxy(
+      GetExternalServicePrincipalProxyRequest request) {
+    String path = String.format("/api/2.0/identity/%s", request.getName());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, ExternalServicePrincipal.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public ExternalUser getExternalUserProxy(GetExternalUserProxyRequest request) {
+    String path = String.format("/api/2.0/identity/%s", request.getName());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, ExternalUser.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public Group getGroupProxy(GetGroupProxyRequest request) {
     String path = String.format("/api/2.0/identity/groups/%s", request.getGroupId());
     try {

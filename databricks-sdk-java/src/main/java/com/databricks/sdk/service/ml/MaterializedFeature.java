@@ -10,14 +10,6 @@ import java.util.Objects;
 /** A materialized feature represents a feature that is continuously computed and stored. */
 @Generated
 public class MaterializedFeature {
-  /**
-   * The quartz cron expression that defines the schedule of the materialization pipeline. The
-   * schedule is evaluated in the UTC timezone. Hidden from GraphQL: superseded by the `trigger`
-   * oneof (cron_schedule_trigger), so not exposed to Catalog Explorer.
-   */
-  @JsonProperty("cron_schedule")
-  private String cronSchedule;
-
   /** A cron-based schedule trigger for the materialization pipeline. */
   @JsonProperty("cron_schedule_trigger")
   private CronSchedule cronScheduleTrigger;
@@ -76,15 +68,6 @@ public class MaterializedFeature {
   /** A trigger that fires when the upstream source table changes. */
   @JsonProperty("table_trigger")
   private TableTrigger tableTrigger;
-
-  public MaterializedFeature setCronSchedule(String cronSchedule) {
-    this.cronSchedule = cronSchedule;
-    return this;
-  }
-
-  public String getCronSchedule() {
-    return cronSchedule;
-  }
 
   public MaterializedFeature setCronScheduleTrigger(CronSchedule cronScheduleTrigger) {
     this.cronScheduleTrigger = cronScheduleTrigger;
@@ -191,8 +174,7 @@ public class MaterializedFeature {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     MaterializedFeature that = (MaterializedFeature) o;
-    return Objects.equals(cronSchedule, that.cronSchedule)
-        && Objects.equals(cronScheduleTrigger, that.cronScheduleTrigger)
+    return Objects.equals(cronScheduleTrigger, that.cronScheduleTrigger)
         && Objects.equals(featureName, that.featureName)
         && Objects.equals(isOnline, that.isOnline)
         && Objects.equals(lastMaterializationTime, that.lastMaterializationTime)
@@ -208,7 +190,6 @@ public class MaterializedFeature {
   @Override
   public int hashCode() {
     return Objects.hash(
-        cronSchedule,
         cronScheduleTrigger,
         featureName,
         isOnline,
@@ -225,7 +206,6 @@ public class MaterializedFeature {
   @Override
   public String toString() {
     return new ToStringer(MaterializedFeature.class)
-        .add("cronSchedule", cronSchedule)
         .add("cronScheduleTrigger", cronScheduleTrigger)
         .add("featureName", featureName)
         .add("isOnline", isOnline)

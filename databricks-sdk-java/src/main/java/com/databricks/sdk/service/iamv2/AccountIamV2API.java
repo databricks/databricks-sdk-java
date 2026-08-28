@@ -81,12 +81,7 @@ public class AccountIamV2API {
     return impl.createWorkspaceAssignment(request);
   }
 
-  /**
-   * Creates a workspace assignment detail for a principal. Entitlements are granted one at a time
-   * rather than atomically. If the request fails partway through, the principal stays assigned to
-   * the workspace with only some of the requested entitlements. Get the assignment detail
-   * afterwards to confirm which entitlements were granted.
-   */
+  /** Creates a workspace assignment detail for a principal. */
   public WorkspaceAssignmentDetail createWorkspaceAssignmentDetail(
       CreateWorkspaceAssignmentDetailRequest request) {
     return impl.createWorkspaceAssignmentDetail(request);
@@ -170,6 +165,46 @@ public class AccountIamV2API {
   /** Gets a provisioned direct member of a group. */
   public DirectGroupMember getDirectGroupMember(GetDirectGroupMemberRequest request) {
     return impl.getDirectGroupMember(request);
+  }
+
+  public ExternalGroup getExternalGroup(String name) {
+    return getExternalGroup(new GetExternalGroupRequest().setName(name));
+  }
+
+  /**
+   * Retrieves an external group with the given external ID from the customer's IdP. If the group
+   * does not exist, it will be created in the account. If the customer is not onboarded onto
+   * Automatic Identity Management (AIM), this will return an error.
+   */
+  public ExternalGroup getExternalGroup(GetExternalGroupRequest request) {
+    return impl.getExternalGroup(request);
+  }
+
+  public ExternalServicePrincipal getExternalServicePrincipal(String name) {
+    return getExternalServicePrincipal(new GetExternalServicePrincipalRequest().setName(name));
+  }
+
+  /**
+   * Retrieves an external service principal with the given external ID from the customer's IdP. If
+   * the service principal does not exist, it will be created. If the customer is not onboarded onto
+   * Automatic Identity Management (AIM), this will return an error.
+   */
+  public ExternalServicePrincipal getExternalServicePrincipal(
+      GetExternalServicePrincipalRequest request) {
+    return impl.getExternalServicePrincipal(request);
+  }
+
+  public ExternalUser getExternalUser(String name) {
+    return getExternalUser(new GetExternalUserRequest().setName(name));
+  }
+
+  /**
+   * Retrieves an external user with the given external ID from the customer's IdP. If the user does
+   * not exist, it will be created. If the customer is not onboarded onto Automatic Identity
+   * Management (AIM), this will return an error.
+   */
+  public ExternalUser getExternalUser(GetExternalUserRequest request) {
+    return impl.getExternalUser(request);
   }
 
   public Group getGroup(String groupId) {

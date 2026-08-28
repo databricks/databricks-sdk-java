@@ -13,7 +13,11 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface LakeviewService {
-  /** Create a draft dashboard. */
+  /**
+   * Create a draft dashboard.
+   *
+   * <p>Requires the Databricks SQL access entitlement.
+   */
   Dashboard create(CreateDashboardRequest createDashboardRequest);
 
   /** Create dashboard schedule. */
@@ -28,10 +32,19 @@ public interface LakeviewService {
   /** Delete schedule subscription. */
   void deleteSubscription(DeleteSubscriptionRequest deleteSubscriptionRequest);
 
-  /** Get a draft dashboard. */
+  /**
+   * Get a draft dashboard.
+   *
+   * <p>Requires the Databricks SQL access entitlement.
+   */
   Dashboard get(GetDashboardRequest getDashboardRequest);
 
-  /** Get the current published dashboard. */
+  /**
+   * Get the current published dashboard.
+   *
+   * <p>Requires one of the following entitlements: Workspace access, Databricks SQL access, or
+   * Consumer access.
+   */
   PublishedDashboard getPublished(GetPublishedDashboardRequest getPublishedDashboardRequest);
 
   /** Get dashboard schedule. */
@@ -40,7 +53,11 @@ public interface LakeviewService {
   /** Get schedule subscription. */
   Subscription getSubscription(GetSubscriptionRequest getSubscriptionRequest);
 
-  /** List dashboards. */
+  /**
+   * List dashboards.
+   *
+   * <p>Requires the Databricks SQL access entitlement.
+   */
   ListDashboardsResponse list(ListDashboardsRequest listDashboardsRequest);
 
   /** List dashboard schedules. */
@@ -52,19 +69,39 @@ public interface LakeviewService {
   /** Migrates a classic SQL dashboard to Lakeview. */
   Dashboard migrate(MigrateDashboardRequest migrateDashboardRequest);
 
-  /** Publish the current draft dashboard. */
+  /**
+   * Publish the current draft dashboard.
+   *
+   * <p>Requires the Databricks SQL access entitlement.
+   */
   PublishedDashboard publish(PublishRequest publishRequest);
 
-  /** Revert a dashboard's definition in draft mode to the last published version. */
+  /**
+   * Revert a dashboard's definition in draft mode to the last published version.
+   *
+   * <p>Requires the Databricks SQL access entitlement.
+   */
   RevertDashboardResponse revert(RevertDashboardRequest revertDashboardRequest);
 
-  /** Trash a dashboard. */
+  /**
+   * Trash a dashboard.
+   *
+   * <p>Requires the Databricks SQL access entitlement.
+   */
   void trash(TrashDashboardRequest trashDashboardRequest);
 
-  /** Unpublish the dashboard. */
+  /**
+   * Unpublish the dashboard.
+   *
+   * <p>Requires the Databricks SQL access entitlement.
+   */
   void unpublish(UnpublishDashboardRequest unpublishDashboardRequest);
 
-  /** Update a draft dashboard. */
+  /**
+   * Update a draft dashboard.
+   *
+   * <p>Requires the Databricks SQL access entitlement.
+   */
   Dashboard update(UpdateDashboardRequest updateDashboardRequest);
 
   /** Update dashboard schedule. */

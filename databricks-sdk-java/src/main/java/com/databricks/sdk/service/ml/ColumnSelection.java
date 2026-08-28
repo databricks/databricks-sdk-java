@@ -8,8 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 /**
- * A ColumnSelection function, equivalent to the LAST() record of an entity over a lifetime
- * ContinuousWindow
+ * A ColumnSelection function, equivalent to the LAST() record of an entity over a lifetime window
  */
 @Generated
 public class ColumnSelection {

@@ -6,6 +6,7 @@ import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Objects;
 
 @Generated
@@ -13,6 +14,17 @@ public class AlertTask {
   /** The alert_id is the canonical identifier of the alert. */
   @JsonProperty("alert_id")
   private String alertId;
+
+  /**
+   * Per-run parameter overrides, keyed by parameter name, applied onto the alert's stored query
+   * parameters before the query is executed. Only scalar values are supported. Values may reference
+   * job parameters with `{{job.parameters.*}}`, which are resolved before the task runs. An
+   * override whose key does not match a stored parameter fails the task run. Limited to 10000
+   * characters when serialized as JSON; keys must be 1-100 characters and contain only letters,
+   * digits, underscores, dashes, and periods.
+   */
+  @JsonProperty("parameters")
+  private Map<String, String> parameters;
 
   /**
    * The subscribers receive alert evaluation result notifications after the alert task is
@@ -40,6 +52,15 @@ public class AlertTask {
 
   public String getAlertId() {
     return alertId;
+  }
+
+  public AlertTask setParameters(Map<String, String> parameters) {
+    this.parameters = parameters;
+    return this;
+  }
+
+  public Map<String, String> getParameters() {
+    return parameters;
   }
 
   public AlertTask setSubscribers(Collection<AlertTaskSubscriber> subscribers) {
@@ -75,6 +96,7 @@ public class AlertTask {
     if (o == null || getClass() != o.getClass()) return false;
     AlertTask that = (AlertTask) o;
     return Objects.equals(alertId, that.alertId)
+        && Objects.equals(parameters, that.parameters)
         && Objects.equals(subscribers, that.subscribers)
         && Objects.equals(warehouseId, that.warehouseId)
         && Objects.equals(workspacePath, that.workspacePath);
@@ -82,13 +104,14 @@ public class AlertTask {
 
   @Override
   public int hashCode() {
-    return Objects.hash(alertId, subscribers, warehouseId, workspacePath);
+    return Objects.hash(alertId, parameters, subscribers, warehouseId, workspacePath);
   }
 
   @Override
   public String toString() {
     return new ToStringer(AlertTask.class)
         .add("alertId", alertId)
+        .add("parameters", parameters)
         .add("subscribers", subscribers)
         .add("warehouseId", warehouseId)
         .add("workspacePath", workspacePath)

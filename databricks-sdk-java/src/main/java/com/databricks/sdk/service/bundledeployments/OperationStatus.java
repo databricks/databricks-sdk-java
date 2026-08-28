@@ -8,5 +8,6 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum OperationStatus {
   OPERATION_STATUS_FAILED,
+  OPERATION_STATUS_PENDING,
   OPERATION_STATUS_SUCCEEDED,
 }
