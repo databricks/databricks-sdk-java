@@ -41,6 +41,13 @@ public class DatabricksConfig {
   @ConfigAttribute(env = "DATABRICKS_WORKSPACE_ID")
   private String workspaceId;
 
+  /**
+   * ID of the Databricks group to assume through role-based access control (RBAC). A client uses
+   * this group for its full lifetime.
+   */
+  @ConfigAttribute(env = "DATABRICKS_GROUP_ID")
+  private String groupId;
+
   @ConfigAttribute(env = "DATABRICKS_TOKEN", auth = "pat", sensitive = true)
   private String token;
 
@@ -336,6 +343,15 @@ public class DatabricksConfig {
 
   public DatabricksConfig setWorkspaceId(String workspaceId) {
     this.workspaceId = workspaceId;
+    return this;
+  }
+
+  public String getGroupId() {
+    return groupId;
+  }
+
+  public DatabricksConfig setGroupId(String groupId) {
+    this.groupId = groupId;
     return this;
   }
 

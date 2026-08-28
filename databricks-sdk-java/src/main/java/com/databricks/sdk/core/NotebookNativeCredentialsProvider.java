@@ -27,6 +27,16 @@ public class NotebookNativeCredentialsProvider implements CredentialsProvider {
 
   @Override
   public HeaderFactory configure(DatabricksConfig config) {
+    if (GroupAssumption.isRequested(config)) {
+      // Return null during automatic discovery so the chain can continue. If the user explicitly
+      // requested this provider, throw an actionable error explaining why it cannot be used.
+      if (authType().equals(config.getAuthType())) {
+        throw GroupAssumption.unsupportedAuth(authType());
+      }
+
+      return null;
+    }
+
     if (System.getenv("DATABRICKS_RUNTIME_VERSION") == null) {
       LOG.debug("DBR not detected, skipping runtime auth");
       return null;
