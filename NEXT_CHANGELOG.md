@@ -51,3 +51,4 @@
 * [Breaking] Remove `entityColumnIdentifiers` and `timeseriesColumnIdentifier` fields for `com.databricks.sdk.service.ml.KafkaSource`.
 * [Breaking] Remove `cronSchedule` field for `com.databricks.sdk.service.ml.MaterializedFeature`.
 * [Breaking] Remove `continuous` field for `com.databricks.sdk.service.ml.TimeWindow`.
+* Add `MODEL`, `MODEL_SERVICE`, `MCP_SERVICE` and `MODEL_PROVIDER_SERVICE` enum values for `com.databricks.sdk.service.catalog.SecurableType`.
