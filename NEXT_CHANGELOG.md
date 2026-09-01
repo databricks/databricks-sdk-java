@@ -15,3 +15,6 @@
 ### Internal Changes
 
 ### API Changes
+* Add `excludedColumns` and `recordTypeFilter` fields for `com.databricks.sdk.service.ml.Stream`.
+* Add `EXTERNAL_USE_LOCATION` enum value for `com.databricks.sdk.service.catalog.Privilege`.
+* [Breaking] Remove `planType` field for `com.databricks.sdk.service.catalog.ModelProviderServiceConfigAnthropicProviderRelayedConfig`.

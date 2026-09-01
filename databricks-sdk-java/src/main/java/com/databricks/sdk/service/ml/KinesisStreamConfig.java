@@ -17,7 +17,12 @@ import java.util.Objects;
 public class KinesisStreamConfig {
   /**
    * Optional Kinesis source options, validated against a server-side allowlist at request time.
-   * Auth and connection details belong on the parent Stream's `connection_config`, not here.
+   * Allowed keys: - `consumerMode` - `consumerNamePrefix` - `maxFetchRate` - `minFetchPeriod` -
+   * `maxFetchDuration` - `maxRecordsPerFetch` - `shardsPerTask` - `fetchBufferSize` -
+   * `shardFetchInterval` `consumerMode` must be `efo` or `polling` (case-insensitive).
+   * `maxRecordsPerFetch` applies only during ingestion and does not affect the materialization
+   * pipeline. Auth and connection details belong on the parent Stream's `connection_config`, not
+   * here.
    */
   @JsonProperty("extra_options")
   private Map<String, String> extraOptions;

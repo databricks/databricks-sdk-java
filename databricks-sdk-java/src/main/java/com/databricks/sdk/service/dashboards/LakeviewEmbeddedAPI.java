@@ -32,8 +32,11 @@ public class LakeviewEmbeddedAPI {
    * Get a required authorization details and scopes of a published dashboard to mint an OAuth
    * token.
    *
-   * <p>Requires one of the following entitlements: Workspace access, Databricks SQL access, or
-   * Consumer access.
+   * <p>The caller must be a workspace user with one of the following entitlements: Workspace
+   * access, Databricks SQL access, or Consumer access.
+   *
+   * <p>Account-level users who are not members of the workspace cannot call this endpoint, even if
+   * the dashboard has been shared with them.
    */
   public GetPublishedDashboardTokenInfoResponse getPublishedDashboardTokenInfo(
       GetPublishedDashboardTokenInfoRequest request) {

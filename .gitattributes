@@ -658,7 +658,6 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ModelProvid
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ModelProviderServiceConfigAnthropicProviderConfig.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ModelProviderServiceConfigAnthropicProviderDirectConfig.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ModelProviderServiceConfigAnthropicProviderRelayedConfig.java linguist-generated=true
-databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ModelProviderServiceConfigAnthropicProviderRelayedConfigAnthropicRelayedPlanType.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ModelProviderServiceConfigAwsAccessKey.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ModelProviderServiceConfigAzureOpenAiProviderConfig.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ModelProviderServiceConfigAzureOpenAiProviderDirectConfig.java linguist-generated=true

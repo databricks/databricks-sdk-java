@@ -4,7 +4,6 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 /**
@@ -15,43 +14,22 @@ import java.util.Objects;
  */
 @Generated
 public class ModelProviderServiceConfigAnthropicProviderRelayedConfig {
-  /**
-   * Which Anthropic subscription tier the relayed token belongs to. Optional; when unset the MPS
-   * gets the full governance surface (see TEAM_ENTERPRISE). Immutable after Create, so the tier
-   * cannot be flipped in place.
-   */
-  @JsonProperty("plan_type")
-  private ModelProviderServiceConfigAnthropicProviderRelayedConfigAnthropicRelayedPlanType planType;
-
-  public ModelProviderServiceConfigAnthropicProviderRelayedConfig setPlanType(
-      ModelProviderServiceConfigAnthropicProviderRelayedConfigAnthropicRelayedPlanType planType) {
-    this.planType = planType;
-    return this;
-  }
-
-  public ModelProviderServiceConfigAnthropicProviderRelayedConfigAnthropicRelayedPlanType
-      getPlanType() {
-    return planType;
-  }
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    ModelProviderServiceConfigAnthropicProviderRelayedConfig that =
-        (ModelProviderServiceConfigAnthropicProviderRelayedConfig) o;
-    return Objects.equals(planType, that.planType);
+    return true;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(planType);
+    return Objects.hash();
   }
 
   @Override
   public String toString() {
     return new ToStringer(ModelProviderServiceConfigAnthropicProviderRelayedConfig.class)
-        .add("planType", planType)
         .toString();
   }
 }

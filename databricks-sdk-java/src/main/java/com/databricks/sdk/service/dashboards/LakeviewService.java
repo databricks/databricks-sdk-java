@@ -42,8 +42,11 @@ public interface LakeviewService {
   /**
    * Get the current published dashboard.
    *
-   * <p>Requires one of the following entitlements: Workspace access, Databricks SQL access, or
-   * Consumer access.
+   * <p>The caller must be a workspace user with one of the following entitlements: Workspace
+   * access, Databricks SQL access, or Consumer access.
+   *
+   * <p>Account-level users who are not members of the workspace cannot call this endpoint, even if
+   * the dashboard has been shared with them.
    */
   PublishedDashboard getPublished(GetPublishedDashboardRequest getPublishedDashboardRequest);
 

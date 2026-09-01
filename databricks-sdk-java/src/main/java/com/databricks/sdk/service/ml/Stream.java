@@ -6,6 +6,7 @@ import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.protobuf.Timestamp;
+import java.util.Collection;
 import java.util.Objects;
 
 /**
@@ -38,6 +39,18 @@ public class Stream {
   private String description;
 
   /**
+   * Column paths (dot notation, e.g. "value.email" for Kafka) to drop. A path may reference a
+   * struct, in which case all of its nested fields are dropped (e.g. "value.address" drops
+   * "value.address.city" and "value.address.zip"). These columns are not written to the ingestion
+   * table and cannot be referenced by any feature. They are dropped from ingestion, backfill, and
+   * materialization. For direct schemas, each column must exist in the relevant key or payload
+   * schema. With a schema registry, a column can be excluded before it exists. A column cannot also
+   * be a deduplication column in the ingestion_config.
+   */
+  @JsonProperty("excluded_columns")
+  private Collection<String> excludedColumns;
+
+  /**
    * Configuration for streaming data ingestion: the managed table storing an offline copy of
    * forward fill data and optional historical backfill.
    */
@@ -47,6 +60,14 @@ public class Stream {
   /** Full three-part (catalog.schema.stream) name of the stream. */
   @JsonProperty("name")
   private String name;
+
+  /**
+   * Optional SQL predicate to filter which record types from a streaming channel (e.g. a topic for
+   * Kafka) belong to this Stream. Events that do not match are not written to the ingestion table
+   * and are not used in materialization. Example: "value.event_type = 'transaction'".
+   */
+  @JsonProperty("record_type_filter")
+  private String recordTypeFilter;
 
   /**
    * Schema definitions for the stream, provided either directly on the Stream or resolved from an
@@ -112,6 +133,15 @@ public class Stream {
     return description;
   }
 
+  public Stream setExcludedColumns(Collection<String> excludedColumns) {
+    this.excludedColumns = excludedColumns;
+    return this;
+  }
+
+  public Collection<String> getExcludedColumns() {
+    return excludedColumns;
+  }
+
   public Stream setIngestionConfig(IngestionConfig ingestionConfig) {
     this.ingestionConfig = ingestionConfig;
     return this;
@@ -128,6 +158,15 @@ public class Stream {
 
   public String getName() {
     return name;
+  }
+
+  public Stream setRecordTypeFilter(String recordTypeFilter) {
+    this.recordTypeFilter = recordTypeFilter;
+    return this;
+  }
+
+  public String getRecordTypeFilter() {
+    return recordTypeFilter;
   }
 
   public Stream setSchemaConfig(StreamSchemaConfig schemaConfig) {
@@ -176,8 +215,10 @@ public class Stream {
         && Objects.equals(createTime, that.createTime)
         && Objects.equals(createdBy, that.createdBy)
         && Objects.equals(description, that.description)
+        && Objects.equals(excludedColumns, that.excludedColumns)
         && Objects.equals(ingestionConfig, that.ingestionConfig)
         && Objects.equals(name, that.name)
+        && Objects.equals(recordTypeFilter, that.recordTypeFilter)
         && Objects.equals(schemaConfig, that.schemaConfig)
         && Objects.equals(sourceConfig, that.sourceConfig)
         && Objects.equals(updateTime, that.updateTime)
@@ -192,8 +233,10 @@ public class Stream {
         createTime,
         createdBy,
         description,
+        excludedColumns,
         ingestionConfig,
         name,
+        recordTypeFilter,
         schemaConfig,
         sourceConfig,
         updateTime,
@@ -208,8 +251,10 @@ public class Stream {
         .add("createTime", createTime)
         .add("createdBy", createdBy)
         .add("description", description)
+        .add("excludedColumns", excludedColumns)
         .add("ingestionConfig", ingestionConfig)
         .add("name", name)
+        .add("recordTypeFilter", recordTypeFilter)
         .add("schemaConfig", schemaConfig)
         .add("sourceConfig", sourceConfig)
         .add("updateTime", updateTime)
