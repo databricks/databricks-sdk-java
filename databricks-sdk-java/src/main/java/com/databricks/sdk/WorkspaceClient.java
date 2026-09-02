@@ -10,6 +10,8 @@ import com.databricks.sdk.mixin.DbfsExt;
 import com.databricks.sdk.mixin.SecretsExt;
 import com.databricks.sdk.service.agentbricks.AgentBricksAPI;
 import com.databricks.sdk.service.agentbricks.AgentBricksService;
+import com.databricks.sdk.service.aifunctions.AiFunctionsAPI;
+import com.databricks.sdk.service.aifunctions.AiFunctionsService;
 import com.databricks.sdk.service.aisearch.AiSearchAPI;
 import com.databricks.sdk.service.aisearch.AiSearchService;
 import com.databricks.sdk.service.apps.AppsAPI;
@@ -284,6 +286,7 @@ public class WorkspaceClient {
   private AccessControlAPI accessControlAPI;
   private AccountAccessControlProxyAPI accountAccessControlProxyAPI;
   private AgentBricksAPI agentBricksAPI;
+  private AiFunctionsAPI aiFunctionsAPI;
   private AiGatewayAPI aiGatewayAPI;
   private AiSearchAPI aiSearchAPI;
   private AlertsAPI alertsAPI;
@@ -426,6 +429,7 @@ public class WorkspaceClient {
     accessControlAPI = new AccessControlAPI(apiClient);
     accountAccessControlProxyAPI = new AccountAccessControlProxyAPI(apiClient);
     agentBricksAPI = new AgentBricksAPI(apiClient);
+    aiFunctionsAPI = new AiFunctionsAPI(apiClient);
     aiGatewayAPI = new AiGatewayAPI(apiClient);
     aiSearchAPI = new AiSearchAPI(apiClient);
     alertsAPI = new AlertsAPI(apiClient);
@@ -589,6 +593,11 @@ public class WorkspaceClient {
   /** The Custom LLMs service manages state and powers the UI for the Custom LLM product. */
   public AgentBricksAPI agentBricks() {
     return agentBricksAPI;
+  }
+
+  /** Transform and enrich data with AI on Databricks. */
+  public AiFunctionsAPI aiFunctions() {
+    return aiFunctionsAPI;
   }
 
   /**
@@ -2281,6 +2290,17 @@ public class WorkspaceClient {
   /** Replace the default AgentBricksAPI with a custom implementation. */
   public WorkspaceClient withAgentBricksAPI(AgentBricksAPI agentBricks) {
     this.agentBricksAPI = agentBricks;
+    return this;
+  }
+
+  /** Replace the default AiFunctionsService with a custom implementation. */
+  public WorkspaceClient withAiFunctionsImpl(AiFunctionsService aiFunctions) {
+    return this.withAiFunctionsAPI(new AiFunctionsAPI(aiFunctions));
+  }
+
+  /** Replace the default AiFunctionsAPI with a custom implementation. */
+  public WorkspaceClient withAiFunctionsAPI(AiFunctionsAPI aiFunctions) {
+    this.aiFunctionsAPI = aiFunctions;
     return this;
   }
 

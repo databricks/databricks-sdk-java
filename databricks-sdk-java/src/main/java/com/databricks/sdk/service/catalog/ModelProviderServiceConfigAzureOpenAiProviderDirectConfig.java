@@ -11,11 +11,11 @@ import java.util.Objects;
  * Direct form of Azure OpenAI provider config. Exactly one of three mutually-exclusive auth modes
  * must be supplied on Create: - API key: set `api_key`, leave `entra_service_principal` and
  * `service_credential` unset. - Entra ID (service principal): set `entra_service_principal`, leave
- * `api_key` and `service_credential` unset. - UC service credential: set `service_credential.name`
- * to the AIP-122 resource-name form `credentials/{name}`, leave `api_key` and
- * `entra_service_principal` unset. The credential value lives in UC and is referenced by name, not
- * held on this message. Only supported on Azure-hosted workspaces. Setting more than one mode is
- * rejected.
+ * `api_key` and `service_credential` unset. - Unity Catalog service credential: set
+ * `service_credential.name` to the resource name `credentials/{name}`, leave `api_key` and
+ * `entra_service_principal` unset. The credential value lives in Unity Catalog and is referenced by
+ * name, not held on this message. Only supported on Azure-hosted workspaces. Setting more than one
+ * mode is rejected.
  */
 @Generated
 public class ModelProviderServiceConfigAzureOpenAiProviderDirectConfig {
@@ -40,11 +40,11 @@ public class ModelProviderServiceConfigAzureOpenAiProviderDirectConfig {
   private ModelProviderServiceConfigEntraServicePrincipal entraServicePrincipal;
 
   /**
-   * Reference to a UC service credential authorizing Azure OpenAI requests. On Create the caller
-   * supplies `service_credential.name` in the AIP-122 resource-name form `credentials/{name}`.
-   * Required on Create when using UC-service-credential auth; mutually exclusive with `api_key` and
+   * Reference to a Unity Catalog service credential authorizing Azure OpenAI requests. On Create,
+   * supply `service_credential.name` in the form `credentials/{name}`. Required on Create when
+   * using service-credential authentication; mutually exclusive with `api_key` and
    * `entra_service_principal`. The credential is referenced by name; its value is not carried here.
-   * On read the resolved `id` and `is_deleted` are also populated. Only supported on Azure-hosted
+   * On read, the resolved `id` and `is_deleted` are also populated. Only supported on Azure-hosted
    * workspaces; Create requests from other clouds are rejected with INVALID_PARAMETER_VALUE.
    */
   @JsonProperty("service_credential")

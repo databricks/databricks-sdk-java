@@ -10,15 +10,22 @@ import java.util.Objects;
 
 @Generated
 public class CustomerFacingIngressNetworkPolicyCrossWorkspaceAccess {
-  /** */
+  /**
+   * Allow rules are evaluated after deny rules. A request matching any allow rule is allowed; a
+   * request matching no rule is denied by default. Only applies when restriction_mode is
+   * RESTRICTED_ACCESS.
+   */
   @JsonProperty("allow_rules")
   private Collection<CustomerFacingIngressNetworkPolicyCrossWorkspaceIngressRule> allowRules;
 
-  /** */
+  /**
+   * Deny rules are evaluated first. A request matching any deny rule is denied, regardless of allow
+   * rules. Only applies when restriction_mode is RESTRICTED_ACCESS.
+   */
   @JsonProperty("deny_rules")
   private Collection<CustomerFacingIngressNetworkPolicyCrossWorkspaceIngressRule> denyRules;
 
-  /** */
+  /** The restriction mode for cross-workspace access. */
   @JsonProperty("restriction_mode")
   private CustomerFacingIngressNetworkPolicyCrossWorkspaceAccessRestrictionMode restrictionMode;
 

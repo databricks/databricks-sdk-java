@@ -40,27 +40,25 @@ public class ModelProviderServiceConfig {
   private ModelProviderServiceConfigCustomProviderConfig custom;
 
   /**
-   * Whether to forward incoming request headers to the upstream provider. Applies to managed
-   * (multi-model) requests as well as passthrough requests served by this provider service.
-   * Governance-level decision by the provider service owner; not selectable per inference call.
+   * Whether to forward incoming HTTP headers to the upstream provider. Applies to translated and
+   * passthrough requests and is configured for the entire provider service, not per request.
+   * Upstream authentication is configured separately in `provider`.
    */
   @JsonProperty("forward_headers")
   private Boolean forwardHeaders;
 
   /**
-   * Whether to forward incoming request query parameters to the upstream provider. Same
-   * trust-boundary semantics as `forward_headers`.
+   * Whether incoming query parameters are forwarded to the upstream provider. Applies to translated
+   * and passthrough requests and is configured for the entire provider service, not per request.
    */
   @JsonProperty("forward_query_parameters")
   private Boolean forwardQueryParameters;
 
   /**
-   * Whether to forward request paths that fall outside this service's managed API set to the
-   * upstream provider as opaque passthrough. When true, requests addressed to subpaths not
-   * recognized by the managed API surface are proxied to the upstream provider over the same
-   * provider connection. When false, only managed-API paths are served. Governance-level decision
-   * by the provider service owner; expanding this expands the trust boundary that the
-   * ModelProviderService exposes.
+   * Whether to proxy paths that AI Gateway does not recognize as configured provider-native API
+   * types. When true, these paths are forwarded unchanged over the provider connection. When false,
+   * only recognized API paths are served. Enabling this broadens the upstream API surface exposed
+   * through the provider service.
    */
   @JsonProperty("forward_unmanaged_paths")
   private Boolean forwardUnmanagedPaths;
@@ -70,10 +68,8 @@ public class ModelProviderServiceConfig {
   private ModelProviderServiceConfigGeminiEnterpriseProviderConfig geminiEnterprise;
 
   /**
-   * Inference table configuration for payload logging when this provider service is invoked
-   * directly. When it is invoked through a model service, the model service's own inference table
-   * captures the invocation instead. Mirrors `ModelServiceConfig.inference_table` /
-   * `AgentServiceConfig.inference_table`.
+   * Payload logging configuration for requests sent directly to this provider service. Requests
+   * routed through a model service are captured by that model service's inference table instead.
    */
   @JsonProperty("inference_table")
   private InferenceTableConfig inferenceTable;
@@ -97,18 +93,18 @@ public class ModelProviderServiceConfig {
   private ModelProviderServiceConfigExternalModelProviderType providerType;
 
   /**
-   * Rate limits applied when this provider service is invoked directly. When it is invoked through
-   * a model service, the model service's own `rate_limits` apply instead. Mirrors
-   * `ModelServiceConfig.rate_limits` / `McpServiceConfig.rate_limits`.
+   * Rate limits for requests sent directly to this provider service. Requests routed through a
+   * model service use that model service's rate limits instead.
    */
   @JsonProperty("rate_limits")
   private Collection<RateLimit> rateLimits;
 
   /**
-   * Routing targets this provider service exposes (provider-side model identifier + unified API
-   * types per entry). Required (>=1) when `allow_all_targets = false`; optional and additive when
-   * `allow_all_targets = true`. References from `ExternalModelConfig.target` must match an entry
-   * here unless `allow_all_targets = true`.
+   * Models and provider-native API types exposed by this provider service. Each entry must include
+   * at least one `native_api_types` value. When `allow_all_targets` is false, at least one entry is
+   * required and model service destinations can reference only listed models. When
+   * `allow_all_targets` is true, any upstream model is routable; entries in this list provide
+   * API-type metadata without restricting other models.
    */
   @JsonProperty("targets")
   private Collection<ModelProviderServiceConfigModelTargetConfig> targets;

@@ -24,7 +24,7 @@ public class ListModelServicesRequest {
   private String pageToken;
 
   /**
-   * Name of the parent schema to list within, as `schemas/{catalog}.{schema}`. Each `{...}`
+   * Parent schema to list within, in the form `schemas/{catalog}.{schema}`. Required. Each `{...}`
    * component is capped at 255 characters individually.
    */
   @JsonIgnore
@@ -32,9 +32,9 @@ public class ListModelServicesRequest {
   private String parent;
 
   /**
-   * View selector controlling which fields are populated per row. `FULL` returns the full
-   * representation of the service; `BASIC` returns a more compact version. Defaults to `BASIC` when
-   * unset.
+   * Fields to return for each service. `FULL` includes destinations, inference-table details, and
+   * rate-limit principal names. `BASIC` omits destinations and inference-table details and omits
+   * principal names from rate limits. Defaults to `BASIC` when unset or `VIEW_UNSPECIFIED`.
    */
   @JsonIgnore
   @QueryParam("view")

@@ -10,28 +10,27 @@ import java.util.Objects;
 
 /**
  * Operational configuration for an MCP service. Groups the source reference, tool selectors, and
- * rate limit -- the fields that configure how the MCP service behaves at invocation time.
+ * rate limits -- the fields that configure how the MCP service behaves at invocation time.
  */
 @Generated
 public class McpServiceConfig {
   /**
-   * Glob or exact-match patterns selecting which tools from the MCP server to expose. Prefix match
-   * for patterns with `*`, exact match otherwise. An empty list means all tools are included.
-   * Per-element max 256 chars.
+   * Tool names or prefix patterns to expose from the MCP server. Use exact tool names or prefix
+   * patterns such as `read_*`. An empty list exposes all tools. Each selector can contain at most
+   * 256 characters.
    */
   @JsonProperty("include_tool_selectors")
   private Collection<String> includeToolSelectors;
 
   /**
-   * Per-principal rate limits applied to tool invocations routed through this MCP service. Repeated
-   * to support per-USER / USER_GROUP / SERVICE_PRINCIPAL / SERVICE / USER_DEFAULT scopes
-   * simultaneously, mirroring the `ModelServiceConfig.rate_limits` shape. Empty when no rate limit
-   * is configured.
+   * Rate limits for tool invocations, scoped to a user, group, service principal, the service as a
+   * whole, or each user by default. Request-tag rate limits are not supported for MCP services.
+   * Empty when no rate limit is configured.
    */
   @JsonProperty("rate_limits")
   private Collection<RateLimit> rateLimits;
 
-  /** UC Connection referencing the MCP server. */
+  /** Unity Catalog connection referencing the MCP server. Required on Create. */
   @JsonProperty("source_connection")
   private McpServiceConfigSourceConnection sourceConnection;
 

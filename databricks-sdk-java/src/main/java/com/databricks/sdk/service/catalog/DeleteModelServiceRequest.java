@@ -11,8 +11,9 @@ import java.util.Objects;
 @Generated
 public class DeleteModelServiceRequest {
   /**
-   * If-match precondition: when set, the delete proceeds only if the current server-side etag
-   * matches. Empty means unconditional delete.
+   * Optimistic concurrency token from the most recent read. When set, the delete succeeds only if
+   * the resource has not changed. Leave unset for an unconditional delete. For REST requests,
+   * URL-encode the base64 string returned by the API when setting the `etag` query parameter.
    */
   @JsonIgnore
   @QueryParam("etag")

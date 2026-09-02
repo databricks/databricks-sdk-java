@@ -9,9 +9,8 @@ import com.google.protobuf.Timestamp;
 import java.util.Objects;
 
 /**
- * A governed MCP server registration in Unity Catalog. Acts as a container securable that
- * references an MCP server -- customer-external via a UC Connection, or Databricks-hosted via an
- * internal server -- and exposes its tools for discovery, authorization, and invocation.
+ * A Unity Catalog securable that registers an MCP server through a Unity Catalog connection and
+ * exposes its tools for discovery, authorization, and invocation.
  */
 @Generated
 public class McpService {
@@ -20,14 +19,13 @@ public class McpService {
   private String comment;
 
   /**
-   * Operational configuration: connection, tool selectors, rate limit. Required on
-   * CreateMcpService; on UpdateMcpService it is required only when `config` (or a `config.*`
-   * subpath) appears in `update_mask`.
+   * Connection, tool selectors, and rate limits. Required on Create. On Update, provide this field
+   * when `update_mask` contains `config` or one of its subpaths.
    */
   @JsonProperty("config")
   private McpServiceConfig config;
 
-  /** When the MCP service was created. */
+  /** Time the MCP service was created. */
   @JsonProperty("create_time")
   private Timestamp createTime;
 
@@ -43,10 +41,9 @@ public class McpService {
   private String effectiveOwner;
 
   /**
-   * Optimistic concurrency control token. Server-generated from the entity's state and returned on
-   * every read. To use it as an if-match precondition on a mutation, echo the last-read value back
-   * via the dedicated `etag` field on the Update / Delete request; the server rejects the mutation
-   * if the stored etag differs.
+   * Optimistic concurrency token returned on every read. To make an Update or Delete conditional,
+   * pass the last-read value in that request's `etag` field. In REST responses, this value is a
+   * base64 string; URL-encode it when setting the `etag` query parameter.
    */
   @JsonProperty("etag")
   private String etag;
@@ -63,11 +60,7 @@ public class McpService {
   @JsonProperty("name")
   private String name;
 
-  /** The owner of the MCP service. Write-only; read owner via effective_owner. */
-  @JsonProperty("owner")
-  private String owner;
-
-  /** When the MCP service was last modified. */
+  /** Time the MCP service was last modified. */
   @JsonProperty("update_time")
   private Timestamp updateTime;
 
@@ -147,15 +140,6 @@ public class McpService {
     return name;
   }
 
-  public McpService setOwner(String owner) {
-    this.owner = owner;
-    return this;
-  }
-
-  public String getOwner() {
-    return owner;
-  }
-
   public McpService setUpdateTime(Timestamp updateTime) {
     this.updateTime = updateTime;
     return this;
@@ -187,7 +171,6 @@ public class McpService {
         && Objects.equals(etag, that.etag)
         && Objects.equals(metastoreId, that.metastoreId)
         && Objects.equals(name, that.name)
-        && Objects.equals(owner, that.owner)
         && Objects.equals(updateTime, that.updateTime)
         && Objects.equals(updatedBy, that.updatedBy);
   }
@@ -203,7 +186,6 @@ public class McpService {
         etag,
         metastoreId,
         name,
-        owner,
         updateTime,
         updatedBy);
   }
@@ -219,7 +201,6 @@ public class McpService {
         .add("etag", etag)
         .add("metastoreId", metastoreId)
         .add("name", name)
-        .add("owner", owner)
         .add("updateTime", updateTime)
         .add("updatedBy", updatedBy)
         .toString();

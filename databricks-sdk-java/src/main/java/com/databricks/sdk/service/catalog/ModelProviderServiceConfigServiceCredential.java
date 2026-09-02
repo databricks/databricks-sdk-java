@@ -8,16 +8,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 /**
- * ---- Provider configuration (nested; see the `provider` oneof below) ---- The customer-owned UC
- * service credential a ModelProviderService uses to authenticate to its provider, referenced by
- * name.
+ * ---- Provider configuration (nested; see the `provider` oneof below) ---- The customer-owned
+ * Unity Catalog service credential a ModelProviderService uses to authenticate to its provider,
+ * referenced by name.
  */
 @Generated
 public class ModelProviderServiceConfigServiceCredential {
   /**
-   * Resource name of the bound UC service credential, in the AIP-122 form `credentials/{name}` (a
-   * metastore-level single-part credential name). On create the caller supplies the name here. On
-   * read it reflects the credential's current name at read time.
+   * Resource name of the bound Unity Catalog service credential, in the form `credentials/{name}`.
+   * On Create, supply the name here. On read, this field reflects the credential's current name.
    */
   @JsonProperty("name")
   private String name;

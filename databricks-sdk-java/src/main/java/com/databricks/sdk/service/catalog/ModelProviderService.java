@@ -9,10 +9,9 @@ import com.google.protobuf.Timestamp;
 import java.util.Objects;
 
 /**
- * A governed external model-provider connection stored in Unity Catalog (e.g. an OpenAI API
- * account, an Azure OpenAI deployment, an Amazon Bedrock account). Owns the provider type and the
- * auth/configuration the platform needs to invoke that provider, and is referenced from
- * `ExternalModelConfig.model_provider_service` on a ModelService.
+ * A governed connection to an external model provider stored in Unity Catalog, such as an OpenAI
+ * account, Azure OpenAI deployment, or Amazon Bedrock account. It stores the provider type,
+ * authentication, and connection configuration used by model service destinations.
  *
  * <p>One ModelProviderService can back many ModelServices (e.g. an `openai_prod` provider serving
  * multiple models); a single ModelService can fan out across multiple ModelProviderServices for
@@ -25,15 +24,14 @@ public class ModelProviderService {
   private String comment;
 
   /**
-   * Behavioral configuration: provider connection, model catalog, and passthrough policy. See
-   * `ModelProviderServiceConfig` for the per-field contract. Required on
-   * CreateModelProviderService; on Update it is required only when `config` (or a `config.*`
-   * subpath) appears in `update_mask`.
+   * Provider connection, exposed models, request-forwarding controls, rate limits, and payload
+   * logging. Required on Create. On Update, it is required only when `config` or one of its
+   * subpaths appears in `update_mask`.
    */
   @JsonProperty("config")
   private ModelProviderServiceConfig config;
 
-  /** When the provider service was created. */
+  /** Time the provider service was created. */
   @JsonProperty("create_time")
   private Timestamp createTime;
 
@@ -49,10 +47,9 @@ public class ModelProviderService {
   private String effectiveOwner;
 
   /**
-   * Optimistic concurrency control token. Server-generated from the entity's state and returned on
-   * every read. To use it as an if-match precondition on a mutation, echo the last-read value back
-   * via the dedicated `etag` field on the Update / Delete request; the server rejects the mutation
-   * if the stored etag differs.
+   * Optimistic concurrency token returned on every read. To make an Update or Delete conditional,
+   * pass the last-read value in that request's `etag` field. In REST responses, this value is a
+   * base64 string; URL-encode it when setting the `etag` query parameter.
    */
   @JsonProperty("etag")
   private String etag;
@@ -70,11 +67,7 @@ public class ModelProviderService {
   @JsonProperty("name")
   private String name;
 
-  /** The owner of the model provider service. Write-only; read owner via effective_owner. */
-  @JsonProperty("owner")
-  private String owner;
-
-  /** When the provider service was last modified. */
+  /** Time the provider service was last modified. */
   @JsonProperty("update_time")
   private Timestamp updateTime;
 
@@ -154,15 +147,6 @@ public class ModelProviderService {
     return name;
   }
 
-  public ModelProviderService setOwner(String owner) {
-    this.owner = owner;
-    return this;
-  }
-
-  public String getOwner() {
-    return owner;
-  }
-
   public ModelProviderService setUpdateTime(Timestamp updateTime) {
     this.updateTime = updateTime;
     return this;
@@ -194,7 +178,6 @@ public class ModelProviderService {
         && Objects.equals(etag, that.etag)
         && Objects.equals(metastoreId, that.metastoreId)
         && Objects.equals(name, that.name)
-        && Objects.equals(owner, that.owner)
         && Objects.equals(updateTime, that.updateTime)
         && Objects.equals(updatedBy, that.updatedBy);
   }
@@ -210,7 +193,6 @@ public class ModelProviderService {
         etag,
         metastoreId,
         name,
-        owner,
         updateTime,
         updatedBy);
   }
@@ -226,7 +208,6 @@ public class ModelProviderService {
         .add("etag", etag)
         .add("metastoreId", metastoreId)
         .add("name", name)
-        .add("owner", owner)
         .add("updateTime", updateTime)
         .add("updatedBy", updatedBy)
         .toString();
