@@ -13,7 +13,10 @@ import java.util.Objects;
  */
 @Generated
 public class RateLimit {
-  /** Scope key. Determines whether `principal` is required. */
+  /**
+   * Scope of the rate limit. Depending on this value, the limit applies to a principal, the service
+   * as a whole, each user by default, or a request tag.
+   */
   @JsonProperty("key")
   private RateLimitRateLimitKey key;
 
@@ -44,11 +47,17 @@ public class RateLimit {
   @JsonProperty("request_tag_value")
   private String requestTagValue;
 
-  /** Max requests allowed within a renewal period. Leave unset for no request limit. */
+  /**
+   * Maximum requests allowed in one renewal period. Leave unset for no request limit. Set to `0` to
+   * deny all requests.
+   */
   @JsonProperty("requests")
   private Long requests;
 
-  /** Max tokens allowed within a renewal period. Leave unset for no token limit. */
+  /**
+   * Maximum tokens allowed in one renewal period. Leave unset for no token limit. Set to `0` to
+   * deny all requests.
+   */
   @JsonProperty("tokens")
   private Long tokens;
 

@@ -13,8 +13,9 @@ import java.util.Objects;
 @Generated
 public class UpdateModelServiceRequest {
   /**
-   * If-match precondition: when set, the update proceeds only if the current server-side etag
-   * matches. Empty means an unconditional update.
+   * Optimistic concurrency token from the most recent read. When set, the update succeeds only if
+   * the resource has not changed. Leave unset for an unconditional update. For REST requests,
+   * URL-encode the base64 string returned by the API when setting the `etag` query parameter.
    */
   @JsonIgnore
   @QueryParam("etag")
@@ -37,9 +38,13 @@ public class UpdateModelServiceRequest {
   @JsonIgnore private String name;
 
   /**
-   * The list of fields to update. The framework validates each path against the `model_service`
-   * field above. Wildcard paths (`paths: ["*"]`) are not supported; list each field path
-   * explicitly.
+   * Fields to update. Use `config` to replace the entire configuration. The replacement must
+   * include every required field; any optional field you omit is cleared. To preserve sibling
+   * fields, use one or more granular paths: `comment`, `config.routing.destinations`,
+   * `config.routing.routing_strategy`, `config.routing.fallback.destinations`,
+   * `config.routing.first_token_timeout`, `config.rate_limits`, or `config.inference_table`.
+   * Intermediate paths such as `config.routing` and `config.routing.fallback`, and wildcard paths
+   * such as `*`, are not supported.
    */
   @JsonIgnore
   @QueryParam("update_mask")

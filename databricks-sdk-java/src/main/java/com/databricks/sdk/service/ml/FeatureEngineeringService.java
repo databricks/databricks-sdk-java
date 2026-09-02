@@ -12,9 +12,15 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface FeatureEngineeringService {
+  /** Backfill features. */
+  Operation backfillFeatures(BackfillFeaturesRequest backfillFeaturesRequest);
+
   /** Batch create materialized features. */
   BatchCreateMaterializedFeaturesResponse batchCreateMaterializedFeatures(
       BatchCreateMaterializedFeaturesRequest batchCreateMaterializedFeaturesRequest);
+
+  /** Cancel an operation. */
+  void cancelOperation(CancelOperationRequest cancelOperationRequest);
 
   /** Create a Feature. */
   Feature createFeature(CreateFeatureRequest createFeatureRequest);
@@ -59,6 +65,9 @@ public interface FeatureEngineeringService {
   /** Get a materialized feature. */
   MaterializedFeature getMaterializedFeature(
       GetMaterializedFeatureRequest getMaterializedFeatureRequest);
+
+  /** Get an operation. */
+  Operation getOperation(GetOperationRequest getOperationRequest);
 
   /** Get a Stream by its full three-part name (catalog.schema.stream). */
   Stream getStream(GetStreamRequest getStreamRequest);

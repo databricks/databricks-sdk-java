@@ -11,8 +11,8 @@ import java.util.Objects;
  * Direct form of Gemini Enterprise provider config.
  *
  * <p>Authentication is one of two mutually exclusive modes; exactly one must be supplied on Create:
- * - API key: set `api_key`, leave `service_credential` unset. - UC service credential: set
- * `service_credential`, leave `api_key` unset.
+ * - API key: set `api_key`, leave `service_credential` unset. - Unity Catalog service credential:
+ * set `service_credential`, leave `api_key` unset.
  */
 @Generated
 public class ModelProviderServiceConfigGeminiEnterpriseProviderDirectConfig {

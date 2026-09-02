@@ -105,7 +105,10 @@ public class FunctionInfo {
   @JsonProperty("routine_definition")
   private String routineDefinition;
 
-  /** function dependencies. */
+  /**
+   * Function dependencies. For external UDFs, dependencies may contain only credential, secret, or
+   * volume objects.
+   */
   @JsonProperty("routine_dependencies")
   private DependencyList routineDependencies;
 

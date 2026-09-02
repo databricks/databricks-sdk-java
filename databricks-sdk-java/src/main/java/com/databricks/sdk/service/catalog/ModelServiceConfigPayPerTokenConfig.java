@@ -13,7 +13,7 @@ import java.util.Objects;
  */
 @Generated
 public class ModelServiceConfigPayPerTokenConfig {
-  /** Resource name of the UC model. Format: `models/{catalog}.{schema}.{model}`. */
+  /** Resource name of the Unity Catalog model. Format: `models/{catalog}.{schema}.{model}`. */
   @JsonProperty("model")
   private String model;
 

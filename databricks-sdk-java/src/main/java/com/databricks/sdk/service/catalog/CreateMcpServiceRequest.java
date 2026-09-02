@@ -13,7 +13,7 @@ import java.util.Objects;
 public class CreateMcpServiceRequest {
   /**
    * The MCP service to create. The server populates `name` from `parent` + `mcp_service_id`;
-   * clients should leave it unset.
+   * clients should leave it unset. `source_connection` is required.
    */
   @JsonProperty("mcp_service")
   private McpService mcpService;

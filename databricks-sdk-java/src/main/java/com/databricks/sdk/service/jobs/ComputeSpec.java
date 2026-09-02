@@ -28,6 +28,14 @@ public class ComputeSpec {
   @JsonProperty("accelerator_type")
   private ComputeSpecAcceleratorType acceleratorType;
 
+  /**
+   * Optional ID of a pre-provisioned accelerator capacity reservation to run this AI Runtime
+   * workload on. When set, the workload is scheduled onto the referenced reserved capacity instead
+   * of the on-demand capacity shared among all Databricks customers.
+   */
+  @JsonProperty("provisioned_capacity_id")
+  private String provisionedCapacityId;
+
   public ComputeSpec setAcceleratorCount(Long acceleratorCount) {
     this.acceleratorCount = acceleratorCount;
     return this;
@@ -46,18 +54,28 @@ public class ComputeSpec {
     return acceleratorType;
   }
 
+  public ComputeSpec setProvisionedCapacityId(String provisionedCapacityId) {
+    this.provisionedCapacityId = provisionedCapacityId;
+    return this;
+  }
+
+  public String getProvisionedCapacityId() {
+    return provisionedCapacityId;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ComputeSpec that = (ComputeSpec) o;
     return Objects.equals(acceleratorCount, that.acceleratorCount)
-        && Objects.equals(acceleratorType, that.acceleratorType);
+        && Objects.equals(acceleratorType, that.acceleratorType)
+        && Objects.equals(provisionedCapacityId, that.provisionedCapacityId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(acceleratorCount, acceleratorType);
+    return Objects.hash(acceleratorCount, acceleratorType, provisionedCapacityId);
   }
 
   @Override
@@ -65,6 +83,7 @@ public class ComputeSpec {
     return new ToStringer(ComputeSpec.class)
         .add("acceleratorCount", acceleratorCount)
         .add("acceleratorType", acceleratorType)
+        .add("provisionedCapacityId", provisionedCapacityId)
         .toString();
   }
 }

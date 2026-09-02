@@ -16,14 +16,18 @@ import java.util.Objects;
 @Generated
 public class ModelServiceConfigRoutingConfig {
   /**
-   * Primary routing destinations. At most 10 are allowed. At least one is required on
-   * CreateModelService; on UpdateModelService it is required only when `config.routing` (or a
-   * `config.routing.*` subpath) appears in `update_mask`.
+   * Primary routing destinations. At most 10 are allowed. At least one is required on Create. On
+   * Update, provide this list when replacing the full `config` or updating
+   * `config.routing.destinations`; other granular routing updates do not require resending
+   * destinations. The intermediate `config.routing` mask path is not supported.
    */
   @JsonProperty("destinations")
   private Collection<ModelServiceConfigDestinationConfig> destinations;
 
-  /** Fallback routing config, applied after primary destinations fail. */
+  /**
+   * Fallback routing applied after a primary destination fails. Fallback destinations are tried in
+   * the listed order.
+   */
   @JsonProperty("fallback")
   private ModelServiceConfigFallbackConfig fallback;
 
@@ -36,8 +40,8 @@ public class ModelServiceConfigRoutingConfig {
   private Duration firstTokenTimeout;
 
   /**
-   * Marker message selecting request-based traffic splitting. Traffic is distributed according to
-   * each destination's traffic_percentage value; no configuration lives on this message itself.
+   * Select `traffic_splitting` to enable weighted traffic splitting across primary destinations.
+   * Their `traffic_percentage` values must sum to 100.
    */
   @JsonProperty("traffic_splitting")
   private ModelServiceConfigRoutingConfigTrafficSplitting trafficSplitting;

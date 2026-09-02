@@ -11,10 +11,10 @@ import java.util.Objects;
  * Direct form of Amazon Bedrock provider config.
  *
  * <p>Authentication is one of two mutually exclusive modes, exactly one of which must be supplied
- * on Create: - Access keys: set `aws_access_key`, leave `service_credential` unset. - UC service
- * credential: set `service_credential.name` to the AIP-122 resource-name form `credentials/{name}`,
- * leave `aws_access_key` unset. The credential value lives in UC and is referenced by name, not
- * held on this message. Setting more than one mode is rejected.
+ * on Create: - Access keys: set `aws_access_key`, leave `service_credential` unset. - Unity Catalog
+ * service credential: set `service_credential.name` to the resource name `credentials/{name}`,
+ * leave `aws_access_key` unset. The credential value lives in Unity Catalog and is referenced by
+ * name, not held on this message. Setting more than one mode is rejected.
  */
 @Generated
 public class ModelProviderServiceConfigAmazonBedrockProviderDirectConfig {
@@ -27,12 +27,12 @@ public class ModelProviderServiceConfigAmazonBedrockProviderDirectConfig {
   private String region;
 
   /**
-   * Reference to a UC service credential authorizing Bedrock requests. On Create the caller
-   * supplies `service_credential.name` in the AIP-122 resource-name form `credentials/{name}`.
-   * Required on Create when using UC-service-credential auth; mutually exclusive with
-   * `aws_access_key`. The credential is referenced by name; its value is not carried here. On read
-   * the resolved `id` and `is_deleted` are also populated. Only supported on AWS-hosted workspaces;
-   * Create requests from other clouds are rejected with INVALID_PARAMETER_VALUE.
+   * Reference to a Unity Catalog service credential authorizing Bedrock requests. On Create, supply
+   * `service_credential.name` in the form `credentials/{name}`. Required on Create when using
+   * service-credential authentication; mutually exclusive with `aws_access_key`. The credential is
+   * referenced by name; its value is not carried here. On read, the resolved `id` and `is_deleted`
+   * are also populated. Only supported on AWS-hosted workspaces; Create requests from other clouds
+   * are rejected with INVALID_PARAMETER_VALUE.
    */
   @JsonProperty("service_credential")
   private ModelProviderServiceConfigServiceCredential serviceCredential;

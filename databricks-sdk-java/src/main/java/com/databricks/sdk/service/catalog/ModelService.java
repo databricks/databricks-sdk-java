@@ -11,9 +11,8 @@ import java.util.Objects;
 
 /**
  * A governed AI Gateway endpoint in Unity Catalog that routes inference requests to one or more
- * model destinations (for example a foundation model or an external LLM reached through a
- * ModelProviderService). Applies centralized access control, rate limits, guardrails, and auditing
- * to the traffic it serves.
+ * destinations, such as a Databricks foundation model or an external model reached through a model
+ * provider service. Applies centralized access control, rate limits, and auditing to its traffic.
  */
 @Generated
 public class ModelService {
@@ -22,14 +21,13 @@ public class ModelService {
   private String comment;
 
   /**
-   * Operational configuration: destinations, routing, rate limits, inference table. Required on
-   * CreateModelService; on UpdateModelService it is required only when `config` (or a `config.*`
-   * subpath) appears in `update_mask`.
+   * Destinations, routing, rate limits, and payload logging configuration. Required on Create. On
+   * Update, provide this field when `update_mask` contains `config` or one of its subpaths.
    */
   @JsonProperty("config")
   private ModelServiceConfig config;
 
-  /** When the model service was created. */
+  /** Time the model service was created. */
   @JsonProperty("create_time")
   private Timestamp createTime;
 
@@ -45,10 +43,9 @@ public class ModelService {
   private String effectiveOwner;
 
   /**
-   * Optimistic concurrency control token. Server-generated from the entity's state and returned on
-   * every read. To use it as an if-match precondition on a mutation, echo the last-read value back
-   * via the dedicated `etag` field on the Update / Delete request; the server rejects the mutation
-   * if the stored etag differs.
+   * Optimistic concurrency token returned on every read. To make an Update or Delete conditional,
+   * pass the last-read value in that request's `etag` field. In REST responses, this value is a
+   * base64 string; URL-encode it when setting the `etag` query parameter.
    */
   @JsonProperty("etag")
   private String etag;
@@ -66,18 +63,15 @@ public class ModelService {
   @JsonProperty("name")
   private String name;
 
-  /** The owner of the model service. Write-only; read owner via effective_owner. */
-  @JsonProperty("owner")
-  private String owner;
-
   /**
-   * Unified API types this endpoint supports (e.g. "chat", "embeddings", "completions"). Derived
-   * from the destinations' backing models / providers at read time.
+   * API types supported across this service's destinations, such as `openai/v1/chat/completions`,
+   * `openai/v1/embeddings`, and `mlflow/v1/chat/completions`. Derived from the backing models and
+   * providers at read time.
    */
   @JsonProperty("supported_api_types")
   private Collection<String> supportedApiTypes;
 
-  /** When the model service was last modified. */
+  /** Time the model service was last modified. */
   @JsonProperty("update_time")
   private Timestamp updateTime;
 
@@ -157,15 +151,6 @@ public class ModelService {
     return name;
   }
 
-  public ModelService setOwner(String owner) {
-    this.owner = owner;
-    return this;
-  }
-
-  public String getOwner() {
-    return owner;
-  }
-
   public ModelService setSupportedApiTypes(Collection<String> supportedApiTypes) {
     this.supportedApiTypes = supportedApiTypes;
     return this;
@@ -206,7 +191,6 @@ public class ModelService {
         && Objects.equals(etag, that.etag)
         && Objects.equals(metastoreId, that.metastoreId)
         && Objects.equals(name, that.name)
-        && Objects.equals(owner, that.owner)
         && Objects.equals(supportedApiTypes, that.supportedApiTypes)
         && Objects.equals(updateTime, that.updateTime)
         && Objects.equals(updatedBy, that.updatedBy);
@@ -223,7 +207,6 @@ public class ModelService {
         etag,
         metastoreId,
         name,
-        owner,
         supportedApiTypes,
         updateTime,
         updatedBy);
@@ -240,7 +223,6 @@ public class ModelService {
         .add("etag", etag)
         .add("metastoreId", metastoreId)
         .add("name", name)
-        .add("owner", owner)
         .add("supportedApiTypes", supportedApiTypes)
         .add("updateTime", updateTime)
         .add("updatedBy", updatedBy)

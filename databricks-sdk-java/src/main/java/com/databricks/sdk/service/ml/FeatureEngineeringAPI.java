@@ -24,10 +24,21 @@ public class FeatureEngineeringAPI {
     impl = mock;
   }
 
+  /** Backfill features. */
+  public BackfillFeaturesOperation backfillFeatures(BackfillFeaturesRequest request) {
+    Operation operation = impl.backfillFeatures(request);
+    return new BackfillFeaturesOperation(impl, operation);
+  }
+
   /** Batch create materialized features. */
   public BatchCreateMaterializedFeaturesResponse batchCreateMaterializedFeatures(
       BatchCreateMaterializedFeaturesRequest request) {
     return impl.batchCreateMaterializedFeatures(request);
+  }
+
+  /** Cancel an operation. */
+  public void cancelOperation(CancelOperationRequest request) {
+    impl.cancelOperation(request);
   }
 
   /** Create a Feature. */
@@ -122,6 +133,15 @@ public class FeatureEngineeringAPI {
   /** Get a materialized feature. */
   public MaterializedFeature getMaterializedFeature(GetMaterializedFeatureRequest request) {
     return impl.getMaterializedFeature(request);
+  }
+
+  public Operation getOperation(String name) {
+    return getOperation(new GetOperationRequest().setName(name));
+  }
+
+  /** Get an operation. */
+  public Operation getOperation(GetOperationRequest request) {
+    return impl.getOperation(request);
   }
 
   public Stream getStream(String name) {

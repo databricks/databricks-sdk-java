@@ -13,7 +13,10 @@ import java.util.Objects;
  */
 @Generated
 public class ModelServiceConfigDestinationConfig {
-  /** Backing-model category. Determines which oneof variant is populated. */
+  /**
+   * Backing-model category. Provide the matching type-specific configuration and leave the other
+   * type-specific configurations unset.
+   */
   @JsonProperty("destination_type")
   private ModelServiceConfigDestinationConfigDestinationType destinationType;
 
@@ -44,8 +47,9 @@ public class ModelServiceConfigDestinationConfig {
   private ModelServiceConfigProvisionedThroughputConfig provisionedThroughputConfig;
 
   /**
-   * Share of traffic sent to this destination, 0-100. Optional on fallback destinations; see
-   * FallbackConfig.
+   * Percentage of primary traffic sent to this destination, from 0 to 100. Required when
+   * `traffic_splitting` is set; primary percentages must sum to 100. Fallback destinations are
+   * ordered and do not use this field.
    */
   @JsonProperty("traffic_percentage")
   private Long trafficPercentage;
