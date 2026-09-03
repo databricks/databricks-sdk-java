@@ -181,7 +181,10 @@ public class LakeviewAPI {
         });
   }
 
-  /** Migrates a classic SQL dashboard to Lakeview. */
+  /**
+   * Deprecated: Legacy dashboard migration is no longer supported. Use Lakeview (AI/BI) dashboards
+   * instead.
+   */
   public Dashboard migrate(MigrateDashboardRequest request) {
     return impl.migrate(request);
   }

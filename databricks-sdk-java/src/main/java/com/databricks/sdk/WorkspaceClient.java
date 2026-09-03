@@ -198,6 +198,8 @@ import com.databricks.sdk.service.postgres.PostgresAPI;
 import com.databricks.sdk.service.postgres.PostgresService;
 import com.databricks.sdk.service.qualitymonitorv2.QualityMonitorV2API;
 import com.databricks.sdk.service.qualitymonitorv2.QualityMonitorV2Service;
+import com.databricks.sdk.service.sandbox.SandboxAPI;
+import com.databricks.sdk.service.sandbox.SandboxService;
 import com.databricks.sdk.service.serving.ServingEndpointsAPI;
 import com.databricks.sdk.service.serving.ServingEndpointsDataPlaneAPI;
 import com.databricks.sdk.service.serving.ServingEndpointsDataPlaneService;
@@ -383,6 +385,7 @@ public class WorkspaceClient {
   private ReposAPI reposAPI;
   private ResourceQuotasAPI resourceQuotasAPI;
   private RfaAPI rfaAPI;
+  private SandboxAPI sandboxAPI;
   private SchemasAPI schemasAPI;
   private SecretsExt secretsAPI;
   private SecretsUcAPI secretsUcAPI;
@@ -526,6 +529,7 @@ public class WorkspaceClient {
     reposAPI = new ReposAPI(apiClient);
     resourceQuotasAPI = new ResourceQuotasAPI(apiClient);
     rfaAPI = new RfaAPI(apiClient);
+    sandboxAPI = new SandboxAPI(apiClient);
     schemasAPI = new SchemasAPI(apiClient);
     secretsAPI = new SecretsExt(apiClient);
     secretsUcAPI = new SecretsUcAPI(apiClient);
@@ -1736,6 +1740,14 @@ public class WorkspaceClient {
    */
   public RfaAPI rfa() {
     return rfaAPI;
+  }
+
+  /**
+   * Create, manage, and control the lifecycle of sandboxes -- isolated, pre-configured, low-latency
+   * Serverless compute environments for running code.
+   */
+  public SandboxAPI sandbox() {
+    return sandboxAPI;
   }
 
   /**
@@ -3401,6 +3413,17 @@ public class WorkspaceClient {
   /** Replace the default RfaAPI with a custom implementation. */
   public WorkspaceClient withRfaAPI(RfaAPI rfa) {
     this.rfaAPI = rfa;
+    return this;
+  }
+
+  /** Replace the default SandboxService with a custom implementation. */
+  public WorkspaceClient withSandboxImpl(SandboxService sandbox) {
+    return this.withSandboxAPI(new SandboxAPI(sandbox));
+  }
+
+  /** Replace the default SandboxAPI with a custom implementation. */
+  public WorkspaceClient withSandboxAPI(SandboxAPI sandbox) {
+    this.sandboxAPI = sandbox;
     return this;
   }
 

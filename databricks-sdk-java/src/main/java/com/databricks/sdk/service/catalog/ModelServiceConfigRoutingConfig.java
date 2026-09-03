@@ -10,8 +10,8 @@ import java.util.Collection;
 import java.util.Objects;
 
 /**
- * Routing configuration for a model service, nesting destinations, routing strategy, and fallback
- * under a single sub-message.
+ * Routing configuration for a model service, nesting destinations and fallback under a single
+ * sub-message.
  */
 @Generated
 public class ModelServiceConfigRoutingConfig {
@@ -38,13 +38,6 @@ public class ModelServiceConfigRoutingConfig {
    */
   @JsonProperty("first_token_timeout")
   private Duration firstTokenTimeout;
-
-  /**
-   * Select `traffic_splitting` to enable weighted traffic splitting across primary destinations.
-   * Their `traffic_percentage` values must sum to 100.
-   */
-  @JsonProperty("traffic_splitting")
-  private ModelServiceConfigRoutingConfigTrafficSplitting trafficSplitting;
 
   public ModelServiceConfigRoutingConfig setDestinations(
       Collection<ModelServiceConfigDestinationConfig> destinations) {
@@ -74,16 +67,6 @@ public class ModelServiceConfigRoutingConfig {
     return firstTokenTimeout;
   }
 
-  public ModelServiceConfigRoutingConfig setTrafficSplitting(
-      ModelServiceConfigRoutingConfigTrafficSplitting trafficSplitting) {
-    this.trafficSplitting = trafficSplitting;
-    return this;
-  }
-
-  public ModelServiceConfigRoutingConfigTrafficSplitting getTrafficSplitting() {
-    return trafficSplitting;
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -91,13 +74,12 @@ public class ModelServiceConfigRoutingConfig {
     ModelServiceConfigRoutingConfig that = (ModelServiceConfigRoutingConfig) o;
     return Objects.equals(destinations, that.destinations)
         && Objects.equals(fallback, that.fallback)
-        && Objects.equals(firstTokenTimeout, that.firstTokenTimeout)
-        && Objects.equals(trafficSplitting, that.trafficSplitting);
+        && Objects.equals(firstTokenTimeout, that.firstTokenTimeout);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(destinations, fallback, firstTokenTimeout, trafficSplitting);
+    return Objects.hash(destinations, fallback, firstTokenTimeout);
   }
 
   @Override
@@ -106,7 +88,6 @@ public class ModelServiceConfigRoutingConfig {
         .add("destinations", destinations)
         .add("fallback", fallback)
         .add("firstTokenTimeout", firstTokenTimeout)
-        .add("trafficSplitting", trafficSplitting)
         .toString();
   }
 }
