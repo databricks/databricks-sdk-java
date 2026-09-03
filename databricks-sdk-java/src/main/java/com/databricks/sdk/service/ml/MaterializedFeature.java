@@ -31,6 +31,13 @@ public class MaterializedFeature {
   @JsonProperty("last_materialization_time")
   private String lastMaterializationTime;
 
+  /**
+   * Name of the latest backfill operation on this materialized feature. Format:
+   * operations/{operation_id}.
+   */
+  @JsonProperty("latest_backfill_operation")
+  private String latestBackfillOperation;
+
   /** Server-assigned unique identifier for the materialized feature. */
   @JsonProperty("materialized_feature_id")
   private String materializedFeatureId;
@@ -103,6 +110,15 @@ public class MaterializedFeature {
 
   public String getLastMaterializationTime() {
     return lastMaterializationTime;
+  }
+
+  public MaterializedFeature setLatestBackfillOperation(String latestBackfillOperation) {
+    this.latestBackfillOperation = latestBackfillOperation;
+    return this;
+  }
+
+  public String getLatestBackfillOperation() {
+    return latestBackfillOperation;
   }
 
   public MaterializedFeature setMaterializedFeatureId(String materializedFeatureId) {
@@ -178,6 +194,7 @@ public class MaterializedFeature {
         && Objects.equals(featureName, that.featureName)
         && Objects.equals(isOnline, that.isOnline)
         && Objects.equals(lastMaterializationTime, that.lastMaterializationTime)
+        && Objects.equals(latestBackfillOperation, that.latestBackfillOperation)
         && Objects.equals(materializedFeatureId, that.materializedFeatureId)
         && Objects.equals(offlineStoreConfig, that.offlineStoreConfig)
         && Objects.equals(onlineStoreConfig, that.onlineStoreConfig)
@@ -194,6 +211,7 @@ public class MaterializedFeature {
         featureName,
         isOnline,
         lastMaterializationTime,
+        latestBackfillOperation,
         materializedFeatureId,
         offlineStoreConfig,
         onlineStoreConfig,
@@ -210,6 +228,7 @@ public class MaterializedFeature {
         .add("featureName", featureName)
         .add("isOnline", isOnline)
         .add("lastMaterializationTime", lastMaterializationTime)
+        .add("latestBackfillOperation", latestBackfillOperation)
         .add("materializedFeatureId", materializedFeatureId)
         .add("offlineStoreConfig", offlineStoreConfig)
         .add("onlineStoreConfig", onlineStoreConfig)

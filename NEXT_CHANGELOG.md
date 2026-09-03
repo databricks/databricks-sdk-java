@@ -27,3 +27,7 @@
 * [Breaking] Remove `owner` field for `com.databricks.sdk.service.catalog.McpService`.
 * [Breaking] Remove `owner` field for `com.databricks.sdk.service.catalog.ModelProviderService`.
 * [Breaking] Remove `owner` field for `com.databricks.sdk.service.catalog.ModelService`.
+* Add `com.databricks.sdk.service.sandbox` package.
+* Add `workspaceClient.sandbox()` service.
+* Add `latestBackfillOperation` field for `com.databricks.sdk.service.ml.MaterializedFeature`.
+* [Breaking] Remove `trafficSplitting` field for `com.databricks.sdk.service.catalog.ModelServiceConfigRoutingConfig`.

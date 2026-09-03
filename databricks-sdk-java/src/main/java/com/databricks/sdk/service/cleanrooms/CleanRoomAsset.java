@@ -76,14 +76,14 @@ public class CleanRoomAsset {
 
   /**
    * Table details available to all collaborators of the clean room. Present if and only if
-   * **asset_type** is **TABLE**
+   * **asset_type** is **TABLE** or **STREAMING_TABLE**
    */
   @JsonProperty("table")
   private CleanRoomAssetTable table;
 
   /**
    * Local details for a table that are only available to its owner. Present if and only if
-   * **asset_type** is **TABLE**
+   * **asset_type** is **TABLE** or **STREAMING_TABLE**
    */
   @JsonProperty("table_local_details")
   private CleanRoomAssetTableLocalDetails tableLocalDetails;

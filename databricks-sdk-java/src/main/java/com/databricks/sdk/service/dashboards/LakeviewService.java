@@ -69,7 +69,10 @@ public interface LakeviewService {
   /** List schedule subscriptions. */
   ListSubscriptionsResponse listSubscriptions(ListSubscriptionsRequest listSubscriptionsRequest);
 
-  /** Migrates a classic SQL dashboard to Lakeview. */
+  /**
+   * Deprecated: Legacy dashboard migration is no longer supported. Use Lakeview (AI/BI) dashboards
+   * instead.
+   */
   Dashboard migrate(MigrateDashboardRequest migrateDashboardRequest);
 
   /**

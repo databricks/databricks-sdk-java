@@ -47,9 +47,10 @@ public class ModelServiceConfigDestinationConfig {
   private ModelServiceConfigProvisionedThroughputConfig provisionedThroughputConfig;
 
   /**
-   * Percentage of primary traffic sent to this destination, from 0 to 100. Required when
-   * `traffic_splitting` is set; primary percentages must sum to 100. Fallback destinations are
-   * ordered and do not use this field.
+   * Percentage of primary traffic sent to this destination, from 0 to 100. Required when there is
+   * more than one primary destination, in which case the primary percentages must sum to 100; a
+   * single primary destination receives all traffic. Fallback destinations are ordered and do not
+   * use this field.
    */
   @JsonProperty("traffic_percentage")
   private Long trafficPercentage;

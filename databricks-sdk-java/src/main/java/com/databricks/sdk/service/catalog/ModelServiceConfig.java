@@ -19,7 +19,7 @@ public class ModelServiceConfig {
   @JsonProperty("rate_limits")
   private Collection<RateLimit> rateLimits;
 
-  /** Routing configuration: destinations, routing strategy, and fallback. */
+  /** Routing configuration: destinations and fallback. */
   @JsonProperty("routing")
   private ModelServiceConfigRoutingConfig routing;
 
