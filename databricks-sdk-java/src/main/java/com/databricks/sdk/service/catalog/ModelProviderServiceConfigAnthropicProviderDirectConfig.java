@@ -11,8 +11,7 @@ import java.util.Objects;
 @Generated
 public class ModelProviderServiceConfigAnthropicProviderDirectConfig {
   /**
-   * Anthropic API key. Required on Create. Sent as the `x-api-key` header on outbound requests.
-   * Supplied as inline plaintext via `ProviderSecret.plaintext`.
+   * Anthropic API key. Required when creating the service. Supply the value in `api_key.plaintext`.
    */
   @JsonProperty("api_key")
   private ModelProviderServiceConfigProviderSecret apiKey;

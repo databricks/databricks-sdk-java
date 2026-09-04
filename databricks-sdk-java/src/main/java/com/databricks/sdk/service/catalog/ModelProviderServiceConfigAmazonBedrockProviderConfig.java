@@ -10,7 +10,7 @@ import java.util.Objects;
 /** Amazon Bedrock provider configuration. */
 @Generated
 public class ModelProviderServiceConfigAmazonBedrockProviderConfig {
-  /** */
+  /** Amazon Bedrock region and authentication configuration. */
   @JsonProperty("direct")
   private ModelProviderServiceConfigAmazonBedrockProviderDirectConfig direct;
 

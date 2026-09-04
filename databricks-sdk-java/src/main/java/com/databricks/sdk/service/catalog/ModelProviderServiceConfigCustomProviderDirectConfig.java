@@ -8,19 +8,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 /**
- * Direct form of custom provider config.
- *
- * <p>Authentication is one of two mutually exclusive modes, exactly one of which must be supplied
- * on Create: - Bearer: set `api_key`, leave `header_auth` unset. The secret is forwarded as
- * `Authorization: Bearer <secret>`. - Header: set `header_auth`, leave `api_key` unset. The secret
- * is forwarded as `<api_key_name>: <api_key_value>`. Setting both modes or neither mode is
- * rejected.
+ * Direct form of a custom provider configuration. Set `api_key` to the bearer token sent in the
+ * `Authorization` header.
  */
 @Generated
 public class ModelProviderServiceConfigCustomProviderDirectConfig {
   /**
-   * Bearer token forwarded as the `Authorization: Bearer ...` header on outbound requests. Supplied
-   * as inline plaintext via `ProviderSecret.plaintext`. Set this for bearer-token auth.
+   * Bearer token forwarded in the `Authorization` header. Supply the value in `api_key.plaintext`.
    */
   @JsonProperty("api_key")
   private ModelProviderServiceConfigProviderSecret apiKey;

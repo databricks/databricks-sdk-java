@@ -8,26 +8,23 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 /**
- * Inference table configuration for payload logging on a model service.
- *
- * <p>`parent` is always REQUIRED when the sub-message is set; the destination UC schema is needed
- * to construct or rebind the payload TABLE regardless of whether payload logging is currently
- * active. Payload logging is active by default; set `disabled = true` to pause runtime logging
- * without dropping the table or the binding.
+ * Configuration for logging request and response payloads to a Unity Catalog inference table. When
+ * this configuration is present, payload logging is enabled by default.
  */
 @Generated
 public class InferenceTableConfig {
   /**
-   * True when the bound inference TABLE has been deleted but the parent service still references
-   * it. The dangling reference is surfaced (not silently dropped) so callers can see the broken
-   * dependency. AI Gateway payload logging fails closed in this state.
+   * Whether the referenced inference table has been deleted. The configuration remains visible so
+   * you can identify the broken dependency. Payload logging cannot continue until the table is
+   * restored or the configuration is updated.
    */
   @JsonProperty("is_deleted")
   private Boolean isDeleted;
 
   /**
-   * Parent UC schema where the inference table is created. Format: `schemas/{catalog}.{schema}`.
-   * Set at create time and immutable thereafter; changing it on an existing service is rejected.
+   * Parent Unity Catalog schema where the inference table is created, in the form
+   * `schemas/{catalog}.{schema}`. Required when configuring an inference table. After the inference
+   * table is created, this field cannot be changed.
    */
   @JsonProperty("parent")
   private String parent;
@@ -39,8 +36,8 @@ public class InferenceTableConfig {
   /**
    * Prefix used to form the inference table's registered name. AI Gateway appends `_payload`; for
    * example, `table_name_prefix = "orders"` creates `orders_payload`. If unset, the prefix defaults
-   * to the service name. Read `table` from the response for the resolved resource name. Set at
-   * create time and immutable thereafter.
+   * to the service name. Read `table` from the response for the resulting resource name. After the
+   * inference table is created, this field cannot be changed.
    */
   @JsonProperty("table_name_prefix")
   private String tableNamePrefix;

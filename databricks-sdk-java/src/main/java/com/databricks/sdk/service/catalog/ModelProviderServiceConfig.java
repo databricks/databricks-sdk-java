@@ -9,8 +9,8 @@ import java.util.Collection;
 import java.util.Objects;
 
 /**
- * Behavioral configuration for a ModelProviderService: provider connection (auth +
- * provider-specific fields), the catalog of models this provider service can route to, and the
+ * Behavioral configuration for a ModelProviderService: provider authentication and
+ * provider-specific fields, the catalog of models this provider service can route to, and the
  * passthrough policy that governs how request headers, query parameters, and unmanaged subpaths
  * cross the trust boundary to the upstream provider.
  */
@@ -19,6 +19,7 @@ public class ModelProviderServiceConfig {
   /**
    * When true, accepts any model exposed by the upstream provider; `targets` is not required and
    * does not restrict routability. When false, only models listed in `targets` are routable.
+   * Defaults to false.
    */
   @JsonProperty("allow_all_targets")
   private Boolean allowAllTargets;
@@ -40,25 +41,25 @@ public class ModelProviderServiceConfig {
   private ModelProviderServiceConfigCustomProviderConfig custom;
 
   /**
-   * Whether to forward incoming HTTP headers to the upstream provider. Applies to translated and
-   * passthrough requests and is configured for the entire provider service, not per request.
-   * Upstream authentication is configured separately in `provider`.
+   * Whether to forward incoming HTTP headers to the upstream provider. Defaults to false and is
+   * configured for the entire provider service, not per request. Upstream authentication is
+   * configured separately in the provider-specific configuration.
    */
   @JsonProperty("forward_headers")
   private Boolean forwardHeaders;
 
   /**
-   * Whether incoming query parameters are forwarded to the upstream provider. Applies to translated
-   * and passthrough requests and is configured for the entire provider service, not per request.
+   * Whether to forward incoming query parameters to the upstream provider. Defaults to false and is
+   * configured for the entire provider service, not per request.
    */
   @JsonProperty("forward_query_parameters")
   private Boolean forwardQueryParameters;
 
   /**
    * Whether to proxy paths that AI Gateway does not recognize as configured provider-native API
-   * types. When true, these paths are forwarded unchanged over the provider connection. When false,
-   * only recognized API paths are served. Enabling this broadens the upstream API surface exposed
-   * through the provider service.
+   * types. Defaults to false. When true, these paths are forwarded unchanged to the upstream
+   * provider. When false, only recognized API paths are served. Enabling this broadens the upstream
+   * API surface exposed through the provider service.
    */
   @JsonProperty("forward_unmanaged_paths")
   private Boolean forwardUnmanagedPaths;
@@ -83,11 +84,8 @@ public class ModelProviderServiceConfig {
   private ModelProviderServiceConfigOpenAiProviderConfig openai;
 
   /**
-   * Provider type discriminator. Required at create time; immutable after. Determines which variant
-   * of the `provider` oneof must be set. May not be changed via Update; attempts to include
-   * `config.provider_type` in `UpdateModelProviderServiceRequest.update_mask` are rejected.
-   *
-   * <p>Required on CreateModelProviderService and immutable thereafter.
+   * External model provider. Required on Create and immutable thereafter. Set the matching
+   * provider-specific configuration, such as `openai`, `azure_openai`, or `amazon_bedrock`.
    */
   @JsonProperty("provider_type")
   private ModelProviderServiceConfigExternalModelProviderType providerType;

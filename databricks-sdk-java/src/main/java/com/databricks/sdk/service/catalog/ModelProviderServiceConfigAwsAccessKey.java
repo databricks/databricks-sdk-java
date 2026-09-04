@@ -18,8 +18,8 @@ public class ModelProviderServiceConfigAwsAccessKey {
   private String accessKeyId;
 
   /**
-   * AWS secret access key paired with `access_key_id`. Required on Create when using access-key
-   * auth. Supplied as inline plaintext via `ProviderSecret.plaintext`.
+   * AWS secret access key paired with `access_key_id`. Required when creating a service with
+   * access-key authentication. Supply the value in `secret_access_key.plaintext`.
    */
   @JsonProperty("secret_access_key")
   private ModelProviderServiceConfigProviderSecret secretAccessKey;

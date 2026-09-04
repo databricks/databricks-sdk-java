@@ -16,8 +16,8 @@ import java.util.Objects;
 public class ModelProviderServiceConfigProviderSecret {
   /**
    * Inline plaintext credential. INPUT_ONLY: the value never round-trips on reads. Get and List
-   * responses omit `plaintext`; the field's presence in the read shape only indicates that a secret
-   * is configured.
+   * responses omit `plaintext`; the enclosing secret object remains present to indicate that a
+   * secret is configured.
    */
   @JsonProperty("plaintext")
   private String plaintext;

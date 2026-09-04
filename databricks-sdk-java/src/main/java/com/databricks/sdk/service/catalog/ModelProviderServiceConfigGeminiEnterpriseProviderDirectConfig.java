@@ -8,18 +8,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 /**
- * Direct form of Gemini Enterprise provider config.
- *
- * <p>Authentication is one of two mutually exclusive modes; exactly one must be supplied on Create:
- * - API key: set `api_key`, leave `service_credential` unset. - Unity Catalog service credential:
- * set `service_credential`, leave `api_key` unset.
+ * Direct Gemini Enterprise provider configuration. An API key is required when creating the
+ * service.
  */
 @Generated
 public class ModelProviderServiceConfigGeminiEnterpriseProviderDirectConfig {
   /**
-   * Google Gemini Enterprise API key. Required on Create when using API-key auth; mutually
-   * exclusive with `service_credential`. Supplied as inline plaintext via
-   * `ProviderSecret.plaintext`.
+   * Google Gemini Enterprise API key. Required when creating the service. Supply the value in
+   * `api_key.plaintext`.
    */
   @JsonProperty("api_key")
   private ModelProviderServiceConfigProviderSecret apiKey;

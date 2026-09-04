@@ -8,10 +8,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 /**
- * Entra ID (Azure AD) service-principal auth: AI Gateway exchanges the `tenant_id` + `client_id`
- * identify the service principal, and the `credential` oneof proves that identity, exchanged for an
- * Entra bearer token on outbound requests via the OAuth2 client-credentials grant. Shared by the
- * Azure OpenAI and Microsoft Foundry provider configs.
+ * Entra ID (Azure AD) service-principal authentication. The `tenant_id` and `client_id` identify
+ * the service principal, and `client_secret` authenticates it. AI Gateway exchanges these
+ * credentials for an Entra bearer token for requests to Azure OpenAI or Microsoft Foundry.
  */
 @Generated
 public class ModelProviderServiceConfigEntraServicePrincipal {
@@ -19,7 +18,7 @@ public class ModelProviderServiceConfigEntraServicePrincipal {
   @JsonProperty("client_id")
   private String clientId;
 
-  /** Entra ID client secret. Supplied as inline plaintext via `ProviderSecret.plaintext`. */
+  /** Entra ID client secret. Supply the value in `client_secret.plaintext`. */
   @JsonProperty("client_secret")
   private ModelProviderServiceConfigProviderSecret clientSecret;
 

@@ -10,7 +10,7 @@ import java.util.Objects;
 /** Azure OpenAI provider configuration. */
 @Generated
 public class ModelProviderServiceConfigAzureOpenAiProviderConfig {
-  /** */
+  /** Azure OpenAI endpoint and authentication configuration. */
   @JsonProperty("direct")
   private ModelProviderServiceConfigAzureOpenAiProviderDirectConfig direct;
 

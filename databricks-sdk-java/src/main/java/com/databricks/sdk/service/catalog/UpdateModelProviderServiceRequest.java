@@ -40,8 +40,9 @@ public class UpdateModelProviderServiceRequest {
   /**
    * Fields to update. Use `config` to replace the entire configuration. The replacement must
    * include every required field; any optional field you omit is cleared. To preserve sibling
-   * fields, use one or more granular paths: `comment`, `config.provider`,
-   * `config.allow_all_targets`, `config.targets`, `config.forward_headers`,
+   * fields, use one or more granular paths: `comment`; `config.provider` to replace the active
+   * provider-specific value (for example, `config.openai`; the mask path remains
+   * `config.provider`); `config.allow_all_targets`, `config.targets`, `config.forward_headers`,
    * `config.forward_query_parameters`, `config.forward_unmanaged_paths`, `config.rate_limits`, or
    * `config.inference_table`. The provider type is immutable, and wildcard paths such as `*` are
    * not supported.

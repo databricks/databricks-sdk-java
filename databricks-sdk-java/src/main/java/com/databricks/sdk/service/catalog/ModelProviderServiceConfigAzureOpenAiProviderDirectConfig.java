@@ -20,8 +20,8 @@ import java.util.Objects;
 @Generated
 public class ModelProviderServiceConfigAzureOpenAiProviderDirectConfig {
   /**
-   * Azure OpenAI API key. Mutually exclusive with the Entra and service-credential modes. Supplied
-   * as inline plaintext via `ProviderSecret.plaintext`.
+   * Azure OpenAI API key. Supply the value in `api_key.plaintext`. Mutually exclusive with Entra ID
+   * and Unity Catalog service credential authentication.
    */
   @JsonProperty("api_key")
   private ModelProviderServiceConfigProviderSecret apiKey;
@@ -34,7 +34,8 @@ public class ModelProviderServiceConfigAzureOpenAiProviderDirectConfig {
   private String baseUrl;
 
   /**
-   * Entra ID (service principal) auth. Mutually exclusive with `api_key` and `service_credential`.
+   * Entra ID service-principal authentication. Set `tenant_id`, `client_id`, and
+   * `client_secret.plaintext`. Mutually exclusive with `api_key` and `service_credential`.
    */
   @JsonProperty("entra_service_principal")
   private ModelProviderServiceConfigEntraServicePrincipal entraServicePrincipal;
@@ -44,8 +45,7 @@ public class ModelProviderServiceConfigAzureOpenAiProviderDirectConfig {
    * supply `service_credential.name` in the form `credentials/{name}`. Required on Create when
    * using service-credential authentication; mutually exclusive with `api_key` and
    * `entra_service_principal`. The credential is referenced by name; its value is not carried here.
-   * On read, the resolved `id` and `is_deleted` are also populated. Only supported on Azure-hosted
-   * workspaces; Create requests from other clouds are rejected with INVALID_PARAMETER_VALUE.
+   * Only supported on Azure-hosted workspaces.
    */
   @JsonProperty("service_credential")
   private ModelProviderServiceConfigServiceCredential serviceCredential;

@@ -35,10 +35,7 @@ public class ModelService {
   @JsonProperty("created_by")
   private String createdBy;
 
-  /**
-   * The resolved owner of the ModelService. Falls back to the caller's identity when `owner` is not
-   * explicitly set on creation.
-   */
+  /** Owner of the model service. */
   @JsonProperty("effective_owner")
   private String effectiveOwner;
 

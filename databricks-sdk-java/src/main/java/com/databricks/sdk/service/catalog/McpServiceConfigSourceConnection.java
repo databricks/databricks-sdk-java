@@ -8,10 +8,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 /**
- * Unity Catalog connection that hosts the MCP server. On Create, provide `name` in the
+ * Unity Catalog connection that points to the MCP server. On Create, provide `name` in the
  * schema-scoped form `connections/{catalog}.{schema}.{connection}`. On read, the service populates
- * the resolved connection metadata and preserves a dangling source so callers can diagnose a
- * deleted backing connection.
+ * the resolved connection metadata. If the connection is deleted, its reference remains visible so
+ * you can identify the broken dependency.
  */
 @Generated
 public class McpServiceConfigSourceConnection {
@@ -24,7 +24,7 @@ public class McpServiceConfigSourceConnection {
   private Boolean isDeleted;
 
   /**
-   * Name of the Unity Catalog connection that hosts the MCP server, as
+   * Resource name of the Unity Catalog connection used to access the MCP server, in the form
    * `connections/{catalog}.{schema}.{connection}`.
    */
   @JsonProperty("name")

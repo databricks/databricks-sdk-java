@@ -16,7 +16,8 @@ import java.util.Objects;
 public class ModelProviderServiceConfigServiceCredential {
   /**
    * Resource name of the bound Unity Catalog service credential, in the form `credentials/{name}`.
-   * On Create, supply the name here. On read, this field reflects the credential's current name.
+   * Supply this field when creating the service or rebinding its credential. On read, it reflects
+   * the credential's current name.
    */
   @JsonProperty("name")
   private String name;

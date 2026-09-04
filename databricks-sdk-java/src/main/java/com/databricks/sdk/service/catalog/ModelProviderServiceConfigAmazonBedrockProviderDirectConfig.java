@@ -18,7 +18,10 @@ import java.util.Objects;
  */
 @Generated
 public class ModelProviderServiceConfigAmazonBedrockProviderDirectConfig {
-  /** AWS access-key-pair auth. Mutually exclusive with `service_credential`. */
+  /**
+   * AWS access-key-pair authentication. Set `access_key_id` and `secret_access_key.plaintext`.
+   * Mutually exclusive with `service_credential`.
+   */
   @JsonProperty("aws_access_key")
   private ModelProviderServiceConfigAwsAccessKey awsAccessKey;
 
@@ -30,9 +33,7 @@ public class ModelProviderServiceConfigAmazonBedrockProviderDirectConfig {
    * Reference to a Unity Catalog service credential authorizing Bedrock requests. On Create, supply
    * `service_credential.name` in the form `credentials/{name}`. Required on Create when using
    * service-credential authentication; mutually exclusive with `aws_access_key`. The credential is
-   * referenced by name; its value is not carried here. On read, the resolved `id` and `is_deleted`
-   * are also populated. Only supported on AWS-hosted workspaces; Create requests from other clouds
-   * are rejected with INVALID_PARAMETER_VALUE.
+   * referenced by name; its value is not carried here. Only supported on AWS-hosted workspaces.
    */
   @JsonProperty("service_credential")
   private ModelProviderServiceConfigServiceCredential serviceCredential;

@@ -11,7 +11,7 @@ import java.util.Objects;
 /** Operational configuration wrapped around the ModelService resource. */
 @Generated
 public class ModelServiceConfig {
-  /** Inference table config for payload logging. */
+  /** Inference table configuration for payload logging. */
   @JsonProperty("inference_table")
   private InferenceTableConfig inferenceTable;
 

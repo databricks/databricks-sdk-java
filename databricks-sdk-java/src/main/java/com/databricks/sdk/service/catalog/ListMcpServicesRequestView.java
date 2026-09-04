@@ -5,8 +5,8 @@ package com.databricks.sdk.service.catalog;
 import com.databricks.sdk.support.Generated;
 
 /**
- * Controls which fields are populated on each McpService in the response. The server treats unset /
- * VIEW_UNSPECIFIED as BASIC. Callers needing the full configuration must request it explicitly with
+ * Controls which fields are populated on each McpService in the response. The server uses `BASIC`
+ * when `view` is unset. Callers needing the full configuration must request it explicitly with
  * `view = FULL`.
  */
 @Generated

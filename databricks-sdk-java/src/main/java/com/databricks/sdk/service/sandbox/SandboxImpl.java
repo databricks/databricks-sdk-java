@@ -52,6 +52,24 @@ class SandboxImpl implements SandboxService {
   }
 
   @Override
+  public ExecuteCommandSyncResponse executeCommandSync(ExecuteCommandSyncRequest request) {
+    String path = String.format("/api/2.0/sandbox-exec/%s/exec-sync", request.getName());
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, ExecuteCommandSyncResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public Sandbox getSandbox(GetSandboxRequest request) {
     String path = String.format("/api/2.0/%s", request.getName());
     try {

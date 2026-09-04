@@ -6,6 +6,8 @@ import com.databricks.sdk.support.Generated;
 
 @Generated
 public enum ConnectionType {
+  AWS_SECRETS_MANAGER,
+  AZURE_KEY_VAULT,
   BIGQUERY,
   CONFLUENCE,
   DATABRICKS,
