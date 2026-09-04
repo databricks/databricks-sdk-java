@@ -9,13 +9,12 @@ import com.google.protobuf.Timestamp;
 import java.util.Objects;
 
 /**
- * A governed connection to an external model provider stored in Unity Catalog, such as an OpenAI
- * account, Azure OpenAI deployment, or Amazon Bedrock account. It stores the provider type,
- * authentication, and connection configuration used by model service destinations.
+ * A Unity Catalog securable that stores authentication and request configuration for an external
+ * model provider, such as OpenAI, Azure OpenAI, or Amazon Bedrock. Model service destinations
+ * reference it to send requests to that provider.
  *
- * <p>One ModelProviderService can back many ModelServices (e.g. an `openai_prod` provider serving
- * multiple models); a single ModelService can fan out across multiple ModelProviderServices for
- * traffic split or failover.
+ * <p>A model provider service can be referenced by multiple model services. A model service can
+ * route across multiple model provider services for traffic splitting or failover.
  */
 @Generated
 public class ModelProviderService {
@@ -24,7 +23,7 @@ public class ModelProviderService {
   private String comment;
 
   /**
-   * Provider connection, exposed models, request-forwarding controls, rate limits, and payload
+   * Provider authentication, exposed models, request-forwarding controls, rate limits, and payload
    * logging. Required on Create. On Update, it is required only when `config` or one of its
    * subpaths appears in `update_mask`.
    */
@@ -39,10 +38,7 @@ public class ModelProviderService {
   @JsonProperty("created_by")
   private String createdBy;
 
-  /**
-   * The resolved owner of the model provider service. Falls back to the caller's identity when
-   * `owner` is not explicitly set on creation.
-   */
+  /** Owner of the model provider service. */
   @JsonProperty("effective_owner")
   private String effectiveOwner;
 

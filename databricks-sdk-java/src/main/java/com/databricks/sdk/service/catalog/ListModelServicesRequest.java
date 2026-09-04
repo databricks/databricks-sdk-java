@@ -18,7 +18,7 @@ public class ListModelServicesRequest {
   @QueryParam("page_size")
   private Long pageSize;
 
-  /** Opaque pagination token from a previous request. */
+  /** Opaque pagination token from the previous response. */
   @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
@@ -34,7 +34,7 @@ public class ListModelServicesRequest {
   /**
    * Fields to return for each service. `FULL` includes destinations, inference-table details, and
    * rate-limit principal names. `BASIC` omits destinations and inference-table details and omits
-   * principal names from rate limits. Defaults to `BASIC` when unset or `VIEW_UNSPECIFIED`.
+   * principal names from rate limits. Defaults to `BASIC` when unset.
    */
   @JsonIgnore
   @QueryParam("view")

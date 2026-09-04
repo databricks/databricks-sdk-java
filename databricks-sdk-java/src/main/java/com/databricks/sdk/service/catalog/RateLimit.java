@@ -15,15 +15,14 @@ import java.util.Objects;
 public class RateLimit {
   /**
    * Scope of the rate limit. Depending on this value, the limit applies to a principal, the service
-   * as a whole, each user by default, or a request tag.
+   * as a whole, or each user by default.
    */
   @JsonProperty("key")
   private RateLimitRateLimitKey key;
 
   /**
    * Principal this limit applies to: user email, group name, or service principal application ID.
-   * Required unless `key` is `RATE_LIMIT_KEY_SERVICE`, `RATE_LIMIT_KEY_USER_DEFAULT`, or
-   * `RATE_LIMIT_KEY_REQUEST_TAG` (which must not set a principal).
+   * Required when `key` applies to a user, group, or service principal; otherwise it must be unset.
    */
   @JsonProperty("principal")
   private String principal;
@@ -31,21 +30,6 @@ public class RateLimit {
   /** Renewal period. */
   @JsonProperty("renewal_period")
   private RateLimitRateLimitRenewalPeriod renewalPeriod;
-
-  /**
-   * Request tag key this limit applies to. Required when `key` is `RATE_LIMIT_KEY_REQUEST_TAG`,
-   * forbidden otherwise.
-   */
-  @JsonProperty("request_tag_key")
-  private String requestTagKey;
-
-  /**
-   * Request tag value this limit applies to. Only valid when `key` is `RATE_LIMIT_KEY_REQUEST_TAG`.
-   * Leave unset to apply the limit to every value of `request_tag_key` (an any-value default); a
-   * set value is a specific override for that value.
-   */
-  @JsonProperty("request_tag_value")
-  private String requestTagValue;
 
   /**
    * Maximum requests allowed in one renewal period. Leave unset for no request limit. Set to `0` to
@@ -88,24 +72,6 @@ public class RateLimit {
     return renewalPeriod;
   }
 
-  public RateLimit setRequestTagKey(String requestTagKey) {
-    this.requestTagKey = requestTagKey;
-    return this;
-  }
-
-  public String getRequestTagKey() {
-    return requestTagKey;
-  }
-
-  public RateLimit setRequestTagValue(String requestTagValue) {
-    this.requestTagValue = requestTagValue;
-    return this;
-  }
-
-  public String getRequestTagValue() {
-    return requestTagValue;
-  }
-
   public RateLimit setRequests(Long requests) {
     this.requests = requests;
     return this;
@@ -132,16 +98,13 @@ public class RateLimit {
     return Objects.equals(key, that.key)
         && Objects.equals(principal, that.principal)
         && Objects.equals(renewalPeriod, that.renewalPeriod)
-        && Objects.equals(requestTagKey, that.requestTagKey)
-        && Objects.equals(requestTagValue, that.requestTagValue)
         && Objects.equals(requests, that.requests)
         && Objects.equals(tokens, that.tokens);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        key, principal, renewalPeriod, requestTagKey, requestTagValue, requests, tokens);
+    return Objects.hash(key, principal, renewalPeriod, requests, tokens);
   }
 
   @Override
@@ -150,8 +113,6 @@ public class RateLimit {
         .add("key", key)
         .add("principal", principal)
         .add("renewalPeriod", renewalPeriod)
-        .add("requestTagKey", requestTagKey)
-        .add("requestTagValue", requestTagValue)
         .add("requests", requests)
         .add("tokens", tokens)
         .toString();

@@ -15,7 +15,7 @@ public class ListMcpServicesResponse {
   @JsonProperty("mcp_services")
   private Collection<McpService> mcpServices;
 
-  /** Pagination token for retrieving the next page of results. */
+  /** Pagination token for retrieving the next page. Empty when there are no more results. */
   @JsonProperty("next_page_token")
   private String nextPageToken;
 

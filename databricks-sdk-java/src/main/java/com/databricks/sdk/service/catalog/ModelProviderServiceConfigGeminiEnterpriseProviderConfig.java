@@ -10,7 +10,7 @@ import java.util.Objects;
 /** Gemini Enterprise provider configuration. */
 @Generated
 public class ModelProviderServiceConfigGeminiEnterpriseProviderConfig {
-  /** */
+  /** Gemini Enterprise project, region, and authentication configuration. */
   @JsonProperty("direct")
   private ModelProviderServiceConfigGeminiEnterpriseProviderDirectConfig direct;
 

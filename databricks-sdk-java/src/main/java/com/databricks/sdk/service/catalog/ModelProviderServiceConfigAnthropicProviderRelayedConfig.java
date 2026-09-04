@@ -7,10 +7,8 @@ import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /**
- * Relayed form of Anthropic provider config: no credential is stored. Authentication is the
- * caller's own OAuth token, forwarded to Anthropic on outbound requests, so there is no persisted
- * secret. Presence of this variant is the signal that the provider service uses relayed auth;
- * `plan_type` further distinguishes which Anthropic subscription tier the token belongs to.
+ * Relayed Anthropic provider configuration. Each inference request supplies the caller's OAuth
+ * token, which is forwarded to Anthropic. No Anthropic credential is stored.
  */
 @Generated
 public class ModelProviderServiceConfigAnthropicProviderRelayedConfig {

@@ -41,6 +41,17 @@ public class SandboxAPI {
     impl.deleteSandbox(request);
   }
 
+  /**
+   * Runs a command in the sandbox and blocks until it exits, returning the captured stdout, stderr
+   * and exit code in a single response. Unary convenience variant of the streaming
+   * command-execution API for callers that only need a command's final result (e.g. `curl`, the
+   * SDK's `sandbox.exec`). The streaming `ExecuteCommand` RPC remains for interactive and
+   * long-running use.
+   */
+  public ExecuteCommandSyncResponse executeCommandSync(ExecuteCommandSyncRequest request) {
+    return impl.executeCommandSync(request);
+  }
+
   public Sandbox getSandbox(String name) {
     return getSandbox(new GetSandboxRequest().setName(name));
   }

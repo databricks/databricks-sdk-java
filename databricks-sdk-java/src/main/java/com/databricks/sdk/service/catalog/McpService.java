@@ -33,10 +33,7 @@ public class McpService {
   @JsonProperty("created_by")
   private String createdBy;
 
-  /**
-   * The resolved owner of the MCP service. Falls back to the caller's identity when `owner` is not
-   * explicitly set on creation.
-   */
+  /** Owner of the MCP service. */
   @JsonProperty("effective_owner")
   private String effectiveOwner;
 

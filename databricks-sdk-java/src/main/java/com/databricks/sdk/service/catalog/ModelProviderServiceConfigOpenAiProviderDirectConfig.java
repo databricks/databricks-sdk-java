@@ -11,8 +11,7 @@ import java.util.Objects;
 @Generated
 public class ModelProviderServiceConfigOpenAiProviderDirectConfig {
   /**
-   * OpenAI API key. Required on Create. Supplied as inline plaintext via
-   * `ProviderSecret.plaintext`.
+   * OpenAI API key. Required when creating the service. Supply the value in `api_key.plaintext`.
    */
   @JsonProperty("api_key")
   private ModelProviderServiceConfigProviderSecret apiKey;

@@ -11,7 +11,7 @@ import com.databricks.sdk.support.Paginator;
  * Govern AI workloads in Unity Catalog. This API manages the Unity Catalog securables that bring
  * centralized access control, lineage, and auditing to AI-serving entities: model services
  * (governed access to foundation models and external LLMs), model provider services (governed
- * connections to external model providers), and MCP services (governed Model Context Protocol
+ * resources for external model providers), and MCP services (governed Model Context Protocol
  * servers).
  */
 @Generated
@@ -33,7 +33,7 @@ public class AiGatewayAPI {
   /**
    * Creates an MCP service in a Unity Catalog schema. An MCP (Model Context Protocol) service is a
    * governed securable that registers an MCP server and exposes its tools for discovery, access
-   * control, and invocation. The caller supplies the leaf name in `mcp_service_id`.
+   * control, and invocation. Specify its name in `mcp_service_id`.
    *
    * <p>You must be the owner of the parent schema or have the `CREATE_SERVICE` and `USE_SCHEMA`
    * privileges on the parent schema and `USE_CATALOG` on the parent catalog. You also need
@@ -44,13 +44,15 @@ public class AiGatewayAPI {
   }
 
   /**
-   * Creates a model provider service in a Unity Catalog schema. A model provider service is a
-   * governed connection to an external model provider (for example OpenAI, Azure OpenAI, or Amazon
-   * Bedrock) that model services reference to invoke that provider. The caller supplies the leaf
-   * name in `model_provider_service_id`.
+   * Creates a model provider service in a Unity Catalog schema. A model provider service stores
+   * authentication and request configuration for an external model provider, such as OpenAI, Azure
+   * OpenAI, or Amazon Bedrock. Model services reference it to invoke the provider. Specify its name
+   * in `model_provider_service_id`.
    *
    * <p>You must be the owner of the parent schema or have the `CREATE_SERVICE` and `USE_SCHEMA`
-   * privileges on the parent schema and `USE_CATALOG` on the parent catalog.
+   * privileges on the parent schema and `USE_CATALOG` on the parent catalog. Inline credentials
+   * additionally require `CREATE_CONNECTION` on the parent schema. When using a Unity Catalog
+   * service credential, you must have `ACCESS` on that credential.
    */
   public ModelProviderService createModelProviderService(
       CreateModelProviderServiceRequest request) {
@@ -59,11 +61,15 @@ public class AiGatewayAPI {
 
   /**
    * Creates a model service in a Unity Catalog schema. A model service is a governed AI Gateway
-   * endpoint that routes inference requests to one or more model destinations. The caller supplies
-   * the leaf name in `model_service_id`.
+   * endpoint that routes inference requests to one or more model destinations. Specify its name in
+   * `model_service_id`.
    *
    * <p>You must be the owner of the parent schema or have the `CREATE_SERVICE` and `USE_SCHEMA`
-   * privileges on the parent schema and `USE_CATALOG` on the parent catalog.
+   * privileges on the parent schema and `USE_CATALOG` on the parent catalog. For every destination,
+   * you also need `USE_CATALOG` and `USE_SCHEMA` on its parent and `EXECUTE` on the referenced
+   * Unity Catalog model or model provider service. A provisioned-throughput destination
+   * additionally requires `CAN_MANAGE` on its Model Serving endpoint. Configuring an inference
+   * table additionally requires `CREATE_TABLE`.
    */
   public ModelService createModelService(CreateModelServiceRequest request) {
     return impl.createModelService(request);
@@ -233,7 +239,9 @@ public class AiGatewayAPI {
    * having changed since it was read.
    *
    * <p>You must be the owner of the MCP service or have `MANAGE` on it, plus `USE_CATALOG` on the
-   * parent catalog and `USE_SCHEMA` on the parent schema.
+   * parent catalog and `USE_SCHEMA` on the parent schema. When changing
+   * `config.source_connection.name`, the MCP service owner must also have `USE_CONNECTION` on the
+   * new connection.
    */
   public McpService updateMcpService(UpdateMcpServiceRequest request) {
     return impl.updateMcpService(request);
@@ -246,6 +254,9 @@ public class AiGatewayAPI {
    *
    * <p>You must be the owner of the model provider service or have `MANAGE` on it, plus
    * `USE_CATALOG` on the parent catalog and `USE_SCHEMA` on the parent schema.
+   *
+   * <p>Updating `config.provider` cannot change the provider type or switch between Unity Catalog
+   * service-credential authentication and inline authentication.
    */
   public ModelProviderService updateModelProviderService(
       UpdateModelProviderServiceRequest request) {
@@ -258,7 +269,11 @@ public class AiGatewayAPI {
    * not having changed since it was read.
    *
    * <p>You must be the owner of the model service or have `MANAGE` on it, plus `USE_CATALOG` on the
-   * parent catalog and `USE_SCHEMA` on the parent schema.
+   * parent catalog and `USE_SCHEMA` on the parent schema. When changing destinations, both you and
+   * the model service owner need `USE_CATALOG` and `USE_SCHEMA` on each destination's parent and
+   * `EXECUTE` on the referenced Unity Catalog model or model provider service. A
+   * provisioned-throughput destination additionally requires `CAN_MANAGE` for you and `CAN_QUERY`
+   * for the model service owner. Adding an inference table additionally requires `CREATE_TABLE`.
    */
   public ModelService updateModelService(UpdateModelServiceRequest request) {
     return impl.updateModelService(request);

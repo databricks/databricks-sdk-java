@@ -9,15 +9,12 @@ import java.util.Collection;
 import java.util.Objects;
 
 /**
- * Fallback routing, applied after the primary destination returns a retryable error. Traversal is
- * in list order; the attempt count is the length of the list.
+ * Fallback routing applied after a primary destination fails. Fallback destinations are tried in
+ * the listed order.
  */
 @Generated
 public class ModelServiceConfigFallbackConfig {
-  /**
-   * Ordered list of fallback destinations. Traversal is in list order; the attempt count is the
-   * length of the list. At most 5 are allowed.
-   */
+  /** Fallback destinations, tried in the listed order. At most 5 are allowed. */
   @JsonProperty("destinations")
   private Collection<ModelServiceConfigDestinationConfig> destinations;
 

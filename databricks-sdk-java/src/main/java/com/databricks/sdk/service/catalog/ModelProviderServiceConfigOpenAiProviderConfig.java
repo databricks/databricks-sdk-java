@@ -10,7 +10,7 @@ import java.util.Objects;
 /** OpenAI provider configuration. */
 @Generated
 public class ModelProviderServiceConfigOpenAiProviderConfig {
-  /** */
+  /** OpenAI configuration with an API key supplied in the request. */
   @JsonProperty("direct")
   private ModelProviderServiceConfigOpenAiProviderDirectConfig direct;
 

@@ -2237,6 +2237,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/CreateTransition
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/CreateTransitionRequestResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/CreateWebhookResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/CronSchedule.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/CronScheduleMode.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/CustomUdf.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/DataSource.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/DatabricksServiceExceptionWithDetailsProto.java linguist-generated=true
@@ -3025,6 +3026,9 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/qualitymonitorv2/Va
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sandbox/ComputeSpec.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sandbox/CreateSandboxRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sandbox/DeleteSandboxRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/sandbox/ExecuteCommandStatus.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/sandbox/ExecuteCommandSyncRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/sandbox/ExecuteCommandSyncResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sandbox/GetSandboxRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sandbox/ListSandboxesRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sandbox/ListSandboxesResponse.java linguist-generated=true

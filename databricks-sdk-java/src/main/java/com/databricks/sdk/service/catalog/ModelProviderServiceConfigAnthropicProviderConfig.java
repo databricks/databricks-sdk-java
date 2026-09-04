@@ -14,16 +14,15 @@ import java.util.Objects;
 @Generated
 public class ModelProviderServiceConfigAnthropicProviderConfig {
   /**
-   * Direct (inline-credentials) form: caller supplies the API key in the request body. Required on
-   * Create unless `relayed` is set.
+   * Direct authentication with an API key supplied in `direct.api_key.plaintext`. Required unless
+   * `relayed` is set.
    */
   @JsonProperty("direct")
   private ModelProviderServiceConfigAnthropicProviderDirectConfig direct;
 
   /**
-   * Relayed (credential-less) form: no Anthropic credential is stored. Each inference request
-   * instead carries the caller's own OAuth token, which the platform forwards to Anthropic on
-   * outbound requests. Mutually exclusive with `direct`; no `api_key` is required or persisted.
+   * Relayed authentication. Each inference request supplies the caller's OAuth token, which is
+   * forwarded to Anthropic. No Anthropic credential is stored. Mutually exclusive with `direct`.
    */
   @JsonProperty("relayed")
   private ModelProviderServiceConfigAnthropicProviderRelayedConfig relayed;

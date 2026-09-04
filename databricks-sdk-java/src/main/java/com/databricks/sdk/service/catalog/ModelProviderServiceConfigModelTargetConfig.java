@@ -19,9 +19,9 @@ public class ModelProviderServiceConfigModelTargetConfig {
   private String model;
 
   /**
-   * Provider-native API types supported by this model, such as `openai/v1/chat/completions`. AI
-   * Gateway uses these values to translate requests and responses. At most 64 entries of 256
-   * characters each are allowed.
+   * Provider-native API types supported by this model, such as `openai/v1/chat/completions`. At
+   * least one value is required. AI Gateway uses these values to translate requests and responses.
+   * At most 64 entries of 256 characters each are allowed.
    */
   @JsonProperty("native_api_types")
   private Collection<String> nativeApiTypes;

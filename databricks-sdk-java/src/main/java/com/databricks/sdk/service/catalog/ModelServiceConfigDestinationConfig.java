@@ -20,16 +20,14 @@ public class ModelServiceConfigDestinationConfig {
   @JsonProperty("destination_type")
   private ModelServiceConfigDestinationConfigDestinationType destinationType;
 
-  /** */
+  /** Configuration for an external model reached through a model provider service. */
   @JsonProperty("external_model_config")
   private ModelServiceConfigExternalModelConfig externalModelConfig;
 
   /**
-   * True when the destination's backing UC entity (MODEL for foundation-model destinations,
-   * MODEL_PROVIDER_SERVICE for external destinations) has been deleted but the destination row
-   * still references it. The dangling destination is surfaced (not silently dropped) so callers can
-   * see the broken routing. Inference traffic through this destination fails closed (BAD_REQUEST /
-   * FAILED_PRECONDITION).
+   * Whether the destination's backing model or model provider service has been deleted. The
+   * destination remains visible so you can identify the broken dependency. Requests cannot use this
+   * destination until the backing resource is restored or the destination is replaced.
    */
   @JsonProperty("is_deleted")
   private Boolean isDeleted;
@@ -38,11 +36,11 @@ public class ModelServiceConfigDestinationConfig {
   @JsonProperty("name")
   private String name;
 
-  /** */
+  /** Configuration for a pay-per-token Databricks foundation model. */
   @JsonProperty("pay_per_token_config")
   private ModelServiceConfigPayPerTokenConfig payPerTokenConfig;
 
-  /** */
+  /** Configuration for a provisioned-throughput Databricks foundation model. */
   @JsonProperty("provisioned_throughput_config")
   private ModelServiceConfigProvisionedThroughputConfig provisionedThroughputConfig;
 

@@ -19,6 +19,16 @@ public interface SandboxService {
   /** Deletes a Sandbox. */
   void deleteSandbox(DeleteSandboxRequest deleteSandboxRequest);
 
+  /**
+   * Runs a command in the sandbox and blocks until it exits, returning the captured stdout, stderr
+   * and exit code in a single response. Unary convenience variant of the streaming
+   * command-execution API for callers that only need a command's final result (e.g. `curl`, the
+   * SDK's `sandbox.exec`). The streaming `ExecuteCommand` RPC remains for interactive and
+   * long-running use.
+   */
+  ExecuteCommandSyncResponse executeCommandSync(
+      ExecuteCommandSyncRequest executeCommandSyncRequest);
+
   /** Retrieves a Sandbox by name. */
   Sandbox getSandbox(GetSandboxRequest getSandboxRequest);
 

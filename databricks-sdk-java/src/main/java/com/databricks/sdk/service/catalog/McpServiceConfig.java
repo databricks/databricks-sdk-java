@@ -16,16 +16,16 @@ import java.util.Objects;
 public class McpServiceConfig {
   /**
    * Tool names or prefix patterns to expose from the MCP server. Use exact tool names or prefix
-   * patterns such as `read_*`. An empty list exposes all tools. Each selector can contain at most
-   * 256 characters.
+   * patterns such as `read_*`. An empty list exposes all tools. At most 1,024 selectors are
+   * allowed, and each selector can contain at most 256 characters.
    */
   @JsonProperty("include_tool_selectors")
   private Collection<String> includeToolSelectors;
 
   /**
-   * Rate limits for tool invocations, scoped to a user, group, service principal, the service as a
-   * whole, or each user by default. Request-tag rate limits are not supported for MCP services.
-   * Empty when no rate limit is configured.
+   * Rate limits for tool invocations. Supported scopes are user, group, service principal, the
+   * service as a whole, and each user by default. Request and token limits are supported. Empty
+   * when no rate limit is configured.
    */
   @JsonProperty("rate_limits")
   private Collection<RateLimit> rateLimits;

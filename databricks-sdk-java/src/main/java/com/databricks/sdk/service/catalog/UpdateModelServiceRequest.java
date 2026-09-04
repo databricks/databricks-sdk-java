@@ -41,9 +41,9 @@ public class UpdateModelServiceRequest {
    * Fields to update. Use `config` to replace the entire configuration. The replacement must
    * include every required field; any optional field you omit is cleared. To preserve sibling
    * fields, use one or more granular paths: `comment`, `config.routing.destinations`,
-   * `config.routing.fallback.destinations`, `config.routing.first_token_timeout`,
-   * `config.rate_limits`, or `config.inference_table`. Intermediate paths such as `config.routing`
-   * and `config.routing.fallback`, and wildcard paths such as `*`, are not supported.
+   * `config.routing.fallback.destinations`, `config.rate_limits`, or `config.inference_table`.
+   * Intermediate paths such as `config.routing` and `config.routing.fallback`, and wildcard paths
+   * such as `*`, are not supported.
    */
   @JsonIgnore
   @QueryParam("update_mask")

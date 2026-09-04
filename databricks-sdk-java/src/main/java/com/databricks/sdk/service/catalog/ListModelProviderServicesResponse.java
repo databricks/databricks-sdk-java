@@ -15,7 +15,7 @@ public class ListModelProviderServicesResponse {
   @JsonProperty("model_provider_services")
   private Collection<ModelProviderService> modelProviderServices;
 
-  /** Pagination token for retrieving the next page of results. */
+  /** Pagination token for retrieving the next page. Empty when there are no more results. */
   @JsonProperty("next_page_token")
   private String nextPageToken;
 

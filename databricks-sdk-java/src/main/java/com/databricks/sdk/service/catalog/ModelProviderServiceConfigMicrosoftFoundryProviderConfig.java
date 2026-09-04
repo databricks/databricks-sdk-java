@@ -10,7 +10,7 @@ import java.util.Objects;
 /** Microsoft Foundry provider configuration. */
 @Generated
 public class ModelProviderServiceConfigMicrosoftFoundryProviderConfig {
-  /** */
+  /** Microsoft Foundry endpoint and authentication configuration. */
   @JsonProperty("direct")
   private ModelProviderServiceConfigMicrosoftFoundryProviderDirectConfig direct;
 

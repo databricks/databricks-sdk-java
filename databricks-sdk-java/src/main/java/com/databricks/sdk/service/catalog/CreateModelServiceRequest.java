@@ -12,8 +12,8 @@ import java.util.Objects;
 @Generated
 public class CreateModelServiceRequest {
   /**
-   * The model service to create. The server populates `name` from `parent` + `model_service_id`;
-   * clients should leave it unset.
+   * The model service to create. Do not set `name`; the server derives it from `parent` and
+   * `model_service_id`.
    */
   @JsonProperty("model_service")
   private ModelService modelService;
