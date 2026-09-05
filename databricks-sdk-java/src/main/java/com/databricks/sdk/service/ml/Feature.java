@@ -65,6 +65,10 @@ public class Feature {
   @JsonProperty("source")
   private DataSource source;
 
+  /** */
+  @JsonProperty("time_window")
+  private TimeWindow timeWindow;
+
   /** Column recording time, used for point-in-time joins, backfills, and aggregations. */
   @JsonProperty("timeseries_column")
   private TimeseriesColumn timeseriesColumn;
@@ -168,6 +172,15 @@ public class Feature {
     return source;
   }
 
+  public Feature setTimeWindow(TimeWindow timeWindow) {
+    this.timeWindow = timeWindow;
+    return this;
+  }
+
+  public TimeWindow getTimeWindow() {
+    return timeWindow;
+  }
+
   public Feature setTimeseriesColumn(TimeseriesColumn timeseriesColumn) {
     this.timeseriesColumn = timeseriesColumn;
     return this;
@@ -193,6 +206,7 @@ public class Feature {
         && Objects.equals(name, that.name)
         && Objects.equals(schemaName, that.schemaName)
         && Objects.equals(source, that.source)
+        && Objects.equals(timeWindow, that.timeWindow)
         && Objects.equals(timeseriesColumn, that.timeseriesColumn);
   }
 
@@ -210,6 +224,7 @@ public class Feature {
         name,
         schemaName,
         source,
+        timeWindow,
         timeseriesColumn);
   }
 
@@ -227,6 +242,7 @@ public class Feature {
         .add("name", name)
         .add("schemaName", schemaName)
         .add("source", source)
+        .add("timeWindow", timeWindow)
         .add("timeseriesColumn", timeseriesColumn)
         .toString();
   }

@@ -20,9 +20,7 @@ public class ExecuteCommandSyncRequest {
 
   /**
    * Executable or command to run (e.g. `/bin/echo`, `python3`). A request with no `cmd` is rejected
-   * with `INVALID_ARGUMENT`. Not audited (no `compliance.audit_mode`): the command can carry
-   * secrets, and as a data-plane service lakebox must not record privileged customer content in its
-   * audit log.
+   * with `INVALID_ARGUMENT`.
    */
   @JsonProperty("cmd")
   private String cmd;
