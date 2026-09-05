@@ -39,8 +39,7 @@ public class ExecuteCommandSyncResponse {
 
   /**
    * Captured standard output as UTF-8 text. Invalid UTF-8 bytes are replaced with the Unicode
-   * replacement character rather than failing the request; use the streaming `ExecuteCommand` RPC
-   * for byte-exact output.
+   * replacement character (U+FFFD).
    */
   @JsonProperty("stdout")
   private String stdout;
@@ -48,8 +47,7 @@ public class ExecuteCommandSyncResponse {
   /**
    * True when `stdout` / `stderr` were truncated because the captured output exceeded the server's
    * per-response size cap. The dropped output is not included in this response and is not
-   * recoverable through this unary API; for commands that can produce large output, use the
-   * streaming `ExecuteCommand` RPC, which is not subject to this cap.
+   * recoverable through this unary API.
    */
   @JsonProperty("truncated")
   private Boolean truncated;

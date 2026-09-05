@@ -15,10 +15,7 @@ public class Sandbox {
   @JsonProperty("create_time")
   private Timestamp createTime;
 
-  /**
-   * Customer-supplied display label. Mutable via UpdateSandbox. Bounds enforced at the RPC boundary
-   * (<=256 bytes, mirrors lakebox MAX_SANDBOX_NAME_LEN).
-   */
+  /** Customer-supplied display label. Mutable via UpdateSandbox. At most 256 bytes. */
   @JsonProperty("display_name")
   private String displayName;
 

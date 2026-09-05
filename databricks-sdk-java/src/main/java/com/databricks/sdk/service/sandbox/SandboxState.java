@@ -5,9 +5,9 @@ package com.databricks.sdk.service.sandbox;
 import com.databricks.sdk.support.Generated;
 
 /**
- * Lifecycle state of a Sandbox resource. STOPPING is the transient state surfaced while a teardown
- * (Stop, DeleteSandbox, auto-terminate, provisioning failure) is in flight but the sandbox row
- * still exists; the row settles to STOPPED once the workflow finishes.
+ * Lifecycle state of a Sandbox resource. STOPPING is the transient state while the sandbox is being
+ * stopped -- by a Stop request or inactivity auto-termination -- and settles to STOPPED once the
+ * operation completes.
  */
 @Generated
 public enum SandboxState {

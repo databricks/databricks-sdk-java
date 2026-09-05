@@ -119,6 +119,8 @@ import com.databricks.sdk.service.dataclassification.DataClassificationAPI;
 import com.databricks.sdk.service.dataclassification.DataClassificationService;
 import com.databricks.sdk.service.dataquality.DataQualityAPI;
 import com.databricks.sdk.service.dataquality.DataQualityService;
+import com.databricks.sdk.service.domains.DomainsAPI;
+import com.databricks.sdk.service.domains.DomainsService;
 import com.databricks.sdk.service.environments.EnvironmentsAPI;
 import com.databricks.sdk.service.environments.EnvironmentsService;
 import com.databricks.sdk.service.files.DbfsService;
@@ -324,6 +326,7 @@ public class WorkspaceClient {
   private DatabaseAPI databaseAPI;
   private DbfsExt dbfsAPI;
   private DbsqlPermissionsAPI dbsqlPermissionsAPI;
+  private DomainsAPI domainsAPI;
   private EntityTagAssignmentsAPI entityTagAssignmentsAPI;
   private EnvironmentsAPI environmentsAPI;
   private ExperimentsAPI experimentsAPI;
@@ -468,6 +471,7 @@ public class WorkspaceClient {
     databaseAPI = new DatabaseAPI(apiClient);
     dbfsAPI = new DbfsExt(apiClient);
     dbsqlPermissionsAPI = new DbsqlPermissionsAPI(apiClient);
+    domainsAPI = new DomainsAPI(apiClient);
     entityTagAssignmentsAPI = new EntityTagAssignmentsAPI(apiClient);
     environmentsAPI = new EnvironmentsAPI(apiClient);
     experimentsAPI = new ExperimentsAPI(apiClient);
@@ -957,6 +961,11 @@ public class WorkspaceClient {
    */
   public DbsqlPermissionsAPI dbsqlPermissions() {
     return dbsqlPermissionsAPI;
+  }
+
+  /** Manage domains for organizing and discovering data assets. */
+  public DomainsAPI domains() {
+    return domainsAPI;
   }
 
   /**
@@ -2710,6 +2719,17 @@ public class WorkspaceClient {
   /** Replace the default DbsqlPermissionsAPI with a custom implementation. */
   public WorkspaceClient withDbsqlPermissionsAPI(DbsqlPermissionsAPI dbsqlPermissions) {
     this.dbsqlPermissionsAPI = dbsqlPermissions;
+    return this;
+  }
+
+  /** Replace the default DomainsService with a custom implementation. */
+  public WorkspaceClient withDomainsImpl(DomainsService domains) {
+    return this.withDomainsAPI(new DomainsAPI(domains));
+  }
+
+  /** Replace the default DomainsAPI with a custom implementation. */
+  public WorkspaceClient withDomainsAPI(DomainsAPI domains) {
+    this.domainsAPI = domains;
     return this;
   }
 
