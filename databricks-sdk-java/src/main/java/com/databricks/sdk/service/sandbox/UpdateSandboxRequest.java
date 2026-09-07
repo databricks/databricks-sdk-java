@@ -23,7 +23,7 @@ public class UpdateSandboxRequest {
   private Sandbox sandbox;
 
   /**
-   * Field paths to update. Must be a non-empty subset of: - metadata.display_name -
+   * Field paths to update. Must be a non-empty subset of: - display_name -
    * spec.compute.inactivity_timeout Any other path returns INVALID_PARAMETER_VALUE.
    */
   @JsonIgnore

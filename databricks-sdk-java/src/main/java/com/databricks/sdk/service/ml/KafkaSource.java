@@ -5,10 +5,15 @@ package com.databricks.sdk.service.ml;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
 
 @Generated
 public class KafkaSource {
+  /** */
+  @JsonProperty("entity_column_identifiers")
+  private Collection<ColumnIdentifier> entityColumnIdentifiers;
+
   /** The filter condition applied to the source data before aggregation. */
   @JsonProperty("filter_condition")
   private String filterCondition;
@@ -19,6 +24,20 @@ public class KafkaSource {
    */
   @JsonProperty("name")
   private String name;
+
+  /** */
+  @JsonProperty("timeseries_column_identifier")
+  private ColumnIdentifier timeseriesColumnIdentifier;
+
+  public KafkaSource setEntityColumnIdentifiers(
+      Collection<ColumnIdentifier> entityColumnIdentifiers) {
+    this.entityColumnIdentifiers = entityColumnIdentifiers;
+    return this;
+  }
+
+  public Collection<ColumnIdentifier> getEntityColumnIdentifiers() {
+    return entityColumnIdentifiers;
+  }
 
   public KafkaSource setFilterCondition(String filterCondition) {
     this.filterCondition = filterCondition;
@@ -38,24 +57,38 @@ public class KafkaSource {
     return name;
   }
 
+  public KafkaSource setTimeseriesColumnIdentifier(ColumnIdentifier timeseriesColumnIdentifier) {
+    this.timeseriesColumnIdentifier = timeseriesColumnIdentifier;
+    return this;
+  }
+
+  public ColumnIdentifier getTimeseriesColumnIdentifier() {
+    return timeseriesColumnIdentifier;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     KafkaSource that = (KafkaSource) o;
-    return Objects.equals(filterCondition, that.filterCondition) && Objects.equals(name, that.name);
+    return Objects.equals(entityColumnIdentifiers, that.entityColumnIdentifiers)
+        && Objects.equals(filterCondition, that.filterCondition)
+        && Objects.equals(name, that.name)
+        && Objects.equals(timeseriesColumnIdentifier, that.timeseriesColumnIdentifier);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(filterCondition, name);
+    return Objects.hash(entityColumnIdentifiers, filterCondition, name, timeseriesColumnIdentifier);
   }
 
   @Override
   public String toString() {
     return new ToStringer(KafkaSource.class)
+        .add("entityColumnIdentifiers", entityColumnIdentifiers)
         .add("filterCondition", filterCondition)
         .add("name", name)
+        .add("timeseriesColumnIdentifier", timeseriesColumnIdentifier)
         .toString();
   }
 }
