@@ -11,6 +11,10 @@ import java.util.Objects;
 @Generated
 public class TimeWindow {
   /** */
+  @JsonProperty("continuous")
+  private ContinuousWindow continuous;
+
+  /** */
   @JsonProperty("rolling")
   private RollingWindow rolling;
 
@@ -38,6 +42,15 @@ public class TimeWindow {
   /** */
   @JsonProperty("tumbling")
   private TumblingWindow tumbling;
+
+  public TimeWindow setContinuous(ContinuousWindow continuous) {
+    this.continuous = continuous;
+    return this;
+  }
+
+  public ContinuousWindow getContinuous() {
+    return continuous;
+  }
 
   public TimeWindow setRolling(RollingWindow rolling) {
     this.rolling = rolling;
@@ -89,7 +102,8 @@ public class TimeWindow {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     TimeWindow that = (TimeWindow) o;
-    return Objects.equals(rolling, that.rolling)
+    return Objects.equals(continuous, that.continuous)
+        && Objects.equals(rolling, that.rolling)
         && Objects.equals(sawtooth, that.sawtooth)
         && Objects.equals(sliding, that.sliding)
         && Objects.equals(startTime, that.startTime)
@@ -98,12 +112,13 @@ public class TimeWindow {
 
   @Override
   public int hashCode() {
-    return Objects.hash(rolling, sawtooth, sliding, startTime, tumbling);
+    return Objects.hash(continuous, rolling, sawtooth, sliding, startTime, tumbling);
   }
 
   @Override
   public String toString() {
     return new ToStringer(TimeWindow.class)
+        .add("continuous", continuous)
         .add("rolling", rolling)
         .add("sawtooth", sawtooth)
         .add("sliding", sliding)

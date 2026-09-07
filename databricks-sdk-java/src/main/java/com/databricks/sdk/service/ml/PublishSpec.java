@@ -9,6 +9,14 @@ import java.util.Objects;
 
 @Generated
 public class PublishSpec {
+  /**
+   * Full Unity Catalog name of one of the features materialized in the source table, used to derive
+   * the synced online table's entity and timeseries columns. Required for view sources without a UC
+   * PrimaryKeyConstraint; ignored when the source already has one.
+   */
+  @JsonProperty("full_feature_name")
+  private String fullFeatureName;
+
   /** The name of the target online store. */
   @JsonProperty("online_store")
   private String onlineStore;
@@ -20,6 +28,15 @@ public class PublishSpec {
   /** The publish mode of the pipeline that syncs the online table with the source table. */
   @JsonProperty("publish_mode")
   private PublishSpecPublishMode publishMode;
+
+  public PublishSpec setFullFeatureName(String fullFeatureName) {
+    this.fullFeatureName = fullFeatureName;
+    return this;
+  }
+
+  public String getFullFeatureName() {
+    return fullFeatureName;
+  }
 
   public PublishSpec setOnlineStore(String onlineStore) {
     this.onlineStore = onlineStore;
@@ -53,19 +70,21 @@ public class PublishSpec {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     PublishSpec that = (PublishSpec) o;
-    return Objects.equals(onlineStore, that.onlineStore)
+    return Objects.equals(fullFeatureName, that.fullFeatureName)
+        && Objects.equals(onlineStore, that.onlineStore)
         && Objects.equals(onlineTableName, that.onlineTableName)
         && Objects.equals(publishMode, that.publishMode);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(onlineStore, onlineTableName, publishMode);
+    return Objects.hash(fullFeatureName, onlineStore, onlineTableName, publishMode);
   }
 
   @Override
   public String toString() {
     return new ToStringer(PublishSpec.class)
+        .add("fullFeatureName", fullFeatureName)
         .add("onlineStore", onlineStore)
         .add("onlineTableName", onlineTableName)
         .add("publishMode", publishMode)

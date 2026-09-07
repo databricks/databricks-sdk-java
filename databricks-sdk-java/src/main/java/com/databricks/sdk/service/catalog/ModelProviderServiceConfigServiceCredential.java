@@ -8,9 +8,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 /**
- * ---- Provider configuration (nested; see the `provider` oneof below) ---- The customer-owned
- * Unity Catalog service credential a ModelProviderService uses to authenticate to its provider,
- * referenced by name.
+ * The customer-owned Unity Catalog service credential a model provider service uses to authenticate
+ * to its provider, referenced by name.
  */
 @Generated
 public class ModelProviderServiceConfigServiceCredential {
