@@ -15,3 +15,6 @@
 ### Internal Changes
 
 ### API Changes
+* Add `purgeFeatureEntities()` method for `workspaceClient.featureEngineering()` service.
+* Add `budgetPolicyId` and `tags` fields for `com.databricks.sdk.service.ml.IngestionConfig`.
+* Add `budgetPolicyId` and `tags` fields for `com.databricks.sdk.service.ml.MaterializedFeature`.

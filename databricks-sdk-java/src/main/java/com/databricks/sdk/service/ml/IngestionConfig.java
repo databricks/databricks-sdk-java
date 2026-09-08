@@ -6,6 +6,7 @@ import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -30,6 +31,13 @@ public class IngestionConfig {
    */
   @JsonProperty("backfill_source")
   private BackfillSource backfillSource;
+
+  /**
+   * The ID of the budget policy used to attribute the serverless compute cost of this stream's
+   * managed ingestion. If not specified, a default budget policy may be applied.
+   */
+  @JsonProperty("budget_policy_id")
+  private String budgetPolicyId;
 
   /**
    * Column paths used to identify duplicate rows during ingestion; only one row per distinct
@@ -59,6 +67,17 @@ public class IngestionConfig {
   @JsonProperty("ingestion_pipeline_id")
   private String ingestionPipelineId;
 
+  /**
+   * Custom tags to associate with this stream's managed ingestion. They are applied to the
+   * ingestion pipeline and its forward-fill and backfill jobs, and forwarded to the underlying
+   * compute as cluster tags, so ingestion cost can be attributed in the billing system tables.
+   * These tags apply only to the managed ingestion compute; they are not applied to the Stream
+   * entity itself, and are distinct from any Unity Catalog tags on the Stream. A maximum of 25 tags
+   * is supported; keys and values are subject to the same limitations as cluster tags.
+   */
+  @JsonProperty("tags")
+  private Map<String, String> tags;
+
   public IngestionConfig setBackfillJobId(Long backfillJobId) {
     this.backfillJobId = backfillJobId;
     return this;
@@ -75,6 +94,15 @@ public class IngestionConfig {
 
   public BackfillSource getBackfillSource() {
     return backfillSource;
+  }
+
+  public IngestionConfig setBudgetPolicyId(String budgetPolicyId) {
+    this.budgetPolicyId = budgetPolicyId;
+    return this;
+  }
+
+  public String getBudgetPolicyId() {
+    return budgetPolicyId;
   }
 
   public IngestionConfig setDeduplicationColumns(Collection<String> deduplicationColumns) {
@@ -113,6 +141,15 @@ public class IngestionConfig {
     return ingestionPipelineId;
   }
 
+  public IngestionConfig setTags(Map<String, String> tags) {
+    this.tags = tags;
+    return this;
+  }
+
+  public Map<String, String> getTags() {
+    return tags;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -120,10 +157,12 @@ public class IngestionConfig {
     IngestionConfig that = (IngestionConfig) o;
     return Objects.equals(backfillJobId, that.backfillJobId)
         && Objects.equals(backfillSource, that.backfillSource)
+        && Objects.equals(budgetPolicyId, that.budgetPolicyId)
         && Objects.equals(deduplicationColumns, that.deduplicationColumns)
         && Objects.equals(ingestionDestination, that.ingestionDestination)
         && Objects.equals(ingestionJobId, that.ingestionJobId)
-        && Objects.equals(ingestionPipelineId, that.ingestionPipelineId);
+        && Objects.equals(ingestionPipelineId, that.ingestionPipelineId)
+        && Objects.equals(tags, that.tags);
   }
 
   @Override
@@ -131,10 +170,12 @@ public class IngestionConfig {
     return Objects.hash(
         backfillJobId,
         backfillSource,
+        budgetPolicyId,
         deduplicationColumns,
         ingestionDestination,
         ingestionJobId,
-        ingestionPipelineId);
+        ingestionPipelineId,
+        tags);
   }
 
   @Override
@@ -142,10 +183,12 @@ public class IngestionConfig {
     return new ToStringer(IngestionConfig.class)
         .add("backfillJobId", backfillJobId)
         .add("backfillSource", backfillSource)
+        .add("budgetPolicyId", budgetPolicyId)
         .add("deduplicationColumns", deduplicationColumns)
         .add("ingestionDestination", ingestionDestination)
         .add("ingestionJobId", ingestionJobId)
         .add("ingestionPipelineId", ingestionPipelineId)
+        .add("tags", tags)
         .toString();
   }
 }
