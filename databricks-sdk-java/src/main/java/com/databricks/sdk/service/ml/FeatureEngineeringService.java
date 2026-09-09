@@ -88,6 +88,9 @@ public interface FeatureEngineeringService {
   /** List Streams under a given catalog.schema parent. */
   ListStreamsResponse listStreams(ListStreamsRequest listStreamsRequest);
 
+  /** Purge materialized feature values for specified entities. */
+  Operation purgeFeatureEntities(PurgeFeatureEntitiesRequest purgeFeatureEntitiesRequest);
+
   /** Update a Feature. */
   Feature updateFeature(UpdateFeatureRequest updateFeatureRequest);
 

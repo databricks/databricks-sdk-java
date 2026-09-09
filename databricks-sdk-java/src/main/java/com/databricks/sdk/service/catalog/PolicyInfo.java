@@ -30,6 +30,14 @@ public class PolicyInfo {
   @JsonProperty("created_by")
   private String createdBy;
 
+  /**
+   * Options for deny policies. Valid only if `policy_type` is `POLICY_TYPE_DENY`. Required on
+   * create and optional on update. When specified on update, the new options will replace the
+   * existing options as a whole.
+   */
+  @JsonProperty("deny")
+  private DenyOptions deny;
+
   /** Optional list of user or group names that should be excluded from the policy. */
   @JsonProperty("except_principals")
   private Collection<String> exceptPrincipals;
@@ -144,6 +152,15 @@ public class PolicyInfo {
 
   public String getCreatedBy() {
     return createdBy;
+  }
+
+  public PolicyInfo setDeny(DenyOptions deny) {
+    this.deny = deny;
+    return this;
+  }
+
+  public DenyOptions getDeny() {
+    return deny;
   }
 
   public PolicyInfo setExceptPrincipals(Collection<String> exceptPrincipals) {
@@ -281,6 +298,7 @@ public class PolicyInfo {
         && Objects.equals(comment, that.comment)
         && Objects.equals(createdAt, that.createdAt)
         && Objects.equals(createdBy, that.createdBy)
+        && Objects.equals(deny, that.deny)
         && Objects.equals(exceptPrincipals, that.exceptPrincipals)
         && Objects.equals(forSecurableType, that.forSecurableType)
         && Objects.equals(grant, that.grant)
@@ -304,6 +322,7 @@ public class PolicyInfo {
         comment,
         createdAt,
         createdBy,
+        deny,
         exceptPrincipals,
         forSecurableType,
         grant,
@@ -327,6 +346,7 @@ public class PolicyInfo {
         .add("comment", comment)
         .add("createdAt", createdAt)
         .add("createdBy", createdBy)
+        .add("deny", deny)
         .add("exceptPrincipals", exceptPrincipals)
         .add("forSecurableType", forSecurableType)
         .add("grant", grant)

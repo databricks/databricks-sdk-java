@@ -25,8 +25,8 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface PipelinesService {
   /**
-   * * Applies the current pipeline environment onto the pipeline compute. The environment applied
-   * can be used by subsequent dev-mode updates.
+   * Applies the current pipeline environment onto the pipeline compute. The environment applied can
+   * be used by subsequent dev-mode updates.
    */
   ApplyEnvironmentRequestResponse applyEnvironment(ApplyEnvironmentRequest applyEnvironmentRequest);
 

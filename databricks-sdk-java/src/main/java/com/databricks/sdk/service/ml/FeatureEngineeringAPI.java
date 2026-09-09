@@ -222,6 +222,12 @@ public class FeatureEngineeringAPI {
         });
   }
 
+  /** Purge materialized feature values for specified entities. */
+  public PurgeFeatureEntitiesOperation purgeFeatureEntities(PurgeFeatureEntitiesRequest request) {
+    Operation operation = impl.purgeFeatureEntities(request);
+    return new PurgeFeatureEntitiesOperation(impl, operation);
+  }
+
   /** Update a Feature. */
   public Feature updateFeature(UpdateFeatureRequest request) {
     return impl.updateFeature(request);

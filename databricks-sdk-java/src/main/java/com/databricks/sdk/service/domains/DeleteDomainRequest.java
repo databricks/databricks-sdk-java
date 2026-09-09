@@ -13,7 +13,6 @@ public class DeleteDomainRequest {
   /**
    * When false (default), DeleteDomain is rejected with FAILED_PRECONDITION if the domain still has
    * Glossary pages. When true, those pages are deleted first and then the domain is removed.
-   * Forwarded to the central service.
    */
   @JsonIgnore
   @QueryParam("force")

@@ -10,11 +10,11 @@ import java.util.Objects;
 
 @Generated
 public class ListPipelinesResponse {
-  /** If present, a token to fetch the next page of events. */
+  /** If present, a token to fetch the next page of pipelines. */
   @JsonProperty("next_page_token")
   private String nextPageToken;
 
-  /** The list of events matching the request criteria. */
+  /** The list of pipelines matching the request criteria. */
   @JsonProperty("statuses")
   private Collection<PipelineStateInfo> statuses;
 

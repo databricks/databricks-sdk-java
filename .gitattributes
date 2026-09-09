@@ -487,6 +487,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/DeleteTable
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/DeleteVolumeRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/DeltaRuntimePropertiesKvPairs.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/DeltaSharingScopeEnum.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/DenyOptions.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/Dependency.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/DependencyList.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/DestinationType.java linguist-generated=true
@@ -2446,6 +2447,13 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/PublishSpec.java
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/PublishSpecPublishMode.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/PublishTableRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/PublishTableResponse.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/PurgeFeatureEntitiesMetadata.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/PurgeFeatureEntitiesMetadataState.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/PurgeFeatureEntitiesOperation.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/PurgeFeatureEntitiesRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/PurgeFeatureEntitiesResponse.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/PurgeFeatureEntitiesResult.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/PurgeFeatureEntitiesResultState.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/RegisteredModelAccessControlRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/RegisteredModelAccessControlResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/RegisteredModelPermission.java linguist-generated=true
