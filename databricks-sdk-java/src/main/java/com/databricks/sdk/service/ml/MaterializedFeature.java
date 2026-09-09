@@ -5,11 +5,19 @@ package com.databricks.sdk.service.ml;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Map;
 import java.util.Objects;
 
 /** A materialized feature represents a feature that is continuously computed and stored. */
 @Generated
 public class MaterializedFeature {
+  /**
+   * The ID of the budget policy used to attribute the serverless compute cost of this
+   * materialization. If not specified, a default budget policy may be applied.
+   */
+  @JsonProperty("budget_policy_id")
+  private String budgetPolicyId;
+
   /** */
   @JsonProperty("cron_schedule")
   private String cronSchedule;
@@ -79,6 +87,27 @@ public class MaterializedFeature {
   /** A trigger that fires when the upstream source table changes. */
   @JsonProperty("table_trigger")
   private TableTrigger tableTrigger;
+
+  /**
+   * Custom tags to associate with this materialization. They are applied to the materialization job
+   * (for batch features) or pipeline (for streaming features) and forwarded to the underlying
+   * compute as cluster tags, so materialization cost can be attributed in the billing system
+   * tables. These tags apply only to the materialization compute; they are not applied to the Unity
+   * Catalog Feature resource itself, whose tags are managed separately through the Unity Catalog
+   * tagging API. A maximum of 25 tags is supported; keys and values are subject to the same
+   * limitations as cluster tags.
+   */
+  @JsonProperty("tags")
+  private Map<String, String> tags;
+
+  public MaterializedFeature setBudgetPolicyId(String budgetPolicyId) {
+    this.budgetPolicyId = budgetPolicyId;
+    return this;
+  }
+
+  public String getBudgetPolicyId() {
+    return budgetPolicyId;
+  }
 
   public MaterializedFeature setCronSchedule(String cronSchedule) {
     this.cronSchedule = cronSchedule;
@@ -198,12 +227,22 @@ public class MaterializedFeature {
     return tableTrigger;
   }
 
+  public MaterializedFeature setTags(Map<String, String> tags) {
+    this.tags = tags;
+    return this;
+  }
+
+  public Map<String, String> getTags() {
+    return tags;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     MaterializedFeature that = (MaterializedFeature) o;
-    return Objects.equals(cronSchedule, that.cronSchedule)
+    return Objects.equals(budgetPolicyId, that.budgetPolicyId)
+        && Objects.equals(cronSchedule, that.cronSchedule)
         && Objects.equals(cronScheduleTrigger, that.cronScheduleTrigger)
         && Objects.equals(featureName, that.featureName)
         && Objects.equals(isOnline, that.isOnline)
@@ -215,12 +254,14 @@ public class MaterializedFeature {
         && Objects.equals(pipelineScheduleState, that.pipelineScheduleState)
         && Objects.equals(streamingMode, that.streamingMode)
         && Objects.equals(tableName, that.tableName)
-        && Objects.equals(tableTrigger, that.tableTrigger);
+        && Objects.equals(tableTrigger, that.tableTrigger)
+        && Objects.equals(tags, that.tags);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(
+        budgetPolicyId,
         cronSchedule,
         cronScheduleTrigger,
         featureName,
@@ -233,12 +274,14 @@ public class MaterializedFeature {
         pipelineScheduleState,
         streamingMode,
         tableName,
-        tableTrigger);
+        tableTrigger,
+        tags);
   }
 
   @Override
   public String toString() {
     return new ToStringer(MaterializedFeature.class)
+        .add("budgetPolicyId", budgetPolicyId)
         .add("cronSchedule", cronSchedule)
         .add("cronScheduleTrigger", cronScheduleTrigger)
         .add("featureName", featureName)
@@ -252,6 +295,7 @@ public class MaterializedFeature {
         .add("streamingMode", streamingMode)
         .add("tableName", tableName)
         .add("tableTrigger", tableTrigger)
+        .add("tags", tags)
         .toString();
   }
 }

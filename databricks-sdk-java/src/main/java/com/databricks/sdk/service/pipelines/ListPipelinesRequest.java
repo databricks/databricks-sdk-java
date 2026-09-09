@@ -26,7 +26,7 @@ public class ListPipelinesRequest {
 
   /**
    * The maximum number of entries to return in a single page. The system may return fewer than
-   * max_results events in a response, even if there are more events available. This field is
+   * max_results pipelines in a response, even if there are more pipelines available. This field is
    * optional. The default value is 25. The maximum value is 100. An error is returned if the value
    * of max_results is greater than 100.
    */

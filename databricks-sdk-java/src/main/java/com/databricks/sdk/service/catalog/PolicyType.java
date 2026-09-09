@@ -7,6 +7,7 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum PolicyType {
   POLICY_TYPE_COLUMN_MASK,
+  POLICY_TYPE_DENY,
   POLICY_TYPE_GRANT,
   POLICY_TYPE_ROW_FILTER,
 }

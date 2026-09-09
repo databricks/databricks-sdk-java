@@ -31,7 +31,8 @@ public class UpdateCleanRoomAssetRequest {
    * *shared_catalog*.*shared_schema*.*asset_name*
    *
    * <p>For notebooks, the name is the notebook file name. For jar analyses, the name is the jar
-   * analysis name.
+   * analysis name. For Genie spaces, the name is derived from the clean room; the caller does not
+   * choose it.
    */
   @JsonIgnore private String name;
 
