@@ -1,6 +1,6 @@
 # NEXT CHANGELOG
 
-## Release v0.154.0
+## Release v0.155.0
 
 ### New Features and Improvements
 
@@ -15,8 +15,3 @@
 ### Internal Changes
 
 ### API Changes
-* Add `purgeFeatureEntities()` method for `workspaceClient.featureEngineering()` service.
-* Add `deny` field for `com.databricks.sdk.service.catalog.PolicyInfo`.
-* Add `budgetPolicyId` and `tags` fields for `com.databricks.sdk.service.ml.IngestionConfig`.
-* Add `budgetPolicyId` and `tags` fields for `com.databricks.sdk.service.ml.MaterializedFeature`.
-* Add `POLICY_TYPE_DENY` enum value for `com.databricks.sdk.service.catalog.PolicyType`.
