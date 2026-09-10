@@ -15,7 +15,7 @@ public class Sandbox {
   @JsonProperty("create_time")
   private Timestamp createTime;
 
-  /** Human-readable display label for the sandbox. At most 256 bytes. */
+  /** Human-readable display label for the sandbox. At most 256 characters. */
   @JsonProperty("display_name")
   private String displayName;
 

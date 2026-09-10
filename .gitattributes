@@ -2307,10 +2307,12 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/FeatureLineageFe
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/FeatureLineageModel.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/FeatureLineageOnlineFeature.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/FeatureList.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/FeatureReference.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/FeatureStoreAPI.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/FeatureStoreImpl.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/FeatureStoreService.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/FeatureTag.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/FeatureViewSource.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/FieldDefinition.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/FileInfo.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/FinalizeLoggedModelRequest.java linguist-generated=true

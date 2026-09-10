@@ -44,8 +44,7 @@ public class UpdateModelProviderServiceRequest {
    * provider-specific value (for example, `config.openai`; the mask path remains
    * `config.provider`); `config.allow_all_targets`, `config.targets`, `config.forward_headers`,
    * `config.forward_query_parameters`, `config.forward_unmanaged_paths`, `config.rate_limits`, or
-   * `config.inference_table`. The provider type is immutable, and wildcard paths such as `*` are
-   * not supported.
+   * `config.inference_table`. The provider type is immutable.
    */
   @JsonIgnore
   @QueryParam("update_mask")

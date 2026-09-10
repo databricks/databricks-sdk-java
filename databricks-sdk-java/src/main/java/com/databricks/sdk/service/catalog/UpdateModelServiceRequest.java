@@ -42,8 +42,7 @@ public class UpdateModelServiceRequest {
    * include every required field; any optional field you omit is cleared. To preserve sibling
    * fields, use one or more granular paths: `comment`, `config.routing.destinations`,
    * `config.routing.fallback.destinations`, `config.rate_limits`, or `config.inference_table`.
-   * Intermediate paths such as `config.routing` and `config.routing.fallback`, and wildcard paths
-   * such as `*`, are not supported.
+   * Intermediate paths such as `config.routing` and `config.routing.fallback` are not supported.
    */
   @JsonIgnore
   @QueryParam("update_mask")

@@ -4,7 +4,7 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 
-/** The status code indicating why the cluster was terminated */
+/** The status code indicating why the cluster was terminated. */
 @Generated
 public enum TerminationReasonCode {
   ABUSE_DETECTED,
