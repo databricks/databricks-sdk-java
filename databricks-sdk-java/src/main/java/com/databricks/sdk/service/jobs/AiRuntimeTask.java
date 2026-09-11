@@ -76,6 +76,14 @@ public class AiRuntimeTask {
   @JsonProperty("mlflow_run")
   private String mlflowRun;
 
+  /**
+   * Optional Unity Catalog path for a custom container image. When set, the task runs on the
+   * specified container image instead of the default Databricks client image. Format:
+   * `{catalog}.{schema}.{image_name}:{tag}`
+   */
+  @JsonProperty("unity_catalog_image_path")
+  private String unityCatalogImagePath;
+
   public AiRuntimeTask setCodeSourcePath(String codeSourcePath) {
     this.codeSourcePath = codeSourcePath;
     return this;
@@ -139,6 +147,15 @@ public class AiRuntimeTask {
     return mlflowRun;
   }
 
+  public AiRuntimeTask setUnityCatalogImagePath(String unityCatalogImagePath) {
+    this.unityCatalogImagePath = unityCatalogImagePath;
+    return this;
+  }
+
+  public String getUnityCatalogImagePath() {
+    return unityCatalogImagePath;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -150,7 +167,8 @@ public class AiRuntimeTask {
         && Objects.equals(experiment, that.experiment)
         && Objects.equals(mlflowArtifactLocation, that.mlflowArtifactLocation)
         && Objects.equals(mlflowExperimentDirectory, that.mlflowExperimentDirectory)
-        && Objects.equals(mlflowRun, that.mlflowRun);
+        && Objects.equals(mlflowRun, that.mlflowRun)
+        && Objects.equals(unityCatalogImagePath, that.unityCatalogImagePath);
   }
 
   @Override
@@ -162,7 +180,8 @@ public class AiRuntimeTask {
         experiment,
         mlflowArtifactLocation,
         mlflowExperimentDirectory,
-        mlflowRun);
+        mlflowRun,
+        unityCatalogImagePath);
   }
 
   @Override
@@ -175,6 +194,7 @@ public class AiRuntimeTask {
         .add("mlflowArtifactLocation", mlflowArtifactLocation)
         .add("mlflowExperimentDirectory", mlflowExperimentDirectory)
         .add("mlflowRun", mlflowRun)
+        .add("unityCatalogImagePath", unityCatalogImagePath)
         .toString();
   }
 }

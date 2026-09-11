@@ -16,8 +16,8 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface GenieService {
   /**
-   * Create new message in a [conversation](:method:genie/startconversation). The AI response uses
-   * all previously created messages in the conversation to respond.
+   * Sends a new message in a chat-mode [conversation](:method:genie/startconversation). The AI
+   * response uses all previously created messages in the conversation to respond.
    */
   GenieMessage createMessage(
       GenieCreateConversationMessageRequest genieCreateConversationMessageRequest);
@@ -91,7 +91,7 @@ public interface GenieService {
    */
   GenieMessage genieCancelResponse(GenieCancelResponseRequest genieCancelResponseRequest);
 
-  /** Create and run evaluations for multiple benchmark questions in a Genie space. */
+  /** Creates and runs chat-mode evaluations for multiple benchmark questions in a Genie space. */
   GenieEvalRunResponse genieCreateEvalRun(GenieCreateEvalRunRequest genieCreateEvalRunRequest);
 
   /** Get details for evaluation results. */
@@ -134,7 +134,10 @@ public interface GenieService {
   GenieGetDownloadFullQueryResultResponse getDownloadFullQueryResult(
       GenieGetDownloadFullQueryResultRequest genieGetDownloadFullQueryResultRequest);
 
-  /** Get message from conversation. */
+  /**
+   * Gets a message from a chat-mode or agent-mode conversation. For a complete agent-mode
+   * transcript, use the List conversation items endpoint.
+   */
   GenieMessage getMessage(GenieGetConversationMessageRequest genieGetConversationMessageRequest);
 
   /**
@@ -165,7 +168,11 @@ public interface GenieService {
   GenieListConversationCommentsResponse listConversationComments(
       GenieListConversationCommentsRequest genieListConversationCommentsRequest);
 
-  /** List messages in a conversation */
+  /**
+   * Lists messages in a chat-mode or agent-mode conversation. Agent-mode messages are returned as
+   * GenieMessage projections. Use the List conversation items endpoint for the complete reasoning
+   * and tool-call history.
+   */
   GenieListConversationMessagesResponse listConversationMessages(
       GenieListConversationMessagesRequest genieListConversationMessagesRequest);
 
@@ -180,10 +187,10 @@ public interface GenieService {
   /** Get list of Genie Spaces. */
   GenieListSpacesResponse listSpaces(GenieListSpacesRequest genieListSpacesRequest);
 
-  /** Send feedback for a message. */
+  /** Sends feedback for a message in a chat-mode or agent-mode conversation. */
   void sendMessageFeedback(GenieSendMessageFeedbackRequest genieSendMessageFeedbackRequest);
 
-  /** Start a new conversation. */
+  /** Starts a new chat-mode conversation and sends its first message. */
   GenieStartConversationResponse startConversation(
       GenieStartConversationMessageRequest genieStartConversationMessageRequest);
 

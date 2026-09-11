@@ -84,8 +84,8 @@ public class ModelVersionsAPI {
   }
 
   /**
-   * List model versions. You can list model versions under a particular schema, or list all model
-   * versions in the current metastore.
+   * List the model versions of the specified registered model, identified by its full three-level
+   * name (catalog.schema.model).
    *
    * <p>The returned models are filtered based on the privileges of the calling user. For example,
    * the metastore admin is able to list all the model versions. A regular user needs to be the

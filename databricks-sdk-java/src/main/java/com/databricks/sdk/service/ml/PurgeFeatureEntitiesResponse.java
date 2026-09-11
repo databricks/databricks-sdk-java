@@ -11,6 +11,10 @@ import java.util.Objects;
 /** Result of a completed feature entity purge. */
 @Generated
 public class PurgeFeatureEntitiesResponse {
+  /** Operation-level error, if the purge failed outside an individual feature target. */
+  @JsonProperty("error")
+  private DatabricksServiceExceptionWithDetailsProto error;
+
   /** Metadata about the purge operation. */
   @JsonProperty("metadata")
   private PurgeFeatureEntitiesMetadata metadata;
@@ -22,6 +26,15 @@ public class PurgeFeatureEntitiesResponse {
   /** State of the purge operation. */
   @JsonProperty("state")
   private PurgeFeatureEntitiesMetadataState state;
+
+  public PurgeFeatureEntitiesResponse setError(DatabricksServiceExceptionWithDetailsProto error) {
+    this.error = error;
+    return this;
+  }
+
+  public DatabricksServiceExceptionWithDetailsProto getError() {
+    return error;
+  }
 
   public PurgeFeatureEntitiesResponse setMetadata(PurgeFeatureEntitiesMetadata metadata) {
     this.metadata = metadata;
@@ -55,19 +68,21 @@ public class PurgeFeatureEntitiesResponse {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     PurgeFeatureEntitiesResponse that = (PurgeFeatureEntitiesResponse) o;
-    return Objects.equals(metadata, that.metadata)
+    return Objects.equals(error, that.error)
+        && Objects.equals(metadata, that.metadata)
         && Objects.equals(results, that.results)
         && Objects.equals(state, that.state);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(metadata, results, state);
+    return Objects.hash(error, metadata, results, state);
   }
 
   @Override
   public String toString() {
     return new ToStringer(PurgeFeatureEntitiesResponse.class)
+        .add("error", error)
         .add("metadata", metadata)
         .add("results", results)
         .add("state", state)

@@ -7,6 +7,11 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * A Genie conversation. Use chat-mode message endpoints for classic chats and agent-mode response
+ * and item endpoints for agent conversations. Conversation management, feedback, comments, and
+ * attachment operations support both modes.
+ */
 @Generated
 public class GenieConversation {
   /** Conversation ID */
