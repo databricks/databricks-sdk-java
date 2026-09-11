@@ -16,6 +16,14 @@ public class StartUpdate {
   @JsonProperty("cause")
   private StartUpdateCause cause;
 
+  /**
+   * Whether the update is started in the development mode. This is recommended for interactive
+   * development and testing. Reuses compute for faster iteration and disables automatic retries.
+   * Not recommended for production.
+   */
+  @JsonProperty("development")
+  private Boolean development;
+
   /** If true, this update will reset all tables before running. */
   @JsonProperty("full_refresh")
   private Boolean fullRefresh;
@@ -79,6 +87,15 @@ public class StartUpdate {
 
   public StartUpdateCause getCause() {
     return cause;
+  }
+
+  public StartUpdate setDevelopment(Boolean development) {
+    this.development = development;
+    return this;
+  }
+
+  public Boolean getDevelopment() {
+    return development;
   }
 
   public StartUpdate setFullRefresh(Boolean fullRefresh) {
@@ -169,6 +186,7 @@ public class StartUpdate {
     if (o == null || getClass() != o.getClass()) return false;
     StartUpdate that = (StartUpdate) o;
     return Objects.equals(cause, that.cause)
+        && Objects.equals(development, that.development)
         && Objects.equals(fullRefresh, that.fullRefresh)
         && Objects.equals(fullRefreshSelection, that.fullRefreshSelection)
         && Objects.equals(parameters, that.parameters)
@@ -184,6 +202,7 @@ public class StartUpdate {
   public int hashCode() {
     return Objects.hash(
         cause,
+        development,
         fullRefresh,
         fullRefreshSelection,
         parameters,
@@ -199,6 +218,7 @@ public class StartUpdate {
   public String toString() {
     return new ToStringer(StartUpdate.class)
         .add("cause", cause)
+        .add("development", development)
         .add("fullRefresh", fullRefresh)
         .add("fullRefreshSelection", fullRefreshSelection)
         .add("parameters", parameters)

@@ -15,11 +15,14 @@ public class Sandbox {
   @JsonProperty("create_time")
   private Timestamp createTime;
 
-  /** Human-readable display label for the sandbox. At most 256 bytes. */
+  /** Human-readable display label for the sandbox. At most 256 characters. */
   @JsonProperty("display_name")
   private String displayName;
 
-  /** The AIP-compliant resource name, such as "sandboxes/my-sandbox". */
+  /**
+   * The sandbox resource name, in the form `sandboxes/{sandbox_id}`. Derived from `sandbox_id`; any
+   * value supplied in a create or update request body is ignored.
+   */
   @JsonProperty("name")
   private String name;
 

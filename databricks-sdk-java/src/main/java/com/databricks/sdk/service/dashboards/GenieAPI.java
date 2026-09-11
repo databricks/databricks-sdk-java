@@ -93,8 +93,8 @@ public class GenieAPI {
   }
 
   /**
-   * Create new message in a [conversation](:method:genie/startconversation). The AI response uses
-   * all previously created messages in the conversation to respond.
+   * Sends a new message in a chat-mode [conversation](:method:genie/startconversation). The AI
+   * response uses all previously created messages in the conversation to respond.
    */
   public Wait<GenieMessage, GenieMessage> createMessage(
       GenieCreateConversationMessageRequest request) {
@@ -214,7 +214,7 @@ public class GenieAPI {
     return impl.genieCancelResponse(request);
   }
 
-  /** Create and run evaluations for multiple benchmark questions in a Genie space. */
+  /** Creates and runs chat-mode evaluations for multiple benchmark questions in a Genie space. */
   public GenieEvalRunResponse genieCreateEvalRun(GenieCreateEvalRunRequest request) {
     return impl.genieCreateEvalRun(request);
   }
@@ -314,7 +314,10 @@ public class GenieAPI {
             .setMessageId(messageId));
   }
 
-  /** Get message from conversation. */
+  /**
+   * Gets a message from a chat-mode or agent-mode conversation. For a complete agent-mode
+   * transcript, use the List conversation items endpoint.
+   */
   public GenieMessage getMessage(GenieGetConversationMessageRequest request) {
     return impl.getMessage(request);
   }
@@ -406,7 +409,11 @@ public class GenieAPI {
             .setConversationId(conversationId));
   }
 
-  /** List messages in a conversation */
+  /**
+   * Lists messages in a chat-mode or agent-mode conversation. Agent-mode messages are returned as
+   * GenieMessage projections. Use the List conversation items endpoint for the complete reasoning
+   * and tool-call history.
+   */
   public GenieListConversationMessagesResponse listConversationMessages(
       GenieListConversationMessagesRequest request) {
     return impl.listConversationMessages(request);
@@ -441,12 +448,12 @@ public class GenieAPI {
     return impl.listSpaces(request);
   }
 
-  /** Send feedback for a message. */
+  /** Sends feedback for a message in a chat-mode or agent-mode conversation. */
   public void sendMessageFeedback(GenieSendMessageFeedbackRequest request) {
     impl.sendMessageFeedback(request);
   }
 
-  /** Start a new conversation. */
+  /** Starts a new chat-mode conversation and sends its first message. */
   public Wait<GenieMessage, GenieStartConversationResponse> startConversation(
       GenieStartConversationMessageRequest request) {
     GenieStartConversationResponse response = impl.startConversation(request);

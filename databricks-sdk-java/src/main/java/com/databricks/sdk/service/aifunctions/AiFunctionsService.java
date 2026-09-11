@@ -12,12 +12,24 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface AiFunctionsService {
-  /** Classifies content according to a set of provided labels. */
+  /**
+   * Classifies content according to a set of provided labels. For REST API requests, the default
+   * rate limit is 1,200 requests per minute per workspace. Contact your Databricks account team to
+   * request a higher limit.
+   */
   AiClassifyResponse aiClassify(AiClassifyRequest aiClassifyRequest);
 
-  /** Extracts structured data from text and documents according to a provided schema. */
+  /**
+   * Extracts structured data from text and documents according to a provided schema. For REST API
+   * requests, the default rate limit is 120 requests per minute per workspace. Contact your
+   * Databricks account team to request a higher limit.
+   */
   AiExtractResponse aiExtract(AiExtractRequest aiExtractRequest);
 
-  /** Parse structured content from unstructured documents. */
+  /**
+   * Parse structured content from unstructured documents. For REST API requests, the default rate
+   * limit is 120 pages per minute per workspace. Contact your Databricks account team to request a
+   * higher limit.
+   */
   AiParseDocumentResponse aiParseDocument(AiParseDocumentRequest aiParseDocumentRequest);
 }

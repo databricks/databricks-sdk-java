@@ -7,6 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** A benchmark evaluation run. The public benchmark API currently evaluates chat-mode responses. */
 @Generated
 public class GenieEvalRunResponse {
   /** Timestamp when the evaluation run was created (milliseconds since epoch). */

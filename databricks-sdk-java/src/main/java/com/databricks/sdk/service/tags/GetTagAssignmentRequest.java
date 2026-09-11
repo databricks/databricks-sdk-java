@@ -17,7 +17,7 @@ public class GetTagAssignmentRequest {
 
   /**
    * The type of entity to which the tag is assigned. Allowed values are apps, dashboards,
-   * geniespaces, notebooks
+   * designerfiles, geniespaces, notebooks
    */
   @JsonIgnore private String entityType;
 

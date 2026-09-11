@@ -40,8 +40,7 @@ public class UpdateMcpServiceRequest {
    * Fields to update. Use `config` to replace the entire configuration. The replacement must
    * include every required field; any optional field you omit is cleared. To preserve sibling
    * fields, use one or more granular paths: `comment`, `config.source_connection.name`,
-   * `config.include_tool_selectors`, or `config.rate_limits`. Wildcard paths such as `*` are not
-   * supported.
+   * `config.include_tool_selectors`, or `config.rate_limits`.
    */
   @JsonIgnore
   @QueryParam("update_mask")

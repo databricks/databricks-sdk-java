@@ -14,6 +14,10 @@ public class DataSource {
   @JsonProperty("delta_table_source")
   private DeltaTableSource deltaTableSource;
 
+  /** A data source composed from registered upstream Features. */
+  @JsonProperty("feature_view_source")
+  private FeatureViewSource featureViewSource;
+
   /** A Kafka stream data source. */
   @JsonProperty("kafka_source")
   private KafkaSource kafkaSource;
@@ -40,6 +44,15 @@ public class DataSource {
 
   public DeltaTableSource getDeltaTableSource() {
     return deltaTableSource;
+  }
+
+  public DataSource setFeatureViewSource(FeatureViewSource featureViewSource) {
+    this.featureViewSource = featureViewSource;
+    return this;
+  }
+
+  public FeatureViewSource getFeatureViewSource() {
+    return featureViewSource;
   }
 
   public DataSource setKafkaSource(KafkaSource kafkaSource) {
@@ -84,6 +97,7 @@ public class DataSource {
     if (o == null || getClass() != o.getClass()) return false;
     DataSource that = (DataSource) o;
     return Objects.equals(deltaTableSource, that.deltaTableSource)
+        && Objects.equals(featureViewSource, that.featureViewSource)
         && Objects.equals(kafkaSource, that.kafkaSource)
         && Objects.equals(lateness, that.lateness)
         && Objects.equals(requestSource, that.requestSource)
@@ -92,13 +106,15 @@ public class DataSource {
 
   @Override
   public int hashCode() {
-    return Objects.hash(deltaTableSource, kafkaSource, lateness, requestSource, streamSource);
+    return Objects.hash(
+        deltaTableSource, featureViewSource, kafkaSource, lateness, requestSource, streamSource);
   }
 
   @Override
   public String toString() {
     return new ToStringer(DataSource.class)
         .add("deltaTableSource", deltaTableSource)
+        .add("featureViewSource", featureViewSource)
         .add("kafkaSource", kafkaSource)
         .add("lateness", lateness)
         .add("requestSource", requestSource)
