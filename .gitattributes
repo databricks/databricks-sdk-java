@@ -3592,6 +3592,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/settingsv2/Setting.
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settingsv2/SettingsMetadata.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settingsv2/StringMessage.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settingsv2/UserPreference.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settingsv2/WorkspaceLabelMessage.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settingsv2/WorkspaceSettingsV2API.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settingsv2/WorkspaceSettingsV2Impl.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settingsv2/WorkspaceSettingsV2Service.java linguist-generated=true
