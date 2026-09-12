@@ -29,9 +29,10 @@ public class ExternalLink {
   private String expiration;
 
   /**
-   * A URL pointing to a chunk of result data, hosted by an external service, with a short
-   * expiration time (<= 15 minutes). As this URL contains a temporary credential, it should be
-   * considered sensitive and the client should not expose this URL in a log.
+   * A short-lived cloud-storage URL pointing to a chunk of result data, hosted by an external
+   * service, with a short expiration time (<= 15 minutes). As this URL contains a temporary
+   * credential, it should be considered sensitive and the client should not expose this URL in a
+   * log.
    */
   @JsonProperty("external_link")
   private String externalLink;

@@ -19,3 +19,6 @@
 * Add `featureViewSource` field for `com.databricks.sdk.service.ml.DataSource`.
 * Add `budgetPolicyId` and `tags` fields for `com.databricks.sdk.service.ml.PublishSpec`.
 * Add `development` field for `com.databricks.sdk.service.pipelines.StartUpdate`.
+* Add `ucServiceCredentialName` field for `com.databricks.sdk.service.serving.AmazonBedrockConfig`.
+* Add `excludedScopes` field for `com.databricks.sdk.service.settings.CustomerFacingIngressNetworkPolicyWorkspaceApiDestination`.
+* Add `effectiveWorkspaceLabel` and `workspaceLabel` fields for `com.databricks.sdk.service.settingsv2.Setting`.

@@ -49,8 +49,8 @@ public class ExecuteStatementRequest {
    * authentication information (typically a personal access token, OAuth token, or similar) _must
    * be removed_ when fetching from these links.
    *
-   * <p>2. These are URLs with a specific expiration, indicated in the response. The behavior when
-   * attempting to use an expired link is cloud specific.
+   * <p>2. These are short-lived cloud-storage URLs with a specific expiration, indicated in the
+   * response. The behavior when attempting to use an expired link is cloud specific.
    */
   @JsonProperty("disposition")
   private Disposition disposition;
