@@ -11,6 +11,13 @@ import java.util.Objects;
 /** Matches workspace-level Databricks API endpoints for an ingress network policy rule. */
 @Generated
 public class CustomerFacingIngressNetworkPolicyWorkspaceApiDestination {
+  /**
+   * Inverse of `scopes`: matches every API scope EXCEPT those listed here ("allow all except").
+   * Mutually exclusive with `scopes` — a single destination may set at most one of the two.
+   */
+  @JsonProperty("excluded_scopes")
+  private Collection<String> excludedScopes;
+
   /** Qualifies the breadth of API access for the listed scopes. See ApiScopeQualifier. */
   @JsonProperty("scope_qualifier")
   private CustomerFacingIngressNetworkPolicyApiScopeQualifier scopeQualifier;
@@ -18,6 +25,16 @@ public class CustomerFacingIngressNetworkPolicyWorkspaceApiDestination {
   /** */
   @JsonProperty("scopes")
   private Collection<String> scopes;
+
+  public CustomerFacingIngressNetworkPolicyWorkspaceApiDestination setExcludedScopes(
+      Collection<String> excludedScopes) {
+    this.excludedScopes = excludedScopes;
+    return this;
+  }
+
+  public Collection<String> getExcludedScopes() {
+    return excludedScopes;
+  }
 
   public CustomerFacingIngressNetworkPolicyWorkspaceApiDestination setScopeQualifier(
       CustomerFacingIngressNetworkPolicyApiScopeQualifier scopeQualifier) {
@@ -45,18 +62,20 @@ public class CustomerFacingIngressNetworkPolicyWorkspaceApiDestination {
     if (o == null || getClass() != o.getClass()) return false;
     CustomerFacingIngressNetworkPolicyWorkspaceApiDestination that =
         (CustomerFacingIngressNetworkPolicyWorkspaceApiDestination) o;
-    return Objects.equals(scopeQualifier, that.scopeQualifier)
+    return Objects.equals(excludedScopes, that.excludedScopes)
+        && Objects.equals(scopeQualifier, that.scopeQualifier)
         && Objects.equals(scopes, that.scopes);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(scopeQualifier, scopes);
+    return Objects.hash(excludedScopes, scopeQualifier, scopes);
   }
 
   @Override
   public String toString() {
     return new ToStringer(CustomerFacingIngressNetworkPolicyWorkspaceApiDestination.class)
+        .add("excludedScopes", excludedScopes)
         .add("scopeQualifier", scopeQualifier)
         .add("scopes", scopes)
         .toString();

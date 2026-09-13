@@ -95,7 +95,8 @@ public class SubmitTask {
 
   /**
    * The key that references an environment spec in a job. This field is required for Python script,
-   * Python wheel and dbt tasks when using serverless compute.
+   * Python wheel and dbt tasks when using serverless compute or a compute resource that uses
+   * Environments mode.
    */
   @JsonProperty("environment_key")
   private String environmentKey;

@@ -77,6 +77,14 @@ public class AiRuntimeTask {
   private String mlflowRun;
 
   /**
+   * Scheduling priority class for the workload. May only be set together with a pre-provisioned
+   * capacity reservation (a deployment's `compute.provisioned_capacity_id`); it is rejected on a
+   * workload that runs on on-demand capacity.
+   */
+  @JsonProperty("priority_class")
+  private AiRuntimeTaskPriorityClass priorityClass;
+
+  /**
    * Optional Unity Catalog path for a custom container image. When set, the task runs on the
    * specified container image instead of the default Databricks client image. Format:
    * `{catalog}.{schema}.{image_name}:{tag}`
@@ -147,6 +155,15 @@ public class AiRuntimeTask {
     return mlflowRun;
   }
 
+  public AiRuntimeTask setPriorityClass(AiRuntimeTaskPriorityClass priorityClass) {
+    this.priorityClass = priorityClass;
+    return this;
+  }
+
+  public AiRuntimeTaskPriorityClass getPriorityClass() {
+    return priorityClass;
+  }
+
   public AiRuntimeTask setUnityCatalogImagePath(String unityCatalogImagePath) {
     this.unityCatalogImagePath = unityCatalogImagePath;
     return this;
@@ -168,6 +185,7 @@ public class AiRuntimeTask {
         && Objects.equals(mlflowArtifactLocation, that.mlflowArtifactLocation)
         && Objects.equals(mlflowExperimentDirectory, that.mlflowExperimentDirectory)
         && Objects.equals(mlflowRun, that.mlflowRun)
+        && Objects.equals(priorityClass, that.priorityClass)
         && Objects.equals(unityCatalogImagePath, that.unityCatalogImagePath);
   }
 
@@ -181,6 +199,7 @@ public class AiRuntimeTask {
         mlflowArtifactLocation,
         mlflowExperimentDirectory,
         mlflowRun,
+        priorityClass,
         unityCatalogImagePath);
   }
 
@@ -194,6 +213,7 @@ public class AiRuntimeTask {
         .add("mlflowArtifactLocation", mlflowArtifactLocation)
         .add("mlflowExperimentDirectory", mlflowExperimentDirectory)
         .add("mlflowRun", mlflowRun)
+        .add("priorityClass", priorityClass)
         .add("unityCatalogImagePath", unityCatalogImagePath)
         .toString();
   }
