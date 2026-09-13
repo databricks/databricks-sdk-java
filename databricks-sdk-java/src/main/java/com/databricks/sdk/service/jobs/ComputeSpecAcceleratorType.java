@@ -17,6 +17,9 @@ public enum ComputeSpecAcceleratorType {
   @JsonProperty("GPU_1xH100")
   GPU_1X_H100,
 
+  @JsonProperty("GPU_8xB300")
+  GPU_8X_B300,
+
   @JsonProperty("GPU_8xH100")
   GPU_8X_H100,
 }

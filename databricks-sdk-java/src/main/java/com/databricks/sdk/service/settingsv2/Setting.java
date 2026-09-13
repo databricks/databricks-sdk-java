@@ -130,6 +130,13 @@ public class Setting {
   private StringMessage effectiveStringVal;
 
   /**
+   * Effective setting value for workspace_label setting. This is the final effective value of
+   * setting. To set a value use workspace_label.
+   */
+  @JsonProperty("effective_workspace_label")
+  private WorkspaceLabelMessage effectiveWorkspaceLabel;
+
+  /**
    * Setting value for integer type setting. This is the setting value set by consumers, check
    * effective_integer_val for final setting value.
    */
@@ -167,6 +174,13 @@ public class Setting {
    */
   @JsonProperty("string_val")
   private StringMessage stringVal;
+
+  /**
+   * Setting value for workspace_label setting. This is the setting value set by consumers, check
+   * effective_workspace_label for final setting value.
+   */
+  @JsonProperty("workspace_label")
+  private WorkspaceLabelMessage workspaceLabel;
 
   public Setting setAibiDashboardEmbeddingAccessPolicy(
       AibiDashboardEmbeddingAccessPolicy aibiDashboardEmbeddingAccessPolicy) {
@@ -334,6 +348,15 @@ public class Setting {
     return effectiveStringVal;
   }
 
+  public Setting setEffectiveWorkspaceLabel(WorkspaceLabelMessage effectiveWorkspaceLabel) {
+    this.effectiveWorkspaceLabel = effectiveWorkspaceLabel;
+    return this;
+  }
+
+  public WorkspaceLabelMessage getEffectiveWorkspaceLabel() {
+    return effectiveWorkspaceLabel;
+  }
+
   public Setting setIntegerVal(IntegerMessage integerVal) {
     this.integerVal = integerVal;
     return this;
@@ -390,6 +413,15 @@ public class Setting {
     return stringVal;
   }
 
+  public Setting setWorkspaceLabel(WorkspaceLabelMessage workspaceLabel) {
+    this.workspaceLabel = workspaceLabel;
+    return this;
+  }
+
+  public WorkspaceLabelMessage getWorkspaceLabel() {
+    return workspaceLabel;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -422,12 +454,14 @@ public class Setting {
         && Objects.equals(effectivePersonalCompute, that.effectivePersonalCompute)
         && Objects.equals(effectiveRestrictWorkspaceAdmins, that.effectiveRestrictWorkspaceAdmins)
         && Objects.equals(effectiveStringVal, that.effectiveStringVal)
+        && Objects.equals(effectiveWorkspaceLabel, that.effectiveWorkspaceLabel)
         && Objects.equals(integerVal, that.integerVal)
         && Objects.equals(name, that.name)
         && Objects.equals(operationalEmailCustomRecipient, that.operationalEmailCustomRecipient)
         && Objects.equals(personalCompute, that.personalCompute)
         && Objects.equals(restrictWorkspaceAdmins, that.restrictWorkspaceAdmins)
-        && Objects.equals(stringVal, that.stringVal);
+        && Objects.equals(stringVal, that.stringVal)
+        && Objects.equals(workspaceLabel, that.workspaceLabel);
   }
 
   @Override
@@ -450,12 +484,14 @@ public class Setting {
         effectivePersonalCompute,
         effectiveRestrictWorkspaceAdmins,
         effectiveStringVal,
+        effectiveWorkspaceLabel,
         integerVal,
         name,
         operationalEmailCustomRecipient,
         personalCompute,
         restrictWorkspaceAdmins,
-        stringVal);
+        stringVal,
+        workspaceLabel);
   }
 
   @Override
@@ -484,12 +520,14 @@ public class Setting {
         .add("effectivePersonalCompute", effectivePersonalCompute)
         .add("effectiveRestrictWorkspaceAdmins", effectiveRestrictWorkspaceAdmins)
         .add("effectiveStringVal", effectiveStringVal)
+        .add("effectiveWorkspaceLabel", effectiveWorkspaceLabel)
         .add("integerVal", integerVal)
         .add("name", name)
         .add("operationalEmailCustomRecipient", operationalEmailCustomRecipient)
         .add("personalCompute", personalCompute)
         .add("restrictWorkspaceAdmins", restrictWorkspaceAdmins)
         .add("stringVal", stringVal)
+        .add("workspaceLabel", workspaceLabel)
         .toString();
   }
 }

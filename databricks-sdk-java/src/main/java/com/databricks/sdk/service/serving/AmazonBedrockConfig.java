@@ -65,6 +65,13 @@ public class AmazonBedrockConfig {
   @JsonProperty("instance_profile_arn")
   private String instanceProfileArn;
 
+  /**
+   * The name of the Unity Catalog service credential that the external model uses to access AWS
+   * resources.
+   */
+  @JsonProperty("uc_service_credential_name")
+  private String ucServiceCredentialName;
+
   public AmazonBedrockConfig setAwsAccessKeyId(String awsAccessKeyId) {
     this.awsAccessKeyId = awsAccessKeyId;
     return this;
@@ -129,6 +136,15 @@ public class AmazonBedrockConfig {
     return instanceProfileArn;
   }
 
+  public AmazonBedrockConfig setUcServiceCredentialName(String ucServiceCredentialName) {
+    this.ucServiceCredentialName = ucServiceCredentialName;
+    return this;
+  }
+
+  public String getUcServiceCredentialName() {
+    return ucServiceCredentialName;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -140,7 +156,8 @@ public class AmazonBedrockConfig {
         && Objects.equals(awsSecretAccessKey, that.awsSecretAccessKey)
         && Objects.equals(awsSecretAccessKeyPlaintext, that.awsSecretAccessKeyPlaintext)
         && Objects.equals(bedrockProvider, that.bedrockProvider)
-        && Objects.equals(instanceProfileArn, that.instanceProfileArn);
+        && Objects.equals(instanceProfileArn, that.instanceProfileArn)
+        && Objects.equals(ucServiceCredentialName, that.ucServiceCredentialName);
   }
 
   @Override
@@ -152,7 +169,8 @@ public class AmazonBedrockConfig {
         awsSecretAccessKey,
         awsSecretAccessKeyPlaintext,
         bedrockProvider,
-        instanceProfileArn);
+        instanceProfileArn,
+        ucServiceCredentialName);
   }
 
   @Override
@@ -165,6 +183,7 @@ public class AmazonBedrockConfig {
         .add("awsSecretAccessKeyPlaintext", awsSecretAccessKeyPlaintext)
         .add("bedrockProvider", bedrockProvider)
         .add("instanceProfileArn", instanceProfileArn)
+        .add("ucServiceCredentialName", ucServiceCredentialName)
         .toString();
   }
 }
