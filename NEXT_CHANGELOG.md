@@ -1,6 +1,6 @@
 # NEXT CHANGELOG
 
-## Release v0.155.0
+## Release v0.156.0
 
 ### New Features and Improvements
 
@@ -15,12 +15,3 @@
 ### Internal Changes
 
 ### API Changes
-* Add `unityCatalogImagePath` field for `com.databricks.sdk.service.jobs.AiRuntimeTask`.
-* Add `featureViewSource` field for `com.databricks.sdk.service.ml.DataSource`.
-* Add `budgetPolicyId` and `tags` fields for `com.databricks.sdk.service.ml.PublishSpec`.
-* Add `development` field for `com.databricks.sdk.service.pipelines.StartUpdate`.
-* Add `priorityClass` field for `com.databricks.sdk.service.jobs.AiRuntimeTask`.
-* Add `ucServiceCredentialName` field for `com.databricks.sdk.service.serving.AmazonBedrockConfig`.
-* Add `excludedScopes` field for `com.databricks.sdk.service.settings.CustomerFacingIngressNetworkPolicyWorkspaceApiDestination`.
-* Add `effectiveWorkspaceLabel` and `workspaceLabel` fields for `com.databricks.sdk.service.settingsv2.Setting`.
-* Add `GPU_8X_B300` enum value for `com.databricks.sdk.service.jobs.ComputeSpecAcceleratorType`.
