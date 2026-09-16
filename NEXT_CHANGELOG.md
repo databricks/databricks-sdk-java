@@ -15,3 +15,4 @@
 ### Internal Changes
 
 ### API Changes
+* Add `groupName` field for `com.databricks.sdk.service.pipelines.RunAs`.
