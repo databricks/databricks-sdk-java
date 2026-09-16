@@ -1,19 +1,21 @@
 package com.databricks.sdk.mixin;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.argThat;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-import com.databricks.sdk.core.ApiClient;
-import com.databricks.sdk.core.DatabricksConfig;
-import com.databricks.sdk.core.DummyHttpClient;
-import com.databricks.sdk.core.http.Request;
-import com.databricks.sdk.core.http.Response;
 import com.databricks.sdk.service.compute.*;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.concurrent.TimeoutException;
+import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -23,24 +25,31 @@ class ClustersExtTest {
   @Mock ClustersService clustersMock;
 
   @Test
-  void ensureClusterIsRunning() throws TimeoutException, MalformedURLException {
-    Request req =
-        new Request("GET", "https://localhost/api/2.1/clusters/get")
-            .withQueryParam("cluster_id", "abc");
-    DummyHttpClient httpClient =
-        new DummyHttpClient().with(req, new Response("{}", req.getUri().toURL()));
-
-    DatabricksConfig config =
-        new DatabricksConfig()
-            .setHost("https://localhost")
-            .setToken("bcd")
-            .setHttpClient(httpClient);
-    DatabricksConfig mockConfig = Mockito.spy(config);
-    Mockito.doReturn(mockConfig).when(mockConfig).resolve();
-
-    ClustersExt clustersExt = new ClustersExt(new ApiClient(mockConfig));
+  void ensureClusterIsRunningStartsTerminatedClusterAndPollsUntilRunning() throws TimeoutException {
+    when(clustersMock.get(argThat(request -> request.getClusterId().equals("abc"))))
+        .thenReturn(
+            new ClusterDetails().setState(State.TERMINATED),
+            new ClusterDetails().setState(State.PENDING),
+            new ClusterDetails().setState(State.RUNNING));
+    ClustersExt clustersExt = new ClustersExt(clustersMock);
 
     clustersExt.ensureClusterIsRunning("abc");
+
+    List<String> requests =
+        Mockito.mockingDetails(clustersMock).getInvocations().stream()
+            .map(invocation -> invocation.getMethod().getName())
+            .collect(Collectors.toList());
+    assertEquals(Arrays.asList("get", "start", "get", "get"), requests);
+
+    ArgumentCaptor<GetClusterRequest> getRequests =
+        ArgumentCaptor.forClass(GetClusterRequest.class);
+    verify(clustersMock, times(3)).get(getRequests.capture());
+    assertEquals(
+        Arrays.asList("abc", "abc", "abc"),
+        getRequests.getAllValues().stream()
+            .map(GetClusterRequest::getClusterId)
+            .collect(Collectors.toList()));
+    verify(clustersMock).start(argThat(request -> request.getClusterId().equals("abc")));
   }
 
   private GetSparkVersionsResponse testGetSparkVersions() {

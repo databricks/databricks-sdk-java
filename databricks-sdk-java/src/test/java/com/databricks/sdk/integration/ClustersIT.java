@@ -13,20 +13,12 @@ import com.databricks.sdk.mixin.SparkVersionSelector;
 import com.databricks.sdk.service.compute.ClusterEvent;
 import com.databricks.sdk.service.compute.GetEvents;
 import java.util.*;
-import java.util.concurrent.TimeoutException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 @EnvContext("workspace")
 @ExtendWith(EnvTest.class)
 public class ClustersIT {
-  @Test
-  void ensuresClusterIsRunning(
-      WorkspaceClient w, @EnvOrSkip("TEST_DEFAULT_CLUSTER_ID") String clusterId)
-      throws TimeoutException {
-    w.clusters().ensureClusterIsRunning(clusterId);
-  }
-
   @Test
   void listsEvents(WorkspaceClient w, @EnvOrSkip("TEST_DEFAULT_CLUSTER_ID") String clusterId) {
     Iterable<ClusterEvent> events = w.clusters().events(new GetEvents().setClusterId(clusterId));
