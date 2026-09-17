@@ -12,6 +12,8 @@
 
 ### Documentation
 
+* Update README examples to reference `ClusterDetails` instead of the renamed `ClusterInfo` class.
+
 ### Internal Changes
 
 ### API Changes
