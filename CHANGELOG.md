@@ -1,5 +1,14 @@
 # Version changelog
 
+## Release v0.156.0 (2026-09-17)
+
+### API Changes
+* Add `createMcpServiceUserMappedCredential()`, `deleteMcpServiceUserMappedCredential()` and `getMcpServiceUserMappedCredential()` methods for `workspaceClient.aiGateway()` service.
+* Add `groupName` field for `com.databricks.sdk.service.pipelines.RunAs`.
+* Add `avroOptions` and `protobufOptions` fields for `com.databricks.sdk.service.pipelines.Transformer`.
+* Add `AVRO` and `PROTOBUF` enum values for `com.databricks.sdk.service.pipelines.TransformerFormat`.
+
+
 ## Release v0.155.0 (2026-09-14)
 
 ### API Changes
