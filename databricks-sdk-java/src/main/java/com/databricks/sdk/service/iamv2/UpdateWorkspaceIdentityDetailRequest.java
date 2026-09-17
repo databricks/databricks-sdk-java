@@ -20,7 +20,7 @@ public class UpdateWorkspaceIdentityDetailRequest {
   @QueryParam("update_mask")
   private FieldMask updateMask;
 
-  /** Required. Workspace identity detail to be updated in <Databricks>. */
+  /** Required. Workspace identity detail to be updated in Databricks. */
   @JsonProperty("workspace_identity_detail")
   private WorkspaceIdentityDetail workspaceIdentityDetail;
 

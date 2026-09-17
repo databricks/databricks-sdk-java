@@ -26,10 +26,6 @@ public interface AiFunctionsService {
    */
   AiExtractResponse aiExtract(AiExtractRequest aiExtractRequest);
 
-  /**
-   * Parse structured content from unstructured documents. For REST API requests, the default rate
-   * limit is 120 pages per minute per workspace. Contact your Databricks account team to request a
-   * higher limit.
-   */
+  /** Parse structured content from unstructured documents. */
   AiParseDocumentResponse aiParseDocument(AiParseDocumentRequest aiParseDocumentRequest);
 }

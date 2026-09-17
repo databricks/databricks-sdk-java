@@ -11,7 +11,7 @@ import java.util.Objects;
 
 @Generated
 public class UpdateGroupProxyRequest {
-  /** Required. Group to be updated in <Databricks> */
+  /** Required. Group to be updated in Databricks */
   @JsonProperty("group")
   private Group group;
 

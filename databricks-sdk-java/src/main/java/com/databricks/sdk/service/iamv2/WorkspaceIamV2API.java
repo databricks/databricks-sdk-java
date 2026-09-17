@@ -9,7 +9,7 @@ import com.databricks.sdk.support.Paginator;
 
 /**
  * These APIs are used to manage identities and the workspace access of these identities in
- * <Databricks>.
+ * Databricks.
  */
 @Generated
 public class WorkspaceIamV2API {

@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class CreateWorkspaceAssignmentDetailProxyRequest {
-  /** Required. Workspace assignment detail to be created in <Databricks>. */
+  /** Required. Workspace assignment detail to be created in Databricks. */
   @JsonProperty("workspace_assignment_detail")
   private WorkspaceAssignmentDetail workspaceAssignmentDetail;
 

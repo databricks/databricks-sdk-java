@@ -44,6 +44,18 @@ public class AiGatewayAPI {
   }
 
   /**
+   * Logs the caller in to an MCP service: creates their per-user OAuth credential, or
+   * re-authenticates it if one already exists. The request body carries the OAuth exchange fields.
+   *
+   * <p>You must be the owner of the MCP service or have `EXECUTE` on it, plus `USE_CATALOG` on the
+   * parent catalog and `USE_SCHEMA` on the parent schema.
+   */
+  public McpServiceUserMappedCredential createMcpServiceUserMappedCredential(
+      CreateMcpServiceUserMappedCredentialRequest request) {
+    return impl.createMcpServiceUserMappedCredential(request);
+  }
+
+  /**
    * Creates a model provider service in a Unity Catalog schema. A model provider service stores
    * authentication and request configuration for an external model provider, such as OpenAI, Azure
    * OpenAI, or Amazon Bedrock. Model services reference it to invoke the provider. Specify its name
@@ -90,6 +102,23 @@ public class AiGatewayAPI {
     impl.deleteMcpService(request);
   }
 
+  public DeleteMcpServiceUserMappedCredentialResponse deleteMcpServiceUserMappedCredential(
+      String name) {
+    return deleteMcpServiceUserMappedCredential(
+        new DeleteMcpServiceUserMappedCredentialRequest().setName(name));
+  }
+
+  /**
+   * Revokes (deletes) the caller's per-user OAuth credential for an MCP service (logout).
+   *
+   * <p>You must be the owner of the MCP service or have `EXECUTE` on it, plus `USE_CATALOG` on the
+   * parent catalog and `USE_SCHEMA` on the parent schema.
+   */
+  public DeleteMcpServiceUserMappedCredentialResponse deleteMcpServiceUserMappedCredential(
+      DeleteMcpServiceUserMappedCredentialRequest request) {
+    return impl.deleteMcpServiceUserMappedCredential(request);
+  }
+
   public void deleteModelProviderService(String name) {
     deleteModelProviderService(new DeleteModelProviderServiceRequest().setName(name));
   }
@@ -133,6 +162,26 @@ public class AiGatewayAPI {
    */
   public McpService getMcpService(GetMcpServiceRequest request) {
     return impl.getMcpService(request);
+  }
+
+  public McpServiceUserMappedCredential getMcpServiceUserMappedCredential(String name) {
+    return getMcpServiceUserMappedCredential(
+        new GetMcpServiceUserMappedCredentialRequest().setName(name));
+  }
+
+  /**
+   * Returns the caller's per-user OAuth login state for an MCP service. Read
+   * `provisioning_info.state`: `ACTIVE` means the caller is logged in and the credential is usable;
+   * any other state (for example a failed or still-provisioning login) means the login has not
+   * completed and the caller should log in again. If the caller has no credential yet, the RPC
+   * returns `NOT_FOUND`.
+   *
+   * <p>You must be the owner of the MCP service or have `EXECUTE` on it, plus `USE_CATALOG` on the
+   * parent catalog and `USE_SCHEMA` on the parent schema.
+   */
+  public McpServiceUserMappedCredential getMcpServiceUserMappedCredential(
+      GetMcpServiceUserMappedCredentialRequest request) {
+    return impl.getMcpServiceUserMappedCredential(request);
   }
 
   public ModelProviderService getModelProviderService(String name) {

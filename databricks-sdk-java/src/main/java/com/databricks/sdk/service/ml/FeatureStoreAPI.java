@@ -83,7 +83,13 @@ public class FeatureStoreAPI {
     return impl.publishTable(request);
   }
 
-  /** Update an Online Feature Store. */
+  /**
+   * Update an Online Feature Store.
+   *
+   * <p>This update is not guaranteed to be atomic: when a request changes multiple fields, some may
+   * be applied while others fail. On a failed response, treat the update as partially applied and
+   * retry until it succeeds.
+   */
   public OnlineStore updateOnlineStore(UpdateOnlineStoreRequest request) {
     return impl.updateOnlineStore(request);
   }

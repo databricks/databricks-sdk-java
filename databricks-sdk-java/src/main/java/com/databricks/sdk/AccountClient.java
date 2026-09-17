@@ -328,7 +328,7 @@ public class AccountClient {
 
   /**
    * These APIs are used to manage identities and the workspace access of these identities in
-   * <Databricks>.
+   * Databricks.
    */
   public AccountIamV2API iamV2() {
     return iamV2API;

@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class CreateGroupRequest {
-  /** Required. Group to be created in <Databricks> */
+  /** Required. Group to be created in Databricks */
   @JsonProperty("group")
   private Group group;
 

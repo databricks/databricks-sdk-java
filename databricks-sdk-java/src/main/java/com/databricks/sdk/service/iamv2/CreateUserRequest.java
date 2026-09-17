@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class CreateUserRequest {
-  /** Required. User to be created in <Databricks> */
+  /** Required. User to be created in Databricks */
   @JsonProperty("user")
   private User user;
 
