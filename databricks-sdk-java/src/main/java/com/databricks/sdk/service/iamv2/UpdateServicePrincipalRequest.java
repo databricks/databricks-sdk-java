@@ -11,7 +11,7 @@ import java.util.Objects;
 
 @Generated
 public class UpdateServicePrincipalRequest {
-  /** Required. Service Principal to be updated in <Databricks> */
+  /** Required. Service Principal to be updated in Databricks */
   @JsonProperty("service_principal")
   private ServicePrincipal servicePrincipal;
 

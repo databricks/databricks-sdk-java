@@ -28,6 +28,16 @@ public interface AiGatewayService {
   McpService createMcpService(CreateMcpServiceRequest createMcpServiceRequest);
 
   /**
+   * Logs the caller in to an MCP service: creates their per-user OAuth credential, or
+   * re-authenticates it if one already exists. The request body carries the OAuth exchange fields.
+   *
+   * <p>You must be the owner of the MCP service or have `EXECUTE` on it, plus `USE_CATALOG` on the
+   * parent catalog and `USE_SCHEMA` on the parent schema.
+   */
+  McpServiceUserMappedCredential createMcpServiceUserMappedCredential(
+      CreateMcpServiceUserMappedCredentialRequest createMcpServiceUserMappedCredentialRequest);
+
+  /**
    * Creates a model provider service in a Unity Catalog schema. A model provider service stores
    * authentication and request configuration for an external model provider, such as OpenAI, Azure
    * OpenAI, or Amazon Bedrock. Model services reference it to invoke the provider. Specify its name
@@ -65,6 +75,15 @@ public interface AiGatewayService {
   void deleteMcpService(DeleteMcpServiceRequest deleteMcpServiceRequest);
 
   /**
+   * Revokes (deletes) the caller's per-user OAuth credential for an MCP service (logout).
+   *
+   * <p>You must be the owner of the MCP service or have `EXECUTE` on it, plus `USE_CATALOG` on the
+   * parent catalog and `USE_SCHEMA` on the parent schema.
+   */
+  DeleteMcpServiceUserMappedCredentialResponse deleteMcpServiceUserMappedCredential(
+      DeleteMcpServiceUserMappedCredentialRequest deleteMcpServiceUserMappedCredentialRequest);
+
+  /**
    * Deletes the model provider service identified by its resource name. Optionally supply an `etag`
    * to make the delete conditional on the model provider service not having changed since it was
    * read.
@@ -91,6 +110,19 @@ public interface AiGatewayService {
    * it, plus `USE_CATALOG` on the parent catalog and `USE_SCHEMA` on the parent schema.
    */
   McpService getMcpService(GetMcpServiceRequest getMcpServiceRequest);
+
+  /**
+   * Returns the caller's per-user OAuth login state for an MCP service. Read
+   * `provisioning_info.state`: `ACTIVE` means the caller is logged in and the credential is usable;
+   * any other state (for example a failed or still-provisioning login) means the login has not
+   * completed and the caller should log in again. If the caller has no credential yet, the RPC
+   * returns `NOT_FOUND`.
+   *
+   * <p>You must be the owner of the MCP service or have `EXECUTE` on it, plus `USE_CATALOG` on the
+   * parent catalog and `USE_SCHEMA` on the parent schema.
+   */
+  McpServiceUserMappedCredential getMcpServiceUserMappedCredential(
+      GetMcpServiceUserMappedCredentialRequest getMcpServiceUserMappedCredentialRequest);
 
   /**
    * Returns the model provider service identified by its resource name.

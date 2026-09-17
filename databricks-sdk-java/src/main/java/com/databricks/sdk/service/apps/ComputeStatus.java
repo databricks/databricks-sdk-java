@@ -9,10 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class ComputeStatus {
-  /**
-   * The number of compute instances currently serving requests for this application. An instance is
-   * considered active if it is reachable and ready to handle requests.
-   */
+  /** The number of compute instances used and billed for this application. */
   @JsonProperty("active_instances")
   private Long activeInstances;
 

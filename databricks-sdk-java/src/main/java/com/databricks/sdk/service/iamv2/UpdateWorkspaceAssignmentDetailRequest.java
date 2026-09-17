@@ -20,7 +20,7 @@ public class UpdateWorkspaceAssignmentDetailRequest {
   @QueryParam("update_mask")
   private FieldMask updateMask;
 
-  /** Required. Workspace assignment detail to be updated in <Databricks>. */
+  /** Required. Workspace assignment detail to be updated in Databricks. */
   @JsonProperty("workspace_assignment_detail")
   private WorkspaceAssignmentDetail workspaceAssignmentDetail;
 

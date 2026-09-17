@@ -35,6 +35,12 @@ public interface FeatureStoreService {
   /** Publish features. */
   PublishTableResponse publishTable(PublishTableRequest publishTableRequest);
 
-  /** Update an Online Feature Store. */
+  /**
+   * Update an Online Feature Store.
+   *
+   * <p>This update is not guaranteed to be atomic: when a request changes multiple fields, some may
+   * be applied while others fail. On a failed response, treat the update as partially applied and
+   * retry until it succeeds.
+   */
   OnlineStore updateOnlineStore(UpdateOnlineStoreRequest updateOnlineStoreRequest);
 }

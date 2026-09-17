@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class CreateServicePrincipalRequest {
-  /** Required. Service principal to be created in <Databricks> */
+  /** Required. Service principal to be created in Databricks */
   @JsonProperty("service_principal")
   private ServicePrincipal servicePrincipal;
 

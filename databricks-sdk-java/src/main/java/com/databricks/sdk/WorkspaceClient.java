@@ -2228,7 +2228,7 @@ public class WorkspaceClient {
 
   /**
    * These APIs are used to manage identities and the workspace access of these identities in
-   * <Databricks>.
+   * Databricks.
    */
   public WorkspaceIamV2API workspaceIamV2() {
     return workspaceIamV2API;

@@ -16,7 +16,7 @@ public class UpdateUserRequest {
   @QueryParam("update_mask")
   private String updateMask;
 
-  /** Required. User to be updated in <Databricks> */
+  /** Required. User to be updated in Databricks */
   @JsonProperty("user")
   private User user;
 

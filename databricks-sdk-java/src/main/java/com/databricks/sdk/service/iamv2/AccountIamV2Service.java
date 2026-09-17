@@ -5,7 +5,7 @@ import com.databricks.sdk.support.Generated;
 
 /**
  * These APIs are used to manage identities and the workspace access of these identities in
- * <Databricks>.
+ * Databricks.
  *
  * <p>This is the high-level interface, that contains generated methods.
  *

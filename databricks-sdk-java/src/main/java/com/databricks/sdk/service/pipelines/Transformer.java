@@ -10,6 +10,10 @@ import java.util.Objects;
 /** Specifies how to transform binary data into structured data. */
 @Generated
 public class Transformer {
+  /** */
+  @JsonProperty("avro_options")
+  private AvroTransformerOptions avroOptions;
+
   /** Required: the wire format of the data. */
   @JsonProperty("format")
   private TransformerFormat format;
@@ -31,6 +35,19 @@ public class Transformer {
    */
   @JsonProperty("output_column")
   private String outputColumn;
+
+  /** */
+  @JsonProperty("protobuf_options")
+  private ProtobufTransformerOptions protobufOptions;
+
+  public Transformer setAvroOptions(AvroTransformerOptions avroOptions) {
+    this.avroOptions = avroOptions;
+    return this;
+  }
+
+  public AvroTransformerOptions getAvroOptions() {
+    return avroOptions;
+  }
 
   public Transformer setFormat(TransformerFormat format) {
     this.format = format;
@@ -68,29 +85,43 @@ public class Transformer {
     return outputColumn;
   }
 
+  public Transformer setProtobufOptions(ProtobufTransformerOptions protobufOptions) {
+    this.protobufOptions = protobufOptions;
+    return this;
+  }
+
+  public ProtobufTransformerOptions getProtobufOptions() {
+    return protobufOptions;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Transformer that = (Transformer) o;
-    return Objects.equals(format, that.format)
+    return Objects.equals(avroOptions, that.avroOptions)
+        && Objects.equals(format, that.format)
         && Objects.equals(inputColumn, that.inputColumn)
         && Objects.equals(jsonOptions, that.jsonOptions)
-        && Objects.equals(outputColumn, that.outputColumn);
+        && Objects.equals(outputColumn, that.outputColumn)
+        && Objects.equals(protobufOptions, that.protobufOptions);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(format, inputColumn, jsonOptions, outputColumn);
+    return Objects.hash(
+        avroOptions, format, inputColumn, jsonOptions, outputColumn, protobufOptions);
   }
 
   @Override
   public String toString() {
     return new ToStringer(Transformer.class)
+        .add("avroOptions", avroOptions)
         .add("format", format)
         .add("inputColumn", inputColumn)
         .add("jsonOptions", jsonOptions)
         .add("outputColumn", outputColumn)
+        .add("protobufOptions", protobufOptions)
         .toString();
   }
 }

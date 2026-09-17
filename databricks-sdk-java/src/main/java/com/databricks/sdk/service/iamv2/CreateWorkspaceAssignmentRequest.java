@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Generated
 public class CreateWorkspaceAssignmentRequest {
-  /** Required. Workspace assignment to be created in <Databricks>. */
+  /** Required. Workspace assignment to be created in Databricks. */
   @JsonProperty("workspace_assignment")
   private WorkspaceAssignment workspaceAssignment;
 

@@ -20,7 +20,7 @@ public class UpdateWorkspaceAssignmentProxyRequest {
   @QueryParam("update_mask")
   private FieldMask updateMask;
 
-  /** Required. Workspace assignment to be updated in <Databricks>. */
+  /** Required. Workspace assignment to be updated in Databricks. */
   @JsonProperty("workspace_assignment")
   private WorkspaceAssignment workspaceAssignment;
 
