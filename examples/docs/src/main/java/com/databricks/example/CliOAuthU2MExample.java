@@ -6,19 +6,19 @@ import com.databricks.sdk.service.compute.ClusterDetails;
 import com.databricks.sdk.service.compute.ListClustersRequest;
 
 /**
- * Example for authenticating with Databricks Workspace through CLI using the external-browser auth type.
+ * Example for authenticating with Databricks Workspace through CLI using the external-browser auth
+ * type.
  *
- * <p>Before running this example, make sure to configure the host and client ID in the {@code DatabricksConfig} object.
+ * <p>Before running this example, make sure to configure the host and client ID in the {@code
+ * DatabricksConfig} object.
  */
 public class CliOAuthU2MExample {
-    public static void main(String[] args) {
-        DatabricksConfig config = new DatabricksConfig()
-            .setAuthType("external-browser")
-            .setClientId("")
-            .setHost("");
-        WorkspaceClient workspace = new WorkspaceClient(config);
-        for (ClusterDetails c : workspace.clusters().list(new ListClustersRequest())) {
-            System.out.println(c.getClusterName());
-        }
+  public static void main(String[] args) {
+    DatabricksConfig config =
+        new DatabricksConfig().setAuthType("external-browser").setClientId("").setHost("");
+    WorkspaceClient workspace = new WorkspaceClient(config);
+    for (ClusterDetails c : workspace.clusters().list(new ListClustersRequest())) {
+      System.out.println(c.getClusterName());
     }
+  }
 }
