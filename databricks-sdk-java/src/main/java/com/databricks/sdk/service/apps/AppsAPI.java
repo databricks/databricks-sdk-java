@@ -425,7 +425,10 @@ public class AppsAPI {
         (timeout, callback) -> waitGetAppStopped(response.getName(), timeout, callback), response);
   }
 
-  /** Updates the app with the supplied name. */
+  /**
+   * Updates the app with the supplied name. This is a full replacement: fields omitted from the
+   * request are cleared, so send the complete app.
+   */
   public App update(UpdateAppRequest request) {
     return impl.update(request);
   }

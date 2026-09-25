@@ -1,6 +1,38 @@
 {
   "mode": "java_v0",
   "api_changelog": true,
+  "sync": {
+    "allow_from_packages": [
+      "**/*.java",
+      "**/*.{xml,html,tmpl,properties}",
+      "**/*.md",
+      "**/*.sh",
+      "**/testdata/**",
+      ".codegen.json",
+      ".codegen/{_last_sha,_openapi_sha}",
+      ".gitattributes",
+      "**/.gitignore",
+      ".github/actions/**/*.yml",
+      ".github/conftest/**/*.rego",
+      ".github/dependabot.yml",
+      ".github/workflows/*.yml",
+      ".package.json",
+      ".release_metadata.json",
+      "DCO",
+      "LICENSE",
+      "Makefile",
+      "NOTICE",
+      "databricks-sdk-java/lockfile.json",
+      "lockfile.json"
+    ],
+    "skip_from_source": [
+      ".nextchanges",
+      "BUILD.bazel",
+      "CLAUDE.md",
+      "OWNERS",
+      "changelog_validate"
+    ]
+  },
   "version": {
     "pom.xml": "<artifactId>databricks-sdk-parent</artifactId>\n  <version>$VERSION</version>",
     "databricks-sdk-java/pom.xml": "<artifactId>databricks-sdk-parent</artifactId>\n    <version>$VERSION</version>",
@@ -14,6 +46,6 @@
   "toolchain": {
     "require": ["mvn", "java"],
     "setup": ["bash scripts/cleanup-services.sh"],
-    "post_generate": ["bash scripts/mvn-spotless-apply.sh","mvn --errors clean compile"]
+    "post_generate": ["mvn --errors clean compile"]
   }
 }

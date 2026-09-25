@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.databricks</groupId>
   <artifactId>databricks-sdk-parent</artifactId>
-  <version>0.156.0</version>
+  <version>0.157.0</version>
   <packaging>pom</packaging>
   <name>Databricks SDK for Java</name>
   <description>The Databricks SDK for Java includes functionality to accelerate development with Java for
@@ -74,41 +74,6 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-archetype-plugin</artifactId>
         <version>3.3.0</version>
-      </plugin>
-      <plugin>
-        <groupId>com.diffplug.spotless</groupId>
-        <artifactId>spotless-maven-plugin</artifactId>
-        <!-- 2.31.0 + version requires JRE 11 -->
-        <version>2.30.0</version>
-        <configuration>
-          <java>
-            <!--            <cleanthat/> This can be added after we drop java 8 support -->
-            <googleJavaFormat>
-              <!-- 1.27.0 is the first GJF release with the fix for the JDK 23+
-                   Log$DeferredDiagnosticHandler signature change (required for the
-                   code-generator's JDK 25 environment). Requires JRE 17+ to run, which
-                   is why the fmt CI job (.github/workflows/push.yml) pins JDK 17. -->
-              <version>1.27.0</version>
-            </googleJavaFormat>
-            <importOrder/>
-            <removeUnusedImports/>
-            <formatAnnotations/>
-          </java>
-          <pom>
-            <includes>
-              <include>pom.xml</include>
-            </includes>
-            <sortPom>
-              <expandEmptyElements>false</expandEmptyElements>
-              <keepBlankLines>false</keepBlankLines>
-              <sortDependencies/>
-              <sortPlugins/>
-              <sortProperties>true</sortProperties>
-              <sortModules>true</sortModules>
-              <indentSchemaLocation>true</indentSchemaLocation>
-            </sortPom>
-          </pom>
-        </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
