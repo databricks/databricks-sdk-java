@@ -80,7 +80,10 @@ public interface AppsService {
   /** Stops the active deployment of the app in the workspace. */
   App stop(StopAppRequest stopAppRequest);
 
-  /** Updates the app with the supplied name. */
+  /**
+   * Updates the app with the supplied name. This is a full replacement: fields omitted from the
+   * request are cleared, so send the complete app.
+   */
   App update(UpdateAppRequest updateAppRequest);
 
   /** Updates the thumbnail for an app. */

@@ -66,6 +66,16 @@ public interface AiGatewayService {
   ModelService createModelService(CreateModelServiceRequest createModelServiceRequest);
 
   /**
+   * Creates a skill in a Unity Catalog schema and provisions its managed bundle storage. Specify
+   * its name in `skill_id`. The request contains an optional comment but no bundle bytes. Upload
+   * bundle files through the Files API, then call FinalizeSkill.
+   *
+   * <p>You must be the owner of the parent schema or have `CREATE_VOLUME` and `USE_SCHEMA` on it,
+   * plus `USE_CATALOG` on the parent catalog.
+   */
+  Skill createSkill(CreateSkillRequest createSkillRequest);
+
+  /**
    * Deletes the MCP service identified by its resource name. Optionally supply an `etag` to make
    * the delete conditional on the MCP service not having changed since it was read.
    *
@@ -102,6 +112,30 @@ public interface AiGatewayService {
    * parent catalog and `USE_SCHEMA` on the parent schema.
    */
   void deleteModelService(DeleteModelServiceRequest deleteModelServiceRequest);
+
+  /**
+   * Deletes the skill identified by its resource name and makes its managed bundle path
+   * unavailable. Managed bundle data is deleted asynchronously. Optionally supply an `etag` to make
+   * the delete conditional on the skill not having changed since it was read.
+   *
+   * <p>You must be the owner of the skill or have `MANAGE` on it, plus `USE_CATALOG` on the parent
+   * catalog and `USE_SCHEMA` on the parent schema.
+   */
+  void deleteSkill(DeleteSkillRequest deleteSkillRequest);
+
+  /**
+   * Finalizes a skill after its bundle is uploaded. This method reads SKILL.md through the Files
+   * API using the caller's authorization. Its YAML frontmatter must contain an
+   * agentskills.io-compliant `name` and a nonblank `description` within the configured UTF-8 byte
+   * limit. On success, it replaces `bundle_name` and `description`; refreshes `finalize_time`,
+   * `update_time`, and `updated_by`; and returns the updated skill. `comment` is preserved.
+   * Re-finalization uses the latest SKILL.md and is last-write-wins without an etag precondition.
+   * Validation failures do not change metadata.
+   *
+   * <p>You must be the owner of the skill or have `READ_VOLUME` on it, plus `USE_CATALOG` on the
+   * parent catalog and `USE_SCHEMA` on the parent schema.
+   */
+  Skill finalizeSkill(FinalizeSkillRequest finalizeSkillRequest);
 
   /**
    * Returns the MCP service identified by its resource name.
@@ -142,6 +176,14 @@ public interface AiGatewayService {
   ModelService getModelService(GetModelServiceRequest getModelServiceRequest);
 
   /**
+   * Returns the skill identified by its resource name.
+   *
+   * <p>You must be the owner of the skill or have `READ_VOLUME`, `READ_METADATA`, or `MANAGE` on
+   * it, plus `USE_CATALOG` on the parent catalog and `USE_SCHEMA` on the parent schema.
+   */
+  Skill getSkill(GetSkillRequest getSkillRequest);
+
+  /**
    * Lists the MCP services in a Unity Catalog schema. Provide `parent` as
    * `schemas/{catalog}.{schema}`. Results are paginated; pass the returned `next_page_token` to
    * fetch subsequent pages.
@@ -174,6 +216,16 @@ public interface AiGatewayService {
    * `MANAGE`) are returned.
    */
   ListModelServicesResponse listModelServices(ListModelServicesRequest listModelServicesRequest);
+
+  /**
+   * Lists skills in a Unity Catalog schema. Provide `parent` as `schemas/{catalog}.{schema}`.
+   * Results are paginated; pass the returned `next_page_token` to fetch subsequent pages.
+   *
+   * <p>Requires `USE_CATALOG` on the parent catalog and `USE_SCHEMA` on the parent schema. Only
+   * skills the caller can access as owner or through `READ_VOLUME`, `READ_METADATA`, or `MANAGE`
+   * are returned.
+   */
+  ListSkillsResponse listSkills(ListSkillsRequest listSkillsRequest);
 
   /**
    * Updates an MCP service. Only the fields named in `update_mask` are changed; the resource name
@@ -214,4 +266,15 @@ public interface AiGatewayService {
    * for the model service owner. Adding an inference table additionally requires `CREATE_TABLE`.
    */
   ModelService updateModelService(UpdateModelServiceRequest updateModelServiceRequest);
+
+  /**
+   * Updates a skill. Only fields named in `update_mask` are changed; currently only `comment` is
+   * supported. The resource name is immutable. Optionally supply an `etag` to make the update
+   * conditional on the skill not having changed since it was read. Bundle files, grants, tags, and
+   * ownership are unchanged.
+   *
+   * <p>You must be the owner of the skill or have `MANAGE` on it, plus `USE_CATALOG` on the parent
+   * catalog and `USE_SCHEMA` on the parent schema.
+   */
+  Skill updateSkill(UpdateSkillRequest updateSkillRequest);
 }

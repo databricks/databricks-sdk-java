@@ -2,7 +2,9 @@ package com.databricks.sdk.mixin;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.databricks.sdk.service.workspace.*;
+import com.databricks.sdk.service.workspace.GetSecretRequest;
+import com.databricks.sdk.service.workspace.GetSecretResponse;
+import com.databricks.sdk.service.workspace.SecretsService;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import org.junit.jupiter.api.AfterEach;

@@ -28,6 +28,16 @@ public class ModelProviderServiceConfigGeminiEnterpriseProviderDirectConfig {
   @JsonProperty("region")
   private String region;
 
+  /**
+   * Reference to a Unity Catalog service credential authorizing Gemini Enterprise requests. On
+   * Create, supply `service_credential.name` as `credentials/{name}`; required when using
+   * service-credential authentication and mutually exclusive with `api_key`. The credential is
+   * referenced by name; its value is not carried here. On read, the resolved `id` and `is_deleted`
+   * are also populated. Supported only on GCP-hosted workspaces.
+   */
+  @JsonProperty("service_credential")
+  private ModelProviderServiceConfigServiceCredential serviceCredential;
+
   public ModelProviderServiceConfigGeminiEnterpriseProviderDirectConfig setApiKey(
       ModelProviderServiceConfigProviderSecret apiKey) {
     this.apiKey = apiKey;
@@ -57,6 +67,16 @@ public class ModelProviderServiceConfigGeminiEnterpriseProviderDirectConfig {
     return region;
   }
 
+  public ModelProviderServiceConfigGeminiEnterpriseProviderDirectConfig setServiceCredential(
+      ModelProviderServiceConfigServiceCredential serviceCredential) {
+    this.serviceCredential = serviceCredential;
+    return this;
+  }
+
+  public ModelProviderServiceConfigServiceCredential getServiceCredential() {
+    return serviceCredential;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -65,12 +85,13 @@ public class ModelProviderServiceConfigGeminiEnterpriseProviderDirectConfig {
         (ModelProviderServiceConfigGeminiEnterpriseProviderDirectConfig) o;
     return Objects.equals(apiKey, that.apiKey)
         && Objects.equals(projectId, that.projectId)
-        && Objects.equals(region, that.region);
+        && Objects.equals(region, that.region)
+        && Objects.equals(serviceCredential, that.serviceCredential);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(apiKey, projectId, region);
+    return Objects.hash(apiKey, projectId, region, serviceCredential);
   }
 
   @Override
@@ -79,6 +100,7 @@ public class ModelProviderServiceConfigGeminiEnterpriseProviderDirectConfig {
         .add("apiKey", apiKey)
         .add("projectId", projectId)
         .add("region", region)
+        .add("serviceCredential", serviceCredential)
         .toString();
   }
 }
