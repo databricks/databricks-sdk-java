@@ -1,6 +1,5 @@
 package com.databricks.sdk.core.error;
 
-import com.databricks.sdk.core.error.platform.*;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
 import org.junit.jupiter.api.Test;

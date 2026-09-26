@@ -36,6 +36,20 @@ public class TaskEmailNotifications {
   private Collection<String> onFailure;
 
   /**
+   * A list of email addresses to notify when platform-initiated maintenance completes for a
+   * continuous job.
+   */
+  @JsonProperty("on_maintenance_complete")
+  private Collection<String> onMaintenanceComplete;
+
+  /**
+   * A list of email addresses to notify when platform-initiated maintenance starts for a continuous
+   * job.
+   */
+  @JsonProperty("on_maintenance_start")
+  private Collection<String> onMaintenanceStart;
+
+  /**
    * A list of email addresses to be notified when a run begins. If not specified on job creation,
    * reset, or update, the list is empty, and notifications are not sent.
    */
@@ -89,6 +103,24 @@ public class TaskEmailNotifications {
     return onFailure;
   }
 
+  public TaskEmailNotifications setOnMaintenanceComplete(Collection<String> onMaintenanceComplete) {
+    this.onMaintenanceComplete = onMaintenanceComplete;
+    return this;
+  }
+
+  public Collection<String> getOnMaintenanceComplete() {
+    return onMaintenanceComplete;
+  }
+
+  public TaskEmailNotifications setOnMaintenanceStart(Collection<String> onMaintenanceStart) {
+    this.onMaintenanceStart = onMaintenanceStart;
+    return this;
+  }
+
+  public Collection<String> getOnMaintenanceStart() {
+    return onMaintenanceStart;
+  }
+
   public TaskEmailNotifications setOnStart(Collection<String> onStart) {
     this.onStart = onStart;
     return this;
@@ -126,6 +158,8 @@ public class TaskEmailNotifications {
         && Objects.equals(
             onDurationWarningThresholdExceeded, that.onDurationWarningThresholdExceeded)
         && Objects.equals(onFailure, that.onFailure)
+        && Objects.equals(onMaintenanceComplete, that.onMaintenanceComplete)
+        && Objects.equals(onMaintenanceStart, that.onMaintenanceStart)
         && Objects.equals(onStart, that.onStart)
         && Objects.equals(onStreamingBacklogExceeded, that.onStreamingBacklogExceeded)
         && Objects.equals(onSuccess, that.onSuccess);
@@ -137,6 +171,8 @@ public class TaskEmailNotifications {
         noAlertForSkippedRuns,
         onDurationWarningThresholdExceeded,
         onFailure,
+        onMaintenanceComplete,
+        onMaintenanceStart,
         onStart,
         onStreamingBacklogExceeded,
         onSuccess);
@@ -148,6 +184,8 @@ public class TaskEmailNotifications {
         .add("noAlertForSkippedRuns", noAlertForSkippedRuns)
         .add("onDurationWarningThresholdExceeded", onDurationWarningThresholdExceeded)
         .add("onFailure", onFailure)
+        .add("onMaintenanceComplete", onMaintenanceComplete)
+        .add("onMaintenanceStart", onMaintenanceStart)
         .add("onStart", onStart)
         .add("onStreamingBacklogExceeded", onStreamingBacklogExceeded)
         .add("onSuccess", onSuccess)

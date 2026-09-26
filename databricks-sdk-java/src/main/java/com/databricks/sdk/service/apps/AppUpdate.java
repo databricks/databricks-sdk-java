@@ -14,11 +14,17 @@ public class AppUpdate {
   @JsonProperty("budget_policy_id")
   private String budgetPolicyId;
 
-  /** Maximum number of app instances. Must be set together with `compute_min_instances`. */
+  /**
+   * Maximum number of app instances the app is configured to run. Must be set together with
+   * `compute_min_instances`.
+   */
   @JsonProperty("compute_max_instances")
   private Long computeMaxInstances;
 
-  /** Minimum number of app instances. Must be set together with `compute_max_instances`. */
+  /**
+   * Minimum number of app instances the app is configured to run. Must be set together with
+   * `compute_max_instances`.
+   */
   @JsonProperty("compute_min_instances")
   private Long computeMinInstances;
 
@@ -48,6 +54,10 @@ public class AppUpdate {
   /** */
   @JsonProperty("status")
   private AppUpdateUpdateStatus status;
+
+  /** */
+  @JsonProperty("telemetry_export_destinations")
+  private Collection<TelemetryExportDestination> telemetryExportDestinations;
 
   /** */
   @JsonProperty("usage_policy_id")
@@ -138,6 +148,16 @@ public class AppUpdate {
     return status;
   }
 
+  public AppUpdate setTelemetryExportDestinations(
+      Collection<TelemetryExportDestination> telemetryExportDestinations) {
+    this.telemetryExportDestinations = telemetryExportDestinations;
+    return this;
+  }
+
+  public Collection<TelemetryExportDestination> getTelemetryExportDestinations() {
+    return telemetryExportDestinations;
+  }
+
   public AppUpdate setUsagePolicyId(String usagePolicyId) {
     this.usagePolicyId = usagePolicyId;
     return this;
@@ -170,6 +190,7 @@ public class AppUpdate {
         && Objects.equals(gitRepository, that.gitRepository)
         && Objects.equals(resources, that.resources)
         && Objects.equals(status, that.status)
+        && Objects.equals(telemetryExportDestinations, that.telemetryExportDestinations)
         && Objects.equals(usagePolicyId, that.usagePolicyId)
         && Objects.equals(userApiScopes, that.userApiScopes);
   }
@@ -186,6 +207,7 @@ public class AppUpdate {
         gitRepository,
         resources,
         status,
+        telemetryExportDestinations,
         usagePolicyId,
         userApiScopes);
   }
@@ -202,6 +224,7 @@ public class AppUpdate {
         .add("gitRepository", gitRepository)
         .add("resources", resources)
         .add("status", status)
+        .add("telemetryExportDestinations", telemetryExportDestinations)
         .add("usagePolicyId", usagePolicyId)
         .add("userApiScopes", userApiScopes)
         .toString();

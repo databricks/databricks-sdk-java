@@ -32,7 +32,10 @@ public class QueryIndexRequest {
   @JsonProperty("filters_json")
   private String filtersJson;
 
-  /** Maximum number of results to return (the legacy `num_results`). Defaults to 10. */
+  /**
+   * Maximum number of results to return (the legacy `num_results`). Defaults to 10. Prefer
+   * `page_size`; when both are set, `page_size` takes precedence.
+   */
   @JsonProperty("max_results")
   private Long maxResults;
 

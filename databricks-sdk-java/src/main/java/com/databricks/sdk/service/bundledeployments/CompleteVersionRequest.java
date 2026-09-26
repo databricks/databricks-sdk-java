@@ -12,16 +12,13 @@ import java.util.Objects;
 @Generated
 public class CompleteVersionRequest {
   /**
-   * The reason for completing the version. Must be a terminal reason: VERSION_COMPLETE_SUCCESS,
-   * VERSION_COMPLETE_FAILURE, or VERSION_COMPLETE_FORCE_ABORT.
+   * The reason for completing the version. Must be VERSION_COMPLETE_SUCCESS or
+   * VERSION_COMPLETE_FAILURE.
    */
   @JsonProperty("completion_reason")
   private VersionComplete completionReason;
 
-  /**
-   * If true, force-completes the version even if the caller is not the original creator. The
-   * completion_reason must be VERSION_COMPLETE_FORCE_ABORT when force is true.
-   */
+  /** If true, force-completes the version even if the caller is not the original creator. */
   @JsonProperty("force")
   private Boolean force;
 
