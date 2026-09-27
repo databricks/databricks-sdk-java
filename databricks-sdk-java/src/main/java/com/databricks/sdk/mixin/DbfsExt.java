@@ -1,7 +1,15 @@
 package com.databricks.sdk.mixin;
 
 import com.databricks.sdk.core.ApiClient;
-import com.databricks.sdk.service.files.*;
+import com.databricks.sdk.service.files.AddBlock;
+import com.databricks.sdk.service.files.Close;
+import com.databricks.sdk.service.files.Create;
+import com.databricks.sdk.service.files.CreateResponse;
+import com.databricks.sdk.service.files.DbfsAPI;
+import com.databricks.sdk.service.files.DbfsService;
+import com.databricks.sdk.service.files.FileInfo;
+import com.databricks.sdk.service.files.ReadDbfsRequest;
+import com.databricks.sdk.service.files.ReadResponse;
 import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;

@@ -35,6 +35,7 @@ public enum ConnectionType {
   SQLDW,
   SQLSERVER,
   TERADATA,
+  TIKTOK_ADS,
   UNKNOWN_CONNECTION_TYPE,
   WORKDAY_RAAS,
   ZENDESK,

@@ -19,7 +19,7 @@ public class ProtobufTransformerOptions {
 
   /**
    * (Optional) Parse mode for Protobuf data. Valid values: FAILFAST, PERMISSIVE. Defaults to
-   * FAILFAST.
+   * PERMISSIVE.
    */
   @JsonProperty("parse_mode")
   private ParseMode parseMode;

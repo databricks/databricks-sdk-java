@@ -7,6 +7,7 @@ import com.databricks.sdk.support.Generated;
 /** The type of Unity Catalog securable. */
 @Generated
 public enum SecurableType {
+  AGENT_SERVICE,
   CATALOG,
   CLEAN_ROOM,
   CONNECTION,
@@ -24,6 +25,7 @@ public enum SecurableType {
   RECIPIENT,
   SCHEMA,
   SHARE,
+  SKILL,
   STAGING_TABLE,
   STORAGE_CREDENTIAL,
   TABLE,

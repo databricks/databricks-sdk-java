@@ -12,20 +12,19 @@ import org.springframework.security.web.SecurityFilterChain;
 @SpringBootApplication
 @EnableWebSecurity
 public class App {
-    public static void main(String[] args) {
-        SpringApplication.run(App.class, args);
-    }
+  public static void main(String[] args) {
+    SpringApplication.run(App.class, args);
+  }
 
-    @Bean
-    public HttpClient getHttpClient() {
-        return new CommonsHttpClient.Builder().withTimeoutSeconds(30).build();
-    }
+  @Bean
+  public HttpClient getHttpClient() {
+    return new CommonsHttpClient.Builder().withTimeoutSeconds(30).build();
+  }
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests((requests) -> requests
-            .anyRequest().permitAll());
+  @Bean
+  public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    http.authorizeHttpRequests((requests) -> requests.anyRequest().permitAll());
 
-        return http.build();
-    }
+    return http.build();
+  }
 }
