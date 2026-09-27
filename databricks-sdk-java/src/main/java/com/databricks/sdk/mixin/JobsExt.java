@@ -1,7 +1,23 @@
 package com.databricks.sdk.mixin;
 
 import com.databricks.sdk.core.ApiClient;
-import com.databricks.sdk.service.jobs.*;
+import com.databricks.sdk.service.jobs.BaseJob;
+import com.databricks.sdk.service.jobs.BaseRun;
+import com.databricks.sdk.service.jobs.GetJobRequest;
+import com.databricks.sdk.service.jobs.GetRunRequest;
+import com.databricks.sdk.service.jobs.Job;
+import com.databricks.sdk.service.jobs.JobCluster;
+import com.databricks.sdk.service.jobs.JobEnvironment;
+import com.databricks.sdk.service.jobs.JobParameter;
+import com.databricks.sdk.service.jobs.JobParameterDefinition;
+import com.databricks.sdk.service.jobs.JobsAPI;
+import com.databricks.sdk.service.jobs.JobsService;
+import com.databricks.sdk.service.jobs.ListJobsRequest;
+import com.databricks.sdk.service.jobs.ListRunsRequest;
+import com.databricks.sdk.service.jobs.RepairHistoryItem;
+import com.databricks.sdk.service.jobs.Run;
+import com.databricks.sdk.service.jobs.RunTask;
+import com.databricks.sdk.service.jobs.Task;
 import java.util.Collection;
 import java.util.Iterator;
 

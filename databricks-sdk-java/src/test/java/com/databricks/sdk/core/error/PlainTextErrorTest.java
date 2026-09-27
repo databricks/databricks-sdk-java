@@ -3,7 +3,9 @@ package com.databricks.sdk.core.error;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.databricks.sdk.core.DatabricksError;
-import com.databricks.sdk.core.error.platform.*;
+import com.databricks.sdk.core.error.platform.NotFound;
+import com.databricks.sdk.core.error.platform.PermissionDenied;
+import com.databricks.sdk.core.error.platform.Unauthenticated;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
 import java.util.Collections;

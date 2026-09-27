@@ -29,7 +29,10 @@ public class FederationPolicy {
   @JsonProperty("name")
   private String name;
 
-  /** */
+  /**
+   * audit_mode INCLUDE is required on both this message field and its leaf fields so the OIDC
+   * policy configuration is captured in create/update audit logs (see go/auditlogs).
+   */
   @JsonProperty("oidc_policy")
   private OidcFederationPolicy oidcPolicy;
 

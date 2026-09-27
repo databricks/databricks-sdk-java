@@ -13,7 +13,7 @@ public class ApplicationStatus {
   @JsonProperty("message")
   private String message;
 
-  /** The number of running instances of this application. */
+  /** The number of app instances whose application process is running. */
   @JsonProperty("running_instances")
   private Long runningInstances;
 
