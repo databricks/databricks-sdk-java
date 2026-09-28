@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class ComputeStatus {
-  /** The number of compute instances used and billed for this application. */
+  /** The number of active compute instances currently used and billed for this application. */
   @JsonProperty("active_instances")
   private Long activeInstances;
 

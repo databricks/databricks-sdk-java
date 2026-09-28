@@ -1,5 +1,26 @@
 # Version changelog
 
+## Release v0.157.0 (2026-09-28)
+
+### API Changes
+* Add `com.databricks.sdk.service.mason` package.
+* Add `workspaceClient.mason()` service.
+* Add `createSkill()`, `deleteSkill()`, `finalizeSkill()`, `getSkill()`, `listSkills()` and `updateSkill()` methods for `workspaceClient.aiGateway()` service.
+* Add `telemetryExportDestinations` field for `com.databricks.sdk.service.apps.AppUpdate`.
+* Add `options` field for `com.databricks.sdk.service.catalog.McpServiceConfigSourceConnection`.
+* Add `headerAuth` field for `com.databricks.sdk.service.catalog.ModelProviderServiceConfigCustomProviderDirectConfig`.
+* Add `serviceCredential` field for `com.databricks.sdk.service.catalog.ModelProviderServiceConfigGeminiEnterpriseProviderDirectConfig`.
+* Add `secretReference` field for `com.databricks.sdk.service.catalog.ModelProviderServiceConfigProviderSecret`.
+* Add `onMaintenanceComplete` and `onMaintenanceStart` fields for `com.databricks.sdk.service.jobs.JobEmailNotifications`.
+* Add `onMaintenanceComplete` and `onMaintenanceStart` fields for `com.databricks.sdk.service.jobs.TaskEmailNotifications`.
+* Add `onMaintenanceComplete` and `onMaintenanceStart` fields for `com.databricks.sdk.service.jobs.WebhookNotifications`.
+* Add `budgetPolicyId` and `tags` fields for `com.databricks.sdk.service.ml.BackfillFeaturesRequest`.
+* Add `timezoneId` field for `com.databricks.sdk.service.ml.CronSchedule`.
+* Add `budgetPolicyId` and `tags` fields for `com.databricks.sdk.service.ml.PurgeFeatureEntitiesRequest`.
+* Add `TIKTOK_ADS` enum value for `com.databricks.sdk.service.catalog.ConnectionType`.
+* Add `AGENT_SERVICE` and `SKILL` enum values for `com.databricks.sdk.service.catalog.SecurableType`.
+* Add `TIKTOK_ADS` and `SMARTSHEET` enum values for `com.databricks.sdk.service.pipelines.IngestionSourceType`.
+
 ## Release v0.156.0 (2026-09-17)
 
 ### API Changes
