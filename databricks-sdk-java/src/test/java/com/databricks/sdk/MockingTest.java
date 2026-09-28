@@ -3,7 +3,11 @@ package com.databricks.sdk;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
-import com.databricks.sdk.service.compute.*;
+import com.databricks.sdk.service.compute.ClusterDetails;
+import com.databricks.sdk.service.compute.ClustersAPI;
+import com.databricks.sdk.service.compute.ClustersService;
+import com.databricks.sdk.service.compute.GetClusterRequest;
+import com.databricks.sdk.service.compute.State;
 import java.util.concurrent.TimeoutException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

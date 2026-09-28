@@ -26,6 +26,22 @@ public class WebhookNotifications {
   private Collection<Webhook> onFailure;
 
   /**
+   * An optional list of system notification IDs to call when platform-initiated maintenance
+   * completes for a continuous job. A maximum of 3 destinations can be specified for the
+   * `on_maintenance_complete` property.
+   */
+  @JsonProperty("on_maintenance_complete")
+  private Collection<Webhook> onMaintenanceComplete;
+
+  /**
+   * An optional list of system notification IDs to call when platform-initiated maintenance starts
+   * for a continuous job. A maximum of 3 destinations can be specified for the
+   * `on_maintenance_start` property.
+   */
+  @JsonProperty("on_maintenance_start")
+  private Collection<Webhook> onMaintenanceStart;
+
+  /**
    * An optional list of system notification IDs to call when the run starts. A maximum of 3
    * destinations can be specified for the `on_start` property.
    */
@@ -69,6 +85,24 @@ public class WebhookNotifications {
     return onFailure;
   }
 
+  public WebhookNotifications setOnMaintenanceComplete(Collection<Webhook> onMaintenanceComplete) {
+    this.onMaintenanceComplete = onMaintenanceComplete;
+    return this;
+  }
+
+  public Collection<Webhook> getOnMaintenanceComplete() {
+    return onMaintenanceComplete;
+  }
+
+  public WebhookNotifications setOnMaintenanceStart(Collection<Webhook> onMaintenanceStart) {
+    this.onMaintenanceStart = onMaintenanceStart;
+    return this;
+  }
+
+  public Collection<Webhook> getOnMaintenanceStart() {
+    return onMaintenanceStart;
+  }
+
   public WebhookNotifications setOnStart(Collection<Webhook> onStart) {
     this.onStart = onStart;
     return this;
@@ -105,6 +139,8 @@ public class WebhookNotifications {
     return Objects.equals(
             onDurationWarningThresholdExceeded, that.onDurationWarningThresholdExceeded)
         && Objects.equals(onFailure, that.onFailure)
+        && Objects.equals(onMaintenanceComplete, that.onMaintenanceComplete)
+        && Objects.equals(onMaintenanceStart, that.onMaintenanceStart)
         && Objects.equals(onStart, that.onStart)
         && Objects.equals(onStreamingBacklogExceeded, that.onStreamingBacklogExceeded)
         && Objects.equals(onSuccess, that.onSuccess);
@@ -115,6 +151,8 @@ public class WebhookNotifications {
     return Objects.hash(
         onDurationWarningThresholdExceeded,
         onFailure,
+        onMaintenanceComplete,
+        onMaintenanceStart,
         onStart,
         onStreamingBacklogExceeded,
         onSuccess);
@@ -125,6 +163,8 @@ public class WebhookNotifications {
     return new ToStringer(WebhookNotifications.class)
         .add("onDurationWarningThresholdExceeded", onDurationWarningThresholdExceeded)
         .add("onFailure", onFailure)
+        .add("onMaintenanceComplete", onMaintenanceComplete)
+        .add("onMaintenanceStart", onMaintenanceStart)
         .add("onStart", onStart)
         .add("onStreamingBacklogExceeded", onStreamingBacklogExceeded)
         .add("onSuccess", onSuccess)

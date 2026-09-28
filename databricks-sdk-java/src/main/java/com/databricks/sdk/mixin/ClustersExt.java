@@ -1,12 +1,22 @@
 package com.databricks.sdk.mixin;
 
-import static com.databricks.sdk.service.compute.CloudProviderNodeStatus.*;
+import static com.databricks.sdk.service.compute.CloudProviderNodeStatus.NOT_AVAILABLE_IN_REGION;
+import static com.databricks.sdk.service.compute.CloudProviderNodeStatus.NOT_ENABLED_ON_SUBSCRIPTION;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.core.DatabricksError;
 import com.databricks.sdk.core.logging.Logger;
 import com.databricks.sdk.core.logging.LoggerFactory;
-import com.databricks.sdk.service.compute.*;
+import com.databricks.sdk.service.compute.CloudProviderNodeStatus;
+import com.databricks.sdk.service.compute.ClusterDetails;
+import com.databricks.sdk.service.compute.ClustersAPI;
+import com.databricks.sdk.service.compute.ClustersService;
+import com.databricks.sdk.service.compute.GetSparkVersionsResponse;
+import com.databricks.sdk.service.compute.ListNodeTypesResponse;
+import com.databricks.sdk.service.compute.NodeInstanceType;
+import com.databricks.sdk.service.compute.NodeType;
+import com.databricks.sdk.service.compute.SparkVersion;
+import com.databricks.sdk.service.compute.State;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;

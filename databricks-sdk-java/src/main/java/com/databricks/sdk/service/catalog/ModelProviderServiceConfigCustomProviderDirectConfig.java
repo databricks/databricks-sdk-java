@@ -8,8 +8,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 /**
- * Direct form of a custom provider configuration. Set `api_key` to the bearer token sent in the
- * `Authorization` header.
+ * Direct form of a custom provider configuration. Set `api_key` to send the secret as an
+ * `Authorization` bearer token, or `header_auth` to forward it under a caller-chosen HTTP header.
  */
 @Generated
 public class ModelProviderServiceConfigCustomProviderDirectConfig {
@@ -25,6 +25,14 @@ public class ModelProviderServiceConfigCustomProviderDirectConfig {
    */
   @JsonProperty("base_url")
   private String baseUrl;
+
+  /**
+   * Header-based API-key auth: the secret is forwarded on outbound requests under a caller-chosen
+   * HTTP header rather than as an `Authorization` bearer token. Set this instead of `api_key` for
+   * header auth.
+   */
+  @JsonProperty("header_auth")
+  private ModelProviderServiceConfigCustomProviderApiKeyHeaderAuth headerAuth;
 
   public ModelProviderServiceConfigCustomProviderDirectConfig setApiKey(
       ModelProviderServiceConfigProviderSecret apiKey) {
@@ -45,18 +53,30 @@ public class ModelProviderServiceConfigCustomProviderDirectConfig {
     return baseUrl;
   }
 
+  public ModelProviderServiceConfigCustomProviderDirectConfig setHeaderAuth(
+      ModelProviderServiceConfigCustomProviderApiKeyHeaderAuth headerAuth) {
+    this.headerAuth = headerAuth;
+    return this;
+  }
+
+  public ModelProviderServiceConfigCustomProviderApiKeyHeaderAuth getHeaderAuth() {
+    return headerAuth;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ModelProviderServiceConfigCustomProviderDirectConfig that =
         (ModelProviderServiceConfigCustomProviderDirectConfig) o;
-    return Objects.equals(apiKey, that.apiKey) && Objects.equals(baseUrl, that.baseUrl);
+    return Objects.equals(apiKey, that.apiKey)
+        && Objects.equals(baseUrl, that.baseUrl)
+        && Objects.equals(headerAuth, that.headerAuth);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(apiKey, baseUrl);
+    return Objects.hash(apiKey, baseUrl, headerAuth);
   }
 
   @Override
@@ -64,6 +84,7 @@ public class ModelProviderServiceConfigCustomProviderDirectConfig {
     return new ToStringer(ModelProviderServiceConfigCustomProviderDirectConfig.class)
         .add("apiKey", apiKey)
         .add("baseUrl", baseUrl)
+        .add("headerAuth", headerAuth)
         .toString();
   }
 }

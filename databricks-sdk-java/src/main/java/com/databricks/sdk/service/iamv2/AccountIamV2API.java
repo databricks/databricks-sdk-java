@@ -27,7 +27,12 @@ public class AccountIamV2API {
     impl = mock;
   }
 
-  /** Creates a group membership (assigns a principal to a group). */
+  /**
+   * Creates a group membership (assigns a principal to a group).
+   *
+   * <p>Authorization: the caller must be an account admin or a manager of the group (holds the
+   * `roles/group.manager` role on it).
+   */
   public DirectGroupMember createDirectGroupMember(CreateDirectGroupMemberRequest request) {
     return impl.createDirectGroupMember(request);
   }
@@ -92,7 +97,12 @@ public class AccountIamV2API {
         new DeleteDirectGroupMemberRequest().setGroupId(groupId).setPrincipalId(principalId));
   }
 
-  /** Deletes a group membership (unassigns a principal from a group). */
+  /**
+   * Deletes a group membership (unassigns a principal from a group).
+   *
+   * <p>Authorization: the caller must be an account admin or a manager of the group (holds the
+   * `roles/group.manager` role on it).
+   */
   public void deleteDirectGroupMember(DeleteDirectGroupMemberRequest request) {
     impl.deleteDirectGroupMember(request);
   }
@@ -101,7 +111,12 @@ public class AccountIamV2API {
     deleteGroup(new DeleteGroupRequest().setGroupId(groupId));
   }
 
-  /** Deletes a group from the Databricks account by its internal ID. */
+  /**
+   * Deletes a group from the Databricks account by its internal ID.
+   *
+   * <p>Authorization: the caller must be an account admin or a manager of the group (holds the
+   * `roles/group.manager` role on it).
+   */
   public void deleteGroup(DeleteGroupRequest request) {
     impl.deleteGroup(request);
   }
@@ -450,6 +465,9 @@ public class AccountIamV2API {
    *
    * <p>When AIM is enabled and the group is an external identity (its external_id is set), only
    * external_id can be updated; its other fields are sourced from your identity provider.
+   *
+   * <p>Authorization: the caller must be an account admin or a manager of the group (holds the
+   * `roles/group.manager` role on it).
    */
   public Group updateGroup(UpdateGroupRequest request) {
     return impl.updateGroup(request);

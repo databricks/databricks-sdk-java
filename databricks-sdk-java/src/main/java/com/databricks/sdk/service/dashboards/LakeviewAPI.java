@@ -30,18 +30,38 @@ public class LakeviewAPI {
   /**
    * Create a draft dashboard.
    *
-   * <p>Requires the Databricks SQL access entitlement.
+   * <p>Requires the [Databricks SQL access] entitlement. Grant Databricks SQL access in addition to
+   * Workspace access.
+   *
+   * <p>[Databricks SQL access]: https://docs.databricks.com/security/auth/entitlements
    */
   public Dashboard create(CreateDashboardRequest request) {
     return impl.create(request);
   }
 
-  /** Create dashboard schedule. */
+  /**
+   * Create dashboard schedule.
+   *
+   * <p>Requires the [Databricks SQL access] entitlement. Grant Databricks SQL access in addition to
+   * Workspace access.
+   *
+   * <p>[Databricks SQL access]: https://docs.databricks.com/security/auth/entitlements
+   */
   public Schedule createSchedule(CreateScheduleRequest request) {
     return impl.createSchedule(request);
   }
 
-  /** Create schedule subscription. */
+  /**
+   * Create schedule subscription.
+   *
+   * <p>The caller must be a workspace user with one of the following [entitlements]: Workspace
+   * access, Databricks SQL access, or Consumer access.
+   *
+   * <p>Account-level users who are not members of the workspace cannot call this endpoint, even if
+   * the dashboard has been shared with them.
+   *
+   * <p>[entitlements]: https://docs.databricks.com/security/auth/entitlements
+   */
   public Subscription createSubscription(CreateSubscriptionRequest request) {
     return impl.createSubscription(request);
   }
@@ -51,7 +71,14 @@ public class LakeviewAPI {
         new DeleteScheduleRequest().setDashboardId(dashboardId).setScheduleId(scheduleId));
   }
 
-  /** Delete dashboard schedule. */
+  /**
+   * Delete dashboard schedule.
+   *
+   * <p>Requires the [Databricks SQL access] entitlement. Grant Databricks SQL access in addition to
+   * Workspace access.
+   *
+   * <p>[Databricks SQL access]: https://docs.databricks.com/security/auth/entitlements
+   */
   public void deleteSchedule(DeleteScheduleRequest request) {
     impl.deleteSchedule(request);
   }
@@ -64,7 +91,17 @@ public class LakeviewAPI {
             .setSubscriptionId(subscriptionId));
   }
 
-  /** Delete schedule subscription. */
+  /**
+   * Delete schedule subscription.
+   *
+   * <p>The caller must be a workspace user with one of the following [entitlements]: Workspace
+   * access, Databricks SQL access, or Consumer access.
+   *
+   * <p>Account-level users who are not members of the workspace cannot call this endpoint, even if
+   * the dashboard has been shared with them.
+   *
+   * <p>[entitlements]: https://docs.databricks.com/security/auth/entitlements
+   */
   public void deleteSubscription(DeleteSubscriptionRequest request) {
     impl.deleteSubscription(request);
   }
@@ -76,7 +113,10 @@ public class LakeviewAPI {
   /**
    * Get a draft dashboard.
    *
-   * <p>Requires the Databricks SQL access entitlement.
+   * <p>Requires the [Databricks SQL access] entitlement. Grant Databricks SQL access in addition to
+   * Workspace access.
+   *
+   * <p>[Databricks SQL access]: https://docs.databricks.com/security/auth/entitlements
    */
   public Dashboard get(GetDashboardRequest request) {
     return impl.get(request);
@@ -104,7 +144,17 @@ public class LakeviewAPI {
         new GetScheduleRequest().setDashboardId(dashboardId).setScheduleId(scheduleId));
   }
 
-  /** Get dashboard schedule. */
+  /**
+   * Get dashboard schedule.
+   *
+   * <p>The caller must be a workspace user with one of the following [entitlements]: Workspace
+   * access, Databricks SQL access, or Consumer access.
+   *
+   * <p>Account-level users who are not members of the workspace cannot call this endpoint, even if
+   * the dashboard has been shared with them.
+   *
+   * <p>[entitlements]: https://docs.databricks.com/security/auth/entitlements
+   */
   public Schedule getSchedule(GetScheduleRequest request) {
     return impl.getSchedule(request);
   }
@@ -118,7 +168,17 @@ public class LakeviewAPI {
             .setSubscriptionId(subscriptionId));
   }
 
-  /** Get schedule subscription. */
+  /**
+   * Get schedule subscription.
+   *
+   * <p>The caller must be a workspace user with one of the following [entitlements]: Workspace
+   * access, Databricks SQL access, or Consumer access.
+   *
+   * <p>Account-level users who are not members of the workspace cannot call this endpoint, even if
+   * the dashboard has been shared with them.
+   *
+   * <p>[entitlements]: https://docs.databricks.com/security/auth/entitlements
+   */
   public Subscription getSubscription(GetSubscriptionRequest request) {
     return impl.getSubscription(request);
   }
@@ -126,7 +186,10 @@ public class LakeviewAPI {
   /**
    * List dashboards.
    *
-   * <p>Requires the Databricks SQL access entitlement.
+   * <p>Requires the [Databricks SQL access] entitlement. Grant Databricks SQL access in addition to
+   * Workspace access.
+   *
+   * <p>[Databricks SQL access]: https://docs.databricks.com/security/auth/entitlements
    */
   public Iterable<Dashboard> list(ListDashboardsRequest request) {
     return Paginator.newTokenPagination(
@@ -146,7 +209,17 @@ public class LakeviewAPI {
     return listSchedules(new ListSchedulesRequest().setDashboardId(dashboardId));
   }
 
-  /** List dashboard schedules. */
+  /**
+   * List dashboard schedules.
+   *
+   * <p>The caller must be a workspace user with one of the following [entitlements]: Workspace
+   * access, Databricks SQL access, or Consumer access.
+   *
+   * <p>Account-level users who are not members of the workspace cannot call this endpoint, even if
+   * the dashboard has been shared with them.
+   *
+   * <p>[entitlements]: https://docs.databricks.com/security/auth/entitlements
+   */
   public Iterable<Schedule> listSchedules(ListSchedulesRequest request) {
     return Paginator.newTokenPagination(
         request,
@@ -166,7 +239,17 @@ public class LakeviewAPI {
         new ListSubscriptionsRequest().setDashboardId(dashboardId).setScheduleId(scheduleId));
   }
 
-  /** List schedule subscriptions. */
+  /**
+   * List schedule subscriptions.
+   *
+   * <p>The caller must be a workspace user with one of the following [entitlements]: Workspace
+   * access, Databricks SQL access, or Consumer access.
+   *
+   * <p>Account-level users who are not members of the workspace cannot call this endpoint, even if
+   * the dashboard has been shared with them.
+   *
+   * <p>[entitlements]: https://docs.databricks.com/security/auth/entitlements
+   */
   public Iterable<Subscription> listSubscriptions(ListSubscriptionsRequest request) {
     return Paginator.newTokenPagination(
         request,
@@ -192,7 +275,10 @@ public class LakeviewAPI {
   /**
    * Publish the current draft dashboard.
    *
-   * <p>Requires the Databricks SQL access entitlement.
+   * <p>Requires the [Databricks SQL access] entitlement. Grant Databricks SQL access in addition to
+   * Workspace access.
+   *
+   * <p>[Databricks SQL access]: https://docs.databricks.com/security/auth/entitlements
    */
   public PublishedDashboard publish(PublishRequest request) {
     return impl.publish(request);
@@ -201,7 +287,10 @@ public class LakeviewAPI {
   /**
    * Revert a dashboard's definition in draft mode to the last published version.
    *
-   * <p>Requires the Databricks SQL access entitlement.
+   * <p>Requires the [Databricks SQL access] entitlement. Grant Databricks SQL access in addition to
+   * Workspace access.
+   *
+   * <p>[Databricks SQL access]: https://docs.databricks.com/security/auth/entitlements
    */
   public RevertDashboardResponse revert(RevertDashboardRequest request) {
     return impl.revert(request);
@@ -214,7 +303,10 @@ public class LakeviewAPI {
   /**
    * Trash a dashboard.
    *
-   * <p>Requires the Databricks SQL access entitlement.
+   * <p>Requires the [Databricks SQL access] entitlement. Grant Databricks SQL access in addition to
+   * Workspace access.
+   *
+   * <p>[Databricks SQL access]: https://docs.databricks.com/security/auth/entitlements
    */
   public void trash(TrashDashboardRequest request) {
     impl.trash(request);
@@ -227,7 +319,10 @@ public class LakeviewAPI {
   /**
    * Unpublish the dashboard.
    *
-   * <p>Requires the Databricks SQL access entitlement.
+   * <p>Requires the [Databricks SQL access] entitlement. Grant Databricks SQL access in addition to
+   * Workspace access.
+   *
+   * <p>[Databricks SQL access]: https://docs.databricks.com/security/auth/entitlements
    */
   public void unpublish(UnpublishDashboardRequest request) {
     impl.unpublish(request);
@@ -236,13 +331,23 @@ public class LakeviewAPI {
   /**
    * Update a draft dashboard.
    *
-   * <p>Requires the Databricks SQL access entitlement.
+   * <p>Requires the [Databricks SQL access] entitlement. Grant Databricks SQL access in addition to
+   * Workspace access.
+   *
+   * <p>[Databricks SQL access]: https://docs.databricks.com/security/auth/entitlements
    */
   public Dashboard update(UpdateDashboardRequest request) {
     return impl.update(request);
   }
 
-  /** Update dashboard schedule. */
+  /**
+   * Update dashboard schedule.
+   *
+   * <p>Requires the [Databricks SQL access] entitlement. Grant Databricks SQL access in addition to
+   * Workspace access.
+   *
+   * <p>[Databricks SQL access]: https://docs.databricks.com/security/auth/entitlements
+   */
   public Schedule updateSchedule(UpdateScheduleRequest request) {
     return impl.updateSchedule(request);
   }

@@ -1,6 +1,8 @@
 package com.databricks.sdk.core.oauth;
 
-import com.databricks.sdk.core.*;
+import com.databricks.sdk.core.CredentialsProvider;
+import com.databricks.sdk.core.DatabricksConfig;
+import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.support.InternalApi;
 import java.io.IOException;
 

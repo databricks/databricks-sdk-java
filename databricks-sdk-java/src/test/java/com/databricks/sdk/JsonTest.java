@@ -2,7 +2,6 @@ package com.databricks.sdk;
 
 import com.databricks.sdk.core.utils.SerDeUtils;
 import com.databricks.sdk.service.catalog.UpdateVolumeRequestContent;
-import com.databricks.sdk.service.compute.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
