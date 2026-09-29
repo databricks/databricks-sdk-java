@@ -13,7 +13,12 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface AccountIamV2Service {
-  /** Creates a group membership (assigns a principal to a group). */
+  /**
+   * Creates a group membership (assigns a principal to a group).
+   *
+   * <p>Authorization: the caller must be an account admin or a manager of the group (holds the
+   * `roles/group.manager` role on it).
+   */
   DirectGroupMember createDirectGroupMember(
       CreateDirectGroupMemberRequest createDirectGroupMemberRequest);
 
@@ -64,10 +69,20 @@ public interface AccountIamV2Service {
   WorkspaceAssignmentDetail createWorkspaceAssignmentDetail(
       CreateWorkspaceAssignmentDetailRequest createWorkspaceAssignmentDetailRequest);
 
-  /** Deletes a group membership (unassigns a principal from a group). */
+  /**
+   * Deletes a group membership (unassigns a principal from a group).
+   *
+   * <p>Authorization: the caller must be an account admin or a manager of the group (holds the
+   * `roles/group.manager` role on it).
+   */
   void deleteDirectGroupMember(DeleteDirectGroupMemberRequest deleteDirectGroupMemberRequest);
 
-  /** Deletes a group from the Databricks account by its internal ID. */
+  /**
+   * Deletes a group from the Databricks account by its internal ID.
+   *
+   * <p>Authorization: the caller must be an account admin or a manager of the group (holds the
+   * `roles/group.manager` role on it).
+   */
   void deleteGroup(DeleteGroupRequest deleteGroupRequest);
 
   /** Deletes a service principal from the Databricks account by its internal ID. */
@@ -217,6 +232,9 @@ public interface AccountIamV2Service {
    *
    * <p>When AIM is enabled and the group is an external identity (its external_id is set), only
    * external_id can be updated; its other fields are sourced from your identity provider.
+   *
+   * <p>Authorization: the caller must be an account admin or a manager of the group (holds the
+   * `roles/group.manager` role on it).
    */
   Group updateGroup(UpdateGroupRequest updateGroupRequest);
 

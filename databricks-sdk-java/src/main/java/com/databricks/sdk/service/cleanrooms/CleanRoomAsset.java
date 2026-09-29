@@ -91,14 +91,14 @@ public class CleanRoomAsset {
 
   /**
    * View details available to all collaborators of the clean room. Present if and only if
-   * **asset_type** is **VIEW**
+   * **asset_type** is **VIEW** or **METRIC_VIEW**
    */
   @JsonProperty("view")
   private CleanRoomAssetView view;
 
   /**
    * Local details for a view that are only available to its owner. Present if and only if
-   * **asset_type** is **VIEW**
+   * **asset_type** is **VIEW** or **METRIC_VIEW**
    */
   @JsonProperty("view_local_details")
   private CleanRoomAssetViewLocalDetails viewLocalDetails;

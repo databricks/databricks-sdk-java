@@ -7,11 +7,9 @@ import com.databricks.sdk.service.compute.ListClustersRequest;
 /**
  * This example demonstrates how to use the Databricks Java SDK with an HTTP proxy.
  *
- * To run this example, you must set the following system properties:
- * -Dhttps.proxyHost=<proxy host>
- *   The host name of the HTTP proxy server.
- * -Dhttps.proxyPort=<proxy port>
- *   The port number of the HTTP proxy server.
+ * <p>To run this example, you must set the following system properties: -Dhttps.proxyHost=<proxy
+ * host> The host name of the HTTP proxy server. -Dhttps.proxyPort=<proxy port> The port number of
+ * the HTTP proxy server.
  */
 class HttpProxyExample {
   public static void main(String[] args) {

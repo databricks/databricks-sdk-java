@@ -92,6 +92,24 @@ class AiGatewayImpl implements AiGatewayService {
   }
 
   @Override
+  public Skill createSkill(CreateSkillRequest request) {
+    String path = "/api/2.1/unity-catalog/skills";
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request.getSkill()));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, Skill.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public void deleteMcpService(DeleteMcpServiceRequest request) {
     String path = String.format("/api/2.1/unity-catalog/%s", request.getName());
     try {
@@ -155,6 +173,40 @@ class AiGatewayImpl implements AiGatewayService {
         req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       apiClient.execute(req, Void.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public void deleteSkill(DeleteSkillRequest request) {
+    String path = String.format("/api/2.1/unity-catalog/%s", request.getName());
+    try {
+      Request req = new Request("DELETE", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      apiClient.execute(req, Void.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public Skill finalizeSkill(FinalizeSkillRequest request) {
+    String path = String.format("/api/2.1/unity-catalog/%s/finalize", request.getName());
+    try {
+      Request req = new Request("POST", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, Skill.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -230,6 +282,23 @@ class AiGatewayImpl implements AiGatewayService {
   }
 
   @Override
+  public Skill getSkill(GetSkillRequest request) {
+    String path = String.format("/api/2.1/unity-catalog/%s", request.getName());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, Skill.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public ListMcpServicesResponse listMcpServices(ListMcpServicesRequest request) {
     String path = "/api/2.1/unity-catalog/mcp-services";
     try {
@@ -276,6 +345,23 @@ class AiGatewayImpl implements AiGatewayService {
         req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, ListModelServicesResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public ListSkillsResponse listSkills(ListSkillsRequest request) {
+    String path = "/api/2.1/unity-catalog/skills";
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, ListSkillsResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -332,6 +418,24 @@ class AiGatewayImpl implements AiGatewayService {
         req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, ModelService.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public Skill updateSkill(UpdateSkillRequest request) {
+    String path = String.format("/api/2.1/unity-catalog/%s", request.getName());
+    try {
+      Request req = new Request("PATCH", path, apiClient.serialize(request.getSkill()));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, Skill.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

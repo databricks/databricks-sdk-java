@@ -1,7 +1,9 @@
 package com.databricks.sdk.mixin;
 
 import com.databricks.sdk.core.ApiClient;
-import com.databricks.sdk.service.workspace.*;
+import com.databricks.sdk.service.workspace.GetSecretResponse;
+import com.databricks.sdk.service.workspace.SecretsAPI;
+import com.databricks.sdk.service.workspace.SecretsService;
 import java.util.Base64;
 
 /** Remote equivalent of secrets util. */
