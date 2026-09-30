@@ -10,7 +10,8 @@ import java.util.Objects;
 @Generated
 public class AvroTransformerOptions {
   /**
-   * (Optional) Parse mode for Avro data. Valid values: FAILFAST, PERMISSIVE. Defaults to FAILFAST.
+   * (Optional) Parse mode for Avro data. Valid values: FAILFAST, PERMISSIVE. Defaults to
+   * PERMISSIVE.
    */
   @JsonProperty("parse_mode")
   private ParseMode parseMode;

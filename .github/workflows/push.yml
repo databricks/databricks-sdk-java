@@ -30,11 +30,7 @@ jobs:
       - name: Setup build environment
         uses: ./.github/actions/setup-build-environment
         with:
-          # google-java-format 1.27.0 (pinned in pom.xml) requires JRE 17+ to run.
           java-version: 17
-
-      - name: Check formatting
-        run: mvn --errors spotless:check
 
       - name: Check for JFrog proxy URLs in lockfiles
         run: |

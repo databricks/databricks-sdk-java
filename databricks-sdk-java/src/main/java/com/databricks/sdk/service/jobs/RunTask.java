@@ -118,9 +118,10 @@ public class RunTask {
    * the client-set performance target on the request depending on whether the performance mode is
    * supported by the job type.
    *
-   * <p>* `STANDARD`: Enables cost-efficient execution of serverless workloads. *
-   * `PERFORMANCE_OPTIMIZED`: Prioritizes fast startup and execution times through rapid scaling and
-   * optimized cluster performance.
+   * <p>* `PERFORMANCE_OPTIMIZED`: Prioritizes fast startup and execution times through rapid
+   * scaling and optimized cluster performance. * `STANDARD`: Enables cost-efficient execution of
+   * serverless workloads. * `COST_OPTIMIZED`: Enables lower job costs by optimizing compute for
+   * your selected target duration time. Must provide a duration target.
    */
   @JsonProperty("effective_performance_target")
   private PerformanceTarget effectivePerformanceTarget;

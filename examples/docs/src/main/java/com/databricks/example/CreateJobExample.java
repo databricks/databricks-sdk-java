@@ -1,7 +1,11 @@
 package com.databricks.sdk.examples;
 
 import com.databricks.sdk.WorkspaceClient;
-import com.databricks.sdk.service.jobs.*;
+import com.databricks.sdk.service.jobs.CreateJob;
+import com.databricks.sdk.service.jobs.CreateResponse;
+import com.databricks.sdk.service.jobs.NotebookTask;
+import com.databricks.sdk.service.jobs.Source;
+import com.databricks.sdk.service.jobs.Task;
 import java.util.*;
 
 public class CreateJobExample {

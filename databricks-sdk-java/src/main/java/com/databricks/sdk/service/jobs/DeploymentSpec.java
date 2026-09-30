@@ -23,11 +23,11 @@ public class DeploymentSpec {
    *
    * <p>Example script contents:
    *
-   * <p># Plain Python: python train.py --epochs 10
+   * <p>```bash # Plain Python: python train.py --epochs 10
    *
    * <p># Multi-GPU via accelerate: accelerate launch train.py --config config.yaml
    *
-   * <p># Distributed via torchrun: torchrun --nproc_per_node=8 train.py
+   * <p># Distributed via torchrun: torchrun --nproc_per_node=8 train.py ```
    */
   @JsonProperty("command_path")
   private String commandPath;

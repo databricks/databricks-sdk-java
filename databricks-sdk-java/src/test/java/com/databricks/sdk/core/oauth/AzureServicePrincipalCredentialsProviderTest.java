@@ -3,7 +3,8 @@ package com.databricks.sdk.core.oauth;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 
-import com.databricks.sdk.core.*;
+import com.databricks.sdk.core.DatabricksConfig;
+import com.databricks.sdk.core.HeaderFactory;
 import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Response;
 import com.fasterxml.jackson.databind.ObjectMapper;
