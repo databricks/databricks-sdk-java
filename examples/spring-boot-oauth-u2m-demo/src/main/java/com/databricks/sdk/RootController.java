@@ -10,6 +10,13 @@ import com.databricks.sdk.service.compute.ClusterDetails;
 import com.databricks.sdk.service.compute.ListClustersRequest;
 import com.databricks.sdk.service.oauth2.CreateCustomAppIntegration;
 import com.databricks.sdk.service.oauth2.CreateCustomAppIntegrationOutput;
+import jakarta.servlet.http.HttpSession;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -18,18 +25,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import jakarta.servlet.http.HttpSession;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
 @Controller
 public class RootController {
-  @Autowired
-  private HttpClient hc;
+  @Autowired private HttpClient hc;
 
   // Initialized by initializeApp(). This should be initialized in a more Spring-friendly way.
   private OAuthClient client;
@@ -61,28 +59,33 @@ public class RootController {
 
   @PostMapping("/initialize-app")
   public String initializeApp(
-      @RequestParam(name="client_id") String clientId,
-      @RequestParam(name="client_secret") String clientSecret,
-      @RequestParam(name="hostname") String hostname) throws IOException {
+      @RequestParam(name = "client_id") String clientId,
+      @RequestParam(name = "client_secret") String clientSecret,
+      @RequestParam(name = "hostname") String hostname)
+      throws IOException {
     DatabricksConfig config = new DatabricksConfig().setHost(hostname).setHttpClient(hc).resolve();
     OpenIDConnectEndpoints oidcEndpoints = config.getDatabricksOidcEndpoints();
-    client = new OAuthClient.Builder()
-        .withClientId(clientId)
-        .withClientSecret(clientSecret)
-        .withHost(hostname)
-        .withRedirectUrl(getRedirectUrl())
-        .withHttpClient(hc)
-        .withOpenIDConnectEndpoints(oidcEndpoints)
-        .withScopes(List.of("all-apis", "offline_access"))
-        .build();
+    client =
+        new OAuthClient.Builder()
+            .withClientId(clientId)
+            .withClientSecret(clientSecret)
+            .withHost(hostname)
+            .withRedirectUrl(getRedirectUrl())
+            .withHttpClient(hc)
+            .withOpenIDConnectEndpoints(oidcEndpoints)
+            .withScopes(List.of("all-apis", "offline_access"))
+            .build();
     return "redirect:/";
   }
 
   private String getAccountsHost(String cloud) {
     switch (cloud) {
-      case "aws": return "https://accounts.cloud.databricks.com";
-      case "azure": return "https://accounts.azuredatabricks.net";
-      case "gcp": return "https://accounts.gcp.databricks.com";
+      case "aws":
+        return "https://accounts.cloud.databricks.com";
+      case "azure":
+        return "https://accounts.azuredatabricks.net";
+      case "gcp":
+        return "https://accounts.gcp.databricks.com";
     }
     throw new RuntimeException("Unexpected cloud: " + cloud);
   }
@@ -93,18 +96,23 @@ public class RootController {
       @RequestParam String password,
       @RequestParam String cloud,
       @RequestParam("account_id") String accountId,
-      @RequestParam String hostname) throws IOException {
-    DatabricksConfig c = new DatabricksConfig()
-        .setUsername(username)
-        .setPassword(password)
-        .setHost(getAccountsHost(cloud))
-        .setAccountId(accountId)
-        .setHttpClient(hc);
+      @RequestParam String hostname)
+      throws IOException {
+    DatabricksConfig c =
+        new DatabricksConfig()
+            .setUsername(username)
+            .setPassword(password)
+            .setHost(getAccountsHost(cloud))
+            .setAccountId(accountId)
+            .setHttpClient(hc);
     AccountClient account = new AccountClient(c);
-    CreateCustomAppIntegrationOutput result = account.customAppIntegration().create(
-        new CreateCustomAppIntegration()
-            .setName("java-sdk-demo")
-            .setRedirectUrls(Collections.singletonList(getRedirectUrl())));
+    CreateCustomAppIntegrationOutput result =
+        account
+            .customAppIntegration()
+            .create(
+                new CreateCustomAppIntegration()
+                    .setName("java-sdk-demo")
+                    .setRedirectUrls(Collections.singletonList(getRedirectUrl())));
 
     return initializeApp(result.getClientId(), result.getClientSecret(), hostname);
   }
@@ -122,7 +130,8 @@ public class RootController {
   }
 
   @GetMapping("/callback")
-  public String callback(HttpSession session, @RequestParam Map<String, String> allParams) throws IOException {
+  public String callback(HttpSession session, @RequestParam Map<String, String> allParams)
+      throws IOException {
     Consent consent = (Consent) session.getAttribute("consent");
     consent.setHttpClient(hc);
     SessionCredentials creds = consent.exchangeCallbackParameters(allParams);
@@ -136,7 +145,8 @@ public class RootController {
 
   @GetMapping("/list-clusters")
   public String listClusters(Model model) {
-    Iterable<ClusterDetails> clustersIterable = workspace.clusters().list(new ListClustersRequest());
+    Iterable<ClusterDetails> clustersIterable =
+        workspace.clusters().list(new ListClustersRequest());
     List<String> clusterNames = new ArrayList<>();
     clustersIterable.forEach(c -> clusterNames.add(c.getClusterName()));
     model.addAttribute("clusterNames", clusterNames);

@@ -6,7 +6,15 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.databricks.sdk.service.compute.*;
+import com.databricks.sdk.service.compute.ClusterDetails;
+import com.databricks.sdk.service.compute.ClustersService;
+import com.databricks.sdk.service.compute.GetClusterRequest;
+import com.databricks.sdk.service.compute.GetSparkVersionsResponse;
+import com.databricks.sdk.service.compute.ListNodeTypesResponse;
+import com.databricks.sdk.service.compute.NodeInstanceType;
+import com.databricks.sdk.service.compute.NodeType;
+import com.databricks.sdk.service.compute.SparkVersion;
+import com.databricks.sdk.service.compute.State;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;

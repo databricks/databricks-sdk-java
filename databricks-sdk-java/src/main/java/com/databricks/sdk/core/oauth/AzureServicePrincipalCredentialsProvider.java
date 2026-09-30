@@ -1,6 +1,8 @@
 package com.databricks.sdk.core.oauth;
 
-import com.databricks.sdk.core.*;
+import com.databricks.sdk.core.CredentialsProvider;
+import com.databricks.sdk.core.DatabricksConfig;
+import com.databricks.sdk.core.GroupAssumption;
 import com.databricks.sdk.core.logging.Logger;
 import com.databricks.sdk.core.logging.LoggerFactory;
 import com.databricks.sdk.core.utils.AzureUtils;

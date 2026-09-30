@@ -22,6 +22,15 @@ public class ModelProviderServiceConfigProviderSecret {
   @JsonProperty("plaintext")
   private String plaintext;
 
+  /**
+   * Reference to a customer-owned UC Secret that carries this secret value. The value is read at
+   * invoke time under the model provider service owner's access and is never copied onto the model
+   * provider service, so rotating the UC Secret takes effect with no change to the model provider
+   * service. On Create, supply `secret_reference.name` as `secrets/{catalog}.{schema}.{secret}`.
+   */
+  @JsonProperty("secret_reference")
+  private ModelProviderServiceConfigSecretReference secretReference;
+
   public ModelProviderServiceConfigProviderSecret setPlaintext(String plaintext) {
     this.plaintext = plaintext;
     return this;
@@ -31,23 +40,35 @@ public class ModelProviderServiceConfigProviderSecret {
     return plaintext;
   }
 
+  public ModelProviderServiceConfigProviderSecret setSecretReference(
+      ModelProviderServiceConfigSecretReference secretReference) {
+    this.secretReference = secretReference;
+    return this;
+  }
+
+  public ModelProviderServiceConfigSecretReference getSecretReference() {
+    return secretReference;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ModelProviderServiceConfigProviderSecret that = (ModelProviderServiceConfigProviderSecret) o;
-    return Objects.equals(plaintext, that.plaintext);
+    return Objects.equals(plaintext, that.plaintext)
+        && Objects.equals(secretReference, that.secretReference);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(plaintext);
+    return Objects.hash(plaintext, secretReference);
   }
 
   @Override
   public String toString() {
     return new ToStringer(ModelProviderServiceConfigProviderSecret.class)
         .add("plaintext", plaintext)
+        .add("secretReference", secretReference)
         .toString();
   }
 }
