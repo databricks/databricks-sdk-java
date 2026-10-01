@@ -10,7 +10,14 @@ import java.util.Objects;
 /** Attributes set during instance pool creation which are related to GCP. */
 @Generated
 public class InstancePoolGcpAttributes {
-  /** */
+  /**
+   * Availability type for the instances in the pool. One of:
+   *
+   * <p>- `ON_DEMAND_GCP`: the pool uses on-demand instances only. - `PREEMPTIBLE_GCP`: the pool
+   * uses preemptible instances only. - `PREEMPTIBLE_WITH_FALLBACK_GCP`: the pool acquires
+   * preemptible instances first, and falls back to on-demand instances when preemptible capacity is
+   * unavailable.
+   */
   @JsonProperty("gcp_availability")
   private GcpAvailability gcpAvailability;
 
@@ -33,11 +40,17 @@ public class InstancePoolGcpAttributes {
    * creation, and if not specified, a default zone will be used.
    *
    * <p>This field can be one of the following: - "HA" => High availability, spread nodes across
-   * availability zones for a Databricks deployment region - A GCP availability zone => Pick One of
-   * the available zones for (machine type + region) from
-   * https://cloud.google.com/compute/docs/regions-zones (e.g. "us-west1-a").
+   * availability zones for a Databricks deployment region - "auto" => Auto-AZ. Databricks selects
+   * the availability zone for each cluster independently when the cluster launches, and retries
+   * another zone if the cluster can't be fulfilled because of insufficient capacity or quota. All
+   * nodes in a cluster land in the same zone, and different clusters backed by the pool can run in
+   * different zones. - A GCP availability zone => Pick One of the available zones for (machine type
+   * + region) from https://cloud.google.com/compute/docs/regions-zones (e.g. "us-west1-a").
    *
    * <p>If empty, Databricks picks an availability zone to schedule the cluster on.
+   *
+   * <p>You can change the zone on an existing pool. New clusters use the updated zone, and existing
+   * clusters keep the zone they launched with.
    */
   @JsonProperty("zone_id")
   private String zoneId;

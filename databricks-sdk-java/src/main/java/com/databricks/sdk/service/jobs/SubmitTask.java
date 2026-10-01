@@ -102,6 +102,15 @@ public class SubmitTask {
   private String environmentKey;
 
   /**
+   * Reference to a `JobEnvironmentVariables` entry defined in `RunSettings.environment_variables`
+   * for one-time runs or preserved in `Run.environment_variables` for run snapshots. The selected
+   * entry's variables are applied to this task at execution time. This field supports serverless
+   * tasks using environment version 5 or later.
+   */
+  @JsonProperty("environment_variables_key")
+  private String environmentVariablesKey;
+
+  /**
    * If existing_cluster_id, the ID of an existing cluster that is used for all runs. When running
    * jobs or tasks on an existing cluster, you may need to manually restart the cluster if it stops
    * responding. We suggest running jobs and tasks on new clusters for greater reliability
@@ -380,6 +389,15 @@ public class SubmitTask {
     return environmentKey;
   }
 
+  public SubmitTask setEnvironmentVariablesKey(String environmentVariablesKey) {
+    this.environmentVariablesKey = environmentVariablesKey;
+    return this;
+  }
+
+  public String getEnvironmentVariablesKey() {
+    return environmentVariablesKey;
+  }
+
   public SubmitTask setExistingClusterId(String existingClusterId) {
     this.existingClusterId = existingClusterId;
     return this;
@@ -616,6 +634,7 @@ public class SubmitTask {
         && Objects.equals(disabled, that.disabled)
         && Objects.equals(emailNotifications, that.emailNotifications)
         && Objects.equals(environmentKey, that.environmentKey)
+        && Objects.equals(environmentVariablesKey, that.environmentVariablesKey)
         && Objects.equals(existingClusterId, that.existingClusterId)
         && Objects.equals(forEachTask, that.forEachTask)
         && Objects.equals(genAiComputeTask, that.genAiComputeTask)
@@ -660,6 +679,7 @@ public class SubmitTask {
         disabled,
         emailNotifications,
         environmentKey,
+        environmentVariablesKey,
         existingClusterId,
         forEachTask,
         genAiComputeTask,
@@ -704,6 +724,7 @@ public class SubmitTask {
         .add("disabled", disabled)
         .add("emailNotifications", emailNotifications)
         .add("environmentKey", environmentKey)
+        .add("environmentVariablesKey", environmentVariablesKey)
         .add("existingClusterId", existingClusterId)
         .add("forEachTask", forEachTask)
         .add("genAiComputeTask", genAiComputeTask)

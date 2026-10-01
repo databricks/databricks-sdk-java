@@ -26,6 +26,15 @@ public class SubmitRun {
   private JobEmailNotifications emailNotifications;
 
   /**
+   * Named environment-variable entries that tasks of this one-time run can reference by key from
+   * `RunTaskSettings.environment_variables_key`. Each entry's `spec` holds inline `variables` and
+   * optional `.env` `files`. Handled identically to `JobSettings.environment_variables`. Maximum 10
+   * entries. Entries are independent of one another — there is no cross-entry merging.
+   */
+  @JsonProperty("environment_variables")
+  private Collection<JobEnvironmentVariables> environmentVariables;
+
+  /**
    * A list of task execution environment specifications that can be referenced by tasks of this
    * run.
    */
@@ -143,6 +152,16 @@ public class SubmitRun {
 
   public JobEmailNotifications getEmailNotifications() {
     return emailNotifications;
+  }
+
+  public SubmitRun setEnvironmentVariables(
+      Collection<JobEnvironmentVariables> environmentVariables) {
+    this.environmentVariables = environmentVariables;
+    return this;
+  }
+
+  public Collection<JobEnvironmentVariables> getEnvironmentVariables() {
+    return environmentVariables;
   }
 
   public SubmitRun setEnvironments(Collection<JobEnvironment> environments) {
@@ -270,6 +289,7 @@ public class SubmitRun {
     return Objects.equals(accessControlList, that.accessControlList)
         && Objects.equals(budgetPolicyId, that.budgetPolicyId)
         && Objects.equals(emailNotifications, that.emailNotifications)
+        && Objects.equals(environmentVariables, that.environmentVariables)
         && Objects.equals(environments, that.environments)
         && Objects.equals(gitSource, that.gitSource)
         && Objects.equals(health, that.health)
@@ -291,6 +311,7 @@ public class SubmitRun {
         accessControlList,
         budgetPolicyId,
         emailNotifications,
+        environmentVariables,
         environments,
         gitSource,
         health,
@@ -312,6 +333,7 @@ public class SubmitRun {
         .add("accessControlList", accessControlList)
         .add("budgetPolicyId", budgetPolicyId)
         .add("emailNotifications", emailNotifications)
+        .add("environmentVariables", environmentVariables)
         .add("environments", environments)
         .add("gitSource", gitSource)
         .add("health", health)

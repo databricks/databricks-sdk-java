@@ -37,6 +37,13 @@ public class MaterializedFeature {
   private Boolean isOnline;
 
   /**
+   * The ID of the job that materializes the feature. This is present for both batch and streaming
+   * features.
+   */
+  @JsonProperty("job_id")
+  private Long jobId;
+
+  /**
    * The timestamp when the pipeline last ran and updated the materialized feature values. If the
    * pipeline has not run yet, this field will be null.
    */
@@ -61,6 +68,13 @@ public class MaterializedFeature {
   /** Destination for writing feature values to an online Lakebase table. */
   @JsonProperty("online_store_config")
   private OnlineStoreConfig onlineStoreConfig;
+
+  /**
+   * The ID of the pipeline that materializes this feature. This is only present for streaming
+   * features.
+   */
+  @JsonProperty("pipeline_id")
+  private String pipelineId;
 
   /**
    * The schedule state of the materialization pipeline. Hidden from GraphQL: being deprecated, so
@@ -145,6 +159,15 @@ public class MaterializedFeature {
     return isOnline;
   }
 
+  public MaterializedFeature setJobId(Long jobId) {
+    this.jobId = jobId;
+    return this;
+  }
+
+  public Long getJobId() {
+    return jobId;
+  }
+
   public MaterializedFeature setLastMaterializationTime(String lastMaterializationTime) {
     this.lastMaterializationTime = lastMaterializationTime;
     return this;
@@ -188,6 +211,15 @@ public class MaterializedFeature {
 
   public OnlineStoreConfig getOnlineStoreConfig() {
     return onlineStoreConfig;
+  }
+
+  public MaterializedFeature setPipelineId(String pipelineId) {
+    this.pipelineId = pipelineId;
+    return this;
+  }
+
+  public String getPipelineId() {
+    return pipelineId;
   }
 
   public MaterializedFeature setPipelineScheduleState(
@@ -246,11 +278,13 @@ public class MaterializedFeature {
         && Objects.equals(cronScheduleTrigger, that.cronScheduleTrigger)
         && Objects.equals(featureName, that.featureName)
         && Objects.equals(isOnline, that.isOnline)
+        && Objects.equals(jobId, that.jobId)
         && Objects.equals(lastMaterializationTime, that.lastMaterializationTime)
         && Objects.equals(latestBackfillOperation, that.latestBackfillOperation)
         && Objects.equals(materializedFeatureId, that.materializedFeatureId)
         && Objects.equals(offlineStoreConfig, that.offlineStoreConfig)
         && Objects.equals(onlineStoreConfig, that.onlineStoreConfig)
+        && Objects.equals(pipelineId, that.pipelineId)
         && Objects.equals(pipelineScheduleState, that.pipelineScheduleState)
         && Objects.equals(streamingMode, that.streamingMode)
         && Objects.equals(tableName, that.tableName)
@@ -266,11 +300,13 @@ public class MaterializedFeature {
         cronScheduleTrigger,
         featureName,
         isOnline,
+        jobId,
         lastMaterializationTime,
         latestBackfillOperation,
         materializedFeatureId,
         offlineStoreConfig,
         onlineStoreConfig,
+        pipelineId,
         pipelineScheduleState,
         streamingMode,
         tableName,
@@ -286,11 +322,13 @@ public class MaterializedFeature {
         .add("cronScheduleTrigger", cronScheduleTrigger)
         .add("featureName", featureName)
         .add("isOnline", isOnline)
+        .add("jobId", jobId)
         .add("lastMaterializationTime", lastMaterializationTime)
         .add("latestBackfillOperation", latestBackfillOperation)
         .add("materializedFeatureId", materializedFeatureId)
         .add("offlineStoreConfig", offlineStoreConfig)
         .add("onlineStoreConfig", onlineStoreConfig)
+        .add("pipelineId", pipelineId)
         .add("pipelineScheduleState", pipelineScheduleState)
         .add("streamingMode", streamingMode)
         .add("tableName", tableName)

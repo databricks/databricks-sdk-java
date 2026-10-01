@@ -1,6 +1,25 @@
 # Version changelog
 
-## Release v0.157.0 (2026-09-30)
+## Release v0.158.0 (2026-10-01)
+
+### API Changes
+* Add `aiDecide()` method for `workspaceClient.aiFunctions()` service.
+* Add `listCommands()` method for `workspaceClient.sandbox()` service.
+* Add `environmentVariables` field for `com.databricks.sdk.service.jobs.BaseRun`.
+* Add `environmentVariables` field for `com.databricks.sdk.service.jobs.CreateJob`.
+* Add `environmentVariables` field for `com.databricks.sdk.service.jobs.JobSettings`.
+* Add `environmentVariables` field for `com.databricks.sdk.service.jobs.Run`.
+* Add `environmentVariablesKey` field for `com.databricks.sdk.service.jobs.RunTask`.
+* Add `environmentVariables` field for `com.databricks.sdk.service.jobs.SubmitRun`.
+* Add `environmentVariablesKey` field for `com.databricks.sdk.service.jobs.SubmitTask`.
+* Add `environmentVariablesKey` field for `com.databricks.sdk.service.jobs.Task`.
+* Add `jobId` and `pipelineId` fields for `com.databricks.sdk.service.ml.MaterializedFeature`.
+* Change `commandPath` field for `com.databricks.sdk.service.jobs.DeploymentSpec` to no longer be required.
+* [Breaking] Change `commandPath` field for `com.databricks.sdk.service.jobs.DeploymentSpec` to no longer be required.
+* Change `apiSecretRef` field for `com.databricks.sdk.service.ml.SchemaRegistryConfig` to no longer be required.
+* [Breaking] Change `apiSecretRef` field for `com.databricks.sdk.service.ml.SchemaRegistryConfig` to no longer be required.
+
+## Release v0.157.0 (2026-09-25)
 
 ### API Changes
 * Add `com.databricks.sdk.service.mason` package.

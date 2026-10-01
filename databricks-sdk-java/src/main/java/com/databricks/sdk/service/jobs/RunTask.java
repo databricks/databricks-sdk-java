@@ -156,6 +156,15 @@ public class RunTask {
   private String environmentKey;
 
   /**
+   * Reference to a `JobEnvironmentVariables` entry defined in `RunSettings.environment_variables`
+   * for one-time runs or preserved in `Run.environment_variables` for run snapshots. The selected
+   * entry's variables are applied to this task at execution time. This field supports serverless
+   * tasks using environment version 5 or later.
+   */
+  @JsonProperty("environment_variables_key")
+  private String environmentVariablesKey;
+
+  /**
    * The time in milliseconds it took to execute the commands in the JAR or notebook until they
    * completed, failed, timed out, were cancelled, or encountered an unexpected error. The duration
    * of a task run is the sum of the `setup_duration`, `execution_duration`, and the
@@ -558,6 +567,15 @@ public class RunTask {
     return environmentKey;
   }
 
+  public RunTask setEnvironmentVariablesKey(String environmentVariablesKey) {
+    this.environmentVariablesKey = environmentVariablesKey;
+    return this;
+  }
+
+  public String getEnvironmentVariablesKey() {
+    return environmentVariablesKey;
+  }
+
   public RunTask setExecutionDuration(Long executionDuration) {
     this.executionDuration = executionDuration;
     return this;
@@ -899,6 +917,7 @@ public class RunTask {
         && Objects.equals(emailNotifications, that.emailNotifications)
         && Objects.equals(endTime, that.endTime)
         && Objects.equals(environmentKey, that.environmentKey)
+        && Objects.equals(environmentVariablesKey, that.environmentVariablesKey)
         && Objects.equals(executionDuration, that.executionDuration)
         && Objects.equals(existingClusterId, that.existingClusterId)
         && Objects.equals(forEachTask, that.forEachTask)
@@ -960,6 +979,7 @@ public class RunTask {
         emailNotifications,
         endTime,
         environmentKey,
+        environmentVariablesKey,
         executionDuration,
         existingClusterId,
         forEachTask,
@@ -1021,6 +1041,7 @@ public class RunTask {
         .add("emailNotifications", emailNotifications)
         .add("endTime", endTime)
         .add("environmentKey", environmentKey)
+        .add("environmentVariablesKey", environmentVariablesKey)
         .add("executionDuration", executionDuration)
         .add("existingClusterId", existingClusterId)
         .add("forEachTask", forEachTask)

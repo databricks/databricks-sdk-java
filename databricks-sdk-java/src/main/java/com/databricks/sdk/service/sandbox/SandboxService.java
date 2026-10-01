@@ -29,6 +29,9 @@ public interface SandboxService {
   /** Retrieves a Sandbox by name. */
   Sandbox getSandbox(GetSandboxRequest getSandboxRequest);
 
+  /** Lists the tracked command executions (running and completed) in a sandbox. */
+  ListCommandsResponse listCommands(ListCommandsRequest listCommandsRequest);
+
   /** Lists all Sandboxes. */
   ListSandboxesResponse listSandboxes(ListSandboxesRequest listSandboxesRequest);
 

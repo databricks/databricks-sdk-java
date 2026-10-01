@@ -103,6 +103,14 @@ public class Task {
   private String environmentKey;
 
   /**
+   * Reference to a `JobEnvironmentVariables` entry defined in `JobSettings.environment_variables`.
+   * The selected entry's variables are applied to this task at execution time. This field supports
+   * serverless tasks using environment version 5 or later.
+   */
+  @JsonProperty("environment_variables_key")
+  private String environmentVariablesKey;
+
+  /**
    * If existing_cluster_id, the ID of an existing cluster that is used for all runs. When running
    * jobs or tasks on an existing cluster, you may need to manually restart the cluster if it stops
    * responding. We suggest running jobs and tasks on new clusters for greater reliability
@@ -392,6 +400,15 @@ public class Task {
     return environmentKey;
   }
 
+  public Task setEnvironmentVariablesKey(String environmentVariablesKey) {
+    this.environmentVariablesKey = environmentVariablesKey;
+    return this;
+  }
+
+  public String getEnvironmentVariablesKey() {
+    return environmentVariablesKey;
+  }
+
   public Task setExistingClusterId(String existingClusterId) {
     this.existingClusterId = existingClusterId;
     return this;
@@ -637,6 +654,7 @@ public class Task {
         && Objects.equals(disabled, that.disabled)
         && Objects.equals(emailNotifications, that.emailNotifications)
         && Objects.equals(environmentKey, that.environmentKey)
+        && Objects.equals(environmentVariablesKey, that.environmentVariablesKey)
         && Objects.equals(existingClusterId, that.existingClusterId)
         && Objects.equals(forEachTask, that.forEachTask)
         && Objects.equals(genAiComputeTask, that.genAiComputeTask)
@@ -682,6 +700,7 @@ public class Task {
         disabled,
         emailNotifications,
         environmentKey,
+        environmentVariablesKey,
         existingClusterId,
         forEachTask,
         genAiComputeTask,
@@ -727,6 +746,7 @@ public class Task {
         .add("disabled", disabled)
         .add("emailNotifications", emailNotifications)
         .add("environmentKey", environmentKey)
+        .add("environmentVariablesKey", environmentVariablesKey)
         .add("existingClusterId", existingClusterId)
         .add("forEachTask", forEachTask)
         .add("genAiComputeTask", genAiComputeTask)

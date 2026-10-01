@@ -59,7 +59,11 @@ public class ClonePipelineRequest {
   @JsonProperty("deployment")
   private PipelineDeployment deployment;
 
-  /** Whether the pipeline is in Development mode. Defaults to false. */
+  /**
+   * Whether the pipeline is in Development mode. Defaults to false.
+   *
+   * <p>Deprecated: set development mode for each update instead.
+   */
   @JsonProperty("development")
   private Boolean development;
 

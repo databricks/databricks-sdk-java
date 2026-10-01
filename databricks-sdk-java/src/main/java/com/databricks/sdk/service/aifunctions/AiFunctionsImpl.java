@@ -35,6 +35,24 @@ class AiFunctionsImpl implements AiFunctionsService {
   }
 
   @Override
+  public AiDecideResponse aiDecide(AiDecideRequest request) {
+    String path = "/api/2.0/ai-functions/ai-decide";
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, AiDecideResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public AiExtractResponse aiExtract(AiExtractRequest request) {
     String path = "/api/2.0/ai-functions/ai-extract";
     try {

@@ -12,7 +12,10 @@ import java.util.Objects;
  */
 @Generated
 public class SchemaRegistryConfig {
-  /** Reference to the schema registry API secret in a Databricks secret scope. */
+  /**
+   * Reference to the schema registry API secret in a Databricks secret scope. Set this only if
+   * required for authentication for the schema registry.
+   */
   @JsonProperty("api_secret_ref")
   private SecretScopeReference apiSecretRef;
 
