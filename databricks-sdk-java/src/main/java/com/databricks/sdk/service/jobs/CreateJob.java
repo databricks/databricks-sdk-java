@@ -60,6 +60,15 @@ public class CreateJob {
   private JobEmailNotifications emailNotifications;
 
   /**
+   * Named environment-variable entries that tasks can reference by key from
+   * `TaskSettings.environment_variables_key`. Each entry's `spec` holds inline `variables` and
+   * optional `.env` `files`. Maximum 10 entries per job. A task can reference at most one entry
+   * from this list.
+   */
+  @JsonProperty("environment_variables")
+  private Collection<JobEnvironmentVariables> environmentVariables;
+
+  /**
    * A list of task execution environment specifications that can be referenced by tasks that use
    * serverless compute or a compute resource that uses Environments mode.
    *
@@ -285,6 +294,16 @@ public class CreateJob {
     return emailNotifications;
   }
 
+  public CreateJob setEnvironmentVariables(
+      Collection<JobEnvironmentVariables> environmentVariables) {
+    this.environmentVariables = environmentVariables;
+    return this;
+  }
+
+  public Collection<JobEnvironmentVariables> getEnvironmentVariables() {
+    return environmentVariables;
+  }
+
   public CreateJob setEnvironments(Collection<JobEnvironment> environments) {
     this.environments = environments;
     return this;
@@ -486,6 +505,7 @@ public class CreateJob {
         && Objects.equals(description, that.description)
         && Objects.equals(editMode, that.editMode)
         && Objects.equals(emailNotifications, that.emailNotifications)
+        && Objects.equals(environmentVariables, that.environmentVariables)
         && Objects.equals(environments, that.environments)
         && Objects.equals(format, that.format)
         && Objects.equals(gitSource, that.gitSource)
@@ -519,6 +539,7 @@ public class CreateJob {
         description,
         editMode,
         emailNotifications,
+        environmentVariables,
         environments,
         format,
         gitSource,
@@ -552,6 +573,7 @@ public class CreateJob {
         .add("description", description)
         .add("editMode", editMode)
         .add("emailNotifications", emailNotifications)
+        .add("environmentVariables", environmentVariables)
         .add("environments", environments)
         .add("format", format)
         .add("gitSource", gitSource)

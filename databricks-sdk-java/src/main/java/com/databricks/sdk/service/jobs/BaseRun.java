@@ -84,6 +84,14 @@ public class BaseRun {
   private Long endTime;
 
   /**
+   * Snapshot of `JobSettings.environment_variables` as it was at run launch — the full list of
+   * named environment-variable entries the job defined. To find which entry a given task ran with,
+   * look at `RunTaskSettings.environment_variables_key`.
+   */
+  @JsonProperty("environment_variables")
+  private Collection<JobEnvironmentVariables> environmentVariables;
+
+  /**
    * The time in milliseconds it took to execute the commands in the JAR or notebook until they
    * completed, failed, timed out, were cancelled, or encountered an unexpected error. The duration
    * of a task run is the sum of the `setup_duration`, `execution_duration`, and the
@@ -326,6 +334,15 @@ public class BaseRun {
 
   public Long getEndTime() {
     return endTime;
+  }
+
+  public BaseRun setEnvironmentVariables(Collection<JobEnvironmentVariables> environmentVariables) {
+    this.environmentVariables = environmentVariables;
+    return this;
+  }
+
+  public Collection<JobEnvironmentVariables> getEnvironmentVariables() {
+    return environmentVariables;
   }
 
   public BaseRun setExecutionDuration(Long executionDuration) {
@@ -577,6 +594,7 @@ public class BaseRun {
         && Objects.equals(effectivePerformanceTarget, that.effectivePerformanceTarget)
         && Objects.equals(effectiveUsagePolicyId, that.effectiveUsagePolicyId)
         && Objects.equals(endTime, that.endTime)
+        && Objects.equals(environmentVariables, that.environmentVariables)
         && Objects.equals(executionDuration, that.executionDuration)
         && Objects.equals(gitSource, that.gitSource)
         && Objects.equals(hasMore, that.hasMore)
@@ -618,6 +636,7 @@ public class BaseRun {
         effectivePerformanceTarget,
         effectiveUsagePolicyId,
         endTime,
+        environmentVariables,
         executionDuration,
         gitSource,
         hasMore,
@@ -659,6 +678,7 @@ public class BaseRun {
         .add("effectivePerformanceTarget", effectivePerformanceTarget)
         .add("effectiveUsagePolicyId", effectiveUsagePolicyId)
         .add("endTime", endTime)
+        .add("environmentVariables", environmentVariables)
         .add("executionDuration", executionDuration)
         .add("gitSource", gitSource)
         .add("hasMore", hasMore)

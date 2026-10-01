@@ -33,6 +33,14 @@ public class AiFunctionsAPI {
   }
 
   /**
+   * Turn text and structured data into decisions your application can use. Define questions and
+   * criteria to choose an option, estimate a probability, or assign a score given a provided state.
+   */
+  public AiDecideResponse aiDecide(AiDecideRequest request) {
+    return impl.aiDecide(request);
+  }
+
+  /**
    * Extracts structured data from text and documents according to a provided schema. For REST API
    * requests, the default rate limit is 120 requests per minute per workspace. Contact your
    * Databricks account team to request a higher limit.

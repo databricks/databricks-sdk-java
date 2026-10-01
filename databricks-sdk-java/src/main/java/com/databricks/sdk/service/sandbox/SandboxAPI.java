@@ -58,6 +58,15 @@ public class SandboxAPI {
     return impl.getSandbox(request);
   }
 
+  public ListCommandsResponse listCommands(String parent) {
+    return listCommands(new ListCommandsRequest().setParent(parent));
+  }
+
+  /** Lists the tracked command executions (running and completed) in a sandbox. */
+  public ListCommandsResponse listCommands(ListCommandsRequest request) {
+    return impl.listCommands(request);
+  }
+
   /** Lists all Sandboxes. */
   public Iterable<Sandbox> listSandboxes(ListSandboxesRequest request) {
     return Paginator.newTokenPagination(

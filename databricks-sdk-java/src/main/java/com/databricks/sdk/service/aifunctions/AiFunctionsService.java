@@ -20,6 +20,12 @@ public interface AiFunctionsService {
   AiClassifyResponse aiClassify(AiClassifyRequest aiClassifyRequest);
 
   /**
+   * Turn text and structured data into decisions your application can use. Define questions and
+   * criteria to choose an option, estimate a probability, or assign a score given a provided state.
+   */
+  AiDecideResponse aiDecide(AiDecideRequest aiDecideRequest);
+
+  /**
    * Extracts structured data from text and documents according to a provided schema. For REST API
    * requests, the default rate limit is 120 requests per minute per workspace. Contact your
    * Databricks account team to request a higher limit.

@@ -10,7 +10,14 @@ import java.util.Objects;
 /** Attributes set during instance pool creation which are related to Azure. */
 @Generated
 public class InstancePoolAzureAttributes {
-  /** Availability type used for the spot nodes. */
+  /**
+   * Availability type used for the instances in the pool. Supports on-demand, spot, and
+   * spot-with-fallback (the pool acquires spot instances first, and falls back to on-demand
+   * instances when spot capacity is unavailable).
+   *
+   * <p>You can change this value on an existing pool. New clusters use the updated availability,
+   * and existing clusters keep the availability they launched with.
+   */
   @JsonProperty("availability")
   private InstancePoolAzureAttributesAvailability availability;
 
@@ -40,6 +47,9 @@ public class InstancePoolAzureAttributes {
    * value 2 would be a max price of $2.00 USD per hour. If you set the max price to be -1, the VM
    * won't be evicted based on price. The price for the VM will be the current price for spot or the
    * price for a standard VM, which ever is less, as long as there is capacity and quota available.
+   *
+   * <p>You can change this value on an existing pool. New clusters use the updated max price, and
+   * existing clusters keep the max price they launched with.
    */
   @JsonProperty("spot_bid_max_price")
   private Double spotBidMaxPrice;
