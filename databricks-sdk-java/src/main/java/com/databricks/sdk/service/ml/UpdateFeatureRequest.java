@@ -11,7 +11,7 @@ import java.util.Objects;
 
 @Generated
 public class UpdateFeatureRequest {
-  /** Feature to update. */
+  /** Feature whose full_name identifies the target. Only description is mutable. */
   @JsonProperty("feature")
   private Feature feature;
 
@@ -22,7 +22,7 @@ public class UpdateFeatureRequest {
    */
   @JsonIgnore private String fullName;
 
-  /** The list of fields to update. */
+  /** Fields to update. The only supported path is description. */
   @JsonIgnore
   @QueryParam("update_mask")
   private String updateMask;

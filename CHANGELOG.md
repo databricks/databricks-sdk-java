@@ -1,5 +1,13 @@
 # Version changelog
 
+## Release v0.159.0 (2026-10-02)
+
+### API Changes
+* Add `environment` field for `com.databricks.sdk.service.sandbox.SandboxSpec`.
+* Add `TABLE_FOREIGN_DELTA_DELTASHARING` enum value for `com.databricks.sdk.service.catalog.SecurableKind`.
+* [Breaking] Change `environmentVariablesKey` field for `com.databricks.sdk.service.jobs.JobEnvironmentVariables` to be required.
+* Change `environmentVariablesKey` field for `com.databricks.sdk.service.jobs.JobEnvironmentVariables` to be required.
+
 ## Release v0.158.0 (2026-10-01)
 
 ### API Changes

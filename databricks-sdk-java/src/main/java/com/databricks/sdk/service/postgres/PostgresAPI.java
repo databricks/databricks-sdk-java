@@ -240,8 +240,8 @@ public class PostgresAPI {
   }
 
   /**
-   * Get a single Lakebase CDF configuration, including the source Postgres schema, target Unity
-   * Catalog schema, and the identity under which writes are authorized.
+   * Get a single Lakebase CDF configuration, including the source Postgres schema and target Unity
+   * Catalog schema.
    */
   public CdfConfig getCdfConfig(GetCdfConfigRequest request) {
     return impl.getCdfConfig(request);
