@@ -109,8 +109,8 @@ public interface PostgresService {
   Catalog getCatalog(GetCatalogRequest getCatalogRequest);
 
   /**
-   * Get a single Lakebase CDF configuration, including the source Postgres schema, target Unity
-   * Catalog schema, and the identity under which writes are authorized.
+   * Get a single Lakebase CDF configuration, including the source Postgres schema and target Unity
+   * Catalog schema.
    */
   CdfConfig getCdfConfig(GetCdfConfigRequest getCdfConfigRequest);
 

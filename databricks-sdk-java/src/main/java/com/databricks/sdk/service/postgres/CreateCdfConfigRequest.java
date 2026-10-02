@@ -12,8 +12,8 @@ import java.util.Objects;
 @Generated
 public class CreateCdfConfigRequest {
   /**
-   * The CdfConfig to create. The catalog, schema, and postgres_schema fields are required; all
-   * other fields are output only and ignored on input.
+   * The CdfConfig to create. The catalog, schema, and postgres_schema fields are required;
+   * service_principal is optional. All other fields are output only and ignored on input.
    */
   @JsonProperty("cdf_config")
   private CdfConfig cdfConfig;

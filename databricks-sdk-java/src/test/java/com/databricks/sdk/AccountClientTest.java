@@ -1,10 +1,15 @@
 package com.databricks.sdk;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.core.HostType;
+import com.databricks.sdk.core.http.Response;
 import com.databricks.sdk.service.provisioning.Workspace;
+import java.util.Collections;
 import org.junit.jupiter.api.Test;
 
 public class AccountClientTest {
@@ -12,7 +17,7 @@ public class AccountClientTest {
   @Test
   public void testGetWorkspaceClientForTraditionalAccount() {
     DatabricksConfig accountConfig =
-        new DatabricksConfig()
+        testConfig()
             .setHost("https://accounts.cloud.databricks.com")
             .setAccountId("test-account")
             .setToken("test-token");
@@ -34,10 +39,7 @@ public class AccountClientTest {
   public void testGetWorkspaceClientForUnifiedHost() {
     String unifiedHost = "https://unified.databricks.com";
     DatabricksConfig accountConfig =
-        new DatabricksConfig()
-            .setHost(unifiedHost)
-            .setAccountId("test-account")
-            .setToken("test-token");
+        testConfig().setHost(unifiedHost).setAccountId("test-account").setToken("test-token");
 
     AccountClient accountClient = new AccountClient(accountConfig);
 
@@ -61,10 +63,7 @@ public class AccountClientTest {
   public void testGetWorkspaceClientForSpogHostDoesNotMutateAccountConfig() {
     String spogHost = "https://mycompany.databricks.com";
     DatabricksConfig accountConfig =
-        new DatabricksConfig()
-            .setHost(spogHost)
-            .setAccountId("test-account")
-            .setToken("test-token");
+        testConfig().setHost(spogHost).setAccountId("test-account").setToken("test-token");
 
     AccountClient accountClient = new AccountClient(accountConfig);
 
@@ -90,5 +89,11 @@ public class AccountClientTest {
     // Both should share the same SPOG host
     assertEquals(spogHost, wc1.config().getHost());
     assertEquals(spogHost, wc2.config().getHost());
+  }
+
+  private static DatabricksConfig testConfig() {
+    DatabricksConfig config = new DatabricksConfig();
+    config.setHttpClient(request -> new Response(request, 200, "OK", Collections.emptyMap(), "{}"));
+    return config;
   }
 }

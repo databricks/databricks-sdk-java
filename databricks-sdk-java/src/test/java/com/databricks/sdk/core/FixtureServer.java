@@ -26,6 +26,7 @@ public class FixtureServer implements Closeable {
       private ArrayList<Validation> validations = new ArrayList<>();
       private String response;
       private int statusCode;
+      private Map<String, List<String>> responseHeaders;
       private String redirectUrl;
       private int redirectStatusCode;
 
@@ -104,9 +105,19 @@ public class FixtureServer implements Closeable {
         return this;
       }
 
+      public Builder validate(Validation validation) {
+        this.validations.add(validation);
+        return this;
+      }
+
       public Builder withResponse(String response, int statusCode) {
         this.response = response;
         this.statusCode = statusCode;
+        return this;
+      }
+
+      public Builder withResponseHeaders(Map<String, List<String>> responseHeaders) {
+        this.responseHeaders = responseHeaders;
         return this;
       }
 
@@ -124,12 +135,13 @@ public class FixtureServer implements Closeable {
               }
             };
         return new FixtureMapping(
-            validation, response, redirectUrl, redirectStatusCode, statusCode);
+            validation, response, responseHeaders, redirectUrl, redirectStatusCode, statusCode);
       }
     }
 
     private final Validation validation;
     private final String response;
+    private final Map<String, List<String>> responseHeaders;
     private String redirectUrl;
     private int redirectStatusCode;
     private int statusCode;
@@ -137,16 +149,19 @@ public class FixtureServer implements Closeable {
     FixtureMapping(Validation validation, String response) {
       this.validation = validation;
       this.response = response;
+      this.responseHeaders = null;
     }
 
     FixtureMapping(
         Validation validation,
         String response,
+        Map<String, List<String>> responseHeaders,
         String redirectUrl,
         int redirectStatusCode,
         int statusCode) {
       this.validation = validation;
       this.response = response;
+      this.responseHeaders = responseHeaders;
       this.redirectUrl = redirectUrl;
       this.redirectStatusCode = redirectStatusCode;
       this.statusCode = statusCode;
@@ -158,6 +173,10 @@ public class FixtureServer implements Closeable {
 
     String getResponse() {
       return response;
+    }
+
+    Map<String, List<String>> getResponseHeaders() {
+      return responseHeaders;
     }
 
     int getStatusCode() {
@@ -208,7 +227,8 @@ public class FixtureServer implements Closeable {
         respond(
             exchange,
             404,
-            "{\"error_code\":\"NOT_FOUND\",\"message\":\"auto-stubbed by test framework\"}");
+            "{\"error_code\":\"NOT_FOUND\",\"message\":\"auto-stubbed by test framework\"}",
+            null);
         return;
       }
 
@@ -229,36 +249,60 @@ public class FixtureServer implements Closeable {
         respondRedirect(exchange, response.getRedirectUrl(), response.getRedirectStatusCode());
         return;
       }
-      respondSuccess(exchange, response.getResponse(), response.getStatusCode());
+      respondSuccess(
+          exchange,
+          response.getResponse(),
+          response.getStatusCode(),
+          response.getResponseHeaders());
     }
 
-    private void respond(HttpExchange exchange, int statusCode, String body) throws IOException {
+    private void respond(
+        HttpExchange exchange,
+        int statusCode,
+        String body,
+        Map<String, List<String>> responseHeaders)
+        throws IOException {
       Headers headers = exchange.getResponseHeaders();
       headers.add("Connection", "close");
-      headers.add("Content-Type", "text/plain");
-      exchange.sendResponseHeaders(statusCode, body.length());
-      exchange.getResponseBody().write(body.getBytes());
+      if (responseHeaders != null) {
+        for (Map.Entry<String, List<String>> entry : responseHeaders.entrySet()) {
+          headers.put(entry.getKey(), entry.getValue());
+        }
+      }
+      if (responseHeaders == null
+          || responseHeaders.keySet().stream()
+              .noneMatch(name -> "Content-Type".equalsIgnoreCase(name))) {
+        headers.add("Content-Type", "text/plain");
+      }
+      byte[] responseBody = body.getBytes(StandardCharsets.UTF_8);
+      long responseLength = "HEAD".equals(exchange.getRequestMethod()) ? -1 : responseBody.length;
+      exchange.sendResponseHeaders(statusCode, responseLength);
+      exchange.getResponseBody().write(responseBody);
       exchange.close();
     }
 
     private void respondBadRequest(HttpExchange exchange, String body) throws IOException {
-      respond(exchange, 400, body);
+      respond(exchange, 400, body, null);
     }
 
     private void respondInternalServerError(HttpExchange exchange, String body) throws IOException {
-      respond(exchange, 500, body);
+      respond(exchange, 500, body, null);
     }
 
-    private void respondSuccess(HttpExchange exchange, String body, int statusCode)
+    private void respondSuccess(
+        HttpExchange exchange,
+        String body,
+        int statusCode,
+        Map<String, List<String>> responseHeaders)
         throws IOException {
-      respond(exchange, statusCode, body);
+      respond(exchange, statusCode, body, responseHeaders);
     }
 
     private void respondRedirect(HttpExchange exchange, String location, int statusCode)
         throws IOException {
       Headers headers = exchange.getResponseHeaders();
       headers.add("Location", location);
-      respond(exchange, statusCode, "");
+      respond(exchange, statusCode, "", null);
     }
   }
 
@@ -283,6 +327,12 @@ public class FixtureServer implements Closeable {
   public FixtureServer with(Collection<FixtureMapping> fs) {
     fixtures.addAll(fs);
     return this;
+  }
+
+  public void assertAllFixturesConsumed() {
+    if (!fixtures.isEmpty()) {
+      fail("Expected all HTTP fixtures to be consumed, but " + fixtures.size() + " remain");
+    }
   }
 
   @Override

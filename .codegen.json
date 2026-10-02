@@ -1,6 +1,6 @@
 {
   "mode": "java_v0",
-  "api_changelog": true,
+  "api_changelog": false,
   "sync": {
     "allow_from_packages": [
       "**/*.java",

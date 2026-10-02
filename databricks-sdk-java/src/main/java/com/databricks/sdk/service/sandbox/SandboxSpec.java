@@ -13,6 +13,10 @@ public class SandboxSpec {
   @JsonProperty("compute")
   private ComputeSpec compute;
 
+  /** The execution environment to use for the sandbox. */
+  @JsonProperty("environment")
+  private EnvironmentSpec environment;
+
   public SandboxSpec setCompute(ComputeSpec compute) {
     this.compute = compute;
     return this;
@@ -22,21 +26,33 @@ public class SandboxSpec {
     return compute;
   }
 
+  public SandboxSpec setEnvironment(EnvironmentSpec environment) {
+    this.environment = environment;
+    return this;
+  }
+
+  public EnvironmentSpec getEnvironment() {
+    return environment;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     SandboxSpec that = (SandboxSpec) o;
-    return Objects.equals(compute, that.compute);
+    return Objects.equals(compute, that.compute) && Objects.equals(environment, that.environment);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(compute);
+    return Objects.hash(compute, environment);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(SandboxSpec.class).add("compute", compute).toString();
+    return new ToStringer(SandboxSpec.class)
+        .add("compute", compute)
+        .add("environment", environment)
+        .toString();
   }
 }
