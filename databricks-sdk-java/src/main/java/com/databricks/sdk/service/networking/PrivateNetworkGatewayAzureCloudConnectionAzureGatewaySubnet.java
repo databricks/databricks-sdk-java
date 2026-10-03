@@ -1,0 +1,47 @@
+// Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
+
+package com.databricks.sdk.service.networking;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
+
+/** An Azure subnet used by the gateway. */
+@Generated
+public class PrivateNetworkGatewayAzureCloudConnectionAzureGatewaySubnet {
+  /** The full Azure resource ID of the subnet. */
+  @JsonProperty("resource_id")
+  private String resourceId;
+
+  public PrivateNetworkGatewayAzureCloudConnectionAzureGatewaySubnet setResourceId(
+      String resourceId) {
+    this.resourceId = resourceId;
+    return this;
+  }
+
+  public String getResourceId() {
+    return resourceId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    PrivateNetworkGatewayAzureCloudConnectionAzureGatewaySubnet that =
+        (PrivateNetworkGatewayAzureCloudConnectionAzureGatewaySubnet) o;
+    return Objects.equals(resourceId, that.resourceId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(resourceId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(PrivateNetworkGatewayAzureCloudConnectionAzureGatewaySubnet.class)
+        .add("resourceId", resourceId)
+        .toString();
+  }
+}

@@ -45,6 +45,8 @@ import com.databricks.sdk.service.iamv2.AccountIamV2API;
 import com.databricks.sdk.service.iamv2.AccountIamV2Service;
 import com.databricks.sdk.service.networking.EndpointsAPI;
 import com.databricks.sdk.service.networking.EndpointsService;
+import com.databricks.sdk.service.networking.PrivateNetworkGatewaysAPI;
+import com.databricks.sdk.service.networking.PrivateNetworkGatewaysService;
 import com.databricks.sdk.service.oauth2.AccountFederationPolicyAPI;
 import com.databricks.sdk.service.oauth2.AccountFederationPolicyService;
 import com.databricks.sdk.service.oauth2.CustomAppIntegrationAPI;
@@ -113,6 +115,7 @@ public class AccountClient {
   private NetworksAPI networksAPI;
   private OAuthPublishedAppsAPI oAuthPublishedAppsAPI;
   private PrivateAccessAPI privateAccessAPI;
+  private PrivateNetworkGatewaysAPI privateNetworkGatewaysAPI;
   private PublishedAppIntegrationAPI publishedAppIntegrationAPI;
   private ServicePrincipalFederationPolicyAPI servicePrincipalFederationPolicyAPI;
   private ServicePrincipalSecretsAPI servicePrincipalSecretsAPI;
@@ -160,6 +163,7 @@ public class AccountClient {
     networksAPI = new NetworksAPI(apiClient);
     oAuthPublishedAppsAPI = new OAuthPublishedAppsAPI(apiClient);
     privateAccessAPI = new PrivateAccessAPI(apiClient);
+    privateNetworkGatewaysAPI = new PrivateNetworkGatewaysAPI(apiClient);
     publishedAppIntegrationAPI = new PublishedAppIntegrationAPI(apiClient);
     servicePrincipalFederationPolicyAPI = new ServicePrincipalFederationPolicyAPI(apiClient);
     servicePrincipalSecretsAPI = new ServicePrincipalSecretsAPI(apiClient);
@@ -483,6 +487,11 @@ public class AccountClient {
   /** These APIs manage private access settings for this account. */
   public PrivateAccessAPI privateAccess() {
     return privateAccessAPI;
+  }
+
+  /** These APIs manage private network gateways under network connectivity configurations. */
+  public PrivateNetworkGatewaysAPI privateNetworkGateways() {
+    return privateNetworkGatewaysAPI;
   }
 
   /**
@@ -934,6 +943,20 @@ public class AccountClient {
   /** Replace the default PrivateAccessAPI with a custom implementation. */
   public AccountClient withPrivateAccessAPI(PrivateAccessAPI privateAccess) {
     this.privateAccessAPI = privateAccess;
+    return this;
+  }
+
+  /** Replace the default PrivateNetworkGatewaysService with a custom implementation. */
+  public AccountClient withPrivateNetworkGatewaysImpl(
+      PrivateNetworkGatewaysService privateNetworkGateways) {
+    return this.withPrivateNetworkGatewaysAPI(
+        new PrivateNetworkGatewaysAPI(privateNetworkGateways));
+  }
+
+  /** Replace the default PrivateNetworkGatewaysAPI with a custom implementation. */
+  public AccountClient withPrivateNetworkGatewaysAPI(
+      PrivateNetworkGatewaysAPI privateNetworkGateways) {
+    this.privateNetworkGatewaysAPI = privateNetworkGateways;
     return this;
   }
 

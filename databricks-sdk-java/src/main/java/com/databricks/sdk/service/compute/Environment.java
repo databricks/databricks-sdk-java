@@ -59,6 +59,10 @@ public class Environment {
   @JsonProperty("java_dependencies")
   private Collection<String> javaDependencies;
 
+  /** File path of pyproject.toml file that defines the project-scoped environment. */
+  @JsonProperty("project_environment")
+  private String projectEnvironment;
+
   public Environment setBaseEnvironment(String baseEnvironment) {
     this.baseEnvironment = baseEnvironment;
     return this;
@@ -104,6 +108,15 @@ public class Environment {
     return javaDependencies;
   }
 
+  public Environment setProjectEnvironment(String projectEnvironment) {
+    this.projectEnvironment = projectEnvironment;
+    return this;
+  }
+
+  public String getProjectEnvironment() {
+    return projectEnvironment;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -113,13 +126,19 @@ public class Environment {
         && Objects.equals(client, that.client)
         && Objects.equals(dependencies, that.dependencies)
         && Objects.equals(environmentVersion, that.environmentVersion)
-        && Objects.equals(javaDependencies, that.javaDependencies);
+        && Objects.equals(javaDependencies, that.javaDependencies)
+        && Objects.equals(projectEnvironment, that.projectEnvironment);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(
-        baseEnvironment, client, dependencies, environmentVersion, javaDependencies);
+        baseEnvironment,
+        client,
+        dependencies,
+        environmentVersion,
+        javaDependencies,
+        projectEnvironment);
   }
 
   @Override
@@ -130,6 +149,7 @@ public class Environment {
         .add("dependencies", dependencies)
         .add("environmentVersion", environmentVersion)
         .add("javaDependencies", javaDependencies)
+        .add("projectEnvironment", projectEnvironment)
         .toString();
   }
 }
