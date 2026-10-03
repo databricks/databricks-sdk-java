@@ -271,7 +271,7 @@ public class DatabaseAPI {
         new ListSyncedDatabaseTablesRequest().setInstanceName(instanceName));
   }
 
-  /** This API is currently unimplemented, but exposed for Terraform support. */
+  /** List synced database tables in a Database Instance. */
   public Iterable<SyncedDatabaseTable> listSyncedDatabaseTables(
       ListSyncedDatabaseTablesRequest request) {
     return Paginator.newTokenPagination(

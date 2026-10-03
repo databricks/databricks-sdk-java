@@ -1,5 +1,11 @@
 # Version changelog
 
+## Release v0.160.0 (2026-10-03)
+
+### API Changes
+* Add `accountClient.privateNetworkGateways()` service.
+* Add `projectEnvironment` field for `com.databricks.sdk.service.compute.Environment`.
+
 ## Release v0.159.0 (2026-10-02)
 
 ### API Changes

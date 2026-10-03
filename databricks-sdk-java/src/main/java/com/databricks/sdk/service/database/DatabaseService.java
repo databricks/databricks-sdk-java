@@ -91,7 +91,7 @@ public interface DatabaseService {
   ListDatabaseInstancesResponse listDatabaseInstances(
       ListDatabaseInstancesRequest listDatabaseInstancesRequest);
 
-  /** This API is currently unimplemented, but exposed for Terraform support. */
+  /** List synced database tables in a Database Instance. */
   ListSyncedDatabaseTablesResponse listSyncedDatabaseTables(
       ListSyncedDatabaseTablesRequest listSyncedDatabaseTablesRequest);
 
