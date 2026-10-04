@@ -13,9 +13,25 @@ import java.util.Objects;
  */
 @Generated
 public class RequestSource {
+  /**
+   * A schema containing scalar or nested fields, in Spark StructType JSON format (from
+   * df.schema.json()). This preserves field, array-element, and map-value nullability.
+   */
+  @JsonProperty("dataframe_schema")
+  private String dataframeSchema;
+
   /** A flat schema with scalar-typed fields only. */
   @JsonProperty("flat_schema")
   private FlatSchema flatSchema;
+
+  public RequestSource setDataframeSchema(String dataframeSchema) {
+    this.dataframeSchema = dataframeSchema;
+    return this;
+  }
+
+  public String getDataframeSchema() {
+    return dataframeSchema;
+  }
 
   public RequestSource setFlatSchema(FlatSchema flatSchema) {
     this.flatSchema = flatSchema;
@@ -31,16 +47,20 @@ public class RequestSource {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     RequestSource that = (RequestSource) o;
-    return Objects.equals(flatSchema, that.flatSchema);
+    return Objects.equals(dataframeSchema, that.dataframeSchema)
+        && Objects.equals(flatSchema, that.flatSchema);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(flatSchema);
+    return Objects.hash(dataframeSchema, flatSchema);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(RequestSource.class).add("flatSchema", flatSchema).toString();
+    return new ToStringer(RequestSource.class)
+        .add("dataframeSchema", dataframeSchema)
+        .add("flatSchema", flatSchema)
+        .toString();
   }
 }

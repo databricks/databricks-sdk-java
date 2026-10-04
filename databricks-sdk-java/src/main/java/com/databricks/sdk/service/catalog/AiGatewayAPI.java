@@ -388,8 +388,8 @@ public class AiGatewayAPI {
    * <p>You must be the owner of the model provider service or have `MANAGE` on it, plus
    * `USE_CATALOG` on the parent catalog and `USE_SCHEMA` on the parent schema.
    *
-   * <p>Updating `config.provider` cannot change the provider type or switch between Unity Catalog
-   * service-credential authentication and inline authentication.
+   * <p>Updating `config.provider` cannot change the provider type. Authentication mode changes
+   * require feature availability and support for both modes on the selected provider.
    */
   public ModelProviderService updateModelProviderService(
       UpdateModelProviderServiceRequest request) {

@@ -1,5 +1,10 @@
 # Version changelog
 
+## Release v0.161.0 (2026-10-04)
+
+### API Changes
+* Add `dataframeSchema` field for `com.databricks.sdk.service.ml.RequestSource`.
+
 ## Release v0.160.0 (2026-10-03)
 
 ### API Changes
