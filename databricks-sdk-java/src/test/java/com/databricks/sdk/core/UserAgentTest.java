@@ -58,6 +58,23 @@ public class UserAgentTest {
   }
 
   @Test
+  public void testUserAgentWithOtherInfoDeduplicated() {
+    int sizeBefore = UserAgent.otherInfo.size();
+    for (int i = 0; i < 1000; i++) {
+      UserAgent.withOtherInfo("dedup", "1.0.0");
+    }
+    Assertions.assertEquals(sizeBefore + 1, UserAgent.otherInfo.size());
+
+    // Same key with a different value is a separate entry.
+    UserAgent.withOtherInfo("dedup", "2.0.0");
+    Assertions.assertEquals(sizeBefore + 2, UserAgent.otherInfo.size());
+
+    String userAgent = UserAgent.asString();
+    Assertions.assertTrue(userAgent.contains("dedup/1.0.0"));
+    Assertions.assertTrue(userAgent.contains("dedup/2.0.0"));
+  }
+
+  @Test
   public void testUserAgentWithInvalidKey() {
     Assertions.assertThrows(
         IllegalArgumentException.class,

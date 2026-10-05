@@ -21,12 +21,13 @@ public class UserAgentLoadTest {
     List<Future<Boolean>> futures = new ArrayList<>();
     int successCount = 0;
     int failureCount = 0;
+    int otherInfoSizeBefore = UserAgent.otherInfo.size();
 
     // Add some user agent info
     Callable<Boolean> task =
         () -> {
           try {
-            UserAgent.withOtherInfo("key1", "value1");
+            UserAgent.withOtherInfo("load-test", "1.0.0");
             UserAgent.asString();
             return true;
           } catch (Exception e) {
@@ -60,5 +61,7 @@ public class UserAgentLoadTest {
 
     // Optionally, you can assert that there were no failures
     assertEquals(0, failureCount);
+    // Concurrent registrations of the same entry add it once.
+    assertEquals(otherInfoSizeBefore + 1, UserAgent.otherInfo.size());
   }
 }

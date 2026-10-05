@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -14,8 +16,8 @@ public class UserAgent {
   private static String productVersion = "0.0.0";
 
   private static class Info {
-    private String key;
-    private String value;
+    private final String key;
+    private final String value;
 
     public Info(String key, String value) {
       this.key = key;
@@ -29,9 +31,29 @@ public class UserAgent {
     public String getValue() {
       return value;
     }
+
+    @Override
+    public boolean equals(Object o) {
+      if (this == o) {
+        return true;
+      }
+      if (!(o instanceof Info)) {
+        return false;
+      }
+      Info info = (Info) o;
+      return key.equals(info.key) && value.equals(info.value);
+    }
+
+    @Override
+    public int hashCode() {
+      return Objects.hash(key, value);
+    }
   }
 
-  private static final ArrayList<Info> otherInfo = new ArrayList<>();
+  // Callers such as JDBC drivers re-register the same entries on every connection, and asString()
+  // runs on every request, so entries are deduplicated and read without locking.
+  // Package-private for testing.
+  static final CopyOnWriteArrayList<Info> otherInfo = new CopyOnWriteArrayList<>();
 
   // TODO: check if reading from
   // /META-INF/maven/com.databricks/databrics-sdk-java/pom.properties
@@ -96,9 +118,7 @@ public class UserAgent {
   public static void withOtherInfo(String key, String value) {
     matchAlphanum(key);
     matchAlphanumOrSemVer(value);
-    synchronized (otherInfo) {
-      otherInfo.add(new Info(key, value));
-    }
+    otherInfo.addIfAbsent(new Info(key, value));
   }
 
   private static String osName() {
@@ -137,13 +157,10 @@ public class UserAgent {
     if (!metaHarness.isEmpty()) {
       segments.add(String.format("meta-harness/%s", metaHarness));
     }
-    // Concurrent iteration over ArrayList must be guarded with synchronized.
-    synchronized (otherInfo) {
-      segments.addAll(
-          otherInfo.stream()
-              .map(e -> String.format("%s/%s", e.getKey(), e.getValue()))
-              .collect(Collectors.toSet()));
-    }
+    segments.addAll(
+        otherInfo.stream()
+            .map(e -> String.format("%s/%s", e.getKey(), e.getValue()))
+            .collect(Collectors.toSet()));
     return segments.stream().collect(Collectors.joining(" "));
   }
 
