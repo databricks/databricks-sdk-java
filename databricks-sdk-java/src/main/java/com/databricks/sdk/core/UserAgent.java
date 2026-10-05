@@ -7,7 +7,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -53,7 +54,7 @@ public class UserAgent {
   // Callers such as JDBC drivers re-register the same entries on every connection, and asString()
   // runs on every request, so entries are deduplicated and read without locking.
   // Package-private for testing.
-  static final CopyOnWriteArrayList<Info> otherInfo = new CopyOnWriteArrayList<>();
+  static final Set<Info> otherInfo = ConcurrentHashMap.newKeySet();
 
   // TODO: check if reading from
   // /META-INF/maven/com.databricks/databrics-sdk-java/pom.properties
@@ -118,7 +119,7 @@ public class UserAgent {
   public static void withOtherInfo(String key, String value) {
     matchAlphanum(key);
     matchAlphanumOrSemVer(value);
-    otherInfo.addIfAbsent(new Info(key, value));
+    otherInfo.add(new Info(key, value));
   }
 
   private static String osName() {
