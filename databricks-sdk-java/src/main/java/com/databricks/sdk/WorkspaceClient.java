@@ -1047,7 +1047,7 @@ public class WorkspaceClient {
     return externalMetadataAPI;
   }
 
-  /** [description] */
+  /** Feature Engineering provides APIs for managing features and materialized features. */
   public FeatureEngineeringAPI featureEngineering() {
     return featureEngineeringAPI;
   }

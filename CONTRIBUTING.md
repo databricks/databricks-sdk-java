@@ -97,9 +97,9 @@ log4j.logger.com.databricks.sdk=DEBUG
 ## Testing
 
 - All changes to the SDK should be covered by unit tests.
-- When applicable, new features should be covered by integration tests. Integration tests are automatically run against Databricks workspaces and accounts in AWS, Azure and GCP.
-- Integration tests should clean up after themselves. If an integration test creates a resource like a file or cluster, it should delete that resource after the test is complete.
-- Integration tests should reuse compute resources where possible.
+- Tests must be hermetic and must not require a live Databricks workspace or account.
+- API behavior should be tested at the HTTP boundary with local fixtures when request routing, pagination, streaming, headers, or response decoding are relevant.
+- Unit-level mocks remain appropriate for isolated control-flow behavior.
 
 ## Code conventions
 

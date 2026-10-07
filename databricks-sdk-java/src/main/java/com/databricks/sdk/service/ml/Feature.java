@@ -27,7 +27,11 @@ public class Feature {
   @JsonProperty("description")
   private String description;
 
-  /** The entity columns for the feature, used as aggregation keys and for query-time lookup. */
+  /**
+   * The entity columns for the feature, used as aggregation keys and for query-time lookup.
+   * Optional since entities are not set for RequestSource features or on-demand calculated
+   * features.
+   */
   @JsonProperty("entities")
   private Collection<EntityColumn> entities;
 
@@ -77,7 +81,11 @@ public class Feature {
   @JsonProperty("time_window")
   private TimeWindow timeWindow;
 
-  /** Column recording time, used for point-in-time joins, backfills, and aggregations. */
+  /**
+   * Column recording time, used for point-in-time joins, backfills, and aggregations. Optional
+   * since a timeseries column is not set for RequestSource features or on-demand calculated
+   * features.
+   */
   @JsonProperty("timeseries_column")
   private TimeseriesColumn timeseriesColumn;
 

@@ -65,7 +65,7 @@
 
 <!--
   Describe any tests you have done, especially tests that are not part of
-  the unit tests (e.g. local tests, integration tests, manual verification).
+  the unit tests (e.g. local tests or manual verification).
 
   ALWAYS ANSWER THIS QUESTION: answer with "N/A" if tests are not applicable
   to your PR (e.g. if the PR only modifies comments). Do not be afraid of

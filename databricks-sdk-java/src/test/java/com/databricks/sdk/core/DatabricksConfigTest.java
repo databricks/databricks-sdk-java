@@ -91,7 +91,13 @@ public class DatabricksConfigTest {
     List<String> path = new ArrayList<>();
     String systemName = System.getProperty("os.name");
 
-    DatabricksConfig config = new DatabricksConfig();
+    // Host metadata discovery is unrelated to environment provenance and must stay offline here.
+    DatabricksConfig config =
+        new DatabricksConfig()
+            .setHttpClient(
+                request -> {
+                  throw new IOException("offline test");
+                });
     config.resolve(new Environment(map, path, systemName));
     assertEquals("Config: host=http://my.host. Env: DATABRICKS_HOST", config.toString());
   }
