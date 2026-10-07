@@ -1,5 +1,8 @@
 package com.databricks.sdk.core;
 
+import java.util.Objects;
+import java.util.function.Function;
+
 /**
  * CredentialsProvider is an interface that provides a HeaderFactory to authenticate requests to the
  * Databricks API.
@@ -13,6 +16,33 @@ package com.databricks.sdk.core;
  * interface should not call these methods directly.
  */
 public interface CredentialsProvider {
+  /**
+   * Creates a credentials provider backed by a configuration function.
+   *
+   * <p>This is useful for custom authentication mechanisms that do not need a dedicated provider
+   * class. Runtime exceptions from {@code configureFn} are propagated to the caller.
+   *
+   * @param authType the authentication type used for logging and user-agent identification
+   * @param configureFn creates the header factory for a Databricks configuration
+   * @return a credentials provider backed by {@code configureFn}
+   */
+  static CredentialsProvider from(
+      String authType, Function<DatabricksConfig, HeaderFactory> configureFn) {
+    Objects.requireNonNull(authType, "authType");
+    Objects.requireNonNull(configureFn, "configureFn");
+    return new CredentialsProvider() {
+      @Override
+      public String authType() {
+        return authType;
+      }
+
+      @Override
+      public HeaderFactory configure(DatabricksConfig config) {
+        return configureFn.apply(config);
+      }
+    };
+  }
+
   /**
    * Returns the authentication type identifier for this credentials provider.
    *

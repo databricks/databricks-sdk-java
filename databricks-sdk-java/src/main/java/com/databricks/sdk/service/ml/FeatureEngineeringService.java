@@ -4,7 +4,7 @@ package com.databricks.sdk.service.ml;
 import com.databricks.sdk.support.Generated;
 
 /**
- * [description]
+ * Feature Engineering provides APIs for managing features and materialized features.
  *
  * <p>This is the high-level interface, that contains generated methods.
  *

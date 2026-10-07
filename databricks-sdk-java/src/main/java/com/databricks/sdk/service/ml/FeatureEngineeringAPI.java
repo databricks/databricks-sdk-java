@@ -7,7 +7,7 @@ import com.databricks.sdk.core.logging.LoggerFactory;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.Paginator;
 
-/** [description] */
+/** Feature Engineering provides APIs for managing features and materialized features. */
 @Generated
 public class FeatureEngineeringAPI {
   private static final Logger LOG = LoggerFactory.getLogger(FeatureEngineeringAPI.class);

@@ -1,5 +1,13 @@
 # Version changelog
 
+## Release v0.162.0 (2026-10-07)
+
+### Security Vulnerabilities
+* Bump Jackson (`jackson.version`) from 2.18.9 to 2.18.11 to address CVE-2026-68497, CVE-2026-89407, CVE-2026-89425, CVE-2026-91776 and CVE-2026-91777.
+
+### API Changes
+* Add `healthCheck` field for `com.databricks.sdk.service.apps.AppDeployment`.
+
 ## Release v0.161.0 (2026-10-04)
 
 ### API Changes

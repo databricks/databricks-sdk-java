@@ -44,6 +44,13 @@ public class AppDeployment {
   @JsonProperty("git_source")
   private GitSource gitSource;
 
+  /**
+   * Deploy-time health check for the app. Verifies the app is responding to HTTP requests before
+   * considering the deployment successful.
+   */
+  @JsonProperty("health_check")
+  private AppHealthCheck healthCheck;
+
   /** The mode of which the deployment will manage the source code. */
   @JsonProperty("mode")
   private AppDeploymentMode mode;
@@ -129,6 +136,15 @@ public class AppDeployment {
     return gitSource;
   }
 
+  public AppDeployment setHealthCheck(AppHealthCheck healthCheck) {
+    this.healthCheck = healthCheck;
+    return this;
+  }
+
+  public AppHealthCheck getHealthCheck() {
+    return healthCheck;
+  }
+
   public AppDeployment setMode(AppDeploymentMode mode) {
     this.mode = mode;
     return this;
@@ -177,6 +193,7 @@ public class AppDeployment {
         && Objects.equals(deploymentId, that.deploymentId)
         && Objects.equals(envVars, that.envVars)
         && Objects.equals(gitSource, that.gitSource)
+        && Objects.equals(healthCheck, that.healthCheck)
         && Objects.equals(mode, that.mode)
         && Objects.equals(sourceCodePath, that.sourceCodePath)
         && Objects.equals(status, that.status)
@@ -193,6 +210,7 @@ public class AppDeployment {
         deploymentId,
         envVars,
         gitSource,
+        healthCheck,
         mode,
         sourceCodePath,
         status,
@@ -209,6 +227,7 @@ public class AppDeployment {
         .add("deploymentId", deploymentId)
         .add("envVars", envVars)
         .add("gitSource", gitSource)
+        .add("healthCheck", healthCheck)
         .add("mode", mode)
         .add("sourceCodePath", sourceCodePath)
         .add("status", status)

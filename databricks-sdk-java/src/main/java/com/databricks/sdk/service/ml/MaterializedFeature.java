@@ -61,11 +61,17 @@ public class MaterializedFeature {
   @JsonProperty("materialized_feature_id")
   private String materializedFeatureId;
 
-  /** Destination for writing feature values to an offline Delta table. */
+  /**
+   * Destination for writing feature values to an offline Delta table. The resulting table is
+   * returned as `table_name`.
+   */
   @JsonProperty("offline_store_config")
   private OfflineStoreConfig offlineStoreConfig;
 
-  /** Destination for writing feature values to an online Lakebase table. */
+  /**
+   * Destination for writing feature values to an online Lakebase table. The resulting table is
+   * returned as `table_name`.
+   */
   @JsonProperty("online_store_config")
   private OnlineStoreConfig onlineStoreConfig;
 
