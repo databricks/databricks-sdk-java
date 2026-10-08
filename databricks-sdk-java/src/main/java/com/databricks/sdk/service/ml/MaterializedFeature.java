@@ -62,6 +62,14 @@ public class MaterializedFeature {
   private String materializedFeatureId;
 
   /**
+   * Notification configuration around the materialization job or pipeline lifecycle. They are
+   * applied to every job and pipeline that materializes this feature. Features which are
+   * materialized in the same pipeline will share the same notification.
+   */
+  @JsonProperty("notifications")
+  private MaterializationNotifications notifications;
+
+  /**
    * Destination for writing feature values to an offline Delta table. The resulting table is
    * returned as `table_name`.
    */
@@ -201,6 +209,15 @@ public class MaterializedFeature {
     return materializedFeatureId;
   }
 
+  public MaterializedFeature setNotifications(MaterializationNotifications notifications) {
+    this.notifications = notifications;
+    return this;
+  }
+
+  public MaterializationNotifications getNotifications() {
+    return notifications;
+  }
+
   public MaterializedFeature setOfflineStoreConfig(OfflineStoreConfig offlineStoreConfig) {
     this.offlineStoreConfig = offlineStoreConfig;
     return this;
@@ -288,6 +305,7 @@ public class MaterializedFeature {
         && Objects.equals(lastMaterializationTime, that.lastMaterializationTime)
         && Objects.equals(latestBackfillOperation, that.latestBackfillOperation)
         && Objects.equals(materializedFeatureId, that.materializedFeatureId)
+        && Objects.equals(notifications, that.notifications)
         && Objects.equals(offlineStoreConfig, that.offlineStoreConfig)
         && Objects.equals(onlineStoreConfig, that.onlineStoreConfig)
         && Objects.equals(pipelineId, that.pipelineId)
@@ -310,6 +328,7 @@ public class MaterializedFeature {
         lastMaterializationTime,
         latestBackfillOperation,
         materializedFeatureId,
+        notifications,
         offlineStoreConfig,
         onlineStoreConfig,
         pipelineId,
@@ -332,6 +351,7 @@ public class MaterializedFeature {
         .add("lastMaterializationTime", lastMaterializationTime)
         .add("latestBackfillOperation", latestBackfillOperation)
         .add("materializedFeatureId", materializedFeatureId)
+        .add("notifications", notifications)
         .add("offlineStoreConfig", offlineStoreConfig)
         .add("onlineStoreConfig", onlineStoreConfig)
         .add("pipelineId", pipelineId)

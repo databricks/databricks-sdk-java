@@ -48,7 +48,7 @@ public class DomainsAPI {
   /**
    * Get a domain by resource name.
    *
-   * <p>Authorization: external callers must have the `MANAGE DISCOVERY` permission.
+   * <p>Authorization: external callers must have the `MANAGE DISCOVER` permission.
    */
   public Domain getDomain(GetDomainRequest request) {
     return impl.getDomain(request);
@@ -58,8 +58,8 @@ public class DomainsAPI {
    * List domains in the account. Set `parent_domain_id` to return only the direct subdomains of a
    * given domain.
    *
-   * <p>Authorization: external callers must have the `MANAGE DISCOVERY` permission; only domains
-   * the caller is authorized to read are returned.
+   * <p>Authorization: external callers must have the `MANAGE DISCOVER` permission; only domains the
+   * caller is authorized to read are returned.
    */
   public Iterable<Domain> listDomains(ListDomainsRequest request) {
     return Paginator.newTokenPagination(

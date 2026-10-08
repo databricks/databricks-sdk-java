@@ -10,6 +10,8 @@ import com.databricks.sdk.mixin.DbfsExt;
 import com.databricks.sdk.mixin.SecretsExt;
 import com.databricks.sdk.service.agentbricks.AgentBricksAPI;
 import com.databricks.sdk.service.agentbricks.AgentBricksService;
+import com.databricks.sdk.service.agentkit.AgentKitAPI;
+import com.databricks.sdk.service.agentkit.AgentKitService;
 import com.databricks.sdk.service.aifunctions.AiFunctionsAPI;
 import com.databricks.sdk.service.aifunctions.AiFunctionsService;
 import com.databricks.sdk.service.aisearch.AiSearchAPI;
@@ -180,8 +182,6 @@ import com.databricks.sdk.service.marketplace.ProviderProviderAnalyticsDashboard
 import com.databricks.sdk.service.marketplace.ProviderProviderAnalyticsDashboardsService;
 import com.databricks.sdk.service.marketplace.ProviderProvidersAPI;
 import com.databricks.sdk.service.marketplace.ProviderProvidersService;
-import com.databricks.sdk.service.mason.MasonAPI;
-import com.databricks.sdk.service.mason.MasonService;
 import com.databricks.sdk.service.ml.ExperimentsAPI;
 import com.databricks.sdk.service.ml.ExperimentsService;
 import com.databricks.sdk.service.ml.FeatureEngineeringAPI;
@@ -292,6 +292,7 @@ public class WorkspaceClient {
   private AccessControlAPI accessControlAPI;
   private AccountAccessControlProxyAPI accountAccessControlProxyAPI;
   private AgentBricksAPI agentBricksAPI;
+  private AgentKitAPI agentKitAPI;
   private AiFunctionsAPI aiFunctionsAPI;
   private AiGatewayAPI aiGatewayAPI;
   private AiSearchAPI aiSearchAPI;
@@ -353,7 +354,6 @@ public class WorkspaceClient {
   private LakeviewAPI lakeviewAPI;
   private LakeviewEmbeddedAPI lakeviewEmbeddedAPI;
   private LibrariesAPI librariesAPI;
-  private MasonAPI masonAPI;
   private MaterializedFeaturesAPI materializedFeaturesAPI;
   private MetastoresAPI metastoresAPI;
   private ModelRegistryAPI modelRegistryAPI;
@@ -438,6 +438,7 @@ public class WorkspaceClient {
     accessControlAPI = new AccessControlAPI(apiClient);
     accountAccessControlProxyAPI = new AccountAccessControlProxyAPI(apiClient);
     agentBricksAPI = new AgentBricksAPI(apiClient);
+    agentKitAPI = new AgentKitAPI(apiClient);
     aiFunctionsAPI = new AiFunctionsAPI(apiClient);
     aiGatewayAPI = new AiGatewayAPI(apiClient);
     aiSearchAPI = new AiSearchAPI(apiClient);
@@ -499,7 +500,6 @@ public class WorkspaceClient {
     lakeviewAPI = new LakeviewAPI(apiClient);
     lakeviewEmbeddedAPI = new LakeviewEmbeddedAPI(apiClient);
     librariesAPI = new LibrariesAPI(apiClient);
-    masonAPI = new MasonAPI(apiClient);
     materializedFeaturesAPI = new MaterializedFeaturesAPI(apiClient);
     metastoresAPI = new MetastoresAPI(apiClient);
     modelRegistryAPI = new ModelRegistryAPI(apiClient);
@@ -605,6 +605,14 @@ public class WorkspaceClient {
   /** The Custom LLMs service manages state and powers the UI for the Custom LLM product. */
   public AgentBricksAPI agentBricks() {
     return agentBricksAPI;
+  }
+
+  /**
+   * APIs for managing agent memory and durable session state. This interface is under active
+   * development and may change.
+   */
+  public AgentKitAPI agentKit() {
+    return agentKitAPI;
   }
 
   /** Transform and enrich data with AI on Databricks. */
@@ -1283,14 +1291,6 @@ public class WorkspaceClient {
    */
   public LibrariesAPI libraries() {
     return librariesAPI;
-  }
-
-  /**
-   * APIs for managing agent memory and durable session state. This interface is under active
-   * development and may change.
-   */
-  public MasonAPI mason() {
-    return masonAPI;
   }
 
   /**
@@ -2326,6 +2326,17 @@ public class WorkspaceClient {
     return this;
   }
 
+  /** Replace the default AgentKitService with a custom implementation. */
+  public WorkspaceClient withAgentKitImpl(AgentKitService agentKit) {
+    return this.withAgentKitAPI(new AgentKitAPI(agentKit));
+  }
+
+  /** Replace the default AgentKitAPI with a custom implementation. */
+  public WorkspaceClient withAgentKitAPI(AgentKitAPI agentKit) {
+    this.agentKitAPI = agentKit;
+    return this;
+  }
+
   /** Replace the default AiFunctionsService with a custom implementation. */
   public WorkspaceClient withAiFunctionsImpl(AiFunctionsService aiFunctions) {
     return this.withAiFunctionsAPI(new AiFunctionsAPI(aiFunctions));
@@ -3008,17 +3019,6 @@ public class WorkspaceClient {
   /** Replace the default LibrariesAPI with a custom implementation. */
   public WorkspaceClient withLibrariesAPI(LibrariesAPI libraries) {
     this.librariesAPI = libraries;
-    return this;
-  }
-
-  /** Replace the default MasonService with a custom implementation. */
-  public WorkspaceClient withMasonImpl(MasonService mason) {
-    return this.withMasonAPI(new MasonAPI(mason));
-  }
-
-  /** Replace the default MasonAPI with a custom implementation. */
-  public WorkspaceClient withMasonAPI(MasonAPI mason) {
-    this.masonAPI = mason;
     return this;
   }
 

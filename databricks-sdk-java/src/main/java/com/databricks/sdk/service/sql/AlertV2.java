@@ -22,6 +22,20 @@ public class AlertV2 {
   @JsonProperty("custom_summary")
   private String customSummary;
 
+  /**
+   * The format used to interpret the `custom_summary` and `custom_description` templates.
+   *
+   * <p>`HTML` treats both templates as HTML with Mustache `{{VARIABLE_NAME}}` placeholders.
+   * `MARKDOWN` treats them as Markdown with allowlisted `@VARIABLE_NAME` placeholders and converts
+   * them to the format each notification destination expects, so a single template renders
+   * correctly in email, Slack, and Microsoft Teams.
+   *
+   * <p>When unset, the API applies no default. Responses omit the field unless a format is stored,
+   * and a template with no format is rendered as HTML.
+   */
+  @JsonProperty("custom_template_format")
+  private CustomTemplateFormat customTemplateFormat;
+
   /** The display name of the alert. */
   @JsonProperty("display_name")
   private String displayName;
@@ -135,6 +149,15 @@ public class AlertV2 {
 
   public String getCustomSummary() {
     return customSummary;
+  }
+
+  public AlertV2 setCustomTemplateFormat(CustomTemplateFormat customTemplateFormat) {
+    this.customTemplateFormat = customTemplateFormat;
+    return this;
+  }
+
+  public CustomTemplateFormat getCustomTemplateFormat() {
+    return customTemplateFormat;
   }
 
   public AlertV2 setDisplayName(String displayName) {
@@ -271,6 +294,7 @@ public class AlertV2 {
     return Objects.equals(createTime, that.createTime)
         && Objects.equals(customDescription, that.customDescription)
         && Objects.equals(customSummary, that.customSummary)
+        && Objects.equals(customTemplateFormat, that.customTemplateFormat)
         && Objects.equals(displayName, that.displayName)
         && Objects.equals(effectiveRunAs, that.effectiveRunAs)
         && Objects.equals(evaluation, that.evaluation)
@@ -293,6 +317,7 @@ public class AlertV2 {
         createTime,
         customDescription,
         customSummary,
+        customTemplateFormat,
         displayName,
         effectiveRunAs,
         evaluation,
@@ -315,6 +340,7 @@ public class AlertV2 {
         .add("createTime", createTime)
         .add("customDescription", customDescription)
         .add("customSummary", customSummary)
+        .add("customTemplateFormat", customTemplateFormat)
         .add("displayName", displayName)
         .add("effectiveRunAs", effectiveRunAs)
         .add("evaluation", evaluation)

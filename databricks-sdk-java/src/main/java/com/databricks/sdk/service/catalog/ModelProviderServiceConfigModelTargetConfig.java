@@ -8,9 +8,21 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-/** Model target configuration for an external model destination. */
+/**
+ * Model target configuration shared by model provider service targets and external model
+ * destinations on model services.
+ */
 @Generated
 public class ModelProviderServiceConfigModelTargetConfig {
+  /**
+   * Relative path appended to a custom provider's `base_url` for this model, such as
+   * `serve/openai/chat`. Only custom model provider service targets use this field; other provider
+   * types ignore it, and model service destinations reject it. Do not include URI templates,
+   * queries, or fragments. When empty, `base_url` is used unchanged.
+   */
+  @JsonProperty("endpoint_route")
+  private String endpointRoute;
+
   /**
    * Provider-side model identifier, such as `gpt-5` or `claude-opus-4-7`. This identifies a model
    * at the upstream provider; it is not a Unity Catalog model resource.
@@ -19,12 +31,22 @@ public class ModelProviderServiceConfigModelTargetConfig {
   private String model;
 
   /**
-   * Provider-native API types supported by this model, such as `openai/v1/chat/completions`. At
-   * least one value is required. AI Gateway uses these values to translate requests and responses.
-   * At most 64 entries of 256 characters each are allowed.
+   * Provider-native API types supported by this model, such as `openai/v1/chat/completions`. A
+   * model provider service target requires at least one value. A model service destination may omit
+   * the list to use the matching provider service target's types when available. AI Gateway uses
+   * the selected types for translation. At most 64 entries of 256 characters each are allowed.
    */
   @JsonProperty("native_api_types")
   private Collection<String> nativeApiTypes;
+
+  public ModelProviderServiceConfigModelTargetConfig setEndpointRoute(String endpointRoute) {
+    this.endpointRoute = endpointRoute;
+    return this;
+  }
+
+  public String getEndpointRoute() {
+    return endpointRoute;
+  }
 
   public ModelProviderServiceConfigModelTargetConfig setModel(String model) {
     this.model = model;
@@ -51,17 +73,20 @@ public class ModelProviderServiceConfigModelTargetConfig {
     if (o == null || getClass() != o.getClass()) return false;
     ModelProviderServiceConfigModelTargetConfig that =
         (ModelProviderServiceConfigModelTargetConfig) o;
-    return Objects.equals(model, that.model) && Objects.equals(nativeApiTypes, that.nativeApiTypes);
+    return Objects.equals(endpointRoute, that.endpointRoute)
+        && Objects.equals(model, that.model)
+        && Objects.equals(nativeApiTypes, that.nativeApiTypes);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(model, nativeApiTypes);
+    return Objects.hash(endpointRoute, model, nativeApiTypes);
   }
 
   @Override
   public String toString() {
     return new ToStringer(ModelProviderServiceConfigModelTargetConfig.class)
+        .add("endpointRoute", endpointRoute)
         .add("model", model)
         .add("nativeApiTypes", nativeApiTypes)
         .toString();

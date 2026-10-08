@@ -99,6 +99,10 @@ public class EditWarehouseRequest {
   @JsonProperty("spot_instance_policy")
   private SpotInstancePolicy spotInstancePolicy;
 
+  /** Warehouse statement timeout in seconds. */
+  @JsonProperty("statement_timeout")
+  private Long statementTimeout;
+
   /**
    * A set of key-value pairs that will be tagged on all resources (e.g., AWS instances and EBS
    * volumes) associated with this SQL warehouse.
@@ -223,6 +227,15 @@ public class EditWarehouseRequest {
     return spotInstancePolicy;
   }
 
+  public EditWarehouseRequest setStatementTimeout(Long statementTimeout) {
+    this.statementTimeout = statementTimeout;
+    return this;
+  }
+
+  public Long getStatementTimeout() {
+    return statementTimeout;
+  }
+
   public EditWarehouseRequest setTags(EndpointTags tags) {
     this.tags = tags;
     return this;
@@ -258,6 +271,7 @@ public class EditWarehouseRequest {
         && Objects.equals(minNumClusters, that.minNumClusters)
         && Objects.equals(name, that.name)
         && Objects.equals(spotInstancePolicy, that.spotInstancePolicy)
+        && Objects.equals(statementTimeout, that.statementTimeout)
         && Objects.equals(tags, that.tags)
         && Objects.equals(warehouseType, that.warehouseType);
   }
@@ -277,6 +291,7 @@ public class EditWarehouseRequest {
         minNumClusters,
         name,
         spotInstancePolicy,
+        statementTimeout,
         tags,
         warehouseType);
   }
@@ -296,6 +311,7 @@ public class EditWarehouseRequest {
         .add("minNumClusters", minNumClusters)
         .add("name", name)
         .add("spotInstancePolicy", spotInstancePolicy)
+        .add("statementTimeout", statementTimeout)
         .add("tags", tags)
         .add("warehouseType", warehouseType)
         .toString();

@@ -1,5 +1,26 @@
 # Version changelog
 
+## Release v0.163.0 (2026-10-08)
+
+### API Changes
+* Add `com.databricks.sdk.service.agentkit` package.
+* Add `workspaceClient.agentKit()` service.
+* Add `createIdentityVisibilityFilter()`, `deleteIdentityVisibilityFilter()`, `getIdentityVisibilityFilter()` and `listIdentityVisibilityFilters()` methods for `accountClient.accountIamV2()` service.
+* Add `endpointRoute` field for `com.databricks.sdk.service.catalog.ModelProviderServiceConfigModelTargetConfig`.
+* Add `notifications` field for `com.databricks.sdk.service.ml.MaterializedFeature`.
+* Add `shufflePartitions` field for `com.databricks.sdk.service.ml.StreamingMode`.
+* Add `parentPath` field for `com.databricks.sdk.service.pipelines.ClonePipelineRequest`.
+* Add `parentPath` field for `com.databricks.sdk.service.pipelines.CreatePipeline`.
+* Add `parentPath` field for `com.databricks.sdk.service.pipelines.EditPipeline`.
+* Add `parentPath` field for `com.databricks.sdk.service.pipelines.PipelineSpec`.
+* Add `customTemplateFormat` field for `com.databricks.sdk.service.sql.AlertV2`.
+* Add `statementTimeout` field for `com.databricks.sdk.service.sql.CreateWarehouseRequest`.
+* Add `statementTimeout` field for `com.databricks.sdk.service.sql.EditWarehouseRequest`.
+* Add `statementTimeout` field for `com.databricks.sdk.service.sql.EndpointInfo`.
+* Add `statementTimeout` field for `com.databricks.sdk.service.sql.GetWarehouseResponse`.
+* [Breaking] Remove `com.databricks.sdk.service.mason` package.
+* [Breaking] Remove `workspaceClient.mason()` service.
+
 ## Release v0.162.0 (2026-10-07)
 
 ### Security Vulnerabilities

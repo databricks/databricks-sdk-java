@@ -51,6 +51,24 @@ class AccountIamV2Impl implements AccountIamV2Service {
   }
 
   @Override
+  public IdentityVisibilityFilter createIdentityVisibilityFilter(
+      CreateIdentityVisibilityFilterRequest request) {
+    String path =
+        String.format("/api/2.0/identity/%s/identity-visibility-filters", request.getParent());
+    try {
+      Request req =
+          new Request("POST", path, apiClient.serialize(request.getIdentityVisibilityFilter()));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, IdentityVisibilityFilter.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public ServicePrincipal createServicePrincipal(CreateServicePrincipalRequest request) {
     String path =
         String.format(
@@ -145,6 +163,20 @@ class AccountIamV2Impl implements AccountIamV2Service {
         String.format(
             "/api/2.0/identity/accounts/%s/groups/%s",
             apiClient.configuredAccountID(), request.getGroupId());
+    try {
+      Request req = new Request("DELETE", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      apiClient.execute(req, Void.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public void deleteIdentityVisibilityFilter(DeleteIdentityVisibilityFilterRequest request) {
+    String path = String.format("/api/2.0/identity/%s", request.getName());
     try {
       Request req = new Request("DELETE", path);
 
@@ -302,6 +334,21 @@ class AccountIamV2Impl implements AccountIamV2Service {
   }
 
   @Override
+  public IdentityVisibilityFilter getIdentityVisibilityFilter(
+      GetIdentityVisibilityFilterRequest request) {
+    String path = String.format("/api/2.0/identity/%s", request.getName());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, IdentityVisibilityFilter.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public ServicePrincipal getServicePrincipal(GetServicePrincipalRequest request) {
     String path =
         String.format(
@@ -415,6 +462,22 @@ class AccountIamV2Impl implements AccountIamV2Service {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListGroupsResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public ListIdentityVisibilityFiltersResponse listIdentityVisibilityFilters(
+      ListIdentityVisibilityFiltersRequest request) {
+    String path =
+        String.format("/api/2.0/identity/%s/identity-visibility-filters", request.getParent());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, ListIdentityVisibilityFiltersResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
