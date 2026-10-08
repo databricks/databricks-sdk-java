@@ -117,6 +117,14 @@ public class ClonePipelineRequest {
   @JsonProperty("notifications")
   private Collection<Notifications> notifications;
 
+  /**
+   * Path of the pipeline parent folder in workspace file tree.
+   *
+   * <p>If absent, the pipeline doesn't have a workspace object.
+   */
+  @JsonProperty("parent_path")
+  private String parentPath;
+
   /** Whether Photon is enabled for this pipeline. */
   @JsonProperty("photon")
   private Boolean photon;
@@ -367,6 +375,15 @@ public class ClonePipelineRequest {
     return notifications;
   }
 
+  public ClonePipelineRequest setParentPath(String parentPath) {
+    this.parentPath = parentPath;
+    return this;
+  }
+
+  public String getParentPath() {
+    return parentPath;
+  }
+
   public ClonePipelineRequest setPhoton(Boolean photon) {
     this.photon = photon;
     return this;
@@ -501,6 +518,7 @@ public class ClonePipelineRequest {
         && Objects.equals(libraries, that.libraries)
         && Objects.equals(name, that.name)
         && Objects.equals(notifications, that.notifications)
+        && Objects.equals(parentPath, that.parentPath)
         && Objects.equals(photon, that.photon)
         && Objects.equals(pipelineId, that.pipelineId)
         && Objects.equals(restartWindow, that.restartWindow)
@@ -539,6 +557,7 @@ public class ClonePipelineRequest {
         libraries,
         name,
         notifications,
+        parentPath,
         photon,
         pipelineId,
         restartWindow,
@@ -577,6 +596,7 @@ public class ClonePipelineRequest {
         .add("libraries", libraries)
         .add("name", name)
         .add("notifications", notifications)
+        .add("parentPath", parentPath)
         .add("photon", photon)
         .add("pipelineId", pipelineId)
         .add("restartWindow", restartWindow)

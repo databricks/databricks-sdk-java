@@ -21,6 +21,14 @@ public class StreamingMode {
   @JsonProperty("mode")
   private StreamingModeStreamingModeType mode;
 
+  /**
+   * Number of shuffle partitions for streaming materialization of this feature. Higher values
+   * process high-throughput features with more parallelism at higher compute cost. Materialized
+   * features which are computed together will use the largest value set among them.
+   */
+  @JsonProperty("shuffle_partitions")
+  private Long shufflePartitions;
+
   public StreamingMode setFreshnessTarget(String freshnessTarget) {
     this.freshnessTarget = freshnessTarget;
     return this;
@@ -39,17 +47,28 @@ public class StreamingMode {
     return mode;
   }
 
+  public StreamingMode setShufflePartitions(Long shufflePartitions) {
+    this.shufflePartitions = shufflePartitions;
+    return this;
+  }
+
+  public Long getShufflePartitions() {
+    return shufflePartitions;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     StreamingMode that = (StreamingMode) o;
-    return Objects.equals(freshnessTarget, that.freshnessTarget) && Objects.equals(mode, that.mode);
+    return Objects.equals(freshnessTarget, that.freshnessTarget)
+        && Objects.equals(mode, that.mode)
+        && Objects.equals(shufflePartitions, that.shufflePartitions);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(freshnessTarget, mode);
+    return Objects.hash(freshnessTarget, mode, shufflePartitions);
   }
 
   @Override
@@ -57,6 +76,7 @@ public class StreamingMode {
     return new ToStringer(StreamingMode.class)
         .add("freshnessTarget", freshnessTarget)
         .add("mode", mode)
+        .add("shufflePartitions", shufflePartitions)
         .toString();
   }
 }

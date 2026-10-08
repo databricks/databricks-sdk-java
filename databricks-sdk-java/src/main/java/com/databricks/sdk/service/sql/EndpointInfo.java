@@ -118,6 +118,10 @@ public class EndpointInfo {
   @JsonProperty("state")
   private State state;
 
+  /** Warehouse statement timeout in seconds. */
+  @JsonProperty("statement_timeout")
+  private Long statementTimeout;
+
   /**
    * A set of key-value pairs that will be tagged on all resources (e.g., AWS instances and EBS
    * volumes) associated with this SQL warehouse.
@@ -296,6 +300,15 @@ public class EndpointInfo {
     return state;
   }
 
+  public EndpointInfo setStatementTimeout(Long statementTimeout) {
+    this.statementTimeout = statementTimeout;
+    return this;
+  }
+
+  public Long getStatementTimeout() {
+    return statementTimeout;
+  }
+
   public EndpointInfo setTags(EndpointTags tags) {
     this.tags = tags;
     return this;
@@ -337,6 +350,7 @@ public class EndpointInfo {
         && Objects.equals(odbcParams, that.odbcParams)
         && Objects.equals(spotInstancePolicy, that.spotInstancePolicy)
         && Objects.equals(state, that.state)
+        && Objects.equals(statementTimeout, that.statementTimeout)
         && Objects.equals(tags, that.tags)
         && Objects.equals(warehouseType, that.warehouseType);
   }
@@ -362,6 +376,7 @@ public class EndpointInfo {
         odbcParams,
         spotInstancePolicy,
         state,
+        statementTimeout,
         tags,
         warehouseType);
   }
@@ -387,6 +402,7 @@ public class EndpointInfo {
         .add("odbcParams", odbcParams)
         .add("spotInstancePolicy", spotInstancePolicy)
         .add("state", state)
+        .add("statementTimeout", statementTimeout)
         .add("tags", tags)
         .add("warehouseType", warehouseType)
         .toString();

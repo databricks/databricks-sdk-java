@@ -50,6 +50,12 @@ public class AccountIamV2API {
     return impl.createGroup(request);
   }
 
+  /** Creates an identity-visibility filter in the account. */
+  public IdentityVisibilityFilter createIdentityVisibilityFilter(
+      CreateIdentityVisibilityFilterRequest request) {
+    return impl.createIdentityVisibilityFilter(request);
+  }
+
   /**
    * Creates a local service principal in the Databricks account and returns the created service
    * principal. A local service principal is one that is not synced from the customer's identity
@@ -119,6 +125,15 @@ public class AccountIamV2API {
    */
   public void deleteGroup(DeleteGroupRequest request) {
     impl.deleteGroup(request);
+  }
+
+  public void deleteIdentityVisibilityFilter(String name) {
+    deleteIdentityVisibilityFilter(new DeleteIdentityVisibilityFilterRequest().setName(name));
+  }
+
+  /** Deletes an identity-visibility filter by resource name. */
+  public void deleteIdentityVisibilityFilter(DeleteIdentityVisibilityFilterRequest request) {
+    impl.deleteIdentityVisibilityFilter(request);
   }
 
   public void deleteServicePrincipal(String servicePrincipalId) {
@@ -231,6 +246,16 @@ public class AccountIamV2API {
     return impl.getGroup(request);
   }
 
+  public IdentityVisibilityFilter getIdentityVisibilityFilter(String name) {
+    return getIdentityVisibilityFilter(new GetIdentityVisibilityFilterRequest().setName(name));
+  }
+
+  /** Fetches an identity-visibility filter by resource name. */
+  public IdentityVisibilityFilter getIdentityVisibilityFilter(
+      GetIdentityVisibilityFilterRequest request) {
+    return impl.getIdentityVisibilityFilter(request);
+  }
+
   public ServicePrincipal getServicePrincipal(String servicePrincipalId) {
     return getServicePrincipal(
         new GetServicePrincipalRequest().setServicePrincipalId(servicePrincipalId));
@@ -325,6 +350,27 @@ public class AccountIamV2API {
         request,
         impl::listGroups,
         ListGroupsResponse::getGroups,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
+  }
+
+  public Iterable<IdentityVisibilityFilter> listIdentityVisibilityFilters(String parent) {
+    return listIdentityVisibilityFilters(
+        new ListIdentityVisibilityFiltersRequest().setParent(parent));
+  }
+
+  /** Lists the identity-visibility filters in the account, returning one page per call. */
+  public Iterable<IdentityVisibilityFilter> listIdentityVisibilityFilters(
+      ListIdentityVisibilityFiltersRequest request) {
+    return Paginator.newTokenPagination(
+        request,
+        impl::listIdentityVisibilityFilters,
+        ListIdentityVisibilityFiltersResponse::getIdentityVisibilityFilters,
         response -> {
           String token = response.getNextPageToken();
           if (token == null || token.isEmpty()) {

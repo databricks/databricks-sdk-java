@@ -116,6 +116,14 @@ public class CreatePipeline {
   @JsonProperty("parameters")
   private Map<String, String> parameters;
 
+  /**
+   * Path of the pipeline parent folder in workspace file tree.
+   *
+   * <p>If absent, the pipeline doesn't have a workspace object.
+   */
+  @JsonProperty("parent_path")
+  private String parentPath;
+
   /** Whether Photon is enabled for this pipeline. */
   @JsonProperty("photon")
   private Boolean photon;
@@ -365,6 +373,15 @@ public class CreatePipeline {
     return parameters;
   }
 
+  public CreatePipeline setParentPath(String parentPath) {
+    this.parentPath = parentPath;
+    return this;
+  }
+
+  public String getParentPath() {
+    return parentPath;
+  }
+
   public CreatePipeline setPhoton(Boolean photon) {
     this.photon = photon;
     return this;
@@ -499,6 +516,7 @@ public class CreatePipeline {
         && Objects.equals(name, that.name)
         && Objects.equals(notifications, that.notifications)
         && Objects.equals(parameters, that.parameters)
+        && Objects.equals(parentPath, that.parentPath)
         && Objects.equals(photon, that.photon)
         && Objects.equals(restartWindow, that.restartWindow)
         && Objects.equals(rootPath, that.rootPath)
@@ -537,6 +555,7 @@ public class CreatePipeline {
         name,
         notifications,
         parameters,
+        parentPath,
         photon,
         restartWindow,
         rootPath,
@@ -575,6 +594,7 @@ public class CreatePipeline {
         .add("name", name)
         .add("notifications", notifications)
         .add("parameters", parameters)
+        .add("parentPath", parentPath)
         .add("photon", photon)
         .add("restartWindow", restartWindow)
         .add("rootPath", rootPath)

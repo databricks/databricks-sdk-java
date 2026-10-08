@@ -33,6 +33,10 @@ public interface AccountIamV2Service {
    */
   Group createGroup(CreateGroupRequest createGroupRequest);
 
+  /** Creates an identity-visibility filter in the account. */
+  IdentityVisibilityFilter createIdentityVisibilityFilter(
+      CreateIdentityVisibilityFilterRequest createIdentityVisibilityFilterRequest);
+
   /**
    * Creates a local service principal in the Databricks account and returns the created service
    * principal. A local service principal is one that is not synced from the customer's identity
@@ -85,6 +89,10 @@ public interface AccountIamV2Service {
    */
   void deleteGroup(DeleteGroupRequest deleteGroupRequest);
 
+  /** Deletes an identity-visibility filter by resource name. */
+  void deleteIdentityVisibilityFilter(
+      DeleteIdentityVisibilityFilterRequest deleteIdentityVisibilityFilterRequest);
+
   /** Deletes a service principal from the Databricks account by its internal ID. */
   void deleteServicePrincipal(DeleteServicePrincipalRequest deleteServicePrincipalRequest);
 
@@ -134,6 +142,10 @@ public interface AccountIamV2Service {
   /** Fetches a group from the Databricks account by its internal ID. */
   Group getGroup(GetGroupRequest getGroupRequest);
 
+  /** Fetches an identity-visibility filter by resource name. */
+  IdentityVisibilityFilter getIdentityVisibilityFilter(
+      GetIdentityVisibilityFilterRequest getIdentityVisibilityFilterRequest);
+
   /** Fetches a service principal from the Databricks account by its internal ID. */
   ServicePrincipal getServicePrincipal(GetServicePrincipalRequest getServicePrincipalRequest);
 
@@ -170,6 +182,10 @@ public interface AccountIamV2Service {
    * group name or external ID.
    */
   ListGroupsResponse listGroups(ListGroupsRequest listGroupsRequest);
+
+  /** Lists the identity-visibility filters in the account, returning one page per call. */
+  ListIdentityVisibilityFiltersResponse listIdentityVisibilityFilters(
+      ListIdentityVisibilityFiltersRequest listIdentityVisibilityFiltersRequest);
 
   /**
    * Lists the service principals in the Databricks account, returning one page per call. Supports
