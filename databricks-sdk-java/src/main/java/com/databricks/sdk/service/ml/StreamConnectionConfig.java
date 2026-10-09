@@ -10,11 +10,7 @@ import java.util.Objects;
 /** Specifies how to connect and authenticate to the stream platform. */
 @Generated
 public class StreamConnectionConfig {
-  /**
-   * Direct mTLS configuration for stream platform access. This is only used in the short term until
-   * UC Kafka Connections support mTLS . Once UC Kafka Connections support mTLS, this will be
-   * deprecated.
-   */
+  /** Direct mTLS configuration for stream platform access. */
   @JsonProperty("direct_mtls_config")
   private DirectMtlsConfig directMtlsConfig;
 

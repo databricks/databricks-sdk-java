@@ -37,6 +37,10 @@ public class ModelProviderServiceConfig {
   private ModelProviderServiceConfigAzureOpenAiProviderConfig azureOpenai;
 
   /** */
+  @JsonProperty("bedrock_mantle")
+  private ModelProviderServiceConfigAmazonBedrockProviderConfig bedrockMantle;
+
+  /** */
   @JsonProperty("custom")
   private ModelProviderServiceConfigCustomProviderConfig custom;
 
@@ -82,6 +86,10 @@ public class ModelProviderServiceConfig {
   /** */
   @JsonProperty("openai")
   private ModelProviderServiceConfigOpenAiProviderConfig openai;
+
+  /** Pricing configuration for this provider service. */
+  @JsonProperty("pricing")
+  private ModelProviderServiceConfigProviderPricingConfig pricing;
 
   /**
    * External model provider. Required on Create and immutable thereafter. Set the matching
@@ -144,6 +152,16 @@ public class ModelProviderServiceConfig {
 
   public ModelProviderServiceConfigAzureOpenAiProviderConfig getAzureOpenai() {
     return azureOpenai;
+  }
+
+  public ModelProviderServiceConfig setBedrockMantle(
+      ModelProviderServiceConfigAmazonBedrockProviderConfig bedrockMantle) {
+    this.bedrockMantle = bedrockMantle;
+    return this;
+  }
+
+  public ModelProviderServiceConfigAmazonBedrockProviderConfig getBedrockMantle() {
+    return bedrockMantle;
   }
 
   public ModelProviderServiceConfig setCustom(
@@ -222,6 +240,16 @@ public class ModelProviderServiceConfig {
     return openai;
   }
 
+  public ModelProviderServiceConfig setPricing(
+      ModelProviderServiceConfigProviderPricingConfig pricing) {
+    this.pricing = pricing;
+    return this;
+  }
+
+  public ModelProviderServiceConfigProviderPricingConfig getPricing() {
+    return pricing;
+  }
+
   public ModelProviderServiceConfig setProviderType(
       ModelProviderServiceConfigExternalModelProviderType providerType) {
     this.providerType = providerType;
@@ -260,6 +288,7 @@ public class ModelProviderServiceConfig {
         && Objects.equals(amazonBedrock, that.amazonBedrock)
         && Objects.equals(anthropic, that.anthropic)
         && Objects.equals(azureOpenai, that.azureOpenai)
+        && Objects.equals(bedrockMantle, that.bedrockMantle)
         && Objects.equals(custom, that.custom)
         && Objects.equals(forwardHeaders, that.forwardHeaders)
         && Objects.equals(forwardQueryParameters, that.forwardQueryParameters)
@@ -268,6 +297,7 @@ public class ModelProviderServiceConfig {
         && Objects.equals(inferenceTable, that.inferenceTable)
         && Objects.equals(microsoftFoundry, that.microsoftFoundry)
         && Objects.equals(openai, that.openai)
+        && Objects.equals(pricing, that.pricing)
         && Objects.equals(providerType, that.providerType)
         && Objects.equals(rateLimits, that.rateLimits)
         && Objects.equals(targets, that.targets);
@@ -280,6 +310,7 @@ public class ModelProviderServiceConfig {
         amazonBedrock,
         anthropic,
         azureOpenai,
+        bedrockMantle,
         custom,
         forwardHeaders,
         forwardQueryParameters,
@@ -288,6 +319,7 @@ public class ModelProviderServiceConfig {
         inferenceTable,
         microsoftFoundry,
         openai,
+        pricing,
         providerType,
         rateLimits,
         targets);
@@ -300,6 +332,7 @@ public class ModelProviderServiceConfig {
         .add("amazonBedrock", amazonBedrock)
         .add("anthropic", anthropic)
         .add("azureOpenai", azureOpenai)
+        .add("bedrockMantle", bedrockMantle)
         .add("custom", custom)
         .add("forwardHeaders", forwardHeaders)
         .add("forwardQueryParameters", forwardQueryParameters)
@@ -308,6 +341,7 @@ public class ModelProviderServiceConfig {
         .add("inferenceTable", inferenceTable)
         .add("microsoftFoundry", microsoftFoundry)
         .add("openai", openai)
+        .add("pricing", pricing)
         .add("providerType", providerType)
         .add("rateLimits", rateLimits)
         .add("targets", targets)

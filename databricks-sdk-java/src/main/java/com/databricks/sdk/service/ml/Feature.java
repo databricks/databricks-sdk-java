@@ -39,11 +39,7 @@ public class Feature {
   @JsonProperty("filter_condition")
   private String filterCondition;
 
-  /**
-   * The full three-part name (catalog, schema, name) of the feature. This is the feature's resource
-   * identifier; the catalog_name, schema_name, and name fields below are OUTPUT_ONLY decomposed
-   * views of this value.
-   */
+  /** The full three-part name (catalog, schema, name) of the feature. */
   @JsonProperty("full_name")
   private String fullName;
 

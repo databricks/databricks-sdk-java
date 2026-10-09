@@ -11,7 +11,7 @@ import java.util.Objects;
 
 /**
  * A Stream is a governed UC entity representing an external streaming data source. The
- * source_config oneof determines the streaming platform source (e.g. Kafka, Kinesis, etc.).
+ * source_config field determines the streaming platform source (e.g. Kafka, Kinesis).
  */
 @Generated
 public class Stream {
