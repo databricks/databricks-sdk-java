@@ -7,10 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/**
- * Reference to an entry in a Databricks secret scope. The referenced value is fetched on the Spark
- * cluster at materialization time via dbutils.secrets.get(scope, key).
- */
+/** Reference to an entry in a Databricks secret scope. */
 @Generated
 public class SecretScopeReference {
   /** The key within the scope. */

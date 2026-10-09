@@ -8,8 +8,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 /**
- * Scaling information for a Storage Optimized endpoint — current scaling state and the requested
- * QPS target the system is scaling toward.
+ * Scaling information for a Standard endpoint: the current scaling state, the requested QPS target,
+ * and the progress of an in-progress scaling change.
  */
 @Generated
 public class EndpointScalingInfo {

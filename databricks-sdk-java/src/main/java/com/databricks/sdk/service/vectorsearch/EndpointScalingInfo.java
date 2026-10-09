@@ -7,6 +7,10 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * Scaling information for a Standard endpoint: the current scaling state, the requested QPS target,
+ * and the progress of an in-progress scaling change.
+ */
 @Generated
 public class EndpointScalingInfo {
   /**

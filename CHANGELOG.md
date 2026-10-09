@@ -1,5 +1,11 @@
 # Version changelog
 
+## Release v0.164.0 (2026-10-09)
+
+### API Changes
+* Add `bedrockMantle` and `pricing` fields for `com.databricks.sdk.service.catalog.ModelProviderServiceConfig`.
+* Add `EXTERNAL_MODEL_PROVIDER_TYPE_BEDROCK_MANTLE` enum value for `com.databricks.sdk.service.catalog.ModelProviderServiceConfigExternalModelProviderType`.
+
 ## Release v0.163.0 (2026-10-08)
 
 ### API Changes

@@ -13,12 +13,6 @@ import java.util.Objects;
  * with their passwords stored in Databricks secret scopes. This matches the SSL setup pattern
  * documented at
  * https://docs.databricks.com/en/connect/streaming/kafka/authentication#use-ssl-to-connect-databricks-to-kafka.
- *
- * <p>At materialization time, the generated PySpark code passes the JKS file paths and resolved
- * passwords through to the Kafka SSL options (kafka.ssl.keystore.location,
- * kafka.ssl.keystore.password, kafka.ssl.key.password, kafka.ssl.truststore.location,
- * kafka.ssl.truststore.password). Passwords are resolved on the Spark cluster via
- * dbutils.secrets.get; this message stores only references, never password values.
  */
 @Generated
 public class MtlsConfig {

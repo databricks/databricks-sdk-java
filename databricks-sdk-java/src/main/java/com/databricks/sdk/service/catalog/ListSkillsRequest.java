@@ -11,7 +11,7 @@ import java.util.Objects;
 @Generated
 public class ListSkillsRequest {
   /**
-   * Maximum number of skills to return. Defaults to 100 when unset or 0; the maximum is 100. Use
+   * Maximum number of skills to return. Defaults to 100 when unset or 0; the maximum is 200. Use
    * `page_token` to retrieve additional pages.
    */
   @JsonIgnore

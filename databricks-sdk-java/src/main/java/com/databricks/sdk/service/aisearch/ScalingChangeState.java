@@ -4,7 +4,7 @@ package com.databricks.sdk.service.aisearch;
 
 import com.databricks.sdk.support.Generated;
 
-/** State of the most recent scaling change request for a Storage Optimized endpoint. */
+/** State of the most recent scaling change request for a Standard endpoint. */
 @Generated
 public enum ScalingChangeState {
   SCALING_CHANGE_APPLIED,

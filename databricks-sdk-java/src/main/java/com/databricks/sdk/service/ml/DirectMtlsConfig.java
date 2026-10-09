@@ -7,10 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/**
- * Direct connection configs for mTLS, as Kafka Connections do not support mTLS yet . Temporarily
- * used until UC Kafka Connections gain mTLS support.
- */
+/** Direct connection configs for mTLS, as Kafka Connections do not support mTLS yet. */
 @Generated
 public class DirectMtlsConfig {
   /** A comma-separated list of host:port pairs for the Kafka bootstrap servers. */

@@ -15,11 +15,7 @@ public class UpdateFeatureRequest {
   @JsonProperty("feature")
   private Feature feature;
 
-  /**
-   * The full three-part name (catalog, schema, name) of the feature. This is the feature's resource
-   * identifier; the catalog_name, schema_name, and name fields below are OUTPUT_ONLY decomposed
-   * views of this value.
-   */
+  /** The full three-part name (catalog, schema, name) of the feature. */
   @JsonIgnore private String fullName;
 
   /** Fields to update. The only supported path is description. */
