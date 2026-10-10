@@ -124,7 +124,7 @@ public interface AgentKitService {
   /** Updates selected mutable fields on a managed memory entry. Identity fields are immutable. */
   ManagedMemoryEntry updateMemory(UpdateManagedMemoryEntryRequest updateManagedMemoryEntryRequest);
 
-  /** Updates a managed memory store's description. */
+  /** Updates a managed memory store's description and metadata. */
   ManagedMemoryStore updateMemoryStore(
       UpdateManagedMemoryStoreRequest updateManagedMemoryStoreRequest);
 
