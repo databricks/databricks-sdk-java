@@ -32,7 +32,10 @@ public class CreatePipeline {
   @JsonProperty("channel")
   private String channel;
 
-  /** Cluster settings for this pipeline deployment. */
+  /**
+   * Cluster settings for this pipeline deployment. Applies to classic (non-serverless) pipelines.
+   * Omit this field when `serverless` is `true`.
+   */
   @JsonProperty("clusters")
   private Collection<PipelineCluster> clusters;
 
@@ -148,7 +151,12 @@ public class CreatePipeline {
   @JsonProperty("schema")
   private String schema;
 
-  /** Whether serverless compute is enabled for this pipeline. */
+  /**
+   * Whether serverless compute is enabled for this pipeline. Serverless is the recommended compute
+   * for new pipelines; set this to `true` to run the pipeline on serverless. For notebook/file
+   * pipelines, omitting this field uses classic compute configured through the `clusters` field.
+   * When `true`, omit `clusters`; Photon is always enabled.
+   */
   @JsonProperty("serverless")
   private Boolean serverless;
 

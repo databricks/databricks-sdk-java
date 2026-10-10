@@ -19,7 +19,9 @@ public class UpdateManagedMemoryStoreRequest {
   /** Resource name in the form `memory-stores/{managed_memory_store_id}`. */
   @JsonIgnore private String name;
 
-  /** Only `description` may be updated. */
+  /**
+   * Only `description` and `metadata` may be updated. Selecting `metadata` replaces the entire map.
+   */
   @JsonIgnore
   @QueryParam("update_mask")
   private FieldMask updateMask;

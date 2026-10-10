@@ -87,7 +87,10 @@ public class ModelProviderServiceConfig {
   @JsonProperty("openai")
   private ModelProviderServiceConfigOpenAiProviderConfig openai;
 
-  /** Pricing configuration for this provider service. */
+  /**
+   * Pricing configuration for this provider service. An explicitly empty configuration is retained
+   * on Create and Update and applies no adjustment.
+   */
   @JsonProperty("pricing")
   private ModelProviderServiceConfigProviderPricingConfig pricing;
 

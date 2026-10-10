@@ -247,7 +247,9 @@ public interface AccountIamV2Service {
    * are modified. Returns the updated Group resource.
    *
    * <p>When AIM is enabled and the group is an external identity (its external_id is set), only
-   * external_id can be updated; its other fields are sourced from your identity provider.
+   * external_id can be updated; its other fields are sourced from your identity provider. With AIM
+   * and group visibility filters, a new nonempty external_id must identify a visible group.
+   * Clearing external_id is allowed.
    *
    * <p>Authorization: the caller must be an account admin or a manager of the group (holds the
    * `roles/group.manager` role on it).

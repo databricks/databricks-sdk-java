@@ -11,8 +11,9 @@ import java.util.Objects;
 @Generated
 public class ModelProviderServiceConfigProviderPricingConfig {
   /**
-   * Provider-wide discount in basis points: 2000 = 20% off. Negative values are markups; the
-   * discount cannot exceed 10000 (100% off).
+   * Provider-wide adjustment to external-model spend estimates in basis points: 2000 = 20% off;
+   * -2000 = a 20% markup. Negative values have no lower bound beyond the int32 range. Values cannot
+   * exceed 10000 (100% off). An omitted value or zero leaves the estimate unchanged.
    */
   @JsonProperty("default_discount_basis_points")
   private Long defaultDiscountBasisPoints;

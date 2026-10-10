@@ -8,6 +8,7 @@ import com.databricks.sdk.support.Generated;
 public enum AppResourceUcSecurableUcSecurableType {
   CONNECTION,
   FUNCTION,
+  MODEL_SERVICE,
   TABLE,
   VOLUME,
 }

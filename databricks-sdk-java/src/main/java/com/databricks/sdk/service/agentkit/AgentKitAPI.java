@@ -287,7 +287,7 @@ public class AgentKitAPI {
     return impl.updateMemory(request);
   }
 
-  /** Updates a managed memory store's description. */
+  /** Updates a managed memory store's description and metadata. */
   public ManagedMemoryStore updateMemoryStore(UpdateManagedMemoryStoreRequest request) {
     return impl.updateMemoryStore(request);
   }

@@ -31,10 +31,7 @@ public class BillableUsageAPI {
   }
 
   /**
-   * Returns billable usage logs in CSV format for the specified account and date range. For the
-   * data schema, see:
-   *
-   * <p>- AWS: [CSV file schema]. - GCP: [CSV file schema].
+   * Returns billable usage logs in CSV format for the specified account and date range.
    *
    * <p>Note that this method might take multiple minutes to complete.
    *
@@ -42,9 +39,6 @@ public class BillableUsageAPI {
    * the size of the response and the internet speed of the caller, this API may hit a timeout after
    * a few minutes. If you experience this, try to mitigate by calling the API with narrower date
    * ranges.
-   *
-   * <p>[CSV file schema]:
-   * https://docs.gcp.databricks.com/administration-guide/account-settings/usage-analysis.html#csv-file-schema
    */
   public DownloadResponse download(DownloadRequest request) {
     return impl.download(request);
