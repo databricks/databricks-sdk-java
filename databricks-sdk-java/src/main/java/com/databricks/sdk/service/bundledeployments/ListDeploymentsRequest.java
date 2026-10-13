@@ -27,6 +27,15 @@ public class ListDeploymentsRequest {
   @QueryParam("page_token")
   private String pageToken;
 
+  /**
+   * Whether to include soft-deleted deployments in the response. Defaults to false. When true,
+   * returns both live and soft-deleted deployments visible to the caller, subject to the filter.
+   * Soft-deleted deployments have status `DEPLOYMENT_STATUS_DELETED`.
+   */
+  @JsonIgnore
+  @QueryParam("show_deleted")
+  private Boolean showDeleted;
+
   public ListDeploymentsRequest setPageSize(Long pageSize) {
     this.pageSize = pageSize;
     return this;
@@ -45,17 +54,28 @@ public class ListDeploymentsRequest {
     return pageToken;
   }
 
+  public ListDeploymentsRequest setShowDeleted(Boolean showDeleted) {
+    this.showDeleted = showDeleted;
+    return this;
+  }
+
+  public Boolean getShowDeleted() {
+    return showDeleted;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ListDeploymentsRequest that = (ListDeploymentsRequest) o;
-    return Objects.equals(pageSize, that.pageSize) && Objects.equals(pageToken, that.pageToken);
+    return Objects.equals(pageSize, that.pageSize)
+        && Objects.equals(pageToken, that.pageToken)
+        && Objects.equals(showDeleted, that.showDeleted);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(pageSize, pageToken);
+    return Objects.hash(pageSize, pageToken, showDeleted);
   }
 
   @Override
@@ -63,6 +83,7 @@ public class ListDeploymentsRequest {
     return new ToStringer(ListDeploymentsRequest.class)
         .add("pageSize", pageSize)
         .add("pageToken", pageToken)
+        .add("showDeleted", showDeleted)
         .toString();
   }
 }

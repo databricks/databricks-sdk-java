@@ -6,6 +6,8 @@ import com.databricks.sdk.support.Generated;
 
 @Generated
 public enum DestinationType {
+  DATABRICKS_APP_SLACK,
+  DATABRICKS_APP_TEAMS,
   EMAIL,
   MICROSOFT_TEAMS,
   PAGERDUTY,

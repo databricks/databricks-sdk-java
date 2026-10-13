@@ -10,6 +10,14 @@ import java.util.Objects;
 @Generated
 public class Config {
   /** */
+  @JsonProperty("databricks_app_slack")
+  private DatabricksAppSlackConfig databricksAppSlack;
+
+  /** */
+  @JsonProperty("databricks_app_teams")
+  private DatabricksAppTeamsConfig databricksAppTeams;
+
+  /** */
   @JsonProperty("email")
   private EmailConfig email;
 
@@ -28,6 +36,24 @@ public class Config {
   /** */
   @JsonProperty("slack")
   private SlackConfig slack;
+
+  public Config setDatabricksAppSlack(DatabricksAppSlackConfig databricksAppSlack) {
+    this.databricksAppSlack = databricksAppSlack;
+    return this;
+  }
+
+  public DatabricksAppSlackConfig getDatabricksAppSlack() {
+    return databricksAppSlack;
+  }
+
+  public Config setDatabricksAppTeams(DatabricksAppTeamsConfig databricksAppTeams) {
+    this.databricksAppTeams = databricksAppTeams;
+    return this;
+  }
+
+  public DatabricksAppTeamsConfig getDatabricksAppTeams() {
+    return databricksAppTeams;
+  }
 
   public Config setEmail(EmailConfig email) {
     this.email = email;
@@ -79,7 +105,9 @@ public class Config {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Config that = (Config) o;
-    return Objects.equals(email, that.email)
+    return Objects.equals(databricksAppSlack, that.databricksAppSlack)
+        && Objects.equals(databricksAppTeams, that.databricksAppTeams)
+        && Objects.equals(email, that.email)
         && Objects.equals(genericWebhook, that.genericWebhook)
         && Objects.equals(microsoftTeams, that.microsoftTeams)
         && Objects.equals(pagerduty, that.pagerduty)
@@ -88,12 +116,21 @@ public class Config {
 
   @Override
   public int hashCode() {
-    return Objects.hash(email, genericWebhook, microsoftTeams, pagerduty, slack);
+    return Objects.hash(
+        databricksAppSlack,
+        databricksAppTeams,
+        email,
+        genericWebhook,
+        microsoftTeams,
+        pagerduty,
+        slack);
   }
 
   @Override
   public String toString() {
     return new ToStringer(Config.class)
+        .add("databricksAppSlack", databricksAppSlack)
+        .add("databricksAppTeams", databricksAppTeams)
         .add("email", email)
         .add("genericWebhook", genericWebhook)
         .add("microsoftTeams", microsoftTeams)

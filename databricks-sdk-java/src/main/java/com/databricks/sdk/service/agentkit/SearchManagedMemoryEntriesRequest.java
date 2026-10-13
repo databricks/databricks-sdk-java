@@ -6,7 +6,6 @@ import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.google.protobuf.FieldMask;
 import java.util.Objects;
 
 /**
@@ -56,25 +55,18 @@ public class SearchManagedMemoryEntriesRequest {
   private String query;
 
   /**
-   * Fields to return in each matching entry, using proto field names such as `content` (not
-   * `contents`). An omitted or empty mask returns each full entry, including `content`; a non-empty
-   * mask returns only the requested fields. Search scores are always returned.
-   *
-   * <p>The field mask must be a single string, with multiple fields separated by commas (no
-   * spaces). The field path is relative to the resource object, using a dot (`.`) to navigate
-   * sub-fields (e.g., `author.given_name`). Specification of elements in sequence or map fields is
-   * not allowed, as only the entire collection field can be specified. Field names must exactly
-   * match the resource field names.
-   */
-  @JsonProperty("read_mask")
-  private FieldMask readMask;
-
-  /**
    * Optional session identifier. When set, only entries with this exact `session_id` are searched.
    * Omitted-session (cross-session) entries are not included.
    */
   @JsonProperty("session_id")
   private String sessionId;
+
+  /**
+   * Controls whether each returned entry includes memory content. Search scores are always
+   * returned. Defaults to `FULL`.
+   */
+  @JsonProperty("view")
+  private ManagedMemoryEntryView view;
 
   public SearchManagedMemoryEntriesRequest setActorId(String actorId) {
     this.actorId = actorId;
@@ -139,15 +131,6 @@ public class SearchManagedMemoryEntriesRequest {
     return query;
   }
 
-  public SearchManagedMemoryEntriesRequest setReadMask(FieldMask readMask) {
-    this.readMask = readMask;
-    return this;
-  }
-
-  public FieldMask getReadMask() {
-    return readMask;
-  }
-
   public SearchManagedMemoryEntriesRequest setSessionId(String sessionId) {
     this.sessionId = sessionId;
     return this;
@@ -155,6 +138,15 @@ public class SearchManagedMemoryEntriesRequest {
 
   public String getSessionId() {
     return sessionId;
+  }
+
+  public SearchManagedMemoryEntriesRequest setView(ManagedMemoryEntryView view) {
+    this.view = view;
+    return this;
+  }
+
+  public ManagedMemoryEntryView getView() {
+    return view;
   }
 
   @Override
@@ -169,14 +161,14 @@ public class SearchManagedMemoryEntriesRequest {
         && Objects.equals(parent, that.parent)
         && Objects.equals(pathPrefix, that.pathPrefix)
         && Objects.equals(query, that.query)
-        && Objects.equals(readMask, that.readMask)
-        && Objects.equals(sessionId, that.sessionId);
+        && Objects.equals(sessionId, that.sessionId)
+        && Objects.equals(view, that.view);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(
-        actorId, limit, pageSize, pageToken, parent, pathPrefix, query, readMask, sessionId);
+        actorId, limit, pageSize, pageToken, parent, pathPrefix, query, sessionId, view);
   }
 
   @Override
@@ -189,8 +181,8 @@ public class SearchManagedMemoryEntriesRequest {
         .add("parent", parent)
         .add("pathPrefix", pathPrefix)
         .add("query", query)
-        .add("readMask", readMask)
         .add("sessionId", sessionId)
+        .add("view", view)
         .toString();
   }
 }

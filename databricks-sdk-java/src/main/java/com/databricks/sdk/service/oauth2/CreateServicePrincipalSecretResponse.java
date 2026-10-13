@@ -5,6 +5,7 @@ package com.databricks.sdk.service.oauth2;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
 
 @Generated
@@ -22,6 +23,10 @@ public class CreateServicePrincipalSecretResponse {
   /** ID of the secret */
   @JsonProperty("id")
   private String id;
+
+  /** OAuth API scopes bound to this secret. Empty = unrestricted (all-apis). */
+  @JsonProperty("scopes")
+  private Collection<String> scopes;
 
   /** Secret Value */
   @JsonProperty("secret")
@@ -64,6 +69,15 @@ public class CreateServicePrincipalSecretResponse {
 
   public String getId() {
     return id;
+  }
+
+  public CreateServicePrincipalSecretResponse setScopes(Collection<String> scopes) {
+    this.scopes = scopes;
+    return this;
+  }
+
+  public Collection<String> getScopes() {
+    return scopes;
   }
 
   public CreateServicePrincipalSecretResponse setSecret(String secret) {
@@ -110,6 +124,7 @@ public class CreateServicePrincipalSecretResponse {
     return Objects.equals(createTime, that.createTime)
         && Objects.equals(expireTime, that.expireTime)
         && Objects.equals(id, that.id)
+        && Objects.equals(scopes, that.scopes)
         && Objects.equals(secret, that.secret)
         && Objects.equals(secretHash, that.secretHash)
         && Objects.equals(status, that.status)
@@ -118,7 +133,7 @@ public class CreateServicePrincipalSecretResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(createTime, expireTime, id, secret, secretHash, status, updateTime);
+    return Objects.hash(createTime, expireTime, id, scopes, secret, secretHash, status, updateTime);
   }
 
   @Override
@@ -127,6 +142,7 @@ public class CreateServicePrincipalSecretResponse {
         .add("createTime", createTime)
         .add("expireTime", expireTime)
         .add("id", id)
+        .add("scopes", scopes)
         .add("secret", secret)
         .add("secretHash", secretHash)
         .add("status", status)
