@@ -6,7 +6,6 @@ import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.google.protobuf.FieldMask;
 import java.util.Objects;
 
 @Generated
@@ -41,21 +40,17 @@ public class ListManagedMemoryEntriesRequest {
   private String pathPrefix;
 
   /**
-   * Fields to return in each entry, using proto field names such as `content` (not `contents`). An
-   * omitted or empty mask returns each full entry, including `content`; a non-empty mask returns
-   * only the requested fields.
-   */
-  @JsonIgnore
-  @QueryParam("read_mask")
-  private FieldMask readMask;
-
-  /**
    * Optional session identifier. When set, only entries with this exact `session_id` are returned.
    * Omitted-session (cross-session) entries are not included. Ignored when path is set.
    */
   @JsonIgnore
   @QueryParam("session_id")
   private String sessionId;
+
+  /** Controls whether each returned entry includes memory content. Defaults to `FULL`. */
+  @JsonIgnore
+  @QueryParam("view")
+  private ManagedMemoryEntryView view;
 
   public ListManagedMemoryEntriesRequest setActorId(String actorId) {
     this.actorId = actorId;
@@ -102,15 +97,6 @@ public class ListManagedMemoryEntriesRequest {
     return pathPrefix;
   }
 
-  public ListManagedMemoryEntriesRequest setReadMask(FieldMask readMask) {
-    this.readMask = readMask;
-    return this;
-  }
-
-  public FieldMask getReadMask() {
-    return readMask;
-  }
-
   public ListManagedMemoryEntriesRequest setSessionId(String sessionId) {
     this.sessionId = sessionId;
     return this;
@@ -118,6 +104,15 @@ public class ListManagedMemoryEntriesRequest {
 
   public String getSessionId() {
     return sessionId;
+  }
+
+  public ListManagedMemoryEntriesRequest setView(ManagedMemoryEntryView view) {
+    this.view = view;
+    return this;
+  }
+
+  public ManagedMemoryEntryView getView() {
+    return view;
   }
 
   @Override
@@ -130,13 +125,13 @@ public class ListManagedMemoryEntriesRequest {
         && Objects.equals(pageToken, that.pageToken)
         && Objects.equals(parent, that.parent)
         && Objects.equals(pathPrefix, that.pathPrefix)
-        && Objects.equals(readMask, that.readMask)
-        && Objects.equals(sessionId, that.sessionId);
+        && Objects.equals(sessionId, that.sessionId)
+        && Objects.equals(view, that.view);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(actorId, pageSize, pageToken, parent, pathPrefix, readMask, sessionId);
+    return Objects.hash(actorId, pageSize, pageToken, parent, pathPrefix, sessionId, view);
   }
 
   @Override
@@ -147,8 +142,8 @@ public class ListManagedMemoryEntriesRequest {
         .add("pageToken", pageToken)
         .add("parent", parent)
         .add("pathPrefix", pathPrefix)
-        .add("readMask", readMask)
         .add("sessionId", sessionId)
+        .add("view", view)
         .toString();
   }
 }

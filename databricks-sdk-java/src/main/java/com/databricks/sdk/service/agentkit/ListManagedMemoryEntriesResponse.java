@@ -11,7 +11,7 @@ import java.util.Objects;
 /** Response containing managed memory entries. */
 @Generated
 public class ListManagedMemoryEntriesResponse {
-  /** Managed memory entries matching the request and its read mask. */
+  /** Managed memory entries matching the request and selected response view. */
   @JsonProperty("managed_memory_entries")
   private Collection<ManagedMemoryEntry> managedMemoryEntries;
 

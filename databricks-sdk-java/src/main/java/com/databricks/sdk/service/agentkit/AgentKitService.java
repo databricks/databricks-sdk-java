@@ -73,8 +73,9 @@ public interface AgentKitService {
   ForkSessionResponse forkSession(ForkSessionRequest forkSessionRequest);
 
   /**
-   * Retrieves a managed memory entry, including its content, by resource name. Returns `NOT_FOUND`
-   * when the entry does not exist in the caller's workspace.
+   * Retrieves a managed memory entry by resource name. `view` controls whether the response
+   * includes memory content. Returns `NOT_FOUND` when the entry does not exist in the caller's
+   * workspace.
    */
   ManagedMemoryEntry getMemory(GetManagedMemoryEntryRequest getManagedMemoryEntryRequest);
 
@@ -93,7 +94,7 @@ public interface AgentKitService {
   /**
    * Lists managed memory entries for one actor. An exact `path` filters entries across sessions,
    * ignoring session metadata. Otherwise, `session_id` and `path_prefix` restrict the actor
-   * partition. `read_mask` selects fields in each returned entry.
+   * partition. `view` controls whether each returned entry includes memory content.
    */
   ListManagedMemoryEntriesResponse listMemories(
       ListManagedMemoryEntriesRequest listManagedMemoryEntriesRequest);
@@ -116,7 +117,7 @@ public interface AgentKitService {
 
   /**
    * Searches managed memory entries by text query for one actor. Returns matching entries and
-   * scores ranked by relevance; `read_mask` selects fields in each returned entry.
+   * scores ranked by relevance; `view` controls whether each returned entry includes content.
    */
   SearchManagedMemoryEntriesResponse searchMemories(
       SearchManagedMemoryEntriesRequest searchManagedMemoryEntriesRequest);

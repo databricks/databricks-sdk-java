@@ -6,7 +6,6 @@ import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.google.protobuf.FieldMask;
 import java.util.Objects;
 
 @Generated
@@ -17,14 +16,10 @@ public class GetManagedMemoryEntryRequest {
    */
   @JsonIgnore private String name;
 
-  /**
-   * Fields to return, using proto field names such as `content` (not `contents`). An omitted or
-   * empty mask returns the full entry, including `content`; a non-empty mask returns only the
-   * requested fields.
-   */
+  /** Controls whether the response includes memory content. Defaults to `FULL`. */
   @JsonIgnore
-  @QueryParam("read_mask")
-  private FieldMask readMask;
+  @QueryParam("view")
+  private ManagedMemoryEntryView view;
 
   public GetManagedMemoryEntryRequest setName(String name) {
     this.name = name;
@@ -35,13 +30,13 @@ public class GetManagedMemoryEntryRequest {
     return name;
   }
 
-  public GetManagedMemoryEntryRequest setReadMask(FieldMask readMask) {
-    this.readMask = readMask;
+  public GetManagedMemoryEntryRequest setView(ManagedMemoryEntryView view) {
+    this.view = view;
     return this;
   }
 
-  public FieldMask getReadMask() {
-    return readMask;
+  public ManagedMemoryEntryView getView() {
+    return view;
   }
 
   @Override
@@ -49,19 +44,19 @@ public class GetManagedMemoryEntryRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GetManagedMemoryEntryRequest that = (GetManagedMemoryEntryRequest) o;
-    return Objects.equals(name, that.name) && Objects.equals(readMask, that.readMask);
+    return Objects.equals(name, that.name) && Objects.equals(view, that.view);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, readMask);
+    return Objects.hash(name, view);
   }
 
   @Override
   public String toString() {
     return new ToStringer(GetManagedMemoryEntryRequest.class)
         .add("name", name)
-        .add("readMask", readMask)
+        .add("view", view)
         .toString();
   }
 }
