@@ -8,5 +8,6 @@ import com.databricks.sdk.support.Generated;
 public enum WarehouseTypePairWarehouseType {
   CLASSIC,
   PRO,
+  REALTIME,
   TYPE_UNSPECIFIED,
 }

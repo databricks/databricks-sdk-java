@@ -189,6 +189,10 @@ public interface PostgresService {
   /** Returns a paginated list of snapshots in the project. */
   ListSnapshotsResponse listSnapshots(ListSnapshotsRequest listSnapshotsRequest);
 
+  /** Reveals the current password for a password-authenticated Postgres role. */
+  RevealRolePasswordResponse revealRolePassword(
+      RevealRolePasswordRequest revealRolePasswordRequest);
+
   /** Undeletes the specified database branch. */
   Operation undeleteBranch(UndeleteBranchRequest undeleteBranchRequest);
 

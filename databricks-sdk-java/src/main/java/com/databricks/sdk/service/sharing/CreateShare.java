@@ -17,6 +17,10 @@ public class CreateShare {
   @JsonProperty("name")
   private String name;
 
+  /** Configuration for share replication. */
+  @JsonProperty("replication_config")
+  private ReplicationConfig replicationConfig;
+
   /** Storage root URL for the share. */
   @JsonProperty("storage_root")
   private String storageRoot;
@@ -39,6 +43,15 @@ public class CreateShare {
     return name;
   }
 
+  public CreateShare setReplicationConfig(ReplicationConfig replicationConfig) {
+    this.replicationConfig = replicationConfig;
+    return this;
+  }
+
+  public ReplicationConfig getReplicationConfig() {
+    return replicationConfig;
+  }
+
   public CreateShare setStorageRoot(String storageRoot) {
     this.storageRoot = storageRoot;
     return this;
@@ -55,12 +68,13 @@ public class CreateShare {
     CreateShare that = (CreateShare) o;
     return Objects.equals(comment, that.comment)
         && Objects.equals(name, that.name)
+        && Objects.equals(replicationConfig, that.replicationConfig)
         && Objects.equals(storageRoot, that.storageRoot);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(comment, name, storageRoot);
+    return Objects.hash(comment, name, replicationConfig, storageRoot);
   }
 
   @Override
@@ -68,6 +82,7 @@ public class CreateShare {
     return new ToStringer(CreateShare.class)
         .add("comment", comment)
         .add("name", name)
+        .add("replicationConfig", replicationConfig)
         .add("storageRoot", storageRoot)
         .toString();
   }
