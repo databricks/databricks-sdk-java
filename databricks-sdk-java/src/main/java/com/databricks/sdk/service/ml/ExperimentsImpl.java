@@ -35,6 +35,24 @@ class ExperimentsImpl implements ExperimentsService {
   }
 
   @Override
+  public Issue createIssue(CreateIssueRequest request) {
+    String path = String.format("/api/2.0/mlflow/%s/issues", request.getParent());
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request.getIssue()));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, Issue.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public CreateLoggedModelResponse createLoggedModel(CreateLoggedModelRequest request) {
     String path = "/api/2.0/mlflow/logged-models";
     try {
@@ -242,6 +260,23 @@ class ExperimentsImpl implements ExperimentsService {
         req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, GetMetricHistoryResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public Issue getIssue(GetIssueRequest request) {
+    String path = String.format("/api/2.0/mlflow/%s", request.getName());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, Issue.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -551,6 +586,24 @@ class ExperimentsImpl implements ExperimentsService {
   }
 
   @Override
+  public SearchIssuesResponse searchIssues(SearchIssuesRequest request) {
+    String path = String.format("/api/2.0/mlflow/%s/issues:search", request.getParent());
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, SearchIssuesResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public SearchLoggedModelsResponse searchLoggedModels(SearchLoggedModelsRequest request) {
     String path = "/api/2.0/mlflow/logged-models/search";
     try {
@@ -671,6 +724,24 @@ class ExperimentsImpl implements ExperimentsService {
         req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       apiClient.execute(req, Void.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public Issue updateIssue(UpdateIssueRequest request) {
+    String path = String.format("/api/2.0/mlflow/%s", request.getName());
+    try {
+      Request req = new Request("PATCH", path, apiClient.serialize(request.getIssue()));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, Issue.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

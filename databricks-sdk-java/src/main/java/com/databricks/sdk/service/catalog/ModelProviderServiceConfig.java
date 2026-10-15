@@ -63,7 +63,9 @@ public class ModelProviderServiceConfig {
    * Whether to proxy paths that AI Gateway does not recognize as configured provider-native API
    * types. Defaults to false. When true, these paths are forwarded unchanged to the upstream
    * provider. When false, only recognized API paths are served. Enabling this broadens the upstream
-   * API surface exposed through the provider service.
+   * API surface exposed through the provider service. AI Gateway cannot evaluate Service Policies
+   * on opaque unmanaged requests, so unmanaged requests are rejected whenever Service Policies are
+   * attached to this securable.
    */
   @JsonProperty("forward_unmanaged_paths")
   private Boolean forwardUnmanagedPaths;

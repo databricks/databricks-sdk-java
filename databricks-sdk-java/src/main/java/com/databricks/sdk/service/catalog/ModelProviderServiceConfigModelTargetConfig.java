@@ -16,9 +16,10 @@ import java.util.Objects;
 public class ModelProviderServiceConfigModelTargetConfig {
   /**
    * Relative path appended to a custom provider's `base_url` for this model, such as
-   * `serve/openai/chat`. Only custom model provider service targets use this field; other provider
-   * types ignore it, and model service destinations reject it. Do not include URI templates,
-   * queries, or fragments. When empty, `base_url` is used unchanged.
+   * `serve/openai/chat`. Nonempty values are only supported for custom model provider service
+   * targets; other provider types reject them. Model service destinations do not support this
+   * field. Do not include URI templates, queries, or fragments. When empty, `base_url` is used
+   * unchanged.
    */
   @JsonProperty("endpoint_route")
   private String endpointRoute;

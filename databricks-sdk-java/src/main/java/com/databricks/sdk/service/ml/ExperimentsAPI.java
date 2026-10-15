@@ -45,6 +45,11 @@ public class ExperimentsAPI {
     return impl.createExperiment(request);
   }
 
+  /** Creates an issue in an experiment. */
+  public Issue createIssue(CreateIssueRequest request) {
+    return impl.createIssue(request);
+  }
+
   /** Create a logged model. */
   public CreateLoggedModelResponse createLoggedModel(CreateLoggedModelRequest request) {
     return impl.createLoggedModel(request);
@@ -155,6 +160,15 @@ public class ExperimentsAPI {
           }
           return request.setPageToken(token);
         });
+  }
+
+  public Issue getIssue(String name) {
+    return getIssue(new GetIssueRequest().setName(name));
+  }
+
+  /** Gets an issue. */
+  public Issue getIssue(GetIssueRequest request) {
+    return impl.getIssue(request);
   }
 
   public GetLoggedModelResponse getLoggedModel(String modelId) {
@@ -380,6 +394,21 @@ public class ExperimentsAPI {
         });
   }
 
+  /** Searches the issues in an experiment, filtered and sorted. */
+  public Iterable<Issue> searchIssues(SearchIssuesRequest request) {
+    return Paginator.newTokenPagination(
+        request,
+        impl::searchIssues,
+        SearchIssuesResponse::getIssues,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
+  }
+
   /** Search for Logged Models that satisfy specified search criteria. */
   public SearchLoggedModelsResponse searchLoggedModels(SearchLoggedModelsRequest request) {
     return impl.searchLoggedModels(request);
@@ -433,6 +462,11 @@ public class ExperimentsAPI {
   /** Updates experiment metadata. */
   public void updateExperiment(UpdateExperiment request) {
     impl.updateExperiment(request);
+  }
+
+  /** Updates the fields of an issue named in `update_mask`. */
+  public Issue updateIssue(UpdateIssueRequest request) {
+    return impl.updateIssue(request);
   }
 
   /**

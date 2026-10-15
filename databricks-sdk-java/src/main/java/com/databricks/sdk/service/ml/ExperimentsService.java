@@ -29,6 +29,9 @@ public interface ExperimentsService {
    */
   CreateExperimentResponse createExperiment(CreateExperiment createExperiment);
 
+  /** Creates an issue in an experiment. */
+  Issue createIssue(CreateIssueRequest createIssueRequest);
+
   /** Create a logged model. */
   CreateLoggedModelResponse createLoggedModel(CreateLoggedModelRequest createLoggedModelRequest);
 
@@ -87,6 +90,9 @@ public interface ExperimentsService {
 
   /** Gets a list of all values for the specified metric for a given run. */
   GetMetricHistoryResponse getHistory(GetHistoryRequest getHistoryRequest);
+
+  /** Gets an issue. */
+  Issue getIssue(GetIssueRequest getIssueRequest);
 
   /** Get a logged model. */
   GetLoggedModelResponse getLoggedModel(GetLoggedModelRequest getLoggedModelRequest);
@@ -231,6 +237,9 @@ public interface ExperimentsService {
   /** Searches for experiments that satisfy specified search criteria. */
   SearchExperimentsResponse searchExperiments(SearchExperiments searchExperiments);
 
+  /** Searches the issues in an experiment, filtered and sorted. */
+  SearchIssuesResponse searchIssues(SearchIssuesRequest searchIssuesRequest);
+
   /** Search for Logged Models that satisfy specified search criteria. */
   SearchLoggedModelsResponse searchLoggedModels(
       SearchLoggedModelsRequest searchLoggedModelsRequest);
@@ -262,6 +271,9 @@ public interface ExperimentsService {
 
   /** Updates experiment metadata. */
   void updateExperiment(UpdateExperiment updateExperiment);
+
+  /** Updates the fields of an issue named in `update_mask`. */
+  Issue updateIssue(UpdateIssueRequest updateIssueRequest);
 
   /**
    * Updates the permissions on an experiment. Experiments can inherit permissions from their root
