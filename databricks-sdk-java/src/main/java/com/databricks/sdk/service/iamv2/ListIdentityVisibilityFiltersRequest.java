@@ -10,7 +10,10 @@ import java.util.Objects;
 
 @Generated
 public class ListIdentityVisibilityFiltersRequest {
-  /** The maximum number of filters to return. The service may return fewer than this value. */
+  /**
+   * The maximum number of filters to return. The service may return fewer than this value. If
+   * omitted or non-positive, defaults to 100. Values above 1000 are reduced to 1000.
+   */
   @JsonIgnore
   @QueryParam("page_size")
   private Long pageSize;
