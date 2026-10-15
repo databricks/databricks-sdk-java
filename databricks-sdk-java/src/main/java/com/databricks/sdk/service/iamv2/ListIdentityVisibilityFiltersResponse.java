@@ -11,7 +11,7 @@ import java.util.Objects;
 /** Response message containing a page of identity-visibility filters in the account. */
 @Generated
 public class ListIdentityVisibilityFiltersResponse {
-  /** */
+  /** The filters in this page. These are filter rules, not the groups matched by the rules. */
   @JsonProperty("identity_visibility_filters")
   private Collection<IdentityVisibilityFilter> identityVisibilityFilters;
 

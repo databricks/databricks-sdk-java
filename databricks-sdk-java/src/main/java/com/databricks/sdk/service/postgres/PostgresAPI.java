@@ -506,6 +506,11 @@ public class PostgresAPI {
         });
   }
 
+  /** Reveals the current password for a password-authenticated Postgres role. */
+  public RevealRolePasswordResponse revealRolePassword(RevealRolePasswordRequest request) {
+    return impl.revealRolePassword(request);
+  }
+
   /** Undeletes the specified database branch. */
   public UndeleteBranchOperation undeleteBranch(UndeleteBranchRequest request) {
     Operation operation = impl.undeleteBranch(request);

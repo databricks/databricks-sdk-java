@@ -8,5 +8,6 @@ import com.databricks.sdk.support.Generated;
 public enum EndpointInfoWarehouseType {
   CLASSIC,
   PRO,
+  REALTIME,
   TYPE_UNSPECIFIED,
 }

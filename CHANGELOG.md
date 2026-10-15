@@ -1,5 +1,20 @@
 # Version changelog
 
+## Release v0.167.0 (2026-10-15)
+
+### API Changes
+* Add `createIssue()`, `getIssue()`, `searchIssues()` and `updateIssue()` methods for `workspaceClient.experiments()` service.
+* Add `revealRolePassword()` method for `workspaceClient.postgres()` service.
+* Add `attachment` field for `com.databricks.sdk.service.jobs.Subscription`.
+* Add `replicationConfig` field for `com.databricks.sdk.service.sharing.CreateShare`.
+* Add `replicationConfig` field for `com.databricks.sdk.service.sharing.ShareInfo`.
+* Add `REALTIME` enum value for `com.databricks.sdk.service.sql.CreateWarehouseRequestWarehouseType`.
+* Add `REALTIME` enum value for `com.databricks.sdk.service.sql.EditWarehouseRequestWarehouseType`.
+* Add `REALTIME` enum value for `com.databricks.sdk.service.sql.EndpointInfoWarehouseType`.
+* Add `REALTIME` enum value for `com.databricks.sdk.service.sql.GetWarehouseResponseWarehouseType`.
+* Add `REALTIME` enum value for `com.databricks.sdk.service.sql.WarehouseTypePairWarehouseType`.
+* [Breaking] Remove `effectiveServerlessComputeId` field for `com.databricks.sdk.service.jobs.RunTask`.
+
 ## Release v0.166.0 (2026-10-13)
 
 ### API Changes

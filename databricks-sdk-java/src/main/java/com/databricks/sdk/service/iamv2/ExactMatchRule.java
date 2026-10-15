@@ -7,12 +7,13 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/**
- * A rule that matches an identity whose external ID (from the identity provider) equals the value.
- */
+/** An exact-match rule that matches a group's external ID from the identity provider. */
 @Generated
 public class ExactMatchRule {
-  /** The external ID to match exactly. */
+  /**
+   * The identity provider's external ID for the group to match. This is not the Databricks group
+   * ID. The value must be non-empty and is matched exactly, including case.
+   */
   @JsonProperty("external_id")
   private String externalId;
 
