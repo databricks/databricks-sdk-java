@@ -50,7 +50,13 @@ public class AccountIamV2API {
     return impl.createGroup(request);
   }
 
-  /** Creates an identity-visibility filter in the account. */
+  /**
+   * Creates a group visibility filter in the account. Requires account admin privileges. Set
+   * `principal_type` to `GROUP` and specify exactly one of `exact` (external ID) or `prefix`
+   * (display-name starts with). The filter applies across all workspaces in the account. A
+   * duplicate filter ID or an existing rule with the same type and match value returns
+   * `ALREADY_EXISTS`. Filters are immutable; to change a rule, delete it and create a new one.
+   */
   public IdentityVisibilityFilter createIdentityVisibilityFilter(
       CreateIdentityVisibilityFilterRequest request) {
     return impl.createIdentityVisibilityFilter(request);
@@ -131,7 +137,13 @@ public class AccountIamV2API {
     deleteIdentityVisibilityFilter(new DeleteIdentityVisibilityFilterRequest().setName(name));
   }
 
-  /** Deletes an identity-visibility filter by resource name. */
+  /**
+   * Deletes a group visibility filter by its resource name. Requires account admin privileges.
+   * Deleting a filter does not delete groups or revoke access. Groups covered only by this rule
+   * stop being discoverable unless they or a transitive parent are already provisioned in the
+   * account. If no group filters remain, all groups become visible again. Deleting a filter that
+   * does not exist succeeds without making any changes.
+   */
   public void deleteIdentityVisibilityFilter(DeleteIdentityVisibilityFilterRequest request) {
     impl.deleteIdentityVisibilityFilter(request);
   }
@@ -250,7 +262,10 @@ public class AccountIamV2API {
     return getIdentityVisibilityFilter(new GetIdentityVisibilityFilterRequest().setName(name));
   }
 
-  /** Fetches an identity-visibility filter by resource name. */
+  /**
+   * Gets a group visibility filter by its resource name. Requires account admin privileges. Returns
+   * the filter rule, not the groups matched by the rule.
+   */
   public IdentityVisibilityFilter getIdentityVisibilityFilter(
       GetIdentityVisibilityFilterRequest request) {
     return impl.getIdentityVisibilityFilter(request);
@@ -364,7 +379,12 @@ public class AccountIamV2API {
         new ListIdentityVisibilityFiltersRequest().setParent(parent));
   }
 
-  /** Lists the identity-visibility filters in the account, returning one page per call. */
+  /**
+   * Lists group visibility filters in the account, returning one page per call. Requires account
+   * admin privileges. Returns filter rules, not the groups matched by those rules. To retrieve the
+   * next page, pass the response's `next_page_token` as `page_token` in the next request. If
+   * `next_page_token` is omitted, there are no more pages.
+   */
   public Iterable<IdentityVisibilityFilter> listIdentityVisibilityFilters(
       ListIdentityVisibilityFiltersRequest request) {
     return Paginator.newTokenPagination(

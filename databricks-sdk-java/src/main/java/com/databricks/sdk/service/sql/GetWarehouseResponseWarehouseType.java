@@ -8,5 +8,6 @@ import com.databricks.sdk.support.Generated;
 public enum GetWarehouseResponseWarehouseType {
   CLASSIC,
   PRO,
+  REALTIME,
   TYPE_UNSPECIFIED,
 }

@@ -11,13 +11,16 @@ import java.util.Objects;
 
 @Generated
 public class CreateIdentityVisibilityFilterRequest {
-  /** Required. The filter to create. */
+  /**
+   * Required. The filter to create. Set `principal_type` to `GROUP` and specify exactly one of
+   * `exact` or `prefix`. The server assigns the resource name; any supplied `name` is ignored.
+   */
   @JsonProperty("identity_visibility_filter")
   private IdentityVisibilityFilter identityVisibilityFilter;
 
   /**
    * Optional. The ID to use for the filter, which becomes the final component of its resource name.
-   * If not specified, the server generates one.
+   * If not specified or empty, the server generates one. Must not contain `/`.
    */
   @JsonIgnore
   @QueryParam("identity_visibility_filter_id")
