@@ -13,8 +13,17 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface SandboxService {
+  /** Creates a directory in a sandbox, including missing parents by default. */
+  CreateDirectoryResponse createDirectory(CreateDirectoryRequest createDirectoryRequest);
+
   /** Creates a new Sandbox. */
   Sandbox createSandbox(CreateSandboxRequest createSandboxRequest);
+
+  /**
+   * Deletes a file, symlink, or empty directory, with an option for recursive deletion. Succeeds if
+   * the path is already absent.
+   */
+  DeletePathResponse deletePath(DeletePathRequest deletePathRequest);
 
   /** Deletes a Sandbox. */
   void deleteSandbox(DeleteSandboxRequest deleteSandboxRequest);
@@ -26,14 +35,27 @@ public interface SandboxService {
   ExecuteCommandSyncResponse executeCommandSync(
       ExecuteCommandSyncRequest executeCommandSyncRequest);
 
+  /** Returns metadata for a path without following its final symlink. */
+  GetMetadataResponse getMetadata(GetMetadataRequest getMetadataRequest);
+
   /** Retrieves a Sandbox by name. */
   Sandbox getSandbox(GetSandboxRequest getSandboxRequest);
 
   /** Lists the tracked command executions (running and completed) in a sandbox. */
   ListCommandsResponse listCommands(ListCommandsRequest listCommandsRequest);
 
+  /**
+   * Lists a directory's immediate children in UTF-8 name order. Later pages may reflect concurrent
+   * changes.
+   */
+  ListDirectoryContentsResponse listDirectoryContents(
+      ListDirectoryContentsRequest listDirectoryContentsRequest);
+
   /** Lists all Sandboxes. */
   ListSandboxesResponse listSandboxes(ListSandboxesRequest listSandboxesRequest);
+
+  /** Renames a path within a sandbox. The destination must be absent and on the same filesystem. */
+  RenamePathResponse renamePath(RenamePathRequest renamePathRequest);
 
   /**
    * Starts a previously stopped Sandbox under the same sandbox name. Returns NOT_FOUND if there is

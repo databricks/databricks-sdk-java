@@ -7,7 +7,7 @@ import com.databricks.sdk.core.logging.LoggerFactory;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.Paginator;
 
-/** Manage Knowledge Assistants and related resources. */
+/** Manage legacy Knowledge Assistants and related resources. */
 @Generated
 public class KnowledgeAssistantsAPI {
   private static final Logger LOG = LoggerFactory.getLogger(KnowledgeAssistantsAPI.class);

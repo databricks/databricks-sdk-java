@@ -1,5 +1,22 @@
 # Version changelog
 
+## Release v0.168.0 (2026-10-19)
+
+### API Changes
+* Add `createDirectory()`, `deletePath()`, `getMetadata()`, `listDirectoryContents()` and `renamePath()` methods for `workspaceClient.sandbox()` service.
+* Add `secrets` field for `com.databricks.sdk.service.catalog.ConnectionInfo`.
+* Add `secrets` field for `com.databricks.sdk.service.catalog.CreateConnection`.
+* Add `governedTags` field for `com.databricks.sdk.service.catalog.PolicyInfo`.
+* Add `secrets` field for `com.databricks.sdk.service.catalog.UpdateConnection`.
+* Add `hasReplicationPointBlockingErrors` and `initialReplicationProgress` fields for `com.databricks.sdk.service.disasterrecovery.FailoverGroup`.
+* Add `durationTarget` field for `com.databricks.sdk.service.jobs.BaseRun`.
+* Add `durationTarget` field for `com.databricks.sdk.service.jobs.CreateJob`.
+* Add `durationTarget` field for `com.databricks.sdk.service.jobs.JobSettings`.
+* Add `durationTarget` field for `com.databricks.sdk.service.jobs.RepairRun`.
+* Add `durationTarget` field for `com.databricks.sdk.service.jobs.Run`.
+* Add `durationTarget` field for `com.databricks.sdk.service.jobs.RunNow`.
+* Add `durationTarget` field for `com.databricks.sdk.service.jobs.SubmitRun`.
+
 ## Release v0.167.0 (2026-10-15)
 
 ### API Changes

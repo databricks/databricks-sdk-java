@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.protobuf.Timestamp;
 import java.util.Objects;
 
-/** A workspace-scoped managed memory store backed by service-managed storage. */
+/** A workspace-scoped memory store backed by service-managed storage. */
 @Generated
 public class ManagedMemoryStore {
   /** Time when the store was created. */
@@ -28,9 +28,9 @@ public class ManagedMemoryStore {
   private String description;
 
   /**
-   * Deprecated compatibility alias for the caller-provided managed memory store ID. Canonical
-   * clients provide the ID through `CreateMemoryStoreRequest.managed_memory_store_id` and use
-   * `name` as the resource identifier.
+   * Deprecated compatibility alias for the caller-provided memory store ID. Canonical clients
+   * provide the ID through `CreateMemoryStoreRequest.managed_memory_store_id` and use `name` as the
+   * resource identifier.
    */
   @JsonProperty("display_name")
   private String displayName;

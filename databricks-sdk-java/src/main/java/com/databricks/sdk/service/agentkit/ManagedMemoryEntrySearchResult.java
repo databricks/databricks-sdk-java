@@ -7,10 +7,10 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** One relevance-ranked managed memory search result. */
+/** One relevance-ranked memory search result. */
 @Generated
 public class ManagedMemoryEntrySearchResult {
-  /** Managed memory entry matching the query. */
+  /** Memory entry matching the query. */
   @JsonProperty("managed_memory_entry")
   private ManagedMemoryEntry managedMemoryEntry;
 

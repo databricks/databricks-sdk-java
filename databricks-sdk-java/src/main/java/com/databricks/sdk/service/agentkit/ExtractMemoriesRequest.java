@@ -23,7 +23,7 @@ public class ExtractMemoriesRequest {
   private String instructions;
 
   /**
-   * Managed memory store the extracted entries are written to, in the form
+   * Memory store the extracted entries are written to, in the form
    * `memory-stores/{managed_memory_store_id}`.
    */
   @JsonProperty("memory_store")

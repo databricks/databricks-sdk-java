@@ -11,17 +11,17 @@ import java.util.Objects;
 
 @Generated
 public class CreateManagedMemoryEntryRequest {
-  /** The managed memory entry to create. */
+  /** The memory entry to create. */
   @JsonProperty("managed_memory_entry")
   private ManagedMemoryEntry managedMemoryEntry;
 
-  /** Optional caller-selected managed memory entry ID. The service generates an ID when omitted. */
+  /** Optional caller-selected memory entry ID. The service generates an ID when omitted. */
   @JsonIgnore
   @QueryParam("managed_memory_entry_id")
   private String managedMemoryEntryId;
 
   /**
-   * Managed memory store that will contain the entry, in the form
+   * Memory store that will contain the entry, in the form
    * `memory-stores/{managed_memory_store_id}`.
    */
   @JsonIgnore private String parent;

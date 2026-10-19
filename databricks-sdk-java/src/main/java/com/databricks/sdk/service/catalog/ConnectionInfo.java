@@ -70,6 +70,13 @@ public class ConnectionInfo {
   @JsonProperty("read_only")
   private Boolean readOnly;
 
+  /**
+   * A map of option names to UC Secret references. Keys are connection option names (same as in
+   * OptionsKVPairs) and values are UC Secret fully qualified names.
+   */
+  @JsonProperty("secrets")
+  private Map<String, String> secrets;
+
   /** */
   @JsonProperty("securable_type")
   private SecurableType securableType;
@@ -221,6 +228,15 @@ public class ConnectionInfo {
     return readOnly;
   }
 
+  public ConnectionInfo setSecrets(Map<String, String> secrets) {
+    this.secrets = secrets;
+    return this;
+  }
+
+  public Map<String, String> getSecrets() {
+    return secrets;
+  }
+
   public ConnectionInfo setSecurableType(SecurableType securableType) {
     this.securableType = securableType;
     return this;
@@ -277,6 +293,7 @@ public class ConnectionInfo {
         && Objects.equals(properties, that.properties)
         && Objects.equals(provisioningInfo, that.provisioningInfo)
         && Objects.equals(readOnly, that.readOnly)
+        && Objects.equals(secrets, that.secrets)
         && Objects.equals(securableType, that.securableType)
         && Objects.equals(updatedAt, that.updatedAt)
         && Objects.equals(updatedBy, that.updatedBy)
@@ -301,6 +318,7 @@ public class ConnectionInfo {
         properties,
         provisioningInfo,
         readOnly,
+        secrets,
         securableType,
         updatedAt,
         updatedBy,
@@ -325,6 +343,7 @@ public class ConnectionInfo {
         .add("properties", properties)
         .add("provisioningInfo", provisioningInfo)
         .add("readOnly", readOnly)
+        .add("secrets", secrets)
         .add("securableType", securableType)
         .add("updatedAt", updatedAt)
         .add("updatedBy", updatedBy)

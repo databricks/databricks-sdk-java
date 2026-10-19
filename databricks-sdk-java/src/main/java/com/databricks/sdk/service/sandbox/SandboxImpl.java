@@ -17,6 +17,24 @@ class SandboxImpl implements SandboxService {
   }
 
   @Override
+  public CreateDirectoryResponse createDirectory(CreateDirectoryRequest request) {
+    String path = String.format("/api/2.0/sandbox-files/%s/directories:make", request.getParent());
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, CreateDirectoryResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public Sandbox createSandbox(CreateSandboxRequest request) {
     String path = "/api/2.0/sandboxes";
     try {
@@ -29,6 +47,24 @@ class SandboxImpl implements SandboxService {
         req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, Sandbox.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public DeletePathResponse deletePath(DeletePathRequest request) {
+    String path = String.format("/api/2.0/sandbox-files/%s/paths:remove", request.getParent());
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, DeletePathResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -70,6 +106,23 @@ class SandboxImpl implements SandboxService {
   }
 
   @Override
+  public GetMetadataResponse getMetadata(GetMetadataRequest request) {
+    String path = String.format("/api/2.0/sandbox-files/%s/paths:describe", request.getParent());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, GetMetadataResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public Sandbox getSandbox(GetSandboxRequest request) {
     String path = String.format("/api/2.0/%s", request.getName());
     try {
@@ -104,6 +157,23 @@ class SandboxImpl implements SandboxService {
   }
 
   @Override
+  public ListDirectoryContentsResponse listDirectoryContents(ListDirectoryContentsRequest request) {
+    String path = String.format("/api/2.0/sandbox-files/%s/directory-entries", request.getParent());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, ListDirectoryContentsResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public ListSandboxesResponse listSandboxes(ListSandboxesRequest request) {
     String path = "/api/2.0/sandboxes";
     try {
@@ -115,6 +185,24 @@ class SandboxImpl implements SandboxService {
         req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, ListSandboxesResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public RenamePathResponse renamePath(RenamePathRequest request) {
+    String path = String.format("/api/2.0/sandbox-files/%s/paths:rename", request.getParent());
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, RenamePathResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

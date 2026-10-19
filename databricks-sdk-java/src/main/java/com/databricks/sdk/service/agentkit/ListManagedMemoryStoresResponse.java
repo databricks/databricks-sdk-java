@@ -8,10 +8,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-/** Response containing managed memory stores in the caller's workspace. */
+/** Response containing memory stores in the caller's workspace. */
 @Generated
 public class ListManagedMemoryStoresResponse {
-  /** Managed memory stores in the caller's workspace. */
+  /** Memory stores in the caller's workspace. */
   @JsonProperty("managed_memory_stores")
   private Collection<ManagedMemoryStore> managedMemoryStores;
 

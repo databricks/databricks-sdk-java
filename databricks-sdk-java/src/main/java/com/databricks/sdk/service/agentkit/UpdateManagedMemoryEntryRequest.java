@@ -12,7 +12,7 @@ import java.util.Objects;
 
 @Generated
 public class UpdateManagedMemoryEntryRequest {
-  /** The managed memory entry to update. */
+  /** The memory entry to update. */
   @JsonProperty("managed_memory_entry")
   private ManagedMemoryEntry managedMemoryEntry;
 

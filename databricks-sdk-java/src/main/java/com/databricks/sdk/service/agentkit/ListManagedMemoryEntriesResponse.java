@@ -8,10 +8,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-/** Response containing managed memory entries. */
+/** Response containing memory entries. */
 @Generated
 public class ListManagedMemoryEntriesResponse {
-  /** Managed memory entries matching the request and selected response view. */
+  /** Memory entries matching the request and selected response view. */
   @JsonProperty("managed_memory_entries")
   private Collection<ManagedMemoryEntry> managedMemoryEntries;
 

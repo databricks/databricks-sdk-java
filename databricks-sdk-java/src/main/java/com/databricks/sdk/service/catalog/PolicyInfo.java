@@ -50,6 +50,13 @@ public class PolicyInfo {
   private SecurableType forSecurableType;
 
   /**
+   * Governed tag keys and values referenced by this policy's conditions and function arguments.
+   * Output only.
+   */
+  @JsonProperty("governed_tags")
+  private Collection<GovernedTagReference> governedTags;
+
+  /**
    * Options for grant policies. Valid only if `policy_type` is `POLICY_TYPE_GRANT`. Required on
    * create and optional on update. When specified on update, the new options will replace the
    * existing options as a whole.
@@ -181,6 +188,15 @@ public class PolicyInfo {
     return forSecurableType;
   }
 
+  public PolicyInfo setGovernedTags(Collection<GovernedTagReference> governedTags) {
+    this.governedTags = governedTags;
+    return this;
+  }
+
+  public Collection<GovernedTagReference> getGovernedTags() {
+    return governedTags;
+  }
+
   public PolicyInfo setGrant(GrantOptions grant) {
     this.grant = grant;
     return this;
@@ -301,6 +317,7 @@ public class PolicyInfo {
         && Objects.equals(deny, that.deny)
         && Objects.equals(exceptPrincipals, that.exceptPrincipals)
         && Objects.equals(forSecurableType, that.forSecurableType)
+        && Objects.equals(governedTags, that.governedTags)
         && Objects.equals(grant, that.grant)
         && Objects.equals(id, that.id)
         && Objects.equals(matchColumns, that.matchColumns)
@@ -325,6 +342,7 @@ public class PolicyInfo {
         deny,
         exceptPrincipals,
         forSecurableType,
+        governedTags,
         grant,
         id,
         matchColumns,
@@ -349,6 +367,7 @@ public class PolicyInfo {
         .add("deny", deny)
         .add("exceptPrincipals", exceptPrincipals)
         .add("forSecurableType", forSecurableType)
+        .add("governedTags", governedTags)
         .add("grant", grant)
         .add("id", id)
         .add("matchColumns", matchColumns)

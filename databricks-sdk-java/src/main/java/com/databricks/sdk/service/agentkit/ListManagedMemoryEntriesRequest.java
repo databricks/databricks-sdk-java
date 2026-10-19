@@ -29,8 +29,7 @@ public class ListManagedMemoryEntriesRequest {
   private String pageToken;
 
   /**
-   * Managed memory store whose entries are listed, in the form
-   * `memory-stores/{managed_memory_store_id}`.
+   * Memory store whose entries are listed, in the form `memory-stores/{managed_memory_store_id}`.
    */
   @JsonIgnore private String parent;
 
