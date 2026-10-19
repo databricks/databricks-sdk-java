@@ -61,6 +61,15 @@ public class Run {
   private String description;
 
   /**
+   * The window the run aims to finish within, in hours, for a Cost-optimized serverless run.
+   * Required only when `performance_target` is `COST_OPTIMIZED`. Must be one of the supported
+   * values: `NO_FLEXIBILITY`, `4h`, `12h`, `24h`, `72h`. `NO_FLEXIBILITY` means the run uses the
+   * default cost-optimized performance level without additional cost-saving optimizations.
+   */
+  @JsonProperty("duration_target")
+  private String durationTarget;
+
+  /**
    * The actual performance target used by the serverless run during execution. This can differ from
    * the client-set performance target on the request depending on whether the performance mode is
    * supported by the job type.
@@ -316,6 +325,15 @@ public class Run {
 
   public String getDescription() {
     return description;
+  }
+
+  public Run setDurationTarget(String durationTarget) {
+    this.durationTarget = durationTarget;
+    return this;
+  }
+
+  public String getDurationTarget() {
+    return durationTarget;
   }
 
   public Run setEffectivePerformanceTarget(PerformanceTarget effectivePerformanceTarget) {
@@ -618,6 +636,7 @@ public class Run {
         && Objects.equals(creatorUserName, that.creatorUserName)
         && Objects.equals(deploymentId, that.deploymentId)
         && Objects.equals(description, that.description)
+        && Objects.equals(durationTarget, that.durationTarget)
         && Objects.equals(effectivePerformanceTarget, that.effectivePerformanceTarget)
         && Objects.equals(effectiveUsagePolicyId, that.effectiveUsagePolicyId)
         && Objects.equals(endTime, that.endTime)
@@ -662,6 +681,7 @@ public class Run {
         creatorUserName,
         deploymentId,
         description,
+        durationTarget,
         effectivePerformanceTarget,
         effectiveUsagePolicyId,
         endTime,
@@ -706,6 +726,7 @@ public class Run {
         .add("creatorUserName", creatorUserName)
         .add("deploymentId", deploymentId)
         .add("description", description)
+        .add("durationTarget", durationTarget)
         .add("effectivePerformanceTarget", effectivePerformanceTarget)
         .add("effectiveUsagePolicyId", effectiveUsagePolicyId)
         .add("endTime", endTime)

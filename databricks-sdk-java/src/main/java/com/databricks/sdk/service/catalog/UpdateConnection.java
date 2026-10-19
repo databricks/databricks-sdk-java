@@ -30,6 +30,13 @@ public class UpdateConnection {
   @JsonProperty("owner")
   private String owner;
 
+  /**
+   * A map of option names to UC Secret references. Keys are connection option names (same as in
+   * OptionsKVPairs) and values are UC Secret fully qualified names.
+   */
+  @JsonProperty("secrets")
+  private Map<String, String> secrets;
+
   public UpdateConnection setEnvironmentSettings(EnvironmentSettings environmentSettings) {
     this.environmentSettings = environmentSettings;
     return this;
@@ -75,6 +82,15 @@ public class UpdateConnection {
     return owner;
   }
 
+  public UpdateConnection setSecrets(Map<String, String> secrets) {
+    this.secrets = secrets;
+    return this;
+  }
+
+  public Map<String, String> getSecrets() {
+    return secrets;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -84,12 +100,13 @@ public class UpdateConnection {
         && Objects.equals(name, that.name)
         && Objects.equals(newName, that.newName)
         && Objects.equals(options, that.options)
-        && Objects.equals(owner, that.owner);
+        && Objects.equals(owner, that.owner)
+        && Objects.equals(secrets, that.secrets);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(environmentSettings, name, newName, options, owner);
+    return Objects.hash(environmentSettings, name, newName, options, owner, secrets);
   }
 
   @Override
@@ -100,6 +117,7 @@ public class UpdateConnection {
         .add("newName", newName)
         .add("options", options)
         .add("owner", owner)
+        .add("secrets", secrets)
         .toString();
   }
 }

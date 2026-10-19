@@ -45,6 +45,13 @@ public class CreateConnection {
   @JsonProperty("read_only")
   private Boolean readOnly;
 
+  /**
+   * A map of option names to UC Secret references. Keys are connection option names (same as in
+   * OptionsKVPairs) and values are UC Secret fully qualified names.
+   */
+  @JsonProperty("secrets")
+  private Map<String, String> secrets;
+
   public CreateConnection setComment(String comment) {
     this.comment = comment;
     return this;
@@ -117,6 +124,15 @@ public class CreateConnection {
     return readOnly;
   }
 
+  public CreateConnection setSecrets(Map<String, String> secrets) {
+    this.secrets = secrets;
+    return this;
+  }
+
+  public Map<String, String> getSecrets() {
+    return secrets;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -129,13 +145,22 @@ public class CreateConnection {
         && Objects.equals(options, that.options)
         && Objects.equals(parent, that.parent)
         && Objects.equals(properties, that.properties)
-        && Objects.equals(readOnly, that.readOnly);
+        && Objects.equals(readOnly, that.readOnly)
+        && Objects.equals(secrets, that.secrets);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(
-        comment, connectionType, environmentSettings, name, options, parent, properties, readOnly);
+        comment,
+        connectionType,
+        environmentSettings,
+        name,
+        options,
+        parent,
+        properties,
+        readOnly,
+        secrets);
   }
 
   @Override
@@ -149,6 +174,7 @@ public class CreateConnection {
         .add("parent", parent)
         .add("properties", properties)
         .add("readOnly", readOnly)
+        .add("secrets", secrets)
         .toString();
   }
 }

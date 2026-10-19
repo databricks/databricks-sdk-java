@@ -12,7 +12,7 @@ import java.util.Objects;
 
 @Generated
 public class UpdateManagedMemoryStoreRequest {
-  /** The managed memory store to update. `name` is taken from the URL. */
+  /** The memory store to update. `name` is taken from the URL. */
   @JsonProperty("managed_memory_store")
   private ManagedMemoryStore managedMemoryStore;
 

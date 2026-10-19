@@ -21,15 +21,15 @@ public interface AgentKitService {
   ClearSessionItemsResponse clearSessionItems(ClearSessionItemsRequest clearSessionItemsRequest);
 
   /**
-   * Creates a managed memory entry using exclusive-create semantics. Callers may choose the entry
-   * ID; the service generates one when it is omitted. Returns `ALREADY_EXISTS` when an entry with
-   * the same actor, session, and path already exists. Omitted `session_id` is its own uniqueness
-   * key: two omitted-session entries with the same actor and path conflict, but an omitted-session
-   * entry does not conflict with a session-scoped entry at the same actor and path.
+   * Creates a memory entry using exclusive-create semantics. Callers may choose the entry ID; the
+   * service generates one when it is omitted. Returns `ALREADY_EXISTS` when an entry with the same
+   * actor, session, and path already exists. Omitted `session_id` is its own uniqueness key: two
+   * omitted-session entries with the same actor and path conflict, but an omitted-session entry
+   * does not conflict with a session-scoped entry at the same actor and path.
    */
   ManagedMemoryEntry createMemory(CreateManagedMemoryEntryRequest createManagedMemoryEntryRequest);
 
-  /** Creates a managed memory store in the caller's workspace. */
+  /** Creates a memory store in the caller's workspace. */
   ManagedMemoryStore createMemoryStore(
       CreateManagedMemoryStoreRequest createManagedMemoryStoreRequest);
 
@@ -40,14 +40,14 @@ public interface AgentKitService {
   SessionStore createSessionStore(CreateSessionStoreRequest createSessionStoreRequest);
 
   /**
-   * Deletes a managed memory entry by resource name. Returns `NOT_FOUND` when the entry does not
-   * exist in the caller's workspace.
+   * Deletes a memory entry by resource name. Returns `NOT_FOUND` when the entry does not exist in
+   * the caller's workspace.
    */
   void deleteMemory(DeleteManagedMemoryEntryRequest deleteManagedMemoryEntryRequest);
 
   /**
-   * Deletes a managed memory store by resource name. Returns `NOT_FOUND` when the store does not
-   * exist in the caller's workspace.
+   * Deletes a memory store by resource name. Returns `NOT_FOUND` when the store does not exist in
+   * the caller's workspace.
    */
   void deleteMemoryStore(DeleteManagedMemoryStoreRequest deleteManagedMemoryStoreRequest);
 
@@ -73,15 +73,14 @@ public interface AgentKitService {
   ForkSessionResponse forkSession(ForkSessionRequest forkSessionRequest);
 
   /**
-   * Retrieves a managed memory entry by resource name. `view` controls whether the response
-   * includes memory content. Returns `NOT_FOUND` when the entry does not exist in the caller's
-   * workspace.
+   * Retrieves a memory entry by resource name. `view` controls whether the response includes memory
+   * content. Returns `NOT_FOUND` when the entry does not exist in the caller's workspace.
    */
   ManagedMemoryEntry getMemory(GetManagedMemoryEntryRequest getManagedMemoryEntryRequest);
 
   /**
-   * Retrieves a managed memory store by resource name. Returns `NOT_FOUND` when the store does not
-   * exist in the caller's workspace.
+   * Retrieves a memory store by resource name. Returns `NOT_FOUND` when the store does not exist in
+   * the caller's workspace.
    */
   ManagedMemoryStore getMemoryStore(GetManagedMemoryStoreRequest getManagedMemoryStoreRequest);
 
@@ -92,14 +91,14 @@ public interface AgentKitService {
   SessionStore getSessionStore(GetSessionStoreRequest getSessionStoreRequest);
 
   /**
-   * Lists managed memory entries for one actor. An exact `path` filters entries across sessions,
-   * ignoring session metadata. Otherwise, `session_id` and `path_prefix` restrict the actor
-   * partition. `view` controls whether each returned entry includes memory content.
+   * Lists memory entries for one actor. An exact `path` filters entries across sessions, ignoring
+   * session metadata. Otherwise, `session_id` and `path_prefix` restrict the actor partition.
+   * `view` controls whether each returned entry includes memory content.
    */
   ListManagedMemoryEntriesResponse listMemories(
       ListManagedMemoryEntriesRequest listManagedMemoryEntriesRequest);
 
-  /** Lists managed memory stores in the caller's workspace. */
+  /** Lists memory stores in the caller's workspace. */
   ListManagedMemoryStoresResponse listMemoryStores(
       ListManagedMemoryStoresRequest listManagedMemoryStoresRequest);
 
@@ -116,16 +115,16 @@ public interface AgentKitService {
   PopSessionItemResponse popSessionItem(PopSessionItemRequest popSessionItemRequest);
 
   /**
-   * Searches managed memory entries by text query for one actor. Returns matching entries and
-   * scores ranked by relevance; `view` controls whether each returned entry includes content.
+   * Searches memory entries by text query for one actor. Returns matching entries and scores ranked
+   * by relevance; `view` controls whether each returned entry includes content.
    */
   SearchManagedMemoryEntriesResponse searchMemories(
       SearchManagedMemoryEntriesRequest searchManagedMemoryEntriesRequest);
 
-  /** Updates selected mutable fields on a managed memory entry. Identity fields are immutable. */
+  /** Updates selected mutable fields on a memory entry. Identity fields are immutable. */
   ManagedMemoryEntry updateMemory(UpdateManagedMemoryEntryRequest updateManagedMemoryEntryRequest);
 
-  /** Updates a managed memory store's description and metadata. */
+  /** Updates a memory store's description and metadata. */
   ManagedMemoryStore updateMemoryStore(
       UpdateManagedMemoryStoreRequest updateManagedMemoryStoreRequest);
 

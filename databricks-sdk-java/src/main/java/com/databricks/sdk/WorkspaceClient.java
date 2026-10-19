@@ -1254,7 +1254,7 @@ public class WorkspaceClient {
     return jobsAPI;
   }
 
-  /** Manage Knowledge Assistants and related resources. */
+  /** Manage legacy Knowledge Assistants and related resources. */
   public KnowledgeAssistantsAPI knowledgeAssistants() {
     return knowledgeAssistantsAPI;
   }
@@ -1996,7 +1996,7 @@ public class WorkspaceClient {
     return storageCredentialsAPI;
   }
 
-  /** Manage Supervisor Agents and related resources. */
+  /** Manage legacy Supervisor Agents and related resources. */
   public SupervisorAgentsAPI supervisorAgents() {
     return supervisorAgentsAPI;
   }

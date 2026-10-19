@@ -7,7 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Service-managed storage backing a managed memory store. */
+/** Service-managed storage backing a memory store. */
 @Generated
 public class StorageBackend {
   /** Backend-specific identifier. For Lakebase, this is the project ID. */

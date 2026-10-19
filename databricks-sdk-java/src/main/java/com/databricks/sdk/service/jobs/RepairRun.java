@@ -24,6 +24,15 @@ public class RepairRun {
   private Collection<String> dbtCommands;
 
   /**
+   * The window the run aims to finish within, in hours, for a Cost-optimized serverless run.
+   * Required only when `performance_target` is `COST_OPTIMIZED`. Must be one of the supported
+   * values: `NO_FLEXIBILITY`, `4h`, `12h`, `24h`, `72h`. `NO_FLEXIBILITY` means the run uses the
+   * default cost-optimized performance level without additional cost-saving optimizations.
+   */
+  @JsonProperty("duration_target")
+  private String durationTarget;
+
+  /**
    * A list of parameters for jobs with Spark JAR tasks, for example `"jar_params": ["john doe",
    * "35"]`. The parameters are used to invoke the main function of the main class specified in the
    * Spark JAR task. If not specified upon `run-now`, it defaults to an empty list. jar_params
@@ -174,6 +183,15 @@ public class RepairRun {
     return dbtCommands;
   }
 
+  public RepairRun setDurationTarget(String durationTarget) {
+    this.durationTarget = durationTarget;
+    return this;
+  }
+
+  public String getDurationTarget() {
+    return durationTarget;
+  }
+
   public RepairRun setJarParams(Collection<String> jarParams) {
     this.jarParams = jarParams;
     return this;
@@ -306,6 +324,7 @@ public class RepairRun {
     if (o == null || getClass() != o.getClass()) return false;
     RepairRun that = (RepairRun) o;
     return Objects.equals(dbtCommands, that.dbtCommands)
+        && Objects.equals(durationTarget, that.durationTarget)
         && Objects.equals(jarParams, that.jarParams)
         && Objects.equals(jobParameters, that.jobParameters)
         && Objects.equals(latestRepairId, that.latestRepairId)
@@ -326,6 +345,7 @@ public class RepairRun {
   public int hashCode() {
     return Objects.hash(
         dbtCommands,
+        durationTarget,
         jarParams,
         jobParameters,
         latestRepairId,
@@ -346,6 +366,7 @@ public class RepairRun {
   public String toString() {
     return new ToStringer(RepairRun.class)
         .add("dbtCommands", dbtCommands)
+        .add("durationTarget", durationTarget)
         .add("jarParams", jarParams)
         .add("jobParameters", jobParameters)
         .add("latestRepairId", latestRepairId)

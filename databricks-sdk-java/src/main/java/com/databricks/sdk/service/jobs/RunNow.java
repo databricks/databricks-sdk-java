@@ -24,6 +24,15 @@ public class RunNow {
   private Collection<String> dbtCommands;
 
   /**
+   * The window the run aims to finish within, in hours, for a Cost-optimized serverless run.
+   * Required only when `performance_target` is `COST_OPTIMIZED`. Must be one of the supported
+   * values: `NO_FLEXIBILITY`, `4h`, `12h`, `24h`, `72h`. `NO_FLEXIBILITY` means the run uses the
+   * default cost-optimized performance level without additional cost-saving optimizations.
+   */
+  @JsonProperty("duration_target")
+  private String durationTarget;
+
+  /**
    * An optional token to guarantee the idempotency of job run requests. If a run with the provided
    * token already exists, the request does not create a new run but returns the ID of the existing
    * run instead. If a run with the provided token is deleted, an error is returned.
@@ -178,6 +187,15 @@ public class RunNow {
     return dbtCommands;
   }
 
+  public RunNow setDurationTarget(String durationTarget) {
+    this.durationTarget = durationTarget;
+    return this;
+  }
+
+  public String getDurationTarget() {
+    return durationTarget;
+  }
+
   public RunNow setIdempotencyToken(String idempotencyToken) {
     this.idempotencyToken = idempotencyToken;
     return this;
@@ -301,6 +319,7 @@ public class RunNow {
     if (o == null || getClass() != o.getClass()) return false;
     RunNow that = (RunNow) o;
     return Objects.equals(dbtCommands, that.dbtCommands)
+        && Objects.equals(durationTarget, that.durationTarget)
         && Objects.equals(idempotencyToken, that.idempotencyToken)
         && Objects.equals(jarParams, that.jarParams)
         && Objects.equals(jobId, that.jobId)
@@ -320,6 +339,7 @@ public class RunNow {
   public int hashCode() {
     return Objects.hash(
         dbtCommands,
+        durationTarget,
         idempotencyToken,
         jarParams,
         jobId,
@@ -339,6 +359,7 @@ public class RunNow {
   public String toString() {
     return new ToStringer(RunNow.class)
         .add("dbtCommands", dbtCommands)
+        .add("durationTarget", durationTarget)
         .add("idempotencyToken", idempotencyToken)
         .add("jarParams", jarParams)
         .add("jobId", jobId)

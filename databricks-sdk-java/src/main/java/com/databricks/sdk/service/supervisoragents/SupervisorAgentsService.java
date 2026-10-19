@@ -4,7 +4,7 @@ package com.databricks.sdk.service.supervisoragents;
 import com.databricks.sdk.support.Generated;
 
 /**
- * Manage Supervisor Agents and related resources.
+ * Manage legacy Supervisor Agents and related resources.
  *
  * <p>This is the high-level interface, that contains generated methods.
  *

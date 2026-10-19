@@ -44,6 +44,15 @@ public class CreateJob {
   private String description;
 
   /**
+   * The window the run aims to finish within, in hours, for a Cost-optimized serverless run.
+   * Required only when `performance_target` is `COST_OPTIMIZED`. Must be one of the supported
+   * values: `NO_FLEXIBILITY`, `4h`, `12h`, `24h`, `72h`. `NO_FLEXIBILITY` means the run uses the
+   * default cost-optimized performance level without additional cost-saving optimizations.
+   */
+  @JsonProperty("duration_target")
+  private String durationTarget;
+
+  /**
    * Edit mode of the job.
    *
    * <p>* `UI_LOCKED`: The job is in a locked UI state and cannot be modified. * `EDITABLE`: The job
@@ -276,6 +285,15 @@ public class CreateJob {
     return description;
   }
 
+  public CreateJob setDurationTarget(String durationTarget) {
+    this.durationTarget = durationTarget;
+    return this;
+  }
+
+  public String getDurationTarget() {
+    return durationTarget;
+  }
+
   public CreateJob setEditMode(JobEditMode editMode) {
     this.editMode = editMode;
     return this;
@@ -503,6 +521,7 @@ public class CreateJob {
         && Objects.equals(continuous, that.continuous)
         && Objects.equals(deployment, that.deployment)
         && Objects.equals(description, that.description)
+        && Objects.equals(durationTarget, that.durationTarget)
         && Objects.equals(editMode, that.editMode)
         && Objects.equals(emailNotifications, that.emailNotifications)
         && Objects.equals(environmentVariables, that.environmentVariables)
@@ -537,6 +556,7 @@ public class CreateJob {
         continuous,
         deployment,
         description,
+        durationTarget,
         editMode,
         emailNotifications,
         environmentVariables,
@@ -571,6 +591,7 @@ public class CreateJob {
         .add("continuous", continuous)
         .add("deployment", deployment)
         .add("description", description)
+        .add("durationTarget", durationTarget)
         .add("editMode", editMode)
         .add("emailNotifications", emailNotifications)
         .add("environmentVariables", environmentVariables)

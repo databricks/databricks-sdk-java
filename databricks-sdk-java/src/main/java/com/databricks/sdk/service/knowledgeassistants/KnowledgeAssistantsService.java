@@ -4,7 +4,7 @@ package com.databricks.sdk.service.knowledgeassistants;
 import com.databricks.sdk.support.Generated;
 
 /**
- * Manage Knowledge Assistants and related resources.
+ * Manage legacy Knowledge Assistants and related resources.
  *
  * <p>This is the high-level interface, that contains generated methods.
  *

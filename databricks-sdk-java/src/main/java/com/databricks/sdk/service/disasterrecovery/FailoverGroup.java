@@ -30,12 +30,23 @@ public class FailoverGroup {
   @JsonProperty("etag")
   private String etag;
 
+  /** True if errors currently block the replication point. */
+  @JsonProperty("has_replication_point_blocking_errors")
+  private Boolean hasReplicationPointBlockingErrors;
+
   /**
    * Initial primary region. Used only in Create requests to set the starting primary region. Not
    * returned in responses.
    */
   @JsonProperty("initial_primary_region")
   private String initialPrimaryRegion;
+
+  /**
+   * Initial replication progress of all in-scope assets. Set only when the FailoverGroup is in
+   * INITIAL_REPLICATION state.
+   */
+  @JsonProperty("initial_replication_progress")
+  private InitialReplicationProgress initialReplicationProgress;
 
   /**
    * Fully qualified resource name in the format
@@ -95,6 +106,16 @@ public class FailoverGroup {
     return etag;
   }
 
+  public FailoverGroup setHasReplicationPointBlockingErrors(
+      Boolean hasReplicationPointBlockingErrors) {
+    this.hasReplicationPointBlockingErrors = hasReplicationPointBlockingErrors;
+    return this;
+  }
+
+  public Boolean getHasReplicationPointBlockingErrors() {
+    return hasReplicationPointBlockingErrors;
+  }
+
   public FailoverGroup setInitialPrimaryRegion(String initialPrimaryRegion) {
     this.initialPrimaryRegion = initialPrimaryRegion;
     return this;
@@ -102,6 +123,16 @@ public class FailoverGroup {
 
   public String getInitialPrimaryRegion() {
     return initialPrimaryRegion;
+  }
+
+  public FailoverGroup setInitialReplicationProgress(
+      InitialReplicationProgress initialReplicationProgress) {
+    this.initialReplicationProgress = initialReplicationProgress;
+    return this;
+  }
+
+  public InitialReplicationProgress getInitialReplicationProgress() {
+    return initialReplicationProgress;
   }
 
   public FailoverGroup setName(String name) {
@@ -175,7 +206,9 @@ public class FailoverGroup {
     return Objects.equals(createTime, that.createTime)
         && Objects.equals(effectivePrimaryRegion, that.effectivePrimaryRegion)
         && Objects.equals(etag, that.etag)
+        && Objects.equals(hasReplicationPointBlockingErrors, that.hasReplicationPointBlockingErrors)
         && Objects.equals(initialPrimaryRegion, that.initialPrimaryRegion)
+        && Objects.equals(initialReplicationProgress, that.initialReplicationProgress)
         && Objects.equals(name, that.name)
         && Objects.equals(regions, that.regions)
         && Objects.equals(replicationPoint, that.replicationPoint)
@@ -191,7 +224,9 @@ public class FailoverGroup {
         createTime,
         effectivePrimaryRegion,
         etag,
+        hasReplicationPointBlockingErrors,
         initialPrimaryRegion,
+        initialReplicationProgress,
         name,
         regions,
         replicationPoint,
@@ -207,7 +242,9 @@ public class FailoverGroup {
         .add("createTime", createTime)
         .add("effectivePrimaryRegion", effectivePrimaryRegion)
         .add("etag", etag)
+        .add("hasReplicationPointBlockingErrors", hasReplicationPointBlockingErrors)
         .add("initialPrimaryRegion", initialPrimaryRegion)
+        .add("initialReplicationProgress", initialReplicationProgress)
         .add("name", name)
         .add("regions", regions)
         .add("replicationPoint", replicationPoint)

@@ -11,14 +11,14 @@ import java.util.Objects;
 
 @Generated
 public class CreateManagedMemoryStoreRequest {
-  /** The managed memory store to create. */
+  /** The memory store to create. */
   @JsonProperty("managed_memory_store")
   private ManagedMemoryStore managedMemoryStore;
 
   /**
-   * Caller-provided, workspace-unique managed memory store ID. It must be 3-56 characters, begin
-   * with a lowercase letter, contain only lowercase letters, digits, and hyphens, and end with a
-   * letter or digit.
+   * Caller-provided, workspace-unique memory store ID. It must be 3-56 characters, begin with a
+   * lowercase letter, contain only lowercase letters, digits, and hyphens, and end with a letter or
+   * digit.
    */
   @JsonIgnore
   @QueryParam("managed_memory_store_id")

@@ -4,7 +4,7 @@ package com.databricks.sdk.service.agentkit;
 
 import com.databricks.sdk.support.Generated;
 
-/** Controls how much managed memory entry data is returned. */
+/** Controls how much memory entry data is returned. */
 @Generated
 public enum ManagedMemoryEntryView {
   MANAGED_MEMORY_ENTRY_VIEW_BASIC,

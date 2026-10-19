@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-/** Response containing managed memory entries ranked by relevance. */
+/** Response containing memory entries ranked by relevance. */
 @Generated
 public class SearchManagedMemoryEntriesResponse {
   /**

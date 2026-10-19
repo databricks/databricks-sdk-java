@@ -7,7 +7,7 @@ import com.databricks.sdk.core.logging.LoggerFactory;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.Paginator;
 
-/** Manage Supervisor Agents and related resources. */
+/** Manage legacy Supervisor Agents and related resources. */
 @Generated
 public class SupervisorAgentsAPI {
   private static final Logger LOG = LoggerFactory.getLogger(SupervisorAgentsAPI.class);

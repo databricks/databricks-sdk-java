@@ -4,6 +4,7 @@ package com.databricks.sdk.service.pipelines;
 
 import com.databricks.sdk.support.Generated;
 
+/** Type of source system that a managed ingestion pipeline reads from. */
 @Generated
 public enum IngestionSourceType {
   BIGQUERY,

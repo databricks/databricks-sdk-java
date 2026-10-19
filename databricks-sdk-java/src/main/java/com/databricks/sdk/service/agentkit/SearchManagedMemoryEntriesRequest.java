@@ -9,8 +9,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 /**
- * Request to search managed memory entries by text query for one actor. Search returns a
- * relevance-ranked top-N result set and does not currently paginate.
+ * Request to search memory entries by text query for one actor. Search returns a relevance-ranked
+ * top-N result set and does not currently paginate.
  */
 @Generated
 public class SearchManagedMemoryEntriesRequest {
@@ -37,8 +37,7 @@ public class SearchManagedMemoryEntriesRequest {
   private String pageToken;
 
   /**
-   * Managed memory store whose entries are searched, in the form
-   * `memory-stores/{managed_memory_store_id}`.
+   * Memory store whose entries are searched, in the form `memory-stores/{managed_memory_store_id}`.
    */
   @JsonIgnore private String parent;
 

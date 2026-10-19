@@ -21,6 +21,15 @@ public class SubmitRun {
   @JsonProperty("budget_policy_id")
   private String budgetPolicyId;
 
+  /**
+   * The window the run aims to finish within, in hours, for a Cost-optimized serverless run.
+   * Required only when `performance_target` is `COST_OPTIMIZED`. Must be one of the supported
+   * values: `NO_FLEXIBILITY`, `4h`, `12h`, `24h`, `72h`. `NO_FLEXIBILITY` means the run uses the
+   * default cost-optimized performance level without additional cost-saving optimizations.
+   */
+  @JsonProperty("duration_target")
+  private String durationTarget;
+
   /** An optional set of email addresses notified when the run begins or completes. */
   @JsonProperty("email_notifications")
   private JobEmailNotifications emailNotifications;
@@ -143,6 +152,15 @@ public class SubmitRun {
 
   public String getBudgetPolicyId() {
     return budgetPolicyId;
+  }
+
+  public SubmitRun setDurationTarget(String durationTarget) {
+    this.durationTarget = durationTarget;
+    return this;
+  }
+
+  public String getDurationTarget() {
+    return durationTarget;
   }
 
   public SubmitRun setEmailNotifications(JobEmailNotifications emailNotifications) {
@@ -288,6 +306,7 @@ public class SubmitRun {
     SubmitRun that = (SubmitRun) o;
     return Objects.equals(accessControlList, that.accessControlList)
         && Objects.equals(budgetPolicyId, that.budgetPolicyId)
+        && Objects.equals(durationTarget, that.durationTarget)
         && Objects.equals(emailNotifications, that.emailNotifications)
         && Objects.equals(environmentVariables, that.environmentVariables)
         && Objects.equals(environments, that.environments)
@@ -310,6 +329,7 @@ public class SubmitRun {
     return Objects.hash(
         accessControlList,
         budgetPolicyId,
+        durationTarget,
         emailNotifications,
         environmentVariables,
         environments,
@@ -332,6 +352,7 @@ public class SubmitRun {
     return new ToStringer(SubmitRun.class)
         .add("accessControlList", accessControlList)
         .add("budgetPolicyId", budgetPolicyId)
+        .add("durationTarget", durationTarget)
         .add("emailNotifications", emailNotifications)
         .add("environmentVariables", environmentVariables)
         .add("environments", environments)
