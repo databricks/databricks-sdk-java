@@ -35,8 +35,8 @@ public class ListPipelinesRequest {
   private Long maxResults;
 
   /**
-   * A list of strings specifying the order of results. Supported order_by fields are id and name.
-   * The default is id asc. This field is optional.
+   * A list of strings specifying the order of results. The supported order_by field is id. The
+   * default is id asc. This field is optional.
    */
   @JsonIgnore
   @QueryParam("order_by")

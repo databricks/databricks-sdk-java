@@ -11,7 +11,7 @@ import java.util.Objects;
 @Generated
 public class ListModelProviderServicesRequest {
   /**
-   * Maximum number of provider services to return. Defaults to 100 when unset or 0; the maximum is
+   * Maximum number of provider services to return. Defaults to 200 when unset or 0; the maximum is
    * 200. Use `page_token` to retrieve additional pages.
    */
   @JsonIgnore
