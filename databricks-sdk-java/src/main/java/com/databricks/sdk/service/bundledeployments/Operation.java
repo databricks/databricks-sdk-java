@@ -93,10 +93,11 @@ public class Operation {
   private Long sequenceId;
 
   /**
-   * Serialized local config state after the operation. Its presence records whether the resource
-   * still exists. Explicitly clearing state removes the resource; omitting it from the update mask
-   * leaves resource state unchanged. State is stored only on Resources. UpdateOperation accepts
-   * state but omits it from its response, as do subsequent GetOperation and ListOperations.
+   * Serialized local config state after the operation. Its presence records whether the resource is
+   * still tracked by the deployment. Explicitly clearing state removes the resource from the
+   * deployment; omitting it from the update mask leaves resource state unchanged. State is stored
+   * only on Resources. UpdateOperation accepts state but omits it from its response, as do
+   * subsequent GetOperation and ListOperations.
    *
    * <p>Mutable: may be updated after creation via UpdateOperation. When updating, the caller must
    * echo the last-observed `sequence_id` as a concurrency precondition.

@@ -33,6 +33,10 @@ public class DataSource {
   @JsonProperty("request_source")
   private RequestSource requestSource;
 
+  /** A Spark Declarative Pipeline data source. */
+  @JsonProperty("sdp_source")
+  private SdpSource sdpSource;
+
   /** A Stream data source. */
   @JsonProperty("stream_source")
   private StreamSource streamSource;
@@ -82,6 +86,15 @@ public class DataSource {
     return requestSource;
   }
 
+  public DataSource setSdpSource(SdpSource sdpSource) {
+    this.sdpSource = sdpSource;
+    return this;
+  }
+
+  public SdpSource getSdpSource() {
+    return sdpSource;
+  }
+
   public DataSource setStreamSource(StreamSource streamSource) {
     this.streamSource = streamSource;
     return this;
@@ -101,13 +114,20 @@ public class DataSource {
         && Objects.equals(kafkaSource, that.kafkaSource)
         && Objects.equals(lateness, that.lateness)
         && Objects.equals(requestSource, that.requestSource)
+        && Objects.equals(sdpSource, that.sdpSource)
         && Objects.equals(streamSource, that.streamSource);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(
-        deltaTableSource, featureViewSource, kafkaSource, lateness, requestSource, streamSource);
+        deltaTableSource,
+        featureViewSource,
+        kafkaSource,
+        lateness,
+        requestSource,
+        sdpSource,
+        streamSource);
   }
 
   @Override
@@ -118,6 +138,7 @@ public class DataSource {
         .add("kafkaSource", kafkaSource)
         .add("lateness", lateness)
         .add("requestSource", requestSource)
+        .add("sdpSource", sdpSource)
         .add("streamSource", streamSource)
         .toString();
   }
