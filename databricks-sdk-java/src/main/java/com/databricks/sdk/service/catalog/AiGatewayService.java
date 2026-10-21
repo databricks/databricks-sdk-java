@@ -67,8 +67,16 @@ public interface AiGatewayService {
 
   /**
    * Creates a skill in a Unity Catalog schema and provisions its managed bundle storage. Specify
-   * its name in `skill_id`. The request contains an optional comment but no bundle bytes. Upload
-   * bundle files through the Files API, then call FinalizeSkill.
+   * its name in `skill_id`. The request contains an optional comment but no bundle bytes.
+   *
+   * <p>To publish a skill:
+   *
+   * <p>1. Call CreateSkill to create the skill in Unity Catalog. 2. Upload every bundle file,
+   * including `SKILL.md` at the bundle root, with the Files API: `PUT
+   * /api/2.0/fs/files/Skills/{catalog}/{schema}/{skill}/{file_path}`. The CreateSkill caller owns
+   * the skill and can upload. Other callers need `READ_VOLUME` and `WRITE_VOLUME` on the skill. 3.
+   * Call FinalizeSkill to validate `SKILL.md` and set the skill's `bundle_name` and `description`
+   * from its frontmatter `name` and `description`.
    *
    * <p>You must be the owner of the parent schema or have `CREATE_VOLUME` and `USE_SCHEMA` on it,
    * plus `USE_CATALOG` on the parent catalog.
@@ -124,13 +132,14 @@ public interface AiGatewayService {
   void deleteSkill(DeleteSkillRequest deleteSkillRequest);
 
   /**
-   * Finalizes a skill after its bundle is uploaded. This method reads SKILL.md through the Files
-   * API using the caller's authorization. Its YAML frontmatter must contain an
-   * agentskills.io-compliant `name` and a nonblank `description` within the configured UTF-8 byte
-   * limit. On success, it replaces `bundle_name` and `description`; refreshes `finalize_time`,
-   * `update_time`, and `updated_by`; and returns the updated skill. `comment` is preserved.
-   * Re-finalization uses the latest SKILL.md and is last-write-wins without an etag precondition.
-   * Validation failures do not change metadata.
+   * Finalizes a skill after its bundle files are uploaded or changed through the Files API. Call it
+   * again after every bundle change. This method reads SKILL.md through the Files API using the
+   * caller's authorization. Its YAML frontmatter must contain an agentskills.io-compliant `name`
+   * and a nonblank `description` within the configured UTF-8 byte limit. On success, it replaces
+   * `bundle_name` and `description`; refreshes `finalize_time`, `update_time`, and `updated_by`;
+   * and returns the updated skill. `comment` is preserved. Re-finalization uses the latest SKILL.md
+   * and is last-write-wins without an etag precondition. Validation failures do not change
+   * metadata.
    *
    * <p>You must be the owner of the skill or have `READ_VOLUME` on it, plus `USE_CATALOG` on the
    * parent catalog and `USE_SCHEMA` on the parent schema.
@@ -273,8 +282,13 @@ public interface AiGatewayService {
    * conditional on the skill not having changed since it was read. Bundle files, grants, tags, and
    * ownership are unchanged.
    *
-   * <p>You must be the owner of the skill or have `MANAGE` on it, plus `USE_CATALOG` on the parent
-   * catalog and `USE_SCHEMA` on the parent schema.
+   * <p>To update the bundle, add, overwrite (`overwrite=true`), or delete files under
+   * `/Skills/{catalog}/{schema}/{skill}/` with the Files API, then call FinalizeSkill. Changing
+   * bundle files requires being the owner of the skill or having `READ_VOLUME` and `WRITE_VOLUME`
+   * on it; `MANAGE` does not grant access to bundle files.
+   *
+   * <p>To call UpdateSkill, you must be the owner of the skill or have `MANAGE` on it, plus
+   * `USE_CATALOG` on the parent catalog and `USE_SCHEMA` on the parent schema.
    */
   Skill updateSkill(UpdateSkillRequest updateSkillRequest);
 }

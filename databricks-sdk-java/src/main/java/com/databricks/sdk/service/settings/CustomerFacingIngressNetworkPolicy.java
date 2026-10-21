@@ -10,7 +10,10 @@ import java.util.Objects;
 /** The network policies applying for ingress traffic. */
 @Generated
 public class CustomerFacingIngressNetworkPolicy {
-  /** */
+  /**
+   * The network policy restrictions for cross-workspace access: which other workspaces may access
+   * this workspace.
+   */
   @JsonProperty("cross_workspace_access")
   private CustomerFacingIngressNetworkPolicyCrossWorkspaceAccess crossWorkspaceAccess;
 

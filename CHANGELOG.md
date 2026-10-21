@@ -1,5 +1,16 @@
 # Version changelog
 
+## Release v0.169.0 (2026-10-21)
+
+### API Changes
+* Add `sdpSource` field for `com.databricks.sdk.service.ml.DataSource`.
+* Add `customerVersionLabel`, `maxDbu` and `reydenClusterSizeMultiplier` fields for `com.databricks.sdk.service.sql.CreateWarehouseRequest`.
+* Add `customerVersionLabel`, `maxDbu` and `reydenClusterSizeMultiplier` fields for `com.databricks.sdk.service.sql.EditWarehouseRequest`.
+* Add `customerVersionLabel`, `maxDbu` and `reydenClusterSizeMultiplier` fields for `com.databricks.sdk.service.sql.EndpointInfo`.
+* Add `customerVersionLabel`, `maxDbu` and `reydenClusterSizeMultiplier` fields for `com.databricks.sdk.service.sql.GetWarehouseResponse`.
+* [Breaking] Remove `replicationConfig` field for `com.databricks.sdk.service.sharing.CreateShare`.
+* [Breaking] Remove `replicationConfig` field for `com.databricks.sdk.service.sharing.ShareInfo`.
+
 ## Release v0.168.0 (2026-10-19)
 
 ### API Changes

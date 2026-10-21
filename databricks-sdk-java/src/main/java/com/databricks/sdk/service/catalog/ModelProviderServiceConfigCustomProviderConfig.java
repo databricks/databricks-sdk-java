@@ -7,7 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Custom OpenAI-compatible provider configuration with bearer-token authentication. */
+/** Custom OpenAI-compatible provider configuration. */
 @Generated
 public class ModelProviderServiceConfigCustomProviderConfig {
   /** Endpoint and authentication configuration for the custom provider. */

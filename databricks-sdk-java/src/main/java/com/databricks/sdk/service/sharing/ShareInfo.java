@@ -34,10 +34,6 @@ public class ShareInfo {
   @JsonProperty("owner")
   private String owner;
 
-  /** Configuration for share replication. */
-  @JsonProperty("replication_config")
-  private ReplicationConfig replicationConfig;
-
   /** Storage Location URL (full path) for the share. */
   @JsonProperty("storage_location")
   private String storageLocation;
@@ -108,15 +104,6 @@ public class ShareInfo {
     return owner;
   }
 
-  public ShareInfo setReplicationConfig(ReplicationConfig replicationConfig) {
-    this.replicationConfig = replicationConfig;
-    return this;
-  }
-
-  public ReplicationConfig getReplicationConfig() {
-    return replicationConfig;
-  }
-
   public ShareInfo setStorageLocation(String storageLocation) {
     this.storageLocation = storageLocation;
     return this;
@@ -164,7 +151,6 @@ public class ShareInfo {
         && Objects.equals(name, that.name)
         && Objects.equals(objects, that.objects)
         && Objects.equals(owner, that.owner)
-        && Objects.equals(replicationConfig, that.replicationConfig)
         && Objects.equals(storageLocation, that.storageLocation)
         && Objects.equals(storageRoot, that.storageRoot)
         && Objects.equals(updatedAt, that.updatedAt)
@@ -180,7 +166,6 @@ public class ShareInfo {
         name,
         objects,
         owner,
-        replicationConfig,
         storageLocation,
         storageRoot,
         updatedAt,
@@ -196,7 +181,6 @@ public class ShareInfo {
         .add("name", name)
         .add("objects", objects)
         .add("owner", owner)
-        .add("replicationConfig", replicationConfig)
         .add("storageLocation", storageLocation)
         .add("storageRoot", storageRoot)
         .add("updatedAt", updatedAt)

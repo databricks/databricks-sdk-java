@@ -40,6 +40,10 @@ public class CreateWarehouseRequest {
   @JsonProperty("creator_name")
   private String creatorName;
 
+  /** Compute version label for a REALTIME warehouse. This field is output only. */
+  @JsonProperty("customer_version_label")
+  private String customerVersionLabel;
+
   /**
    * Configures whether the warehouse should use Photon optimized clusters.
    *
@@ -55,6 +59,13 @@ public class CreateWarehouseRequest {
   /** Deprecated. Instance profile used to pass IAM role to the cluster */
   @JsonProperty("instance_profile_arn")
   private String instanceProfileArn;
+
+  /**
+   * Maximum compute capacity of a real-time SQL warehouse, in DBU per hour. Must be a multiple of 3
+   * between 3 and 960. The effective maximum cannot be lower than the warehouse's minimum capacity.
+   */
+  @JsonProperty("max_dbu")
+  private Long maxDbu;
 
   /**
    * Maximum number of clusters that the autoscaler will create to handle concurrent queries.
@@ -86,6 +97,18 @@ public class CreateWarehouseRequest {
    */
   @JsonProperty("name")
   private String name;
+
+  /**
+   * Cluster size multiplier for Reyden warehouses. Scales the effective compute capacity relative
+   * to the nominal virtual cluster size. Only meaningful when the warehouse is of Reyden type.
+   *
+   * <p>Accepted range: 1.0 to the workspace-configured maximum (decimals allowed). The default
+   * maximum is 100.0. - Values below 1.0 are normalized to 1.0. - Values above the configured
+   * maximum are capped at that maximum. - When absent, the warehouse is treated as having a
+   * multiplier of 1.0.
+   */
+  @JsonProperty("reyden_cluster_size_multiplier")
+  private Double reydenClusterSizeMultiplier;
 
   /** Configurations whether the endpoint should use spot instances. */
   @JsonProperty("spot_instance_policy")
@@ -147,6 +170,15 @@ public class CreateWarehouseRequest {
     return creatorName;
   }
 
+  public CreateWarehouseRequest setCustomerVersionLabel(String customerVersionLabel) {
+    this.customerVersionLabel = customerVersionLabel;
+    return this;
+  }
+
+  public String getCustomerVersionLabel() {
+    return customerVersionLabel;
+  }
+
   public CreateWarehouseRequest setEnablePhoton(Boolean enablePhoton) {
     this.enablePhoton = enablePhoton;
     return this;
@@ -174,6 +206,15 @@ public class CreateWarehouseRequest {
     return instanceProfileArn;
   }
 
+  public CreateWarehouseRequest setMaxDbu(Long maxDbu) {
+    this.maxDbu = maxDbu;
+    return this;
+  }
+
+  public Long getMaxDbu() {
+    return maxDbu;
+  }
+
   public CreateWarehouseRequest setMaxNumClusters(Long maxNumClusters) {
     this.maxNumClusters = maxNumClusters;
     return this;
@@ -199,6 +240,15 @@ public class CreateWarehouseRequest {
 
   public String getName() {
     return name;
+  }
+
+  public CreateWarehouseRequest setReydenClusterSizeMultiplier(Double reydenClusterSizeMultiplier) {
+    this.reydenClusterSizeMultiplier = reydenClusterSizeMultiplier;
+    return this;
+  }
+
+  public Double getReydenClusterSizeMultiplier() {
+    return reydenClusterSizeMultiplier;
   }
 
   public CreateWarehouseRequest setSpotInstancePolicy(SpotInstancePolicy spotInstancePolicy) {
@@ -247,12 +297,15 @@ public class CreateWarehouseRequest {
         && Objects.equals(channel, that.channel)
         && Objects.equals(clusterSize, that.clusterSize)
         && Objects.equals(creatorName, that.creatorName)
+        && Objects.equals(customerVersionLabel, that.customerVersionLabel)
         && Objects.equals(enablePhoton, that.enablePhoton)
         && Objects.equals(enableServerlessCompute, that.enableServerlessCompute)
         && Objects.equals(instanceProfileArn, that.instanceProfileArn)
+        && Objects.equals(maxDbu, that.maxDbu)
         && Objects.equals(maxNumClusters, that.maxNumClusters)
         && Objects.equals(minNumClusters, that.minNumClusters)
         && Objects.equals(name, that.name)
+        && Objects.equals(reydenClusterSizeMultiplier, that.reydenClusterSizeMultiplier)
         && Objects.equals(spotInstancePolicy, that.spotInstancePolicy)
         && Objects.equals(statementTimeout, that.statementTimeout)
         && Objects.equals(tags, that.tags)
@@ -266,12 +319,15 @@ public class CreateWarehouseRequest {
         channel,
         clusterSize,
         creatorName,
+        customerVersionLabel,
         enablePhoton,
         enableServerlessCompute,
         instanceProfileArn,
+        maxDbu,
         maxNumClusters,
         minNumClusters,
         name,
+        reydenClusterSizeMultiplier,
         spotInstancePolicy,
         statementTimeout,
         tags,
@@ -285,12 +341,15 @@ public class CreateWarehouseRequest {
         .add("channel", channel)
         .add("clusterSize", clusterSize)
         .add("creatorName", creatorName)
+        .add("customerVersionLabel", customerVersionLabel)
         .add("enablePhoton", enablePhoton)
         .add("enableServerlessCompute", enableServerlessCompute)
         .add("instanceProfileArn", instanceProfileArn)
+        .add("maxDbu", maxDbu)
         .add("maxNumClusters", maxNumClusters)
         .add("minNumClusters", minNumClusters)
         .add("name", name)
+        .add("reydenClusterSizeMultiplier", reydenClusterSizeMultiplier)
         .add("spotInstancePolicy", spotInstancePolicy)
         .add("statementTimeout", statementTimeout)
         .add("tags", tags)
