@@ -44,6 +44,10 @@ public class IdentityVisibilityFilter {
   @JsonProperty("principal_type")
   private PrincipalType principalType;
 
+  /** Full, case-sensitive RE2 match on the identity's display name. */
+  @JsonProperty("regex")
+  private RegexMatchRule regex;
+
   public IdentityVisibilityFilter setExact(ExactMatchRule exact) {
     this.exact = exact;
     return this;
@@ -80,6 +84,15 @@ public class IdentityVisibilityFilter {
     return principalType;
   }
 
+  public IdentityVisibilityFilter setRegex(RegexMatchRule regex) {
+    this.regex = regex;
+    return this;
+  }
+
+  public RegexMatchRule getRegex() {
+    return regex;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -88,12 +101,13 @@ public class IdentityVisibilityFilter {
     return Objects.equals(exact, that.exact)
         && Objects.equals(name, that.name)
         && Objects.equals(prefix, that.prefix)
-        && Objects.equals(principalType, that.principalType);
+        && Objects.equals(principalType, that.principalType)
+        && Objects.equals(regex, that.regex);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(exact, name, prefix, principalType);
+    return Objects.hash(exact, name, prefix, principalType, regex);
   }
 
   @Override
@@ -103,6 +117,7 @@ public class IdentityVisibilityFilter {
         .add("name", name)
         .add("prefix", prefix)
         .add("principalType", principalType)
+        .add("regex", regex)
         .toString();
   }
 }

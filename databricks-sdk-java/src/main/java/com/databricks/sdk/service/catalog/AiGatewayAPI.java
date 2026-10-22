@@ -333,7 +333,7 @@ public class AiGatewayAPI {
    *
    * <p>Requires `USE_CATALOG` on the parent catalog and `USE_SCHEMA` on the parent schema. Only
    * model services the caller can access (as owner or through `EXECUTE`, `READ_METADATA`, or
-   * `MANAGE`) are returned.
+   * `MANAGE`) are returned by default.
    */
   public Iterable<ModelService> listModelServices(ListModelServicesRequest request) {
     return Paginator.newTokenPagination(

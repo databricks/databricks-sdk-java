@@ -12,5 +12,8 @@ public enum EndpointStatusState {
   ONLINE,
   PROVISIONING,
   RED_STATE,
+  STARTING,
+  STOPPED,
+  STOPPING,
   YELLOW_STATE,
 }

@@ -10,7 +10,11 @@ import java.util.Objects;
 /** Computes the approximate percentile of values. */
 @Generated
 public class ApproxPercentileFunction {
-  /** The accuracy parameter (higher is more accurate but slower). */
+  /**
+   * The accuracy parameter (higher is more accurate but slower). Deprecated: use relative_error.
+   * When relative_error is set, reads return ceil(1 / relative_error) here for clients that don't
+   * have relative_error, and a request may only send that value.
+   */
   @JsonProperty("accuracy")
   private Long accuracy;
 
@@ -21,6 +25,16 @@ public class ApproxPercentileFunction {
   /** The percentile value to compute (between 0 and 1). */
   @JsonProperty("percentile")
   private Double percentile;
+
+  /**
+   * The error the user accepts, as a fraction of rank, between 0.01 (by default) and 0.3. The
+   * result is within this rank error with 99% confidence: at 0.01, the value returned for p95 is
+   * between the true p94 and p96 at least 99% of the time. Feature Store picks the sketch size that
+   * gives this error. If neither relative_error nor accuracy is set, 0.01 is default chosen at
+   * feature creation.
+   */
+  @JsonProperty("relative_error")
+  private Double relativeError;
 
   public ApproxPercentileFunction setAccuracy(Long accuracy) {
     this.accuracy = accuracy;
@@ -49,6 +63,15 @@ public class ApproxPercentileFunction {
     return percentile;
   }
 
+  public ApproxPercentileFunction setRelativeError(Double relativeError) {
+    this.relativeError = relativeError;
+    return this;
+  }
+
+  public Double getRelativeError() {
+    return relativeError;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -56,12 +79,13 @@ public class ApproxPercentileFunction {
     ApproxPercentileFunction that = (ApproxPercentileFunction) o;
     return Objects.equals(accuracy, that.accuracy)
         && Objects.equals(input, that.input)
-        && Objects.equals(percentile, that.percentile);
+        && Objects.equals(percentile, that.percentile)
+        && Objects.equals(relativeError, that.relativeError);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(accuracy, input, percentile);
+    return Objects.hash(accuracy, input, percentile, relativeError);
   }
 
   @Override
@@ -70,6 +94,7 @@ public class ApproxPercentileFunction {
         .add("accuracy", accuracy)
         .add("input", input)
         .add("percentile", percentile)
+        .add("relativeError", relativeError)
         .toString();
   }
 }

@@ -183,6 +183,44 @@ class VectorSearchEndpointsImpl implements VectorSearchEndpointsService {
   }
 
   @Override
+  public EndpointInfo startEndpoint(StartEndpointRequest request) {
+    String path =
+        String.format("/api/2.0/vector-search/endpoints/%s/start", request.getEndpointName());
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, EndpointInfo.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public EndpointInfo stopEndpoint(StopEndpointRequest request) {
+    String path =
+        String.format("/api/2.0/vector-search/endpoints/%s/stop", request.getEndpointName());
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, EndpointInfo.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public PatchEndpointBudgetPolicyResponse updateEndpointBudgetPolicy(
       PatchEndpointBudgetPolicyRequest request) {
     String path =
