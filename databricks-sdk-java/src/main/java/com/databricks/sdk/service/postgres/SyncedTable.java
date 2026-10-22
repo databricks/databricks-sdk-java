@@ -28,8 +28,6 @@ public class SyncedTable {
 
   /**
    * Configuration details of the synced table, such as the source table, scheduling policy, etc.
-   * This attribute is specified at creation time and most fields are returned as is on subsequent
-   * queries.
    */
   @JsonProperty("spec")
   private SyncedTableSyncedTableSpec spec;

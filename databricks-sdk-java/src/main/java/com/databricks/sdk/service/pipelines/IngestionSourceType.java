@@ -18,6 +18,7 @@ public enum IngestionSourceType {
   META_MARKETING,
   MYSQL,
   NETSUITE,
+  ONEDRIVE,
   ORACLE,
   POSTGRESQL,
   RABBITMQ,

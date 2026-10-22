@@ -41,6 +41,15 @@ public class CreateBudgetConfigurationBudget {
   private BudgetConfigurationFilter filter;
 
   /**
+   * Whether this budget tracks external pass-through spend (third-party costs billed through a
+   * Databricks product) in addition to internal Databricks spend. Only applicable to Unity Gateway
+   * budgets, i.e. when `resource_type` is `BUDGET_RESOURCE_TYPE_UNITY_AI_GATEWAY`. This field is
+   * immutable after create.
+   */
+  @JsonProperty("include_external_spend")
+  private Boolean includeExternalSpend;
+
+  /**
    * The resource scope for this budget. Determines whether the budget tracks all resources or a
    * specific resource.
    */
@@ -84,6 +93,15 @@ public class CreateBudgetConfigurationBudget {
     return filter;
   }
 
+  public CreateBudgetConfigurationBudget setIncludeExternalSpend(Boolean includeExternalSpend) {
+    this.includeExternalSpend = includeExternalSpend;
+    return this;
+  }
+
+  public Boolean getIncludeExternalSpend() {
+    return includeExternalSpend;
+  }
+
   public CreateBudgetConfigurationBudget setResourceType(BudgetResourceType resourceType) {
     this.resourceType = resourceType;
     return this;
@@ -102,12 +120,14 @@ public class CreateBudgetConfigurationBudget {
         && Objects.equals(alertConfigurations, that.alertConfigurations)
         && Objects.equals(displayName, that.displayName)
         && Objects.equals(filter, that.filter)
+        && Objects.equals(includeExternalSpend, that.includeExternalSpend)
         && Objects.equals(resourceType, that.resourceType);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(accountId, alertConfigurations, displayName, filter, resourceType);
+    return Objects.hash(
+        accountId, alertConfigurations, displayName, filter, includeExternalSpend, resourceType);
   }
 
   @Override
@@ -117,6 +137,7 @@ public class CreateBudgetConfigurationBudget {
         .add("alertConfigurations", alertConfigurations)
         .add("displayName", displayName)
         .add("filter", filter)
+        .add("includeExternalSpend", includeExternalSpend)
         .add("resourceType", resourceType)
         .toString();
   }

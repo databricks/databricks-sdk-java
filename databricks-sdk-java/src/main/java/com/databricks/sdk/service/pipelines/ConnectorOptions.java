@@ -47,6 +47,10 @@ public class ConnectorOptions {
   private MetaMarketingOptions metaAdsOptions;
 
   /** */
+  @JsonProperty("onedrive_options")
+  private OneDriveOptions onedriveOptions;
+
+  /** */
   @JsonProperty("outlook_options")
   private OutlookOptions outlookOptions;
 
@@ -156,6 +160,15 @@ public class ConnectorOptions {
     return metaAdsOptions;
   }
 
+  public ConnectorOptions setOnedriveOptions(OneDriveOptions onedriveOptions) {
+    this.onedriveOptions = onedriveOptions;
+    return this;
+  }
+
+  public OneDriveOptions getOnedriveOptions() {
+    return onedriveOptions;
+  }
+
   public ConnectorOptions setOutlookOptions(OutlookOptions outlookOptions) {
     this.outlookOptions = outlookOptions;
     return this;
@@ -233,6 +246,7 @@ public class ConnectorOptions {
         && Objects.equals(linkedinAdsOptions, that.linkedinAdsOptions)
         && Objects.equals(marketoOptions, that.marketoOptions)
         && Objects.equals(metaAdsOptions, that.metaAdsOptions)
+        && Objects.equals(onedriveOptions, that.onedriveOptions)
         && Objects.equals(outlookOptions, that.outlookOptions)
         && Objects.equals(rabbitmqOptions, that.rabbitmqOptions)
         && Objects.equals(redditAdsOptions, that.redditAdsOptions)
@@ -254,6 +268,7 @@ public class ConnectorOptions {
         linkedinAdsOptions,
         marketoOptions,
         metaAdsOptions,
+        onedriveOptions,
         outlookOptions,
         rabbitmqOptions,
         redditAdsOptions,
@@ -275,6 +290,7 @@ public class ConnectorOptions {
         .add("linkedinAdsOptions", linkedinAdsOptions)
         .add("marketoOptions", marketoOptions)
         .add("metaAdsOptions", metaAdsOptions)
+        .add("onedriveOptions", onedriveOptions)
         .add("outlookOptions", outlookOptions)
         .add("rabbitmqOptions", rabbitmqOptions)
         .add("redditAdsOptions", redditAdsOptions)

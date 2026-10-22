@@ -166,6 +166,19 @@ public class VectorSearchEndpointsAPI {
     return impl.setPermissions(request);
   }
 
+  /** Start a stopped endpoint. The endpoint serves the same indexes it had when it stopped. */
+  public EndpointInfo startEndpoint(StartEndpointRequest request) {
+    return impl.startEndpoint(request);
+  }
+
+  /**
+   * Stop an endpoint. Stopping removes the endpoint's serving compute and retains its indexes. A
+   * stopped endpoint can't serve queries or sync indexes until it is started.
+   */
+  public EndpointInfo stopEndpoint(StopEndpointRequest request) {
+    return impl.stopEndpoint(request);
+  }
+
   /** Update the budget policy of an endpoint */
   public PatchEndpointBudgetPolicyResponse updateEndpointBudgetPolicy(
       PatchEndpointBudgetPolicyRequest request) {

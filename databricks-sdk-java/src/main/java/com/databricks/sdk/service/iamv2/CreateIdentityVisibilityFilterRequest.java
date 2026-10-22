@@ -13,7 +13,8 @@ import java.util.Objects;
 public class CreateIdentityVisibilityFilterRequest {
   /**
    * Required. The filter to create. Set `principal_type` to `GROUP` and specify exactly one of
-   * `exact` or `prefix`. The server assigns the resource name; any supplied `name` is ignored.
+   * `exact`, `prefix`, or `regex`. The server assigns the resource name; any supplied `name` is
+   * ignored.
    */
   @JsonProperty("identity_visibility_filter")
   private IdentityVisibilityFilter identityVisibilityFilter;

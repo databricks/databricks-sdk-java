@@ -50,6 +50,15 @@ public interface VectorSearchEndpointsService {
   VectorSearchEndpointPermissions setPermissions(
       VectorSearchEndpointPermissionsRequest vectorSearchEndpointPermissionsRequest);
 
+  /** Start a stopped endpoint. The endpoint serves the same indexes it had when it stopped. */
+  EndpointInfo startEndpoint(StartEndpointRequest startEndpointRequest);
+
+  /**
+   * Stop an endpoint. Stopping removes the endpoint's serving compute and retains its indexes. A
+   * stopped endpoint can't serve queries or sync indexes until it is started.
+   */
+  EndpointInfo stopEndpoint(StopEndpointRequest stopEndpointRequest);
+
   /** Update the budget policy of an endpoint */
   PatchEndpointBudgetPolicyResponse updateEndpointBudgetPolicy(
       PatchEndpointBudgetPolicyRequest patchEndpointBudgetPolicyRequest);
