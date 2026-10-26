@@ -31,6 +31,10 @@ public interface FeatureEngineeringService {
    */
   KafkaConfig createKafkaConfig(CreateKafkaConfigRequest createKafkaConfigRequest);
 
+  /** Create a materialization set. */
+  Operation createMaterializationSet(
+      CreateMaterializationSetRequest createMaterializationSetRequest);
+
   /** Create a materialized feature. */
   MaterializedFeature createMaterializedFeature(
       CreateMaterializedFeatureRequest createMaterializedFeatureRequest);
@@ -47,6 +51,13 @@ public interface FeatureEngineeringService {
    */
   void deleteKafkaConfig(DeleteKafkaConfigRequest deleteKafkaConfigRequest);
 
+  /**
+   * Delete a materialization set and every materialized feature in it. The set is gone afterwards,
+   * so a later read returns NOT_FOUND and the set id is free to use again.
+   */
+  Operation deleteMaterializationSet(
+      DeleteMaterializationSetRequest deleteMaterializationSetRequest);
+
   /** Delete a materialized feature. */
   void deleteMaterializedFeature(DeleteMaterializedFeatureRequest deleteMaterializedFeatureRequest);
 
@@ -61,6 +72,13 @@ public interface FeatureEngineeringService {
    * under the entire metastore. Only the creator of the Kafka config can delete it.
    */
   KafkaConfig getKafkaConfig(GetKafkaConfigRequest getKafkaConfigRequest);
+
+  /**
+   * Get a materialization set and the materialized features in it. A set whose materialized feature
+   * members have all been deleted is returned with an empty member list.
+   */
+  MaterializationSet getMaterializationSet(
+      GetMaterializationSetRequest getMaterializationSetRequest);
 
   /** Get a materialized feature. */
   MaterializedFeature getMaterializedFeature(
@@ -99,6 +117,14 @@ public interface FeatureEngineeringService {
    * under the entire metastore. Only the creator of the Kafka config can delete it.
    */
   KafkaConfig updateKafkaConfig(UpdateKafkaConfigRequest updateKafkaConfigRequest);
+
+  /**
+   * Update the materialization set's state to match the supplied materialization set. Changes are
+   * applied member by member and are not atomic: when one member fails, the error reports which
+   * members were already changed.
+   */
+  Operation updateMaterializationSet(
+      UpdateMaterializationSetRequest updateMaterializationSetRequest);
 
   /** Update a materialized feature (pause/resume). */
   MaterializedFeature updateMaterializedFeature(

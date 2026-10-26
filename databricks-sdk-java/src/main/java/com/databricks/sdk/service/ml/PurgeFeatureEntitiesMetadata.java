@@ -16,6 +16,10 @@ public class PurgeFeatureEntitiesMetadata {
   @JsonProperty("create_time")
   private Timestamp createTime;
 
+  /** Whether this purge deletes matching rows instead of setting feature values to null. */
+  @JsonProperty("delete_rows")
+  private Boolean deleteRows;
+
   /** Fully qualified name of the Unity Catalog Delta table containing the entity keys to purge. */
   @JsonProperty("entities_table")
   private String entitiesTable;
@@ -43,6 +47,15 @@ public class PurgeFeatureEntitiesMetadata {
 
   public Timestamp getCreateTime() {
     return createTime;
+  }
+
+  public PurgeFeatureEntitiesMetadata setDeleteRows(Boolean deleteRows) {
+    this.deleteRows = deleteRows;
+    return this;
+  }
+
+  public Boolean getDeleteRows() {
+    return deleteRows;
   }
 
   public PurgeFeatureEntitiesMetadata setEntitiesTable(String entitiesTable) {
@@ -96,6 +109,7 @@ public class PurgeFeatureEntitiesMetadata {
     if (o == null || getClass() != o.getClass()) return false;
     PurgeFeatureEntitiesMetadata that = (PurgeFeatureEntitiesMetadata) o;
     return Objects.equals(createTime, that.createTime)
+        && Objects.equals(deleteRows, that.deleteRows)
         && Objects.equals(entitiesTable, that.entitiesTable)
         && Objects.equals(entitiesTableVersion, that.entitiesTableVersion)
         && Objects.equals(features, that.features)
@@ -105,13 +119,15 @@ public class PurgeFeatureEntitiesMetadata {
 
   @Override
   public int hashCode() {
-    return Objects.hash(createTime, entitiesTable, entitiesTableVersion, features, jobId, state);
+    return Objects.hash(
+        createTime, deleteRows, entitiesTable, entitiesTableVersion, features, jobId, state);
   }
 
   @Override
   public String toString() {
     return new ToStringer(PurgeFeatureEntitiesMetadata.class)
         .add("createTime", createTime)
+        .add("deleteRows", deleteRows)
         .add("entitiesTable", entitiesTable)
         .add("entitiesTableVersion", entitiesTableVersion)
         .add("features", features)

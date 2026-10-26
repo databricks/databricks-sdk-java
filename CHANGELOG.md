@@ -1,5 +1,20 @@
 # Version changelog
 
+## Release v0.171.0 (2026-10-26)
+
+### API Changes
+* Add `getMemoryStorePermission()`, `getSessionStorePermission()`, `grantMemoryStorePermission()`, `grantSessionStorePermission()`, `listMemoryStorePermissions()`, `listSessionStorePermissions()`, `revokeMemoryStorePermission()` and `revokeSessionStorePermission()` methods for `workspaceClient.agentKit()` service.
+* Add `createMaterializationSet()`, `deleteMaterializationSet()`, `getMaterializationSet()` and `updateMaterializationSet()` methods for `workspaceClient.featureEngineering()` service.
+* Add `notificationSettings` field for `com.databricks.sdk.service.dataquality.AnomalyDetectionConfig`.
+* Add `destinationIds` and `destinationUserIds` fields for `com.databricks.sdk.service.dataquality.NotificationDestination`.
+* Add `onUnhealthyTable` field for `com.databricks.sdk.service.dataquality.NotificationSettings`.
+* Add `fileOutput` field for `com.databricks.sdk.service.jobs.SqlOutput`.
+* Add `materializationSetId` field for `com.databricks.sdk.service.ml.MaterializedFeature`.
+* Add `deleteRows` field for `com.databricks.sdk.service.ml.PurgeFeatureEntitiesRequest`.
+* Add `fullRefreshSelectionByPath` and `refreshSelectionByPath` fields for `com.databricks.sdk.service.pipelines.StartUpdate`.
+* Add `fullRefreshSelectionByPath` and `refreshSelectionByPath` fields for `com.databricks.sdk.service.pipelines.UpdateInfo`.
+* Add `metadata` field for `com.databricks.sdk.service.sandbox.Sandbox`.
+
 ## Release v0.170.0 (2026-10-22)
 
 ### API Changes

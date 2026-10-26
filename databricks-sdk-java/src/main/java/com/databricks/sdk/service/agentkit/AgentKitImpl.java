@@ -266,6 +266,23 @@ class AgentKitImpl implements AgentKitService {
   }
 
   @Override
+  public MemoryStorePermission getMemoryStorePermission(GetMemoryStorePermissionRequest request) {
+    String path = String.format("/api/2.0/agents/%s/permissions/self", request.getName());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, MemoryStorePermission.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public Session getSession(GetSessionRequest request) {
     String path = String.format("/api/2.0/agents/%s", request.getName());
     try {
@@ -300,6 +317,62 @@ class AgentKitImpl implements AgentKitService {
   }
 
   @Override
+  public SessionStorePermission getSessionStorePermission(
+      GetSessionStorePermissionRequest request) {
+    String path = String.format("/api/2.0/agents/%s/permissions/self", request.getName());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, SessionStorePermission.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public GrantMemoryStorePermissionResponse grantMemoryStorePermission(
+      GrantMemoryStorePermissionRequest request) {
+    String path = String.format("/api/2.0/agents/%s/permissions:grant", request.getName());
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, GrantMemoryStorePermissionResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public GrantSessionStorePermissionResponse grantSessionStorePermission(
+      GrantSessionStorePermissionRequest request) {
+    String path = String.format("/api/2.0/agents/%s/permissions:grant", request.getName());
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, GrantSessionStorePermissionResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public ListManagedMemoryEntriesResponse listMemories(ListManagedMemoryEntriesRequest request) {
     String path = String.format("/api/2.0/agents/%s/entries", request.getParent());
     try {
@@ -311,6 +384,24 @@ class AgentKitImpl implements AgentKitService {
         req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, ListManagedMemoryEntriesResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public ListMemoryStorePermissionsResponse listMemoryStorePermissions(
+      ListMemoryStorePermissionsRequest request) {
+    String path = String.format("/api/2.0/agents/%s/permissions", request.getParent());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, ListMemoryStorePermissionsResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -345,6 +436,24 @@ class AgentKitImpl implements AgentKitService {
         req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, ListSessionItemsResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public ListSessionStorePermissionsResponse listSessionStorePermissions(
+      ListSessionStorePermissionsRequest request) {
+    String path = String.format("/api/2.0/agents/%s/permissions", request.getParent());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, ListSessionStorePermissionsResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -397,6 +506,44 @@ class AgentKitImpl implements AgentKitService {
         req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, PopSessionItemResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public RevokeMemoryStorePermissionResponse revokeMemoryStorePermission(
+      RevokeMemoryStorePermissionRequest request) {
+    String path = String.format("/api/2.0/agents/%s/permissions:revoke", request.getName());
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, RevokeMemoryStorePermissionResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public RevokeSessionStorePermissionResponse revokeSessionStorePermission(
+      RevokeSessionStorePermissionRequest request) {
+    String path = String.format("/api/2.0/agents/%s/permissions:revoke", request.getName());
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, RevokeSessionStorePermissionResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

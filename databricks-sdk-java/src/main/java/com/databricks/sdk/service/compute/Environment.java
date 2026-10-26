@@ -59,7 +59,12 @@ public class Environment {
   @JsonProperty("java_dependencies")
   private Collection<String> javaDependencies;
 
-  /** File path of pyproject.toml file that defines the project-scoped environment. */
+  /**
+   * Path to the `pyproject.toml` file that defines the project environment. This field cannot be
+   * combined with `environment_version`, `base_environment`, dependency fields, or any other
+   * environment-source fields. Set the environment version and dependencies in `pyproject.toml`
+   * instead. For more information, see the serverless dependencies documentation.
+   */
   @JsonProperty("project_environment")
   private String projectEnvironment;
 

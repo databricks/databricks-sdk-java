@@ -54,6 +54,13 @@ public class FeatureEngineeringAPI {
     return impl.createKafkaConfig(request);
   }
 
+  /** Create a materialization set. */
+  public CreateMaterializationSetOperation createMaterializationSet(
+      CreateMaterializationSetRequest request) {
+    Operation operation = impl.createMaterializationSet(request);
+    return new CreateMaterializationSetOperation(impl, operation);
+  }
+
   /** Create a materialized feature. */
   public MaterializedFeature createMaterializedFeature(CreateMaterializedFeatureRequest request) {
     return impl.createMaterializedFeature(request);
@@ -83,6 +90,21 @@ public class FeatureEngineeringAPI {
    */
   public void deleteKafkaConfig(DeleteKafkaConfigRequest request) {
     impl.deleteKafkaConfig(request);
+  }
+
+  public DeleteMaterializationSetOperation deleteMaterializationSet(String materializationSetId) {
+    return deleteMaterializationSet(
+        new DeleteMaterializationSetRequest().setMaterializationSetId(materializationSetId));
+  }
+
+  /**
+   * Delete a materialization set and every materialized feature in it. The set is gone afterwards,
+   * so a later read returns NOT_FOUND and the set id is free to use again.
+   */
+  public DeleteMaterializationSetOperation deleteMaterializationSet(
+      DeleteMaterializationSetRequest request) {
+    Operation operation = impl.deleteMaterializationSet(request);
+    return new DeleteMaterializationSetOperation(impl, operation);
   }
 
   public void deleteMaterializedFeature(String materializedFeatureId) {
@@ -123,6 +145,19 @@ public class FeatureEngineeringAPI {
    */
   public KafkaConfig getKafkaConfig(GetKafkaConfigRequest request) {
     return impl.getKafkaConfig(request);
+  }
+
+  public MaterializationSet getMaterializationSet(String materializationSetId) {
+    return getMaterializationSet(
+        new GetMaterializationSetRequest().setMaterializationSetId(materializationSetId));
+  }
+
+  /**
+   * Get a materialization set and the materialized features in it. A set whose materialized feature
+   * members have all been deleted is returned with an empty member list.
+   */
+  public MaterializationSet getMaterializationSet(GetMaterializationSetRequest request) {
+    return impl.getMaterializationSet(request);
   }
 
   public MaterializedFeature getMaterializedFeature(String materializedFeatureId) {
@@ -239,6 +274,17 @@ public class FeatureEngineeringAPI {
    */
   public KafkaConfig updateKafkaConfig(UpdateKafkaConfigRequest request) {
     return impl.updateKafkaConfig(request);
+  }
+
+  /**
+   * Update the materialization set's state to match the supplied materialization set. Changes are
+   * applied member by member and are not atomic: when one member fails, the error reports which
+   * members were already changed.
+   */
+  public UpdateMaterializationSetOperation updateMaterializationSet(
+      UpdateMaterializationSetRequest request) {
+    Operation operation = impl.updateMaterializationSet(request);
+    return new UpdateMaterializationSetOperation(impl, operation);
   }
 
   /** Update a materialized feature (pause/resume). */
