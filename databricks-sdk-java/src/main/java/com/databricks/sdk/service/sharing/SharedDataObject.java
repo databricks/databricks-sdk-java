@@ -104,7 +104,8 @@ public class SharedDataObject {
    * A user-provided alias name for non-table data objects within the share.
    *
    * <p>Use this field for non-table objects (for example: VOLUME, MODEL, NOTEBOOK_FILE, FUNCTION).
-   * For table-like objects (for example: TABLE, VIEW, MATERIALIZED_VIEW, STREAMING_TABLE,
+   *
+   * <p>For table-like objects (for example: TABLE, VIEW, MATERIALIZED_VIEW, STREAMING_TABLE,
    * FOREIGN_TABLE), use `shared_as` instead.
    *
    * <p>Important: For table-like objects, this field must be omitted entirely.
@@ -113,9 +114,10 @@ public class SharedDataObject {
    * "data_schema.ml_models") - For FUNCTION: Must be a 2-part name `<schema_name>.<function_name>`
    * (e.g., "udf_schema.calculate_tax") - For MODEL: Must be a 2-part name
    * `<schema_name>.<model_name>` (e.g., "models.prediction_model") - For NOTEBOOK_FILE: Should be
-   * the notebook file name (e.g., "analysis_notebook.py") - All names must contain only
-   * alphanumeric characters and underscores - No periods, spaces, forward slashes, or control
-   * characters are allowed within each part
+   * the notebook file name (e.g., "analysis_notebook.py")
+   *
+   * <p>- All names must contain only alphanumeric characters and underscores - No periods, spaces,
+   * forward slashes, or control characters are allowed within each part
    *
    * <p>Behavior: - If not provided, the service automatically generates the alias from the object's
    * original name - If you don't want to specify this field, omit it entirely from the request (do
@@ -123,8 +125,10 @@ public class SharedDataObject {
    * type within the share
    *
    * <p>Examples: - Valid for VOLUME: "data_schema.training_data" - Valid for FUNCTION:
-   * "analytics.calculate_revenue" - Invalid: "catalog.data_schema.training_data" (3 parts not
-   * allowed for volumes) - Invalid: "data-schema.training-data" (hyphens not allowed)
+   * "analytics.calculate_revenue"
+   *
+   * <p>- Invalid: "catalog.data_schema.training_data" (3 parts not allowed for volumes) - Invalid:
+   * "data-schema.training-data" (hyphens not allowed)
    */
   @JsonProperty("string_shared_as")
   private String stringSharedAs;

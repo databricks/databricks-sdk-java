@@ -57,6 +57,13 @@ public class MaterializedFeature {
   @JsonProperty("latest_backfill_operation")
   private String latestBackfillOperation;
 
+  /**
+   * The materialization set this materialized feature was created for, through DABs or
+   * direct-engine creation. Unset for a materialized feature that was not created as part of a set.
+   */
+  @JsonProperty("materialization_set_id")
+  private String materializationSetId;
+
   /** Server-assigned unique identifier for the materialized feature. */
   @JsonProperty("materialized_feature_id")
   private String materializedFeatureId;
@@ -200,6 +207,15 @@ public class MaterializedFeature {
     return latestBackfillOperation;
   }
 
+  public MaterializedFeature setMaterializationSetId(String materializationSetId) {
+    this.materializationSetId = materializationSetId;
+    return this;
+  }
+
+  public String getMaterializationSetId() {
+    return materializationSetId;
+  }
+
   public MaterializedFeature setMaterializedFeatureId(String materializedFeatureId) {
     this.materializedFeatureId = materializedFeatureId;
     return this;
@@ -304,6 +320,7 @@ public class MaterializedFeature {
         && Objects.equals(jobId, that.jobId)
         && Objects.equals(lastMaterializationTime, that.lastMaterializationTime)
         && Objects.equals(latestBackfillOperation, that.latestBackfillOperation)
+        && Objects.equals(materializationSetId, that.materializationSetId)
         && Objects.equals(materializedFeatureId, that.materializedFeatureId)
         && Objects.equals(notifications, that.notifications)
         && Objects.equals(offlineStoreConfig, that.offlineStoreConfig)
@@ -327,6 +344,7 @@ public class MaterializedFeature {
         jobId,
         lastMaterializationTime,
         latestBackfillOperation,
+        materializationSetId,
         materializedFeatureId,
         notifications,
         offlineStoreConfig,
@@ -350,6 +368,7 @@ public class MaterializedFeature {
         .add("jobId", jobId)
         .add("lastMaterializationTime", lastMaterializationTime)
         .add("latestBackfillOperation", latestBackfillOperation)
+        .add("materializationSetId", materializationSetId)
         .add("materializedFeatureId", materializedFeatureId)
         .add("notifications", notifications)
         .add("offlineStoreConfig", offlineStoreConfig)

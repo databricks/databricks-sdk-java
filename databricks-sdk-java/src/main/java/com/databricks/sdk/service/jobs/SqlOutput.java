@@ -17,6 +17,10 @@ public class SqlOutput {
   @JsonProperty("dashboard_output")
   private SqlDashboardOutput dashboardOutput;
 
+  /** The output of a SQL file task, if available. */
+  @JsonProperty("file_output")
+  private SqlTaskSqlFileOutput fileOutput;
+
   /** The output of a SQL query task, if available. */
   @JsonProperty("query_output")
   private SqlQueryOutput queryOutput;
@@ -39,6 +43,15 @@ public class SqlOutput {
     return dashboardOutput;
   }
 
+  public SqlOutput setFileOutput(SqlTaskSqlFileOutput fileOutput) {
+    this.fileOutput = fileOutput;
+    return this;
+  }
+
+  public SqlTaskSqlFileOutput getFileOutput() {
+    return fileOutput;
+  }
+
   public SqlOutput setQueryOutput(SqlQueryOutput queryOutput) {
     this.queryOutput = queryOutput;
     return this;
@@ -55,12 +68,13 @@ public class SqlOutput {
     SqlOutput that = (SqlOutput) o;
     return Objects.equals(alertOutput, that.alertOutput)
         && Objects.equals(dashboardOutput, that.dashboardOutput)
+        && Objects.equals(fileOutput, that.fileOutput)
         && Objects.equals(queryOutput, that.queryOutput);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(alertOutput, dashboardOutput, queryOutput);
+    return Objects.hash(alertOutput, dashboardOutput, fileOutput, queryOutput);
   }
 
   @Override
@@ -68,6 +82,7 @@ public class SqlOutput {
     return new ToStringer(SqlOutput.class)
         .add("alertOutput", alertOutput)
         .add("dashboardOutput", dashboardOutput)
+        .add("fileOutput", fileOutput)
         .add("queryOutput", queryOutput)
         .toString();
   }

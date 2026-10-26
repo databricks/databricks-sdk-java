@@ -18,7 +18,8 @@ public class UpdateManagedMemoryEntryRequest {
 
   /**
    * Resource name in the form
-   * `memory-stores/{managed_memory_store_id}/entries/{managed_memory_entry_id}`.
+   * `memory-stores/{managed_memory_store_id}/entries/{managed_memory_entry_id}`. Required for
+   * updates; assigned by the service on creation.
    */
   @JsonIgnore private String name;
 

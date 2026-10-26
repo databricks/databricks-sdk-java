@@ -19,6 +19,10 @@ public class Sandbox {
   @JsonProperty("display_name")
   private String displayName;
 
+  /** Metadata associated with the sandbox. */
+  @JsonProperty("metadata")
+  private SandboxMetadata metadata;
+
   /**
    * The sandbox resource name, in the form `sandboxes/{sandbox_id}`. Derived from `sandbox_id`; any
    * value supplied in a create or update request body is ignored.
@@ -54,6 +58,15 @@ public class Sandbox {
 
   public String getDisplayName() {
     return displayName;
+  }
+
+  public Sandbox setMetadata(SandboxMetadata metadata) {
+    this.metadata = metadata;
+    return this;
+  }
+
+  public SandboxMetadata getMetadata() {
+    return metadata;
   }
 
   public Sandbox setName(String name) {
@@ -99,6 +112,7 @@ public class Sandbox {
     Sandbox that = (Sandbox) o;
     return Objects.equals(createTime, that.createTime)
         && Objects.equals(displayName, that.displayName)
+        && Objects.equals(metadata, that.metadata)
         && Objects.equals(name, that.name)
         && Objects.equals(spec, that.spec)
         && Objects.equals(status, that.status)
@@ -107,7 +121,7 @@ public class Sandbox {
 
   @Override
   public int hashCode() {
-    return Objects.hash(createTime, displayName, name, spec, status, updateTime);
+    return Objects.hash(createTime, displayName, metadata, name, spec, status, updateTime);
   }
 
   @Override
@@ -115,6 +129,7 @@ public class Sandbox {
     return new ToStringer(Sandbox.class)
         .add("createTime", createTime)
         .add("displayName", displayName)
+        .add("metadata", metadata)
         .add("name", name)
         .add("spec", spec)
         .add("status", status)

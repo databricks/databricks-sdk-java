@@ -148,6 +148,18 @@ public class AgentKitAPI {
     return impl.getMemoryStore(request);
   }
 
+  public MemoryStorePermission getMemoryStorePermission(String name) {
+    return getMemoryStorePermission(new GetMemoryStorePermissionRequest().setName(name));
+  }
+
+  /**
+   * Retrieves the current caller's effective memory store permission. Returns
+   * PERMISSION_LEVEL_UNSPECIFIED when the caller has no access.
+   */
+  public MemoryStorePermission getMemoryStorePermission(GetMemoryStorePermissionRequest request) {
+    return impl.getMemoryStorePermission(request);
+  }
+
   public Session getSession(String name) {
     return getSession(new GetSessionRequest().setName(name));
   }
@@ -166,6 +178,37 @@ public class AgentKitAPI {
     return impl.getSessionStore(request);
   }
 
+  public SessionStorePermission getSessionStorePermission(String name) {
+    return getSessionStorePermission(new GetSessionStorePermissionRequest().setName(name));
+  }
+
+  /**
+   * Retrieves the current caller's effective session store permission. Returns
+   * PERMISSION_LEVEL_UNSPECIFIED when the caller has no access.
+   */
+  public SessionStorePermission getSessionStorePermission(
+      GetSessionStorePermissionRequest request) {
+    return impl.getSessionStorePermission(request);
+  }
+
+  /**
+   * Grants a READ or WRITE permission on a memory store to a principal. Only the owner or a
+   * workspace admin may grant permissions.
+   */
+  public GrantMemoryStorePermissionResponse grantMemoryStorePermission(
+      GrantMemoryStorePermissionRequest request) {
+    return impl.grantMemoryStorePermission(request);
+  }
+
+  /**
+   * Grants a READ or WRITE permission on a session store to a principal. Only the owner or a
+   * workspace admin may grant permissions.
+   */
+  public GrantSessionStorePermissionResponse grantSessionStorePermission(
+      GrantSessionStorePermissionRequest request) {
+    return impl.grantSessionStorePermission(request);
+  }
+
   public Iterable<ManagedMemoryEntry> listMemories(String parent, String actorId) {
     return listMemories(
         new ListManagedMemoryEntriesRequest().setParent(parent).setActorId(actorId));
@@ -181,6 +224,28 @@ public class AgentKitAPI {
         request,
         impl::listMemories,
         ListManagedMemoryEntriesResponse::getManagedMemoryEntries,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
+  }
+
+  public Iterable<MemoryStorePermission> listMemoryStorePermissions(String parent) {
+    return listMemoryStorePermissions(new ListMemoryStorePermissionsRequest().setParent(parent));
+  }
+
+  /**
+   * Lists explicit memory store grants. Only the owner or a workspace admin may list permissions.
+   */
+  public Iterable<MemoryStorePermission> listMemoryStorePermissions(
+      ListMemoryStorePermissionsRequest request) {
+    return Paginator.newTokenPagination(
+        request,
+        impl::listMemoryStorePermissions,
+        ListMemoryStorePermissionsResponse::getMemoryStorePermissions,
         response -> {
           String token = response.getNextPageToken();
           if (token == null || token.isEmpty()) {
@@ -215,6 +280,28 @@ public class AgentKitAPI {
         request,
         impl::listSessionItems,
         ListSessionItemsResponse::getSessionItems,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
+  }
+
+  public Iterable<SessionStorePermission> listSessionStorePermissions(String parent) {
+    return listSessionStorePermissions(new ListSessionStorePermissionsRequest().setParent(parent));
+  }
+
+  /**
+   * Lists explicit session store grants. Only the owner or a workspace admin may list permissions.
+   */
+  public Iterable<SessionStorePermission> listSessionStorePermissions(
+      ListSessionStorePermissionsRequest request) {
+    return Paginator.newTokenPagination(
+        request,
+        impl::listSessionStorePermissions,
+        ListSessionStorePermissionsResponse::getSessionStorePermissions,
         response -> {
           String token = response.getNextPageToken();
           if (token == null || token.isEmpty()) {
@@ -261,6 +348,24 @@ public class AgentKitAPI {
   /** Pops the newest item from a session. */
   public PopSessionItemResponse popSessionItem(PopSessionItemRequest request) {
     return impl.popSessionItem(request);
+  }
+
+  /**
+   * Removes a principal's explicit READ and WRITE grants on a memory store. Only the owner or a
+   * workspace admin may revoke permissions. Ownership and inherited access are unaffected.
+   */
+  public RevokeMemoryStorePermissionResponse revokeMemoryStorePermission(
+      RevokeMemoryStorePermissionRequest request) {
+    return impl.revokeMemoryStorePermission(request);
+  }
+
+  /**
+   * Removes a principal's explicit READ and WRITE grants on a session store. Only the owner or a
+   * workspace admin may revoke permissions. Ownership and inherited access are unaffected.
+   */
+  public RevokeSessionStorePermissionResponse revokeSessionStorePermission(
+      RevokeSessionStorePermissionRequest request) {
+    return impl.revokeSessionStorePermission(request);
   }
 
   /**

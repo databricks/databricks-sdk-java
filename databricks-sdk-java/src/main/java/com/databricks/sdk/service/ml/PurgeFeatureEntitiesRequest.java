@@ -22,6 +22,16 @@ public class PurgeFeatureEntitiesRequest {
   private String budgetPolicyId;
 
   /**
+   * If false feature values are set to null on purge but rows are not deleted. If true then the
+   * full rows containing entities are deleted. Defaults to false. When true, the request must
+   * include every feature which shares the same `table_name` property in their MaterializedFeature.
+   * Features from multiple tables may be included if all features materialized in each table are
+   * included.
+   */
+  @JsonProperty("delete_rows")
+  private Boolean deleteRows;
+
+  /**
    * Fully qualified name of the Unity Catalog Delta table containing the entity keys to purge. The
    * table may contain a subset of each feature's entity-key columns. A partial key match deletes
    * all feature rows matching the provided key values. Non-key columns are rejected; null key
@@ -32,7 +42,7 @@ public class PurgeFeatureEntitiesRequest {
 
   /**
    * Fully qualified names of the features to purge. At least one nonempty feature name is required.
-   * A request may contain at most 10000 features; submit additional features in separate requests.
+   * A request may contain at most 500 features; submit additional features in separate requests.
    * Duplicate features are rejected.
    */
   @JsonProperty("features")
@@ -60,6 +70,15 @@ public class PurgeFeatureEntitiesRequest {
 
   public String getBudgetPolicyId() {
     return budgetPolicyId;
+  }
+
+  public PurgeFeatureEntitiesRequest setDeleteRows(Boolean deleteRows) {
+    this.deleteRows = deleteRows;
+    return this;
+  }
+
+  public Boolean getDeleteRows() {
+    return deleteRows;
   }
 
   public PurgeFeatureEntitiesRequest setEntitiesTable(String entitiesTable) {
@@ -104,6 +123,7 @@ public class PurgeFeatureEntitiesRequest {
     if (o == null || getClass() != o.getClass()) return false;
     PurgeFeatureEntitiesRequest that = (PurgeFeatureEntitiesRequest) o;
     return Objects.equals(budgetPolicyId, that.budgetPolicyId)
+        && Objects.equals(deleteRows, that.deleteRows)
         && Objects.equals(entitiesTable, that.entitiesTable)
         && Objects.equals(features, that.features)
         && Objects.equals(requestId, that.requestId)
@@ -112,13 +132,14 @@ public class PurgeFeatureEntitiesRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(budgetPolicyId, entitiesTable, features, requestId, tags);
+    return Objects.hash(budgetPolicyId, deleteRows, entitiesTable, features, requestId, tags);
   }
 
   @Override
   public String toString() {
     return new ToStringer(PurgeFeatureEntitiesRequest.class)
         .add("budgetPolicyId", budgetPolicyId)
+        .add("deleteRows", deleteRows)
         .add("entitiesTable", entitiesTable)
         .add("features", features)
         .add("requestId", requestId)

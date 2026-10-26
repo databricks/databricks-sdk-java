@@ -36,6 +36,10 @@ public class StartUpdate {
   @JsonProperty("full_refresh_selection")
   private Collection<String> fullRefreshSelection;
 
+  /** A list of file paths that identify the tables to update with a full refresh. */
+  @JsonProperty("full_refresh_selection_by_path")
+  private Collection<String> fullRefreshSelectionByPath;
+
   /** Key/value map of parameters to pass to the pipeline execution */
   @JsonProperty("parameters")
   private Map<String, String> parameters;
@@ -50,6 +54,10 @@ public class StartUpdate {
    */
   @JsonProperty("refresh_selection")
   private Collection<String> refreshSelection;
+
+  /** A list of file paths that identify the tables to update. */
+  @JsonProperty("refresh_selection_by_path")
+  private Collection<String> refreshSelectionByPath;
 
   /**
    * A list of predicate overrides for replace_where flows in this update. Only replace_where flows
@@ -116,6 +124,15 @@ public class StartUpdate {
     return fullRefreshSelection;
   }
 
+  public StartUpdate setFullRefreshSelectionByPath(Collection<String> fullRefreshSelectionByPath) {
+    this.fullRefreshSelectionByPath = fullRefreshSelectionByPath;
+    return this;
+  }
+
+  public Collection<String> getFullRefreshSelectionByPath() {
+    return fullRefreshSelectionByPath;
+  }
+
   public StartUpdate setParameters(Map<String, String> parameters) {
     this.parameters = parameters;
     return this;
@@ -141,6 +158,15 @@ public class StartUpdate {
 
   public Collection<String> getRefreshSelection() {
     return refreshSelection;
+  }
+
+  public StartUpdate setRefreshSelectionByPath(Collection<String> refreshSelectionByPath) {
+    this.refreshSelectionByPath = refreshSelectionByPath;
+    return this;
+  }
+
+  public Collection<String> getRefreshSelectionByPath() {
+    return refreshSelectionByPath;
   }
 
   public StartUpdate setReplaceWhereOverrides(
@@ -189,9 +215,11 @@ public class StartUpdate {
         && Objects.equals(development, that.development)
         && Objects.equals(fullRefresh, that.fullRefresh)
         && Objects.equals(fullRefreshSelection, that.fullRefreshSelection)
+        && Objects.equals(fullRefreshSelectionByPath, that.fullRefreshSelectionByPath)
         && Objects.equals(parameters, that.parameters)
         && Objects.equals(pipelineId, that.pipelineId)
         && Objects.equals(refreshSelection, that.refreshSelection)
+        && Objects.equals(refreshSelectionByPath, that.refreshSelectionByPath)
         && Objects.equals(replaceWhereOverrides, that.replaceWhereOverrides)
         && Objects.equals(resetCheckpointSelection, that.resetCheckpointSelection)
         && Objects.equals(rewindSpec, that.rewindSpec)
@@ -205,9 +233,11 @@ public class StartUpdate {
         development,
         fullRefresh,
         fullRefreshSelection,
+        fullRefreshSelectionByPath,
         parameters,
         pipelineId,
         refreshSelection,
+        refreshSelectionByPath,
         replaceWhereOverrides,
         resetCheckpointSelection,
         rewindSpec,
@@ -221,9 +251,11 @@ public class StartUpdate {
         .add("development", development)
         .add("fullRefresh", fullRefresh)
         .add("fullRefreshSelection", fullRefreshSelection)
+        .add("fullRefreshSelectionByPath", fullRefreshSelectionByPath)
         .add("parameters", parameters)
         .add("pipelineId", pipelineId)
         .add("refreshSelection", refreshSelection)
+        .add("refreshSelectionByPath", refreshSelectionByPath)
         .add("replaceWhereOverrides", replaceWhereOverrides)
         .add("resetCheckpointSelection", resetCheckpointSelection)
         .add("rewindSpec", rewindSpec)

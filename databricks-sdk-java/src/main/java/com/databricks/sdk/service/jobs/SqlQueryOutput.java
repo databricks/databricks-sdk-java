@@ -14,7 +14,7 @@ public class SqlQueryOutput {
   @JsonProperty("endpoint_id")
   private String endpointId;
 
-  /** The link to find the output results. */
+  /** Deprecated. The link to find the output results, which are only accessible from the UI. */
   @JsonProperty("output_link")
   private String outputLink;
 

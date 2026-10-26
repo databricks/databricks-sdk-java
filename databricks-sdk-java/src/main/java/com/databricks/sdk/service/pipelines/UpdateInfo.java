@@ -42,6 +42,10 @@ public class UpdateInfo {
   @JsonProperty("full_refresh_selection")
   private Collection<String> fullRefreshSelection;
 
+  /** A list of file paths that identify the tables to update with a full refresh. */
+  @JsonProperty("full_refresh_selection_by_path")
+  private Collection<String> fullRefreshSelectionByPath;
+
   /**
    * Indicates whether the update is either part of a continuous job run, or running in legacy
    * continuous pipeline mode. Returned only for GetUpdate; not populated in ListUpdates responses.
@@ -64,6 +68,10 @@ public class UpdateInfo {
    */
   @JsonProperty("refresh_selection")
   private Collection<String> refreshSelection;
+
+  /** A list of file paths that identify the tables to update. */
+  @JsonProperty("refresh_selection_by_path")
+  private Collection<String> refreshSelectionByPath;
 
   /** The update state. */
   @JsonProperty("state")
@@ -134,6 +142,15 @@ public class UpdateInfo {
     return fullRefreshSelection;
   }
 
+  public UpdateInfo setFullRefreshSelectionByPath(Collection<String> fullRefreshSelectionByPath) {
+    this.fullRefreshSelectionByPath = fullRefreshSelectionByPath;
+    return this;
+  }
+
+  public Collection<String> getFullRefreshSelectionByPath() {
+    return fullRefreshSelectionByPath;
+  }
+
   public UpdateInfo setMode(UpdateMode mode) {
     this.mode = mode;
     return this;
@@ -168,6 +185,15 @@ public class UpdateInfo {
 
   public Collection<String> getRefreshSelection() {
     return refreshSelection;
+  }
+
+  public UpdateInfo setRefreshSelectionByPath(Collection<String> refreshSelectionByPath) {
+    this.refreshSelectionByPath = refreshSelectionByPath;
+    return this;
+  }
+
+  public Collection<String> getRefreshSelectionByPath() {
+    return refreshSelectionByPath;
   }
 
   public UpdateInfo setState(UpdateInfoState state) {
@@ -208,10 +234,12 @@ public class UpdateInfo {
         && Objects.equals(creationTime, that.creationTime)
         && Objects.equals(fullRefresh, that.fullRefresh)
         && Objects.equals(fullRefreshSelection, that.fullRefreshSelection)
+        && Objects.equals(fullRefreshSelectionByPath, that.fullRefreshSelectionByPath)
         && Objects.equals(mode, that.mode)
         && Objects.equals(parameters, that.parameters)
         && Objects.equals(pipelineId, that.pipelineId)
         && Objects.equals(refreshSelection, that.refreshSelection)
+        && Objects.equals(refreshSelectionByPath, that.refreshSelectionByPath)
         && Objects.equals(state, that.state)
         && Objects.equals(updateId, that.updateId)
         && Objects.equals(validateOnly, that.validateOnly);
@@ -226,10 +254,12 @@ public class UpdateInfo {
         creationTime,
         fullRefresh,
         fullRefreshSelection,
+        fullRefreshSelectionByPath,
         mode,
         parameters,
         pipelineId,
         refreshSelection,
+        refreshSelectionByPath,
         state,
         updateId,
         validateOnly);
@@ -244,10 +274,12 @@ public class UpdateInfo {
         .add("creationTime", creationTime)
         .add("fullRefresh", fullRefresh)
         .add("fullRefreshSelection", fullRefreshSelection)
+        .add("fullRefreshSelectionByPath", fullRefreshSelectionByPath)
         .add("mode", mode)
         .add("parameters", parameters)
         .add("pipelineId", pipelineId)
         .add("refreshSelection", refreshSelection)
+        .add("refreshSelectionByPath", refreshSelectionByPath)
         .add("state", state)
         .add("updateId", updateId)
         .add("validateOnly", validateOnly)

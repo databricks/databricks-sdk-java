@@ -84,11 +84,39 @@ public interface AgentKitService {
    */
   ManagedMemoryStore getMemoryStore(GetManagedMemoryStoreRequest getManagedMemoryStoreRequest);
 
+  /**
+   * Retrieves the current caller's effective memory store permission. Returns
+   * PERMISSION_LEVEL_UNSPECIFIED when the caller has no access.
+   */
+  MemoryStorePermission getMemoryStorePermission(
+      GetMemoryStorePermissionRequest getMemoryStorePermissionRequest);
+
   /** Gets a session by resource name. */
   Session getSession(GetSessionRequest getSessionRequest);
 
   /** Gets a session store by resource name. */
   SessionStore getSessionStore(GetSessionStoreRequest getSessionStoreRequest);
+
+  /**
+   * Retrieves the current caller's effective session store permission. Returns
+   * PERMISSION_LEVEL_UNSPECIFIED when the caller has no access.
+   */
+  SessionStorePermission getSessionStorePermission(
+      GetSessionStorePermissionRequest getSessionStorePermissionRequest);
+
+  /**
+   * Grants a READ or WRITE permission on a memory store to a principal. Only the owner or a
+   * workspace admin may grant permissions.
+   */
+  GrantMemoryStorePermissionResponse grantMemoryStorePermission(
+      GrantMemoryStorePermissionRequest grantMemoryStorePermissionRequest);
+
+  /**
+   * Grants a READ or WRITE permission on a session store to a principal. Only the owner or a
+   * workspace admin may grant permissions.
+   */
+  GrantSessionStorePermissionResponse grantSessionStorePermission(
+      GrantSessionStorePermissionRequest grantSessionStorePermissionRequest);
 
   /**
    * Lists memory entries for one actor. An exact `path` filters entries across sessions, ignoring
@@ -98,12 +126,24 @@ public interface AgentKitService {
   ListManagedMemoryEntriesResponse listMemories(
       ListManagedMemoryEntriesRequest listManagedMemoryEntriesRequest);
 
+  /**
+   * Lists explicit memory store grants. Only the owner or a workspace admin may list permissions.
+   */
+  ListMemoryStorePermissionsResponse listMemoryStorePermissions(
+      ListMemoryStorePermissionsRequest listMemoryStorePermissionsRequest);
+
   /** Lists memory stores in the caller's workspace. */
   ListManagedMemoryStoresResponse listMemoryStores(
       ListManagedMemoryStoresRequest listManagedMemoryStoresRequest);
 
   /** Lists items in a session. */
   ListSessionItemsResponse listSessionItems(ListSessionItemsRequest listSessionItemsRequest);
+
+  /**
+   * Lists explicit session store grants. Only the owner or a workspace admin may list permissions.
+   */
+  ListSessionStorePermissionsResponse listSessionStorePermissions(
+      ListSessionStorePermissionsRequest listSessionStorePermissionsRequest);
 
   /** Lists session stores. */
   ListSessionStoresResponse listSessionStores(ListSessionStoresRequest listSessionStoresRequest);
@@ -113,6 +153,20 @@ public interface AgentKitService {
 
   /** Pops the newest item from a session. */
   PopSessionItemResponse popSessionItem(PopSessionItemRequest popSessionItemRequest);
+
+  /**
+   * Removes a principal's explicit READ and WRITE grants on a memory store. Only the owner or a
+   * workspace admin may revoke permissions. Ownership and inherited access are unaffected.
+   */
+  RevokeMemoryStorePermissionResponse revokeMemoryStorePermission(
+      RevokeMemoryStorePermissionRequest revokeMemoryStorePermissionRequest);
+
+  /**
+   * Removes a principal's explicit READ and WRITE grants on a session store. Only the owner or a
+   * workspace admin may revoke permissions. Ownership and inherited access are unaffected.
+   */
+  RevokeSessionStorePermissionResponse revokeSessionStorePermission(
+      RevokeSessionStorePermissionRequest revokeSessionStorePermissionRequest);
 
   /**
    * Searches memory entries by text query for one actor. Returns matching entries and scores ranked

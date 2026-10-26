@@ -112,6 +112,27 @@ class FeatureEngineeringImpl implements FeatureEngineeringService {
   }
 
   @Override
+  public Operation createMaterializationSet(CreateMaterializationSetRequest request) {
+    String path = "/api/2.0/feature-engineering/materialization-sets";
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request.getMaterializationSet()));
+
+      if (request.getRequestId() == null || request.getRequestId().isEmpty()) {
+        request.setRequestId(UUID.randomUUID().toString());
+      }
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, Operation.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public MaterializedFeature createMaterializedFeature(CreateMaterializedFeatureRequest request) {
     String path = "/api/2.0/feature-engineering/materialized-features";
     try {
@@ -184,6 +205,29 @@ class FeatureEngineeringImpl implements FeatureEngineeringService {
   }
 
   @Override
+  public Operation deleteMaterializationSet(DeleteMaterializationSetRequest request) {
+    String path =
+        String.format(
+            "/api/2.0/feature-engineering/materialization-sets/%s",
+            request.getMaterializationSetId());
+    try {
+      Request req = new Request("DELETE", path);
+
+      if (request.getRequestId() == null || request.getRequestId().isEmpty()) {
+        request.setRequestId(UUID.randomUUID().toString());
+      }
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, Operation.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public void deleteMaterializedFeature(DeleteMaterializedFeatureRequest request) {
     String path =
         String.format(
@@ -250,6 +294,26 @@ class FeatureEngineeringImpl implements FeatureEngineeringService {
         req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, KafkaConfig.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public MaterializationSet getMaterializationSet(GetMaterializationSetRequest request) {
+    String path =
+        String.format(
+            "/api/2.0/feature-engineering/materialization-sets/%s",
+            request.getMaterializationSetId());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, MaterializationSet.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -431,6 +495,31 @@ class FeatureEngineeringImpl implements FeatureEngineeringService {
         req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, KafkaConfig.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public Operation updateMaterializationSet(UpdateMaterializationSetRequest request) {
+    String path =
+        String.format(
+            "/api/2.0/feature-engineering/materialization-sets/%s",
+            request.getMaterializationSetId());
+    try {
+      Request req =
+          new Request("PATCH", path, apiClient.serialize(request.getMaterializationSet()));
+
+      if (request.getRequestId() == null || request.getRequestId().isEmpty()) {
+        request.setRequestId(UUID.randomUUID().toString());
+      }
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, Operation.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
