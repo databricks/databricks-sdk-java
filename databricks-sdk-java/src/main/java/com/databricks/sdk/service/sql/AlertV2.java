@@ -14,11 +14,11 @@ public class AlertV2 {
   @JsonProperty("create_time")
   private String createTime;
 
-  /** Custom description for the alert. support mustache template. */
+  /** Custom description for the alert. Interpreted according to `custom_template_format`. */
   @JsonProperty("custom_description")
   private String customDescription;
 
-  /** Custom summary for the alert. support mustache template. */
+  /** Custom summary for the alert. Interpreted according to `custom_template_format`. */
   @JsonProperty("custom_summary")
   private String customSummary;
 

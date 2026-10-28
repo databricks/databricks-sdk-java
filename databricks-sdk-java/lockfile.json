@@ -1,7 +1,7 @@
 {
   "artifactId": "databricks-sdk-java",
   "groupId": "com.databricks",
-  "version": "0.171.0",
+  "version": "0.172.0",
   "lockFileVersion": 1,
   "dependencies": [
     {
@@ -894,14 +894,14 @@
     {
       "groupId": "commons-io",
       "artifactId": "commons-io",
-      "version": "2.14.0",
+      "version": "2.22.0",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "e35d1df7232568ed4b81d9a9ed94a0159b3ff6cf1915cc21eef5cb55d7b157a2",
+      "checksum": "2b9a7b1f726fb86216dbd2c8321eabe0221dbd5b1be81c18e1cb53811b104758",
       "scope": "compile",
-      "resolved": "https://repo.maven.apache.org/maven2/commons-io/commons-io/2.14.0/commons-io-2.14.0.jar",
-      "selectedVersion": "2.14.0",
+      "resolved": "https://repo.maven.apache.org/maven2/commons-io/commons-io/2.22.0/commons-io-2.22.0.jar",
+      "selectedVersion": "2.22.0",
       "included": true,
-      "id": "commons-io:commons-io:2.14.0",
+      "id": "commons-io:commons-io:2.22.0",
       "children": []
     },
     {

@@ -939,7 +939,14 @@ public class WorkspaceClient {
     return dataSourcesAPI;
   }
 
-  /** Database Instances provide access to a database via REST API or direct SQL. */
+  /**
+   * Database Instances provide access to a database via REST API or direct SQL.
+   *
+   * <p>For new workloads, Databricks recommends the [Postgres API], which supports the latest
+   * Lakebase features.
+   *
+   * <p>[Postgres API]: https://docs.databricks.com/api/postgres/v1/postgres
+   */
   public DatabaseAPI database() {
     return databaseAPI;
   }
