@@ -13,7 +13,14 @@ import java.util.Arrays;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Consumer;
 
-/** Database Instances provide access to a database via REST API or direct SQL. */
+/**
+ * Database Instances provide access to a database via REST API or direct SQL.
+ *
+ * <p>For new workloads, Databricks recommends the [Postgres API], which supports the latest
+ * Lakebase features.
+ *
+ * <p>[Postgres API]: https://docs.databricks.com/api/postgres/v1/postgres
+ */
 @Generated
 public class DatabaseAPI {
   private static final Logger LOG = LoggerFactory.getLogger(DatabaseAPI.class);
@@ -70,12 +77,24 @@ public class DatabaseAPI {
     throw new TimeoutException(String.format("timed out after %s: %s", timeout, statusMessage));
   }
 
-  /** Create a Database Catalog. */
+  /**
+   * Create a Database Catalog.
+   *
+   * <p>For new workloads, Databricks recommends the Postgres API equivalent: [Create a catalog].
+   *
+   * <p>[Create a catalog]: https://docs.databricks.com/api/postgres/v1/create-catalog
+   */
   public DatabaseCatalog createDatabaseCatalog(CreateDatabaseCatalogRequest request) {
     return impl.createDatabaseCatalog(request);
   }
 
-  /** Create a Database Instance. */
+  /**
+   * Create a Database Instance.
+   *
+   * <p>For new workloads, Databricks recommends the Postgres API equivalent: [Create a project].
+   *
+   * <p>[Create a project]: https://docs.databricks.com/api/postgres/v1/create-project
+   */
   public Wait<DatabaseInstance, DatabaseInstance> createDatabaseInstance(
       CreateDatabaseInstanceRequest request) {
     DatabaseInstance response = impl.createDatabaseInstance(request);
@@ -85,7 +104,13 @@ public class DatabaseAPI {
         response);
   }
 
-  /** Create a role for a Database Instance. */
+  /**
+   * Create a role for a Database Instance.
+   *
+   * <p>For new workloads, Databricks recommends the Postgres API equivalent: [Create a role].
+   *
+   * <p>[Create a role]: https://docs.databricks.com/api/postgres/v1/create-role
+   */
   public DatabaseInstanceRole createDatabaseInstanceRole(
       CreateDatabaseInstanceRoleRequest request) {
     return impl.createDatabaseInstanceRole(request);
@@ -99,7 +124,14 @@ public class DatabaseAPI {
     return impl.createDatabaseTable(request);
   }
 
-  /** Create a Synced Database Table. */
+  /**
+   * Create a Synced Database Table.
+   *
+   * <p>For new workloads, Databricks recommends the Postgres API equivalent: [Create a synced
+   * table].
+   *
+   * <p>[Create a synced table]: https://docs.databricks.com/api/postgres/v1/create-synced-table
+   */
   public SyncedDatabaseTable createSyncedDatabaseTable(CreateSyncedDatabaseTableRequest request) {
     return impl.createSyncedDatabaseTable(request);
   }
@@ -108,7 +140,13 @@ public class DatabaseAPI {
     deleteDatabaseCatalog(new DeleteDatabaseCatalogRequest().setName(name));
   }
 
-  /** Delete a Database Catalog. */
+  /**
+   * Delete a Database Catalog.
+   *
+   * <p>For new workloads, Databricks recommends the Postgres API equivalent: [Delete a catalog].
+   *
+   * <p>[Delete a catalog]: https://docs.databricks.com/api/postgres/v1/delete-catalog
+   */
   public void deleteDatabaseCatalog(DeleteDatabaseCatalogRequest request) {
     impl.deleteDatabaseCatalog(request);
   }
@@ -117,7 +155,13 @@ public class DatabaseAPI {
     deleteDatabaseInstance(new DeleteDatabaseInstanceRequest().setName(name));
   }
 
-  /** Delete a Database Instance. */
+  /**
+   * Delete a Database Instance.
+   *
+   * <p>For new workloads, Databricks recommends the Postgres API equivalent: [Delete a project].
+   *
+   * <p>[Delete a project]: https://docs.databricks.com/api/postgres/v1/delete-project
+   */
   public void deleteDatabaseInstance(DeleteDatabaseInstanceRequest request) {
     impl.deleteDatabaseInstance(request);
   }
@@ -127,7 +171,13 @@ public class DatabaseAPI {
         new DeleteDatabaseInstanceRoleRequest().setInstanceName(instanceName).setName(name));
   }
 
-  /** Deletes a role for a Database Instance. */
+  /**
+   * Deletes a role for a Database Instance.
+   *
+   * <p>For new workloads, Databricks recommends the Postgres API equivalent: [Delete a role].
+   *
+   * <p>[Delete a role]: https://docs.databricks.com/api/postgres/v1/delete-role
+   */
   public void deleteDatabaseInstanceRole(DeleteDatabaseInstanceRoleRequest request) {
     impl.deleteDatabaseInstanceRole(request);
   }
@@ -145,7 +195,14 @@ public class DatabaseAPI {
     deleteSyncedDatabaseTable(new DeleteSyncedDatabaseTableRequest().setName(name));
   }
 
-  /** Delete a Synced Database Table. */
+  /**
+   * Delete a Synced Database Table.
+   *
+   * <p>For new workloads, Databricks recommends the Postgres API equivalent: [Delete a synced
+   * table].
+   *
+   * <p>[Delete a synced table]: https://docs.databricks.com/api/postgres/v1/delete-synced-table
+   */
   public void deleteSyncedDatabaseTable(DeleteSyncedDatabaseTableRequest request) {
     impl.deleteSyncedDatabaseTable(request);
   }
@@ -155,7 +212,15 @@ public class DatabaseAPI {
     return impl.findDatabaseInstanceByUid(request);
   }
 
-  /** Generates a credential that can be used to access database instances. */
+  /**
+   * Generates a credential that can be used to access database instances.
+   *
+   * <p>For new workloads, Databricks recommends the Postgres API equivalent: [Generate a database
+   * credential].
+   *
+   * <p>[Generate a database credential]:
+   * https://docs.databricks.com/api/postgres/v1/generate-database-credential
+   */
   public DatabaseCredential generateDatabaseCredential(GenerateDatabaseCredentialRequest request) {
     return impl.generateDatabaseCredential(request);
   }
@@ -164,7 +229,13 @@ public class DatabaseAPI {
     return getDatabaseCatalog(new GetDatabaseCatalogRequest().setName(name));
   }
 
-  /** Get a Database Catalog. */
+  /**
+   * Get a Database Catalog.
+   *
+   * <p>For new workloads, Databricks recommends the Postgres API equivalent: [Get a catalog].
+   *
+   * <p>[Get a catalog]: https://docs.databricks.com/api/postgres/v1/get-catalog
+   */
   public DatabaseCatalog getDatabaseCatalog(GetDatabaseCatalogRequest request) {
     return impl.getDatabaseCatalog(request);
   }
@@ -173,7 +244,13 @@ public class DatabaseAPI {
     return getDatabaseInstance(new GetDatabaseInstanceRequest().setName(name));
   }
 
-  /** Get a Database Instance. */
+  /**
+   * Get a Database Instance.
+   *
+   * <p>For new workloads, Databricks recommends the Postgres API equivalent: [Get a project].
+   *
+   * <p>[Get a project]: https://docs.databricks.com/api/postgres/v1/get-project
+   */
   public DatabaseInstance getDatabaseInstance(GetDatabaseInstanceRequest request) {
     return impl.getDatabaseInstance(request);
   }
@@ -183,7 +260,13 @@ public class DatabaseAPI {
         new GetDatabaseInstanceRoleRequest().setInstanceName(instanceName).setName(name));
   }
 
-  /** Gets a role for a Database Instance. */
+  /**
+   * Gets a role for a Database Instance.
+   *
+   * <p>For new workloads, Databricks recommends the Postgres API equivalent: [Get a role].
+   *
+   * <p>[Get a role]: https://docs.databricks.com/api/postgres/v1/get-role
+   */
   public DatabaseInstanceRole getDatabaseInstanceRole(GetDatabaseInstanceRoleRequest request) {
     return impl.getDatabaseInstanceRole(request);
   }
@@ -201,7 +284,13 @@ public class DatabaseAPI {
     return getSyncedDatabaseTable(new GetSyncedDatabaseTableRequest().setName(name));
   }
 
-  /** Get a Synced Database Table. */
+  /**
+   * Get a Synced Database Table.
+   *
+   * <p>For new workloads, Databricks recommends the Postgres API equivalent: [Get a synced table].
+   *
+   * <p>[Get a synced table]: https://docs.databricks.com/api/postgres/v1/get-synced-table
+   */
   public SyncedDatabaseTable getSyncedDatabaseTable(GetSyncedDatabaseTableRequest request) {
     return impl.getSyncedDatabaseTable(request);
   }
@@ -231,10 +320,11 @@ public class DatabaseAPI {
   }
 
   /**
-   * START OF PG ROLE APIs Section These APIs are marked a PUBLIC with stage < PUBLIC_PREVIEW. With
-   * more recent Lakebase V2 plans, we don't plan to ever advance these to PUBLIC_PREVIEW. These
-   * APIs will remain effectively undocumented/UI-only and we'll aim for a new public roles API as
-   * part of V2 PuPr.
+   * List roles for a Database Instance.
+   *
+   * <p>For new workloads, Databricks recommends the Postgres API equivalent: [List roles].
+   *
+   * <p>[List roles]: https://docs.databricks.com/api/postgres/v1/list-roles
    */
   public Iterable<DatabaseInstanceRole> listDatabaseInstanceRoles(
       ListDatabaseInstanceRolesRequest request) {
@@ -251,7 +341,13 @@ public class DatabaseAPI {
         });
   }
 
-  /** List Database Instances. */
+  /**
+   * List Database Instances.
+   *
+   * <p>For new workloads, Databricks recommends the Postgres API equivalent: [List projects].
+   *
+   * <p>[List projects]: https://docs.databricks.com/api/postgres/v1/list-projects
+   */
   public Iterable<DatabaseInstance> listDatabaseInstances(ListDatabaseInstancesRequest request) {
     return Paginator.newTokenPagination(
         request,
@@ -292,7 +388,15 @@ public class DatabaseAPI {
     return impl.updateDatabaseCatalog(request);
   }
 
-  /** Update a Database Instance. */
+  /**
+   * Update a Database Instance.
+   *
+   * <p>For new workloads, Databricks recommends the Postgres API equivalents: [Update a project]
+   * and [Update an endpoint].
+   *
+   * <p>[Update a project]: https://docs.databricks.com/api/postgres/v1/update-project [Update an
+   * endpoint]: https://docs.databricks.com/api/postgres/v1/update-endpoint
+   */
   public DatabaseInstance updateDatabaseInstance(UpdateDatabaseInstanceRequest request) {
     return impl.updateDatabaseInstance(request);
   }

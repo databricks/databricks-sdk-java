@@ -60,6 +60,20 @@ public class BudgetsAPI {
     return impl.get(request);
   }
 
+  public BudgetSpendStatus getBudgetSpendStatus(String name) {
+    return getBudgetSpendStatus(new GetBudgetSpendStatusRequest().setName(name));
+  }
+
+  /**
+   * Get the calling user's live spend against the blocking thresholds of a single Unity Gateway
+   * budget. Any account user can call this for their own spend. Spend is reported in USD at list
+   * price and is near-real-time, so it may differ slightly from billing data. Returns NOT_FOUND if
+   * the budget doesn't exist or has no blocking thresholds.
+   */
+  public BudgetSpendStatus getBudgetSpendStatus(GetBudgetSpendStatusRequest request) {
+    return impl.getBudgetSpendStatus(request);
+  }
+
   /** Gets all budgets associated with this account. */
   public Iterable<BudgetConfiguration> list(ListBudgetConfigurationsRequest request) {
     return Paginator.newTokenPagination(
@@ -73,6 +87,22 @@ public class BudgetsAPI {
           }
           return request.setPageToken(token);
         });
+  }
+
+  public ListBudgetSpendStatusesResponse listBudgetSpendStatuses(String parent) {
+    return listBudgetSpendStatuses(new ListBudgetSpendStatusesRequest().setParent(parent));
+  }
+
+  /**
+   * List the calling user's live spend against the blocking thresholds across the account's Unity
+   * Gateway budgets. Any account user can call this for their own spend. Spend is reported in USD
+   * at list price and is near-real-time, so it may differ slightly from billing data. By default,
+   * returns every budget in the account that has a blocking threshold. Use `filter` to narrow
+   * results by workspace.
+   */
+  public ListBudgetSpendStatusesResponse listBudgetSpendStatuses(
+      ListBudgetSpendStatusesRequest request) {
+    return impl.listBudgetSpendStatuses(request);
   }
 
   /**

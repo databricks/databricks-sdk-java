@@ -1,5 +1,10 @@
 # Version changelog
 
+## Release v0.172.0 (2026-10-28)
+
+### API Changes
+* Add `getBudgetSpendStatus()` and `listBudgetSpendStatuses()` methods for `accountClient.budgets()` service.
+
 ## Release v0.171.0 (2026-10-26)
 
 ### API Changes
