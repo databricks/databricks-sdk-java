@@ -11,7 +11,7 @@ import java.util.Objects;
 
 @Generated
 public class UpdateUserProxyRequest {
-  /** Optional. The list of fields to update. */
+  /** Required. The list of fields to update. */
   @JsonIgnore
   @QueryParam("update_mask")
   private String updateMask;

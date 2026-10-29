@@ -10,6 +10,10 @@ import java.util.Objects;
 /** Run output was retrieved successfully. */
 @Generated
 public class RunOutput {
+  /** The output of an AI function task, if available */
+  @JsonProperty("ai_function_task_output")
+  private AiFunctionTaskOutput aiFunctionTaskOutput;
+
   /**
    * The output of an AiRuntimeTask, if available — MLflow identifiers, artifact paths, and
    * per-replica allocated compute. Run lifecycle / termination status lives on the surrounding
@@ -97,6 +101,15 @@ public class RunOutput {
   /** The output of a SQL task, if available. */
   @JsonProperty("sql_output")
   private SqlOutput sqlOutput;
+
+  public RunOutput setAiFunctionTaskOutput(AiFunctionTaskOutput aiFunctionTaskOutput) {
+    this.aiFunctionTaskOutput = aiFunctionTaskOutput;
+    return this;
+  }
+
+  public AiFunctionTaskOutput getAiFunctionTaskOutput() {
+    return aiFunctionTaskOutput;
+  }
 
   public RunOutput setAiRuntimeTaskOutput(AiRuntimeTaskOutput aiRuntimeTaskOutput) {
     this.aiRuntimeTaskOutput = aiRuntimeTaskOutput;
@@ -248,7 +261,8 @@ public class RunOutput {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     RunOutput that = (RunOutput) o;
-    return Objects.equals(aiRuntimeTaskOutput, that.aiRuntimeTaskOutput)
+    return Objects.equals(aiFunctionTaskOutput, that.aiFunctionTaskOutput)
+        && Objects.equals(aiRuntimeTaskOutput, that.aiRuntimeTaskOutput)
         && Objects.equals(alertOutput, that.alertOutput)
         && Objects.equals(cleanRoomsNotebookOutput, that.cleanRoomsNotebookOutput)
         && Objects.equals(dashboardOutput, that.dashboardOutput)
@@ -269,6 +283,7 @@ public class RunOutput {
   @Override
   public int hashCode() {
     return Objects.hash(
+        aiFunctionTaskOutput,
         aiRuntimeTaskOutput,
         alertOutput,
         cleanRoomsNotebookOutput,
@@ -290,6 +305,7 @@ public class RunOutput {
   @Override
   public String toString() {
     return new ToStringer(RunOutput.class)
+        .add("aiFunctionTaskOutput", aiFunctionTaskOutput)
         .add("aiRuntimeTaskOutput", aiRuntimeTaskOutput)
         .add("alertOutput", alertOutput)
         .add("cleanRoomsNotebookOutput", cleanRoomsNotebookOutput)

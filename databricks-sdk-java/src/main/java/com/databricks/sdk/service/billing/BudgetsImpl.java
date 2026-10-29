@@ -66,6 +66,20 @@ class BudgetsImpl implements BudgetsService {
   }
 
   @Override
+  public BudgetSpendStatus getBudgetSpendStatus(GetBudgetSpendStatusRequest request) {
+    String path = String.format("/api/2.1/%s", request.getName());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, BudgetSpendStatus.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public ListBudgetConfigurationsResponse list(ListBudgetConfigurationsRequest request) {
     String path = String.format("/api/2.1/accounts/%s/budgets", apiClient.configuredAccountID());
     try {
@@ -74,6 +88,21 @@ class BudgetsImpl implements BudgetsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListBudgetConfigurationsResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public ListBudgetSpendStatusesResponse listBudgetSpendStatuses(
+      ListBudgetSpendStatusesRequest request) {
+    String path = String.format("/api/2.1/%s/budget-spend-statuses", request.getParent());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, ListBudgetSpendStatusesResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

@@ -12,7 +12,8 @@ import java.util.Objects;
 public class ListModelProviderServicesRequest {
   /**
    * Maximum number of provider services to return. Defaults to 200 when unset or 0; the maximum is
-   * 200. Use `page_token` to retrieve additional pages.
+   * 1000 for `view = BASIC` and 200 for `view = FULL`. Use `page_token` to retrieve additional
+   * pages.
    */
   @JsonIgnore
   @QueryParam("page_size")

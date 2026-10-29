@@ -39,7 +39,10 @@ public class PtServedModel {
   @JsonProperty("name")
   private String name;
 
-  /** The number of model units to be provisioned. */
+  /**
+   * The number of model units to be provisioned. Dedicated inference requires positive fixed
+   * capacity and does not support scale-to-zero.
+   */
   @JsonProperty("provisioned_model_units")
   private Long provisionedModelUnits;
 

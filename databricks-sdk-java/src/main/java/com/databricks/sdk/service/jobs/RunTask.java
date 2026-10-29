@@ -11,6 +11,10 @@ import java.util.Objects;
 /** Used when outputting a child run, in GetRun or ListRuns. */
 @Generated
 public class RunTask {
+  /** Applies an AI function to a set of input documents or rows. */
+  @JsonProperty("ai_function_task")
+  private AiFunctionTask aiFunctionTask;
+
   /**
    * The task runs a multi-gpu compute workload on Databricks AI Runtime. Specify the accelerator
    * type and count, the command to run, and where the workload's code and MLflow output are stored.
@@ -370,6 +374,15 @@ public class RunTask {
    */
   @JsonProperty("webhook_notifications")
   private WebhookNotifications webhookNotifications;
+
+  public RunTask setAiFunctionTask(AiFunctionTask aiFunctionTask) {
+    this.aiFunctionTask = aiFunctionTask;
+    return this;
+  }
+
+  public AiFunctionTask getAiFunctionTask() {
+    return aiFunctionTask;
+  }
 
   public RunTask setAiRuntimeTask(AiRuntimeTask aiRuntimeTask) {
     this.aiRuntimeTask = aiRuntimeTask;
@@ -880,7 +893,8 @@ public class RunTask {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     RunTask that = (RunTask) o;
-    return Objects.equals(aiRuntimeTask, that.aiRuntimeTask)
+    return Objects.equals(aiFunctionTask, that.aiFunctionTask)
+        && Objects.equals(aiRuntimeTask, that.aiRuntimeTask)
         && Objects.equals(alertTask, that.alertTask)
         && Objects.equals(attemptNumber, that.attemptNumber)
         && Objects.equals(cleanRoomsNotebookTask, that.cleanRoomsNotebookTask)
@@ -941,6 +955,7 @@ public class RunTask {
   @Override
   public int hashCode() {
     return Objects.hash(
+        aiFunctionTask,
         aiRuntimeTask,
         alertTask,
         attemptNumber,
@@ -1002,6 +1017,7 @@ public class RunTask {
   @Override
   public String toString() {
     return new ToStringer(RunTask.class)
+        .add("aiFunctionTask", aiFunctionTask)
         .add("aiRuntimeTask", aiRuntimeTask)
         .add("alertTask", alertTask)
         .add("attemptNumber", attemptNumber)
