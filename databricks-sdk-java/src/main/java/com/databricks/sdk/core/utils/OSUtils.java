@@ -5,6 +5,7 @@ import com.databricks.sdk.core.logging.Logger;
 import com.databricks.sdk.core.logging.LoggerFactory;
 import com.databricks.sdk.support.InternalApi;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -17,6 +18,13 @@ import java.util.List;
 @InternalApi
 public class OSUtils {
   private static final Logger LOG = LoggerFactory.getLogger(OSUtils.class);
+
+  // Files at least this large are assumed to be the Go CLI and are not read.
+  private static final long DATABRICKS_CLI_MIN_SIZE = 1024 * 1024;
+
+  // Identifies the legacy CLI's pip entry point script. The imported name is omitted because it
+  // changed from `cli` to `main` in 0.17.8.
+  private static final String LEGACY_CLI_MARKER = "from databricks_cli.cli import ";
 
   /**
    * Returns the name of the current operating system.
@@ -62,9 +70,18 @@ public class OSUtils {
         LOG.debug("Unable to get size of databricks cli, continuing", e);
         continue;
       }
-      if (size < 1024 * 1024) {
-        LOG.debug("Databricks CLI version <0.100.0 detected");
-        continue;
+      if (size < DATABRICKS_CLI_MIN_SIZE) {
+        byte[] content;
+        try {
+          content = Files.readAllBytes(path);
+        } catch (IOException e) {
+          LOG.debug("Unable to read databricks cli, continuing", e);
+          continue;
+        }
+        if (new String(content, StandardCharsets.ISO_8859_1).contains(LEGACY_CLI_MARKER)) {
+          LOG.debug("Databricks CLI version <0.100.0 detected");
+          continue;
+        }
       }
       String pathStr = path.toString();
       LOG.debug("Found executable named '" + name + "' in PATH: " + pathStr);

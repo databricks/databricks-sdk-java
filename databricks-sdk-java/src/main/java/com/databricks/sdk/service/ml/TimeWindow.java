@@ -33,8 +33,8 @@ public class TimeWindow {
    * 365 days of data; a lifetime window produces no output before start_time. If unset, tumbling
    * and fixed-duration sliding windows first emit at an offset-aligned boundary after a full window
    * can be formed. If unset, lifetime sliding windows and rolling windows emit as soon as eligible
-   * source data exists. Not currently supported for sawtooth windows or for Features with a stream
-   * source.
+   * source data exists. For sawtooth windows, start_time must not be later than the time the
+   * Feature is created. Not supported for rolling windows on Features with a stream source.
    */
   @JsonProperty("start_time")
   private Timestamp startTime;
