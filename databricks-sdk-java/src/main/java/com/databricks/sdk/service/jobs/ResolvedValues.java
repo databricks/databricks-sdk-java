@@ -10,6 +10,13 @@ import java.util.Objects;
 @Generated
 public class ResolvedValues {
   /**
+   * Resolved values for an AI Function task: the Delta table input with upstream-task references
+   * replaced by concrete values before the run.
+   */
+  @JsonProperty("ai_function_task")
+  private ResolvedValuesAiFunctionTaskResolvedValues aiFunctionTask;
+
+  /**
    * Resolved values for an AI Runtime task — env_vars with `{{tasks.<key>.values.<name>}}`
    * references substituted to concrete values before submission to the training service.
    */
@@ -59,6 +66,16 @@ public class ResolvedValues {
   /** */
   @JsonProperty("sql_task")
   private ResolvedParamPairValues sqlTask;
+
+  public ResolvedValues setAiFunctionTask(
+      ResolvedValuesAiFunctionTaskResolvedValues aiFunctionTask) {
+    this.aiFunctionTask = aiFunctionTask;
+    return this;
+  }
+
+  public ResolvedValuesAiFunctionTaskResolvedValues getAiFunctionTask() {
+    return aiFunctionTask;
+  }
 
   public ResolvedValues setAiRuntimeTask(ResolvedValuesAiRuntimeTaskResolvedValues aiRuntimeTask) {
     this.aiRuntimeTask = aiRuntimeTask;
@@ -173,7 +190,8 @@ public class ResolvedValues {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ResolvedValues that = (ResolvedValues) o;
-    return Objects.equals(aiRuntimeTask, that.aiRuntimeTask)
+    return Objects.equals(aiFunctionTask, that.aiFunctionTask)
+        && Objects.equals(aiRuntimeTask, that.aiRuntimeTask)
         && Objects.equals(conditionTask, that.conditionTask)
         && Objects.equals(dbtTask, that.dbtTask)
         && Objects.equals(notebookTask, that.notebookTask)
@@ -190,6 +208,7 @@ public class ResolvedValues {
   @Override
   public int hashCode() {
     return Objects.hash(
+        aiFunctionTask,
         aiRuntimeTask,
         conditionTask,
         dbtTask,
@@ -207,6 +226,7 @@ public class ResolvedValues {
   @Override
   public String toString() {
     return new ToStringer(ResolvedValues.class)
+        .add("aiFunctionTask", aiFunctionTask)
         .add("aiRuntimeTask", aiRuntimeTask)
         .add("conditionTask", conditionTask)
         .add("dbtTask", dbtTask)

@@ -1,5 +1,18 @@
 # Version changelog
 
+## Release v0.172.0 (2026-10-29)
+
+### Bug Fixes
+* Fix Databricks CLI authentication rejecting small wrappers around the CLI (e.g. launcher scripts or version manager shims) as the legacy Python CLI. Small files found in `PATH` are now only rejected if they are the entry point pip installs for the legacy Python CLI.
+
+### API Changes
+* Add `getBudgetSpendStatus()` and `listBudgetSpendStatuses()` methods for `accountClient.budgets()` service.
+* Add `aiFunctionTask` field for `com.databricks.sdk.service.jobs.ResolvedValues`.
+* Add `aiFunctionTaskOutput` field for `com.databricks.sdk.service.jobs.RunOutput`.
+* Add `aiFunctionTask` field for `com.databricks.sdk.service.jobs.RunTask`.
+* Add `aiFunctionTask` field for `com.databricks.sdk.service.jobs.SubmitTask`.
+* Add `aiFunctionTask` field for `com.databricks.sdk.service.jobs.Task`.
+
 ## Release v0.171.0 (2026-10-26)
 
 ### API Changes

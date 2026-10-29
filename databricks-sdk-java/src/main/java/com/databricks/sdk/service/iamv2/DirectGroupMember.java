@@ -14,7 +14,7 @@ public class DirectGroupMember {
   @JsonProperty("display_name")
   private String displayName;
 
-  /** The external ID of the principal in Databricks. */
+  /** The external ID of the principal in the customer's IdP. */
   @JsonProperty("external_id")
   private String externalId;
 

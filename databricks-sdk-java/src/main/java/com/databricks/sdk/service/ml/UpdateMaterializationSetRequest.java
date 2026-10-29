@@ -31,7 +31,7 @@ public class UpdateMaterializationSetRequest {
   @QueryParam("request_id")
   private String requestId;
 
-  /** The fields to update. Only 'materialized_features' is supported. */
+  /** The fields to update. Only 'materialized_features' or '*' is supported. */
   @JsonIgnore
   @QueryParam("update_mask")
   private FieldMask updateMask;

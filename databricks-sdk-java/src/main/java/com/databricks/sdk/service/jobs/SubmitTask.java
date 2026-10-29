@@ -10,6 +10,10 @@ import java.util.Objects;
 
 @Generated
 public class SubmitTask {
+  /** Applies an AI function to a set of input documents or rows. */
+  @JsonProperty("ai_function_task")
+  private AiFunctionTask aiFunctionTask;
+
   /**
    * The task runs a multi-gpu compute workload on Databricks AI Runtime. Specify the accelerator
    * type and count, the command to run, and where the workload's code and MLflow output are stored.
@@ -253,6 +257,15 @@ public class SubmitTask {
    */
   @JsonProperty("webhook_notifications")
   private WebhookNotifications webhookNotifications;
+
+  public SubmitTask setAiFunctionTask(AiFunctionTask aiFunctionTask) {
+    this.aiFunctionTask = aiFunctionTask;
+    return this;
+  }
+
+  public AiFunctionTask getAiFunctionTask() {
+    return aiFunctionTask;
+  }
 
   public SubmitTask setAiRuntimeTask(AiRuntimeTask aiRuntimeTask) {
     this.aiRuntimeTask = aiRuntimeTask;
@@ -619,7 +632,8 @@ public class SubmitTask {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     SubmitTask that = (SubmitTask) o;
-    return Objects.equals(aiRuntimeTask, that.aiRuntimeTask)
+    return Objects.equals(aiFunctionTask, that.aiFunctionTask)
+        && Objects.equals(aiRuntimeTask, that.aiRuntimeTask)
         && Objects.equals(alertTask, that.alertTask)
         && Objects.equals(cleanRoomsNotebookTask, that.cleanRoomsNotebookTask)
         && Objects.equals(compute, that.compute)
@@ -664,6 +678,7 @@ public class SubmitTask {
   @Override
   public int hashCode() {
     return Objects.hash(
+        aiFunctionTask,
         aiRuntimeTask,
         alertTask,
         cleanRoomsNotebookTask,
@@ -709,6 +724,7 @@ public class SubmitTask {
   @Override
   public String toString() {
     return new ToStringer(SubmitTask.class)
+        .add("aiFunctionTask", aiFunctionTask)
         .add("aiRuntimeTask", aiRuntimeTask)
         .add("alertTask", alertTask)
         .add("cleanRoomsNotebookTask", cleanRoomsNotebookTask)

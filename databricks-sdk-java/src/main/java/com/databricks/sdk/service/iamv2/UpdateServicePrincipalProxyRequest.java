@@ -18,7 +18,7 @@ public class UpdateServicePrincipalProxyRequest {
   /** Required. Internal ID of the service principal in Databricks. */
   @JsonIgnore private String servicePrincipalId;
 
-  /** Optional. The list of fields to update. */
+  /** Required. The list of fields to update. */
   @JsonIgnore
   @QueryParam("update_mask")
   private String updateMask;

@@ -6,20 +6,43 @@ import com.databricks.sdk.support.Generated;
 /**
  * Database Instances provide access to a database via REST API or direct SQL.
  *
+ * <p>For new workloads, Databricks recommends the [Postgres API], which supports the latest
+ * Lakebase features.
+ *
+ * <p>[Postgres API]: https://docs.databricks.com/api/postgres/v1/postgres
+ *
  * <p>This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
 @Generated
 public interface DatabaseService {
-  /** Create a Database Catalog. */
+  /**
+   * Create a Database Catalog.
+   *
+   * <p>For new workloads, Databricks recommends the Postgres API equivalent: [Create a catalog].
+   *
+   * <p>[Create a catalog]: https://docs.databricks.com/api/postgres/v1/create-catalog
+   */
   DatabaseCatalog createDatabaseCatalog(CreateDatabaseCatalogRequest createDatabaseCatalogRequest);
 
-  /** Create a Database Instance. */
+  /**
+   * Create a Database Instance.
+   *
+   * <p>For new workloads, Databricks recommends the Postgres API equivalent: [Create a project].
+   *
+   * <p>[Create a project]: https://docs.databricks.com/api/postgres/v1/create-project
+   */
   DatabaseInstance createDatabaseInstance(
       CreateDatabaseInstanceRequest createDatabaseInstanceRequest);
 
-  /** Create a role for a Database Instance. */
+  /**
+   * Create a role for a Database Instance.
+   *
+   * <p>For new workloads, Databricks recommends the Postgres API equivalent: [Create a role].
+   *
+   * <p>[Create a role]: https://docs.databricks.com/api/postgres/v1/create-role
+   */
   DatabaseInstanceRole createDatabaseInstanceRole(
       CreateDatabaseInstanceRoleRequest createDatabaseInstanceRoleRequest);
 
@@ -29,48 +52,112 @@ public interface DatabaseService {
    */
   DatabaseTable createDatabaseTable(CreateDatabaseTableRequest createDatabaseTableRequest);
 
-  /** Create a Synced Database Table. */
+  /**
+   * Create a Synced Database Table.
+   *
+   * <p>For new workloads, Databricks recommends the Postgres API equivalent: [Create a synced
+   * table].
+   *
+   * <p>[Create a synced table]: https://docs.databricks.com/api/postgres/v1/create-synced-table
+   */
   SyncedDatabaseTable createSyncedDatabaseTable(
       CreateSyncedDatabaseTableRequest createSyncedDatabaseTableRequest);
 
-  /** Delete a Database Catalog. */
+  /**
+   * Delete a Database Catalog.
+   *
+   * <p>For new workloads, Databricks recommends the Postgres API equivalent: [Delete a catalog].
+   *
+   * <p>[Delete a catalog]: https://docs.databricks.com/api/postgres/v1/delete-catalog
+   */
   void deleteDatabaseCatalog(DeleteDatabaseCatalogRequest deleteDatabaseCatalogRequest);
 
-  /** Delete a Database Instance. */
+  /**
+   * Delete a Database Instance.
+   *
+   * <p>For new workloads, Databricks recommends the Postgres API equivalent: [Delete a project].
+   *
+   * <p>[Delete a project]: https://docs.databricks.com/api/postgres/v1/delete-project
+   */
   void deleteDatabaseInstance(DeleteDatabaseInstanceRequest deleteDatabaseInstanceRequest);
 
-  /** Deletes a role for a Database Instance. */
+  /**
+   * Deletes a role for a Database Instance.
+   *
+   * <p>For new workloads, Databricks recommends the Postgres API equivalent: [Delete a role].
+   *
+   * <p>[Delete a role]: https://docs.databricks.com/api/postgres/v1/delete-role
+   */
   void deleteDatabaseInstanceRole(
       DeleteDatabaseInstanceRoleRequest deleteDatabaseInstanceRoleRequest);
 
   /** Delete a Database Table. */
   void deleteDatabaseTable(DeleteDatabaseTableRequest deleteDatabaseTableRequest);
 
-  /** Delete a Synced Database Table. */
+  /**
+   * Delete a Synced Database Table.
+   *
+   * <p>For new workloads, Databricks recommends the Postgres API equivalent: [Delete a synced
+   * table].
+   *
+   * <p>[Delete a synced table]: https://docs.databricks.com/api/postgres/v1/delete-synced-table
+   */
   void deleteSyncedDatabaseTable(DeleteSyncedDatabaseTableRequest deleteSyncedDatabaseTableRequest);
 
   /** Find a Database Instance by uid. */
   DatabaseInstance findDatabaseInstanceByUid(
       FindDatabaseInstanceByUidRequest findDatabaseInstanceByUidRequest);
 
-  /** Generates a credential that can be used to access database instances. */
+  /**
+   * Generates a credential that can be used to access database instances.
+   *
+   * <p>For new workloads, Databricks recommends the Postgres API equivalent: [Generate a database
+   * credential].
+   *
+   * <p>[Generate a database credential]:
+   * https://docs.databricks.com/api/postgres/v1/generate-database-credential
+   */
   DatabaseCredential generateDatabaseCredential(
       GenerateDatabaseCredentialRequest generateDatabaseCredentialRequest);
 
-  /** Get a Database Catalog. */
+  /**
+   * Get a Database Catalog.
+   *
+   * <p>For new workloads, Databricks recommends the Postgres API equivalent: [Get a catalog].
+   *
+   * <p>[Get a catalog]: https://docs.databricks.com/api/postgres/v1/get-catalog
+   */
   DatabaseCatalog getDatabaseCatalog(GetDatabaseCatalogRequest getDatabaseCatalogRequest);
 
-  /** Get a Database Instance. */
+  /**
+   * Get a Database Instance.
+   *
+   * <p>For new workloads, Databricks recommends the Postgres API equivalent: [Get a project].
+   *
+   * <p>[Get a project]: https://docs.databricks.com/api/postgres/v1/get-project
+   */
   DatabaseInstance getDatabaseInstance(GetDatabaseInstanceRequest getDatabaseInstanceRequest);
 
-  /** Gets a role for a Database Instance. */
+  /**
+   * Gets a role for a Database Instance.
+   *
+   * <p>For new workloads, Databricks recommends the Postgres API equivalent: [Get a role].
+   *
+   * <p>[Get a role]: https://docs.databricks.com/api/postgres/v1/get-role
+   */
   DatabaseInstanceRole getDatabaseInstanceRole(
       GetDatabaseInstanceRoleRequest getDatabaseInstanceRoleRequest);
 
   /** Get a Database Table. */
   DatabaseTable getDatabaseTable(GetDatabaseTableRequest getDatabaseTableRequest);
 
-  /** Get a Synced Database Table. */
+  /**
+   * Get a Synced Database Table.
+   *
+   * <p>For new workloads, Databricks recommends the Postgres API equivalent: [Get a synced table].
+   *
+   * <p>[Get a synced table]: https://docs.databricks.com/api/postgres/v1/get-synced-table
+   */
   SyncedDatabaseTable getSyncedDatabaseTable(
       GetSyncedDatabaseTableRequest getSyncedDatabaseTableRequest);
 
@@ -79,15 +166,22 @@ public interface DatabaseService {
       ListDatabaseCatalogsRequest listDatabaseCatalogsRequest);
 
   /**
-   * START OF PG ROLE APIs Section These APIs are marked a PUBLIC with stage < PUBLIC_PREVIEW. With
-   * more recent Lakebase V2 plans, we don't plan to ever advance these to PUBLIC_PREVIEW. These
-   * APIs will remain effectively undocumented/UI-only and we'll aim for a new public roles API as
-   * part of V2 PuPr.
+   * List roles for a Database Instance.
+   *
+   * <p>For new workloads, Databricks recommends the Postgres API equivalent: [List roles].
+   *
+   * <p>[List roles]: https://docs.databricks.com/api/postgres/v1/list-roles
    */
   ListDatabaseInstanceRolesResponse listDatabaseInstanceRoles(
       ListDatabaseInstanceRolesRequest listDatabaseInstanceRolesRequest);
 
-  /** List Database Instances. */
+  /**
+   * List Database Instances.
+   *
+   * <p>For new workloads, Databricks recommends the Postgres API equivalent: [List projects].
+   *
+   * <p>[List projects]: https://docs.databricks.com/api/postgres/v1/list-projects
+   */
   ListDatabaseInstancesResponse listDatabaseInstances(
       ListDatabaseInstancesRequest listDatabaseInstancesRequest);
 
@@ -98,7 +192,15 @@ public interface DatabaseService {
   /** This API is currently unimplemented, but exposed for Terraform support. */
   DatabaseCatalog updateDatabaseCatalog(UpdateDatabaseCatalogRequest updateDatabaseCatalogRequest);
 
-  /** Update a Database Instance. */
+  /**
+   * Update a Database Instance.
+   *
+   * <p>For new workloads, Databricks recommends the Postgres API equivalents: [Update a project]
+   * and [Update an endpoint].
+   *
+   * <p>[Update a project]: https://docs.databricks.com/api/postgres/v1/update-project [Update an
+   * endpoint]: https://docs.databricks.com/api/postgres/v1/update-endpoint
+   */
   DatabaseInstance updateDatabaseInstance(
       UpdateDatabaseInstanceRequest updateDatabaseInstanceRequest);
 

@@ -18,7 +18,7 @@ public class UpdateGroupRequest {
   /** Required. Internal ID of the group in Databricks. */
   @JsonIgnore private String groupId;
 
-  /** Optional. The list of fields to update. */
+  /** Required. The list of fields to update. */
   @JsonIgnore
   @QueryParam("update_mask")
   private String updateMask;
