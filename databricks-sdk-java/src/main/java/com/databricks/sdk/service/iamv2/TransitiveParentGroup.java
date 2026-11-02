@@ -22,6 +22,15 @@ public class TransitiveParentGroup {
   @JsonProperty("group_id")
   private String groupId;
 
+  /**
+   * The resource name of the transitive parent group. The format depends on the API that returned
+   * it: - Account-scoped:
+   * accounts/{account_id}/principals/{principal_id}/transitive-parent-groups/{group_id} -
+   * Workspace-scoped: principals/{principal_id}/transitive-parent-groups/{group_id}
+   */
+  @JsonProperty("name")
+  private String name;
+
   public TransitiveParentGroup setAccountId(String accountId) {
     this.accountId = accountId;
     return this;
@@ -49,6 +58,15 @@ public class TransitiveParentGroup {
     return groupId;
   }
 
+  public TransitiveParentGroup setName(String name) {
+    this.name = name;
+    return this;
+  }
+
+  public String getName() {
+    return name;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -56,12 +74,13 @@ public class TransitiveParentGroup {
     TransitiveParentGroup that = (TransitiveParentGroup) o;
     return Objects.equals(accountId, that.accountId)
         && Objects.equals(externalId, that.externalId)
-        && Objects.equals(groupId, that.groupId);
+        && Objects.equals(groupId, that.groupId)
+        && Objects.equals(name, that.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(accountId, externalId, groupId);
+    return Objects.hash(accountId, externalId, groupId, name);
   }
 
   @Override
@@ -70,6 +89,7 @@ public class TransitiveParentGroup {
         .add("accountId", accountId)
         .add("externalId", externalId)
         .add("groupId", groupId)
+        .add("name", name)
         .toString();
   }
 }

@@ -11,17 +11,30 @@ import java.util.Objects;
 
 @Generated
 public class UpdateServicePrincipalProxyRequest {
+  /**
+   * The resource name of the service principal. The format depends on the API that returned it: -
+   * Account-scoped: accounts/{account_id}/service-principals/{service_principal_id} -
+   * Workspace-scoped: service-principals/{service_principal_id}
+   */
+  @JsonIgnore private String name;
+
   /** Required. Service principal to be updated in Databricks */
   @JsonProperty("service_principal")
   private ServicePrincipal servicePrincipal;
-
-  /** Required. Internal ID of the service principal in Databricks. */
-  @JsonIgnore private String servicePrincipalId;
 
   /** Required. The list of fields to update. */
   @JsonIgnore
   @QueryParam("update_mask")
   private String updateMask;
+
+  public UpdateServicePrincipalProxyRequest setName(String name) {
+    this.name = name;
+    return this;
+  }
+
+  public String getName() {
+    return name;
+  }
 
   public UpdateServicePrincipalProxyRequest setServicePrincipal(ServicePrincipal servicePrincipal) {
     this.servicePrincipal = servicePrincipal;
@@ -30,15 +43,6 @@ public class UpdateServicePrincipalProxyRequest {
 
   public ServicePrincipal getServicePrincipal() {
     return servicePrincipal;
-  }
-
-  public UpdateServicePrincipalProxyRequest setServicePrincipalId(String servicePrincipalId) {
-    this.servicePrincipalId = servicePrincipalId;
-    return this;
-  }
-
-  public String getServicePrincipalId() {
-    return servicePrincipalId;
   }
 
   public UpdateServicePrincipalProxyRequest setUpdateMask(String updateMask) {
@@ -55,21 +59,21 @@ public class UpdateServicePrincipalProxyRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     UpdateServicePrincipalProxyRequest that = (UpdateServicePrincipalProxyRequest) o;
-    return Objects.equals(servicePrincipal, that.servicePrincipal)
-        && Objects.equals(servicePrincipalId, that.servicePrincipalId)
+    return Objects.equals(name, that.name)
+        && Objects.equals(servicePrincipal, that.servicePrincipal)
         && Objects.equals(updateMask, that.updateMask);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(servicePrincipal, servicePrincipalId, updateMask);
+    return Objects.hash(name, servicePrincipal, updateMask);
   }
 
   @Override
   public String toString() {
     return new ToStringer(UpdateServicePrincipalProxyRequest.class)
+        .add("name", name)
         .add("servicePrincipal", servicePrincipal)
-        .add("servicePrincipalId", servicePrincipalId)
         .add("updateMask", updateMask)
         .toString();
   }

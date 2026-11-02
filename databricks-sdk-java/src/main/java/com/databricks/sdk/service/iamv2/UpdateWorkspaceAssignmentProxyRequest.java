@@ -12,8 +12,13 @@ import java.util.Objects;
 
 @Generated
 public class UpdateWorkspaceAssignmentProxyRequest {
-  /** Required. ID of the principal in Databricks. */
-  @JsonIgnore private Long principalId;
+  /**
+   * The resource name of the workspace assignment. The format depends on the API that returned it:
+   * - Account-scoped:
+   * accounts/{account_id}/workspaces/{workspace_id}/workspace-assignments/{principal_id} -
+   * Workspace-scoped: workspace-assignments/{principal_id}
+   */
+  @JsonIgnore private String name;
 
   /** Required. The list of fields to update. */
   @JsonIgnore
@@ -24,13 +29,13 @@ public class UpdateWorkspaceAssignmentProxyRequest {
   @JsonProperty("workspace_assignment")
   private WorkspaceAssignment workspaceAssignment;
 
-  public UpdateWorkspaceAssignmentProxyRequest setPrincipalId(Long principalId) {
-    this.principalId = principalId;
+  public UpdateWorkspaceAssignmentProxyRequest setName(String name) {
+    this.name = name;
     return this;
   }
 
-  public Long getPrincipalId() {
-    return principalId;
+  public String getName() {
+    return name;
   }
 
   public UpdateWorkspaceAssignmentProxyRequest setUpdateMask(FieldMask updateMask) {
@@ -57,20 +62,20 @@ public class UpdateWorkspaceAssignmentProxyRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     UpdateWorkspaceAssignmentProxyRequest that = (UpdateWorkspaceAssignmentProxyRequest) o;
-    return Objects.equals(principalId, that.principalId)
+    return Objects.equals(name, that.name)
         && Objects.equals(updateMask, that.updateMask)
         && Objects.equals(workspaceAssignment, that.workspaceAssignment);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(principalId, updateMask, workspaceAssignment);
+    return Objects.hash(name, updateMask, workspaceAssignment);
   }
 
   @Override
   public String toString() {
     return new ToStringer(UpdateWorkspaceAssignmentProxyRequest.class)
-        .add("principalId", principalId)
+        .add("name", name)
         .add("updateMask", updateMask)
         .add("workspaceAssignment", workspaceAssignment)
         .toString();

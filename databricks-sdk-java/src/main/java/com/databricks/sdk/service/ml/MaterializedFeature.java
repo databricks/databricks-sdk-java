@@ -58,8 +58,8 @@ public class MaterializedFeature {
   private String latestBackfillOperation;
 
   /**
-   * The materialization set this materialized feature was created for, through DABs or
-   * direct-engine creation. Unset for a materialized feature that was not created as part of a set.
+   * The ID of the materialization set containing this materialized feature. Unset for a
+   * materialized feature that is not part of a set.
    */
   @JsonProperty("materialization_set_id")
   private String materializationSetId;
@@ -68,11 +68,7 @@ public class MaterializedFeature {
   @JsonProperty("materialized_feature_id")
   private String materializedFeatureId;
 
-  /**
-   * Notification configuration around the materialization job or pipeline lifecycle. They are
-   * applied to every job and pipeline that materializes this feature. Features which are
-   * materialized in the same pipeline will share the same notification.
-   */
+  /** Notification configuration for the jobs and pipelines that materialize this feature. */
   @JsonProperty("notifications")
   private MaterializationNotifications notifications;
 
@@ -97,10 +93,7 @@ public class MaterializedFeature {
   @JsonProperty("pipeline_id")
   private String pipelineId;
 
-  /**
-   * The schedule state of the materialization pipeline. Hidden from GraphQL: being deprecated, so
-   * not exposed to Catalog Explorer.
-   */
+  /** Deprecated: This legacy pipeline setting does not control batch job scheduling. */
   @JsonProperty("pipeline_schedule_state")
   private MaterializedFeaturePipelineScheduleState pipelineScheduleState;
 

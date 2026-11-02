@@ -287,7 +287,7 @@ public class FeatureEngineeringAPI {
     return new UpdateMaterializationSetOperation(impl, operation);
   }
 
-  /** Update a materialized feature (pause/resume). */
+  /** Updates a materialized feature. */
   public MaterializedFeature updateMaterializedFeature(UpdateMaterializedFeatureRequest request) {
     return impl.updateMaterializedFeature(request);
   }

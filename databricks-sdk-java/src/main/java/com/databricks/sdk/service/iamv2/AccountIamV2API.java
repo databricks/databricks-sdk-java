@@ -105,9 +105,8 @@ public class AccountIamV2API {
     return impl.createWorkspaceAssignmentDetail(request);
   }
 
-  public void deleteDirectGroupMember(long groupId, long principalId) {
-    deleteDirectGroupMember(
-        new DeleteDirectGroupMemberRequest().setGroupId(groupId).setPrincipalId(principalId));
+  public void deleteDirectGroupMember(String name) {
+    deleteDirectGroupMember(new DeleteDirectGroupMemberRequest().setName(name));
   }
 
   /**
@@ -120,8 +119,8 @@ public class AccountIamV2API {
     impl.deleteDirectGroupMember(request);
   }
 
-  public void deleteGroup(String groupId) {
-    deleteGroup(new DeleteGroupRequest().setGroupId(groupId));
+  public void deleteGroup(String name) {
+    deleteGroup(new DeleteGroupRequest().setName(name));
   }
 
   /**
@@ -149,9 +148,8 @@ public class AccountIamV2API {
     impl.deleteIdentityVisibilityFilter(request);
   }
 
-  public void deleteServicePrincipal(String servicePrincipalId) {
-    deleteServicePrincipal(
-        new DeleteServicePrincipalRequest().setServicePrincipalId(servicePrincipalId));
+  public void deleteServicePrincipal(String name) {
+    deleteServicePrincipal(new DeleteServicePrincipalRequest().setName(name));
   }
 
   /** Deletes a service principal from the Databricks account by its internal ID. */
@@ -159,8 +157,8 @@ public class AccountIamV2API {
     impl.deleteServicePrincipal(request);
   }
 
-  public void deleteUser(String userId) {
-    deleteUser(new DeleteUserRequest().setUserId(userId));
+  public void deleteUser(String name) {
+    deleteUser(new DeleteUserRequest().setName(name));
   }
 
   /** Deletes a user from the Databricks account by its internal ID. */
@@ -168,11 +166,8 @@ public class AccountIamV2API {
     impl.deleteUser(request);
   }
 
-  public void deleteWorkspaceAssignment(long workspaceId, long principalId) {
-    deleteWorkspaceAssignment(
-        new DeleteWorkspaceAssignmentRequest()
-            .setWorkspaceId(workspaceId)
-            .setPrincipalId(principalId));
+  public void deleteWorkspaceAssignment(String name) {
+    deleteWorkspaceAssignment(new DeleteWorkspaceAssignmentRequest().setName(name));
   }
 
   /**
@@ -200,9 +195,8 @@ public class AccountIamV2API {
     impl.deleteWorkspaceAssignmentDetail(request);
   }
 
-  public DirectGroupMember getDirectGroupMember(long groupId, long principalId) {
-    return getDirectGroupMember(
-        new GetDirectGroupMemberRequest().setGroupId(groupId).setPrincipalId(principalId));
+  public DirectGroupMember getDirectGroupMember(String name) {
+    return getDirectGroupMember(new GetDirectGroupMemberRequest().setName(name));
   }
 
   /** Gets a provisioned direct member of a group. */
@@ -250,8 +244,8 @@ public class AccountIamV2API {
     return impl.getExternalUser(request);
   }
 
-  public Group getGroup(String groupId) {
-    return getGroup(new GetGroupRequest().setGroupId(groupId));
+  public Group getGroup(String name) {
+    return getGroup(new GetGroupRequest().setName(name));
   }
 
   /** Fetches a group from the Databricks account by its internal ID. */
@@ -272,9 +266,8 @@ public class AccountIamV2API {
     return impl.getIdentityVisibilityFilter(request);
   }
 
-  public ServicePrincipal getServicePrincipal(String servicePrincipalId) {
-    return getServicePrincipal(
-        new GetServicePrincipalRequest().setServicePrincipalId(servicePrincipalId));
+  public ServicePrincipal getServicePrincipal(String name) {
+    return getServicePrincipal(new GetServicePrincipalRequest().setName(name));
   }
 
   /** Fetches a service principal from the Databricks account by its internal ID. */
@@ -282,8 +275,8 @@ public class AccountIamV2API {
     return impl.getServicePrincipal(request);
   }
 
-  public User getUser(String userId) {
-    return getUser(new GetUserRequest().setUserId(userId));
+  public User getUser(String name) {
+    return getUser(new GetUserRequest().setName(name));
   }
 
   /** Fetches a user from the Databricks account by its internal ID. */
@@ -291,11 +284,8 @@ public class AccountIamV2API {
     return impl.getUser(request);
   }
 
-  public WorkspaceAccessDetail getWorkspaceAccessDetail(long workspaceId, long principalId) {
-    return getWorkspaceAccessDetail(
-        new GetWorkspaceAccessDetailRequest()
-            .setWorkspaceId(workspaceId)
-            .setPrincipalId(principalId));
+  public WorkspaceAccessDetail getWorkspaceAccessDetail(String name) {
+    return getWorkspaceAccessDetail(new GetWorkspaceAccessDetailRequest().setName(name));
   }
 
   /**
@@ -309,11 +299,8 @@ public class AccountIamV2API {
     return impl.getWorkspaceAccessDetail(request);
   }
 
-  public WorkspaceAssignment getWorkspaceAssignment(long workspaceId, long principalId) {
-    return getWorkspaceAssignment(
-        new GetWorkspaceAssignmentRequest()
-            .setWorkspaceId(workspaceId)
-            .setPrincipalId(principalId));
+  public WorkspaceAssignment getWorkspaceAssignment(String name) {
+    return getWorkspaceAssignment(new GetWorkspaceAssignmentRequest().setName(name));
   }
 
   /** Returns the assignment for a principal in a workspace. */
@@ -335,8 +322,8 @@ public class AccountIamV2API {
     return impl.getWorkspaceAssignmentDetail(request);
   }
 
-  public Iterable<DirectGroupMember> listDirectGroupMembers(long groupId) {
-    return listDirectGroupMembers(new ListDirectGroupMembersRequest().setGroupId(groupId));
+  public Iterable<DirectGroupMember> listDirectGroupMembers(String parent) {
+    return listDirectGroupMembers(new ListDirectGroupMembersRequest().setParent(parent));
   }
 
   /**
@@ -355,6 +342,10 @@ public class AccountIamV2API {
           }
           return request.setPageToken(token);
         });
+  }
+
+  public Iterable<Group> listGroups(String parent) {
+    return listGroups(new ListGroupsRequest().setParent(parent));
   }
 
   /**
@@ -401,6 +392,10 @@ public class AccountIamV2API {
         });
   }
 
+  public Iterable<ServicePrincipal> listServicePrincipals(String parent) {
+    return listServicePrincipals(new ListServicePrincipalsRequest().setParent(parent));
+  }
+
   /**
    * Lists the service principals in the Databricks account, returning one page per call. Supports
    * filtering by application ID or external ID.
@@ -419,15 +414,18 @@ public class AccountIamV2API {
         });
   }
 
-  public ListTransitiveParentGroupsResponse listTransitiveParentGroups(long principalId) {
-    return listTransitiveParentGroups(
-        new ListTransitiveParentGroupsRequest().setPrincipalId(principalId));
+  public ListTransitiveParentGroupsResponse listTransitiveParentGroups(String parent) {
+    return listTransitiveParentGroups(new ListTransitiveParentGroupsRequest().setParent(parent));
   }
 
   /** Lists all transitive parent groups of a principal. */
   public ListTransitiveParentGroupsResponse listTransitiveParentGroups(
       ListTransitiveParentGroupsRequest request) {
     return impl.listTransitiveParentGroups(request);
+  }
+
+  public Iterable<User> listUsers(String parent) {
+    return listUsers(new ListUsersRequest().setParent(parent));
   }
 
   /**
@@ -473,9 +471,8 @@ public class AccountIamV2API {
         });
   }
 
-  public Iterable<WorkspaceAssignment> listWorkspaceAssignments(long workspaceId) {
-    return listWorkspaceAssignments(
-        new ListWorkspaceAssignmentsRequest().setWorkspaceId(workspaceId));
+  public Iterable<WorkspaceAssignment> listWorkspaceAssignments(String parent) {
+    return listWorkspaceAssignments(new ListWorkspaceAssignmentsRequest().setParent(parent));
   }
 
   /**
@@ -546,7 +543,8 @@ public class AccountIamV2API {
    * Updates an existing service principal in the Databricks account. Only the fields named in the
    * update mask are modified. Returns the updated ServicePrincipal resource.
    *
-   * <p>For locally managed service principals, is_agent must be set to true or false when updated.
+   * <p>To change is_agent on a locally managed service principal, set it to true or false. Naming
+   * is_agent in the update mask without a value leaves it unchanged.
    *
    * <p>When AIM is enabled and the service principal is an external identity (its external_id is
    * set), only external_id can be updated; its other fields are sourced from your identity

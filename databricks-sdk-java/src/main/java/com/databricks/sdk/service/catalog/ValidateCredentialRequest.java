@@ -9,11 +9,11 @@ import java.util.Objects;
 
 @Generated
 public class ValidateCredentialRequest {
-  /** */
+  /** Deprecated: create a credential and pass its credential_name instead. */
   @JsonProperty("aws_iam_role")
   private AwsIamRole awsIamRole;
 
-  /** */
+  /** Deprecated: create a credential and pass its credential_name instead. */
   @JsonProperty("azure_managed_identity")
   private AzureManagedIdentity azureManagedIdentity;
 
@@ -21,7 +21,7 @@ public class ValidateCredentialRequest {
   @JsonProperty("credential_name")
   private String credentialName;
 
-  /** */
+  /** Deprecated: create a credential and pass its credential_name instead. */
   @JsonProperty("databricks_gcp_service_account")
   private DatabricksGcpServiceAccount databricksGcpServiceAccount;
 

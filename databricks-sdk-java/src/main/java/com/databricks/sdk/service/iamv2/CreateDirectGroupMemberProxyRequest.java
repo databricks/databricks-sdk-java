@@ -14,8 +14,8 @@ public class CreateDirectGroupMemberProxyRequest {
   @JsonProperty("direct_group_member")
   private DirectGroupMember directGroupMember;
 
-  /** Required. Internal ID of the group in Databricks. */
-  @JsonIgnore private Long groupId;
+  /** The parent resource name of the group to add the member to. Format: groups/{group_id} */
+  @JsonIgnore private String parent;
 
   public CreateDirectGroupMemberProxyRequest setDirectGroupMember(
       DirectGroupMember directGroupMember) {
@@ -27,13 +27,13 @@ public class CreateDirectGroupMemberProxyRequest {
     return directGroupMember;
   }
 
-  public CreateDirectGroupMemberProxyRequest setGroupId(Long groupId) {
-    this.groupId = groupId;
+  public CreateDirectGroupMemberProxyRequest setParent(String parent) {
+    this.parent = parent;
     return this;
   }
 
-  public Long getGroupId() {
-    return groupId;
+  public String getParent() {
+    return parent;
   }
 
   @Override
@@ -42,19 +42,19 @@ public class CreateDirectGroupMemberProxyRequest {
     if (o == null || getClass() != o.getClass()) return false;
     CreateDirectGroupMemberProxyRequest that = (CreateDirectGroupMemberProxyRequest) o;
     return Objects.equals(directGroupMember, that.directGroupMember)
-        && Objects.equals(groupId, that.groupId);
+        && Objects.equals(parent, that.parent);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(directGroupMember, groupId);
+    return Objects.hash(directGroupMember, parent);
   }
 
   @Override
   public String toString() {
     return new ToStringer(CreateDirectGroupMemberProxyRequest.class)
         .add("directGroupMember", directGroupMember)
-        .add("groupId", groupId)
+        .add("parent", parent)
         .toString();
   }
 }

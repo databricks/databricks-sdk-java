@@ -32,6 +32,14 @@ public class ListUsersProxyRequest {
   @QueryParam("page_token")
   private String pageToken;
 
+  /**
+   * The resource name of the account to list users in, `accounts/{account_id}`. Optional: defaults
+   * to the account of the calling workspace, and any other account is rejected.
+   */
+  @JsonIgnore
+  @QueryParam("parent")
+  private String parent;
+
   public ListUsersProxyRequest setFilter(String filter) {
     this.filter = filter;
     return this;
@@ -59,6 +67,15 @@ public class ListUsersProxyRequest {
     return pageToken;
   }
 
+  public ListUsersProxyRequest setParent(String parent) {
+    this.parent = parent;
+    return this;
+  }
+
+  public String getParent() {
+    return parent;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -66,12 +83,13 @@ public class ListUsersProxyRequest {
     ListUsersProxyRequest that = (ListUsersProxyRequest) o;
     return Objects.equals(filter, that.filter)
         && Objects.equals(pageSize, that.pageSize)
-        && Objects.equals(pageToken, that.pageToken);
+        && Objects.equals(pageToken, that.pageToken)
+        && Objects.equals(parent, that.parent);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(filter, pageSize, pageToken);
+    return Objects.hash(filter, pageSize, pageToken, parent);
   }
 
   @Override
@@ -80,6 +98,7 @@ public class ListUsersProxyRequest {
         .add("filter", filter)
         .add("pageSize", pageSize)
         .add("pageToken", pageToken)
+        .add("parent", parent)
         .toString();
   }
 }

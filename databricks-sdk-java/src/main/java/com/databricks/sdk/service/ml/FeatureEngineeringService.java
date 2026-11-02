@@ -126,7 +126,7 @@ public interface FeatureEngineeringService {
   Operation updateMaterializationSet(
       UpdateMaterializationSetRequest updateMaterializationSetRequest);
 
-  /** Update a materialized feature (pause/resume). */
+  /** Updates a materialized feature. */
   MaterializedFeature updateMaterializedFeature(
       UpdateMaterializedFeatureRequest updateMaterializedFeatureRequest);
 

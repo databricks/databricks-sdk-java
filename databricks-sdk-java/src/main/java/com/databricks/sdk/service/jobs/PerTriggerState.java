@@ -24,6 +24,10 @@ public class PerTriggerState {
   private FileArrivalTriggerState fileArrival;
 
   /** */
+  @JsonProperty("job_completion")
+  private JobCompletionTriggerState jobCompletion;
+
+  /** */
   @JsonProperty("model")
   private ModelTriggerState model;
 
@@ -63,6 +67,15 @@ public class PerTriggerState {
 
   public FileArrivalTriggerState getFileArrival() {
     return fileArrival;
+  }
+
+  public PerTriggerState setJobCompletion(JobCompletionTriggerState jobCompletion) {
+    this.jobCompletion = jobCompletion;
+    return this;
+  }
+
+  public JobCompletionTriggerState getJobCompletion() {
+    return jobCompletion;
   }
 
   public PerTriggerState setModel(ModelTriggerState model) {
@@ -126,6 +139,7 @@ public class PerTriggerState {
     PerTriggerState that = (PerTriggerState) o;
     return Objects.equals(continuous, that.continuous)
         && Objects.equals(fileArrival, that.fileArrival)
+        && Objects.equals(jobCompletion, that.jobCompletion)
         && Objects.equals(model, that.model)
         && Objects.equals(pauseStatus, that.pauseStatus)
         && Objects.equals(periodic, that.periodic)
@@ -137,7 +151,15 @@ public class PerTriggerState {
   @Override
   public int hashCode() {
     return Objects.hash(
-        continuous, fileArrival, model, pauseStatus, periodic, schedule, sqlCondition, tableUpdate);
+        continuous,
+        fileArrival,
+        jobCompletion,
+        model,
+        pauseStatus,
+        periodic,
+        schedule,
+        sqlCondition,
+        tableUpdate);
   }
 
   @Override
@@ -145,6 +167,7 @@ public class PerTriggerState {
     return new ToStringer(PerTriggerState.class)
         .add("continuous", continuous)
         .add("fileArrival", fileArrival)
+        .add("jobCompletion", jobCompletion)
         .add("model", model)
         .add("pauseStatus", pauseStatus)
         .add("periodic", periodic)

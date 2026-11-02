@@ -9,28 +9,19 @@ import java.util.Objects;
 
 @Generated
 public class DeleteWorkspaceAssignmentRequest {
-  /** Required. ID of the principal in Databricks to delete workspace assignment for. */
-  @JsonIgnore private Long principalId;
+  /**
+   * The resource name of the workspace assignment. Format:
+   * accounts/{account_id}/workspaces/{workspace_id}/workspace-assignments/{principal_id}
+   */
+  @JsonIgnore private String name;
 
-  /** The workspace ID where the principal has access. */
-  @JsonIgnore private Long workspaceId;
-
-  public DeleteWorkspaceAssignmentRequest setPrincipalId(Long principalId) {
-    this.principalId = principalId;
+  public DeleteWorkspaceAssignmentRequest setName(String name) {
+    this.name = name;
     return this;
   }
 
-  public Long getPrincipalId() {
-    return principalId;
-  }
-
-  public DeleteWorkspaceAssignmentRequest setWorkspaceId(Long workspaceId) {
-    this.workspaceId = workspaceId;
-    return this;
-  }
-
-  public Long getWorkspaceId() {
-    return workspaceId;
+  public String getName() {
+    return name;
   }
 
   @Override
@@ -38,20 +29,16 @@ public class DeleteWorkspaceAssignmentRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     DeleteWorkspaceAssignmentRequest that = (DeleteWorkspaceAssignmentRequest) o;
-    return Objects.equals(principalId, that.principalId)
-        && Objects.equals(workspaceId, that.workspaceId);
+    return Objects.equals(name, that.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(principalId, workspaceId);
+    return Objects.hash(name);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(DeleteWorkspaceAssignmentRequest.class)
-        .add("principalId", principalId)
-        .add("workspaceId", workspaceId)
-        .toString();
+    return new ToStringer(DeleteWorkspaceAssignmentRequest.class).add("name", name).toString();
   }
 }

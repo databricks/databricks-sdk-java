@@ -559,7 +559,14 @@ public class PostgresAPI {
     return new UpdateProjectOperation(impl, operation);
   }
 
-  /** Update a role for a branch. */
+  /**
+   * Updates the mutable fields of a Postgres role for a branch.
+   *
+   * <p>The fields `spec.identity_type`, `spec.auth_method`, and `spec.postgres_role` are fixed when
+   * the role is created. UpdateRole ignores values supplied for these fields in the request body
+   * and retains their existing values. Explicitly naming one of these fields in `update_mask`
+   * returns an INVALID_PARAMETER_VALUE error.
+   */
   public UpdateRoleOperation updateRole(UpdateRoleRequest request) {
     Operation operation = impl.updateRole(request);
     return new UpdateRoleOperation(impl, operation);

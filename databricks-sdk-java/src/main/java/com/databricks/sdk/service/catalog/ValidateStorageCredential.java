@@ -9,23 +9,38 @@ import java.util.Objects;
 
 @Generated
 public class ValidateStorageCredential {
-  /** The AWS IAM role configuration. */
+  /**
+   * Deprecated: create a storage credential and pass its storage_credential_name instead. The AWS
+   * IAM role configuration.
+   */
   @JsonProperty("aws_iam_role")
   private AwsIamRoleRequest awsIamRole;
 
-  /** The Azure managed identity configuration. */
+  /**
+   * Deprecated: create a storage credential and pass its storage_credential_name instead. The Azure
+   * managed identity configuration.
+   */
   @JsonProperty("azure_managed_identity")
   private AzureManagedIdentityRequest azureManagedIdentity;
 
-  /** The Azure service principal configuration. */
+  /**
+   * Deprecated: create a storage credential and pass its storage_credential_name instead. The Azure
+   * service principal configuration.
+   */
   @JsonProperty("azure_service_principal")
   private AzureServicePrincipal azureServicePrincipal;
 
-  /** The Cloudflare API token configuration. */
+  /**
+   * Deprecated: create a storage credential and pass its storage_credential_name instead. The
+   * Cloudflare API token configuration.
+   */
   @JsonProperty("cloudflare_api_token")
   private CloudflareApiToken cloudflareApiToken;
 
-  /** The Databricks created GCP service account configuration. */
+  /**
+   * Deprecated: create a storage credential and pass its storage_credential_name instead. The
+   * Databricks created GCP service account configuration.
+   */
   @JsonProperty("databricks_gcp_service_account")
   private DatabricksGcpServiceAccountRequest databricksGcpServiceAccount;
 

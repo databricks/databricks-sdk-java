@@ -11,7 +11,7 @@ import java.util.Objects;
 
 @Generated
 public class BackfillFeaturesRequest {
-  /** Output ranges to backfill. */
+  /** Time ranges of source data to backfill. Ranges must not overlap. */
   @JsonProperty("backfill_ranges")
   private Collection<BackfillRange> backfillRanges;
 
@@ -22,7 +22,11 @@ public class BackfillFeaturesRequest {
   @JsonProperty("budget_policy_id")
   private String budgetPolicyId;
 
-  /** Full names of the features to backfill. */
+  /**
+   * Full names of the features to backfill. All features must share the same interval between
+   * values and the same offset. The interval is the slide_duration of a sliding window or the
+   * window_duration of a tumbling window.
+   */
   @JsonProperty("feature_full_names")
   private Collection<String> featureFullNames;
 

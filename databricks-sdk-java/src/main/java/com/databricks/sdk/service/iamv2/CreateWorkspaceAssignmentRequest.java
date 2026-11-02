@@ -10,12 +10,24 @@ import java.util.Objects;
 
 @Generated
 public class CreateWorkspaceAssignmentRequest {
+  /**
+   * The parent resource name of the workspace to assign the principal to. Format:
+   * accounts/{account_id}/workspaces/{workspace_id}
+   */
+  @JsonIgnore private String parent;
+
   /** Required. Workspace assignment to be created in Databricks. */
   @JsonProperty("workspace_assignment")
   private WorkspaceAssignment workspaceAssignment;
 
-  /** Required. The workspace ID for which the workspace assignment is being created. */
-  @JsonIgnore private Long workspaceId;
+  public CreateWorkspaceAssignmentRequest setParent(String parent) {
+    this.parent = parent;
+    return this;
+  }
+
+  public String getParent() {
+    return parent;
+  }
 
   public CreateWorkspaceAssignmentRequest setWorkspaceAssignment(
       WorkspaceAssignment workspaceAssignment) {
@@ -27,34 +39,25 @@ public class CreateWorkspaceAssignmentRequest {
     return workspaceAssignment;
   }
 
-  public CreateWorkspaceAssignmentRequest setWorkspaceId(Long workspaceId) {
-    this.workspaceId = workspaceId;
-    return this;
-  }
-
-  public Long getWorkspaceId() {
-    return workspaceId;
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     CreateWorkspaceAssignmentRequest that = (CreateWorkspaceAssignmentRequest) o;
-    return Objects.equals(workspaceAssignment, that.workspaceAssignment)
-        && Objects.equals(workspaceId, that.workspaceId);
+    return Objects.equals(parent, that.parent)
+        && Objects.equals(workspaceAssignment, that.workspaceAssignment);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(workspaceAssignment, workspaceId);
+    return Objects.hash(parent, workspaceAssignment);
   }
 
   @Override
   public String toString() {
     return new ToStringer(CreateWorkspaceAssignmentRequest.class)
+        .add("parent", parent)
         .add("workspaceAssignment", workspaceAssignment)
-        .add("workspaceId", workspaceId)
         .toString();
   }
 }

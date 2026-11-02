@@ -10,18 +10,18 @@ import java.util.Objects;
 @Generated
 public class GetWorkspaceIdentityDetailRequest {
   /**
-   * Required. The internal ID of the principal (user/sp/group) for which the identity details are
-   * being requested.
+   * The resource name of the workspace identity detail. Format:
+   * principals/{principal_id}/workspace-identity-detail
    */
-  @JsonIgnore private Long principalId;
+  @JsonIgnore private String name;
 
-  public GetWorkspaceIdentityDetailRequest setPrincipalId(Long principalId) {
-    this.principalId = principalId;
+  public GetWorkspaceIdentityDetailRequest setName(String name) {
+    this.name = name;
     return this;
   }
 
-  public Long getPrincipalId() {
-    return principalId;
+  public String getName() {
+    return name;
   }
 
   @Override
@@ -29,18 +29,16 @@ public class GetWorkspaceIdentityDetailRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GetWorkspaceIdentityDetailRequest that = (GetWorkspaceIdentityDetailRequest) o;
-    return Objects.equals(principalId, that.principalId);
+    return Objects.equals(name, that.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(principalId);
+    return Objects.hash(name);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(GetWorkspaceIdentityDetailRequest.class)
-        .add("principalId", principalId)
-        .toString();
+    return new ToStringer(GetWorkspaceIdentityDetailRequest.class).add("name", name).toString();
   }
 }

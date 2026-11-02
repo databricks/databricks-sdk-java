@@ -14,8 +14,11 @@ public class CreateDirectGroupMemberRequest {
   @JsonProperty("direct_group_member")
   private DirectGroupMember directGroupMember;
 
-  /** Required. Internal ID of the group in Databricks. */
-  @JsonIgnore private Long groupId;
+  /**
+   * The parent resource name of the group to add the member to. Format:
+   * accounts/{account_id}/groups/{group_id}
+   */
+  @JsonIgnore private String parent;
 
   public CreateDirectGroupMemberRequest setDirectGroupMember(DirectGroupMember directGroupMember) {
     this.directGroupMember = directGroupMember;
@@ -26,13 +29,13 @@ public class CreateDirectGroupMemberRequest {
     return directGroupMember;
   }
 
-  public CreateDirectGroupMemberRequest setGroupId(Long groupId) {
-    this.groupId = groupId;
+  public CreateDirectGroupMemberRequest setParent(String parent) {
+    this.parent = parent;
     return this;
   }
 
-  public Long getGroupId() {
-    return groupId;
+  public String getParent() {
+    return parent;
   }
 
   @Override
@@ -41,19 +44,19 @@ public class CreateDirectGroupMemberRequest {
     if (o == null || getClass() != o.getClass()) return false;
     CreateDirectGroupMemberRequest that = (CreateDirectGroupMemberRequest) o;
     return Objects.equals(directGroupMember, that.directGroupMember)
-        && Objects.equals(groupId, that.groupId);
+        && Objects.equals(parent, that.parent);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(directGroupMember, groupId);
+    return Objects.hash(directGroupMember, parent);
   }
 
   @Override
   public String toString() {
     return new ToStringer(CreateDirectGroupMemberRequest.class)
         .add("directGroupMember", directGroupMember)
-        .add("groupId", groupId)
+        .add("parent", parent)
         .toString();
   }
 }

@@ -3,15 +3,34 @@
 package com.databricks.sdk.service.iamv2;
 
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 @Generated
 public class CreateServicePrincipalProxyRequest {
+  /**
+   * The resource name of the account to create the service principal in, `accounts/{account_id}`.
+   * Optional: defaults to the account of the calling workspace, and any other account is rejected.
+   */
+  @JsonIgnore
+  @QueryParam("parent")
+  private String parent;
+
   /** Required. Service principal to be created in Databricks */
   @JsonProperty("service_principal")
   private ServicePrincipal servicePrincipal;
+
+  public CreateServicePrincipalProxyRequest setParent(String parent) {
+    this.parent = parent;
+    return this;
+  }
+
+  public String getParent() {
+    return parent;
+  }
 
   public CreateServicePrincipalProxyRequest setServicePrincipal(ServicePrincipal servicePrincipal) {
     this.servicePrincipal = servicePrincipal;
@@ -27,17 +46,19 @@ public class CreateServicePrincipalProxyRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     CreateServicePrincipalProxyRequest that = (CreateServicePrincipalProxyRequest) o;
-    return Objects.equals(servicePrincipal, that.servicePrincipal);
+    return Objects.equals(parent, that.parent)
+        && Objects.equals(servicePrincipal, that.servicePrincipal);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(servicePrincipal);
+    return Objects.hash(parent, servicePrincipal);
   }
 
   @Override
   public String toString() {
     return new ToStringer(CreateServicePrincipalProxyRequest.class)
+        .add("parent", parent)
         .add("servicePrincipal", servicePrincipal)
         .toString();
   }

@@ -90,9 +90,8 @@ public class WorkspaceIamV2API {
     return impl.createWorkspaceAssignmentProxy(request);
   }
 
-  public void deleteDirectGroupMemberProxy(long groupId, long principalId) {
-    deleteDirectGroupMemberProxy(
-        new DeleteDirectGroupMemberProxyRequest().setGroupId(groupId).setPrincipalId(principalId));
+  public void deleteDirectGroupMemberProxy(String name) {
+    deleteDirectGroupMemberProxy(new DeleteDirectGroupMemberProxyRequest().setName(name));
   }
 
   /** Deletes a group membership (unassigns a principal from a group). */
@@ -100,8 +99,8 @@ public class WorkspaceIamV2API {
     impl.deleteDirectGroupMemberProxy(request);
   }
 
-  public void deleteGroupProxy(String groupId) {
-    deleteGroupProxy(new DeleteGroupProxyRequest().setGroupId(groupId));
+  public void deleteGroupProxy(String name) {
+    deleteGroupProxy(new DeleteGroupProxyRequest().setName(name));
   }
 
   /**
@@ -112,9 +111,8 @@ public class WorkspaceIamV2API {
     impl.deleteGroupProxy(request);
   }
 
-  public void deleteServicePrincipalProxy(String servicePrincipalId) {
-    deleteServicePrincipalProxy(
-        new DeleteServicePrincipalProxyRequest().setServicePrincipalId(servicePrincipalId));
+  public void deleteServicePrincipalProxy(String name) {
+    deleteServicePrincipalProxy(new DeleteServicePrincipalProxyRequest().setName(name));
   }
 
   /**
@@ -125,8 +123,8 @@ public class WorkspaceIamV2API {
     impl.deleteServicePrincipalProxy(request);
   }
 
-  public void deleteUserProxy(String userId) {
-    deleteUserProxy(new DeleteUserProxyRequest().setUserId(userId));
+  public void deleteUserProxy(String name) {
+    deleteUserProxy(new DeleteUserProxyRequest().setName(name));
   }
 
   /**
@@ -153,9 +151,8 @@ public class WorkspaceIamV2API {
     impl.deleteWorkspaceAssignmentDetailProxy(request);
   }
 
-  public void deleteWorkspaceAssignmentProxy(long principalId) {
-    deleteWorkspaceAssignmentProxy(
-        new DeleteWorkspaceAssignmentProxyRequest().setPrincipalId(principalId));
+  public void deleteWorkspaceAssignmentProxy(String name) {
+    deleteWorkspaceAssignmentProxy(new DeleteWorkspaceAssignmentProxyRequest().setName(name));
   }
 
   /**
@@ -168,9 +165,8 @@ public class WorkspaceIamV2API {
     impl.deleteWorkspaceAssignmentProxy(request);
   }
 
-  public DirectGroupMember getDirectGroupMemberProxy(long groupId, long principalId) {
-    return getDirectGroupMemberProxy(
-        new GetDirectGroupMemberProxyRequest().setGroupId(groupId).setPrincipalId(principalId));
+  public DirectGroupMember getDirectGroupMemberProxy(String name) {
+    return getDirectGroupMemberProxy(new GetDirectGroupMemberProxyRequest().setName(name));
   }
 
   /** Gets a provisioned direct member of a group. */
@@ -222,8 +218,8 @@ public class WorkspaceIamV2API {
     return impl.getExternalUserProxy(request);
   }
 
-  public Group getGroupProxy(String groupId) {
-    return getGroupProxy(new GetGroupProxyRequest().setGroupId(groupId));
+  public Group getGroupProxy(String name) {
+    return getGroupProxy(new GetGroupProxyRequest().setName(name));
   }
 
   /**
@@ -234,9 +230,8 @@ public class WorkspaceIamV2API {
     return impl.getGroupProxy(request);
   }
 
-  public ServicePrincipal getServicePrincipalProxy(String servicePrincipalId) {
-    return getServicePrincipalProxy(
-        new GetServicePrincipalProxyRequest().setServicePrincipalId(servicePrincipalId));
+  public ServicePrincipal getServicePrincipalProxy(String name) {
+    return getServicePrincipalProxy(new GetServicePrincipalProxyRequest().setName(name));
   }
 
   /**
@@ -247,8 +242,8 @@ public class WorkspaceIamV2API {
     return impl.getServicePrincipalProxy(request);
   }
 
-  public User getUserProxy(String userId) {
-    return getUserProxy(new GetUserProxyRequest().setUserId(userId));
+  public User getUserProxy(String name) {
+    return getUserProxy(new GetUserProxyRequest().setName(name));
   }
 
   /**
@@ -259,9 +254,8 @@ public class WorkspaceIamV2API {
     return impl.getUserProxy(request);
   }
 
-  public WorkspaceAccessDetail getWorkspaceAccessDetailLocal(long principalId) {
-    return getWorkspaceAccessDetailLocal(
-        new GetWorkspaceAccessDetailLocalRequest().setPrincipalId(principalId));
+  public WorkspaceAccessDetail getWorkspaceAccessDetailLocal(String name) {
+    return getWorkspaceAccessDetailLocal(new GetWorkspaceAccessDetailLocalRequest().setName(name));
   }
 
   /**
@@ -287,9 +281,8 @@ public class WorkspaceIamV2API {
     return impl.getWorkspaceAssignmentDetailProxy(request);
   }
 
-  public WorkspaceAssignment getWorkspaceAssignmentProxy(long principalId) {
-    return getWorkspaceAssignmentProxy(
-        new GetWorkspaceAssignmentProxyRequest().setPrincipalId(principalId));
+  public WorkspaceAssignment getWorkspaceAssignmentProxy(String name) {
+    return getWorkspaceAssignmentProxy(new GetWorkspaceAssignmentProxyRequest().setName(name));
   }
 
   /** Returns the assignment for a principal in the calling workspace. */
@@ -298,9 +291,8 @@ public class WorkspaceIamV2API {
     return impl.getWorkspaceAssignmentProxy(request);
   }
 
-  public WorkspaceIdentityDetail getWorkspaceIdentityDetail(long principalId) {
-    return getWorkspaceIdentityDetail(
-        new GetWorkspaceIdentityDetailRequest().setPrincipalId(principalId));
+  public WorkspaceIdentityDetail getWorkspaceIdentityDetail(String name) {
+    return getWorkspaceIdentityDetail(new GetWorkspaceIdentityDetailRequest().setName(name));
   }
 
   /** Returns the identity details for a principal in a workspace. */
@@ -309,9 +301,8 @@ public class WorkspaceIamV2API {
     return impl.getWorkspaceIdentityDetail(request);
   }
 
-  public Iterable<DirectGroupMember> listDirectGroupMembersProxy(long groupId) {
-    return listDirectGroupMembersProxy(
-        new ListDirectGroupMembersProxyRequest().setGroupId(groupId));
+  public Iterable<DirectGroupMember> listDirectGroupMembersProxy(String parent) {
+    return listDirectGroupMembersProxy(new ListDirectGroupMembersProxyRequest().setParent(parent));
   }
 
   /**
@@ -370,9 +361,9 @@ public class WorkspaceIamV2API {
         });
   }
 
-  public ListTransitiveParentGroupsResponse listTransitiveParentGroupsProxy(long principalId) {
+  public ListTransitiveParentGroupsResponse listTransitiveParentGroupsProxy(String parent) {
     return listTransitiveParentGroupsProxy(
-        new ListTransitiveParentGroupsProxyRequest().setPrincipalId(principalId));
+        new ListTransitiveParentGroupsProxyRequest().setParent(parent));
   }
 
   /** Lists all transitive parent groups of a principal. */
@@ -485,7 +476,8 @@ public class WorkspaceIamV2API {
    * workspace. Only the fields named in the update mask are modified. Returns the updated
    * ServicePrincipal resource.
    *
-   * <p>For locally managed service principals, is_agent must be set to true or false when updated.
+   * <p>To change is_agent on a locally managed service principal, set it to true or false. Naming
+   * is_agent in the update mask without a value leaves it unchanged.
    *
    * <p>When AIM is enabled and the service principal is an external identity (its external_id is
    * set), only external_id can be updated; its other fields are sourced from your identity

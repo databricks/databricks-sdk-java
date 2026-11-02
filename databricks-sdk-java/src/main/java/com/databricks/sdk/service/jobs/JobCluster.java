@@ -22,6 +22,14 @@ public class JobCluster {
   private com.databricks.sdk.service.compute.ClusterSpec newCluster;
 
   /**
+   * Serverless compute settings for this cluster. At most one job cluster per job may set this
+   * field; the rate limit defined on the referenced policy applies across all tasks bound to this
+   * cluster.
+   */
+  @JsonProperty("serverless_compute")
+  private JobClusterServerlessCompute serverlessCompute;
+
+  /**
    * The ID of the serverless compute object to bind this cluster to. At most one JobCluster per job
    * may set this field; the rate limit defined on the referenced serverless compute applies across
    * all tasks bound to this cluster.
@@ -47,6 +55,15 @@ public class JobCluster {
     return newCluster;
   }
 
+  public JobCluster setServerlessCompute(JobClusterServerlessCompute serverlessCompute) {
+    this.serverlessCompute = serverlessCompute;
+    return this;
+  }
+
+  public JobClusterServerlessCompute getServerlessCompute() {
+    return serverlessCompute;
+  }
+
   public JobCluster setServerlessComputeId(String serverlessComputeId) {
     this.serverlessComputeId = serverlessComputeId;
     return this;
@@ -63,12 +80,13 @@ public class JobCluster {
     JobCluster that = (JobCluster) o;
     return Objects.equals(jobClusterKey, that.jobClusterKey)
         && Objects.equals(newCluster, that.newCluster)
+        && Objects.equals(serverlessCompute, that.serverlessCompute)
         && Objects.equals(serverlessComputeId, that.serverlessComputeId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(jobClusterKey, newCluster, serverlessComputeId);
+    return Objects.hash(jobClusterKey, newCluster, serverlessCompute, serverlessComputeId);
   }
 
   @Override
@@ -76,6 +94,7 @@ public class JobCluster {
     return new ToStringer(JobCluster.class)
         .add("jobClusterKey", jobClusterKey)
         .add("newCluster", newCluster)
+        .add("serverlessCompute", serverlessCompute)
         .add("serverlessComputeId", serverlessComputeId)
         .toString();
   }

@@ -9,19 +9,16 @@ import java.util.Objects;
 
 @Generated
 public class GetWorkspaceAssignmentProxyRequest {
-  /**
-   * Required. The internal ID of the principal (user/sp/group) for which the assignment is being
-   * requested.
-   */
-  @JsonIgnore private Long principalId;
+  /** The resource name of the workspace assignment. Format: workspace-assignments/{principal_id} */
+  @JsonIgnore private String name;
 
-  public GetWorkspaceAssignmentProxyRequest setPrincipalId(Long principalId) {
-    this.principalId = principalId;
+  public GetWorkspaceAssignmentProxyRequest setName(String name) {
+    this.name = name;
     return this;
   }
 
-  public Long getPrincipalId() {
-    return principalId;
+  public String getName() {
+    return name;
   }
 
   @Override
@@ -29,18 +26,16 @@ public class GetWorkspaceAssignmentProxyRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GetWorkspaceAssignmentProxyRequest that = (GetWorkspaceAssignmentProxyRequest) o;
-    return Objects.equals(principalId, that.principalId);
+    return Objects.equals(name, that.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(principalId);
+    return Objects.hash(name);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(GetWorkspaceAssignmentProxyRequest.class)
-        .add("principalId", principalId)
-        .toString();
+    return new ToStringer(GetWorkspaceAssignmentProxyRequest.class).add("name", name).toString();
   }
 }

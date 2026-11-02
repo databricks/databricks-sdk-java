@@ -1,5 +1,136 @@
 # Version changelog
 
+## Release v0.173.0 (2026-11-02)
+
+### API Changes
+* Add `com.databricks.sdk.service.computemigrations` and `com.databricks.sdk.service.genieagents` packages.
+* Add `workspaceClient.computeMigrations()` service.
+* Add `workspaceClient.genieAgents()` service.
+* Add `downloadFile()` and `uploadFile()` methods for `workspaceClient.sandbox()` service.
+* Add `updateNetworkConnectivityConfig()` method for `accountClient.networkConnectivity()` service.
+* [Breaking] Add `parent` field for `com.databricks.sdk.service.iamv2.CreateDirectGroupMemberProxyRequest`.
+* [Breaking] Add `parent` field for `com.databricks.sdk.service.iamv2.CreateDirectGroupMemberRequest`.
+* Add `parent` field for `com.databricks.sdk.service.iamv2.CreateGroupProxyRequest`.
+* [Breaking] Add `parent` field for `com.databricks.sdk.service.iamv2.CreateGroupRequest`.
+* Add `parent` field for `com.databricks.sdk.service.iamv2.CreateServicePrincipalProxyRequest`.
+* [Breaking] Add `parent` field for `com.databricks.sdk.service.iamv2.CreateServicePrincipalRequest`.
+* Add `parent` field for `com.databricks.sdk.service.iamv2.CreateUserProxyRequest`.
+* [Breaking] Add `parent` field for `com.databricks.sdk.service.iamv2.CreateUserRequest`.
+* Add `parent` field for `com.databricks.sdk.service.iamv2.CreateWorkspaceAssignmentProxyRequest`.
+* [Breaking] Add `parent` field for `com.databricks.sdk.service.iamv2.CreateWorkspaceAssignmentRequest`.
+* [Breaking] Add `name` field for `com.databricks.sdk.service.iamv2.DeleteDirectGroupMemberProxyRequest`.
+* [Breaking] Add `name` field for `com.databricks.sdk.service.iamv2.DeleteDirectGroupMemberRequest`.
+* [Breaking] Add `name` field for `com.databricks.sdk.service.iamv2.DeleteGroupProxyRequest`.
+* [Breaking] Add `name` field for `com.databricks.sdk.service.iamv2.DeleteGroupRequest`.
+* [Breaking] Add `name` field for `com.databricks.sdk.service.iamv2.DeleteServicePrincipalProxyRequest`.
+* [Breaking] Add `name` field for `com.databricks.sdk.service.iamv2.DeleteServicePrincipalRequest`.
+* [Breaking] Add `name` field for `com.databricks.sdk.service.iamv2.DeleteUserProxyRequest`.
+* [Breaking] Add `name` field for `com.databricks.sdk.service.iamv2.DeleteUserRequest`.
+* [Breaking] Add `name` field for `com.databricks.sdk.service.iamv2.DeleteWorkspaceAssignmentProxyRequest`.
+* [Breaking] Add `name` field for `com.databricks.sdk.service.iamv2.DeleteWorkspaceAssignmentRequest`.
+* Add `name` and `parent` fields for `com.databricks.sdk.service.iamv2.DirectGroupMember`.
+* [Breaking] Add `name` field for `com.databricks.sdk.service.iamv2.GetDirectGroupMemberProxyRequest`.
+* [Breaking] Add `name` field for `com.databricks.sdk.service.iamv2.GetDirectGroupMemberRequest`.
+* [Breaking] Add `name` field for `com.databricks.sdk.service.iamv2.GetGroupProxyRequest`.
+* [Breaking] Add `name` field for `com.databricks.sdk.service.iamv2.GetGroupRequest`.
+* [Breaking] Add `name` field for `com.databricks.sdk.service.iamv2.GetServicePrincipalProxyRequest`.
+* [Breaking] Add `name` field for `com.databricks.sdk.service.iamv2.GetServicePrincipalRequest`.
+* [Breaking] Add `name` field for `com.databricks.sdk.service.iamv2.GetUserProxyRequest`.
+* [Breaking] Add `name` field for `com.databricks.sdk.service.iamv2.GetUserRequest`.
+* [Breaking] Add `name` field for `com.databricks.sdk.service.iamv2.GetWorkspaceAccessDetailLocalRequest`.
+* [Breaking] Add `name` field for `com.databricks.sdk.service.iamv2.GetWorkspaceAccessDetailRequest`.
+* [Breaking] Add `name` field for `com.databricks.sdk.service.iamv2.GetWorkspaceAssignmentProxyRequest`.
+* [Breaking] Add `name` field for `com.databricks.sdk.service.iamv2.GetWorkspaceAssignmentRequest`.
+* [Breaking] Add `name` field for `com.databricks.sdk.service.iamv2.GetWorkspaceIdentityDetailRequest`.
+* Add `name` and `parent` fields for `com.databricks.sdk.service.iamv2.Group`.
+* [Breaking] Add `parent` field for `com.databricks.sdk.service.iamv2.ListDirectGroupMembersProxyRequest`.
+* [Breaking] Add `parent` field for `com.databricks.sdk.service.iamv2.ListDirectGroupMembersRequest`.
+* Add `parent` field for `com.databricks.sdk.service.iamv2.ListGroupsProxyRequest`.
+* [Breaking] Add `parent` field for `com.databricks.sdk.service.iamv2.ListGroupsRequest`.
+* Add `parent` field for `com.databricks.sdk.service.iamv2.ListServicePrincipalsProxyRequest`.
+* [Breaking] Add `parent` field for `com.databricks.sdk.service.iamv2.ListServicePrincipalsRequest`.
+* [Breaking] Add `parent` field for `com.databricks.sdk.service.iamv2.ListTransitiveParentGroupsProxyRequest`.
+* [Breaking] Add `parent` field for `com.databricks.sdk.service.iamv2.ListTransitiveParentGroupsRequest`.
+* Add `parent` field for `com.databricks.sdk.service.iamv2.ListUsersProxyRequest`.
+* [Breaking] Add `parent` field for `com.databricks.sdk.service.iamv2.ListUsersRequest`.
+* Add `parent` field for `com.databricks.sdk.service.iamv2.ListWorkspaceAssignmentsProxyRequest`.
+* [Breaking] Add `parent` field for `com.databricks.sdk.service.iamv2.ListWorkspaceAssignmentsRequest`.
+* Add `name` and `parent` fields for `com.databricks.sdk.service.iamv2.ServicePrincipal`.
+* Add `name` field for `com.databricks.sdk.service.iamv2.TransitiveParentGroup`.
+* [Breaking] Add `name` field for `com.databricks.sdk.service.iamv2.UpdateGroupProxyRequest`.
+* [Breaking] Add `name` field for `com.databricks.sdk.service.iamv2.UpdateGroupRequest`.
+* [Breaking] Add `name` field for `com.databricks.sdk.service.iamv2.UpdateServicePrincipalProxyRequest`.
+* [Breaking] Add `name` field for `com.databricks.sdk.service.iamv2.UpdateServicePrincipalRequest`.
+* [Breaking] Add `name` field for `com.databricks.sdk.service.iamv2.UpdateUserProxyRequest`.
+* [Breaking] Add `name` field for `com.databricks.sdk.service.iamv2.UpdateUserRequest`.
+* [Breaking] Add `name` field for `com.databricks.sdk.service.iamv2.UpdateWorkspaceAssignmentProxyRequest`.
+* [Breaking] Add `name` field for `com.databricks.sdk.service.iamv2.UpdateWorkspaceAssignmentRequest`.
+* [Breaking] Add `name` field for `com.databricks.sdk.service.iamv2.UpdateWorkspaceIdentityDetailRequest`.
+* Add `name` and `parent` fields for `com.databricks.sdk.service.iamv2.User`.
+* Add `name` field for `com.databricks.sdk.service.iamv2.WorkspaceAccessDetail`.
+* Add `name` and `parent` fields for `com.databricks.sdk.service.iamv2.WorkspaceAssignment`.
+* Add `name` field for `com.databricks.sdk.service.iamv2.WorkspaceIdentityDetail`.
+* Add `serverlessCompute` field for `com.databricks.sdk.service.jobs.JobCluster`.
+* Add `jobCompletion` field for `com.databricks.sdk.service.jobs.PerTriggerState`.
+* Add `jobCompletion` field for `com.databricks.sdk.service.jobs.TriggerConfiguration`.
+* Add `jobCompletion` field for `com.databricks.sdk.service.jobs.TriggerInfo`.
+* Add `jobCompletion` field for `com.databricks.sdk.service.jobs.TriggerSettings`.
+* Add `jobCompletion` field for `com.databricks.sdk.service.jobs.TriggerStateProto`.
+* Add `billingWorkspaceId` field for `com.databricks.sdk.service.settings.NetworkConnectivityConfiguration`.
+* Add `CREATE_FEATURE` and `READ_FEATURE` enum values for `com.databricks.sdk.service.catalog.Privilege`.
+* Add `FEATURE` enum value for `com.databricks.sdk.service.catalog.SecurableType`.
+* Add `JOB_COMPLETION` enum value for `com.databricks.sdk.service.jobs.TriggerType`.
+* [Breaking] Change `createDirectGroupMember()`, `createGroup()`, `createServicePrincipal()`, `createUser()`, `createWorkspaceAssignment()`, `deleteDirectGroupMember()`, `deleteGroup()`, `deleteServicePrincipal()`, `deleteUser()`, `deleteWorkspaceAssignment()`, `getDirectGroupMember()`, `getGroup()`, `getServicePrincipal()`, `getUser()`, `getWorkspaceAccessDetail()`, `getWorkspaceAssignment()`, `listDirectGroupMembers()`, `listGroups()`, `listServicePrincipals()`, `listTransitiveParentGroups()`, `listUsers()`, `listWorkspaceAssignments()`, `updateGroup()`, `updateServicePrincipal()`, `updateUser()` and `updateWorkspaceAssignment()` methods for `accountClient.accountIamV2()` service. Method path has changed.
+* [Breaking] Change `createDirectGroupMember()`, `createGroup()`, `createServicePrincipal()`, `createUser()`, `createWorkspaceAssignment()`, `deleteDirectGroupMember()`, `deleteGroup()`, `deleteServicePrincipal()`, `deleteUser()`, `deleteWorkspaceAssignment()`, `getDirectGroupMember()`, `getGroup()`, `getServicePrincipal()`, `getUser()`, `getWorkspaceAccessDetail()`, `getWorkspaceAssignment()`, `listDirectGroupMembers()`, `listGroups()`, `listServicePrincipals()`, `listTransitiveParentGroups()`, `listUsers()`, `listWorkspaceAssignments()`, `updateGroup()`, `updateServicePrincipal()`, `updateUser()` and `updateWorkspaceAssignment()` methods for `accountClient.accountIamV2()` service with new required argument order.
+* [Breaking] Change `createDirectGroupMemberProxy()`, `deleteDirectGroupMemberProxy()`, `deleteGroupProxy()`, `deleteServicePrincipalProxy()`, `deleteUserProxy()`, `deleteWorkspaceAssignmentProxy()`, `getDirectGroupMemberProxy()`, `getGroupProxy()`, `getServicePrincipalProxy()`, `getUserProxy()`, `getWorkspaceAccessDetailLocal()`, `getWorkspaceAssignmentProxy()`, `getWorkspaceIdentityDetail()`, `listDirectGroupMembersProxy()`, `listTransitiveParentGroupsProxy()`, `updateGroupProxy()`, `updateServicePrincipalProxy()`, `updateUserProxy()`, `updateWorkspaceAssignmentProxy()` and `updateWorkspaceIdentityDetail()` methods for `workspaceClient.workspaceIamV2()` service with new required argument order.
+* [Breaking] Change `createDirectGroupMemberProxy()`, `deleteDirectGroupMemberProxy()`, `deleteGroupProxy()`, `deleteServicePrincipalProxy()`, `deleteUserProxy()`, `deleteWorkspaceAssignmentProxy()`, `getDirectGroupMemberProxy()`, `getGroupProxy()`, `getServicePrincipalProxy()`, `getUserProxy()`, `getWorkspaceAccessDetailLocal()`, `getWorkspaceAssignmentProxy()`, `getWorkspaceIdentityDetail()`, `listDirectGroupMembersProxy()`, `listTransitiveParentGroupsProxy()`, `updateGroupProxy()`, `updateServicePrincipalProxy()`, `updateUserProxy()`, `updateWorkspaceAssignmentProxy()` and `updateWorkspaceIdentityDetail()` methods for `workspaceClient.workspaceIamV2()` service. Method path has changed.
+* [Breaking] Remove `groupId` field for `com.databricks.sdk.service.iamv2.CreateDirectGroupMemberProxyRequest`.
+* [Breaking] Remove `accountId` and `groupId` fields for `com.databricks.sdk.service.iamv2.CreateDirectGroupMemberRequest`.
+* [Breaking] Remove `accountId` field for `com.databricks.sdk.service.iamv2.CreateGroupRequest`.
+* [Breaking] Remove `accountId` field for `com.databricks.sdk.service.iamv2.CreateServicePrincipalRequest`.
+* [Breaking] Remove `accountId` field for `com.databricks.sdk.service.iamv2.CreateUserRequest`.
+* [Breaking] Remove `accountId` and `workspaceId` fields for `com.databricks.sdk.service.iamv2.CreateWorkspaceAssignmentRequest`.
+* [Breaking] Remove `groupId` and `principalId` fields for `com.databricks.sdk.service.iamv2.DeleteDirectGroupMemberProxyRequest`.
+* [Breaking] Remove `accountId`, `groupId` and `principalId` fields for `com.databricks.sdk.service.iamv2.DeleteDirectGroupMemberRequest`.
+* [Breaking] Remove `groupId` field for `com.databricks.sdk.service.iamv2.DeleteGroupProxyRequest`.
+* [Breaking] Remove `accountId` and `groupId` fields for `com.databricks.sdk.service.iamv2.DeleteGroupRequest`.
+* [Breaking] Remove `servicePrincipalId` field for `com.databricks.sdk.service.iamv2.DeleteServicePrincipalProxyRequest`.
+* [Breaking] Remove `accountId` and `servicePrincipalId` fields for `com.databricks.sdk.service.iamv2.DeleteServicePrincipalRequest`.
+* [Breaking] Remove `userId` field for `com.databricks.sdk.service.iamv2.DeleteUserProxyRequest`.
+* [Breaking] Remove `accountId` and `userId` fields for `com.databricks.sdk.service.iamv2.DeleteUserRequest`.
+* [Breaking] Remove `principalId` field for `com.databricks.sdk.service.iamv2.DeleteWorkspaceAssignmentProxyRequest`.
+* [Breaking] Remove `accountId`, `workspaceId` and `principalId` fields for `com.databricks.sdk.service.iamv2.DeleteWorkspaceAssignmentRequest`.
+* [Breaking] Remove `groupId` and `principalId` fields for `com.databricks.sdk.service.iamv2.GetDirectGroupMemberProxyRequest`.
+* [Breaking] Remove `accountId`, `groupId` and `principalId` fields for `com.databricks.sdk.service.iamv2.GetDirectGroupMemberRequest`.
+* [Breaking] Remove `groupId` field for `com.databricks.sdk.service.iamv2.GetGroupProxyRequest`.
+* [Breaking] Remove `accountId` and `groupId` fields for `com.databricks.sdk.service.iamv2.GetGroupRequest`.
+* [Breaking] Remove `servicePrincipalId` field for `com.databricks.sdk.service.iamv2.GetServicePrincipalProxyRequest`.
+* [Breaking] Remove `accountId` and `servicePrincipalId` fields for `com.databricks.sdk.service.iamv2.GetServicePrincipalRequest`.
+* [Breaking] Remove `userId` field for `com.databricks.sdk.service.iamv2.GetUserProxyRequest`.
+* [Breaking] Remove `accountId` and `userId` fields for `com.databricks.sdk.service.iamv2.GetUserRequest`.
+* [Breaking] Remove `principalId` field for `com.databricks.sdk.service.iamv2.GetWorkspaceAccessDetailLocalRequest`.
+* [Breaking] Remove `accountId`, `workspaceId` and `principalId` fields for `com.databricks.sdk.service.iamv2.GetWorkspaceAccessDetailRequest`.
+* [Breaking] Remove `principalId` field for `com.databricks.sdk.service.iamv2.GetWorkspaceAssignmentProxyRequest`.
+* [Breaking] Remove `accountId`, `workspaceId` and `principalId` fields for `com.databricks.sdk.service.iamv2.GetWorkspaceAssignmentRequest`.
+* [Breaking] Remove `principalId` field for `com.databricks.sdk.service.iamv2.GetWorkspaceIdentityDetailRequest`.
+* [Breaking] Remove `groupId` field for `com.databricks.sdk.service.iamv2.ListDirectGroupMembersProxyRequest`.
+* [Breaking] Remove `accountId` and `groupId` fields for `com.databricks.sdk.service.iamv2.ListDirectGroupMembersRequest`.
+* [Breaking] Remove `accountId` field for `com.databricks.sdk.service.iamv2.ListGroupsRequest`.
+* [Breaking] Remove `accountId` field for `com.databricks.sdk.service.iamv2.ListServicePrincipalsRequest`.
+* [Breaking] Remove `principalId` field for `com.databricks.sdk.service.iamv2.ListTransitiveParentGroupsProxyRequest`.
+* [Breaking] Remove `accountId` and `principalId` fields for `com.databricks.sdk.service.iamv2.ListTransitiveParentGroupsRequest`.
+* [Breaking] Remove `accountId` field for `com.databricks.sdk.service.iamv2.ListUsersRequest`.
+* [Breaking] Remove `accountId` and `workspaceId` fields for `com.databricks.sdk.service.iamv2.ListWorkspaceAssignmentsRequest`.
+* [Breaking] Remove `groupId` field for `com.databricks.sdk.service.iamv2.UpdateGroupProxyRequest`.
+* [Breaking] Remove `accountId` and `groupId` fields for `com.databricks.sdk.service.iamv2.UpdateGroupRequest`.
+* [Breaking] Remove `servicePrincipalId` field for `com.databricks.sdk.service.iamv2.UpdateServicePrincipalProxyRequest`.
+* [Breaking] Remove `accountId` and `servicePrincipalId` fields for `com.databricks.sdk.service.iamv2.UpdateServicePrincipalRequest`.
+* [Breaking] Remove `userId` field for `com.databricks.sdk.service.iamv2.UpdateUserProxyRequest`.
+* [Breaking] Remove `accountId` and `userId` fields for `com.databricks.sdk.service.iamv2.UpdateUserRequest`.
+* [Breaking] Remove `principalId` field for `com.databricks.sdk.service.iamv2.UpdateWorkspaceAssignmentProxyRequest`.
+* [Breaking] Remove `accountId`, `workspaceId` and `principalId` fields for `com.databricks.sdk.service.iamv2.UpdateWorkspaceAssignmentRequest`.
+* [Breaking] Remove `principalId` field for `com.databricks.sdk.service.iamv2.UpdateWorkspaceIdentityDetailRequest`.
+
 ## Release v0.172.0 (2026-10-29)
 
 ### Bug Fixes

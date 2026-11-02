@@ -32,6 +32,9 @@ public class ListGroupsRequest {
   @QueryParam("page_token")
   private String pageToken;
 
+  /** The parent resource name of the account whose groups to list. Format: accounts/{account_id} */
+  @JsonIgnore private String parent;
+
   public ListGroupsRequest setFilter(String filter) {
     this.filter = filter;
     return this;
@@ -59,6 +62,15 @@ public class ListGroupsRequest {
     return pageToken;
   }
 
+  public ListGroupsRequest setParent(String parent) {
+    this.parent = parent;
+    return this;
+  }
+
+  public String getParent() {
+    return parent;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -66,12 +78,13 @@ public class ListGroupsRequest {
     ListGroupsRequest that = (ListGroupsRequest) o;
     return Objects.equals(filter, that.filter)
         && Objects.equals(pageSize, that.pageSize)
-        && Objects.equals(pageToken, that.pageToken);
+        && Objects.equals(pageToken, that.pageToken)
+        && Objects.equals(parent, that.parent);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(filter, pageSize, pageToken);
+    return Objects.hash(filter, pageSize, pageToken, parent);
   }
 
   @Override
@@ -80,6 +93,7 @@ public class ListGroupsRequest {
         .add("filter", filter)
         .add("pageSize", pageSize)
         .add("pageToken", pageToken)
+        .add("parent", parent)
         .toString();
   }
 }

@@ -88,6 +88,23 @@ class SandboxImpl implements SandboxService {
   }
 
   @Override
+  public DownloadFileResponse downloadFile(DownloadFileRequest request) {
+    String path = String.format("/api/2.0/sandbox-files/%s/content", request.getParent());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/octet-stream");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, DownloadFileResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public ExecuteCommandSyncResponse executeCommandSync(ExecuteCommandSyncRequest request) {
     String path = String.format("/api/2.0/sandbox-exec/%s/exec-sync", request.getName());
     try {
@@ -257,6 +274,23 @@ class SandboxImpl implements SandboxService {
         req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, Sandbox.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public void uploadFile(UploadFileRequest request) {
+    String path = String.format("/api/2.0/sandbox-files/%s/content", request.getParent());
+    try {
+      Request req = new Request("PUT", path, request.getContents());
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Content-Type", "application/octet-stream");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

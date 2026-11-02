@@ -61,8 +61,9 @@ public class CreateWarehouseRequest {
   private String instanceProfileArn;
 
   /**
-   * Maximum compute capacity of a real-time SQL warehouse, in DBU per hour. Must be a multiple of 3
-   * between 3 and 960. The effective maximum cannot be lower than the warehouse's minimum capacity.
+   * Maximum compute capacity of a real-time SQL warehouse, in DBU per hour. Must be at least the
+   * minimum DBU for the selected warehouse size and no greater than the configured DBU limit.
+   * Actual capacity may be below this ceiling.
    */
   @JsonProperty("max_dbu")
   private Long maxDbu;

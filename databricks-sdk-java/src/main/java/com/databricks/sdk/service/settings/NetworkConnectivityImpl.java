@@ -166,6 +166,26 @@ class NetworkConnectivityImpl implements NetworkConnectivityService {
   }
 
   @Override
+  public NetworkConnectivityConfiguration updateNetworkConnectivityConfig(
+      UpdateNetworkConnectivityConfigRequest request) {
+    String path =
+        String.format(
+            "/api/2.0/accounts/%s/network-connectivity-configs/%s",
+            apiClient.configuredAccountID(), request.getNetworkConnectivityConfigId());
+    try {
+      Request req =
+          new Request("PATCH", path, apiClient.serialize(request.getNetworkConnectivityConfig()));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, NetworkConnectivityConfiguration.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public NccPrivateEndpointRule updatePrivateEndpointRule(
       UpdateNccPrivateEndpointRuleRequest request) {
     String path =

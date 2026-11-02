@@ -9,16 +9,18 @@ import java.util.Objects;
 
 @Generated
 public class GetServicePrincipalProxyRequest {
-  /** Required. Internal ID of the service principal in Databricks. */
-  @JsonIgnore private String servicePrincipalId;
+  /**
+   * The resource name of the service principal. Format: service-principals/{service_principal_id}
+   */
+  @JsonIgnore private String name;
 
-  public GetServicePrincipalProxyRequest setServicePrincipalId(String servicePrincipalId) {
-    this.servicePrincipalId = servicePrincipalId;
+  public GetServicePrincipalProxyRequest setName(String name) {
+    this.name = name;
     return this;
   }
 
-  public String getServicePrincipalId() {
-    return servicePrincipalId;
+  public String getName() {
+    return name;
   }
 
   @Override
@@ -26,18 +28,16 @@ public class GetServicePrincipalProxyRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GetServicePrincipalProxyRequest that = (GetServicePrincipalProxyRequest) o;
-    return Objects.equals(servicePrincipalId, that.servicePrincipalId);
+    return Objects.equals(name, that.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(servicePrincipalId);
+    return Objects.hash(name);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(GetServicePrincipalProxyRequest.class)
-        .add("servicePrincipalId", servicePrincipalId)
-        .toString();
+    return new ToStringer(GetServicePrincipalProxyRequest.class).add("name", name).toString();
   }
 }

@@ -109,6 +109,8 @@ import com.databricks.sdk.service.compute.PolicyComplianceForClustersAPI;
 import com.databricks.sdk.service.compute.PolicyComplianceForClustersService;
 import com.databricks.sdk.service.compute.PolicyFamiliesAPI;
 import com.databricks.sdk.service.compute.PolicyFamiliesService;
+import com.databricks.sdk.service.computemigrations.ComputeMigrationsAPI;
+import com.databricks.sdk.service.computemigrations.ComputeMigrationsService;
 import com.databricks.sdk.service.dashboards.GenieAPI;
 import com.databricks.sdk.service.dashboards.GenieService;
 import com.databricks.sdk.service.dashboards.LakeviewAPI;
@@ -128,6 +130,8 @@ import com.databricks.sdk.service.environments.EnvironmentsService;
 import com.databricks.sdk.service.files.DbfsService;
 import com.databricks.sdk.service.files.FilesAPI;
 import com.databricks.sdk.service.files.FilesService;
+import com.databricks.sdk.service.genieagents.GenieAgentsAPI;
+import com.databricks.sdk.service.genieagents.GenieAgentsService;
 import com.databricks.sdk.service.iam.AccessControlAPI;
 import com.databricks.sdk.service.iam.AccessControlService;
 import com.databricks.sdk.service.iam.AccountAccessControlProxyAPI;
@@ -312,6 +316,7 @@ public class WorkspaceClient {
   private ClusterPoliciesAPI clusterPoliciesAPI;
   private ClustersExt clustersAPI;
   private CommandExecutionAPI commandExecutionAPI;
+  private ComputeMigrationsAPI computeMigrationsAPI;
   private ConnectionsAPI connectionsAPI;
   private ConsumerFulfillmentsAPI consumerFulfillmentsAPI;
   private ConsumerInstallationsAPI consumerInstallationsAPI;
@@ -342,6 +347,7 @@ public class WorkspaceClient {
   private ForecastingAPI forecastingAPI;
   private FunctionsAPI functionsAPI;
   private GenieAPI genieAPI;
+  private GenieAgentsAPI genieAgentsAPI;
   private GitCredentialsAPI gitCredentialsAPI;
   private GlobalInitScriptsAPI globalInitScriptsAPI;
   private GrantsAPI grantsAPI;
@@ -458,6 +464,7 @@ public class WorkspaceClient {
     clusterPoliciesAPI = new ClusterPoliciesAPI(apiClient);
     clustersAPI = new ClustersExt(apiClient);
     commandExecutionAPI = new CommandExecutionAPI(apiClient);
+    computeMigrationsAPI = new ComputeMigrationsAPI(apiClient);
     connectionsAPI = new ConnectionsAPI(apiClient);
     consumerFulfillmentsAPI = new ConsumerFulfillmentsAPI(apiClient);
     consumerInstallationsAPI = new ConsumerInstallationsAPI(apiClient);
@@ -488,6 +495,7 @@ public class WorkspaceClient {
     forecastingAPI = new ForecastingAPI(apiClient);
     functionsAPI = new FunctionsAPI(apiClient);
     genieAPI = new GenieAPI(apiClient);
+    genieAgentsAPI = new GenieAgentsAPI(apiClient);
     gitCredentialsAPI = new GitCredentialsAPI(apiClient);
     globalInitScriptsAPI = new GlobalInitScriptsAPI(apiClient);
     grantsAPI = new GrantsAPI(apiClient);
@@ -804,6 +812,11 @@ public class WorkspaceClient {
    */
   public CommandExecutionAPI commandExecution() {
     return commandExecutionAPI;
+  }
+
+  /** Manage migrations of Classic compute workloads to Serverless. */
+  public ComputeMigrationsAPI computeMigrations() {
+    return computeMigrationsAPI;
   }
 
   /**
@@ -1126,6 +1139,16 @@ public class WorkspaceClient {
    */
   public GenieAPI genie() {
     return genieAPI;
+  }
+
+  /**
+   * Genie provides a no-code experience for business users, powered by AI/BI. Analysts set up Genie
+   * Agents that business users can use to ask questions using natural language. Genie uses data
+   * registered to Unity Catalog and requires at least CAN USE permission on a Pro or Serverless SQL
+   * warehouse. Also, Databricks Assistant must be enabled.
+   */
+  public GenieAgentsAPI genieAgents() {
+    return genieAgentsAPI;
   }
 
   /**
@@ -2559,6 +2582,17 @@ public class WorkspaceClient {
     return this;
   }
 
+  /** Replace the default ComputeMigrationsService with a custom implementation. */
+  public WorkspaceClient withComputeMigrationsImpl(ComputeMigrationsService computeMigrations) {
+    return this.withComputeMigrationsAPI(new ComputeMigrationsAPI(computeMigrations));
+  }
+
+  /** Replace the default ComputeMigrationsAPI with a custom implementation. */
+  public WorkspaceClient withComputeMigrationsAPI(ComputeMigrationsAPI computeMigrations) {
+    this.computeMigrationsAPI = computeMigrations;
+    return this;
+  }
+
   /** Replace the default ConnectionsService with a custom implementation. */
   public WorkspaceClient withConnectionsImpl(ConnectionsService connections) {
     return this.withConnectionsAPI(new ConnectionsAPI(connections));
@@ -2893,6 +2927,17 @@ public class WorkspaceClient {
   /** Replace the default GenieAPI with a custom implementation. */
   public WorkspaceClient withGenieAPI(GenieAPI genie) {
     this.genieAPI = genie;
+    return this;
+  }
+
+  /** Replace the default GenieAgentsService with a custom implementation. */
+  public WorkspaceClient withGenieAgentsImpl(GenieAgentsService genieAgents) {
+    return this.withGenieAgentsAPI(new GenieAgentsAPI(genieAgents));
+  }
+
+  /** Replace the default GenieAgentsAPI with a custom implementation. */
+  public WorkspaceClient withGenieAgentsAPI(GenieAgentsAPI genieAgents) {
+    this.genieAgentsAPI = genieAgents;
     return this;
   }
 

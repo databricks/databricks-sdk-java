@@ -54,6 +54,33 @@ public class SandboxAPI {
     impl.deleteSandbox(request);
   }
 
+  public DownloadFileResponse downloadFile(String parent, String path) {
+    return downloadFile(new DownloadFileRequest().setParent(parent).setPath(path));
+  }
+
+  /**
+   * Downloads a regular file from a sandbox as an application/octet-stream body. The sandbox starts
+   * automatically if it is stopped. Filesystem access uses the sandbox user's permissions and
+   * follows symbolic links.
+   *
+   * <p>A full download returns 200 OK. A satisfiable single byte range returns 206 Partial Content.
+   * Multiple byte ranges are unsupported and return 400. Invalid ranges are ignored; an
+   * unsatisfiable range returns 416 with Content-Range describing the file length. Range is ignored
+   * for empty files.
+   *
+   * <p>Conditional requests can return 304 Not Modified or 412 Precondition Failed. If-Range
+   * selects a partial response only when its strong entity tag matches; otherwise, the entire file
+   * is returned. HTTP-date validators in If-Range cause a full download. Reads are not snapshots:
+   * concurrent in-place writes can affect the returned bytes. HEAD is unsupported.
+   *
+   * <p>Range and conditional options may be supplied as query parameters or HTTP headers. A
+   * parameter and one header may both be supplied when their values match exactly. Conflicting
+   * values or repeated parameters return 400.
+   */
+  public DownloadFileResponse downloadFile(DownloadFileRequest request) {
+    return impl.downloadFile(request);
+  }
+
   /**
    * Runs a command in the sandbox and blocks until it exits, returning the captured stdout, stderr
    * and exit code in a single response.
@@ -152,6 +179,23 @@ public class SandboxAPI {
    */
   public Sandbox updateSandbox(UpdateSandboxRequest request) {
     return impl.updateSandbox(request);
+  }
+
+  /**
+   * Uploads an application/octet-stream body to a sandbox. The sandbox starts automatically if it
+   * is stopped. Filesystem access uses the sandbox user's permissions and follows symbolic links.
+   *
+   * <p>Creates the file or replaces its entire contents, creating parent directories if missing.
+   * The completed upload becomes visible atomically. A failure before commit leaves an existing
+   * destination unchanged; a lost response after commit does not undo the upload. Completion does
+   * not guarantee crash durability.
+   *
+   * <p>Returns 201 Created for a new file or 204 No Content for a replacement. Partial and
+   * conditional uploads are unsupported: Content-Range, If-Match, If-None-Match, and
+   * If-Unmodified-Since return 400.
+   */
+  public void uploadFile(UploadFileRequest request) {
+    impl.uploadFile(request);
   }
 
   public SandboxService impl() {

@@ -11,23 +11,23 @@ import java.util.Objects;
 @Generated
 public class GetWorkspaceAccessDetailLocalRequest {
   /**
-   * Required. The internal ID of the principal (user/sp/group) for which the access details are
-   * being requested.
+   * The resource name of the workspace access detail. Format:
+   * workspace-access-details/{principal_id}
    */
-  @JsonIgnore private Long principalId;
+  @JsonIgnore private String name;
 
   /** Controls what fields are returned. */
   @JsonIgnore
   @QueryParam("view")
   private WorkspaceAccessDetailView view;
 
-  public GetWorkspaceAccessDetailLocalRequest setPrincipalId(Long principalId) {
-    this.principalId = principalId;
+  public GetWorkspaceAccessDetailLocalRequest setName(String name) {
+    this.name = name;
     return this;
   }
 
-  public Long getPrincipalId() {
-    return principalId;
+  public String getName() {
+    return name;
   }
 
   public GetWorkspaceAccessDetailLocalRequest setView(WorkspaceAccessDetailView view) {
@@ -44,18 +44,18 @@ public class GetWorkspaceAccessDetailLocalRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GetWorkspaceAccessDetailLocalRequest that = (GetWorkspaceAccessDetailLocalRequest) o;
-    return Objects.equals(principalId, that.principalId) && Objects.equals(view, that.view);
+    return Objects.equals(name, that.name) && Objects.equals(view, that.view);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(principalId, view);
+    return Objects.hash(name, view);
   }
 
   @Override
   public String toString() {
     return new ToStringer(GetWorkspaceAccessDetailLocalRequest.class)
-        .add("principalId", principalId)
+        .add("name", name)
         .add("view", view)
         .toString();
   }

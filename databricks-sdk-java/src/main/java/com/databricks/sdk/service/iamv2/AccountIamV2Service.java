@@ -281,7 +281,8 @@ public interface AccountIamV2Service {
    * Updates an existing service principal in the Databricks account. Only the fields named in the
    * update mask are modified. Returns the updated ServicePrincipal resource.
    *
-   * <p>For locally managed service principals, is_agent must be set to true or false when updated.
+   * <p>To change is_agent on a locally managed service principal, set it to true or false. Naming
+   * is_agent in the update mask without a value leaves it unchanged.
    *
    * <p>When AIM is enabled and the service principal is an external identity (its external_id is
    * set), only external_id can be updated; its other fields are sourced from your identity

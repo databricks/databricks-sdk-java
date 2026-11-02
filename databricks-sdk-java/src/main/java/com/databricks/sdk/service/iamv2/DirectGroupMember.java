@@ -26,6 +26,22 @@ public class DirectGroupMember {
   @JsonProperty("membership_source")
   private GroupMembershipSource membershipSource;
 
+  /**
+   * The resource name of the group membership. The format depends on the API that returned it: -
+   * Account-scoped: accounts/{account_id}/groups/{group_id}/direct-members/{principal_id} -
+   * Workspace-scoped: groups/{group_id}/direct-members/{principal_id}
+   */
+  @JsonProperty("name")
+  private String name;
+
+  /**
+   * The resource name of the group that contains the membership. The format depends on the API that
+   * returned it: - Account-scoped: accounts/{account_id}/groups/{group_id} - Workspace-scoped:
+   * groups/{group_id}
+   */
+  @JsonProperty("parent")
+  private String parent;
+
   /** Internal ID of the principal in Databricks. */
   @JsonProperty("principal_id")
   private Long principalId;
@@ -70,6 +86,24 @@ public class DirectGroupMember {
     return membershipSource;
   }
 
+  public DirectGroupMember setName(String name) {
+    this.name = name;
+    return this;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public DirectGroupMember setParent(String parent) {
+    this.parent = parent;
+    return this;
+  }
+
+  public String getParent() {
+    return parent;
+  }
+
   public DirectGroupMember setPrincipalId(Long principalId) {
     this.principalId = principalId;
     return this;
@@ -97,6 +131,8 @@ public class DirectGroupMember {
         && Objects.equals(externalId, that.externalId)
         && Objects.equals(groupId, that.groupId)
         && Objects.equals(membershipSource, that.membershipSource)
+        && Objects.equals(name, that.name)
+        && Objects.equals(parent, that.parent)
         && Objects.equals(principalId, that.principalId)
         && Objects.equals(principalType, that.principalType);
   }
@@ -104,7 +140,14 @@ public class DirectGroupMember {
   @Override
   public int hashCode() {
     return Objects.hash(
-        displayName, externalId, groupId, membershipSource, principalId, principalType);
+        displayName,
+        externalId,
+        groupId,
+        membershipSource,
+        name,
+        parent,
+        principalId,
+        principalType);
   }
 
   @Override
@@ -114,6 +157,8 @@ public class DirectGroupMember {
         .add("externalId", externalId)
         .add("groupId", groupId)
         .add("membershipSource", membershipSource)
+        .add("name", name)
+        .add("parent", parent)
         .add("principalId", principalId)
         .add("principalType", principalType)
         .toString();

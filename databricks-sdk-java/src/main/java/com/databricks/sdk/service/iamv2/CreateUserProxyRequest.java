@@ -3,15 +3,34 @@
 package com.databricks.sdk.service.iamv2;
 
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 @Generated
 public class CreateUserProxyRequest {
+  /**
+   * The resource name of the account to create the user in, `accounts/{account_id}`. Optional:
+   * defaults to the account of the calling workspace, and any other account is rejected.
+   */
+  @JsonIgnore
+  @QueryParam("parent")
+  private String parent;
+
   /** Required. User to be created in Databricks */
   @JsonProperty("user")
   private User user;
+
+  public CreateUserProxyRequest setParent(String parent) {
+    this.parent = parent;
+    return this;
+  }
+
+  public String getParent() {
+    return parent;
+  }
 
   public CreateUserProxyRequest setUser(User user) {
     this.user = user;
@@ -27,16 +46,19 @@ public class CreateUserProxyRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     CreateUserProxyRequest that = (CreateUserProxyRequest) o;
-    return Objects.equals(user, that.user);
+    return Objects.equals(parent, that.parent) && Objects.equals(user, that.user);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(user);
+    return Objects.hash(parent, user);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(CreateUserProxyRequest.class).add("user", user).toString();
+    return new ToStringer(CreateUserProxyRequest.class)
+        .add("parent", parent)
+        .add("user", user)
+        .toString();
   }
 }

@@ -33,6 +33,21 @@ public class ServicePrincipal {
   @JsonProperty("external_id")
   private String externalId;
 
+  /**
+   * The resource name of the service principal. The format depends on the API that returned it: -
+   * Account-scoped: accounts/{account_id}/service-principals/{service_principal_id} -
+   * Workspace-scoped: service-principals/{service_principal_id}
+   */
+  @JsonProperty("name")
+  private String name;
+
+  /**
+   * The resource name of the account that contains the service principal, `accounts/{account_id}`.
+   * Both the account-scoped and workspace-scoped APIs return it.
+   */
+  @JsonProperty("parent")
+  private String parent;
+
   /** Internal service principal ID of the service principal in Databricks. */
   @JsonProperty("service_principal_id")
   private String servicePrincipalId;
@@ -82,6 +97,24 @@ public class ServicePrincipal {
     return externalId;
   }
 
+  public ServicePrincipal setName(String name) {
+    this.name = name;
+    return this;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public ServicePrincipal setParent(String parent) {
+    this.parent = parent;
+    return this;
+  }
+
+  public String getParent() {
+    return parent;
+  }
+
   public ServicePrincipal setServicePrincipalId(String servicePrincipalId) {
     this.servicePrincipalId = servicePrincipalId;
     return this;
@@ -101,13 +134,22 @@ public class ServicePrincipal {
         && Objects.equals(applicationId, that.applicationId)
         && Objects.equals(displayName, that.displayName)
         && Objects.equals(externalId, that.externalId)
+        && Objects.equals(name, that.name)
+        && Objects.equals(parent, that.parent)
         && Objects.equals(servicePrincipalId, that.servicePrincipalId);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(
-        accountId, accountSpStatus, applicationId, displayName, externalId, servicePrincipalId);
+        accountId,
+        accountSpStatus,
+        applicationId,
+        displayName,
+        externalId,
+        name,
+        parent,
+        servicePrincipalId);
   }
 
   @Override
@@ -118,6 +160,8 @@ public class ServicePrincipal {
         .add("applicationId", applicationId)
         .add("displayName", displayName)
         .add("externalId", externalId)
+        .add("name", name)
+        .add("parent", parent)
         .add("servicePrincipalId", servicePrincipalId)
         .toString();
   }

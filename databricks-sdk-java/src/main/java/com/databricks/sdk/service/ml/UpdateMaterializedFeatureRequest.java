@@ -18,10 +18,7 @@ public class UpdateMaterializedFeatureRequest {
   /** Server-assigned unique identifier for the materialized feature. */
   @JsonIgnore private String materializedFeatureId;
 
-  /**
-   * Provide the materialization feature fields which should be updated. Currently, only the
-   * pipeline_state field can be updated.
-   */
+  /** The fields to update. Only `pipeline_schedule_state` is supported. */
   @JsonIgnore
   @QueryParam("update_mask")
   private String updateMask;

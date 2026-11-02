@@ -7,7 +7,10 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Notifications for the jobs and pipelines that materialize a feature, one field per trigger. */
+/**
+ * Notifications for the jobs and pipelines that materialize the features in a set, one field per
+ * trigger.
+ */
 @Generated
 public class MaterializationNotifications {
   /** Who to notify when a run fails, and on which attempts. */

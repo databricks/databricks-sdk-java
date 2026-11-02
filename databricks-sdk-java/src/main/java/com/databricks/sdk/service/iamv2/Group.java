@@ -26,6 +26,20 @@ public class Group {
   @JsonProperty("group_name")
   private String groupName;
 
+  /**
+   * The resource name of the group. The format depends on the API that returned it: -
+   * Account-scoped: accounts/{account_id}/groups/{group_id} - Workspace-scoped: groups/{group_id}
+   */
+  @JsonProperty("name")
+  private String name;
+
+  /**
+   * The resource name of the account that contains the group, `accounts/{account_id}`. Both the
+   * account-scoped and workspace-scoped APIs return it.
+   */
+  @JsonProperty("parent")
+  private String parent;
+
   public Group setAccountId(String accountId) {
     this.accountId = accountId;
     return this;
@@ -62,6 +76,24 @@ public class Group {
     return groupName;
   }
 
+  public Group setName(String name) {
+    this.name = name;
+    return this;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public Group setParent(String parent) {
+    this.parent = parent;
+    return this;
+  }
+
+  public String getParent() {
+    return parent;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -70,12 +102,14 @@ public class Group {
     return Objects.equals(accountId, that.accountId)
         && Objects.equals(externalId, that.externalId)
         && Objects.equals(groupId, that.groupId)
-        && Objects.equals(groupName, that.groupName);
+        && Objects.equals(groupName, that.groupName)
+        && Objects.equals(name, that.name)
+        && Objects.equals(parent, that.parent);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(accountId, externalId, groupId, groupName);
+    return Objects.hash(accountId, externalId, groupId, groupName, name, parent);
   }
 
   @Override
@@ -85,6 +119,8 @@ public class Group {
         .add("externalId", externalId)
         .add("groupId", groupId)
         .add("groupName", groupName)
+        .add("name", name)
+        .add("parent", parent)
         .toString();
   }
 }

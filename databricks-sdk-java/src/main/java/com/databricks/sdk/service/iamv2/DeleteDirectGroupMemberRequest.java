@@ -9,28 +9,19 @@ import java.util.Objects;
 
 @Generated
 public class DeleteDirectGroupMemberRequest {
-  /** Required. Internal ID of the group in Databricks. */
-  @JsonIgnore private Long groupId;
+  /**
+   * The resource name of the group membership. Format:
+   * accounts/{account_id}/groups/{group_id}/direct-members/{principal_id}
+   */
+  @JsonIgnore private String name;
 
-  /** Required. Internal ID of the principal to be unassigned from the group. */
-  @JsonIgnore private Long principalId;
-
-  public DeleteDirectGroupMemberRequest setGroupId(Long groupId) {
-    this.groupId = groupId;
+  public DeleteDirectGroupMemberRequest setName(String name) {
+    this.name = name;
     return this;
   }
 
-  public Long getGroupId() {
-    return groupId;
-  }
-
-  public DeleteDirectGroupMemberRequest setPrincipalId(Long principalId) {
-    this.principalId = principalId;
-    return this;
-  }
-
-  public Long getPrincipalId() {
-    return principalId;
+  public String getName() {
+    return name;
   }
 
   @Override
@@ -38,19 +29,16 @@ public class DeleteDirectGroupMemberRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     DeleteDirectGroupMemberRequest that = (DeleteDirectGroupMemberRequest) o;
-    return Objects.equals(groupId, that.groupId) && Objects.equals(principalId, that.principalId);
+    return Objects.equals(name, that.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(groupId, principalId);
+    return Objects.hash(name);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(DeleteDirectGroupMemberRequest.class)
-        .add("groupId", groupId)
-        .add("principalId", principalId)
-        .toString();
+    return new ToStringer(DeleteDirectGroupMemberRequest.class).add("name", name).toString();
   }
 }
