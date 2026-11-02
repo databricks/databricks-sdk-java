@@ -8,10 +8,19 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.protobuf.Timestamp;
 import java.util.Objects;
 
-/** A time range for a backfill. */
+/**
+ * A time range of source data for a backfill. The range is aligned outward to the boundaries at
+ * which the feature emits values: every slide_duration for a sliding window or every
+ * window_duration for a tumbling window, shifted by offset. Feature values up to one
+ * window_duration after the aligned end may change. The backfill stops at the most recent
+ * materialized values and leaves later values to materialization.
+ */
 @Generated
 public class BackfillRange {
-  /** End of the backfill range, exclusive. If unset, defaults to the current time. */
+  /**
+   * End of the backfill range, exclusive. If unset, defaults to the most recent materialized
+   * values.
+   */
   @JsonProperty("end_time")
   private Timestamp endTime;
 

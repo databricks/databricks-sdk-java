@@ -26,6 +26,20 @@ public class User {
   @JsonProperty("full_name")
   private UserFullName fullName;
 
+  /**
+   * The resource name of the user. The format depends on the API that returned it: -
+   * Account-scoped: accounts/{account_id}/users/{user_id} - Workspace-scoped: users/{user_id}
+   */
+  @JsonProperty("name")
+  private String name;
+
+  /**
+   * The resource name of the account that contains the user, `accounts/{account_id}`. Both the
+   * account-scoped and workspace-scoped APIs return it.
+   */
+  @JsonProperty("parent")
+  private String parent;
+
   /** Internal userId of the user in Databricks. */
   @JsonProperty("user_id")
   private String userId;
@@ -70,6 +84,24 @@ public class User {
     return fullName;
   }
 
+  public User setName(String name) {
+    this.name = name;
+    return this;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public User setParent(String parent) {
+    this.parent = parent;
+    return this;
+  }
+
+  public String getParent() {
+    return parent;
+  }
+
   public User setUserId(String userId) {
     this.userId = userId;
     return this;
@@ -97,13 +129,16 @@ public class User {
         && Objects.equals(accountUserStatus, that.accountUserStatus)
         && Objects.equals(externalId, that.externalId)
         && Objects.equals(fullName, that.fullName)
+        && Objects.equals(name, that.name)
+        && Objects.equals(parent, that.parent)
         && Objects.equals(userId, that.userId)
         && Objects.equals(username, that.username);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(accountId, accountUserStatus, externalId, fullName, userId, username);
+    return Objects.hash(
+        accountId, accountUserStatus, externalId, fullName, name, parent, userId, username);
   }
 
   @Override
@@ -113,6 +148,8 @@ public class User {
         .add("accountUserStatus", accountUserStatus)
         .add("externalId", externalId)
         .add("fullName", fullName)
+        .add("name", name)
+        .add("parent", parent)
         .add("userId", userId)
         .add("username", username)
         .toString();

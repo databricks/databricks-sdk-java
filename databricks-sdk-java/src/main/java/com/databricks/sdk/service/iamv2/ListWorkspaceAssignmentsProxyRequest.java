@@ -24,6 +24,15 @@ public class ListWorkspaceAssignmentsProxyRequest {
   @QueryParam("page_token")
   private String pageToken;
 
+  /**
+   * The resource name of the workspace to list assignments of,
+   * `accounts/{account_id}/workspaces/{workspace_id}`. Optional: defaults to the calling workspace,
+   * and any other workspace is rejected.
+   */
+  @JsonIgnore
+  @QueryParam("parent")
+  private String parent;
+
   public ListWorkspaceAssignmentsProxyRequest setPageSize(Long pageSize) {
     this.pageSize = pageSize;
     return this;
@@ -42,17 +51,28 @@ public class ListWorkspaceAssignmentsProxyRequest {
     return pageToken;
   }
 
+  public ListWorkspaceAssignmentsProxyRequest setParent(String parent) {
+    this.parent = parent;
+    return this;
+  }
+
+  public String getParent() {
+    return parent;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ListWorkspaceAssignmentsProxyRequest that = (ListWorkspaceAssignmentsProxyRequest) o;
-    return Objects.equals(pageSize, that.pageSize) && Objects.equals(pageToken, that.pageToken);
+    return Objects.equals(pageSize, that.pageSize)
+        && Objects.equals(pageToken, that.pageToken)
+        && Objects.equals(parent, that.parent);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(pageSize, pageToken);
+    return Objects.hash(pageSize, pageToken, parent);
   }
 
   @Override
@@ -60,6 +80,7 @@ public class ListWorkspaceAssignmentsProxyRequest {
     return new ToStringer(ListWorkspaceAssignmentsProxyRequest.class)
         .add("pageSize", pageSize)
         .add("pageToken", pageToken)
+        .add("parent", parent)
         .toString();
   }
 }

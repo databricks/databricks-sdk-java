@@ -15,12 +15,17 @@ public class CreateRoleRequest {
   @JsonIgnore private String parent;
 
   /**
-   * If true, update the role if it already exists instead of returning an error.
+   * If true, update the role if it already exists instead of returning an error. This requires
+   * `role_id` to be set. Without `role_id`, the request follows the normal create path and fails if
+   * the role name already exists.
    *
-   * <p>When the role already exists, the provided `role` spec fully replaces the existing one:
-   * `membership_roles` is overwritten, not merged. Leaving `membership_roles` empty clears all of
-   * the role's existing memberships, including `DATABRICKS_SUPERUSER`. Always send the complete
-   * desired list of memberships when using this field.
+   * <p>When the role already exists, only mutable fields are updated. Attributes omitted from the
+   * request retain their current values. Set an attribute explicitly to false to disable it.
+   * `identity_type`, `auth_method`, and `postgres_role` retain their existing values; supplied
+   * values for these fields are ignored. `membership_roles` is overwritten, not merged. Leaving
+   * `membership_roles` empty clears all of the role's existing memberships, including
+   * `DATABRICKS_SUPERUSER`. Always send the complete desired list of memberships when using this
+   * field.
    */
   @JsonIgnore
   @QueryParam("replace_existing")

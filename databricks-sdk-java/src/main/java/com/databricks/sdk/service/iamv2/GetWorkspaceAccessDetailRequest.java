@@ -11,26 +11,23 @@ import java.util.Objects;
 @Generated
 public class GetWorkspaceAccessDetailRequest {
   /**
-   * Required. The internal ID of the principal (user/sp/group) for which the access details are
-   * being requested.
+   * The resource name of the workspace access detail. Format:
+   * accounts/{account_id}/workspaces/{workspace_id}/workspace-access-details/{principal_id}
    */
-  @JsonIgnore private Long principalId;
+  @JsonIgnore private String name;
 
   /** Controls what fields are returned. */
   @JsonIgnore
   @QueryParam("view")
   private WorkspaceAccessDetailView view;
 
-  /** Required. The workspace ID for which the access details are being requested. */
-  @JsonIgnore private Long workspaceId;
-
-  public GetWorkspaceAccessDetailRequest setPrincipalId(Long principalId) {
-    this.principalId = principalId;
+  public GetWorkspaceAccessDetailRequest setName(String name) {
+    this.name = name;
     return this;
   }
 
-  public Long getPrincipalId() {
-    return principalId;
+  public String getName() {
+    return name;
   }
 
   public GetWorkspaceAccessDetailRequest setView(WorkspaceAccessDetailView view) {
@@ -42,36 +39,24 @@ public class GetWorkspaceAccessDetailRequest {
     return view;
   }
 
-  public GetWorkspaceAccessDetailRequest setWorkspaceId(Long workspaceId) {
-    this.workspaceId = workspaceId;
-    return this;
-  }
-
-  public Long getWorkspaceId() {
-    return workspaceId;
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GetWorkspaceAccessDetailRequest that = (GetWorkspaceAccessDetailRequest) o;
-    return Objects.equals(principalId, that.principalId)
-        && Objects.equals(view, that.view)
-        && Objects.equals(workspaceId, that.workspaceId);
+    return Objects.equals(name, that.name) && Objects.equals(view, that.view);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(principalId, view, workspaceId);
+    return Objects.hash(name, view);
   }
 
   @Override
   public String toString() {
     return new ToStringer(GetWorkspaceAccessDetailRequest.class)
-        .add("principalId", principalId)
+        .add("name", name)
         .add("view", view)
-        .add("workspaceId", workspaceId)
         .toString();
   }
 }

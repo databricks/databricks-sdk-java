@@ -13,6 +13,10 @@ public class TriggerStateProto {
   @JsonProperty("file_arrival")
   private FileArrivalTriggerState fileArrival;
 
+  /** */
+  @JsonProperty("job_completion")
+  private JobCompletionTriggerState jobCompletion;
+
   /**
    * Whether this trigger is paused or not. For continuous schedules, it can differ from the
    * configured pause_status whenever a paused continuous job is kickstarted by an operation other
@@ -36,6 +40,15 @@ public class TriggerStateProto {
 
   public FileArrivalTriggerState getFileArrival() {
     return fileArrival;
+  }
+
+  public TriggerStateProto setJobCompletion(JobCompletionTriggerState jobCompletion) {
+    this.jobCompletion = jobCompletion;
+    return this;
+  }
+
+  public JobCompletionTriggerState getJobCompletion() {
+    return jobCompletion;
   }
 
   public TriggerStateProto setPauseStatus(PauseStatus pauseStatus) {
@@ -71,6 +84,7 @@ public class TriggerStateProto {
     if (o == null || getClass() != o.getClass()) return false;
     TriggerStateProto that = (TriggerStateProto) o;
     return Objects.equals(fileArrival, that.fileArrival)
+        && Objects.equals(jobCompletion, that.jobCompletion)
         && Objects.equals(pauseStatus, that.pauseStatus)
         && Objects.equals(sqlCondition, that.sqlCondition)
         && Objects.equals(table, that.table);
@@ -78,13 +92,14 @@ public class TriggerStateProto {
 
   @Override
   public int hashCode() {
-    return Objects.hash(fileArrival, pauseStatus, sqlCondition, table);
+    return Objects.hash(fileArrival, jobCompletion, pauseStatus, sqlCondition, table);
   }
 
   @Override
   public String toString() {
     return new ToStringer(TriggerStateProto.class)
         .add("fileArrival", fileArrival)
+        .add("jobCompletion", jobCompletion)
         .add("pauseStatus", pauseStatus)
         .add("sqlCondition", sqlCondition)
         .add("table", table)

@@ -18,10 +18,7 @@ class AccountIamV2Impl implements AccountIamV2Service {
 
   @Override
   public DirectGroupMember createDirectGroupMember(CreateDirectGroupMemberRequest request) {
-    String path =
-        String.format(
-            "/api/2.0/identity/accounts/%s/groups/%s/direct-members",
-            apiClient.configuredAccountID(), request.getGroupId());
+    String path = String.format("/api/2.0/identity/%s/direct-members", request.getParent());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request.getDirectGroupMember()));
 
@@ -36,8 +33,7 @@ class AccountIamV2Impl implements AccountIamV2Service {
 
   @Override
   public Group createGroup(CreateGroupRequest request) {
-    String path =
-        String.format("/api/2.0/identity/accounts/%s/groups", apiClient.configuredAccountID());
+    String path = String.format("/api/2.0/identity/%s/groups", request.getParent());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request.getGroup()));
 
@@ -70,9 +66,7 @@ class AccountIamV2Impl implements AccountIamV2Service {
 
   @Override
   public ServicePrincipal createServicePrincipal(CreateServicePrincipalRequest request) {
-    String path =
-        String.format(
-            "/api/2.0/identity/accounts/%s/service-principals", apiClient.configuredAccountID());
+    String path = String.format("/api/2.0/identity/%s/service-principals", request.getParent());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request.getServicePrincipal()));
 
@@ -87,8 +81,7 @@ class AccountIamV2Impl implements AccountIamV2Service {
 
   @Override
   public User createUser(CreateUserRequest request) {
-    String path =
-        String.format("/api/2.0/identity/accounts/%s/users", apiClient.configuredAccountID());
+    String path = String.format("/api/2.0/identity/%s/users", request.getParent());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request.getUser()));
 
@@ -103,10 +96,7 @@ class AccountIamV2Impl implements AccountIamV2Service {
 
   @Override
   public WorkspaceAssignment createWorkspaceAssignment(CreateWorkspaceAssignmentRequest request) {
-    String path =
-        String.format(
-            "/api/2.0/identity/accounts/%s/workspaces/%s/workspace-assignments",
-            apiClient.configuredAccountID(), request.getWorkspaceId());
+    String path = String.format("/api/2.0/identity/%s/workspace-assignments", request.getParent());
     try {
       Request req =
           new Request("POST", path, apiClient.serialize(request.getWorkspaceAssignment()));
@@ -142,10 +132,7 @@ class AccountIamV2Impl implements AccountIamV2Service {
 
   @Override
   public void deleteDirectGroupMember(DeleteDirectGroupMemberRequest request) {
-    String path =
-        String.format(
-            "/api/2.0/identity/accounts/%s/groups/%s/direct-members/%s",
-            apiClient.configuredAccountID(), request.getGroupId(), request.getPrincipalId());
+    String path = String.format("/api/2.0/identity/%s", request.getName());
     try {
       Request req = new Request("DELETE", path);
 
@@ -159,10 +146,7 @@ class AccountIamV2Impl implements AccountIamV2Service {
 
   @Override
   public void deleteGroup(DeleteGroupRequest request) {
-    String path =
-        String.format(
-            "/api/2.0/identity/accounts/%s/groups/%s",
-            apiClient.configuredAccountID(), request.getGroupId());
+    String path = String.format("/api/2.0/identity/%s", request.getName());
     try {
       Request req = new Request("DELETE", path);
 
@@ -190,10 +174,7 @@ class AccountIamV2Impl implements AccountIamV2Service {
 
   @Override
   public void deleteServicePrincipal(DeleteServicePrincipalRequest request) {
-    String path =
-        String.format(
-            "/api/2.0/identity/accounts/%s/service-principals/%s",
-            apiClient.configuredAccountID(), request.getServicePrincipalId());
+    String path = String.format("/api/2.0/identity/%s", request.getName());
     try {
       Request req = new Request("DELETE", path);
 
@@ -207,10 +188,7 @@ class AccountIamV2Impl implements AccountIamV2Service {
 
   @Override
   public void deleteUser(DeleteUserRequest request) {
-    String path =
-        String.format(
-            "/api/2.0/identity/accounts/%s/users/%s",
-            apiClient.configuredAccountID(), request.getUserId());
+    String path = String.format("/api/2.0/identity/%s", request.getName());
     try {
       Request req = new Request("DELETE", path);
 
@@ -224,10 +202,7 @@ class AccountIamV2Impl implements AccountIamV2Service {
 
   @Override
   public void deleteWorkspaceAssignment(DeleteWorkspaceAssignmentRequest request) {
-    String path =
-        String.format(
-            "/api/2.0/identity/accounts/%s/workspaces/%s/workspace-assignments/%s",
-            apiClient.configuredAccountID(), request.getWorkspaceId(), request.getPrincipalId());
+    String path = String.format("/api/2.0/identity/%s", request.getName());
     try {
       Request req = new Request("DELETE", path);
 
@@ -258,10 +233,7 @@ class AccountIamV2Impl implements AccountIamV2Service {
 
   @Override
   public DirectGroupMember getDirectGroupMember(GetDirectGroupMemberRequest request) {
-    String path =
-        String.format(
-            "/api/2.0/identity/accounts/%s/groups/%s/direct-members/%s",
-            apiClient.configuredAccountID(), request.getGroupId(), request.getPrincipalId());
+    String path = String.format("/api/2.0/identity/%s", request.getName());
     try {
       Request req = new Request("GET", path);
 
@@ -318,10 +290,7 @@ class AccountIamV2Impl implements AccountIamV2Service {
 
   @Override
   public Group getGroup(GetGroupRequest request) {
-    String path =
-        String.format(
-            "/api/2.0/identity/accounts/%s/groups/%s",
-            apiClient.configuredAccountID(), request.getGroupId());
+    String path = String.format("/api/2.0/identity/%s", request.getName());
     try {
       Request req = new Request("GET", path);
 
@@ -350,10 +319,7 @@ class AccountIamV2Impl implements AccountIamV2Service {
 
   @Override
   public ServicePrincipal getServicePrincipal(GetServicePrincipalRequest request) {
-    String path =
-        String.format(
-            "/api/2.0/identity/accounts/%s/service-principals/%s",
-            apiClient.configuredAccountID(), request.getServicePrincipalId());
+    String path = String.format("/api/2.0/identity/%s", request.getName());
     try {
       Request req = new Request("GET", path);
 
@@ -367,10 +333,7 @@ class AccountIamV2Impl implements AccountIamV2Service {
 
   @Override
   public User getUser(GetUserRequest request) {
-    String path =
-        String.format(
-            "/api/2.0/identity/accounts/%s/users/%s",
-            apiClient.configuredAccountID(), request.getUserId());
+    String path = String.format("/api/2.0/identity/%s", request.getName());
     try {
       Request req = new Request("GET", path);
 
@@ -384,10 +347,7 @@ class AccountIamV2Impl implements AccountIamV2Service {
 
   @Override
   public WorkspaceAccessDetail getWorkspaceAccessDetail(GetWorkspaceAccessDetailRequest request) {
-    String path =
-        String.format(
-            "/api/2.0/identity/accounts/%s/workspaces/%s/workspace-access-details/%s",
-            apiClient.configuredAccountID(), request.getWorkspaceId(), request.getPrincipalId());
+    String path = String.format("/api/2.0/identity/%s", request.getName());
     try {
       Request req = new Request("GET", path);
 
@@ -401,10 +361,7 @@ class AccountIamV2Impl implements AccountIamV2Service {
 
   @Override
   public WorkspaceAssignment getWorkspaceAssignment(GetWorkspaceAssignmentRequest request) {
-    String path =
-        String.format(
-            "/api/2.0/identity/accounts/%s/workspaces/%s/workspace-assignments/%s",
-            apiClient.configuredAccountID(), request.getWorkspaceId(), request.getPrincipalId());
+    String path = String.format("/api/2.0/identity/%s", request.getName());
     try {
       Request req = new Request("GET", path);
 
@@ -437,10 +394,7 @@ class AccountIamV2Impl implements AccountIamV2Service {
   @Override
   public ListDirectGroupMembersResponse listDirectGroupMembers(
       ListDirectGroupMembersRequest request) {
-    String path =
-        String.format(
-            "/api/2.0/identity/accounts/%s/groups/%s/direct-members",
-            apiClient.configuredAccountID(), request.getGroupId());
+    String path = String.format("/api/2.0/identity/%s/direct-members", request.getParent());
     try {
       Request req = new Request("GET", path);
 
@@ -454,8 +408,7 @@ class AccountIamV2Impl implements AccountIamV2Service {
 
   @Override
   public ListGroupsResponse listGroups(ListGroupsRequest request) {
-    String path =
-        String.format("/api/2.0/identity/accounts/%s/groups", apiClient.configuredAccountID());
+    String path = String.format("/api/2.0/identity/%s/groups", request.getParent());
     try {
       Request req = new Request("GET", path);
 
@@ -485,9 +438,7 @@ class AccountIamV2Impl implements AccountIamV2Service {
 
   @Override
   public ListServicePrincipalsResponse listServicePrincipals(ListServicePrincipalsRequest request) {
-    String path =
-        String.format(
-            "/api/2.0/identity/accounts/%s/service-principals", apiClient.configuredAccountID());
+    String path = String.format("/api/2.0/identity/%s/service-principals", request.getParent());
     try {
       Request req = new Request("GET", path);
 
@@ -503,9 +454,7 @@ class AccountIamV2Impl implements AccountIamV2Service {
   public ListTransitiveParentGroupsResponse listTransitiveParentGroups(
       ListTransitiveParentGroupsRequest request) {
     String path =
-        String.format(
-            "/api/2.0/identity/accounts/%s/principals/%s/transitive-parent-groups",
-            apiClient.configuredAccountID(), request.getPrincipalId());
+        String.format("/api/2.0/identity/%s/transitive-parent-groups", request.getParent());
     try {
       Request req = new Request("GET", path);
 
@@ -519,8 +468,7 @@ class AccountIamV2Impl implements AccountIamV2Service {
 
   @Override
   public ListUsersResponse listUsers(ListUsersRequest request) {
-    String path =
-        String.format("/api/2.0/identity/accounts/%s/users", apiClient.configuredAccountID());
+    String path = String.format("/api/2.0/identity/%s/users", request.getParent());
     try {
       Request req = new Request("GET", path);
 
@@ -553,10 +501,7 @@ class AccountIamV2Impl implements AccountIamV2Service {
   @Override
   public ListWorkspaceAssignmentsResponse listWorkspaceAssignments(
       ListWorkspaceAssignmentsRequest request) {
-    String path =
-        String.format(
-            "/api/2.0/identity/accounts/%s/workspaces/%s/workspace-assignments",
-            apiClient.configuredAccountID(), request.getWorkspaceId());
+    String path = String.format("/api/2.0/identity/%s/workspace-assignments", request.getParent());
     try {
       Request req = new Request("GET", path);
 
@@ -625,10 +570,7 @@ class AccountIamV2Impl implements AccountIamV2Service {
 
   @Override
   public Group updateGroup(UpdateGroupRequest request) {
-    String path =
-        String.format(
-            "/api/2.0/identity/accounts/%s/groups/%s",
-            apiClient.configuredAccountID(), request.getGroupId());
+    String path = String.format("/api/2.0/identity/%s", request.getName());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request.getGroup()));
 
@@ -643,10 +585,7 @@ class AccountIamV2Impl implements AccountIamV2Service {
 
   @Override
   public ServicePrincipal updateServicePrincipal(UpdateServicePrincipalRequest request) {
-    String path =
-        String.format(
-            "/api/2.0/identity/accounts/%s/service-principals/%s",
-            apiClient.configuredAccountID(), request.getServicePrincipalId());
+    String path = String.format("/api/2.0/identity/%s", request.getName());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request.getServicePrincipal()));
 
@@ -661,10 +600,7 @@ class AccountIamV2Impl implements AccountIamV2Service {
 
   @Override
   public User updateUser(UpdateUserRequest request) {
-    String path =
-        String.format(
-            "/api/2.0/identity/accounts/%s/users/%s",
-            apiClient.configuredAccountID(), request.getUserId());
+    String path = String.format("/api/2.0/identity/%s", request.getName());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request.getUser()));
 
@@ -679,10 +615,7 @@ class AccountIamV2Impl implements AccountIamV2Service {
 
   @Override
   public WorkspaceAssignment updateWorkspaceAssignment(UpdateWorkspaceAssignmentRequest request) {
-    String path =
-        String.format(
-            "/api/2.0/identity/accounts/%s/workspaces/%s/workspace-assignments/%s",
-            apiClient.configuredAccountID(), request.getWorkspaceId(), request.getPrincipalId());
+    String path = String.format("/api/2.0/identity/%s", request.getName());
     try {
       Request req =
           new Request("PATCH", path, apiClient.serialize(request.getWorkspaceAssignment()));

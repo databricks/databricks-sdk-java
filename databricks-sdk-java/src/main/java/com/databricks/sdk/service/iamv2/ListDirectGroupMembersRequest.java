@@ -10,9 +10,6 @@ import java.util.Objects;
 
 @Generated
 public class ListDirectGroupMembersRequest {
-  /** Required. Internal ID of the group in Databricks whose direct members are being listed. */
-  @JsonIgnore private Long groupId;
-
   /**
    * The maximum number of members to return. The service may return fewer than this value. If not
    * provided, defaults to 1000, which is also the maximum allowed. Requests for more than the
@@ -30,14 +27,11 @@ public class ListDirectGroupMembersRequest {
   @QueryParam("page_token")
   private String pageToken;
 
-  public ListDirectGroupMembersRequest setGroupId(Long groupId) {
-    this.groupId = groupId;
-    return this;
-  }
-
-  public Long getGroupId() {
-    return groupId;
-  }
+  /**
+   * The parent resource name of the group whose direct members to list. Format:
+   * accounts/{account_id}/groups/{group_id}
+   */
+  @JsonIgnore private String parent;
 
   public ListDirectGroupMembersRequest setPageSize(Long pageSize) {
     this.pageSize = pageSize;
@@ -57,27 +51,36 @@ public class ListDirectGroupMembersRequest {
     return pageToken;
   }
 
+  public ListDirectGroupMembersRequest setParent(String parent) {
+    this.parent = parent;
+    return this;
+  }
+
+  public String getParent() {
+    return parent;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ListDirectGroupMembersRequest that = (ListDirectGroupMembersRequest) o;
-    return Objects.equals(groupId, that.groupId)
-        && Objects.equals(pageSize, that.pageSize)
-        && Objects.equals(pageToken, that.pageToken);
+    return Objects.equals(pageSize, that.pageSize)
+        && Objects.equals(pageToken, that.pageToken)
+        && Objects.equals(parent, that.parent);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(groupId, pageSize, pageToken);
+    return Objects.hash(pageSize, pageToken, parent);
   }
 
   @Override
   public String toString() {
     return new ToStringer(ListDirectGroupMembersRequest.class)
-        .add("groupId", groupId)
         .add("pageSize", pageSize)
         .add("pageToken", pageToken)
+        .add("parent", parent)
         .toString();
   }
 }

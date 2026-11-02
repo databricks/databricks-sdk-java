@@ -9,16 +9,16 @@ import java.util.Objects;
 
 @Generated
 public class DeleteGroupProxyRequest {
-  /** Required. Internal ID of the group in Databricks. */
-  @JsonIgnore private String groupId;
+  /** The resource name of the group. Format: groups/{group_id} */
+  @JsonIgnore private String name;
 
-  public DeleteGroupProxyRequest setGroupId(String groupId) {
-    this.groupId = groupId;
+  public DeleteGroupProxyRequest setName(String name) {
+    this.name = name;
     return this;
   }
 
-  public String getGroupId() {
-    return groupId;
+  public String getName() {
+    return name;
   }
 
   @Override
@@ -26,16 +26,16 @@ public class DeleteGroupProxyRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     DeleteGroupProxyRequest that = (DeleteGroupProxyRequest) o;
-    return Objects.equals(groupId, that.groupId);
+    return Objects.equals(name, that.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(groupId);
+    return Objects.hash(name);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(DeleteGroupProxyRequest.class).add("groupId", groupId).toString();
+    return new ToStringer(DeleteGroupProxyRequest.class).add("name", name).toString();
   }
 }

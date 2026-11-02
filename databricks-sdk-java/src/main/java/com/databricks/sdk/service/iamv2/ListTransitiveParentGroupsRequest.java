@@ -28,10 +28,10 @@ public class ListTransitiveParentGroupsRequest {
   private String pageToken;
 
   /**
-   * Required. Internal ID of the principal in Databricks whose transitive parent groups are being
-   * listed.
+   * The parent resource name of the principal whose transitive parent groups to list. Format:
+   * accounts/{account_id}/principals/{principal_id}
    */
-  @JsonIgnore private Long principalId;
+  @JsonIgnore private String parent;
 
   public ListTransitiveParentGroupsRequest setPageSize(Long pageSize) {
     this.pageSize = pageSize;
@@ -51,13 +51,13 @@ public class ListTransitiveParentGroupsRequest {
     return pageToken;
   }
 
-  public ListTransitiveParentGroupsRequest setPrincipalId(Long principalId) {
-    this.principalId = principalId;
+  public ListTransitiveParentGroupsRequest setParent(String parent) {
+    this.parent = parent;
     return this;
   }
 
-  public Long getPrincipalId() {
-    return principalId;
+  public String getParent() {
+    return parent;
   }
 
   @Override
@@ -67,12 +67,12 @@ public class ListTransitiveParentGroupsRequest {
     ListTransitiveParentGroupsRequest that = (ListTransitiveParentGroupsRequest) o;
     return Objects.equals(pageSize, that.pageSize)
         && Objects.equals(pageToken, that.pageToken)
-        && Objects.equals(principalId, that.principalId);
+        && Objects.equals(parent, that.parent);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(pageSize, pageToken, principalId);
+    return Objects.hash(pageSize, pageToken, parent);
   }
 
   @Override
@@ -80,7 +80,7 @@ public class ListTransitiveParentGroupsRequest {
     return new ToStringer(ListTransitiveParentGroupsRequest.class)
         .add("pageSize", pageSize)
         .add("pageToken", pageToken)
-        .add("principalId", principalId)
+        .add("parent", parent)
         .toString();
   }
 }

@@ -9,16 +9,16 @@ import java.util.Objects;
 
 @Generated
 public class DeleteWorkspaceAssignmentProxyRequest {
-  /** Required. ID of the principal in Databricks to delete workspace assignment for. */
-  @JsonIgnore private Long principalId;
+  /** The resource name of the workspace assignment. Format: workspace-assignments/{principal_id} */
+  @JsonIgnore private String name;
 
-  public DeleteWorkspaceAssignmentProxyRequest setPrincipalId(Long principalId) {
-    this.principalId = principalId;
+  public DeleteWorkspaceAssignmentProxyRequest setName(String name) {
+    this.name = name;
     return this;
   }
 
-  public Long getPrincipalId() {
-    return principalId;
+  public String getName() {
+    return name;
   }
 
   @Override
@@ -26,18 +26,16 @@ public class DeleteWorkspaceAssignmentProxyRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     DeleteWorkspaceAssignmentProxyRequest that = (DeleteWorkspaceAssignmentProxyRequest) o;
-    return Objects.equals(principalId, that.principalId);
+    return Objects.equals(name, that.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(principalId);
+    return Objects.hash(name);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(DeleteWorkspaceAssignmentProxyRequest.class)
-        .add("principalId", principalId)
-        .toString();
+    return new ToStringer(DeleteWorkspaceAssignmentProxyRequest.class).add("name", name).toString();
   }
 }

@@ -10,30 +10,18 @@ import java.util.Objects;
 @Generated
 public class GetWorkspaceAssignmentRequest {
   /**
-   * Required. The internal ID of the principal (user/sp/group) for which the assignment is being
-   * requested.
+   * The resource name of the workspace assignment. Format:
+   * accounts/{account_id}/workspaces/{workspace_id}/workspace-assignments/{principal_id}
    */
-  @JsonIgnore private Long principalId;
+  @JsonIgnore private String name;
 
-  /** Required. The workspace ID for which the assignment is being requested. */
-  @JsonIgnore private Long workspaceId;
-
-  public GetWorkspaceAssignmentRequest setPrincipalId(Long principalId) {
-    this.principalId = principalId;
+  public GetWorkspaceAssignmentRequest setName(String name) {
+    this.name = name;
     return this;
   }
 
-  public Long getPrincipalId() {
-    return principalId;
-  }
-
-  public GetWorkspaceAssignmentRequest setWorkspaceId(Long workspaceId) {
-    this.workspaceId = workspaceId;
-    return this;
-  }
-
-  public Long getWorkspaceId() {
-    return workspaceId;
+  public String getName() {
+    return name;
   }
 
   @Override
@@ -41,20 +29,16 @@ public class GetWorkspaceAssignmentRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GetWorkspaceAssignmentRequest that = (GetWorkspaceAssignmentRequest) o;
-    return Objects.equals(principalId, that.principalId)
-        && Objects.equals(workspaceId, that.workspaceId);
+    return Objects.equals(name, that.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(principalId, workspaceId);
+    return Objects.hash(name);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(GetWorkspaceAssignmentRequest.class)
-        .add("principalId", principalId)
-        .add("workspaceId", workspaceId)
-        .toString();
+    return new ToStringer(GetWorkspaceAssignmentRequest.class).add("name", name).toString();
   }
 }

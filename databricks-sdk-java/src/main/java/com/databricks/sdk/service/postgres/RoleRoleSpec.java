@@ -32,6 +32,10 @@ public class RoleRoleSpec {
    *
    * <p>NOTE: for the Databricks identity type GROUP, LAKEBASE_OAUTH_V1 is the default auth method
    * (group can login as well).
+   *
+   * <p>This field is set when the role is created and cannot be changed by UpdateRole. If provided
+   * in an UpdateRole request body, its value is ignored and the existing value is retained. Do not
+   * include this field as an explicit path in update_mask.
    */
   @JsonProperty("auth_method")
   private RoleAuthMethod authMethod;
@@ -40,6 +44,10 @@ public class RoleRoleSpec {
    * The type of role. When specifying a managed-identity, the chosen role_id must be a valid:
    *
    * <p>* application ID for SERVICE_PRINCIPAL * user email for USER * group name for GROUP
+   *
+   * <p>This field is set when the role is created and cannot be changed by UpdateRole. If provided
+   * in an UpdateRole request body, its value is ignored and the existing value is retained. Do not
+   * include this field as an explicit path in update_mask.
    */
   @JsonProperty("identity_type")
   private RoleIdentityType identityType;
@@ -61,6 +69,10 @@ public class RoleRoleSpec {
    *
    * <p>1. user email for IdentityType.USER 2. app ID for IdentityType.SERVICE_PRINCIPAL 2. group
    * name for IdentityType.GROUP
+   *
+   * <p>This field is set when the role is created and cannot be changed by UpdateRole. If provided
+   * in an UpdateRole request body, its value is ignored and the existing value is retained. Do not
+   * include this field as an explicit path in update_mask.
    */
   @JsonProperty("postgres_role")
   private String postgresRole;

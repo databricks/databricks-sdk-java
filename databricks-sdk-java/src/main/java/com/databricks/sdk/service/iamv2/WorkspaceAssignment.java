@@ -51,7 +51,28 @@ public class WorkspaceAssignment {
   @JsonProperty("entitlements")
   private Collection<Entitlement> entitlements;
 
-  /** The internal ID of the principal (user/sp/group) in Databricks. */
+  /**
+   * The resource name of the workspace assignment. The format depends on the API that returned it:
+   * - Account-scoped:
+   * accounts/{account_id}/workspaces/{workspace_id}/workspace-assignments/{principal_id} -
+   * Workspace-scoped: workspace-assignments/{principal_id}
+   */
+  @JsonProperty("name")
+  private String name;
+
+  /**
+   * The resource name of the workspace that contains the assignment,
+   * `accounts/{account_id}/workspaces/{workspace_id}`. Both the account-scoped and workspace-scoped
+   * APIs return it.
+   */
+  @JsonProperty("parent")
+  private String parent;
+
+  /**
+   * The internal ID of the principal (user/sp/group) in Databricks. Set when the assignment is
+   * created and cannot be changed afterwards; to assign a different principal, create a new
+   * assignment.
+   */
   @JsonProperty("principal_id")
   private Long principalId;
 
@@ -91,6 +112,24 @@ public class WorkspaceAssignment {
     return entitlements;
   }
 
+  public WorkspaceAssignment setName(String name) {
+    this.name = name;
+    return this;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public WorkspaceAssignment setParent(String parent) {
+    this.parent = parent;
+    return this;
+  }
+
+  public String getParent() {
+    return parent;
+  }
+
   public WorkspaceAssignment setPrincipalId(Long principalId) {
     this.principalId = principalId;
     return this;
@@ -126,6 +165,8 @@ public class WorkspaceAssignment {
     return Objects.equals(accountId, that.accountId)
         && Objects.equals(effectiveEntitlements, that.effectiveEntitlements)
         && Objects.equals(entitlements, that.entitlements)
+        && Objects.equals(name, that.name)
+        && Objects.equals(parent, that.parent)
         && Objects.equals(principalId, that.principalId)
         && Objects.equals(principalType, that.principalType)
         && Objects.equals(workspaceId, that.workspaceId);
@@ -134,7 +175,14 @@ public class WorkspaceAssignment {
   @Override
   public int hashCode() {
     return Objects.hash(
-        accountId, effectiveEntitlements, entitlements, principalId, principalType, workspaceId);
+        accountId,
+        effectiveEntitlements,
+        entitlements,
+        name,
+        parent,
+        principalId,
+        principalType,
+        workspaceId);
   }
 
   @Override
@@ -143,6 +191,8 @@ public class WorkspaceAssignment {
         .add("accountId", accountId)
         .add("effectiveEntitlements", effectiveEntitlements)
         .add("entitlements", entitlements)
+        .add("name", name)
+        .add("parent", parent)
         .add("principalId", principalId)
         .add("principalType", principalType)
         .add("workspaceId", workspaceId)

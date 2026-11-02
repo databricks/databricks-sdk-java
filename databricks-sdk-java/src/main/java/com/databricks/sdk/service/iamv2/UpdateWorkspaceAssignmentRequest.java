@@ -12,8 +12,13 @@ import java.util.Objects;
 
 @Generated
 public class UpdateWorkspaceAssignmentRequest {
-  /** Required. ID of the principal in Databricks. */
-  @JsonIgnore private Long principalId;
+  /**
+   * The resource name of the workspace assignment. The format depends on the API that returned it:
+   * - Account-scoped:
+   * accounts/{account_id}/workspaces/{workspace_id}/workspace-assignments/{principal_id} -
+   * Workspace-scoped: workspace-assignments/{principal_id}
+   */
+  @JsonIgnore private String name;
 
   /** Required. The list of fields to update. */
   @JsonIgnore
@@ -24,16 +29,13 @@ public class UpdateWorkspaceAssignmentRequest {
   @JsonProperty("workspace_assignment")
   private WorkspaceAssignment workspaceAssignment;
 
-  /** Required. The workspace ID for which the workspace assignment is being updated. */
-  @JsonIgnore private Long workspaceId;
-
-  public UpdateWorkspaceAssignmentRequest setPrincipalId(Long principalId) {
-    this.principalId = principalId;
+  public UpdateWorkspaceAssignmentRequest setName(String name) {
+    this.name = name;
     return this;
   }
 
-  public Long getPrincipalId() {
-    return principalId;
+  public String getName() {
+    return name;
   }
 
   public UpdateWorkspaceAssignmentRequest setUpdateMask(FieldMask updateMask) {
@@ -55,38 +57,27 @@ public class UpdateWorkspaceAssignmentRequest {
     return workspaceAssignment;
   }
 
-  public UpdateWorkspaceAssignmentRequest setWorkspaceId(Long workspaceId) {
-    this.workspaceId = workspaceId;
-    return this;
-  }
-
-  public Long getWorkspaceId() {
-    return workspaceId;
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     UpdateWorkspaceAssignmentRequest that = (UpdateWorkspaceAssignmentRequest) o;
-    return Objects.equals(principalId, that.principalId)
+    return Objects.equals(name, that.name)
         && Objects.equals(updateMask, that.updateMask)
-        && Objects.equals(workspaceAssignment, that.workspaceAssignment)
-        && Objects.equals(workspaceId, that.workspaceId);
+        && Objects.equals(workspaceAssignment, that.workspaceAssignment);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(principalId, updateMask, workspaceAssignment, workspaceId);
+    return Objects.hash(name, updateMask, workspaceAssignment);
   }
 
   @Override
   public String toString() {
     return new ToStringer(UpdateWorkspaceAssignmentRequest.class)
-        .add("principalId", principalId)
+        .add("name", name)
         .add("updateMask", updateMask)
         .add("workspaceAssignment", workspaceAssignment)
-        .add("workspaceId", workspaceId)
         .toString();
   }
 }

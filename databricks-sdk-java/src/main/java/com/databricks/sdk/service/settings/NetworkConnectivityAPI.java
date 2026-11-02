@@ -167,6 +167,12 @@ public class NetworkConnectivityAPI {
         });
   }
 
+  /** Updates the name or billing workspace for a network connectivity configuration. */
+  public NetworkConnectivityConfiguration updateNetworkConnectivityConfig(
+      UpdateNetworkConnectivityConfigRequest request) {
+    return impl.updateNetworkConnectivityConfig(request);
+  }
+
   /**
    * Updates a private endpoint rule. Currently only a private endpoint rule to customer-managed
    * resources is allowed to be updated.

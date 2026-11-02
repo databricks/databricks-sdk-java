@@ -23,6 +23,7 @@ public enum TriggerType {
   CONTINUOUS, // Indicates a run that is triggered by a continuous job.
   CONTINUOUS_RESTART, // Indicates a run created by user to manually restart a continuous job run.
   FILE_ARRIVAL, // Indicates a run that is triggered by a file arrival.
+  JOB_COMPLETION, // Indicates a run that is triggered by an upstream job completion.
   ONE_TIME, // One time triggers that fire a single run. This occurs you triggered a single
   // run on demand through the UI or the API.
   PERIODIC, // Schedules that periodically trigger runs, such as a cron scheduler.

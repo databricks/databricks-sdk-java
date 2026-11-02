@@ -15,8 +15,11 @@ public class UpdateGroupRequest {
   @JsonProperty("group")
   private Group group;
 
-  /** Required. Internal ID of the group in Databricks. */
-  @JsonIgnore private String groupId;
+  /**
+   * The resource name of the group. The format depends on the API that returned it: -
+   * Account-scoped: accounts/{account_id}/groups/{group_id} - Workspace-scoped: groups/{group_id}
+   */
+  @JsonIgnore private String name;
 
   /** Required. The list of fields to update. */
   @JsonIgnore
@@ -32,13 +35,13 @@ public class UpdateGroupRequest {
     return group;
   }
 
-  public UpdateGroupRequest setGroupId(String groupId) {
-    this.groupId = groupId;
+  public UpdateGroupRequest setName(String name) {
+    this.name = name;
     return this;
   }
 
-  public String getGroupId() {
-    return groupId;
+  public String getName() {
+    return name;
   }
 
   public UpdateGroupRequest setUpdateMask(String updateMask) {
@@ -56,20 +59,20 @@ public class UpdateGroupRequest {
     if (o == null || getClass() != o.getClass()) return false;
     UpdateGroupRequest that = (UpdateGroupRequest) o;
     return Objects.equals(group, that.group)
-        && Objects.equals(groupId, that.groupId)
+        && Objects.equals(name, that.name)
         && Objects.equals(updateMask, that.updateMask);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(group, groupId, updateMask);
+    return Objects.hash(group, name, updateMask);
   }
 
   @Override
   public String toString() {
     return new ToStringer(UpdateGroupRequest.class)
         .add("group", group)
-        .add("groupId", groupId)
+        .add("name", name)
         .add("updateMask", updateMask)
         .toString();
   }

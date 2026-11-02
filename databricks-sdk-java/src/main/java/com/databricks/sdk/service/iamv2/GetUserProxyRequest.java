@@ -9,16 +9,16 @@ import java.util.Objects;
 
 @Generated
 public class GetUserProxyRequest {
-  /** Required. Internal ID of the user in Databricks. */
-  @JsonIgnore private String userId;
+  /** The resource name of the user. Format: users/{user_id} */
+  @JsonIgnore private String name;
 
-  public GetUserProxyRequest setUserId(String userId) {
-    this.userId = userId;
+  public GetUserProxyRequest setName(String name) {
+    this.name = name;
     return this;
   }
 
-  public String getUserId() {
-    return userId;
+  public String getName() {
+    return name;
   }
 
   @Override
@@ -26,16 +26,16 @@ public class GetUserProxyRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GetUserProxyRequest that = (GetUserProxyRequest) o;
-    return Objects.equals(userId, that.userId);
+    return Objects.equals(name, that.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(userId);
+    return Objects.hash(name);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(GetUserProxyRequest.class).add("userId", userId).toString();
+    return new ToStringer(GetUserProxyRequest.class).add("name", name).toString();
   }
 }

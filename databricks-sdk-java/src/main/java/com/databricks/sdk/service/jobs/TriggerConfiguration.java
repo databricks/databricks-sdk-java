@@ -24,6 +24,10 @@ public class TriggerConfiguration {
   @JsonProperty("file_arrival")
   private FileArrivalTriggerConfiguration fileArrival;
 
+  /** Job completion trigger configuration. */
+  @JsonProperty("job_completion")
+  private JobCompletionTriggerConfiguration jobCompletion;
+
   /** Model trigger configuration. */
   @JsonProperty("model")
   private ModelTriggerConfiguration model;
@@ -70,6 +74,15 @@ public class TriggerConfiguration {
 
   public FileArrivalTriggerConfiguration getFileArrival() {
     return fileArrival;
+  }
+
+  public TriggerConfiguration setJobCompletion(JobCompletionTriggerConfiguration jobCompletion) {
+    this.jobCompletion = jobCompletion;
+    return this;
+  }
+
+  public JobCompletionTriggerConfiguration getJobCompletion() {
+    return jobCompletion;
   }
 
   public TriggerConfiguration setModel(ModelTriggerConfiguration model) {
@@ -133,6 +146,7 @@ public class TriggerConfiguration {
     TriggerConfiguration that = (TriggerConfiguration) o;
     return Objects.equals(continuous, that.continuous)
         && Objects.equals(fileArrival, that.fileArrival)
+        && Objects.equals(jobCompletion, that.jobCompletion)
         && Objects.equals(model, that.model)
         && Objects.equals(pauseStatus, that.pauseStatus)
         && Objects.equals(periodic, that.periodic)
@@ -144,7 +158,15 @@ public class TriggerConfiguration {
   @Override
   public int hashCode() {
     return Objects.hash(
-        continuous, fileArrival, model, pauseStatus, periodic, schedule, sqlCondition, tableUpdate);
+        continuous,
+        fileArrival,
+        jobCompletion,
+        model,
+        pauseStatus,
+        periodic,
+        schedule,
+        sqlCondition,
+        tableUpdate);
   }
 
   @Override
@@ -152,6 +174,7 @@ public class TriggerConfiguration {
     return new ToStringer(TriggerConfiguration.class)
         .add("continuous", continuous)
         .add("fileArrival", fileArrival)
+        .add("jobCompletion", jobCompletion)
         .add("model", model)
         .add("pauseStatus", pauseStatus)
         .add("periodic", periodic)

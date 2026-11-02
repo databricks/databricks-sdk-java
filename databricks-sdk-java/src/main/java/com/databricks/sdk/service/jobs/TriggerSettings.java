@@ -13,6 +13,10 @@ public class TriggerSettings {
   @JsonProperty("file_arrival")
   private FileArrivalTriggerConfiguration fileArrival;
 
+  /** Job completion trigger settings. */
+  @JsonProperty("job_completion")
+  private JobCompletionTriggerConfiguration jobCompletion;
+
   /** */
   @JsonProperty("model")
   private ModelTriggerConfiguration model;
@@ -43,6 +47,15 @@ public class TriggerSettings {
 
   public FileArrivalTriggerConfiguration getFileArrival() {
     return fileArrival;
+  }
+
+  public TriggerSettings setJobCompletion(JobCompletionTriggerConfiguration jobCompletion) {
+    this.jobCompletion = jobCompletion;
+    return this;
+  }
+
+  public JobCompletionTriggerConfiguration getJobCompletion() {
+    return jobCompletion;
   }
 
   public TriggerSettings setModel(ModelTriggerConfiguration model) {
@@ -96,6 +109,7 @@ public class TriggerSettings {
     if (o == null || getClass() != o.getClass()) return false;
     TriggerSettings that = (TriggerSettings) o;
     return Objects.equals(fileArrival, that.fileArrival)
+        && Objects.equals(jobCompletion, that.jobCompletion)
         && Objects.equals(model, that.model)
         && Objects.equals(pauseStatus, that.pauseStatus)
         && Objects.equals(periodic, that.periodic)
@@ -105,13 +119,15 @@ public class TriggerSettings {
 
   @Override
   public int hashCode() {
-    return Objects.hash(fileArrival, model, pauseStatus, periodic, sqlCondition, tableUpdate);
+    return Objects.hash(
+        fileArrival, jobCompletion, model, pauseStatus, periodic, sqlCondition, tableUpdate);
   }
 
   @Override
   public String toString() {
     return new ToStringer(TriggerSettings.class)
         .add("fileArrival", fileArrival)
+        .add("jobCompletion", jobCompletion)
         .add("model", model)
         .add("pauseStatus", pauseStatus)
         .add("periodic", periodic)

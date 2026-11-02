@@ -11,6 +11,12 @@ import java.util.Objects;
 
 @Generated
 public class UpdateUserProxyRequest {
+  /**
+   * The resource name of the user. The format depends on the API that returned it: -
+   * Account-scoped: accounts/{account_id}/users/{user_id} - Workspace-scoped: users/{user_id}
+   */
+  @JsonIgnore private String name;
+
   /** Required. The list of fields to update. */
   @JsonIgnore
   @QueryParam("update_mask")
@@ -20,8 +26,14 @@ public class UpdateUserProxyRequest {
   @JsonProperty("user")
   private User user;
 
-  /** Required. Internal ID of the user in Databricks. */
-  @JsonIgnore private String userId;
+  public UpdateUserProxyRequest setName(String name) {
+    this.name = name;
+    return this;
+  }
+
+  public String getName() {
+    return name;
+  }
 
   public UpdateUserProxyRequest setUpdateMask(String updateMask) {
     this.updateMask = updateMask;
@@ -41,36 +53,27 @@ public class UpdateUserProxyRequest {
     return user;
   }
 
-  public UpdateUserProxyRequest setUserId(String userId) {
-    this.userId = userId;
-    return this;
-  }
-
-  public String getUserId() {
-    return userId;
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     UpdateUserProxyRequest that = (UpdateUserProxyRequest) o;
-    return Objects.equals(updateMask, that.updateMask)
-        && Objects.equals(user, that.user)
-        && Objects.equals(userId, that.userId);
+    return Objects.equals(name, that.name)
+        && Objects.equals(updateMask, that.updateMask)
+        && Objects.equals(user, that.user);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(updateMask, user, userId);
+    return Objects.hash(name, updateMask, user);
   }
 
   @Override
   public String toString() {
     return new ToStringer(UpdateUserProxyRequest.class)
+        .add("name", name)
         .add("updateMask", updateMask)
         .add("user", user)
-        .add("userId", userId)
         .toString();
   }
 }

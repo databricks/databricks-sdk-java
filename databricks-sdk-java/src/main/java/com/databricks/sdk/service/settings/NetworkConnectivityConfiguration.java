@@ -16,6 +16,13 @@ public class NetworkConnectivityConfiguration {
   @JsonProperty("account_id")
   private String accountId;
 
+  /**
+   * The workspace to which charges for this network connectivity configuration are attributed. The
+   * workspace must be active and attached to this network connectivity configuration when set.
+   */
+  @JsonProperty("billing_workspace_id")
+  private Long billingWorkspaceId;
+
   /** Time in epoch milliseconds when this object was created. */
   @JsonProperty("creation_time")
   private Long creationTime;
@@ -57,6 +64,15 @@ public class NetworkConnectivityConfiguration {
 
   public String getAccountId() {
     return accountId;
+  }
+
+  public NetworkConnectivityConfiguration setBillingWorkspaceId(Long billingWorkspaceId) {
+    this.billingWorkspaceId = billingWorkspaceId;
+    return this;
+  }
+
+  public Long getBillingWorkspaceId() {
+    return billingWorkspaceId;
   }
 
   public NetworkConnectivityConfiguration setCreationTime(Long creationTime) {
@@ -120,6 +136,7 @@ public class NetworkConnectivityConfiguration {
     if (o == null || getClass() != o.getClass()) return false;
     NetworkConnectivityConfiguration that = (NetworkConnectivityConfiguration) o;
     return Objects.equals(accountId, that.accountId)
+        && Objects.equals(billingWorkspaceId, that.billingWorkspaceId)
         && Objects.equals(creationTime, that.creationTime)
         && Objects.equals(egressConfig, that.egressConfig)
         && Objects.equals(name, that.name)
@@ -132,6 +149,7 @@ public class NetworkConnectivityConfiguration {
   public int hashCode() {
     return Objects.hash(
         accountId,
+        billingWorkspaceId,
         creationTime,
         egressConfig,
         name,
@@ -144,6 +162,7 @@ public class NetworkConnectivityConfiguration {
   public String toString() {
     return new ToStringer(NetworkConnectivityConfiguration.class)
         .add("accountId", accountId)
+        .add("billingWorkspaceId", billingWorkspaceId)
         .add("creationTime", creationTime)
         .add("egressConfig", egressConfig)
         .add("name", name)

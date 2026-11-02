@@ -12,8 +12,11 @@ import java.util.Objects;
 
 @Generated
 public class UpdateWorkspaceIdentityDetailRequest {
-  /** Required. ID of the principal in Databricks. */
-  @JsonIgnore private Long principalId;
+  /**
+   * The resource name of the workspace identity detail. Format:
+   * principals/{principal_id}/workspace-identity-detail
+   */
+  @JsonIgnore private String name;
 
   /** Required. The list of fields to update. */
   @JsonIgnore
@@ -24,13 +27,13 @@ public class UpdateWorkspaceIdentityDetailRequest {
   @JsonProperty("workspace_identity_detail")
   private WorkspaceIdentityDetail workspaceIdentityDetail;
 
-  public UpdateWorkspaceIdentityDetailRequest setPrincipalId(Long principalId) {
-    this.principalId = principalId;
+  public UpdateWorkspaceIdentityDetailRequest setName(String name) {
+    this.name = name;
     return this;
   }
 
-  public Long getPrincipalId() {
-    return principalId;
+  public String getName() {
+    return name;
   }
 
   public UpdateWorkspaceIdentityDetailRequest setUpdateMask(FieldMask updateMask) {
@@ -57,20 +60,20 @@ public class UpdateWorkspaceIdentityDetailRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     UpdateWorkspaceIdentityDetailRequest that = (UpdateWorkspaceIdentityDetailRequest) o;
-    return Objects.equals(principalId, that.principalId)
+    return Objects.equals(name, that.name)
         && Objects.equals(updateMask, that.updateMask)
         && Objects.equals(workspaceIdentityDetail, that.workspaceIdentityDetail);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(principalId, updateMask, workspaceIdentityDetail);
+    return Objects.hash(name, updateMask, workspaceIdentityDetail);
   }
 
   @Override
   public String toString() {
     return new ToStringer(UpdateWorkspaceIdentityDetailRequest.class)
-        .add("principalId", principalId)
+        .add("name", name)
         .add("updateMask", updateMask)
         .add("workspaceIdentityDetail", workspaceIdentityDetail)
         .toString();

@@ -19,6 +19,15 @@ public class WorkspaceAccessDetail {
   @JsonProperty("account_id")
   private String accountId;
 
+  /**
+   * The resource name of the workspace access detail. The format depends on the API that returned
+   * it: - Account-scoped:
+   * accounts/{account_id}/workspaces/{workspace_id}/workspace-access-details/{principal_id} -
+   * Workspace-scoped: workspace-access-details/{principal_id}
+   */
+  @JsonProperty("name")
+  private String name;
+
   /** The permissions granted to the principal in the workspace. */
   @JsonProperty("permissions")
   private Collection<WorkspacePermission> permissions;
@@ -57,6 +66,15 @@ public class WorkspaceAccessDetail {
 
   public String getAccountId() {
     return accountId;
+  }
+
+  public WorkspaceAccessDetail setName(String name) {
+    this.name = name;
+    return this;
+  }
+
+  public String getName() {
+    return name;
   }
 
   public WorkspaceAccessDetail setPermissions(Collection<WorkspacePermission> permissions) {
@@ -111,6 +129,7 @@ public class WorkspaceAccessDetail {
     WorkspaceAccessDetail that = (WorkspaceAccessDetail) o;
     return Objects.equals(accessType, that.accessType)
         && Objects.equals(accountId, that.accountId)
+        && Objects.equals(name, that.name)
         && Objects.equals(permissions, that.permissions)
         && Objects.equals(principalId, that.principalId)
         && Objects.equals(principalType, that.principalType)
@@ -121,7 +140,7 @@ public class WorkspaceAccessDetail {
   @Override
   public int hashCode() {
     return Objects.hash(
-        accessType, accountId, permissions, principalId, principalType, status, workspaceId);
+        accessType, accountId, name, permissions, principalId, principalType, status, workspaceId);
   }
 
   @Override
@@ -129,6 +148,7 @@ public class WorkspaceAccessDetail {
     return new ToStringer(WorkspaceAccessDetail.class)
         .add("accessType", accessType)
         .add("accountId", accountId)
+        .add("name", name)
         .add("permissions", permissions)
         .add("principalId", principalId)
         .add("principalType", principalType)

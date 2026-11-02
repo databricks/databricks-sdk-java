@@ -16,8 +16,9 @@ public class AlertSpendStatus {
   /**
    * Percentage of the threshold consumed, as a decimal string rounded down to one decimal place
    * (for example, "68.4" means 68.4%). May exceed 100 when spend is over the threshold. Returns
-   * "0.0" if there's no spend, and is omitted if the threshold is $0. For shared thresholds, this
-   * is the only value returned; the absolute `spend` and `threshold` dollar amounts are withheld.
+   * "0.0" if there's no spend, except that a $0 threshold always returns "100.0". For shared
+   * thresholds, this is the only value returned; the absolute `spend` and `threshold` dollar
+   * amounts are withheld.
    */
   @JsonProperty("percent_consumed")
   private String percentConsumed;

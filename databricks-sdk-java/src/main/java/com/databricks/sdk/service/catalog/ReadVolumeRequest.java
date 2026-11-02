@@ -18,7 +18,7 @@ public class ReadVolumeRequest {
   @QueryParam("include_browse")
   private Boolean includeBrowse;
 
-  /** The three-level (fully qualified) name of the volume */
+  /** The fully qualified name of the volume. */
   @JsonIgnore private String name;
 
   public ReadVolumeRequest setIncludeBrowse(Boolean includeBrowse) {

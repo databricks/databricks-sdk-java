@@ -32,6 +32,12 @@ public class ListServicePrincipalsRequest {
   @QueryParam("page_token")
   private String pageToken;
 
+  /**
+   * The parent resource name of the account whose service principals to list. Format:
+   * accounts/{account_id}
+   */
+  @JsonIgnore private String parent;
+
   public ListServicePrincipalsRequest setFilter(String filter) {
     this.filter = filter;
     return this;
@@ -59,6 +65,15 @@ public class ListServicePrincipalsRequest {
     return pageToken;
   }
 
+  public ListServicePrincipalsRequest setParent(String parent) {
+    this.parent = parent;
+    return this;
+  }
+
+  public String getParent() {
+    return parent;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -66,12 +81,13 @@ public class ListServicePrincipalsRequest {
     ListServicePrincipalsRequest that = (ListServicePrincipalsRequest) o;
     return Objects.equals(filter, that.filter)
         && Objects.equals(pageSize, that.pageSize)
-        && Objects.equals(pageToken, that.pageToken);
+        && Objects.equals(pageToken, that.pageToken)
+        && Objects.equals(parent, that.parent);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(filter, pageSize, pageToken);
+    return Objects.hash(filter, pageSize, pageToken, parent);
   }
 
   @Override
@@ -80,6 +96,7 @@ public class ListServicePrincipalsRequest {
         .add("filter", filter)
         .add("pageSize", pageSize)
         .add("pageToken", pageToken)
+        .add("parent", parent)
         .toString();
   }
 }

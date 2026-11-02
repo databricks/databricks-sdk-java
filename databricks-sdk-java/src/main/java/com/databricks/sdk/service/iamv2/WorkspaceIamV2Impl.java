@@ -19,7 +19,7 @@ class WorkspaceIamV2Impl implements WorkspaceIamV2Service {
   @Override
   public DirectGroupMember createDirectGroupMemberProxy(
       CreateDirectGroupMemberProxyRequest request) {
-    String path = String.format("/api/2.0/identity/groups/%s/direct-members", request.getGroupId());
+    String path = String.format("/api/2.0/identity/%s/direct-members", request.getParent());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request.getDirectGroupMember()));
 
@@ -131,10 +131,7 @@ class WorkspaceIamV2Impl implements WorkspaceIamV2Service {
 
   @Override
   public void deleteDirectGroupMemberProxy(DeleteDirectGroupMemberProxyRequest request) {
-    String path =
-        String.format(
-            "/api/2.0/identity/groups/%s/direct-members/%s",
-            request.getGroupId(), request.getPrincipalId());
+    String path = String.format("/api/2.0/identity/%s", request.getName());
     try {
       Request req = new Request("DELETE", path);
 
@@ -151,7 +148,7 @@ class WorkspaceIamV2Impl implements WorkspaceIamV2Service {
 
   @Override
   public void deleteGroupProxy(DeleteGroupProxyRequest request) {
-    String path = String.format("/api/2.0/identity/groups/%s", request.getGroupId());
+    String path = String.format("/api/2.0/identity/%s", request.getName());
     try {
       Request req = new Request("DELETE", path);
 
@@ -168,8 +165,7 @@ class WorkspaceIamV2Impl implements WorkspaceIamV2Service {
 
   @Override
   public void deleteServicePrincipalProxy(DeleteServicePrincipalProxyRequest request) {
-    String path =
-        String.format("/api/2.0/identity/service-principals/%s", request.getServicePrincipalId());
+    String path = String.format("/api/2.0/identity/%s", request.getName());
     try {
       Request req = new Request("DELETE", path);
 
@@ -186,7 +182,7 @@ class WorkspaceIamV2Impl implements WorkspaceIamV2Service {
 
   @Override
   public void deleteUserProxy(DeleteUserProxyRequest request) {
-    String path = String.format("/api/2.0/identity/users/%s", request.getUserId());
+    String path = String.format("/api/2.0/identity/%s", request.getName());
     try {
       Request req = new Request("DELETE", path);
 
@@ -223,8 +219,7 @@ class WorkspaceIamV2Impl implements WorkspaceIamV2Service {
 
   @Override
   public void deleteWorkspaceAssignmentProxy(DeleteWorkspaceAssignmentProxyRequest request) {
-    String path =
-        String.format("/api/2.0/identity/workspace-assignments/%s", request.getPrincipalId());
+    String path = String.format("/api/2.0/identity/%s", request.getName());
     try {
       Request req = new Request("DELETE", path);
 
@@ -241,10 +236,7 @@ class WorkspaceIamV2Impl implements WorkspaceIamV2Service {
 
   @Override
   public DirectGroupMember getDirectGroupMemberProxy(GetDirectGroupMemberProxyRequest request) {
-    String path =
-        String.format(
-            "/api/2.0/identity/groups/%s/direct-members/%s",
-            request.getGroupId(), request.getPrincipalId());
+    String path = String.format("/api/2.0/identity/%s", request.getName());
     try {
       Request req = new Request("GET", path);
 
@@ -313,7 +305,7 @@ class WorkspaceIamV2Impl implements WorkspaceIamV2Service {
 
   @Override
   public Group getGroupProxy(GetGroupProxyRequest request) {
-    String path = String.format("/api/2.0/identity/groups/%s", request.getGroupId());
+    String path = String.format("/api/2.0/identity/%s", request.getName());
     try {
       Request req = new Request("GET", path);
 
@@ -330,8 +322,7 @@ class WorkspaceIamV2Impl implements WorkspaceIamV2Service {
 
   @Override
   public ServicePrincipal getServicePrincipalProxy(GetServicePrincipalProxyRequest request) {
-    String path =
-        String.format("/api/2.0/identity/service-principals/%s", request.getServicePrincipalId());
+    String path = String.format("/api/2.0/identity/%s", request.getName());
     try {
       Request req = new Request("GET", path);
 
@@ -348,7 +339,7 @@ class WorkspaceIamV2Impl implements WorkspaceIamV2Service {
 
   @Override
   public User getUserProxy(GetUserProxyRequest request) {
-    String path = String.format("/api/2.0/identity/users/%s", request.getUserId());
+    String path = String.format("/api/2.0/identity/%s", request.getName());
     try {
       Request req = new Request("GET", path);
 
@@ -366,8 +357,7 @@ class WorkspaceIamV2Impl implements WorkspaceIamV2Service {
   @Override
   public WorkspaceAccessDetail getWorkspaceAccessDetailLocal(
       GetWorkspaceAccessDetailLocalRequest request) {
-    String path =
-        String.format("/api/2.0/identity/workspace-access-details/%s", request.getPrincipalId());
+    String path = String.format("/api/2.0/identity/%s", request.getName());
     try {
       Request req = new Request("GET", path);
 
@@ -405,8 +395,7 @@ class WorkspaceIamV2Impl implements WorkspaceIamV2Service {
   @Override
   public WorkspaceAssignment getWorkspaceAssignmentProxy(
       GetWorkspaceAssignmentProxyRequest request) {
-    String path =
-        String.format("/api/2.0/identity/workspace-assignments/%s", request.getPrincipalId());
+    String path = String.format("/api/2.0/identity/%s", request.getName());
     try {
       Request req = new Request("GET", path);
 
@@ -424,8 +413,7 @@ class WorkspaceIamV2Impl implements WorkspaceIamV2Service {
   @Override
   public WorkspaceIdentityDetail getWorkspaceIdentityDetail(
       GetWorkspaceIdentityDetailRequest request) {
-    String path =
-        String.format("/api/2.0/identity/workspace-identity-details/%s", request.getPrincipalId());
+    String path = String.format("/api/2.0/identity/%s", request.getName());
     try {
       Request req = new Request("GET", path);
 
@@ -443,7 +431,7 @@ class WorkspaceIamV2Impl implements WorkspaceIamV2Service {
   @Override
   public ListDirectGroupMembersResponse listDirectGroupMembersProxy(
       ListDirectGroupMembersProxyRequest request) {
-    String path = String.format("/api/2.0/identity/groups/%s/direct-members", request.getGroupId());
+    String path = String.format("/api/2.0/identity/%s/direct-members", request.getParent());
     try {
       Request req = new Request("GET", path);
 
@@ -497,8 +485,7 @@ class WorkspaceIamV2Impl implements WorkspaceIamV2Service {
   public ListTransitiveParentGroupsResponse listTransitiveParentGroupsProxy(
       ListTransitiveParentGroupsProxyRequest request) {
     String path =
-        String.format(
-            "/api/2.0/identity/principals/%s/transitive-parent-groups", request.getPrincipalId());
+        String.format("/api/2.0/identity/%s/transitive-parent-groups", request.getParent());
     try {
       Request req = new Request("GET", path);
 
@@ -623,7 +610,7 @@ class WorkspaceIamV2Impl implements WorkspaceIamV2Service {
 
   @Override
   public Group updateGroupProxy(UpdateGroupProxyRequest request) {
-    String path = String.format("/api/2.0/identity/groups/%s", request.getGroupId());
+    String path = String.format("/api/2.0/identity/%s", request.getName());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request.getGroup()));
 
@@ -641,8 +628,7 @@ class WorkspaceIamV2Impl implements WorkspaceIamV2Service {
 
   @Override
   public ServicePrincipal updateServicePrincipalProxy(UpdateServicePrincipalProxyRequest request) {
-    String path =
-        String.format("/api/2.0/identity/service-principals/%s", request.getServicePrincipalId());
+    String path = String.format("/api/2.0/identity/%s", request.getName());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request.getServicePrincipal()));
 
@@ -660,7 +646,7 @@ class WorkspaceIamV2Impl implements WorkspaceIamV2Service {
 
   @Override
   public User updateUserProxy(UpdateUserProxyRequest request) {
-    String path = String.format("/api/2.0/identity/users/%s", request.getUserId());
+    String path = String.format("/api/2.0/identity/%s", request.getName());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request.getUser()));
 
@@ -701,8 +687,7 @@ class WorkspaceIamV2Impl implements WorkspaceIamV2Service {
   @Override
   public WorkspaceAssignment updateWorkspaceAssignmentProxy(
       UpdateWorkspaceAssignmentProxyRequest request) {
-    String path =
-        String.format("/api/2.0/identity/workspace-assignments/%s", request.getPrincipalId());
+    String path = String.format("/api/2.0/identity/%s", request.getName());
     try {
       Request req =
           new Request("PATCH", path, apiClient.serialize(request.getWorkspaceAssignment()));
@@ -722,8 +707,7 @@ class WorkspaceIamV2Impl implements WorkspaceIamV2Service {
   @Override
   public WorkspaceIdentityDetail updateWorkspaceIdentityDetail(
       UpdateWorkspaceIdentityDetailRequest request) {
-    String path =
-        String.format("/api/2.0/identity/workspace-identity-details/%s", request.getPrincipalId());
+    String path = String.format("/api/2.0/identity/%s", request.getName());
     try {
       Request req =
           new Request("PATCH", path, apiClient.serialize(request.getWorkspaceIdentityDetail()));

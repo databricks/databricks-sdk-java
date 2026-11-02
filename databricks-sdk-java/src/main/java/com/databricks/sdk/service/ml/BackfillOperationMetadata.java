@@ -11,7 +11,11 @@ import java.util.Objects;
 /** Progress and configuration for a backfill. */
 @Generated
 public class BackfillOperationMetadata {
-  /** Output ranges targeted by the backfill. */
+  /**
+   * The requested time ranges, each aligned outward to the boundaries at which the features emit
+   * values. Ranges that overlap after alignment are combined into one. The backfill stops at the
+   * most recent materialized values, so a range may extend past the values that it recomputed.
+   */
   @JsonProperty("backfill_ranges")
   private Collection<BackfillRange> backfillRanges;
 

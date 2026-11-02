@@ -82,6 +82,10 @@ public interface NetworkConnectivityService {
   ListPrivateEndpointRulesResponse listPrivateEndpointRules(
       ListPrivateEndpointRulesRequest listPrivateEndpointRulesRequest);
 
+  /** Updates the name or billing workspace for a network connectivity configuration. */
+  NetworkConnectivityConfiguration updateNetworkConnectivityConfig(
+      UpdateNetworkConnectivityConfigRequest updateNetworkConnectivityConfigRequest);
+
   /**
    * Updates a private endpoint rule. Currently only a private endpoint rule to customer-managed
    * resources is allowed to be updated.

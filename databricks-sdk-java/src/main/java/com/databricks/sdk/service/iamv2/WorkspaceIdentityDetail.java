@@ -14,6 +14,13 @@ public class WorkspaceIdentityDetail {
   @JsonProperty("assignment_type")
   private WorkspaceIdentityDetailAssignmentType assignmentType;
 
+  /**
+   * The resource name of the workspace identity detail. Format:
+   * principals/{principal_id}/workspace-identity-detail
+   */
+  @JsonProperty("name")
+  private String name;
+
   /** The internal ID of the principal (user/sp/group) in Databricks. */
   @JsonProperty("principal_id")
   private Long principalId;
@@ -34,6 +41,15 @@ public class WorkspaceIdentityDetail {
 
   public WorkspaceIdentityDetailAssignmentType getAssignmentType() {
     return assignmentType;
+  }
+
+  public WorkspaceIdentityDetail setName(String name) {
+    this.name = name;
+    return this;
+  }
+
+  public String getName() {
+    return name;
   }
 
   public WorkspaceIdentityDetail setPrincipalId(Long principalId) {
@@ -69,6 +85,7 @@ public class WorkspaceIdentityDetail {
     if (o == null || getClass() != o.getClass()) return false;
     WorkspaceIdentityDetail that = (WorkspaceIdentityDetail) o;
     return Objects.equals(assignmentType, that.assignmentType)
+        && Objects.equals(name, that.name)
         && Objects.equals(principalId, that.principalId)
         && Objects.equals(principalType, that.principalType)
         && Objects.equals(workspaceIdentityStatus, that.workspaceIdentityStatus);
@@ -76,13 +93,14 @@ public class WorkspaceIdentityDetail {
 
   @Override
   public int hashCode() {
-    return Objects.hash(assignmentType, principalId, principalType, workspaceIdentityStatus);
+    return Objects.hash(assignmentType, name, principalId, principalType, workspaceIdentityStatus);
   }
 
   @Override
   public String toString() {
     return new ToStringer(WorkspaceIdentityDetail.class)
         .add("assignmentType", assignmentType)
+        .add("name", name)
         .add("principalId", principalId)
         .add("principalType", principalType)
         .add("workspaceIdentityStatus", workspaceIdentityStatus)

@@ -27,8 +27,11 @@ public class ListWorkspaceAssignmentsRequest {
   @QueryParam("page_token")
   private String pageToken;
 
-  /** Required. The workspace ID for which the workspace assignments are being fetched. */
-  @JsonIgnore private Long workspaceId;
+  /**
+   * The parent resource name of the workspace whose assignments to list. Format:
+   * accounts/{account_id}/workspaces/{workspace_id}
+   */
+  @JsonIgnore private String parent;
 
   public ListWorkspaceAssignmentsRequest setPageSize(Long pageSize) {
     this.pageSize = pageSize;
@@ -48,13 +51,13 @@ public class ListWorkspaceAssignmentsRequest {
     return pageToken;
   }
 
-  public ListWorkspaceAssignmentsRequest setWorkspaceId(Long workspaceId) {
-    this.workspaceId = workspaceId;
+  public ListWorkspaceAssignmentsRequest setParent(String parent) {
+    this.parent = parent;
     return this;
   }
 
-  public Long getWorkspaceId() {
-    return workspaceId;
+  public String getParent() {
+    return parent;
   }
 
   @Override
@@ -64,12 +67,12 @@ public class ListWorkspaceAssignmentsRequest {
     ListWorkspaceAssignmentsRequest that = (ListWorkspaceAssignmentsRequest) o;
     return Objects.equals(pageSize, that.pageSize)
         && Objects.equals(pageToken, that.pageToken)
-        && Objects.equals(workspaceId, that.workspaceId);
+        && Objects.equals(parent, that.parent);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(pageSize, pageToken, workspaceId);
+    return Objects.hash(pageSize, pageToken, parent);
   }
 
   @Override
@@ -77,7 +80,7 @@ public class ListWorkspaceAssignmentsRequest {
     return new ToStringer(ListWorkspaceAssignmentsRequest.class)
         .add("pageSize", pageSize)
         .add("pageToken", pageToken)
-        .add("workspaceId", workspaceId)
+        .add("parent", parent)
         .toString();
   }
 }
