@@ -20,6 +20,13 @@ public class IngestionDestination {
   @JsonProperty("delta_table_name")
   private String deltaTableName;
 
+  /**
+   * The full three-part name (catalog, schema, name) of an existing view to use instead of creating
+   * a Delta table. The view is dropped when the Stream is deleted.
+   */
+  @JsonProperty("view_name")
+  private String viewName;
+
   public IngestionDestination setDeltaTableName(String deltaTableName) {
     this.deltaTableName = deltaTableName;
     return this;
@@ -29,23 +36,34 @@ public class IngestionDestination {
     return deltaTableName;
   }
 
+  public IngestionDestination setViewName(String viewName) {
+    this.viewName = viewName;
+    return this;
+  }
+
+  public String getViewName() {
+    return viewName;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     IngestionDestination that = (IngestionDestination) o;
-    return Objects.equals(deltaTableName, that.deltaTableName);
+    return Objects.equals(deltaTableName, that.deltaTableName)
+        && Objects.equals(viewName, that.viewName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(deltaTableName);
+    return Objects.hash(deltaTableName, viewName);
   }
 
   @Override
   public String toString() {
     return new ToStringer(IngestionDestination.class)
         .add("deltaTableName", deltaTableName)
+        .add("viewName", viewName)
         .toString();
   }
 }

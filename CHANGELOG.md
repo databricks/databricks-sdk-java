@@ -1,5 +1,11 @@
 # Version changelog
 
+## Release v0.174.0 (2026-11-03)
+
+### API Changes
+* Add `viewName` field for `com.databricks.sdk.service.ml.IngestionDestination`.
+* Add `notifications` field for `com.databricks.sdk.service.ml.MaterializationSet`.
+
 ## Release v0.173.0 (2026-11-02)
 
 ### API Changes

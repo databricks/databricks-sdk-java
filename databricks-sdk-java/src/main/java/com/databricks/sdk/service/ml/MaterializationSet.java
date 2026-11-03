@@ -22,6 +22,14 @@ public class MaterializationSet {
   @JsonProperty("materialized_features")
   private Collection<MaterializedFeature> materializedFeatures;
 
+  /**
+   * Notification configuration around the materialization job or pipeline lifecycle. They are
+   * applied to every job and pipeline that materializes a feature in this set. Features which are
+   * materialized in the same pipeline will share the same notification.
+   */
+  @JsonProperty("notifications")
+  private MaterializationNotifications notifications;
+
   public MaterializationSet setMaterializationSetId(String materializationSetId) {
     this.materializationSetId = materializationSetId;
     return this;
@@ -41,18 +49,28 @@ public class MaterializationSet {
     return materializedFeatures;
   }
 
+  public MaterializationSet setNotifications(MaterializationNotifications notifications) {
+    this.notifications = notifications;
+    return this;
+  }
+
+  public MaterializationNotifications getNotifications() {
+    return notifications;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     MaterializationSet that = (MaterializationSet) o;
     return Objects.equals(materializationSetId, that.materializationSetId)
-        && Objects.equals(materializedFeatures, that.materializedFeatures);
+        && Objects.equals(materializedFeatures, that.materializedFeatures)
+        && Objects.equals(notifications, that.notifications);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(materializationSetId, materializedFeatures);
+    return Objects.hash(materializationSetId, materializedFeatures, notifications);
   }
 
   @Override
@@ -60,6 +78,7 @@ public class MaterializationSet {
     return new ToStringer(MaterializationSet.class)
         .add("materializationSetId", materializationSetId)
         .add("materializedFeatures", materializedFeatures)
+        .add("notifications", notifications)
         .toString();
   }
 }
