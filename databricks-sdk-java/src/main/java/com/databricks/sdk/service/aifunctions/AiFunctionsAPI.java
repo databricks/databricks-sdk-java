@@ -5,6 +5,7 @@ import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.core.logging.Logger;
 import com.databricks.sdk.core.logging.LoggerFactory;
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
 
 /** Transform and enrich data with AI on Databricks. */
 @Generated
@@ -52,6 +53,46 @@ public class AiFunctionsAPI {
   /** Parse structured content from unstructured documents. */
   public AiParseDocumentResponse aiParseDocument(AiParseDocumentRequest request) {
     return impl.aiParseDocument(request);
+  }
+
+  /**
+   * Cancel a batch. Cancellation is asynchronous: requests in flight drain first, so read the batch
+   * to observe the `CANCELLING` and `CANCELLED` statuses.
+   */
+  public CancelBatchResponse cancelBatch(CancelBatchRequest request) {
+    return impl.cancelBatch(request);
+  }
+
+  /**
+   * Run an AI function over every request in a file on a Unity Catalog volume. The batch runs
+   * asynchronously; read it to follow its progress.
+   */
+  public Batch createBatch(CreateBatchRequest request) {
+    return impl.createBatch(request);
+  }
+
+  public Batch getBatch(String name) {
+    return getBatch(new GetBatchRequest().setName(name));
+  }
+
+  /** Read one batch, with its status and progress. */
+  public Batch getBatch(GetBatchRequest request) {
+    return impl.getBatch(request);
+  }
+
+  /** List the batches the caller created in this workspace. */
+  public Iterable<Batch> listBatches(ListBatchesRequest request) {
+    return Paginator.newTokenPagination(
+        request,
+        impl::listBatches,
+        ListBatchesResponse::getBatches,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   public AiFunctionsService impl() {

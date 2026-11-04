@@ -34,4 +34,22 @@ public interface AiFunctionsService {
 
   /** Parse structured content from unstructured documents. */
   AiParseDocumentResponse aiParseDocument(AiParseDocumentRequest aiParseDocumentRequest);
+
+  /**
+   * Cancel a batch. Cancellation is asynchronous: requests in flight drain first, so read the batch
+   * to observe the `CANCELLING` and `CANCELLED` statuses.
+   */
+  CancelBatchResponse cancelBatch(CancelBatchRequest cancelBatchRequest);
+
+  /**
+   * Run an AI function over every request in a file on a Unity Catalog volume. The batch runs
+   * asynchronously; read it to follow its progress.
+   */
+  Batch createBatch(CreateBatchRequest createBatchRequest);
+
+  /** Read one batch, with its status and progress. */
+  Batch getBatch(GetBatchRequest getBatchRequest);
+
+  /** List the batches the caller created in this workspace. */
+  ListBatchesResponse listBatches(ListBatchesRequest listBatchesRequest);
 }

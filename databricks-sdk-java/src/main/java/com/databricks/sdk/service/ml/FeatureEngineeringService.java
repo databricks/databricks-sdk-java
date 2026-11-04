@@ -25,6 +25,9 @@ public interface FeatureEngineeringService {
   /** Create a Feature. */
   Feature createFeature(CreateFeatureRequest createFeatureRequest);
 
+  /** Create a feature spec. */
+  FeatureSpec createFeatureSpec(CreateFeatureSpecRequest createFeatureSpecRequest);
+
   /**
    * Create a Kafka config. During PrPr, Kafka configs can be read and used when creating features
    * under the entire metastore. Only the creator of the Kafka config can delete it.
@@ -44,6 +47,9 @@ public interface FeatureEngineeringService {
 
   /** Delete a Feature. */
   void deleteFeature(DeleteFeatureRequest deleteFeatureRequest);
+
+  /** Delete a feature spec. */
+  void deleteFeatureSpec(DeleteFeatureSpecRequest deleteFeatureSpecRequest);
 
   /**
    * Delete a Kafka config. During PrPr, Kafka configs can be read and used when creating features
@@ -66,6 +72,9 @@ public interface FeatureEngineeringService {
 
   /** Get a Feature. */
   Feature getFeature(GetFeatureRequest getFeatureRequest);
+
+  /** Get a feature spec. */
+  FeatureSpec getFeatureSpec(GetFeatureSpecRequest getFeatureSpecRequest);
 
   /**
    * Get a Kafka config. During PrPr, Kafka configs can be read and used when creating features

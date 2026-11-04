@@ -94,6 +94,24 @@ class FeatureEngineeringImpl implements FeatureEngineeringService {
   }
 
   @Override
+  public FeatureSpec createFeatureSpec(CreateFeatureSpecRequest request) {
+    String path = "/api/2.0/feature-engineering/feature-specs";
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request.getFeatureSpec()));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, FeatureSpec.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public KafkaConfig createKafkaConfig(CreateKafkaConfigRequest request) {
     String path = "/api/2.0/feature-engineering/features/kafka-configs";
     try {
@@ -172,6 +190,23 @@ class FeatureEngineeringImpl implements FeatureEngineeringService {
   @Override
   public void deleteFeature(DeleteFeatureRequest request) {
     String path = String.format("/api/2.0/feature-engineering/features/%s", request.getFullName());
+    try {
+      Request req = new Request("DELETE", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      apiClient.execute(req, Void.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public void deleteFeatureSpec(DeleteFeatureSpecRequest request) {
+    String path = String.format("/api/2.0/feature-engineering/feature-specs/%s", request.getName());
     try {
       Request req = new Request("DELETE", path);
 
@@ -276,6 +311,23 @@ class FeatureEngineeringImpl implements FeatureEngineeringService {
         req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, Feature.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public FeatureSpec getFeatureSpec(GetFeatureSpecRequest request) {
+    String path = String.format("/api/2.0/feature-engineering/feature-specs/%s", request.getName());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, FeatureSpec.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

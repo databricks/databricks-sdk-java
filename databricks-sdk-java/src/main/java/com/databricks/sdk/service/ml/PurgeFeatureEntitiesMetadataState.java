@@ -10,6 +10,10 @@ public enum PurgeFeatureEntitiesMetadataState {
   CANCELLED,
   FAILED,
   PENDING,
+  PENDING_CLEANUP,
+  PENDING_PURGE,
   RUNNING,
+  RUNNING_CLEANUP,
+  RUNNING_PURGE,
   SUCCEEDED,
 }

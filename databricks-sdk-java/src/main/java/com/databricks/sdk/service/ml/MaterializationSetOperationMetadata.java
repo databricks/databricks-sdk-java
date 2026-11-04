@@ -9,17 +9,14 @@ import com.google.protobuf.Timestamp;
 import java.util.Collection;
 import java.util.Objects;
 
-/**
- * Progress of a materialization set operation. Shared by create, update and delete, because
- * databricks.longrunning freezes a method's metadata type once it ships.
- */
+/** Progress of a materialization set operation. */
 @Generated
 public class MaterializationSetOperationMetadata {
   /** Time at which the operation was requested. */
   @JsonProperty("create_time")
   private Timestamp createTime;
 
-  /** Set by a DeleteMaterializationSet operation. */
+  /** Set by a `DeleteMaterializationSet` operation. */
   @JsonProperty("deletion_progress")
   private MaterializationSetDeletionProgress deletionProgress;
 
@@ -35,7 +32,7 @@ public class MaterializationSetOperationMetadata {
   @JsonProperty("state")
   private MaterializationSetOperationMetadataState state;
 
-  /** Set by an UpdateMaterializationSet operation. */
+  /** Set by an `UpdateMaterializationSet` operation. */
   @JsonProperty("update_progress")
   private MaterializationSetUpdateProgress updateProgress;
 

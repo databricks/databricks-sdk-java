@@ -46,6 +46,11 @@ public class FeatureEngineeringAPI {
     return impl.createFeature(request);
   }
 
+  /** Create a feature spec. */
+  public FeatureSpec createFeatureSpec(CreateFeatureSpecRequest request) {
+    return impl.createFeatureSpec(request);
+  }
+
   /**
    * Create a Kafka config. During PrPr, Kafka configs can be read and used when creating features
    * under the entire metastore. Only the creator of the Kafka config can delete it.
@@ -78,6 +83,15 @@ public class FeatureEngineeringAPI {
   /** Delete a Feature. */
   public void deleteFeature(DeleteFeatureRequest request) {
     impl.deleteFeature(request);
+  }
+
+  public void deleteFeatureSpec(String name) {
+    deleteFeatureSpec(new DeleteFeatureSpecRequest().setName(name));
+  }
+
+  /** Delete a feature spec. */
+  public void deleteFeatureSpec(DeleteFeatureSpecRequest request) {
+    impl.deleteFeatureSpec(request);
   }
 
   public void deleteKafkaConfig(String name) {
@@ -133,6 +147,15 @@ public class FeatureEngineeringAPI {
   /** Get a Feature. */
   public Feature getFeature(GetFeatureRequest request) {
     return impl.getFeature(request);
+  }
+
+  public FeatureSpec getFeatureSpec(String name) {
+    return getFeatureSpec(new GetFeatureSpecRequest().setName(name));
+  }
+
+  /** Get a feature spec. */
+  public FeatureSpec getFeatureSpec(GetFeatureSpecRequest request) {
+    return impl.getFeatureSpec(request);
   }
 
   public KafkaConfig getKafkaConfig(String name) {
