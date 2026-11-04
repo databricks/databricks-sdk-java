@@ -162,6 +162,8 @@ import com.databricks.sdk.service.jobs.PolicyComplianceForJobsAPI;
 import com.databricks.sdk.service.jobs.PolicyComplianceForJobsService;
 import com.databricks.sdk.service.knowledgeassistants.KnowledgeAssistantsAPI;
 import com.databricks.sdk.service.knowledgeassistants.KnowledgeAssistantsService;
+import com.databricks.sdk.service.lakewatch.LakewatchAPI;
+import com.databricks.sdk.service.lakewatch.LakewatchService;
 import com.databricks.sdk.service.marketplace.ConsumerFulfillmentsAPI;
 import com.databricks.sdk.service.marketplace.ConsumerFulfillmentsService;
 import com.databricks.sdk.service.marketplace.ConsumerInstallationsAPI;
@@ -359,6 +361,7 @@ public class WorkspaceClient {
   private KnowledgeAssistantsAPI knowledgeAssistantsAPI;
   private LakeviewAPI lakeviewAPI;
   private LakeviewEmbeddedAPI lakeviewEmbeddedAPI;
+  private LakewatchAPI lakewatchAPI;
   private LibrariesAPI librariesAPI;
   private MaterializedFeaturesAPI materializedFeaturesAPI;
   private MetastoresAPI metastoresAPI;
@@ -507,6 +510,7 @@ public class WorkspaceClient {
     knowledgeAssistantsAPI = new KnowledgeAssistantsAPI(apiClient);
     lakeviewAPI = new LakeviewAPI(apiClient);
     lakeviewEmbeddedAPI = new LakeviewEmbeddedAPI(apiClient);
+    lakewatchAPI = new LakewatchAPI(apiClient);
     librariesAPI = new LibrariesAPI(apiClient);
     materializedFeaturesAPI = new MaterializedFeaturesAPI(apiClient);
     metastoresAPI = new MetastoresAPI(apiClient);
@@ -1300,6 +1304,14 @@ public class WorkspaceClient {
   /** Token-based Lakeview APIs for embedding dashboards in external applications. */
   public LakeviewEmbeddedAPI lakeviewEmbedded() {
     return lakeviewEmbeddedAPI;
+  }
+
+  /**
+   * Manage Lakewatch: security-analytics data sources, detection rules, and per-catalog
+   * configuration.
+   */
+  public LakewatchAPI lakewatch() {
+    return lakewatchAPI;
   }
 
   /**
@@ -3060,6 +3072,17 @@ public class WorkspaceClient {
   /** Replace the default LakeviewEmbeddedAPI with a custom implementation. */
   public WorkspaceClient withLakeviewEmbeddedAPI(LakeviewEmbeddedAPI lakeviewEmbedded) {
     this.lakeviewEmbeddedAPI = lakeviewEmbedded;
+    return this;
+  }
+
+  /** Replace the default LakewatchService with a custom implementation. */
+  public WorkspaceClient withLakewatchImpl(LakewatchService lakewatch) {
+    return this.withLakewatchAPI(new LakewatchAPI(lakewatch));
+  }
+
+  /** Replace the default LakewatchAPI with a custom implementation. */
+  public WorkspaceClient withLakewatchAPI(LakewatchAPI lakewatch) {
+    this.lakewatchAPI = lakewatch;
     return this;
   }
 

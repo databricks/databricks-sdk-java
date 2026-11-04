@@ -109,7 +109,7 @@ public class InstancePoolAndStats {
    * This field encodes, through a single value, the resources available to each of the Spark nodes
    * in this cluster. For example, the Spark nodes can be provisioned and optimized for memory or
    * compute intensive workloads. A list of available node types can be retrieved by using the
-   * [clusters/listNodeTypes] API call.
+   * [clusters/listNodeTypes] API call. The node type cannot be changed after the pool is created.
    *
    * <p>[clusters/listNodeTypes]: https://docs.databricks.com/api/workspace/clusters/listnodetypes
    */

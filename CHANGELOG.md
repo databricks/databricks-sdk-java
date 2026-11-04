@@ -1,5 +1,14 @@
 # Version changelog
 
+## Release v0.175.0 (2026-11-04)
+
+### API Changes
+* Add `com.databricks.sdk.service.lakewatch` package.
+* Add `workspaceClient.lakewatch()` service.
+* Add `cancelBatch()`, `createBatch()`, `getBatch()` and `listBatches()` methods for `workspaceClient.aiFunctions()` service.
+* Add `createFeatureSpec()`, `deleteFeatureSpec()` and `getFeatureSpec()` methods for `workspaceClient.featureEngineering()` service.
+* [Breaking] Remove `CRITICAL` enum value for `com.databricks.sdk.service.jobs.AiRuntimeTaskPriorityClass`.
+
 ## Release v0.174.0 (2026-11-03)
 
 ### API Changes

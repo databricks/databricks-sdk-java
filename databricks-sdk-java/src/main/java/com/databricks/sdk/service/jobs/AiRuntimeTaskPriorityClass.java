@@ -11,6 +11,5 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum AiRuntimeTaskPriorityClass {
   BEST_EFFORT,
-  CRITICAL,
   NORMAL,
 }
