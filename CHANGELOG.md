@@ -1,5 +1,10 @@
 # Version changelog
 
+## Release v0.176.0 (2026-11-05)
+
+### API Changes
+* Add `undropMetastoreById()` method for `workspaceClient.metastores()` service.
+
 ## Release v0.175.0 (2026-11-04)
 
 ### API Changes

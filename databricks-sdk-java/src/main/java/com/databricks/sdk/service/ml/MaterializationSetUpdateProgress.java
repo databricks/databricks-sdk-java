@@ -8,21 +8,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-/**
- * What a partly failed UpdateMaterializationSet got through, attached to the error so a caller can
- * tell which materialized feature members already changed and which ones did not and why it failed.
- */
+/** Progress and outcomes of an `UpdateMaterializationSet` operation. */
 @Generated
 public class MaterializationSetUpdateProgress {
-  /** Materialized feature members that were deleted from the materialization set. */
+  /** IDs of materialized features that were deleted. */
   @JsonProperty("deleted_materialized_feature_ids")
   private Collection<String> deletedMaterializedFeatureIds;
 
-  /** Materialized feature members that could not be updated, one entry each. */
+  /** Materialized features that could not be updated or deleted, one entry each. */
   @JsonProperty("failed_materialized_features")
   private Collection<MaterializedFeatureChangeFailure> failedMaterializedFeatures;
 
-  /** Materialized feature members whose mutable state was updated. */
+  /** IDs of materialized features whose mutable state was updated. */
   @JsonProperty("updated_materialized_feature_ids")
   private Collection<String> updatedMaterializedFeatureIds;
 
