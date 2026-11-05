@@ -13,7 +13,10 @@ import java.util.Objects;
 @Generated
 public class UpdateMaterializationSetRequest {
   /**
-   * The desired state of the updated materialization set. materialization_set_id selects the set.
+   * The desired state of the materialization set. `materialization_set_id` identifies the set.
+   *
+   * <p>A request that changes pause settings must request the same `paused` value for all retained
+   * members with a cron schedule or table trigger.
    */
   @JsonProperty("materialization_set")
   private MaterializationSet materializationSet;
@@ -31,7 +34,20 @@ public class UpdateMaterializationSetRequest {
   @QueryParam("request_id")
   private String requestId;
 
-  /** The fields to update. Only 'materialized_features' or '*' is supported. */
+  /**
+   * The fields to update, relative to the materialization set. Supported values are
+   * `materialized_features` and `*`.
+   *
+   * <p>The `materialized_features` mask updates retained members and deletes omitted materialized
+   * features. The `*` mask selects all fields of the set and follows the same membership rules.
+   * Adding members is not supported.
+   *
+   * <p>To change pause settings without changing membership, include every member of the set. An
+   * omitted `paused` is reset to `false`.
+   *
+   * <p>Fields outside the mask are unchanged. Trigger types and settings other than `paused` must
+   * remain unchanged.
+   */
   @JsonIgnore
   @QueryParam("update_mask")
   private FieldMask updateMask;

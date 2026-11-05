@@ -128,9 +128,11 @@ public interface FeatureEngineeringService {
   KafkaConfig updateKafkaConfig(UpdateKafkaConfigRequest updateKafkaConfigRequest);
 
   /**
-   * Update the materialization set's state to match the supplied materialization set. Changes are
-   * applied member by member and are not atomic: when one member fails, the error reports which
-   * members were already changed.
+   * Updates a materialization set. Supports changing pause settings and deleting materialized
+   * features from the set.
+   *
+   * <p>Changes are not atomic. Some updates or deletions may succeed even if the operation fails.
+   * Individual outcomes are available in `MaterializationSetUpdateProgress`.
    */
   Operation updateMaterializationSet(
       UpdateMaterializationSetRequest updateMaterializationSetRequest);

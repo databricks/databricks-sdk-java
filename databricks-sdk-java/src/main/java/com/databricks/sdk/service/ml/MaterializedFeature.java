@@ -22,7 +22,7 @@ public class MaterializedFeature {
   @JsonProperty("cron_schedule")
   private String cronSchedule;
 
-  /** A cron-based schedule trigger for the materialization pipeline. */
+  /** A cron-based schedule trigger for batch materialization. */
   @JsonProperty("cron_schedule_trigger")
   private CronSchedule cronScheduleTrigger;
 
@@ -112,7 +112,7 @@ public class MaterializedFeature {
   @JsonProperty("table_name")
   private String tableName;
 
-  /** A trigger that fires when the upstream source table changes. */
+  /** A trigger that starts batch materialization when the upstream source table changes. */
   @JsonProperty("table_trigger")
   private TableTrigger tableTrigger;
 

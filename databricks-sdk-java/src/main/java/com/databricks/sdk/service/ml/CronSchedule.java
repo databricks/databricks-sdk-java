@@ -7,7 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** A cron-based schedule trigger for the materialization pipeline. */
+/** A cron-based schedule trigger for batch materialization. */
 @Generated
 public class CronSchedule {
   /**

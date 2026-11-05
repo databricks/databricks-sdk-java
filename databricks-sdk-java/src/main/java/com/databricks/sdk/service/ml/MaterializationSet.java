@@ -16,8 +16,9 @@ public class MaterializationSet {
   private String materializationSetId;
 
   /**
-   * The materialized features in this set. Order is not significant. Updating the set with a
-   * materialized feature removed from this set will cause it to be deleted.
+   * The materialized features in this set. Order is not significant. An `UpdateMaterializationSet`
+   * request with `materialized_features` or `*` in its update mask deletes omitted materialized
+   * features.
    */
   @JsonProperty("materialized_features")
   private Collection<MaterializedFeature> materializedFeatures;

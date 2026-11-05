@@ -155,6 +155,24 @@ class MetastoresImpl implements MetastoresService {
   }
 
   @Override
+  public MetastoreInfo undropMetastoreById(UndropMetastoreByIdRequest request) {
+    String path = "/api/2.1/unity-catalog/metastores:undropById";
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, MetastoreInfo.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public MetastoreInfo update(UpdateMetastore request) {
     String path = String.format("/api/2.1/unity-catalog/metastores/%s", request.getId());
     try {
