@@ -24,6 +24,18 @@ public class CronSchedule {
   private CronScheduleMode mode;
 
   /**
+   * Whether automatic materialization is paused. Defaults to `false`. Supported only for
+   * materializations in a materialization set. Use the `UpdateMaterializationSet` API to pause or
+   * resume the set.
+   *
+   * <p>Pausing does not cancel running or queued runs. Runs can still be triggered through the
+   * `TriggerMaterializationSet` API. Resuming does not submit a run. Creating a paused
+   * materialization skips its initial run.
+   */
+  @JsonProperty("paused")
+  private Boolean paused;
+
+  /**
    * A Java timezone ID. The schedule is resolved with respect to this timezone. Defaults to UTC
    * when omitted. Can only be configured for MANUAL schedules; DERIVED schedules are always aligned
    * to UTC.
@@ -49,6 +61,15 @@ public class CronSchedule {
     return mode;
   }
 
+  public CronSchedule setPaused(Boolean paused) {
+    this.paused = paused;
+    return this;
+  }
+
+  public Boolean getPaused() {
+    return paused;
+  }
+
   public CronSchedule setTimezoneId(String timezoneId) {
     this.timezoneId = timezoneId;
     return this;
@@ -65,12 +86,13 @@ public class CronSchedule {
     CronSchedule that = (CronSchedule) o;
     return Objects.equals(cronExpression, that.cronExpression)
         && Objects.equals(mode, that.mode)
+        && Objects.equals(paused, that.paused)
         && Objects.equals(timezoneId, that.timezoneId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(cronExpression, mode, timezoneId);
+    return Objects.hash(cronExpression, mode, paused, timezoneId);
   }
 
   @Override
@@ -78,6 +100,7 @@ public class CronSchedule {
     return new ToStringer(CronSchedule.class)
         .add("cronExpression", cronExpression)
         .add("mode", mode)
+        .add("paused", paused)
         .add("timezoneId", timezoneId)
         .toString();
   }

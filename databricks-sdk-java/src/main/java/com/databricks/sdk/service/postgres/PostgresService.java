@@ -23,6 +23,13 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface PostgresService {
+  /** Acknowledges non-blocking warnings on a specific assessment. */
+  Operation acknowledgeAssessmentWarnings(
+      AcknowledgeAssessmentWarningsRequest acknowledgeAssessmentWarningsRequest);
+
+  /** Creates an immutable assessment run for the migration's current source configuration. */
+  Operation assessMigration(AssessMigrationRequest assessMigrationRequest);
+
   /** Creates a new database branch in the project. */
   Operation createBranch(CreateBranchRequest createBranchRequest);
 
@@ -48,6 +55,9 @@ public interface PostgresService {
 
   /** Creates a new compute endpoint in the branch. */
   Operation createEndpoint(CreateEndpointRequest createEndpointRequest);
+
+  /** Creates a migration. */
+  Operation createMigration(CreateMigrationRequest createMigrationRequest);
 
   /**
    * Creates a new Lakebase Autoscaling Postgres database project, which contains branches and
@@ -86,6 +96,9 @@ public interface PostgresService {
   /** Deletes the specified compute endpoint. */
   Operation deleteEndpoint(DeleteEndpointRequest deleteEndpointRequest);
 
+  /** Soft-deletes a migration. */
+  Operation deleteMigration(DeleteMigrationRequest deleteMigrationRequest);
+
   /** Deletes the specified database project. */
   Operation deleteProject(DeleteProjectRequest deleteProjectRequest);
 
@@ -101,6 +114,9 @@ public interface PostgresService {
   /** Generate OAuth credentials for a Postgres database. */
   DatabaseCredential generateDatabaseCredential(
       GenerateDatabaseCredentialRequest generateDatabaseCredentialRequest);
+
+  /** Gets a migration assessment run. */
+  Assessment getAssessment(GetAssessmentRequest getAssessmentRequest);
 
   /** Retrieves information about the specified database branch. */
   Branch getBranch(GetBranchRequest getBranchRequest);
@@ -132,6 +148,9 @@ public interface PostgresService {
    */
   Endpoint getEndpoint(GetEndpointRequest getEndpointRequest);
 
+  /** Gets a migration. */
+  Migration getMigration(GetMigrationRequest getMigrationRequest);
+
   /** Retrieves the status of a long-running operation. */
   Operation getOperation(GetOperationRequest getOperationRequest);
 
@@ -156,6 +175,9 @@ public interface PostgresService {
   /** Get a Synced Table. */
   SyncedTable getSyncedTable(GetSyncedTableRequest getSyncedTableRequest);
 
+  /** Lists assessment runs for a migration. */
+  ListAssessmentsResponse listAssessments(ListAssessmentsRequest listAssessmentsRequest);
+
   /** Returns a paginated list of database branches in the project. */
   ListBranchesResponse listBranches(ListBranchesRequest listBranchesRequest);
 
@@ -177,6 +199,9 @@ public interface PostgresService {
   /** Returns a paginated list of compute endpoints in the branch. */
   ListEndpointsResponse listEndpoints(ListEndpointsRequest listEndpointsRequest);
 
+  /** Lists migrations in the workspace. */
+  ListMigrationsResponse listMigrations(ListMigrationsRequest listMigrationsRequest);
+
   /**
    * Returns a paginated list of database projects in the workspace that the user has permission to
    * access.
@@ -193,8 +218,18 @@ public interface PostgresService {
   RevealRolePasswordResponse revealRolePassword(
       RevealRolePasswordRequest revealRolePasswordRequest);
 
+  /**
+   * Starts the assessed migration named in the request, moving it from READY_TO_START into
+   * execution. Its first phase, SCHEMA_LOAD, creates the target databases, roles, and schema on the
+   * migration's target Lakebase branch without copying any table data, ahead of INITIAL_DATA_LOAD.
+   */
+  Operation startMigration(StartMigrationRequest startMigrationRequest);
+
   /** Undeletes the specified database branch. */
   Operation undeleteBranch(UndeleteBranchRequest undeleteBranchRequest);
+
+  /** Restores a soft-deleted migration before it is permanently purged. */
+  Operation undeleteMigration(UndeleteMigrationRequest undeleteMigrationRequest);
 
   /** Undeletes a soft-deleted project. */
   Operation undeleteProject(UndeleteProjectRequest undeleteProjectRequest);
@@ -216,6 +251,9 @@ public interface PostgresService {
    * enable/disable the compute endpoint.
    */
   Operation updateEndpoint(UpdateEndpointRequest updateEndpointRequest);
+
+  /** Updates user-owned migration configuration. */
+  Operation updateMigration(UpdateMigrationRequest updateMigrationRequest);
 
   /** Updates the specified database project. */
   Operation updateProject(UpdateProjectRequest updateProjectRequest);

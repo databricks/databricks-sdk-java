@@ -10,8 +10,8 @@ import java.util.Objects;
 @Generated
 public class DeleteDirectGroupMemberProxyRequest {
   /**
-   * The resource name of the group membership. Format:
-   * groups/{group_id}/direct-members/{principal_id}
+   * The resource name of the membership, in the format
+   * `groups/{group_id}/direct-members/{principal_id}`.
    */
   @JsonIgnore private String name;
 

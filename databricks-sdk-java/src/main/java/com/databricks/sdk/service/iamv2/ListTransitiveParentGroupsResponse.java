@@ -8,17 +8,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-/** Response message for listing all transitive parent groups of a principal. */
+/** A page of the groups a principal belongs to. */
 @Generated
 public class ListTransitiveParentGroupsResponse {
-  /**
-   * A token, which can be sent as page_token to retrieve the next page. If this field is omitted,
-   * there are no subsequent pages.
-   */
+  /** The token for the next page. Not set on the last page. */
   @JsonProperty("next_page_token")
   private String nextPageToken;
 
-  /** The list of transitive parent groups. */
+  /** The groups on this page. */
   @JsonProperty("transitive_parent_groups")
   private Collection<TransitiveParentGroup> transitiveParentGroups;
 

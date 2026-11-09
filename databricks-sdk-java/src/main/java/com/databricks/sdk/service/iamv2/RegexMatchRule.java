@@ -8,12 +8,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 /**
- * A rule that matches an identity whose complete display name matches an RE2 regular expression.
- * Matching is case-sensitive. Use .* explicitly when substring matching is desired.
+ * A rule that matches groups whose whole display name matches an RE2 regular expression. Matching
+ * is case-sensitive. To match part of a name, add `.*`, for example `.*-admins`.
  */
 @Generated
 public class RegexMatchRule {
-  /** The RE2 regular expression matched against the complete display name. */
+  /** The RE2 regular expression to match against the whole display name. At most 255 characters. */
   @JsonProperty("display_name_regex")
   private String displayNameRegex;
 

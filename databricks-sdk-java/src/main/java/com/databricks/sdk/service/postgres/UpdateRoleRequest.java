@@ -31,14 +31,13 @@ public class UpdateRoleRequest {
    * The list of fields to update. Supported fields are `spec.membership_roles`,
    * `spec.attributes.createdb`, `spec.attributes.createrole`, and `spec.attributes.bypassrls`.
    *
-   * <p>`spec.identity_type`, `spec.auth_method`, and `spec.postgres_role` cannot be changed. Values
-   * supplied for these fields in the request body are ignored. Including one of these fields as an
-   * explicit path in update_mask returns an INVALID_PARAMETER_VALUE error. When `spec` is the only
-   * path in the mask, only the supplied mutable attributes are updated. `*` by itself, or `spec`
-   * combined with other supported paths, selects all supported mutable fields. For these masks, all
-   * three attributes (`createdb`, `createrole`, and `bypassrls`) must be supplied; omitting any
-   * returns an INVALID_PARAMETER_VALUE error. Each of these mask forms replaces `membership_roles`.
-   * Omitting it or supplying an empty list clears all memberships, including
+   * <p>`spec.identity_type`, `spec.auth_method`, and `spec.postgres_role` cannot be changed.
+   * Including an immutable field as an explicit path in update_mask returns
+   * INVALID_PARAMETER_VALUE. With `*` or masks containing only mutable fields, supplied values for
+   * these immutable fields are ignored. `*` by itself selects all supported mutable fields. For
+   * this mask, all three attributes (`createdb`, `createrole`, and `bypassrls`) must be supplied;
+   * omitting any returns an INVALID_PARAMETER_VALUE error. The `*` mask replaces
+   * `membership_roles`. Omitting it or supplying an empty list clears all memberships, including
    * `DATABRICKS_SUPERUSER`.
    */
   @JsonIgnore

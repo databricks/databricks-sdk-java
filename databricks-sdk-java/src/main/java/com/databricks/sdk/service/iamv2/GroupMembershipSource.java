@@ -4,7 +4,7 @@ package com.databricks.sdk.service.iamv2;
 
 import com.databricks.sdk.support.Generated;
 
-/** The source of the group membership (internal or from identity provider). */
+/** Where a group membership comes from. */
 @Generated
 public enum GroupMembershipSource {
   IDENTITY_PROVIDER,

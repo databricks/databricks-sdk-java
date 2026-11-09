@@ -8,43 +8,41 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 /**
- * An account-level rule that controls which identity provider groups are discoverable in directory
- * search and group pickers when automatic identity management is enabled. Filters apply across all
- * workspaces in the account.
+ * An account-level rule that controls which groups from your identity provider (IdP) can be found
+ * in directory search and group pickers when automatic identity management is on. Filters apply to
+ * every workspace in the account.
  *
- * <p>If no group filters are configured, all groups are visible. Otherwise, a group is visible if
- * it or any of its transitive parent groups matches at least one rule. A group is also visible if
- * it or any transitive parent group is already provisioned in the account. Local Databricks groups
- * remain visible regardless of the filters.
+ * <p>If you have no group filters, all groups are visible. Otherwise, a group is visible if it or
+ * any of its parent groups matches at least one filter. A group is also visible if it or any of its
+ * parent groups is already in your account. Local Databricks groups are always visible.
  *
- * <p>Only group filters can be created. Filters do not change provisioning or sign-in for users and
- * service principals. Filters are immutable: to change a rule, delete it and create a new one.
+ * <p>You can only create group filters. Filters don't affect provisioning or sign-in for users and
+ * service principals. You can't change a filter: to change a rule, delete it and create a new one.
  */
 @Generated
 public class IdentityVisibilityFilter {
-  /** Exact match on the group's external ID from the identity provider. */
+  /** Matches a group by its ID in your IdP. */
   @JsonProperty("exact")
   private ExactMatchRule exact;
 
   /**
-   * The resource name of the identity-visibility filter. Format:
-   * accounts/{account_id}/identity-visibility-filters/{identity_visibility_filter_id}
+   * The resource name of the filter, in the format
+   * `accounts/{account_id}/identity-visibility-filters/{identity_visibility_filter_id}`.
    */
   @JsonProperty("name")
   private String name;
 
-  /** Case-sensitive starts-with match on the group's display name. */
+  /** Matches groups whose display name starts with a prefix. */
   @JsonProperty("prefix")
   private PrefixMatchRule prefix;
 
   /**
-   * The type of principal this rule applies to. Set to `GROUP` when creating a filter. Other
-   * principal types are not supported for creation.
+   * The type of principal the filter applies to. Set it to `GROUP`. Other types aren't supported.
    */
   @JsonProperty("principal_type")
   private PrincipalType principalType;
 
-  /** Full, case-sensitive RE2 match on the identity's display name. */
+  /** Matches groups whose display name matches a regular expression. */
   @JsonProperty("regex")
   private RegexMatchRule regex;
 

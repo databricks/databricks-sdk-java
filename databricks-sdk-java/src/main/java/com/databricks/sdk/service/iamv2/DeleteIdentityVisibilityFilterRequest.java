@@ -10,8 +10,8 @@ import java.util.Objects;
 @Generated
 public class DeleteIdentityVisibilityFilterRequest {
   /**
-   * Required. The resource name of the filter. Format:
-   * accounts/{account_id}/identity-visibility-filters/{identity_visibility_filter_id}
+   * The resource name of the filter, in the format
+   * `accounts/{account_id}/identity-visibility-filters/{identity_visibility_filter_id}`.
    */
   @JsonIgnore private String name;
 

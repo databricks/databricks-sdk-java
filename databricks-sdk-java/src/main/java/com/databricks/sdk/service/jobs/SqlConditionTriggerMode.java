@@ -12,8 +12,8 @@ import com.databricks.sdk.support.Generated;
  * reading legacy data that predates this field. * `QUERY_RETURNS_ROWS`: Fires whenever the result
  * set has at least one row. Zero rows means the condition is not met. This is the original SQL
  * condition behavior. * `RESULT_VALUE_CHANGES`: Fires whenever the query's single result value
- * differs from the previous evaluation. The first evaluation always fires. Queries must return
- * exactly one cell (one row, one column).
+ * differs from the previous evaluation. The first evaluation stores the result as a baseline and
+ * does not fire. Queries must return exactly one cell (one row, one column).
  */
 @Generated
 public enum SqlConditionTriggerMode {

@@ -7,9 +7,10 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** The response to resolving a user. */
 @Generated
 public class ResolveUserResponse {
-  /** The user that was resolved. */
+  /** The resolved user. */
   @JsonProperty("user")
   private User user;
 

@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class DeleteUserProxyRequest {
-  /** The resource name of the user. Format: users/{user_id} */
+  /** The resource name of the user, in the format `users/{user_id}`. */
   @JsonIgnore private String name;
 
   public DeleteUserProxyRequest setName(String name) {

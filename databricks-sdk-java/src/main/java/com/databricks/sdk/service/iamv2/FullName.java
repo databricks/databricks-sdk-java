@@ -7,14 +7,14 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** The full name of a user. */
+/** A user's name, from your identity provider (IdP). */
 @Generated
 public class FullName {
-  /** The family (last) name of the user, from the customer's IdP. */
+  /** The user's family (last) name. */
   @JsonProperty("family_name")
   private String familyName;
 
-  /** The given (first) name of the user, from the customer's IdP. */
+  /** The user's given (first) name. */
   @JsonProperty("given_name")
   private String givenName;
 

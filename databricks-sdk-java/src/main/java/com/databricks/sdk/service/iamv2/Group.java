@@ -7,35 +7,35 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** The details of a Group resource. */
+/** A group in your Databricks account. */
 @Generated
 public class Group {
-  /** The parent account ID for group in Databricks. */
+  /** The ID of the account that contains the group. */
   @JsonProperty("account_id")
   private String accountId;
 
-  /** ExternalId of the group in the customer's IdP. */
+  /** The ID of the group in your identity provider (IdP). */
   @JsonProperty("external_id")
   private String externalId;
 
-  /** Internal group ID of the group in Databricks. */
+  /** The Databricks ID of the group. */
   @JsonProperty("group_id")
   private String groupId;
 
-  /** Display name of the group. */
+  /** The name of the group. */
   @JsonProperty("group_name")
   private String groupName;
 
   /**
-   * The resource name of the group. The format depends on the API that returned it: -
-   * Account-scoped: accounts/{account_id}/groups/{group_id} - Workspace-scoped: groups/{group_id}
+   * The resource name of the group, in one of these formats: - Account APIs:
+   * `accounts/{account_id}/groups/{group_id}` - Workspace APIs: `groups/{group_id}`
    */
   @JsonProperty("name")
   private String name;
 
   /**
-   * The resource name of the account that contains the group, `accounts/{account_id}`. Both the
-   * account-scoped and workspace-scoped APIs return it.
+   * The resource name of the account that contains the group, in the format
+   * `accounts/{account_id}`. Workspace APIs return the same format.
    */
   @JsonProperty("parent")
   private String parent;

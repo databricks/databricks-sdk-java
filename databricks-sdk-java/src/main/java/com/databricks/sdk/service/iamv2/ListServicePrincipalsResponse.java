@@ -8,17 +8,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-/** Response message containing a page of service principals in the account. */
+/** A page of service principals. */
 @Generated
 public class ListServicePrincipalsResponse {
-  /**
-   * A token, which can be sent as page_token to retrieve the next page. If this field is omitted,
-   * there are no subsequent pages.
-   */
+  /** The token for the next page. Not set on the last page. */
   @JsonProperty("next_page_token")
   private String nextPageToken;
 
-  /** */
+  /** The service principals on this page. */
   @JsonProperty("service_principals")
   private Collection<ServicePrincipal> servicePrincipals;
 

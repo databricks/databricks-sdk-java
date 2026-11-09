@@ -12,14 +12,15 @@ import java.util.Objects;
 @Generated
 public class CreateServicePrincipalProxyRequest {
   /**
-   * The resource name of the account to create the service principal in, `accounts/{account_id}`.
-   * Optional: defaults to the account of the calling workspace, and any other account is rejected.
+   * The resource name of the account to create the service principal in, in the format
+   * `accounts/{account_id}`. Defaults to the account that contains this workspace. Any other
+   * account is rejected.
    */
   @JsonIgnore
   @QueryParam("parent")
   private String parent;
 
-  /** Required. Service principal to be created in Databricks */
+  /** The service principal to create. */
   @JsonProperty("service_principal")
   private ServicePrincipal servicePrincipal;
 

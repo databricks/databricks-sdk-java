@@ -8,32 +8,33 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 /**
- * An external group from the customer's Identity Provider, resolved into Databricks. This is a
- * read-only resource keyed by the IdP external ID. The Get method may trigger an idempotent sync
- * from the customer's IdP to provision or refresh the group's data in Databricks.
+ * A group from your identity provider (IdP), identified by its ID in your IdP. This resource is
+ * read-only. Getting an external group syncs its name and parent groups from your IdP, and adds it
+ * to your account if it isn't already there. If your account has group visibility filters, the
+ * group must match them.
  */
 @Generated
 public class ExternalGroup {
-  /** The parent account ID, from Databricks. */
+  /** The ID of the account that contains the group. */
   @JsonProperty("account_id")
   private String accountId;
 
-  /** Display name of the group from the customer's IdP. */
+  /** The name of the group, from your IdP. It's the same as the group's `group_name`. */
   @JsonProperty("display_name")
   private String displayName;
 
-  /** The external ID of the group in the customer's IdP. */
+  /** The ID of the group in your IdP. */
   @JsonProperty("external_group_id")
   private String externalGroupId;
 
-  /** Internal groupId of the group in Databricks. */
+  /** The Databricks ID of the group. Use it as the `group_id` in the group APIs. */
   @JsonProperty("internal_id")
   private String internalId;
 
   /**
-   * The resource name of the external group. The format depends on the API that returned it: -
-   * Account-scoped: accounts/{account_id}/external-groups/{external_group_id} - Workspace-scoped:
-   * external-groups/{external_group_id}
+   * The resource name of the external group, in one of these formats: - Account APIs:
+   * `accounts/{account_id}/external-groups/{external_group_id}` - Workspace APIs:
+   * `external-groups/{external_group_id}`
    */
   @JsonProperty("name")
   private String name;

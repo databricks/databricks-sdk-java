@@ -10,8 +10,8 @@ import java.util.Objects;
 @Generated
 public class GetWorkspaceAssignmentRequest {
   /**
-   * The resource name of the workspace assignment. Format:
-   * accounts/{account_id}/workspaces/{workspace_id}/workspace-assignments/{principal_id}
+   * The resource name of the assignment, in the format
+   * `accounts/{account_id}/workspaces/{workspace_id}/workspace-assignments/{principal_id}`.
    */
   @JsonIgnore private String name;
 

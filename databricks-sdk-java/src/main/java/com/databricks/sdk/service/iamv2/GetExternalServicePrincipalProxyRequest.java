@@ -10,8 +10,8 @@ import java.util.Objects;
 @Generated
 public class GetExternalServicePrincipalProxyRequest {
   /**
-   * Required. The resource name of the external service principal. Format:
-   * external-service-principals/{external_service_principal_id}
+   * The resource name of the external service principal, in the format
+   * `external-service-principals/{external_service_principal_id}`.
    */
   @JsonIgnore private String name;
 

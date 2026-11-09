@@ -13,19 +13,18 @@ import java.util.Objects;
 @Generated
 public class UpdateWorkspaceAssignmentRequest {
   /**
-   * The resource name of the workspace assignment. The format depends on the API that returned it:
-   * - Account-scoped:
-   * accounts/{account_id}/workspaces/{workspace_id}/workspace-assignments/{principal_id} -
-   * Workspace-scoped: workspace-assignments/{principal_id}
+   * The resource name of the assignment, in one of these formats: - Account APIs:
+   * `accounts/{account_id}/workspaces/{workspace_id}/workspace-assignments/{principal_id}` -
+   * Workspace APIs: `workspace-assignments/{principal_id}`
    */
   @JsonIgnore private String name;
 
-  /** Required. The list of fields to update. */
+  /** The fields to update. The only supported field is `entitlements`. */
   @JsonIgnore
   @QueryParam("update_mask")
   private FieldMask updateMask;
 
-  /** Required. Workspace assignment to be updated in Databricks. */
+  /** The assignment to update. Its `name` identifies the assignment. */
   @JsonProperty("workspace_assignment")
   private WorkspaceAssignment workspaceAssignment;
 

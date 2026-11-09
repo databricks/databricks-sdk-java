@@ -10,8 +10,8 @@ import java.util.Objects;
 @Generated
 public class GetExternalGroupRequest {
   /**
-   * Required. The resource name of the external group. Format:
-   * accounts/{account_id}/external-groups/{external_group_id}
+   * The resource name of the external group, in the format
+   * `accounts/{account_id}/external-groups/{external_group_id}`.
    */
   @JsonIgnore private String name;
 

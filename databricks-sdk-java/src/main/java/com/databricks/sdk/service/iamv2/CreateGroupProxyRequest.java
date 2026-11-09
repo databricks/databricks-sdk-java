@@ -11,13 +11,13 @@ import java.util.Objects;
 
 @Generated
 public class CreateGroupProxyRequest {
-  /** Required. Group to be created in Databricks */
+  /** The group to create. */
   @JsonProperty("group")
   private Group group;
 
   /**
-   * The resource name of the account to create the group in, `accounts/{account_id}`. Optional:
-   * defaults to the account of the calling workspace, and any other account is rejected.
+   * The resource name of the account to create the group in, in the format `accounts/{account_id}`.
+   * Defaults to the account that contains this workspace. Any other account is rejected.
    */
   @JsonIgnore
   @QueryParam("parent")

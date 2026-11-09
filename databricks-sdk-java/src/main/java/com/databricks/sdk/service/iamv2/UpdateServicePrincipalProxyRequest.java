@@ -12,17 +12,20 @@ import java.util.Objects;
 @Generated
 public class UpdateServicePrincipalProxyRequest {
   /**
-   * The resource name of the service principal. The format depends on the API that returned it: -
-   * Account-scoped: accounts/{account_id}/service-principals/{service_principal_id} -
-   * Workspace-scoped: service-principals/{service_principal_id}
+   * The resource name of the service principal, in one of these formats: - Account APIs:
+   * `accounts/{account_id}/service-principals/{service_principal_id}` - Workspace APIs:
+   * `service-principals/{service_principal_id}`
    */
   @JsonIgnore private String name;
 
-  /** Required. Service principal to be updated in Databricks */
+  /** The service principal to update. Its `name` identifies the service principal. */
   @JsonProperty("service_principal")
   private ServicePrincipal servicePrincipal;
 
-  /** Required. The list of fields to update. */
+  /**
+   * The fields to update, separated by commas. You can update `display_name`, `account_sp_status`,
+   * and `external_id`.
+   */
   @JsonIgnore
   @QueryParam("update_mask")
   private String updateMask;

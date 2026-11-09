@@ -9,78 +9,67 @@ import java.util.Collection;
 import java.util.Objects;
 
 /**
- * The direct assignment of a provisioned account-level principal (user, service principal, or
- * group) to a workspace, together with the entitlements that assignment grants in the workspace.
+ * A principal's direct assignment to a workspace, and the entitlements it grants there.
  *
- * <p>This resource covers only principals assigned directly to the workspace. Principals that
- * inherit workspace access through a group are not represented here. See WorkspaceAccessDetail and
- * WorkspaceIdentityDetail for the effective, direct-or-indirect view. Creating the resource assigns
- * the principal to the workspace, and deleting it removes the assignment.
+ * <p>Only principals assigned directly to the workspace have an assignment. A principal that gets
+ * access only through a group doesn't. Creating an assignment gives the principal access to the
+ * workspace, and deleting it removes that direct access. These APIs replace managing workspace
+ * assignments through SCIM and the permission assignment APIs. They require a workspace with
+ * identity federation enabled. You can't assign, change, or unassign principals that Databricks
+ * manages.
  *
- * <p>`entitlements` is the only client-settable field. It holds the entitlements granted directly
- * on this assignment, including any the principal also holds through a group.
- * `effective_entitlements` is the read-only union of those and any granted through group
- * membership.
- *
- * <p>A direct assignment always carries at least one directly-assigned entitlement, because the
- * assignment is what grants it. Create and update both reject an empty `entitlements` set. To
- * remove a principal's assignment entirely, delete the resource.
- *
- * <p>This resource replaces workspace assignment previously managed through the workspace SCIM and
- * permission-assignment APIs, and is intended for account and workspace admins.
+ * <p>`entitlements` is the only field you set. `effective_entitlements` also includes the
+ * entitlements the principal gets through its groups. An assignment must grant at least one
+ * entitlement. To remove a principal's direct access, delete the assignment.
  */
 @Generated
 public class WorkspaceAssignment {
-  /** The account ID parent of the workspace where the principal is assigned */
+  /** The ID of the account that contains the workspace. */
   @JsonProperty("account_id")
   private String accountId;
 
   /**
-   * Every entitlement the principal holds in this workspace, whether granted directly or through
-   * group membership. Get responses populate this field. List responses leave it empty.
+   * Every entitlement the principal has in the workspace, granted directly or through a group. List
+   * responses leave it empty.
    */
   @JsonProperty("effective_entitlements")
   private Collection<Entitlement> effectiveEntitlements;
 
   /**
-   * Entitlements granted directly to the principal on this workspace. This is the only
-   * client-settable field. Create and update manage exactly this set, including entitlements the
-   * principal also holds through a group. List responses leave this field empty. Get a single
-   * principal to read its entitlements.
+   * The entitlements granted directly by this assignment. Create and update set exactly this list,
+   * even if the principal also gets some of these entitlements through a group. List responses
+   * leave it empty.
    */
   @JsonProperty("entitlements")
   private Collection<Entitlement> entitlements;
 
   /**
-   * The resource name of the workspace assignment. The format depends on the API that returned it:
-   * - Account-scoped:
-   * accounts/{account_id}/workspaces/{workspace_id}/workspace-assignments/{principal_id} -
-   * Workspace-scoped: workspace-assignments/{principal_id}
+   * The resource name of the assignment, in one of these formats: - Account APIs:
+   * `accounts/{account_id}/workspaces/{workspace_id}/workspace-assignments/{principal_id}` -
+   * Workspace APIs: `workspace-assignments/{principal_id}`
    */
   @JsonProperty("name")
   private String name;
 
   /**
-   * The resource name of the workspace that contains the assignment,
-   * `accounts/{account_id}/workspaces/{workspace_id}`. Both the account-scoped and workspace-scoped
-   * APIs return it.
+   * The resource name of the workspace, in the format
+   * `accounts/{account_id}/workspaces/{workspace_id}`. Workspace APIs return the same format.
    */
   @JsonProperty("parent")
   private String parent;
 
   /**
-   * The internal ID of the principal (user/sp/group) in Databricks. Set when the assignment is
-   * created and cannot be changed afterwards; to assign a different principal, create a new
-   * assignment.
+   * The Databricks ID of the assigned user, service principal, or group. It can't be changed after
+   * the assignment is created.
    */
   @JsonProperty("principal_id")
   private Long principalId;
 
-  /** The type of the principal (user/service principal/group) that is assigned. */
+  /** Whether the assigned principal is a user, service principal, or group. */
   @JsonProperty("principal_type")
   private PrincipalType principalType;
 
-  /** The workspace ID where the principal is assigned. */
+  /** The ID of the workspace. */
   @JsonProperty("workspace_id")
   private Long workspaceId;
 

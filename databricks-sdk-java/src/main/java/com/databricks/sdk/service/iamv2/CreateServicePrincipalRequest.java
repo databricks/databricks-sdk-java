@@ -11,12 +11,12 @@ import java.util.Objects;
 @Generated
 public class CreateServicePrincipalRequest {
   /**
-   * The parent resource name of the account in which to create the service principal. Format:
-   * accounts/{account_id}
+   * The resource name of the account to create the service principal in, in the format
+   * `accounts/{account_id}`.
    */
   @JsonIgnore private String parent;
 
-  /** Required. Service principal to be created in Databricks */
+  /** The service principal to create. */
   @JsonProperty("service_principal")
   private ServicePrincipal servicePrincipal;
 

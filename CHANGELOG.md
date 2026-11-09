@@ -1,5 +1,23 @@
 # Version changelog
 
+## Release v0.177.0 (2026-11-09)
+
+### API Changes
+* Add `com.databricks.sdk.service.softwareartifacts` package.
+* Add `workspaceClient.serverlessComputeService()` service.
+* Add `workspaceClient.softwareArtifacts()` service.
+* Add `triggerMaterializationSet()` method for `workspaceClient.featureEngineering()` service.
+* Add `acknowledgeAssessmentWarnings()`, `assessMigration()`, `createMigration()`, `deleteMigration()`, `getAssessment()`, `getMigration()`, `listAssessments()`, `listMigrations()`, `startMigration()`, `undeleteMigration()` and `updateMigration()` methods for `workspaceClient.postgres()` service.
+* Add `delayedReason`, `estimatedCompletionTime`, `indexInitializationPercentage`, `phase` and `targetQpsChangeAllowedAfterTime` fields for `com.databricks.sdk.service.aisearch.EndpointScalingInfo`.
+* Add `deltaTable` field for `com.databricks.sdk.service.jobs.ResolvedValuesAiFunctionTaskResolvedValues`.
+* Add `paused` field for `com.databricks.sdk.service.ml.CronSchedule`.
+* Add `externalTrigger` field for `com.databricks.sdk.service.ml.MaterializedFeature`.
+* Add `paused` field for `com.databricks.sdk.service.ml.TableTrigger`.
+* Add `effectiveWorkspaceDashboardTheme` and `workspaceDashboardTheme` fields for `com.databricks.sdk.service.settingsv2.Setting`.
+* Add `delayedReason`, `estimatedCompletionTimestamp`, `indexInitializationPercentage`, `phase` and `targetQpsChangeAllowedAfterTimestamp` fields for `com.databricks.sdk.service.vectorsearch.EndpointScalingInfo`.
+* [Breaking] Change `warehouseId` field for `com.databricks.sdk.service.lakewatch.Datasource` to no longer be required.
+* Change `warehouseId` field for `com.databricks.sdk.service.lakewatch.Datasource` to no longer be required.
+
 ## Release v0.176.0 (2026-11-05)
 
 ### API Changes

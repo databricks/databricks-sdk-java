@@ -11,23 +11,22 @@ import java.util.Objects;
 @Generated
 public class ListWorkspaceAssignmentsProxyRequest {
   /**
-   * The maximum number of workspace assignments to return. The service may return fewer than this
-   * value. If not provided, defaults to 1000, which is also the maximum allowed. Requests for more
-   * than the maximum are clamped to 1000.
+   * The maximum number of assignments to return, up to 1000. The default is 1000. A page can
+   * contain fewer assignments.
    */
   @JsonIgnore
   @QueryParam("page_size")
   private Long pageSize;
 
-  /** A page token from a previous list call. Provide this to retrieve the subsequent page. */
+  /** The `next_page_token` from a previous response, to get the next page. */
   @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
 
   /**
-   * The resource name of the workspace to list assignments of,
-   * `accounts/{account_id}/workspaces/{workspace_id}`. Optional: defaults to the calling workspace,
-   * and any other workspace is rejected.
+   * The resource name of the workspace, in the format
+   * `accounts/{account_id}/workspaces/{workspace_id}`. Defaults to this workspace. Any other
+   * workspace is rejected.
    */
   @JsonIgnore
   @QueryParam("parent")

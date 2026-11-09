@@ -7,14 +7,10 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/**
- * Request message for resolving a user with the given external ID from the customer's IdP into
- * Databricks. Will resolve metadata such as the user's display name, status, and inherited parent
- * groups.
- */
+/** Request to resolve a user by their ID in your identity provider (IdP). */
 @Generated
 public class ResolveUserProxyRequest {
-  /** Required. The external ID of the user in the customer's IdP. */
+  /** The ID of the user in your IdP. */
   @JsonProperty("external_id")
   private String externalId;
 

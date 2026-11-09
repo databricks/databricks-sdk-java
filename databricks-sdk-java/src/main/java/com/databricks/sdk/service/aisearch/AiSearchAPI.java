@@ -136,9 +136,9 @@ public class AiSearchAPI {
 
   /**
    * Update an existing AI Search endpoint. Multi-bucket masks are supported and dispatched in
-   * deterministic bucket order: budget policy, custom tags, throughput, then scaling/replicas.
-   * Per-bucket dispatch is not atomic across buckets — if a later bucket fails, earlier buckets may
-   * already have been applied.
+   * deterministic bucket order: budget policy, custom tags, throughput, scaling/replicas, then
+   * metrics export. Per-bucket dispatch is not atomic across buckets — if a later bucket fails,
+   * earlier buckets may already have been applied.
    */
   public Endpoint updateEndpoint(UpdateEndpointRequest request) {
     return impl.updateEndpoint(request);

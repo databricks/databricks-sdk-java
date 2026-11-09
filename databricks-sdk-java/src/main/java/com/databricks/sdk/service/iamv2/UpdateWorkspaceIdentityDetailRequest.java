@@ -13,17 +13,17 @@ import java.util.Objects;
 @Generated
 public class UpdateWorkspaceIdentityDetailRequest {
   /**
-   * The resource name of the workspace identity detail. Format:
-   * principals/{principal_id}/workspace-identity-detail
+   * The resource name of the workspace identity detail, in the format
+   * `principals/{principal_id}/workspace-identity-detail`.
    */
   @JsonIgnore private String name;
 
-  /** Required. The list of fields to update. */
+  /** The fields to update. The only supported field is `workspace_identity_status`. */
   @JsonIgnore
   @QueryParam("update_mask")
   private FieldMask updateMask;
 
-  /** Required. Workspace identity detail to be updated in Databricks. */
+  /** The workspace identity detail to update. Its `name` identifies the principal. */
   @JsonProperty("workspace_identity_detail")
   private WorkspaceIdentityDetail workspaceIdentityDetail;
 

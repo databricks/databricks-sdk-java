@@ -11,17 +11,17 @@ import java.util.Objects;
 
 @Generated
 public class UpdateGroupRequest {
-  /** Required. Group to be updated in Databricks */
+  /** The group to update. Its `name` identifies the group. */
   @JsonProperty("group")
   private Group group;
 
   /**
-   * The resource name of the group. The format depends on the API that returned it: -
-   * Account-scoped: accounts/{account_id}/groups/{group_id} - Workspace-scoped: groups/{group_id}
+   * The resource name of the group, in one of these formats: - Account APIs:
+   * `accounts/{account_id}/groups/{group_id}` - Workspace APIs: `groups/{group_id}`
    */
   @JsonIgnore private String name;
 
-  /** Required. The list of fields to update. */
+  /** The fields to update, separated by commas. You can update `group_name` and `external_id`. */
   @JsonIgnore
   @QueryParam("update_mask")
   private String updateMask;

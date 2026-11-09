@@ -130,6 +130,13 @@ public class Setting {
   private StringMessage effectiveStringVal;
 
   /**
+   * Effective setting value for the workspace_dashboard_theme setting. This is the final effective
+   * value of the setting. To set a value, use workspace_dashboard_theme.
+   */
+  @JsonProperty("effective_workspace_dashboard_theme")
+  private DashboardTheme effectiveWorkspaceDashboardTheme;
+
+  /**
    * Effective setting value for workspace_label setting. This is the final effective value of
    * setting. To set a value use workspace_label.
    */
@@ -174,6 +181,13 @@ public class Setting {
    */
   @JsonProperty("string_val")
   private StringMessage stringVal;
+
+  /**
+   * Setting value for the workspace_dashboard_theme setting. This is the setting value set by
+   * consumers. Check effective_workspace_dashboard_theme for the final setting value.
+   */
+  @JsonProperty("workspace_dashboard_theme")
+  private DashboardTheme workspaceDashboardTheme;
 
   /**
    * Setting value for workspace_label setting. This is the setting value set by consumers, check
@@ -348,6 +362,16 @@ public class Setting {
     return effectiveStringVal;
   }
 
+  public Setting setEffectiveWorkspaceDashboardTheme(
+      DashboardTheme effectiveWorkspaceDashboardTheme) {
+    this.effectiveWorkspaceDashboardTheme = effectiveWorkspaceDashboardTheme;
+    return this;
+  }
+
+  public DashboardTheme getEffectiveWorkspaceDashboardTheme() {
+    return effectiveWorkspaceDashboardTheme;
+  }
+
   public Setting setEffectiveWorkspaceLabel(WorkspaceLabelMessage effectiveWorkspaceLabel) {
     this.effectiveWorkspaceLabel = effectiveWorkspaceLabel;
     return this;
@@ -413,6 +437,15 @@ public class Setting {
     return stringVal;
   }
 
+  public Setting setWorkspaceDashboardTheme(DashboardTheme workspaceDashboardTheme) {
+    this.workspaceDashboardTheme = workspaceDashboardTheme;
+    return this;
+  }
+
+  public DashboardTheme getWorkspaceDashboardTheme() {
+    return workspaceDashboardTheme;
+  }
+
   public Setting setWorkspaceLabel(WorkspaceLabelMessage workspaceLabel) {
     this.workspaceLabel = workspaceLabel;
     return this;
@@ -454,6 +487,7 @@ public class Setting {
         && Objects.equals(effectivePersonalCompute, that.effectivePersonalCompute)
         && Objects.equals(effectiveRestrictWorkspaceAdmins, that.effectiveRestrictWorkspaceAdmins)
         && Objects.equals(effectiveStringVal, that.effectiveStringVal)
+        && Objects.equals(effectiveWorkspaceDashboardTheme, that.effectiveWorkspaceDashboardTheme)
         && Objects.equals(effectiveWorkspaceLabel, that.effectiveWorkspaceLabel)
         && Objects.equals(integerVal, that.integerVal)
         && Objects.equals(name, that.name)
@@ -461,6 +495,7 @@ public class Setting {
         && Objects.equals(personalCompute, that.personalCompute)
         && Objects.equals(restrictWorkspaceAdmins, that.restrictWorkspaceAdmins)
         && Objects.equals(stringVal, that.stringVal)
+        && Objects.equals(workspaceDashboardTheme, that.workspaceDashboardTheme)
         && Objects.equals(workspaceLabel, that.workspaceLabel);
   }
 
@@ -484,6 +519,7 @@ public class Setting {
         effectivePersonalCompute,
         effectiveRestrictWorkspaceAdmins,
         effectiveStringVal,
+        effectiveWorkspaceDashboardTheme,
         effectiveWorkspaceLabel,
         integerVal,
         name,
@@ -491,6 +527,7 @@ public class Setting {
         personalCompute,
         restrictWorkspaceAdmins,
         stringVal,
+        workspaceDashboardTheme,
         workspaceLabel);
   }
 
@@ -520,6 +557,7 @@ public class Setting {
         .add("effectivePersonalCompute", effectivePersonalCompute)
         .add("effectiveRestrictWorkspaceAdmins", effectiveRestrictWorkspaceAdmins)
         .add("effectiveStringVal", effectiveStringVal)
+        .add("effectiveWorkspaceDashboardTheme", effectiveWorkspaceDashboardTheme)
         .add("effectiveWorkspaceLabel", effectiveWorkspaceLabel)
         .add("integerVal", integerVal)
         .add("name", name)
@@ -527,6 +565,7 @@ public class Setting {
         .add("personalCompute", personalCompute)
         .add("restrictWorkspaceAdmins", restrictWorkspaceAdmins)
         .add("stringVal", stringVal)
+        .add("workspaceDashboardTheme", workspaceDashboardTheme)
         .add("workspaceLabel", workspaceLabel)
         .toString();
   }

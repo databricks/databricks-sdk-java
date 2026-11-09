@@ -37,6 +37,19 @@ public class PostgresAPI {
     impl = mock;
   }
 
+  /** Acknowledges non-blocking warnings on a specific assessment. */
+  public AcknowledgeAssessmentWarningsOperation acknowledgeAssessmentWarnings(
+      AcknowledgeAssessmentWarningsRequest request) {
+    Operation operation = impl.acknowledgeAssessmentWarnings(request);
+    return new AcknowledgeAssessmentWarningsOperation(impl, operation);
+  }
+
+  /** Creates an immutable assessment run for the migration's current source configuration. */
+  public AssessMigrationOperation assessMigration(AssessMigrationRequest request) {
+    Operation operation = impl.assessMigration(request);
+    return new AssessMigrationOperation(impl, operation);
+  }
+
   /** Creates a new database branch in the project. */
   public CreateBranchOperation createBranch(CreateBranchRequest request) {
     Operation operation = impl.createBranch(request);
@@ -79,6 +92,12 @@ public class PostgresAPI {
   public CreateEndpointOperation createEndpoint(CreateEndpointRequest request) {
     Operation operation = impl.createEndpoint(request);
     return new CreateEndpointOperation(impl, operation);
+  }
+
+  /** Creates a migration. */
+  public CreateMigrationOperation createMigration(CreateMigrationRequest request) {
+    Operation operation = impl.createMigration(request);
+    return new CreateMigrationOperation(impl, operation);
   }
 
   /**
@@ -172,6 +191,16 @@ public class PostgresAPI {
     return new DeleteEndpointOperation(impl, operation);
   }
 
+  public DeleteMigrationOperation deleteMigration(String name) {
+    return deleteMigration(new DeleteMigrationRequest().setName(name));
+  }
+
+  /** Soft-deletes a migration. */
+  public DeleteMigrationOperation deleteMigration(DeleteMigrationRequest request) {
+    Operation operation = impl.deleteMigration(request);
+    return new DeleteMigrationOperation(impl, operation);
+  }
+
   public DeleteProjectOperation deleteProject(String name) {
     return deleteProject(new DeleteProjectRequest().setName(name));
   }
@@ -215,6 +244,15 @@ public class PostgresAPI {
   /** Generate OAuth credentials for a Postgres database. */
   public DatabaseCredential generateDatabaseCredential(GenerateDatabaseCredentialRequest request) {
     return impl.generateDatabaseCredential(request);
+  }
+
+  public Assessment getAssessment(String name) {
+    return getAssessment(new GetAssessmentRequest().setName(name));
+  }
+
+  /** Gets a migration assessment run. */
+  public Assessment getAssessment(GetAssessmentRequest request) {
+    return impl.getAssessment(request);
   }
 
   public Branch getBranch(String name) {
@@ -289,6 +327,15 @@ public class PostgresAPI {
     return impl.getEndpoint(request);
   }
 
+  public Migration getMigration(String name) {
+    return getMigration(new GetMigrationRequest().setName(name));
+  }
+
+  /** Gets a migration. */
+  public Migration getMigration(GetMigrationRequest request) {
+    return impl.getMigration(request);
+  }
+
   public Operation getOperation(String name) {
     return getOperation(new GetOperationRequest().setName(name));
   }
@@ -347,6 +394,25 @@ public class PostgresAPI {
   /** Get a Synced Table. */
   public SyncedTable getSyncedTable(GetSyncedTableRequest request) {
     return impl.getSyncedTable(request);
+  }
+
+  public Iterable<Assessment> listAssessments(String parent) {
+    return listAssessments(new ListAssessmentsRequest().setParent(parent));
+  }
+
+  /** Lists assessment runs for a migration. */
+  public Iterable<Assessment> listAssessments(ListAssessmentsRequest request) {
+    return Paginator.newTokenPagination(
+        request,
+        impl::listAssessments,
+        ListAssessmentsResponse::getAssessments,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   public Iterable<Branch> listBranches(String parent) {
@@ -450,6 +516,21 @@ public class PostgresAPI {
         });
   }
 
+  /** Lists migrations in the workspace. */
+  public Iterable<Migration> listMigrations(ListMigrationsRequest request) {
+    return Paginator.newTokenPagination(
+        request,
+        impl::listMigrations,
+        ListMigrationsResponse::getMigrations,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
+  }
+
   /**
    * Returns a paginated list of database projects in the workspace that the user has permission to
    * access.
@@ -511,10 +592,26 @@ public class PostgresAPI {
     return impl.revealRolePassword(request);
   }
 
+  /**
+   * Starts the assessed migration named in the request, moving it from READY_TO_START into
+   * execution. Its first phase, SCHEMA_LOAD, creates the target databases, roles, and schema on the
+   * migration's target Lakebase branch without copying any table data, ahead of INITIAL_DATA_LOAD.
+   */
+  public StartMigrationOperation startMigration(StartMigrationRequest request) {
+    Operation operation = impl.startMigration(request);
+    return new StartMigrationOperation(impl, operation);
+  }
+
   /** Undeletes the specified database branch. */
   public UndeleteBranchOperation undeleteBranch(UndeleteBranchRequest request) {
     Operation operation = impl.undeleteBranch(request);
     return new UndeleteBranchOperation(impl, operation);
+  }
+
+  /** Restores a soft-deleted migration before it is permanently purged. */
+  public UndeleteMigrationOperation undeleteMigration(UndeleteMigrationRequest request) {
+    Operation operation = impl.undeleteMigration(request);
+    return new UndeleteMigrationOperation(impl, operation);
   }
 
   /** Undeletes a soft-deleted project. */
@@ -551,6 +648,12 @@ public class PostgresAPI {
   public UpdateEndpointOperation updateEndpoint(UpdateEndpointRequest request) {
     Operation operation = impl.updateEndpoint(request);
     return new UpdateEndpointOperation(impl, operation);
+  }
+
+  /** Updates user-owned migration configuration. */
+  public UpdateMigrationOperation updateMigration(UpdateMigrationRequest request) {
+    Operation operation = impl.updateMigration(request);
+    return new UpdateMigrationOperation(impl, operation);
   }
 
   /** Updates the specified database project. */

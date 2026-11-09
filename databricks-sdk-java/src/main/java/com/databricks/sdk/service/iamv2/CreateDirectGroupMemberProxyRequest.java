@@ -10,11 +10,11 @@ import java.util.Objects;
 
 @Generated
 public class CreateDirectGroupMemberProxyRequest {
-  /** Required. The group membership to create. */
+  /** The member to add. Set its `principal_id`. */
   @JsonProperty("direct_group_member")
   private DirectGroupMember directGroupMember;
 
-  /** The parent resource name of the group to add the member to. Format: groups/{group_id} */
+  /** The resource name of the group to add the member to, in the format `groups/{group_id}`. */
   @JsonIgnore private String parent;
 
   public CreateDirectGroupMemberProxyRequest setDirectGroupMember(

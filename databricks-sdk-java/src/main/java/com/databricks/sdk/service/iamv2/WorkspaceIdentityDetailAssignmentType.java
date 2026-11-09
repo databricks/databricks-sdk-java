@@ -4,7 +4,7 @@ package com.databricks.sdk.service.iamv2;
 
 import com.databricks.sdk.support.Generated;
 
-/** The type of assignment the principal has to the workspace. */
+/** How a principal has access to a workspace. */
 @Generated
 public enum WorkspaceIdentityDetailAssignmentType {
   DIRECT,

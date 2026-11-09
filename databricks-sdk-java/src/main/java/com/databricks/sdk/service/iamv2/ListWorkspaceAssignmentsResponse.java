@@ -8,17 +8,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-/** Response message for listing workspace assignments. */
+/** A page of workspace assignments. */
 @Generated
 public class ListWorkspaceAssignmentsResponse {
-  /**
-   * A token, which can be sent as page_token to retrieve the next page. If this field is omitted,
-   * there are no subsequent pages.
-   */
+  /** The token for the next page. Not set on the last page. */
   @JsonProperty("next_page_token")
   private String nextPageToken;
 
-  /** */
+  /** The assignments on this page. */
   @JsonProperty("workspace_assignments")
   private Collection<WorkspaceAssignment> workspaceAssignments;
 

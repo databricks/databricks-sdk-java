@@ -4,7 +4,7 @@ package com.databricks.sdk.service.iamv2;
 
 import com.databricks.sdk.support.Generated;
 
-/** The type of the principal (user/sp/group). */
+/** The type of a principal. */
 @Generated
 public enum PrincipalType {
   GROUP,

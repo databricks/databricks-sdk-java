@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class GetGroupProxyRequest {
-  /** The resource name of the group. Format: groups/{group_id} */
+  /** The resource name of the group, in the format `groups/{group_id}`. */
   @JsonIgnore private String name;
 
   public GetGroupProxyRequest setName(String name) {

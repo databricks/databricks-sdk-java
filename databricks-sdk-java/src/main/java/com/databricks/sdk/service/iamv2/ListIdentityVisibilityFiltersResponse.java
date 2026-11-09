@@ -8,17 +8,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-/** Response message containing a page of identity-visibility filters in the account. */
+/** A page of group visibility filters. */
 @Generated
 public class ListIdentityVisibilityFiltersResponse {
-  /** The filters in this page. These are filter rules, not the groups matched by the rules. */
+  /** The filters on this page. These are the rules, not the groups they match. */
   @JsonProperty("identity_visibility_filters")
   private Collection<IdentityVisibilityFilter> identityVisibilityFilters;
 
-  /**
-   * A token, which can be sent as page_token to retrieve the next page. If omitted, there are no
-   * subsequent pages.
-   */
+  /** The token for the next page. Not set on the last page. */
   @JsonProperty("next_page_token")
   private String nextPageToken;
 

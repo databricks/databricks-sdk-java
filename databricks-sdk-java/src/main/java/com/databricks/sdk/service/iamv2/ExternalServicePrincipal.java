@@ -8,42 +8,44 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 /**
- * An external service principal from the customer's Identity Provider, resolved into Databricks.
- * This is a read-only resource keyed by the IdP external ID. The Get method may trigger an
- * idempotent sync from the customer's IdP to provision or refresh the service principal's data in
- * Databricks.
+ * A service principal from your identity provider (IdP), identified by its ID in your IdP. This
+ * resource is read-only and requires Microsoft Entra ID as your IdP. Getting an external service
+ * principal syncs its details and group memberships from your IdP, and adds it to your account if
+ * it isn't already there.
  */
 @Generated
 public class ExternalServicePrincipal {
-  /** The parent account ID, from Databricks. */
+  /** The ID of the account that contains the service principal. */
   @JsonProperty("account_id")
   private String accountId;
 
-  /** The activity status of the service principal in the Databricks account. */
+  /** Whether the service principal is active in the account. */
   @JsonProperty("account_sp_status")
   private State accountSpStatus;
 
-  /** Application ID of the service principal, from the customer's IdP. */
+  /** The service principal's application ID, from your IdP. */
   @JsonProperty("application_id")
   private String applicationId;
 
-  /** Display name of the service principal, from the customer's IdP. */
+  /** The service principal's display name, from your IdP. */
   @JsonProperty("display_name")
   private String displayName;
 
-  /** The external ID of the service principal in the customer's IdP. */
+  /** The ID of the service principal in your IdP. */
   @JsonProperty("external_service_principal_id")
   private String externalServicePrincipalId;
 
-  /** Internal servicePrincipalId of the service principal in Databricks. */
+  /**
+   * The Databricks ID of the service principal. Use it as the `service_principal_id` in the service
+   * principal APIs.
+   */
   @JsonProperty("internal_id")
   private String internalId;
 
   /**
-   * The resource name of the external service principal. The format depends on the API that
-   * returned it: - Account-scoped:
-   * accounts/{account_id}/external-service-principals/{external_service_principal_id} -
-   * Workspace-scoped: external-service-principals/{external_service_principal_id}
+   * The resource name of the external service principal, in one of these formats: - Account APIs:
+   * `accounts/{account_id}/external-service-principals/{external_service_principal_id}` - Workspace
+   * APIs: `external-service-principals/{external_service_principal_id}`
    */
   @JsonProperty("name")
   private String name;

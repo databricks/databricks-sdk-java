@@ -7,29 +7,33 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** The details of a directly or indirectly assigned principal's details in a workspace. */
+/**
+ * A user, service principal, or group's status in a workspace, and whether it has access to the
+ * workspace directly or through a group. Update it to activate or deactivate a user or service
+ * principal in the workspace.
+ */
 @Generated
 public class WorkspaceIdentityDetail {
-  /** The type of assignment the principal has to the workspace (direct or indirect). */
+  /** Whether the principal is assigned to the workspace directly or has access through a group. */
   @JsonProperty("assignment_type")
   private WorkspaceIdentityDetailAssignmentType assignmentType;
 
   /**
-   * The resource name of the workspace identity detail. Format:
-   * principals/{principal_id}/workspace-identity-detail
+   * The resource name of the workspace identity detail, in the format
+   * `principals/{principal_id}/workspace-identity-detail`.
    */
   @JsonProperty("name")
   private String name;
 
-  /** The internal ID of the principal (user/sp/group) in Databricks. */
+  /** The Databricks ID of the user, service principal, or group. */
   @JsonProperty("principal_id")
   private Long principalId;
 
-  /** The type of the principal (user/service principal/group). */
+  /** Whether the principal is a user, service principal, or group. */
   @JsonProperty("principal_type")
   private PrincipalType principalType;
 
-  /** The activity status of an identity in a Databricks workspace. */
+  /** Whether the principal is active in the workspace. Groups are always `ACTIVE`. */
   @JsonProperty("workspace_identity_status")
   private State workspaceIdentityStatus;
 
