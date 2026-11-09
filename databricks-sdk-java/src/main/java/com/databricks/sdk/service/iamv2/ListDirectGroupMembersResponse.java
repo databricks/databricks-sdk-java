@@ -8,17 +8,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-/** Response message for listing direct group members. */
+/** A page of direct members of a group. */
 @Generated
 public class ListDirectGroupMembersResponse {
-  /** The list of direct group members with their membership source type. */
+  /** The members on this page. */
   @JsonProperty("direct_group_members")
   private Collection<DirectGroupMember> directGroupMembers;
 
-  /**
-   * A token, which can be sent as page_token to retrieve the next page. If this field is omitted,
-   * there are no subsequent pages.
-   */
+  /** The token for the next page. Not set on the last page. */
   @JsonProperty("next_page_token")
   private String nextPageToken;
 

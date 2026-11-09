@@ -26,6 +26,14 @@ public class MaterializedFeature {
   @JsonProperty("cron_schedule_trigger")
   private CronSchedule cronScheduleTrigger;
 
+  /**
+   * A trigger that disables automatic materialization, including the initial run at creation. Runs
+   * are instead triggered through the `TriggerMaterializationSet` API. Supported only for batch
+   * materializations in a materialization set.
+   */
+  @JsonProperty("external_trigger")
+  private ExternalTrigger externalTrigger;
+
   /** The full name of the feature in Unity Catalog. */
   @JsonProperty("feature_name")
   private String featureName;
@@ -153,6 +161,15 @@ public class MaterializedFeature {
 
   public CronSchedule getCronScheduleTrigger() {
     return cronScheduleTrigger;
+  }
+
+  public MaterializedFeature setExternalTrigger(ExternalTrigger externalTrigger) {
+    this.externalTrigger = externalTrigger;
+    return this;
+  }
+
+  public ExternalTrigger getExternalTrigger() {
+    return externalTrigger;
   }
 
   public MaterializedFeature setFeatureName(String featureName) {
@@ -308,6 +325,7 @@ public class MaterializedFeature {
     return Objects.equals(budgetPolicyId, that.budgetPolicyId)
         && Objects.equals(cronSchedule, that.cronSchedule)
         && Objects.equals(cronScheduleTrigger, that.cronScheduleTrigger)
+        && Objects.equals(externalTrigger, that.externalTrigger)
         && Objects.equals(featureName, that.featureName)
         && Objects.equals(isOnline, that.isOnline)
         && Objects.equals(jobId, that.jobId)
@@ -332,6 +350,7 @@ public class MaterializedFeature {
         budgetPolicyId,
         cronSchedule,
         cronScheduleTrigger,
+        externalTrigger,
         featureName,
         isOnline,
         jobId,
@@ -356,6 +375,7 @@ public class MaterializedFeature {
         .add("budgetPolicyId", budgetPolicyId)
         .add("cronSchedule", cronSchedule)
         .add("cronScheduleTrigger", cronScheduleTrigger)
+        .add("externalTrigger", externalTrigger)
         .add("featureName", featureName)
         .add("isOnline", isOnline)
         .add("jobId", jobId)

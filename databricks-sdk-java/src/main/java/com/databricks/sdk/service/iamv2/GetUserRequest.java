@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class GetUserRequest {
-  /** The resource name of the user. Format: accounts/{account_id}/users/{user_id} */
+  /** The resource name of the user, in the format `accounts/{account_id}/users/{user_id}`. */
   @JsonIgnore private String name;
 
   public GetUserRequest setName(String name) {

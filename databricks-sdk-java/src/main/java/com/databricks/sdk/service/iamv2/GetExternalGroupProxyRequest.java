@@ -10,7 +10,7 @@ import java.util.Objects;
 @Generated
 public class GetExternalGroupProxyRequest {
   /**
-   * Required. The resource name of the external group. Format: external-groups/{external_group_id}
+   * The resource name of the external group, in the format `external-groups/{external_group_id}`.
    */
   @JsonIgnore private String name;
 

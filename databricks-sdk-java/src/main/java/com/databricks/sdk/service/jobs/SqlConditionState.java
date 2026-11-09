@@ -9,20 +9,23 @@ import java.util.Objects;
 
 @Generated
 public class SqlConditionState {
-  /** Whether the last condition evaluation was satisfied (query returned truthy result). */
+  /**
+   * Whether the last condition evaluation was satisfied. For QUERY_RETURNS_ROWS, the query returned
+   * at least one row. For RESULT_VALUE_CHANGES, the result value changed.
+   */
   @JsonProperty("latest_condition_evaluation_satisfied")
   private Boolean latestConditionEvaluationSatisfied;
 
   /**
-   * The ID of the SQL session, used by UI to track session context. Populated for
-   * QUERY_RETURNS_ROWS, which executes the query through Redash.
+   * The ID of the SQL session of the latest condition evaluation. Not set by current evaluations.
+   * Use latest_condition_evaluation_sql_statement_id instead.
    */
   @JsonProperty("latest_condition_evaluation_sql_session_id")
   private String latestConditionEvaluationSqlSessionId;
 
   /**
-   * The SEA statement ID of the SQL statement executed for the latest condition evaluation.
-   * Populated for RESULT_VALUE_CHANGES, which executes the query through the SQL execution API.
+   * The ID of the SQL statement executed for the latest condition evaluation. Populated for both
+   * QUERY_RETURNS_ROWS and RESULT_VALUE_CHANGES.
    */
   @JsonProperty("latest_condition_evaluation_sql_statement_id")
   private String latestConditionEvaluationSqlStatementId;

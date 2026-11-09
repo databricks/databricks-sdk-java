@@ -11,22 +11,19 @@ import java.util.Objects;
 @Generated
 public class ListIdentityVisibilityFiltersRequest {
   /**
-   * The maximum number of filters to return. The service may return fewer than this value. If
-   * omitted or non-positive, defaults to 100. Values above 1000 are reduced to 1000.
+   * The maximum number of filters to return, up to 1000. The default is 100. A page can contain
+   * fewer filters.
    */
   @JsonIgnore
   @QueryParam("page_size")
   private Long pageSize;
 
-  /**
-   * A page token, received from a previous ListIdentityVisibilityFilters call. Provide this to
-   * retrieve the subsequent page.
-   */
+  /** The `next_page_token` from a previous response, to get the next page. */
   @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
 
-  /** Required. The parent account. Format: accounts/{account_id} */
+  /** The resource name of the account, in the format `accounts/{account_id}`. */
   @JsonIgnore private String parent;
 
   public ListIdentityVisibilityFiltersRequest setPageSize(Long pageSize) {

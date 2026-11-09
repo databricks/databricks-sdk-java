@@ -7,48 +7,48 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** The details of a ServicePrincipal resource. */
+/** A service principal in your Databricks account. */
 @Generated
 public class ServicePrincipal {
-  /** The parent account ID for the service principal in Databricks. */
+  /** The ID of the account that contains the service principal. */
   @JsonProperty("account_id")
   private String accountId;
 
-  /** The activity status of a service principal in a Databricks account. */
+  /** Whether the service principal is active in the account. */
   @JsonProperty("account_sp_status")
   private State accountSpStatus;
 
   /**
-   * Application ID of the service principal. Set at creation time and cannot be changed afterwards;
-   * when omitted, the server generates one.
+   * The service principal's application ID, a UUID. If you don't set it when you create the service
+   * principal, Databricks generates one. It must be unique in the account and can't be changed.
    */
   @JsonProperty("application_id")
   private String applicationId;
 
-  /** Display name of the service principal. */
+  /** The service principal's display name. */
   @JsonProperty("display_name")
   private String displayName;
 
-  /** ExternalId of the service principal in the customer's IdP. */
+  /** The ID of the service principal in your identity provider (IdP). */
   @JsonProperty("external_id")
   private String externalId;
 
   /**
-   * The resource name of the service principal. The format depends on the API that returned it: -
-   * Account-scoped: accounts/{account_id}/service-principals/{service_principal_id} -
-   * Workspace-scoped: service-principals/{service_principal_id}
+   * The resource name of the service principal, in one of these formats: - Account APIs:
+   * `accounts/{account_id}/service-principals/{service_principal_id}` - Workspace APIs:
+   * `service-principals/{service_principal_id}`
    */
   @JsonProperty("name")
   private String name;
 
   /**
-   * The resource name of the account that contains the service principal, `accounts/{account_id}`.
-   * Both the account-scoped and workspace-scoped APIs return it.
+   * The resource name of the account that contains the service principal, in the format
+   * `accounts/{account_id}`. Workspace APIs return the same format.
    */
   @JsonProperty("parent")
   private String parent;
 
-  /** Internal service principal ID of the service principal in Databricks. */
+  /** The Databricks ID of the service principal. */
   @JsonProperty("service_principal_id")
   private String servicePrincipalId;
 

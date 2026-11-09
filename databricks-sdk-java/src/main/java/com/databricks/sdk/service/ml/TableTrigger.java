@@ -31,6 +31,18 @@ public class TableTrigger {
   private Duration minTimeBetweenTriggers;
 
   /**
+   * Whether automatic materialization is paused. Defaults to `false`. Supported only for
+   * materializations in a materialization set. Use the `UpdateMaterializationSet` API to pause or
+   * resume the set.
+   *
+   * <p>Pausing does not cancel running or queued runs. Runs can still be triggered through the
+   * `TriggerMaterializationSet` API. Resuming does not submit a run. Creating a paused
+   * materialization skips its initial run.
+   */
+  @JsonProperty("paused")
+  private Boolean paused;
+
+  /**
    * How long the source table must go without updates before a run starts, so a series of updates
    * settles before the run. If not set, a run starts as soon as the source table updates.
    */
@@ -55,6 +67,15 @@ public class TableTrigger {
     return minTimeBetweenTriggers;
   }
 
+  public TableTrigger setPaused(Boolean paused) {
+    this.paused = paused;
+    return this;
+  }
+
+  public Boolean getPaused() {
+    return paused;
+  }
+
   public TableTrigger setWaitAfterLastChange(Duration waitAfterLastChange) {
     this.waitAfterLastChange = waitAfterLastChange;
     return this;
@@ -71,12 +92,13 @@ public class TableTrigger {
     TableTrigger that = (TableTrigger) o;
     return Objects.equals(condition, that.condition)
         && Objects.equals(minTimeBetweenTriggers, that.minTimeBetweenTriggers)
+        && Objects.equals(paused, that.paused)
         && Objects.equals(waitAfterLastChange, that.waitAfterLastChange);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(condition, minTimeBetweenTriggers, waitAfterLastChange);
+    return Objects.hash(condition, minTimeBetweenTriggers, paused, waitAfterLastChange);
   }
 
   @Override
@@ -84,6 +106,7 @@ public class TableTrigger {
     return new ToStringer(TableTrigger.class)
         .add("condition", condition)
         .add("minTimeBetweenTriggers", minTimeBetweenTriggers)
+        .add("paused", paused)
         .add("waitAfterLastChange", waitAfterLastChange)
         .toString();
   }

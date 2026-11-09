@@ -286,6 +286,27 @@ public class FeatureEngineeringAPI {
     return new PurgeFeatureEntitiesOperation(impl, operation);
   }
 
+  /**
+   * Requests materialization of all members of the set. The set must be nonempty and contain only
+   * batch materializations. Runs are allowed while automatic scheduling is paused. Requested runs
+   * may wait in a queue, subject to queue limits and expiry.
+   *
+   * <p>Returns a long-running operation that completes when every requested run reaches a terminal
+   * state. Success requires all runs and any required online synchronization to succeed. Individual
+   * outcomes are available in `MaterializationSetTriggerProgress`.
+   *
+   * <p>Use `CancelOperation` to request cancellation of this operation's unfinished work.
+   * Cancellation is best effort and does not undo completed writes. Online synchronization already
+   * in progress may continue.
+   *
+   * <p>Runs use the features' configured windows and settling delay.
+   */
+  public TriggerMaterializationSetOperation triggerMaterializationSet(
+      TriggerMaterializationSetRequest request) {
+    Operation operation = impl.triggerMaterializationSet(request);
+    return new TriggerMaterializationSetOperation(impl, operation);
+  }
+
   /** Update a Feature. */
   public Feature updateFeature(UpdateFeatureRequest request) {
     return impl.updateFeature(request);

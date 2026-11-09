@@ -11,12 +11,11 @@ import java.util.Objects;
 @Generated
 public class CreateUserRequest {
   /**
-   * The parent resource name of the account in which to create the user. Format:
-   * accounts/{account_id}
+   * The resource name of the account to create the user in, in the format `accounts/{account_id}`.
    */
   @JsonIgnore private String parent;
 
-  /** Required. User to be created in Databricks */
+  /** The user to create. */
   @JsonProperty("user")
   private User user;
 

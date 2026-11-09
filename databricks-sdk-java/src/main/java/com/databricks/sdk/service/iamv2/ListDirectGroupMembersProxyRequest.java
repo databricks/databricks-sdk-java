@@ -11,22 +11,19 @@ import java.util.Objects;
 @Generated
 public class ListDirectGroupMembersProxyRequest {
   /**
-   * The maximum number of members to return. The service may return fewer than this value. If not
-   * provided, defaults to 1000, which is also the maximum allowed. Requests for more than the
-   * maximum are clamped to 1000.
+   * The maximum number of members to return, up to 1000. The default is 1000. A page can contain
+   * fewer members.
    */
   @JsonIgnore
   @QueryParam("page_size")
   private Long pageSize;
 
-  /** A page token from a previous list call. Provide this to retrieve the subsequent page. */
+  /** The `next_page_token` from a previous response, to get the next page. */
   @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
 
-  /**
-   * The parent resource name of the group whose direct members to list. Format: groups/{group_id}
-   */
+  /** The resource name of the group, in the format `groups/{group_id}`. */
   @JsonIgnore private String parent;
 
   public ListDirectGroupMembersProxyRequest setPageSize(Long pageSize) {

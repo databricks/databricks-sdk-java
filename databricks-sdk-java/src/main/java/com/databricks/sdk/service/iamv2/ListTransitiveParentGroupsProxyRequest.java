@@ -11,25 +11,21 @@ import java.util.Objects;
 @Generated
 public class ListTransitiveParentGroupsProxyRequest {
   /**
-   * The maximum number of parent groups to return. The service may return fewer than this value. If
-   * not provided, defaults to 1000, which is also the maximum allowed. Requests for more than the
-   * maximum are clamped to 1000.
+   * The maximum number of groups to return, up to 1000. The default is 1000. A page can contain
+   * fewer groups.
    */
   @JsonIgnore
   @QueryParam("page_size")
   private Long pageSize;
 
-  /**
-   * A page token, received from a previous ListTransitiveParentGroups call. Provide this to
-   * retrieve the subsequent page.
-   */
+  /** The `next_page_token` from a previous response, to get the next page. */
   @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
 
   /**
-   * The parent resource name of the principal whose transitive parent groups to list. Format:
-   * principals/{principal_id}
+   * The user, service principal, or group whose parent groups to list, in the format
+   * `principals/{principal_id}`.
    */
   @JsonIgnore private String parent;
 

@@ -11,12 +11,12 @@ import java.util.Objects;
 @Generated
 public class CreateWorkspaceAssignmentRequest {
   /**
-   * The parent resource name of the workspace to assign the principal to. Format:
-   * accounts/{account_id}/workspaces/{workspace_id}
+   * The resource name of the workspace, in the format
+   * `accounts/{account_id}/workspaces/{workspace_id}`.
    */
   @JsonIgnore private String parent;
 
-  /** Required. Workspace assignment to be created in Databricks. */
+  /** The assignment to create. Set its `principal_id` and `entitlements`. */
   @JsonProperty("workspace_assignment")
   private WorkspaceAssignment workspaceAssignment;
 

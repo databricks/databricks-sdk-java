@@ -10,8 +10,8 @@ import java.util.Objects;
 @Generated
 public class GetWorkspaceIdentityDetailRequest {
   /**
-   * The resource name of the workspace identity detail. Format:
-   * principals/{principal_id}/workspace-identity-detail
+   * The resource name of the workspace identity detail, in the format
+   * `principals/{principal_id}/workspace-identity-detail`.
    */
   @JsonIgnore private String name;
 

@@ -10,13 +10,13 @@ import java.util.Objects;
 
 @Generated
 public class CreateDirectGroupMemberRequest {
-  /** Required. The direct group member to be added to the group. */
+  /** The member to add. Set its `principal_id`. */
   @JsonProperty("direct_group_member")
   private DirectGroupMember directGroupMember;
 
   /**
-   * The parent resource name of the group to add the member to. Format:
-   * accounts/{account_id}/groups/{group_id}
+   * The resource name of the group to add the member to, in the format
+   * `accounts/{account_id}/groups/{group_id}`.
    */
   @JsonIgnore private String parent;
 

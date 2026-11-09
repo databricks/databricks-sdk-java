@@ -7,9 +7,10 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** The response to resolving a group. */
 @Generated
 public class ResolveGroupResponse {
-  /** The group that was resolved. */
+  /** The resolved group. */
   @JsonProperty("group")
   private Group group;
 

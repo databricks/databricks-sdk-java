@@ -4,6 +4,7 @@ package com.databricks.sdk.service.iamv2;
 
 import com.databricks.sdk.support.Generated;
 
+/** A permission to use part of a Databricks workspace. */
 @Generated
 public enum Entitlement {
   ALLOW_CLUSTER_CREATE,

@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class DeleteWorkspaceAssignmentProxyRequest {
-  /** The resource name of the workspace assignment. Format: workspace-assignments/{principal_id} */
+  /** The resource name of the assignment, in the format `workspace-assignments/{principal_id}`. */
   @JsonIgnore private String name;
 
   public DeleteWorkspaceAssignmentProxyRequest setName(String name) {

@@ -10,13 +10,12 @@ import java.util.Objects;
 
 @Generated
 public class CreateGroupRequest {
-  /** Required. Group to be created in Databricks */
+  /** The group to create. */
   @JsonProperty("group")
   private Group group;
 
   /**
-   * The parent resource name of the account in which to create the group. Format:
-   * accounts/{account_id}
+   * The resource name of the account to create the group in, in the format `accounts/{account_id}`.
    */
   @JsonIgnore private String parent;
 

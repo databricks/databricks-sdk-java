@@ -152,8 +152,9 @@ public class Rule {
   private String ruleId;
 
   /**
-   * Name of the rule within its Unity Catalog schema. Required. Cannot be changed after creation.
-   * Reads return the value as supplied; the current UC name is reported in `effective_rule_name`.
+   * Name of the rule within its Unity Catalog schema. Required on create; can be updated within the
+   * same catalog and schema. Get synchronizes this field with the current Unity Catalog name, also
+   * reported in `effective_rule_name`.
    */
   @JsonProperty("rule_name")
   private String ruleName;

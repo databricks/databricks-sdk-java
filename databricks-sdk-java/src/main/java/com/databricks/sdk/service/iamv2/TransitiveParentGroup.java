@@ -7,26 +7,25 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Represents a group that is a transitive parent of a principal. */
+/** A group that a principal belongs to, either directly or through another group. */
 @Generated
 public class TransitiveParentGroup {
-  /** The parent account ID for group in Databricks. */
+  /** The ID of the account that contains the group. */
   @JsonProperty("account_id")
   private String accountId;
 
-  /** ExternalId of the group in the customer's IdP. */
+  /** The ID of the group in your identity provider (IdP). */
   @JsonProperty("external_id")
   private String externalId;
 
-  /** Internal group ID of the group in Databricks. */
+  /** The Databricks ID of the group. */
   @JsonProperty("group_id")
   private String groupId;
 
   /**
-   * The resource name of the transitive parent group. The format depends on the API that returned
-   * it: - Account-scoped:
-   * accounts/{account_id}/principals/{principal_id}/transitive-parent-groups/{group_id} -
-   * Workspace-scoped: principals/{principal_id}/transitive-parent-groups/{group_id}
+   * The resource name of the parent group, in one of these formats: - Account APIs:
+   * `accounts/{account_id}/principals/{principal_id}/transitive-parent-groups/{group_id}` -
+   * Workspace APIs: `principals/{principal_id}/transitive-parent-groups/{group_id}`
    */
   @JsonProperty("name")
   private String name;

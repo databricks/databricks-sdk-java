@@ -12,22 +12,21 @@ import java.util.Objects;
 @Generated
 public class CreateIdentityVisibilityFilterRequest {
   /**
-   * Required. The filter to create. Set `principal_type` to `GROUP` and specify exactly one of
-   * `exact`, `prefix`, or `regex`. The server assigns the resource name; any supplied `name` is
-   * ignored.
+   * The filter to create. Set `principal_type` to `GROUP` and exactly one of `exact`, `prefix`, or
+   * `regex`. Databricks sets `name`, so any value you set is ignored.
    */
   @JsonProperty("identity_visibility_filter")
   private IdentityVisibilityFilter identityVisibilityFilter;
 
   /**
-   * Optional. The ID to use for the filter, which becomes the final component of its resource name.
-   * If not specified or empty, the server generates one. Must not contain `/`.
+   * The ID to give the filter, which becomes the last part of its resource name. If you leave it
+   * empty, Databricks generates one. It can't contain `/`.
    */
   @JsonIgnore
   @QueryParam("identity_visibility_filter_id")
   private String identityVisibilityFilterId;
 
-  /** Required. The parent account. Format: accounts/{account_id} */
+  /** The resource name of the account, in the format `accounts/{account_id}`. */
   @JsonIgnore private String parent;
 
   public CreateIdentityVisibilityFilterRequest setIdentityVisibilityFilter(

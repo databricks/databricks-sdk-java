@@ -10,8 +10,8 @@ import java.util.Objects;
 @Generated
 public class GetServicePrincipalRequest {
   /**
-   * The resource name of the service principal. Format:
-   * accounts/{account_id}/service-principals/{service_principal_id}
+   * The resource name of the service principal, in the format
+   * `accounts/{account_id}/service-principals/{service_principal_id}`.
    */
   @JsonIgnore private String name;
 

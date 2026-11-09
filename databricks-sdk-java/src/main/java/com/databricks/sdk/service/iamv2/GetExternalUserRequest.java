@@ -10,8 +10,8 @@ import java.util.Objects;
 @Generated
 public class GetExternalUserRequest {
   /**
-   * Required. The resource name of the external user. Format:
-   * accounts/{account_id}/external-users/{external_user_id}
+   * The resource name of the external user, in the format
+   * `accounts/{account_id}/external-users/{external_user_id}`.
    */
   @JsonIgnore private String name;
 

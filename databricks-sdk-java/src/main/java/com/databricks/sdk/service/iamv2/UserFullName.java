@@ -7,13 +7,14 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** A user's name. */
 @Generated
 public class UserFullName {
-  /** */
+  /** The user's family (last) name. */
   @JsonProperty("family_name")
   private String familyName;
 
-  /** */
+  /** The user's given (first) name. */
   @JsonProperty("given_name")
   private String givenName;
 

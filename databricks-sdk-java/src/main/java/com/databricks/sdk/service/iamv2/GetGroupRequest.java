@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class GetGroupRequest {
-  /** The resource name of the group. Format: accounts/{account_id}/groups/{group_id} */
+  /** The resource name of the group, in the format `accounts/{account_id}/groups/{group_id}`. */
   @JsonIgnore private String name;
 
   public GetGroupRequest setName(String name) {

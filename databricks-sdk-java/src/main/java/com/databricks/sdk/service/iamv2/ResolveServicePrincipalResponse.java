@@ -7,9 +7,10 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** The response to resolving a service principal. */
 @Generated
 public class ResolveServicePrincipalResponse {
-  /** The service principal that was resolved. */
+  /** The resolved service principal. */
   @JsonProperty("service_principal")
   private ServicePrincipal servicePrincipal;
 

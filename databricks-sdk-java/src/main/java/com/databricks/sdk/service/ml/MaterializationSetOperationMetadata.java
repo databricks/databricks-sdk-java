@@ -32,6 +32,10 @@ public class MaterializationSetOperationMetadata {
   @JsonProperty("state")
   private MaterializationSetOperationMetadataState state;
 
+  /** Set by a `TriggerMaterializationSet` operation. */
+  @JsonProperty("trigger_progress")
+  private MaterializationSetTriggerProgress triggerProgress;
+
   /** Set by an `UpdateMaterializationSet` operation. */
   @JsonProperty("update_progress")
   private MaterializationSetUpdateProgress updateProgress;
@@ -84,6 +88,16 @@ public class MaterializationSetOperationMetadata {
     return state;
   }
 
+  public MaterializationSetOperationMetadata setTriggerProgress(
+      MaterializationSetTriggerProgress triggerProgress) {
+    this.triggerProgress = triggerProgress;
+    return this;
+  }
+
+  public MaterializationSetTriggerProgress getTriggerProgress() {
+    return triggerProgress;
+  }
+
   public MaterializationSetOperationMetadata setUpdateProgress(
       MaterializationSetUpdateProgress updateProgress) {
     this.updateProgress = updateProgress;
@@ -104,6 +118,7 @@ public class MaterializationSetOperationMetadata {
         && Objects.equals(featureFullNames, that.featureFullNames)
         && Objects.equals(materializationSetId, that.materializationSetId)
         && Objects.equals(state, that.state)
+        && Objects.equals(triggerProgress, that.triggerProgress)
         && Objects.equals(updateProgress, that.updateProgress);
   }
 
@@ -115,6 +130,7 @@ public class MaterializationSetOperationMetadata {
         featureFullNames,
         materializationSetId,
         state,
+        triggerProgress,
         updateProgress);
   }
 
@@ -126,6 +142,7 @@ public class MaterializationSetOperationMetadata {
         .add("featureFullNames", featureFullNames)
         .add("materializationSetId", materializationSetId)
         .add("state", state)
+        .add("triggerProgress", triggerProgress)
         .add("updateProgress", updateProgress)
         .toString();
   }

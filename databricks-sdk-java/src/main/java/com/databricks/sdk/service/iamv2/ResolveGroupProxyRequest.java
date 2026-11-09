@@ -7,13 +7,10 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/**
- * Request message for resolving a group with the given external ID from the customer's IdP into
- * Databricks. Will resolve metadata such as the group's name and inherited parent groups.
- */
+/** Request to resolve a group by its ID in your identity provider (IdP). */
 @Generated
 public class ResolveGroupProxyRequest {
-  /** Required. The external ID of the group in the customer's IdP. */
+  /** The ID of the group in your IdP. */
   @JsonProperty("external_id")
   private String externalId;
 

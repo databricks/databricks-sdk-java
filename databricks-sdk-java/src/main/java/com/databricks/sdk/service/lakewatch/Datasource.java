@@ -67,9 +67,9 @@ public class Datasource {
   private String datasourceId;
 
   /**
-   * Name of the datasource in Unity Catalog, unique within its schema. Required on create and
-   * cannot be changed afterward. Reads return the value as supplied; the datasource's current Unity
-   * Catalog name, which reflects renames, is reported in `effective_datasource_name`.
+   * Name of the datasource in Unity Catalog, unique within its schema. Required on create and can
+   * be updated within the same catalog and schema. Get synchronizes this field with the current
+   * Unity Catalog name, also reported in `effective_datasource_name`.
    */
   @JsonProperty("datasource_name")
   private String datasourceName;
@@ -199,8 +199,8 @@ public class Datasource {
   /**
    * ID of the SQL warehouse that runs the checks Lakewatch performs to validate a create or update
    * request, such as source and destination access checks. Required and non-blank on every create
-   * and update request; there is no default warehouse. The requester must be able to use the
-   * warehouse. Used only for those checks: it is not stored, is not returned on reads, and does not
+   * and update request except a rename-only PATCH; there is no default warehouse. The requester
+   * must be able to use the warehouse. It is not stored, is not returned on reads, and does not
    * affect the compute that runs the ingestion job.
    */
   @JsonProperty("warehouse_id")

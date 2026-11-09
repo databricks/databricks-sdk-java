@@ -8,17 +8,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-/** Response message containing a page of groups in the account. */
+/** A page of groups. */
 @Generated
 public class ListGroupsResponse {
-  /** */
+  /** The groups on this page. */
   @JsonProperty("groups")
   private Collection<Group> groups;
 
-  /**
-   * A token, which can be sent as page_token to retrieve the next page. If this field is omitted,
-   * there are no subsequent pages.
-   */
+  /** The token for the next page. Not set on the last page. */
   @JsonProperty("next_page_token")
   private String nextPageToken;
 

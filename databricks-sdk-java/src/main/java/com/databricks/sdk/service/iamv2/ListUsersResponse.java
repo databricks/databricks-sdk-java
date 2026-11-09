@@ -8,16 +8,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/** A page of users. */
 @Generated
 public class ListUsersResponse {
-  /**
-   * A token, which can be sent as page_token to retrieve the next page. If this field is omitted,
-   * there are no subsequent pages.
-   */
+  /** The token for the next page. Not set on the last page. */
   @JsonProperty("next_page_token")
   private String nextPageToken;
 
-  /** */
+  /** The users on this page. */
   @JsonProperty("users")
   private Collection<User> users;
 

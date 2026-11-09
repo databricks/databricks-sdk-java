@@ -10,31 +10,30 @@ import java.util.Objects;
 
 @Generated
 public class ListUsersProxyRequest {
-  /** Optional. Allows filtering users by username or external id. */
+  /**
+   * Filters users by `username` or `external_id`, for example `username eq "someone@example.com"`.
+   * Put the value in quotes.
+   */
   @JsonIgnore
   @QueryParam("filter")
   private String filter;
 
   /**
-   * The maximum number of users to return. The service may return fewer than this value. If not
-   * provided, defaults to 1000, which is also the maximum allowed. Requests for more than the
-   * maximum are clamped to 1000.
+   * The maximum number of users to return, up to 1000. The default is 1000. A page can contain
+   * fewer users.
    */
   @JsonIgnore
   @QueryParam("page_size")
   private Long pageSize;
 
-  /**
-   * A page token, received from a previous ListUsers call. Provide this to retrieve the subsequent
-   * page.
-   */
+  /** The `next_page_token` from a previous response, to get the next page. */
   @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
 
   /**
-   * The resource name of the account to list users in, `accounts/{account_id}`. Optional: defaults
-   * to the account of the calling workspace, and any other account is rejected.
+   * The resource name of the account to list users in, in the format `accounts/{account_id}`.
+   * Defaults to the account that contains this workspace. Any other account is rejected.
    */
   @JsonIgnore
   @QueryParam("parent")

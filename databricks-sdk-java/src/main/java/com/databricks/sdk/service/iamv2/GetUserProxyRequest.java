@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class GetUserProxyRequest {
-  /** The resource name of the user. Format: users/{user_id} */
+  /** The resource name of the user, in the format `users/{user_id}`. */
   @JsonIgnore private String name;
 
   public GetUserProxyRequest setName(String name) {

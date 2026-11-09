@@ -12,17 +12,20 @@ import java.util.Objects;
 @Generated
 public class UpdateUserRequest {
   /**
-   * The resource name of the user. The format depends on the API that returned it: -
-   * Account-scoped: accounts/{account_id}/users/{user_id} - Workspace-scoped: users/{user_id}
+   * The resource name of the user, in one of these formats: - Account APIs:
+   * `accounts/{account_id}/users/{user_id}` - Workspace APIs: `users/{user_id}`
    */
   @JsonIgnore private String name;
 
-  /** Required. The list of fields to update. */
+  /**
+   * The fields to update, separated by commas. You can update `full_name.given_name`,
+   * `full_name.family_name`, `account_user_status`, and `external_id`.
+   */
   @JsonIgnore
   @QueryParam("update_mask")
   private String updateMask;
 
-  /** Required. User to be updated in Databricks */
+  /** The user to update. Its `name` identifies the user. */
   @JsonProperty("user")
   private User user;
 

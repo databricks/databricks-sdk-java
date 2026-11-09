@@ -12,15 +12,15 @@ import java.util.Objects;
 @Generated
 public class CreateWorkspaceAssignmentProxyRequest {
   /**
-   * The resource name of the workspace to assign the principal to,
-   * `accounts/{account_id}/workspaces/{workspace_id}`. Optional: defaults to the calling workspace,
-   * and any other workspace is rejected.
+   * The resource name of the workspace, in the format
+   * `accounts/{account_id}/workspaces/{workspace_id}`. Defaults to this workspace. Any other
+   * workspace is rejected.
    */
   @JsonIgnore
   @QueryParam("parent")
   private String parent;
 
-  /** Required. Workspace assignment to be created in Databricks. */
+  /** The assignment to create. Set its `principal_id` and `entitlements`. */
   @JsonProperty("workspace_assignment")
   private WorkspaceAssignment workspaceAssignment;
 

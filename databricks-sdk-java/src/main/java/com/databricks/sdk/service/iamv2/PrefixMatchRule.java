@@ -8,14 +8,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 /**
- * A starts-with rule that matches groups whose display name begins with a specified prefix.
- * Matching is case-sensitive. For example, the prefix `data-` matches `data-platform`.
+ * A rule that matches groups whose display name starts with a prefix. Matching is case-sensitive.
+ * For example, the prefix `data-` matches `data-platform`.
  */
 @Generated
 public class PrefixMatchRule {
   /**
-   * The display-name prefix to match. Must contain at least one non-whitespace character. Leading
-   * and trailing whitespace are preserved, and matching is case-sensitive.
+   * The prefix to match. It must contain at least one non-whitespace character. Leading and
+   * trailing spaces are kept.
    */
   @JsonProperty("display_name_prefix")
   private String displayNamePrefix;

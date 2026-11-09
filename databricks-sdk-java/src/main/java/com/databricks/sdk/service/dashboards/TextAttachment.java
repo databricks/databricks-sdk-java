@@ -25,7 +25,8 @@ public class TextAttachment {
    * Purpose of this text attachment. A completed message may contain more than one text attachment
    * (for example a clarifying follow-up question alongside the final answer); use this field to
    * tell them apart. `TEXT_ATTACHMENT_PURPOSE_ANSWER` marks the final answer/summary and
-   * `FOLLOW_UP_QUESTION` marks a clarifying question.
+   * `FOLLOW_UP_QUESTION` marks a clarifying question. Agent-mode messages return the answer as
+   * their only text attachment.
    */
   @JsonProperty("purpose")
   private TextAttachmentPurpose purpose;

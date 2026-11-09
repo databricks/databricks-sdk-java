@@ -109,6 +109,8 @@ import com.databricks.sdk.service.compute.PolicyComplianceForClustersAPI;
 import com.databricks.sdk.service.compute.PolicyComplianceForClustersService;
 import com.databricks.sdk.service.compute.PolicyFamiliesAPI;
 import com.databricks.sdk.service.compute.PolicyFamiliesService;
+import com.databricks.sdk.service.compute.ServerlessComputeServiceAPI;
+import com.databricks.sdk.service.compute.ServerlessComputeServiceService;
 import com.databricks.sdk.service.computemigrations.ComputeMigrationsAPI;
 import com.databricks.sdk.service.computemigrations.ComputeMigrationsService;
 import com.databricks.sdk.service.dashboards.GenieAPI;
@@ -240,6 +242,8 @@ import com.databricks.sdk.service.sharing.RecipientsAPI;
 import com.databricks.sdk.service.sharing.RecipientsService;
 import com.databricks.sdk.service.sharing.SharesAPI;
 import com.databricks.sdk.service.sharing.SharesService;
+import com.databricks.sdk.service.softwareartifacts.SoftwareArtifactsAPI;
+import com.databricks.sdk.service.softwareartifacts.SoftwareArtifactsService;
 import com.databricks.sdk.service.sql.AlertsAPI;
 import com.databricks.sdk.service.sql.AlertsLegacyAPI;
 import com.databricks.sdk.service.sql.AlertsLegacyService;
@@ -404,12 +408,14 @@ public class WorkspaceClient {
   private SchemasAPI schemasAPI;
   private SecretsExt secretsAPI;
   private SecretsUcAPI secretsUcAPI;
+  private ServerlessComputeServiceAPI serverlessComputeServiceAPI;
   private ServicePrincipalSecretsProxyAPI servicePrincipalSecretsProxyAPI;
   private ServicePrincipalsV2API servicePrincipalsV2API;
   private ServingEndpointsAPI servingEndpointsAPI;
   private ServingEndpointsDataPlaneAPI servingEndpointsDataPlaneAPI;
   private SettingsAPI settingsAPI;
   private SharesAPI sharesAPI;
+  private SoftwareArtifactsAPI softwareArtifactsAPI;
   private StatementExecutionAPI statementExecutionAPI;
   private StorageCredentialsAPI storageCredentialsAPI;
   private SupervisorAgentsAPI supervisorAgentsAPI;
@@ -553,6 +559,7 @@ public class WorkspaceClient {
     schemasAPI = new SchemasAPI(apiClient);
     secretsAPI = new SecretsExt(apiClient);
     secretsUcAPI = new SecretsUcAPI(apiClient);
+    serverlessComputeServiceAPI = new ServerlessComputeServiceAPI(apiClient);
     servicePrincipalSecretsProxyAPI = new ServicePrincipalSecretsProxyAPI(apiClient);
     servicePrincipalsV2API = new ServicePrincipalsV2API(apiClient);
     servingEndpointsAPI = new ServingEndpointsAPI(apiClient);
@@ -560,6 +567,7 @@ public class WorkspaceClient {
         new ServingEndpointsDataPlaneAPI(apiClient, config, servingEndpointsAPI);
     settingsAPI = new SettingsAPI(apiClient);
     sharesAPI = new SharesAPI(apiClient);
+    softwareArtifactsAPI = new SoftwareArtifactsAPI(apiClient);
     statementExecutionAPI = new StatementExecutionAPI(apiClient);
     storageCredentialsAPI = new StorageCredentialsAPI(apiClient);
     supervisorAgentsAPI = new SupervisorAgentsAPI(apiClient);
@@ -1850,6 +1858,11 @@ public class WorkspaceClient {
     return secretsUcAPI;
   }
 
+  /** ServerlessCompute Service API. */
+  public ServerlessComputeServiceAPI serverlessComputeService() {
+    return serverlessComputeServiceAPI;
+  }
+
   /**
    * These APIs enable administrators to manage service principal secrets at the workspace level. To
    * use these APIs, the service principal must be first added to the current workspace.
@@ -1919,6 +1932,11 @@ public class WorkspaceClient {
    */
   public SharesAPI shares() {
     return sharesAPI;
+  }
+
+  /** Manage software artifacts and their versions in Unity Catalog. */
+  public SoftwareArtifactsAPI softwareArtifacts() {
+    return softwareArtifactsAPI;
   }
 
   /**
@@ -3578,6 +3596,20 @@ public class WorkspaceClient {
     return this;
   }
 
+  /** Replace the default ServerlessComputeServiceService with a custom implementation. */
+  public WorkspaceClient withServerlessComputeServiceImpl(
+      ServerlessComputeServiceService serverlessComputeService) {
+    return this.withServerlessComputeServiceAPI(
+        new ServerlessComputeServiceAPI(serverlessComputeService));
+  }
+
+  /** Replace the default ServerlessComputeServiceAPI with a custom implementation. */
+  public WorkspaceClient withServerlessComputeServiceAPI(
+      ServerlessComputeServiceAPI serverlessComputeService) {
+    this.serverlessComputeServiceAPI = serverlessComputeService;
+    return this;
+  }
+
   /** Replace the default ServicePrincipalSecretsProxyService with a custom implementation. */
   public WorkspaceClient withServicePrincipalSecretsProxyImpl(
       ServicePrincipalSecretsProxyService servicePrincipalSecretsProxy) {
@@ -3648,6 +3680,17 @@ public class WorkspaceClient {
   /** Replace the default SharesAPI with a custom implementation. */
   public WorkspaceClient withSharesAPI(SharesAPI shares) {
     this.sharesAPI = shares;
+    return this;
+  }
+
+  /** Replace the default SoftwareArtifactsService with a custom implementation. */
+  public WorkspaceClient withSoftwareArtifactsImpl(SoftwareArtifactsService softwareArtifacts) {
+    return this.withSoftwareArtifactsAPI(new SoftwareArtifactsAPI(softwareArtifacts));
+  }
+
+  /** Replace the default SoftwareArtifactsAPI with a custom implementation. */
+  public WorkspaceClient withSoftwareArtifactsAPI(SoftwareArtifactsAPI softwareArtifacts) {
+    this.softwareArtifactsAPI = softwareArtifacts;
     return this;
   }
 

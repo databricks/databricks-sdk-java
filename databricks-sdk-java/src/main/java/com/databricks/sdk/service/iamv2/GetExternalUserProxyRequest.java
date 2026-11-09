@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class GetExternalUserProxyRequest {
-  /** Required. The resource name of the external user. Format: external-users/{external_user_id} */
+  /** The resource name of the external user, in the format `external-users/{external_user_id}`. */
   @JsonIgnore private String name;
 
   public GetExternalUserProxyRequest setName(String name) {

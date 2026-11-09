@@ -7,14 +7,10 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/**
- * Request message for resolving a service principal with the given external ID from the customer's
- * IdP into Databricks. Will resolve metadata such as the service principal's display name, status,
- * and inherited parent groups.
- */
+/** Request to resolve a service principal by its ID in your identity provider (IdP). */
 @Generated
 public class ResolveServicePrincipalRequest {
-  /** Required. The external ID of the service principal in the customer's IdP. */
+  /** The ID of the service principal in your IdP. */
   @JsonProperty("external_id")
   private String externalId;
 

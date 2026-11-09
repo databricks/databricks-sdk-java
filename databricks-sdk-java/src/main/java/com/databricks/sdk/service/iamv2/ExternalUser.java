@@ -8,47 +8,45 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 /**
- * An external user from the customer's Identity Provider, resolved into Databricks. This is a
- * read-only resource that allows customers to look up external user identities by their IdP
- * external ID and retrieve the corresponding Databricks internal ID and metadata. The Get method
- * may trigger an idempotent sync from the customer's IdP to provision or refresh the user's data in
- * Databricks.
+ * A user from your identity provider (IdP), identified by their ID in your IdP. This resource is
+ * read-only. Getting an external user syncs the user's details and group memberships from your IdP,
+ * and adds the user to your account if they aren't already there.
  */
 @Generated
 public class ExternalUser {
-  /** The parent account ID, from Databricks. */
+  /** The ID of the account that contains the user. */
   @JsonProperty("account_id")
   private String accountId;
 
-  /** The activity status of the user in the Databricks account. */
+  /** Whether the user is active in the account. */
   @JsonProperty("account_user_status")
   private State accountUserStatus;
 
-  /** Display name of the user from the customer's IdP. */
+  /** The user's given and family names from your IdP, separated by a space. */
   @JsonProperty("display_name")
   private String displayName;
 
-  /** The external ID of the user in the customer's IdP. */
+  /** The ID of the user in your IdP. */
   @JsonProperty("external_user_id")
   private String externalUserId;
 
-  /** The full name of the user, from the customer's IdP. */
+  /** The user's name, from your IdP. */
   @JsonProperty("full_name")
   private FullName fullName;
 
-  /** Internal userId of the user in Databricks. */
+  /** The Databricks ID of the user. Use it as the `user_id` in the user APIs. */
   @JsonProperty("internal_id")
   private String internalId;
 
   /**
-   * The resource name of the external user. The format depends on the API that returned it: -
-   * Account-scoped: accounts/{account_id}/external-users/{external_user_id} - Workspace-scoped:
-   * external-users/{external_user_id}
+   * The resource name of the external user, in one of these formats: - Account APIs:
+   * `accounts/{account_id}/external-users/{external_user_id}` - Workspace APIs:
+   * `external-users/{external_user_id}`
    */
   @JsonProperty("name")
   private String name;
 
-  /** Username/email of the user, from Databricks. */
+  /** The user's username, which is their email address. */
   @JsonProperty("username")
   private String username;
 

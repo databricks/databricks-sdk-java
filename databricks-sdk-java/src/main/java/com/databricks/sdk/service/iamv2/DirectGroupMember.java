@@ -7,46 +7,45 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Represents a principal that is a direct member of a group, with its source of membership. */
+/** A user, service principal, or group that's a direct member of a group. */
 @Generated
 public class DirectGroupMember {
-  /** Display name of the principal. */
+  /** The member's display name. */
   @JsonProperty("display_name")
   private String displayName;
 
-  /** The external ID of the principal in the customer's IdP. */
+  /** The ID of the member in your identity provider (IdP). */
   @JsonProperty("external_id")
   private String externalId;
 
-  /** The internal ID of the group this member belongs to. */
+  /** The Databricks ID of the group. */
   @JsonProperty("group_id")
   private Long groupId;
 
-  /** The source of group membership (internal or from identity provider). */
+  /** Where the membership comes from. */
   @JsonProperty("membership_source")
   private GroupMembershipSource membershipSource;
 
   /**
-   * The resource name of the group membership. The format depends on the API that returned it: -
-   * Account-scoped: accounts/{account_id}/groups/{group_id}/direct-members/{principal_id} -
-   * Workspace-scoped: groups/{group_id}/direct-members/{principal_id}
+   * The resource name of the membership, in one of these formats: - Account APIs:
+   * `accounts/{account_id}/groups/{group_id}/direct-members/{principal_id}` - Workspace APIs:
+   * `groups/{group_id}/direct-members/{principal_id}`
    */
   @JsonProperty("name")
   private String name;
 
   /**
-   * The resource name of the group that contains the membership. The format depends on the API that
-   * returned it: - Account-scoped: accounts/{account_id}/groups/{group_id} - Workspace-scoped:
-   * groups/{group_id}
+   * The resource name of the group, in one of these formats: - Account APIs:
+   * `accounts/{account_id}/groups/{group_id}` - Workspace APIs: `groups/{group_id}`
    */
   @JsonProperty("parent")
   private String parent;
 
-  /** Internal ID of the principal in Databricks. */
+  /** The Databricks ID of the member. */
   @JsonProperty("principal_id")
   private Long principalId;
 
-  /** The type of the principal (user/service principal/group). */
+  /** Whether the member is a user, service principal, or group. */
   @JsonProperty("principal_type")
   private PrincipalType principalType;
 

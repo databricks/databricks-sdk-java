@@ -96,16 +96,19 @@ public interface SandboxService {
 
   /**
    * Uploads an application/octet-stream body to a sandbox. The sandbox starts automatically if it
-   * is stopped. Filesystem access uses the sandbox user's permissions and follows symbolic links.
+   * is stopped. Filesystem access uses the sandbox user's permissions. Replacements follow symbolic
+   * links.
    *
    * <p>Creates the file or replaces its entire contents, creating parent directories if missing.
    * The completed upload becomes visible atomically. A failure before commit leaves an existing
    * destination unchanged; a lost response after commit does not undo the upload. Completion does
    * not guarantee crash durability.
    *
-   * <p>Returns 201 Created for a new file or 204 No Content for a replacement. Partial and
-   * conditional uploads are unsupported: Content-Range, If-Match, If-None-Match, and
-   * If-Unmodified-Since return 400.
+   * <p>Returns 201 Created for a new file or 204 No Content for a replacement. Set overwrite=false
+   * or supply If-None-Match: * to create a file only if the destination does not exist. An existing
+   * entry, including a symbolic link, returns 412 Precondition Failed. Conflicting options or
+   * repeated overwrite parameters return 400. Other If-None-Match values, Content-Range, If-Match,
+   * and If-Unmodified-Since are unsupported and return 400.
    */
   void uploadFile(UploadFileRequest uploadFileRequest);
 }
