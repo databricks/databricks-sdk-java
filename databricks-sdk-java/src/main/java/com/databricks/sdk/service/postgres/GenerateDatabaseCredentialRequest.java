@@ -31,6 +31,14 @@ public class GenerateDatabaseCredentialRequest {
   private Timestamp expireTime;
 
   /**
+   * The display name of a `Databricks` workspace group. When set, the returned credential is scoped
+   * to this group, so the caller connects directly as the group's Postgres role. The caller must be
+   * a member of the group. When omitted, the credential is scoped to the caller's own identity.
+   */
+  @JsonProperty("group_name")
+  private String groupName;
+
+  /**
    * The requested time-to-live for the generated credential token. Must be at least 300 seconds (5
    * minutes) and at most 3600 seconds (1 hour).
    */
@@ -64,6 +72,15 @@ public class GenerateDatabaseCredentialRequest {
     return expireTime;
   }
 
+  public GenerateDatabaseCredentialRequest setGroupName(String groupName) {
+    this.groupName = groupName;
+    return this;
+  }
+
+  public String getGroupName() {
+    return groupName;
+  }
+
   public GenerateDatabaseCredentialRequest setTtl(Duration ttl) {
     this.ttl = ttl;
     return this;
@@ -81,12 +98,13 @@ public class GenerateDatabaseCredentialRequest {
     return Objects.equals(claims, that.claims)
         && Objects.equals(endpoint, that.endpoint)
         && Objects.equals(expireTime, that.expireTime)
+        && Objects.equals(groupName, that.groupName)
         && Objects.equals(ttl, that.ttl);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(claims, endpoint, expireTime, ttl);
+    return Objects.hash(claims, endpoint, expireTime, groupName, ttl);
   }
 
   @Override
@@ -95,6 +113,7 @@ public class GenerateDatabaseCredentialRequest {
         .add("claims", claims)
         .add("endpoint", endpoint)
         .add("expireTime", expireTime)
+        .add("groupName", groupName)
         .add("ttl", ttl)
         .toString();
   }

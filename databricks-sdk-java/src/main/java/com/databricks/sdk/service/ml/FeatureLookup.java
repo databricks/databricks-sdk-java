@@ -12,7 +12,10 @@ import java.util.Objects;
 /** Features to look up from a feature table. */
 @Generated
 public class FeatureLookup {
-  /** Default values for features. */
+  /**
+   * Default values for features. Order is not significant, and GetFeatureSpec can return them in a
+   * different order.
+   */
   @JsonProperty("default_values")
   private Collection<DefaultValue> defaultValues;
 
@@ -28,7 +31,10 @@ public class FeatureLookup {
   @JsonProperty("lookup_keys")
   private Collection<String> lookupKeys;
 
-  /** Output names for features, in place of their names in the feature table. */
+  /**
+   * Output names for features, in place of their names in the feature table. Order is not
+   * significant, and GetFeatureSpec can return them in a different order.
+   */
   @JsonProperty("rename_outputs")
   private Collection<RenameOutput> renameOutputs;
 

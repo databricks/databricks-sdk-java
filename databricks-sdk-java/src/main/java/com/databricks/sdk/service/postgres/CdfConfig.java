@@ -53,6 +53,14 @@ public class CdfConfig {
   @JsonProperty("schema")
   private String schema;
 
+  /**
+   * The service principal (application id) whose identity authorizes this change data feed's
+   * ongoing writes to Unity Catalog. When unset, writes are authorized as the creating identity.
+   * Changing it requires a new CdfConfig, which writes to new Delta tables.
+   */
+  @JsonProperty("service_principal")
+  private String servicePrincipal;
+
   public CdfConfig setCatalog(String catalog) {
     this.catalog = catalog;
     return this;
@@ -107,6 +115,15 @@ public class CdfConfig {
     return schema;
   }
 
+  public CdfConfig setServicePrincipal(String servicePrincipal) {
+    this.servicePrincipal = servicePrincipal;
+    return this;
+  }
+
+  public String getServicePrincipal() {
+    return servicePrincipal;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -117,12 +134,14 @@ public class CdfConfig {
         && Objects.equals(createTime, that.createTime)
         && Objects.equals(name, that.name)
         && Objects.equals(postgresSchema, that.postgresSchema)
-        && Objects.equals(schema, that.schema);
+        && Objects.equals(schema, that.schema)
+        && Objects.equals(servicePrincipal, that.servicePrincipal);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(catalog, cdfConfigId, createTime, name, postgresSchema, schema);
+    return Objects.hash(
+        catalog, cdfConfigId, createTime, name, postgresSchema, schema, servicePrincipal);
   }
 
   @Override
@@ -134,6 +153,7 @@ public class CdfConfig {
         .add("name", name)
         .add("postgresSchema", postgresSchema)
         .add("schema", schema)
+        .add("servicePrincipal", servicePrincipal)
         .toString();
   }
 }

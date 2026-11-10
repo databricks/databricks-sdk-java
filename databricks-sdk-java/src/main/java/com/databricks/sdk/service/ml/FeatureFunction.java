@@ -11,7 +11,10 @@ import java.util.Objects;
 /** A Python UDF that computes a feature. */
 @Generated
 public class FeatureFunction {
-  /** Bindings of the UDF's parameters to features. */
+  /**
+   * Bindings of the UDF's parameters to features. Order is not significant, and GetFeatureSpec can
+   * return them in a different order.
+   */
   @JsonProperty("input_bindings")
   private Collection<FeatureFunctionInputBinding> inputBindings;
 
