@@ -11,7 +11,10 @@ import java.util.Objects;
 /** A named set of features to serve, stored as a Unity Catalog function. */
 @Generated
 public class FeatureSpec {
-  /** Output names of columns to leave out of the feature spec. */
+  /**
+   * Output names of columns to leave out of the feature spec. Order is not significant, and
+   * GetFeatureSpec can return them in a different order.
+   */
   @JsonProperty("exclude_columns")
   private Collection<String> excludeColumns;
 

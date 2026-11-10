@@ -65,6 +65,13 @@ public class Feature {
   @JsonProperty("name")
   private String name;
 
+  /**
+   * Output type in Databricks SQL DDL (e.g., "BIGINT", "DECIMAL(10,2)", "ARRAY<STRING>",
+   * "STRUCT<name:STRING>").
+   */
+  @JsonProperty("output_type_text")
+  private String outputTypeText;
+
   /** Name of parent schema relative to its parent catalog. */
   @JsonProperty("schema_name")
   private String schemaName;
@@ -184,6 +191,15 @@ public class Feature {
     return name;
   }
 
+  public Feature setOutputTypeText(String outputTypeText) {
+    this.outputTypeText = outputTypeText;
+    return this;
+  }
+
+  public String getOutputTypeText() {
+    return outputTypeText;
+  }
+
   public Feature setSchemaName(String schemaName) {
     this.schemaName = schemaName;
     return this;
@@ -236,6 +252,7 @@ public class Feature {
         && Objects.equals(inputs, that.inputs)
         && Objects.equals(lineageContext, that.lineageContext)
         && Objects.equals(name, that.name)
+        && Objects.equals(outputTypeText, that.outputTypeText)
         && Objects.equals(schemaName, that.schemaName)
         && Objects.equals(source, that.source)
         && Objects.equals(timeWindow, that.timeWindow)
@@ -256,6 +273,7 @@ public class Feature {
         inputs,
         lineageContext,
         name,
+        outputTypeText,
         schemaName,
         source,
         timeWindow,
@@ -276,6 +294,7 @@ public class Feature {
         .add("inputs", inputs)
         .add("lineageContext", lineageContext)
         .add("name", name)
+        .add("outputTypeText", outputTypeText)
         .add("schemaName", schemaName)
         .add("source", source)
         .add("timeWindow", timeWindow)

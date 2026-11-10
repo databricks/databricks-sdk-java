@@ -1,5 +1,14 @@
 # Version changelog
 
+## Release v0.178.0 (2026-11-10)
+
+### API Changes
+* Add `outputTypeText` field for `com.databricks.sdk.service.ml.Feature`.
+* Add `servicePrincipal` field for `com.databricks.sdk.service.postgres.CdfConfig`.
+* Add `groupName` field for `com.databricks.sdk.service.postgres.GenerateDatabaseCredentialRequest`.
+* [Breaking] Change `notebookContent` field for `com.databricks.sdk.service.cleanrooms.CleanRoomAssetNotebook` to no longer be required.
+* Change `notebookContent` field for `com.databricks.sdk.service.cleanrooms.CleanRoomAssetNotebook` to no longer be required.
+
 ## Release v0.177.0 (2026-11-09)
 
 ### API Changes
