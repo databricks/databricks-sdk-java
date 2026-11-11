@@ -46,6 +46,13 @@ public class PtServedModel {
   @JsonProperty("provisioned_model_units")
   private Long provisionedModelUnits;
 
+  /**
+   * Commitment term to purchase for this served entity; its presence marks the entity as reserved
+   * (vs on-demand) PT. Valid on create and on update (purchases a commitment for a scale-up).
+   */
+  @JsonProperty("pt_term")
+  private CommitmentTerm ptTerm;
+
   public PtServedModel setBurstScalingEnabled(Boolean burstScalingEnabled) {
     this.burstScalingEnabled = burstScalingEnabled;
     return this;
@@ -91,6 +98,15 @@ public class PtServedModel {
     return provisionedModelUnits;
   }
 
+  public PtServedModel setPtTerm(CommitmentTerm ptTerm) {
+    this.ptTerm = ptTerm;
+    return this;
+  }
+
+  public CommitmentTerm getPtTerm() {
+    return ptTerm;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -100,13 +116,14 @@ public class PtServedModel {
         && Objects.equals(entityName, that.entityName)
         && Objects.equals(entityVersion, that.entityVersion)
         && Objects.equals(name, that.name)
-        && Objects.equals(provisionedModelUnits, that.provisionedModelUnits);
+        && Objects.equals(provisionedModelUnits, that.provisionedModelUnits)
+        && Objects.equals(ptTerm, that.ptTerm);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(
-        burstScalingEnabled, entityName, entityVersion, name, provisionedModelUnits);
+        burstScalingEnabled, entityName, entityVersion, name, provisionedModelUnits, ptTerm);
   }
 
   @Override
@@ -117,6 +134,7 @@ public class PtServedModel {
         .add("entityVersion", entityVersion)
         .add("name", name)
         .add("provisionedModelUnits", provisionedModelUnits)
+        .add("ptTerm", ptTerm)
         .toString();
   }
 }
