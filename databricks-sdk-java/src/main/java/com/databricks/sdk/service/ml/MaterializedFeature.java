@@ -76,7 +76,10 @@ public class MaterializedFeature {
   @JsonProperty("materialized_feature_id")
   private String materializedFeatureId;
 
-  /** Notification configuration for the jobs and pipelines that materialize this feature. */
+  /**
+   * Notification configuration around the lifecycle of the job or pipeline that materializes this
+   * feature. Features which are materialized in the same pipeline will share the same notification.
+   */
   @JsonProperty("notifications")
   private MaterializationNotifications notifications;
 

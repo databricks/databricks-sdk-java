@@ -12,8 +12,12 @@ import java.util.Objects;
 @Generated
 public class CreateMaterializationSetRequest {
   /**
-   * The materialization set to create. Supply materialization_set_id to choose the identifier;
-   * leave it unset to have one assigned.
+   * The materialization set to create. Set `materialization_set_id` to choose the identifier, or
+   * omit it to have one assigned.
+   *
+   * <p>Members with a cron schedule or table trigger must request the same `paused` value. An
+   * omitted `paused` defaults to `false`. A set can be created paused only if all members are batch
+   * materializations.
    */
   @JsonProperty("materialization_set")
   private MaterializationSet materializationSet;

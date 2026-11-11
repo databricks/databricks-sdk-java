@@ -177,7 +177,8 @@ public class Rule {
 
   /**
    * Long-form operational guidance carried from the authored rule metadata. Supports up to 4096
-   * characters. Requests exceeding this limit are rejected.
+   * characters. Requests exceeding this limit are rejected. Supports Markdown; analysts and the
+   * investigation agent follow it when triaging this rule's alerts.
    */
   @JsonProperty("runbook")
   private String runbook;

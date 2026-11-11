@@ -1,5 +1,11 @@
 # Version changelog
 
+## Release v0.179.0 (2026-11-11)
+
+### API Changes
+* Add `ptTerm` field for `com.databricks.sdk.service.serving.PtServedModel`.
+* [Breaking] Remove `customContentPackPath` and `customPresetsPath` fields for `com.databricks.sdk.service.lakewatch.CommonConfig`.
+
 ## Release v0.178.0 (2026-11-10)
 
 ### API Changes
