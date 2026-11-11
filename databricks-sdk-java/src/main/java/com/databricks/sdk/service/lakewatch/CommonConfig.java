@@ -15,23 +15,6 @@ import java.util.Objects;
 @Generated
 public class CommonConfig {
   /**
-   * UC volume path holding user-authored custom content packs, e.g.
-   * `/Volumes/{catalog}/{schema}/{volume}`. User-provided with no default: when unset, custom
-   * content packs are unavailable (referencing one is rejected) and only built-in content packs
-   * apply.
-   */
-  @JsonProperty("custom_content_pack_path")
-  private String customContentPackPath;
-
-  /**
-   * UC volume path holding user-authored custom presets, e.g.
-   * `/Volumes/{catalog}/{schema}/{volume}`. User-provided with no default: when unset, custom
-   * presets are unavailable and only built-in presets apply.
-   */
-  @JsonProperty("custom_presets_path")
-  private String customPresetsPath;
-
-  /**
    * Opaque entity tag for optimistic concurrency. Returned on every read; pass it back as the
    * Update request's `etag` to make the update conditional on the resource being unchanged.
    */
@@ -62,24 +45,6 @@ public class CommonConfig {
    */
   @JsonProperty("version")
   private Long version;
-
-  public CommonConfig setCustomContentPackPath(String customContentPackPath) {
-    this.customContentPackPath = customContentPackPath;
-    return this;
-  }
-
-  public String getCustomContentPackPath() {
-    return customContentPackPath;
-  }
-
-  public CommonConfig setCustomPresetsPath(String customPresetsPath) {
-    this.customPresetsPath = customPresetsPath;
-    return this;
-  }
-
-  public String getCustomPresetsPath() {
-    return customPresetsPath;
-  }
 
   public CommonConfig setEtag(String etag) {
     this.etag = etag;
@@ -140,9 +105,7 @@ public class CommonConfig {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     CommonConfig that = (CommonConfig) o;
-    return Objects.equals(customContentPackPath, that.customContentPackPath)
-        && Objects.equals(customPresetsPath, that.customPresetsPath)
-        && Objects.equals(etag, that.etag)
+    return Objects.equals(etag, that.etag)
         && Objects.equals(name, that.name)
         && Objects.equals(perResourcePermissionsEnabled, that.perResourcePermissionsEnabled)
         && Objects.equals(updateTime, that.updateTime)
@@ -152,22 +115,12 @@ public class CommonConfig {
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        customContentPackPath,
-        customPresetsPath,
-        etag,
-        name,
-        perResourcePermissionsEnabled,
-        updateTime,
-        updatedBy,
-        version);
+    return Objects.hash(etag, name, perResourcePermissionsEnabled, updateTime, updatedBy, version);
   }
 
   @Override
   public String toString() {
     return new ToStringer(CommonConfig.class)
-        .add("customContentPackPath", customContentPackPath)
-        .add("customPresetsPath", customPresetsPath)
         .add("etag", etag)
         .add("name", name)
         .add("perResourcePermissionsEnabled", perResourcePermissionsEnabled)
