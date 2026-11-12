@@ -14,7 +14,7 @@ public class ListBatchesResponse {
   @JsonProperty("batches")
   private Collection<Batch> batches;
 
-  /** Token that reads the next page. It is empty on the last page. */
+  /** A token to get the next page. It is empty on the last page. */
   @JsonProperty("next_page_token")
   private String nextPageToken;
 

@@ -9,11 +9,13 @@ import java.util.Objects;
 
 @Generated
 public class AlertV2Subscription {
-  /** */
+  /**
+   * ID of the notification destination to notify, as returned by the Notification Destinations API.
+   */
   @JsonProperty("destination_id")
   private String destinationId;
 
-  /** */
+  /** Email address of the workspace user to notify. */
   @JsonProperty("user_email")
   private String userEmail;
 

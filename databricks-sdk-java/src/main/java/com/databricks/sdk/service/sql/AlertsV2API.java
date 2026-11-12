@@ -24,7 +24,10 @@ public class AlertsV2API {
     impl = mock;
   }
 
-  /** Create Alert */
+  /**
+   * Creates an alert that runs `query_text` on the given schedule and evaluates the result against
+   * the configured condition.
+   */
   public AlertV2 createAlert(CreateAlertV2Request request) {
     return impl.createAlert(request);
   }
@@ -66,7 +69,10 @@ public class AlertsV2API {
     impl.trashAlert(request);
   }
 
-  /** Update alert */
+  /**
+   * Updates an alert. Only the fields listed in `update_mask` are changed; all other fields keep
+   * their current values.
+   */
   public AlertV2 updateAlert(UpdateAlertV2Request request) {
     return impl.updateAlert(request);
   }

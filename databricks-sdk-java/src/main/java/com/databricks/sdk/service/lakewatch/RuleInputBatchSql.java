@@ -7,7 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Batch SQL input for a detection rule. */
+/** SQL query input for a scheduled detection. */
 @Generated
 public class RuleInputBatchSql {
   /**

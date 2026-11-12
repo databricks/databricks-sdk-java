@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class AutoCaptureState {
-  /** */
+  /** The payload table that stores the logged requests and responses. */
   @JsonProperty("payload_table")
   private PayloadTable payloadTable;
 

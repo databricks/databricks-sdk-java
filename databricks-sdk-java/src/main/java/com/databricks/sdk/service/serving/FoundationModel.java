@@ -13,19 +13,19 @@ import java.util.Objects;
  */
 @Generated
 public class FoundationModel {
-  /** */
+  /** A description of the foundation model. */
   @JsonProperty("description")
   private String description;
 
-  /** */
+  /** The human-readable display name of the foundation model. */
   @JsonProperty("display_name")
   private String displayName;
 
-  /** */
+  /** The URL of the Databricks documentation page for the foundation model. */
   @JsonProperty("docs")
   private String docs;
 
-  /** */
+  /** The name of the foundation model. */
   @JsonProperty("name")
   private String name;
 

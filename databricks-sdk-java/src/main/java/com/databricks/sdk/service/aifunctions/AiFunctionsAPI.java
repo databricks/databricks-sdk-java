@@ -56,16 +56,16 @@ public class AiFunctionsAPI {
   }
 
   /**
-   * Cancel a batch. Cancellation is asynchronous: requests in flight drain first, so read the batch
-   * to observe the `CANCELLING` and `CANCELLED` statuses.
+   * Starts the asynchronous cancellation of a batch. Requests in progress are drained first.
+   * Cancellation is best effort, so the batch can still complete.
    */
   public CancelBatchResponse cancelBatch(CancelBatchRequest request) {
     return impl.cancelBatch(request);
   }
 
   /**
-   * Run an AI function over every request in a file on a Unity Catalog volume. The batch runs
-   * asynchronously; read it to follow its progress.
+   * Creates a batch that runs an AI function on every request in a JSONL file on a Unity Catalog
+   * volume. The batch runs asynchronously. To follow its progress, get the batch.
    */
   public Batch createBatch(CreateBatchRequest request) {
     return impl.createBatch(request);
@@ -75,12 +75,12 @@ public class AiFunctionsAPI {
     return getBatch(new GetBatchRequest().setName(name));
   }
 
-  /** Read one batch, with its status and progress. */
+  /** Gets the latest status and progress of a batch. */
   public Batch getBatch(GetBatchRequest request) {
     return impl.getBatch(request);
   }
 
-  /** List the batches the caller created in this workspace. */
+  /** Lists the batches that the caller created in this workspace. */
   public Iterable<Batch> listBatches(ListBatchesRequest request) {
     return Paginator.newTokenPagination(
         request,

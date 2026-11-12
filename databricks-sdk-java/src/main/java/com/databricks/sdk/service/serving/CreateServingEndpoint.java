@@ -26,7 +26,7 @@ public class CreateServingEndpoint {
   @JsonProperty("config")
   private EndpointCoreConfigInput config;
 
-  /** */
+  /** The description of the serving endpoint. */
   @JsonProperty("description")
   private String description;
 

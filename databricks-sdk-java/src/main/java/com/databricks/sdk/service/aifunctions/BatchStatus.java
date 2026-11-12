@@ -10,7 +10,6 @@ public enum BatchStatus {
   CANCELLED,
   CANCELLING,
   COMPLETED,
-  EXPIRED,
   FAILED,
   FINALIZING,
   IN_PROGRESS,

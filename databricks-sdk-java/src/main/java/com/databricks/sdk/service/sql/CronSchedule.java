@@ -9,12 +9,12 @@ import java.util.Objects;
 
 @Generated
 public class CronSchedule {
-  /** Indicate whether this schedule is paused or not. */
+  /** Indicates whether this schedule is paused. While paused, the alert is not evaluated. */
   @JsonProperty("pause_status")
   private SchedulePauseStatus pauseStatus;
 
   /**
-   * A cron expression using quartz syntax that specifies the schedule for this pipeline. Should use
+   * A cron expression using quartz syntax that specifies the schedule for this alert. Should use
    * the quartz format described here:
    * http://www.quartz-scheduler.org/documentation/quartz-2.1.7/tutorials/tutorial-lesson-06.html
    */

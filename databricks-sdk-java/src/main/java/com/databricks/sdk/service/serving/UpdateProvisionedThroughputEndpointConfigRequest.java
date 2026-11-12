@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Generated
 public class UpdateProvisionedThroughputEndpointConfigRequest {
-  /** */
+  /** The core config of the serving endpoint. */
   @JsonProperty("config")
   private PtEndpointCoreConfig config;
 

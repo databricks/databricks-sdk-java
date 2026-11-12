@@ -27,7 +27,7 @@ public class DatabaseDatabaseSpec {
    *
    * <p>To change the owner, pass valid existing Role name when updating the Database
    *
-   * <p>A database always has an owner.
+   * <p>Required when creating the Database.
    */
   @JsonProperty("role")
   private String role;

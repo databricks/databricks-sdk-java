@@ -15,7 +15,7 @@ public class ListBatchesRequest {
   @QueryParam("page_size")
   private Long pageSize;
 
-  /** Page token from an earlier response. Omit it to read the first page. */
+  /** A page token from a previous call to list batches. Omit it to get the first page. */
   @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;

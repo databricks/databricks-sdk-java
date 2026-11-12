@@ -18,11 +18,11 @@ public class ServedEntityOutput {
   @JsonProperty("burst_scaling_enabled")
   private Boolean burstScalingEnabled;
 
-  /** */
+  /** The timestamp when the served entity was created, in milliseconds since the Unix epoch. */
   @JsonProperty("creation_timestamp")
   private Long creationTimestamp;
 
-  /** */
+  /** The email of the user who created the served entity. */
   @JsonProperty("creator")
   private String creator;
 
@@ -35,7 +35,10 @@ public class ServedEntityOutput {
   @JsonProperty("entity_name")
   private String entityName;
 
-  /** */
+  /**
+   * The version of the model in Databricks Model Registry or Unity Catalog to be served, or empty
+   * if the entity is a FEATURE_SPEC function.
+   */
   @JsonProperty("entity_version")
   private String entityVersion;
 
@@ -60,7 +63,10 @@ public class ServedEntityOutput {
   @JsonProperty("external_model")
   private ExternalModel externalModel;
 
-  /** */
+  /**
+   * The foundation model that is served. Present for served entities that serve a Databricks-hosted
+   * foundation model.
+   */
   @JsonProperty("foundation_model")
   private FoundationModel foundationModel;
 
@@ -107,7 +113,7 @@ public class ServedEntityOutput {
   @JsonProperty("scale_to_zero_enabled")
   private Boolean scaleToZeroEnabled;
 
-  /** */
+  /** Information corresponding to the state of the served entity. */
   @JsonProperty("state")
   private ServedModelState state;
 

@@ -20,7 +20,7 @@ public class Rule {
   @JsonProperty("annotations")
   private Map<String, String> annotations;
 
-  /** Batch SQL rule input. */
+  /** Scheduled detection (also known as batch detection) input. */
   @JsonProperty("batch")
   private RuleInputBatch batch;
 
@@ -38,8 +38,8 @@ public class Rule {
 
   /**
    * ID of the workspace whose compute runs this rule's jobs and owns its associated resources, such
-   * as the SQL warehouse a scheduled rule runs on. Server-assigned; a rule's warehouse can only be
-   * changed from this workspace.
+   * as the SQL warehouse a scheduled detection runs on. Server-assigned; a rule's warehouse can
+   * only be changed from this workspace.
    */
   @JsonProperty("compute_workspace_id")
   private String computeWorkspaceId;
@@ -208,8 +208,8 @@ public class Rule {
   private Timestamp suppressUntilTime;
 
   /**
-   * Time-range configuration for batch rules. If unset, the execution time range is extended by a
-   * fixed `15m` lookback.
+   * Time-range configuration for scheduled detections. If unset, the execution time range is
+   * extended by a fixed `15m` lookback.
    */
   @JsonProperty("timerange")
   private RuleTimeRange timerange;

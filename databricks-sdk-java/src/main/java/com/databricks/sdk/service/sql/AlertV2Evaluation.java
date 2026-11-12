@@ -9,13 +9,16 @@ import java.util.Objects;
 
 @Generated
 public class AlertV2Evaluation {
-  /** Operator used for comparison in alert evaluation. */
+  /**
+   * Operator used for comparison in alert evaluation. The alert is triggered when the comparison of
+   * the source value with the threshold is true. `IS_NULL` and `IS_NOT_NULL` take no threshold.
+   */
   @JsonProperty("comparison_operator")
   private ComparisonOperator comparisonOperator;
 
   /**
-   * Alert state if result is empty. Please avoid setting this field to be `UNKNOWN` because
-   * `UNKNOWN` state is planned to be deprecated.
+   * Alert state if result is empty. If not set, an empty result sets the state to `ERROR`. Please
+   * avoid setting this field to be `UNKNOWN` because `UNKNOWN` state is planned to be deprecated.
    */
   @JsonProperty("empty_result_state")
   private AlertEvaluationState emptyResultState;
@@ -32,11 +35,17 @@ public class AlertV2Evaluation {
   @JsonProperty("source")
   private AlertV2OperandColumn source;
 
-  /** Latest state of alert evaluation. */
+  /**
+   * Latest state of alert evaluation: `TRIGGERED` when the condition was met, `OK` when it was not,
+   * and `ERROR` when the evaluation failed.
+   */
   @JsonProperty("state")
   private AlertEvaluationState state;
 
-  /** Threshold to user for alert evaluation, can be a column or a value. */
+  /**
+   * Threshold to compare the source column against, either another column or a fixed value. Not
+   * needed when `comparison_operator` is `IS_NULL` or `IS_NOT_NULL`.
+   */
   @JsonProperty("threshold")
   private AlertV2Operand threshold;
 

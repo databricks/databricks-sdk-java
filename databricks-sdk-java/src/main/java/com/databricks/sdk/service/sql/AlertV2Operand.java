@@ -9,11 +9,11 @@ import java.util.Objects;
 
 @Generated
 public class AlertV2Operand {
-  /** */
+  /** Compare the source against another column of the query result. */
   @JsonProperty("column")
   private AlertV2OperandColumn column;
 
-  /** */
+  /** Compare the source against a fixed value. */
   @JsonProperty("value")
   private AlertV2OperandValue value;
 

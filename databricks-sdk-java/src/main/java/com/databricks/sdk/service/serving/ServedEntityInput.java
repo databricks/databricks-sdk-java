@@ -27,7 +27,10 @@ public class ServedEntityInput {
   @JsonProperty("entity_name")
   private String entityName;
 
-  /** */
+  /**
+   * The version of the model in Databricks Model Registry or Unity Catalog to be served, or empty
+   * if the entity is a FEATURE_SPEC function.
+   */
   @JsonProperty("entity_version")
   private String entityVersion;
 

@@ -9,11 +9,11 @@ import java.util.Objects;
 
 @Generated
 public class UpdateInferenceEndpointNotificationsResponse {
-  /** */
+  /** The email notification settings now in effect for the serving endpoint. */
   @JsonProperty("email_notifications")
   private EmailNotifications emailNotifications;
 
-  /** */
+  /** The name of the serving endpoint whose notification settings were updated. */
   @JsonProperty("name")
   private String name;
 

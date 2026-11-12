@@ -12,7 +12,10 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface AlertsV2Service {
-  /** Create Alert */
+  /**
+   * Creates an alert that runs `query_text` on the given schedule and evaluates the result against
+   * the configured condition.
+   */
   AlertV2 createAlert(CreateAlertV2Request createAlertV2Request);
 
   /** Gets an alert. */
@@ -28,6 +31,9 @@ public interface AlertsV2Service {
    */
   void trashAlert(TrashAlertV2Request trashAlertV2Request);
 
-  /** Update alert */
+  /**
+   * Updates an alert. Only the fields listed in `update_mask` are changed; all other fields keep
+   * their current values.
+   */
   AlertV2 updateAlert(UpdateAlertV2Request updateAlertV2Request);
 }

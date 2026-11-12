@@ -31,7 +31,7 @@ public class AutoCaptureConfigOutput {
   @JsonProperty("schema_name")
   private String schemaName;
 
-  /** */
+  /** The state of the inference table. */
   @JsonProperty("state")
   private AutoCaptureState state;
 

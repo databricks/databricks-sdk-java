@@ -78,6 +78,13 @@ public class App {
   @JsonProperty("effective_budget_policy_id")
   private String effectiveBudgetPolicyId;
 
+  /**
+   * Resources added to the app, plus the resources it inherits from its space. Empty for apps that
+   * are not in a space.
+   */
+  @JsonProperty("effective_resources")
+  private Collection<AppResource> effectiveResources;
+
   /** */
   @JsonProperty("effective_usage_policy_id")
   private String effectiveUsagePolicyId;
@@ -300,6 +307,15 @@ public class App {
 
   public String getEffectiveBudgetPolicyId() {
     return effectiveBudgetPolicyId;
+  }
+
+  public App setEffectiveResources(Collection<AppResource> effectiveResources) {
+    this.effectiveResources = effectiveResources;
+    return this;
+  }
+
+  public Collection<AppResource> getEffectiveResources() {
+    return effectiveResources;
   }
 
   public App setEffectiveUsagePolicyId(String effectiveUsagePolicyId) {
@@ -528,6 +544,7 @@ public class App {
         && Objects.equals(defaultSourceCodePath, that.defaultSourceCodePath)
         && Objects.equals(description, that.description)
         && Objects.equals(effectiveBudgetPolicyId, that.effectiveBudgetPolicyId)
+        && Objects.equals(effectiveResources, that.effectiveResources)
         && Objects.equals(effectiveUsagePolicyId, that.effectiveUsagePolicyId)
         && Objects.equals(effectiveUserApiScopes, that.effectiveUserApiScopes)
         && Objects.equals(forwardUserAccessToken, that.forwardUserAccessToken)
@@ -569,6 +586,7 @@ public class App {
         defaultSourceCodePath,
         description,
         effectiveBudgetPolicyId,
+        effectiveResources,
         effectiveUsagePolicyId,
         effectiveUserApiScopes,
         forwardUserAccessToken,
@@ -610,6 +628,7 @@ public class App {
         .add("defaultSourceCodePath", defaultSourceCodePath)
         .add("description", description)
         .add("effectiveBudgetPolicyId", effectiveBudgetPolicyId)
+        .add("effectiveResources", effectiveResources)
         .add("effectiveUsagePolicyId", effectiveUsagePolicyId)
         .add("effectiveUserApiScopes", effectiveUserApiScopes)
         .add("forwardUserAccessToken", forwardUserAccessToken)

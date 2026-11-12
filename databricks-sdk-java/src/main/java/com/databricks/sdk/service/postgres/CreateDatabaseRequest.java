@@ -16,8 +16,8 @@ public class CreateDatabaseRequest {
   private Database database;
 
   /**
-   * The ID to use for the Database, which will become the final component of the database's
-   * resource name. This ID becomes the database name in postgres.
+   * The ID used to identify and manage the Database resource through the API. The Postgres database
+   * name is specified in `spec.postgres_database`.
    *
    * <p>This value should be 4-63 characters, and only use characters available in DNS names, as
    * defined by RFC-1123
