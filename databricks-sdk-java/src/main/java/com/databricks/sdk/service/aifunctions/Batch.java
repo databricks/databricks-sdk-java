@@ -10,49 +10,65 @@ import com.google.protobuf.Timestamp;
 import java.util.Map;
 import java.util.Objects;
 
-/** An asynchronous run of one AI function over a file of requests. */
+/**
+ * The AI Functions Asynchronous API lets you process large volumes of requests as a batch in a
+ * single call.
+ */
 @Generated
 public class Batch {
-  /** Output only. Time the batch was created. */
+  /** Output only. The time when the batch was created. */
   @JsonProperty("create_time")
   private Timestamp createTime;
 
-  /** The AI function to run for every request, for example `ai_extract`. */
+  /** The AI function, for example `ai_parse_document`. */
   @JsonProperty("endpoint")
   private String endpoint;
 
-  /** Path of the JSONL input file on a Unity Catalog volume. Each line is one request. */
+  /**
+   * Unity Catalog volume path of the JSONL input file. Each line is one request, in the form
+   * `{"custom_id": ..., "body": ...}`. The file can hold up to 50,000 requests and be up to 200
+   * MiB.
+   */
   @JsonProperty("input_ref")
   private String inputRef;
 
-  /** ID of the batch, in the form `batch_<id>`. The service assigns it. */
+  /**
+   * Output only. Identifier. Resource name of the batch, returned by create. Format: `batch_<id>`.
+   */
   @JsonProperty("name")
   private String name;
 
   /**
-   * Path on a Unity Catalog volume to write the JSONL output to. When it is omitted, the output
-   * stays on Databricks-managed storage and a finished batch returns a short-lived download URL in
-   * this field instead.
+   * Unity Catalog volume path to write the JSONL output file to. If the path is a directory, the
+   * file is `<path>/<name>_output.jsonl`.
    */
   @JsonProperty("output_ref")
   private String outputRef;
 
-  /** Function options applied to every request in the batch, for example the extraction schema. */
+  /**
+   * Parameters of the function other than its input, applied to every request in the batch, for
+   * example `schema` for `ai_extract`. Put function options, such as `version`, in a nested
+   * `options` object. For the parameters of each function, see [AI
+   * Functions](/large-language-models/ai-functions).
+   */
   @JsonProperty("params")
   private Map<String, JsonNode> params;
 
   /**
-   * Output only. Percentage of the requests that finished, from 0 to 100. Returned when one batch
-   * is read, not when batches are listed.
+   * Output only. The percentage of requests that are processed, from 0 to 100. Returned when you
+   * get a batch, not when you list batches.
    */
   @JsonProperty("percent_complete")
   private Double percentComplete;
 
-  /** Output only. Request counts. Returned when one batch is read, not when batches are listed. */
+  /**
+   * Output only. The number of requests in the batch, by result. Returned when you get a batch, not
+   * when you list batches.
+   */
   @JsonProperty("request_counts")
   private BatchRequestCounts requestCounts;
 
-  /** Output only. Status of the batch. */
+  /** Output only. The status of the batch. */
   @JsonProperty("status")
   private BatchStatus status;
 

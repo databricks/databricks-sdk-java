@@ -12,6 +12,9 @@ public class DeleteEndpointRequest {
   /**
    * The full resource path of the endpoint to delete. Format:
    * projects/{project_id}/branches/{branch_id}/endpoints/{endpoint_id}
+   *
+   * <p>Read-write endpoints currently cannot be deleted directly. Their deletion is managed by the
+   * parent branch. To avoid compute costs, set `disabled` to `true` on the endpoint.
    */
   @JsonIgnore private String name;
 

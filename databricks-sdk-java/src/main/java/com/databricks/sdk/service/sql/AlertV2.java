@@ -8,17 +8,28 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * A SQL alert. An alert runs a query on a schedule, evaluates the result against a condition, and
+ * notifies users or notification destinations when the condition is met.
+ */
 @Generated
 public class AlertV2 {
   /** The timestamp indicating when the alert was created. */
   @JsonProperty("create_time")
   private String createTime;
 
-  /** Custom description for the alert. Interpreted according to `custom_template_format`. */
+  /**
+   * Custom description for the alert, used as the notification body. Interpreted according to
+   * `custom_template_format`. The available template variables are listed at
+   * https://docs.databricks.com/aws/en/sql/user/alerts/create#notification-templates.
+   */
   @JsonProperty("custom_description")
   private String customDescription;
 
-  /** Custom summary for the alert. Interpreted according to `custom_template_format`. */
+  /**
+   * Custom summary for the alert, used as the notification subject. Interpreted according to
+   * `custom_template_format`.
+   */
   @JsonProperty("custom_summary")
   private String customSummary;
 
@@ -47,7 +58,7 @@ public class AlertV2 {
   @JsonProperty("effective_run_as")
   private AlertV2RunAs effectiveRunAs;
 
-  /** */
+  /** Condition evaluated against the query result, and who is notified when it is met. */
   @JsonProperty("evaluation")
   private AlertV2Evaluation evaluation;
 
@@ -55,7 +66,9 @@ public class AlertV2 {
   @JsonProperty("id")
   private String id;
 
-  /** Indicates whether the query is trashed. */
+  /**
+   * Indicates whether the alert is active (`ACTIVE`) or has been moved to the trash (`DELETED`).
+   */
   @JsonProperty("lifecycle_state")
   private AlertLifecycleState lifecycleState;
 
@@ -104,15 +117,15 @@ public class AlertV2 {
   private AlertV2RunAs runAs;
 
   /**
-   * The run as username or application ID of service principal. On Create and Update, this field
-   * can be set to application ID of an active service principal. Setting this field requires the
-   * servicePrincipal/user role. Deprecated: Use `run_as` field instead. This field will be removed
-   * in a future release.
+   * Deprecated: Use `run_as` field instead. This field will be removed in a future release. The run
+   * as username or application ID of service principal. On Create and Update, this field can be set
+   * to application ID of an active service principal. Setting this field requires the
+   * servicePrincipal/user role.
    */
   @JsonProperty("run_as_user_name")
   private String runAsUserName;
 
-  /** */
+  /** Schedule on which the alert runs its query and evaluates the condition. */
   @JsonProperty("schedule")
   private CronSchedule schedule;
 

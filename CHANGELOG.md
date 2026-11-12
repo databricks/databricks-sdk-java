@@ -1,5 +1,15 @@
 # Version changelog
 
+## Release v0.180.0 (2026-11-12)
+
+### API Changes
+* Add `workspaceClient.assumeGroup()` service.
+* Add `effectiveResources` field for `com.databricks.sdk.service.apps.App`.
+* Change `outputRef` field for `com.databricks.sdk.service.aifunctions.Batch` to be required.
+* [Breaking] Change `outputRef` field for `com.databricks.sdk.service.aifunctions.Batch` to be required.
+* [Breaking] Remove `continuous` field for `com.databricks.sdk.service.lakewatch.RuleSchedule`.
+* [Breaking] Remove `EXPIRED` enum value for `com.databricks.sdk.service.aifunctions.BatchStatus`.
+
 ## Release v0.179.0 (2026-11-11)
 
 ### API Changes

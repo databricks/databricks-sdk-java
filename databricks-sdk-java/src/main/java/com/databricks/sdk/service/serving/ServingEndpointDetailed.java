@@ -26,7 +26,7 @@ public class ServingEndpointDetailed {
   @JsonProperty("config")
   private EndpointCoreConfigOutput config;
 
-  /** The timestamp when the endpoint was created in Unix time. */
+  /** The timestamp when the endpoint was created, in milliseconds since the Unix epoch. */
   @JsonProperty("creation_timestamp")
   private Long creationTimestamp;
 
@@ -38,7 +38,7 @@ public class ServingEndpointDetailed {
   @JsonProperty("data_plane_info")
   private ModelDataPlaneInfo dataPlaneInfo;
 
-  /** Description of the serving model */
+  /** Description of the serving endpoint. */
   @JsonProperty("description")
   private String description;
 
@@ -57,7 +57,10 @@ public class ServingEndpointDetailed {
   @JsonProperty("id")
   private String id;
 
-  /** The timestamp when the endpoint was last updated by a user in Unix time. */
+  /**
+   * The timestamp when the endpoint was last updated by a user, in milliseconds since the Unix
+   * epoch.
+   */
   @JsonProperty("last_updated_timestamp")
   private Long lastUpdatedTimestamp;
 

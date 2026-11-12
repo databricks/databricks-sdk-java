@@ -53,11 +53,15 @@ public class ServedModelInput {
   @JsonProperty("min_provisioned_throughput")
   private Long minProvisionedThroughput;
 
-  /** */
+  /**
+   * The name of the model in Databricks Model Registry to be served or, if the model resides in
+   * Unity Catalog, the full name of the model in the form of
+   * **catalog_name.schema_name.model_name**.
+   */
   @JsonProperty("model_name")
   private String modelName;
 
-  /** */
+  /** The version of the model in Databricks Model Registry or Unity Catalog to be served. */
   @JsonProperty("model_version")
   private String modelVersion;
 

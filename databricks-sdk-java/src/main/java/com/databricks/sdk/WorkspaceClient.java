@@ -138,6 +138,8 @@ import com.databricks.sdk.service.iam.AccessControlAPI;
 import com.databricks.sdk.service.iam.AccessControlService;
 import com.databricks.sdk.service.iam.AccountAccessControlProxyAPI;
 import com.databricks.sdk.service.iam.AccountAccessControlProxyService;
+import com.databricks.sdk.service.iam.AssumeGroupAPI;
+import com.databricks.sdk.service.iam.AssumeGroupService;
 import com.databricks.sdk.service.iam.CurrentUserAPI;
 import com.databricks.sdk.service.iam.CurrentUserService;
 import com.databricks.sdk.service.iam.GroupsAPI;
@@ -312,6 +314,7 @@ public class WorkspaceClient {
   private AppsAPI appsAPI;
   private AppsSettingsAPI appsSettingsAPI;
   private ArtifactAllowlistsAPI artifactAllowlistsAPI;
+  private AssumeGroupAPI assumeGroupAPI;
   private BundleDeploymentsAPI bundleDeploymentsAPI;
   private CatalogsAPI catalogsAPI;
   private CleanRoomAssetRevisionsAPI cleanRoomAssetRevisionsAPI;
@@ -463,6 +466,7 @@ public class WorkspaceClient {
     appsAPI = new AppsAPI(apiClient);
     appsSettingsAPI = new AppsSettingsAPI(apiClient);
     artifactAllowlistsAPI = new ArtifactAllowlistsAPI(apiClient);
+    assumeGroupAPI = new AssumeGroupAPI(apiClient);
     bundleDeploymentsAPI = new BundleDeploymentsAPI(apiClient);
     catalogsAPI = new CatalogsAPI(apiClient);
     cleanRoomAssetRevisionsAPI = new CleanRoomAssetRevisionsAPI(apiClient);
@@ -708,6 +712,11 @@ public class WorkspaceClient {
    */
   public ArtifactAllowlistsAPI artifactAllowlists() {
     return artifactAllowlistsAPI;
+  }
+
+  /** Manage the workspace's restricted sharing groups. */
+  public AssumeGroupAPI assumeGroup() {
+    return assumeGroupAPI;
   }
 
   /** Service for managing bundle deployment metadata. */
@@ -2493,6 +2502,17 @@ public class WorkspaceClient {
   /** Replace the default ArtifactAllowlistsAPI with a custom implementation. */
   public WorkspaceClient withArtifactAllowlistsAPI(ArtifactAllowlistsAPI artifactAllowlists) {
     this.artifactAllowlistsAPI = artifactAllowlists;
+    return this;
+  }
+
+  /** Replace the default AssumeGroupService with a custom implementation. */
+  public WorkspaceClient withAssumeGroupImpl(AssumeGroupService assumeGroup) {
+    return this.withAssumeGroupAPI(new AssumeGroupAPI(assumeGroup));
+  }
+
+  /** Replace the default AssumeGroupAPI with a custom implementation. */
+  public WorkspaceClient withAssumeGroupAPI(AssumeGroupAPI assumeGroup) {
+    this.assumeGroupAPI = assumeGroup;
     return this;
   }
 

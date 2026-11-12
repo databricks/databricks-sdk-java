@@ -7,7 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Batch input for a detection rule. */
+/** Input for a scheduled detection (also known as batch detection). */
 @Generated
 public class RuleInputBatch {
   /** Custom-notebook user function. The output is used as input data for the rule. */
@@ -18,7 +18,7 @@ public class RuleInputBatch {
   @JsonProperty("sql")
   private RuleInputBatchSql sql;
 
-  /** SQL warehouse used to run this batch rule. */
+  /** SQL warehouse that runs this scheduled detection. */
   @JsonProperty("warehouse_id")
   private String warehouseId;
 

@@ -26,7 +26,7 @@ public class ServingEndpoint {
   @JsonProperty("config")
   private EndpointCoreConfigSummary config;
 
-  /** The timestamp when the endpoint was created in Unix time. */
+  /** The timestamp when the endpoint was created, in milliseconds since the Unix epoch. */
   @JsonProperty("creation_timestamp")
   private Long creationTimestamp;
 
@@ -42,7 +42,10 @@ public class ServingEndpoint {
   @JsonProperty("id")
   private String id;
 
-  /** The timestamp when the endpoint was last updated by a user in Unix time. */
+  /**
+   * The timestamp when the endpoint was last updated by a user, in milliseconds since the Unix
+   * epoch.
+   */
   @JsonProperty("last_updated_timestamp")
   private Long lastUpdatedTimestamp;
 

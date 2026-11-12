@@ -19,15 +19,9 @@ public class UpdateAlertV2Request {
   @JsonIgnore private String id;
 
   /**
-   * The field mask must be a single string, with multiple fields separated by commas (no spaces).
-   * The field path is relative to the resource object, using a dot (`.`) to navigate sub-fields
-   * (e.g., `author.given_name`). Specification of elements in sequence or map fields is not
-   * allowed, as only the entire collection field can be specified. Field names must exactly match
-   * the resource field names.
-   *
-   * <p>A field mask of `*` indicates full replacement. It’s recommended to always explicitly list
-   * the fields being updated and avoid using `*` wildcards, as it can lead to unintended results if
-   * the API changes in the future.
+   * Comma-separated list of the alert fields to update, for example `display_name,query_text` or
+   * `schedule.pause_status`. Only the listed fields are changed; all other fields keep their
+   * current values. `parent_path` cannot be updated.
    */
   @JsonIgnore
   @QueryParam("update_mask")

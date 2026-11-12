@@ -9,11 +9,22 @@ import java.util.Objects;
 
 @Generated
 public class ServedModelState {
-  /** */
+  /**
+   * The state of the deployment of the served entity. DEPLOYMENT_CREATING indicates that the served
+   * entity is not ready yet because the deployment is still being created (for example, the
+   * container image is building or the model server is starting for the first time).
+   * DEPLOYMENT_RECOVERING indicates that the served entity was previously ready but no longer is
+   * and is attempting to recover. DEPLOYMENT_READY indicates that the served entity is ready to
+   * receive traffic. DEPLOYMENT_FAILED indicates that there was an error bringing up the served
+   * entity (for example, the container image build failed or the model server failed to start due
+   * to a model loading error). DEPLOYMENT_ABORTED indicates that the deployment was terminated,
+   * likely due to a failure in bringing up another served entity under the same endpoint and config
+   * version.
+   */
   @JsonProperty("deployment")
   private ServedModelStateDeployment deployment;
 
-  /** */
+  /** More information about the state of the served entity, if available. */
   @JsonProperty("deployment_state_message")
   private String deploymentStateMessage;
 

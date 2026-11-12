@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class GetAlertV2Request {
-  /** */
+  /** ID of the alert to retrieve, as returned in the alert's `id` field. */
   @JsonIgnore private String id;
 
   public GetAlertV2Request setId(String id) {

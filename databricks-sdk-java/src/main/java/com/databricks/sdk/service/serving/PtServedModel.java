@@ -26,7 +26,7 @@ public class PtServedModel {
   @JsonProperty("entity_name")
   private String entityName;
 
-  /** */
+  /** The version of the model in Unity Catalog to be served. */
   @JsonProperty("entity_version")
   private String entityVersion;
 

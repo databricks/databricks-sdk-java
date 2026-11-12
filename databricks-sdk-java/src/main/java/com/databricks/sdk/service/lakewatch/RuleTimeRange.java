@@ -7,15 +7,15 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Time-range configuration for a batch detection rule. */
+/** Time-range configuration for a scheduled detection. */
 @Generated
 public class RuleTimeRange {
   /**
    * Extends the start of the execution time range by a compact duration with integer days, hours,
    * minutes, and seconds in that order, such as `1h30m` or `15m`. Zero duration disables extension.
    * Unset or empty uses a fixed `15m` at execution time. Only the start moves; the end is
-   * unchanged. Has no effect on batch SQL that does not use `IN_TIMERANGE`. Values must fit signed
-   * 64-bit microseconds.
+   * unchanged. Has no effect on a detection query that does not use `IN_TIMERANGE`. Values must fit
+   * signed 64-bit microseconds.
    */
   @JsonProperty("extend_lookback")
   private String extendLookback;

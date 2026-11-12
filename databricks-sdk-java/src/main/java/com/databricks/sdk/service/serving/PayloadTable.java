@@ -9,15 +9,15 @@ import java.util.Objects;
 
 @Generated
 public class PayloadTable {
-  /** */
+  /** The name of the payload table within the configured catalog and schema. */
   @JsonProperty("name")
   private String name;
 
-  /** */
+  /** The status of the payload table. One of PENDING, READY, FAILED or DISABLED. */
   @JsonProperty("status")
   private String status;
 
-  /** */
+  /** More information about the status of the payload table, if available. */
   @JsonProperty("status_message")
   private String statusMessage;
 

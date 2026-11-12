@@ -9,15 +9,15 @@ import java.util.Objects;
 
 @Generated
 public class AlertV2OperandValue {
-  /** */
+  /** Boolean threshold, for boolean columns. */
   @JsonProperty("bool_value")
   private Boolean boolValue;
 
-  /** */
+  /** Numeric threshold, for numeric columns. */
   @JsonProperty("double_value")
   private Double doubleValue;
 
-  /** */
+  /** String threshold, for string or timestamp columns. */
   @JsonProperty("string_value")
   private String stringValue;
 

@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Generated
 public class TrashAlertV2Request {
-  /** */
+  /** ID of the alert to move to the trash. */
   @JsonIgnore private String id;
 
   /** Whether to permanently delete the alert. If not set, the alert will only be soft deleted. */

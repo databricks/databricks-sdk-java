@@ -14,7 +14,7 @@ public class PtEndpointCoreConfig {
   @JsonProperty("served_entities")
   private Collection<PtServedModel> servedEntities;
 
-  /** */
+  /** The traffic configuration associated with the serving endpoint config. */
   @JsonProperty("traffic_config")
   private TrafficConfig trafficConfig;
 

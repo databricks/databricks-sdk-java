@@ -9,15 +9,19 @@ import java.util.Objects;
 
 @Generated
 public class AlertV2OperandColumn {
-  /** If not set, the behavior is equivalent to using `First row` in the UI. */
+  /**
+   * Aggregation applied to the column across all rows of the query result: `SUM`, `COUNT`,
+   * `COUNT_DISTINCT`, `AVG`, `MEDIAN`, `MIN`, `MAX` or `STDDEV`. If not set, the value in the first
+   * row is used, which is equivalent to using `First row` in the UI.
+   */
   @JsonProperty("aggregation")
   private Aggregation aggregation;
 
-  /** */
+  /** Label for the column in notifications. Defaults to `name`. */
   @JsonProperty("display")
   private String display;
 
-  /** */
+  /** Name of the column in the query result. */
   @JsonProperty("name")
   private String name;
 

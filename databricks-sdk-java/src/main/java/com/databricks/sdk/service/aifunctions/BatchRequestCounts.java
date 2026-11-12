@@ -10,15 +10,15 @@ import java.util.Objects;
 /** Counts of the requests in a batch. */
 @Generated
 public class BatchRequestCounts {
-  /** Output only. Number of requests that failed and will not be retried. */
+  /** Output only. The number of requests that failed. The service does not retry them. */
   @JsonProperty("failed")
   private Long failed;
 
-  /** Output only. Number of requests that finished successfully. */
+  /** Output only. The number of requests that were processed successfully. */
   @JsonProperty("succeeded")
   private Long succeeded;
 
-  /** Output only. Number of requests in the input file. */
+  /** Output only. The number of requests in the batch. */
   @JsonProperty("total")
   private Long total;
 

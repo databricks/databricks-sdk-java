@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
 import java.util.Objects;
 
-/** Reference to a custom-user-function notebook for stream or batch input. */
+/** Reference to a custom-user-function notebook for scheduled detection input. */
 @Generated
 public class RuleInputCustomNotebook {
   /**

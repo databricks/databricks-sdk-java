@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class Route {
-  /** */
+  /** The name of the served entity this route configures traffic for. */
   @JsonProperty("served_entity_name")
   private String servedEntityName;
 

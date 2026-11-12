@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Generated
 public class EndpointTags {
-  /** */
+  /** The tags attached to the serving endpoint after the update. */
   @JsonProperty("tags")
   private Collection<EndpointTag> tags;
 

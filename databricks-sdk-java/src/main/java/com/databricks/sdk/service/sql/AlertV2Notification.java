@@ -24,7 +24,7 @@ public class AlertV2Notification {
   @JsonProperty("retrigger_seconds")
   private Long retriggerSeconds;
 
-  /** */
+  /** Users and notification destinations that receive notifications. */
   @JsonProperty("subscriptions")
   private Collection<AlertV2Subscription> subscriptions;
 

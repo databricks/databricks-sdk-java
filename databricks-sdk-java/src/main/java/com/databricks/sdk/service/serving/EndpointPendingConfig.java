@@ -33,7 +33,10 @@ public class EndpointPendingConfig {
   @JsonProperty("served_models")
   private Collection<ServedModelOutput> servedModels;
 
-  /** The timestamp when the update to the pending config started. */
+  /**
+   * The timestamp when the update to the pending config started, in milliseconds since the Unix
+   * epoch.
+   */
   @JsonProperty("start_time")
   private Long startTime;
 
