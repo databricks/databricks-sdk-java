@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class GetDatabaseInstanceRequest {
-  /** Name of the cluster to get. */
+  /** Name of the instance to get. */
   @JsonIgnore private String name;
 
   public GetDatabaseInstanceRequest setName(String name) {

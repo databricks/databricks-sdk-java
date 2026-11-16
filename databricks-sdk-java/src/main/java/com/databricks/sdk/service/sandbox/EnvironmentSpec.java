@@ -10,10 +10,11 @@ import java.util.Objects;
 @Generated
 public class EnvironmentSpec {
   /**
-   * The Unity Catalog container image to use for the sandbox environment (for example,
-   * `catalog.schema.folder.image:tag`). See [Artifact Registry].
+   * The Unity Catalog container image to run the sandbox from, in the form
+   * `catalog.schema.artifact:tag`, or `catalog.schema.artifact@sha256:<digest>` to pin an exact
+   * version. When omitted, the sandbox runs the default sandbox image. See [custom images].
    *
-   * <p>[Artifact Registry]: https://docs.databricks.com/en/artifact-registry/
+   * <p>[custom images]: https://docs.databricks.com/en/compute/serverless/sandbox-custom-image
    */
   @JsonProperty("image_uri")
   private String imageUri;

@@ -11,11 +11,15 @@ import java.util.Objects;
 
 @Generated
 public class CreateSandboxRequest {
-  /** The sandbox to create. */
+  /** The sandbox to create. An empty body creates a sandbox with the default configuration. */
   @JsonProperty("sandbox")
   private Sandbox sandbox;
 
-  /** Client-supplied ID that becomes the final path segment of the resource name. */
+  /**
+   * Client-supplied ID that becomes the final path segment of the resource name. It must start with
+   * a lowercase letter, contain only lowercase letters, digits and hyphens, end with a letter or
+   * digit, and be at most 63 characters long. Values shaped like a UUID are rejected.
+   */
   @JsonIgnore
   @QueryParam("sandbox_id")
   private String sandboxId;

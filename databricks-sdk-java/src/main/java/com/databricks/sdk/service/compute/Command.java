@@ -9,19 +9,19 @@ import java.util.Objects;
 
 @Generated
 public class Command {
-  /** Running cluster id */
+  /** ID of the cluster that hosts the execution context. */
   @JsonProperty("clusterId")
   private String clusterId;
 
-  /** Executable code */
+  /** Code to run, written in the specified language. */
   @JsonProperty("command")
   private String command;
 
-  /** Running context id */
+  /** ID of the execution context to run the command in, as returned by __Create__. */
   @JsonProperty("contextId")
   private String contextId;
 
-  /** */
+  /** Language the command is written in. */
   @JsonProperty("language")
   private Language language;
 

@@ -10,7 +10,11 @@ import java.util.Objects;
 /** Status of a synced table. */
 @Generated
 public class SyncedTableStatus {
-  /** */
+  /**
+   * Provides detailed status for an online table with the CONTINUOUS scheduling policy. It is
+   * populated when detailed_state is SYNCED_TABLE_ONLINE_CONTINUOUS_UPDATE or
+   * SYNCED_TABLE_ONLINE_UPDATING_PIPELINE_RESOURCES.
+   */
   @JsonProperty("continuous_update_status")
   private SyncedTableContinuousUpdateStatus continuousUpdateStatus;
 
@@ -18,7 +22,11 @@ public class SyncedTableStatus {
   @JsonProperty("detailed_state")
   private SyncedTableState detailedState;
 
-  /** */
+  /**
+   * Provides detailed status for a table whose data synchronization pipeline has failed. It is
+   * populated when detailed_state is SYNCED_TABLE_OFFLINE_FAILED or
+   * SYNCED_TABLE_ONLINE_PIPELINE_FAILED.
+   */
   @JsonProperty("failed_status")
   private SyncedTableFailedStatus failedStatus;
 
@@ -49,11 +57,19 @@ public class SyncedTableStatus {
   @JsonProperty("pipeline_id")
   private String pipelineId;
 
-  /** */
+  /**
+   * Provides detailed status while the table is being provisioned. It is populated when
+   * detailed_state is SYNCED_TABLE_PROVISIONING_PIPELINE_RESOURCES or
+   * SYNCED_TABLE_PROVISIONING_INITIAL_SNAPSHOT.
+   */
   @JsonProperty("provisioning_status")
   private SyncedTableProvisioningStatus provisioningStatus;
 
-  /** */
+  /**
+   * Provides detailed status for an online table with the TRIGGERED or SNAPSHOT scheduling policy.
+   * It is populated when detailed_state is SYNCED_TABLE_ONLINE_TRIGGERED_UPDATE,
+   * SYNCED_TABLE_ONLINE_NO_PENDING_UPDATE or SYNCED_TABLE_ONLINE_UPDATING_PIPELINE_RESOURCES.
+   */
   @JsonProperty("triggered_update_status")
   private SyncedTableTriggeredUpdateStatus triggeredUpdateStatus;
 

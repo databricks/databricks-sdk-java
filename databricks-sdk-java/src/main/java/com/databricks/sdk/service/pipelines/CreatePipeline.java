@@ -15,20 +15,27 @@ public class CreatePipeline {
   @JsonProperty("allow_duplicate_names")
   private Boolean allowDuplicateNames;
 
-  /** Budget policy of this pipeline. */
+  /**
+   * ID (UUID) of the serverless budget policy applied to this pipeline. Only supported for
+   * serverless pipelines.
+   */
   @JsonProperty("budget_policy_id")
   private String budgetPolicyId;
 
   /**
-   * A catalog in Unity Catalog to publish data from this pipeline to. If `target` is specified,
-   * tables in this pipeline are published to a `target` schema inside `catalog` (for example,
-   * `catalog`.`target`.`table`). If `target` is not specified, no data is published to Unity
-   * Catalog.
+   * A catalog in Unity Catalog to publish data from this pipeline to. Tables are published to the
+   * schema set in `schema` (or the legacy `target`) inside this catalog, for example
+   * `catalog`.`schema`.`table`; source code can also use fully qualified names to write to other
+   * schemas and catalogs. If `catalog` is not specified, the pipeline uses the legacy Hive
+   * metastore.
    */
   @JsonProperty("catalog")
   private String catalog;
 
-  /** SDP Release Channel that specifies which version to use. */
+  /**
+   * Release channel that selects the pipeline runtime version: `CURRENT` (the default) or
+   * `PREVIEW`, which runs on the upcoming runtime release.
+   */
   @JsonProperty("channel")
   private String channel;
 
@@ -65,11 +72,17 @@ public class CreatePipeline {
   @JsonProperty("development")
   private Boolean development;
 
-  /** */
+  /**
+   * If true, no pipeline is created. The response contains the settings that would be applied, with
+   * server defaults filled in, instead of a pipeline ID.
+   */
   @JsonProperty("dry_run")
   private Boolean dryRun;
 
-  /** Pipeline product edition. */
+  /**
+   * Pipeline product edition: `CORE`, `PRO`, or `ADVANCED`. Serverless pipelines require
+   * `ADVANCED`.
+   */
   @JsonProperty("edition")
   private String edition;
 
@@ -143,7 +156,10 @@ public class CreatePipeline {
   @JsonProperty("root_path")
   private String rootPath;
 
-  /** */
+  /**
+   * The user or service principal that the pipeline runs as. If not specified, the pipeline runs as
+   * the user who created the pipeline.
+   */
   @JsonProperty("run_as")
   private RunAs runAs;
 
@@ -183,6 +199,10 @@ public class CreatePipeline {
    */
   @JsonProperty("target")
   private String target;
+
+  /** Test configuration for this pipeline. Used only by test-only updates. */
+  @JsonProperty("testing")
+  private PipelineTesting testing;
 
   /** Which pipeline trigger to use. Deprecated: Use `continuous` instead. */
   @JsonProperty("trigger")
@@ -480,6 +500,15 @@ public class CreatePipeline {
     return target;
   }
 
+  public CreatePipeline setTesting(PipelineTesting testing) {
+    this.testing = testing;
+    return this;
+  }
+
+  public PipelineTesting getTesting() {
+    return testing;
+  }
+
   public CreatePipeline setTrigger(PipelineTrigger trigger) {
     this.trigger = trigger;
     return this;
@@ -535,6 +564,7 @@ public class CreatePipeline {
         && Objects.equals(storage, that.storage)
         && Objects.equals(tags, that.tags)
         && Objects.equals(target, that.target)
+        && Objects.equals(testing, that.testing)
         && Objects.equals(trigger, that.trigger)
         && Objects.equals(usagePolicyId, that.usagePolicyId);
   }
@@ -574,6 +604,7 @@ public class CreatePipeline {
         storage,
         tags,
         target,
+        testing,
         trigger,
         usagePolicyId);
   }
@@ -613,6 +644,7 @@ public class CreatePipeline {
         .add("storage", storage)
         .add("tags", tags)
         .add("target", target)
+        .add("testing", testing)
         .add("trigger", trigger)
         .add("usagePolicyId", usagePolicyId)
         .toString();

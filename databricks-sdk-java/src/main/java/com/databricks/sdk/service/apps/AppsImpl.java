@@ -157,6 +157,24 @@ class AppsImpl implements AppsService {
   }
 
   @Override
+  public AppDeploymentScanFinding getAppDeploymentScanFinding(
+      GetAppDeploymentScanFindingRequest request) {
+    String path = String.format("/api/2.0/%s", request.getName());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, AppDeploymentScanFinding.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public AppDeployment getDeployment(GetAppDeploymentRequest request) {
     String path =
         String.format(
@@ -279,6 +297,24 @@ class AppsImpl implements AppsService {
   }
 
   @Override
+  public ListAppDeploymentScanFindingsResponse listAppDeploymentScanFindings(
+      ListAppDeploymentScanFindingsRequest request) {
+    String path = String.format("/api/2.0/%s/scanFindings", request.getParent());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, ListAppDeploymentScanFindingsResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public ListAppDeploymentsResponse listDeployments(ListAppDeploymentsRequest request) {
     String path = String.format("/api/2.0/apps/%s/deployments", request.getAppName());
     try {
@@ -379,6 +415,26 @@ class AppsImpl implements AppsService {
         req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, App.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public AppDeploymentScanFinding updateAppDeploymentScanFinding(
+      UpdateAppDeploymentScanFindingRequest request) {
+    String path = String.format("/api/2.0/%s", request.getName());
+    try {
+      Request req =
+          new Request("PATCH", path, apiClient.serialize(request.getAppDeploymentScanFinding()));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, AppDeploymentScanFinding.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

@@ -10,8 +10,8 @@ import java.util.Objects;
 @Generated
 public class EndpointGroupStatus {
   /**
-   * Whether read-only connections to read-write endpoints are allowed. Only relevant if read
-   * replicas are configured by specifying size.max > 1.
+   * Whether read-only connections to read-write endpoints are allowed. Only relevant if the
+   * endpoint has more than one compute (`max` greater than 1).
    */
   @JsonProperty("enable_readable_secondaries")
   private Boolean enableReadableSecondaries;

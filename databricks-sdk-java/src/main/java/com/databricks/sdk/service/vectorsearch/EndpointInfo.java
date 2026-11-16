@@ -14,11 +14,14 @@ public class EndpointInfo {
   @JsonProperty("budget_policy_id")
   private String budgetPolicyId;
 
-  /** Timestamp of endpoint creation */
+  /** Time at which the endpoint was created, in milliseconds since the Unix epoch. */
   @JsonProperty("creation_timestamp")
   private Long creationTimestamp;
 
-  /** Creator of the endpoint */
+  /**
+   * User or service principal that created the endpoint. Users are identified by username and
+   * service principals by application ID.
+   */
   @JsonProperty("creator")
   private String creator;
 
@@ -26,7 +29,10 @@ public class EndpointInfo {
   @JsonProperty("custom_tags")
   private Collection<CustomTag> customTags;
 
-  /** The budget policy id applied to the endpoint */
+  /**
+   * Budget policy ID in effect for the endpoint. This is the policy set on the endpoint when one
+   * was set, and otherwise the default budget policy.
+   */
   @JsonProperty("effective_budget_policy_id")
   private String effectiveBudgetPolicyId;
 
@@ -34,7 +40,11 @@ public class EndpointInfo {
   @JsonProperty("endpoint_status")
   private EndpointStatus endpointStatus;
 
-  /** Type of endpoint */
+  /**
+   * Type of the endpoint. See
+   * https://docs.databricks.com/aws/en/ai-search/ai-search#endpoint-options for how the types
+   * differ.
+   */
   @JsonProperty("endpoint_type")
   private EndpointType endpointType;
 
@@ -42,11 +52,11 @@ public class EndpointInfo {
   @JsonProperty("id")
   private String id;
 
-  /** Timestamp of last update to the endpoint */
+  /** Time at which the endpoint was last updated, in milliseconds since the Unix epoch. */
   @JsonProperty("last_updated_timestamp")
   private Long lastUpdatedTimestamp;
 
-  /** User who last updated the endpoint */
+  /** User or service principal that last updated the endpoint, in the same form as creator. */
   @JsonProperty("last_updated_user")
   private String lastUpdatedUser;
 
@@ -58,7 +68,10 @@ public class EndpointInfo {
   @JsonProperty("num_indexes")
   private Long numIndexes;
 
-  /** Scaling information for the endpoint */
+  /**
+   * Scaling information for the endpoint. Present only for STANDARD endpoints that have a Target
+   * QPS set.
+   */
   @JsonProperty("scaling_info")
   private EndpointScalingInfo scalingInfo;
 

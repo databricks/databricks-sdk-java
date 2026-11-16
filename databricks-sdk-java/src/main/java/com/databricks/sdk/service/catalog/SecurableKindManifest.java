@@ -8,7 +8,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-/** Manifest of a specific securable kind. */
+/**
+ * Manifest of a specific securable kind, or of an Atlas-native securable type, which has no kinds.
+ */
 @Generated
 public class SecurableKindManifest {
   /** Privileges that can be assigned to the securable. */
@@ -23,7 +25,7 @@ public class SecurableKindManifest {
   @JsonProperty("options")
   private Collection<OptionSpec> options;
 
-  /** Securable kind to get manifest of. */
+  /** Securable kind to get manifest of. Unset for Atlas-native securable types. */
   @JsonProperty("securable_kind")
   private SecurableKind securableKind;
 

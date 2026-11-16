@@ -9,11 +9,14 @@ import java.util.Objects;
 
 @Generated
 public class DateRange {
-  /** */
+  /** End of the range, in the same format as `start`. */
   @JsonProperty("end")
   private String end;
 
-  /** */
+  /**
+   * Start of the range in the format `yyyy-MM-dd`, optionally followed by a time as ` HH:mm` or `
+   * HH:mm:ss`.
+   */
   @JsonProperty("start")
   private String start;
 

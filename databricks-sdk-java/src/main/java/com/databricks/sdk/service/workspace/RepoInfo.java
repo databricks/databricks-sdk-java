@@ -7,18 +7,24 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Git folder (repo) information. */
+/**
+ * Git folder (repo) information. A Git folder is a workspace folder that is linked to a remote Git
+ * repository and tracks the branch or commit that is checked out.
+ */
 @Generated
 public class RepoInfo {
-  /** Name of the current git branch of the git folder (repo). */
+  /**
+   * Name of the branch that the Git folder (repo) is checked out to. Omitted when the Git folder is
+   * in a detached HEAD state, for example after checking out a tag.
+   */
   @JsonProperty("branch")
   private String branch;
 
-  /** Current git commit id of the git folder (repo). */
+  /** SHA-1 hash of the commit that the Git folder (repo) is currently checked out to. */
   @JsonProperty("head_commit_id")
   private String headCommitId;
 
-  /** Id of the git folder (repo) in the Workspace. */
+  /** ID of the Git folder (repo) object in the workspace. */
   @JsonProperty("id")
   private Long id;
 
@@ -27,18 +33,21 @@ public class RepoInfo {
   private String path;
 
   /**
-   * Git provider of the remote git repository, e.g. `gitHub`, `azureDevOpsServices`,
-   * `bitbucketServer` (Bitbucket Data Center), `gitLabEnterpriseEdition` (GitLab Self-Managed), or
-   * `awsCodeCommit`.
+   * Git provider of the remote Git repository. Supported providers are `gitHub`, `bitbucketCloud`,
+   * `gitLab`, `azureDevOpsServices`, `gitHubEnterprise`, `bitbucketServer` (Bitbucket Data Center),
+   * `gitLabEnterpriseEdition` (GitLab Self-Managed), and `awsCodeCommit`.
    */
   @JsonProperty("provider")
   private String provider;
 
-  /** Sparse checkout config for the git folder (repo). */
+  /**
+   * Sparse checkout configuration of the Git folder (repo). Only present when sparse checkout is
+   * enabled for the Git folder.
+   */
   @JsonProperty("sparse_checkout")
   private SparseCheckout sparseCheckout;
 
-  /** URL of the remote git repository. */
+  /** HTTPS URL of the remote Git repository. */
   @JsonProperty("url")
   private String url;
 

@@ -19,23 +19,28 @@ public class ProjectSpec {
   private String budgetPolicyId;
 
   /**
-   * Custom tags to associate with the project. Forwarded to LBM for billing and cost tracking. To
-   * update tags, provide the new tag list and include "spec.custom_tags" in the update_mask. To
-   * clear all tags, provide an empty list and include "spec.custom_tags" in the update_mask. To
-   * preserve existing tags, omit this field from the update_mask (or use wildcard "*" which
-   * auto-excludes empty tags).
+   * Custom tags to associate with the project, used for billing and cost tracking. To update tags,
+   * provide the new tag list and include "spec.custom_tags" in the update_mask. To clear all tags,
+   * provide an empty list and include "spec.custom_tags" in the update_mask. To preserve existing
+   * tags, omit this field from the update_mask (or use wildcard "*" which auto-excludes empty
+   * tags).
    */
   @JsonProperty("custom_tags")
   private Collection<ProjectCustomTag> customTags;
 
   /**
-   * The full resource path for the default branch of the project Format:
-   * projects/{project_id}/branches/{branch_id}
+   * The full resource path of the default branch of the project. Format:
+   * projects/{project_id}/branches/{branch_id} At creation time, the branch ID in this path names
+   * the initial branch, which is called `production` when the field is omitted. On update, the path
+   * must name an existing branch of this project, which then becomes the default branch.
    */
   @JsonProperty("default_branch")
   private String defaultBranch;
 
-  /** */
+  /**
+   * Settings applied by default to compute endpoints created in this project. The initial endpoint
+   * also takes these values for any setting that initial_endpoint_spec does not provide.
+   */
   @JsonProperty("default_endpoint_settings")
   private ProjectDefaultEndpointSettings defaultEndpointSettings;
 
@@ -51,14 +56,15 @@ public class ProjectSpec {
 
   /**
    * The number of seconds to retain the shared history for point in time recovery for all branches
-   * in this project. Value should be between 172800s (2 days) and 3024000s (35 days).
+   * in this project. Value should be between 172800s (2 days) and 3024000s (35 days). Defaults to
+   * 604800s (7 days) when omitted.
    */
   @JsonProperty("history_retention_duration")
   private Duration historyRetentionDuration;
 
   /**
-   * The major Postgres version number. The set of supported versions may vary; consult the API
-   * documentation for currently accepted values.
+   * The major Postgres version number. Defaults to 17 when omitted. The set of versions that new
+   * projects can use may change over time.
    */
   @JsonProperty("pg_version")
   private Long pgVersion;

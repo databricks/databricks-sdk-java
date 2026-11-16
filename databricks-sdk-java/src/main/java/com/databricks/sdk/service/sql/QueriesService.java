@@ -15,7 +15,7 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface QueriesService {
-  /** Creates a query. */
+  /** Creates a query. The caller becomes the owner of the new query. */
   Query create(CreateQueryRequest createQueryRequest);
 
   /**
@@ -39,6 +39,10 @@ public interface QueriesService {
   ListVisualizationsForQueryResponse listVisualizations(
       ListVisualizationsForQueryRequest listVisualizationsForQueryRequest);
 
-  /** Updates a query. */
+  /**
+   * Updates the fields of a query named in `update_mask`. Changing `owner_user_name` requires
+   * workspace admin privileges. Changing `run_as_mode` requires CAN MANAGE permission on the query,
+   * and only the query owner can switch it to `OWNER`.
+   */
   Query update(UpdateQueryRequest updateQueryRequest);
 }

@@ -19,10 +19,9 @@ public class CreateIndexRequest {
   private Index index;
 
   /**
-   * The user-supplied Unity Catalog table name for the Index, per AIP-133. The server composes the
-   * full `Index.name` as `{parent}/indexes/{index_id}`. AIP-133 does not list `index_id` as a
-   * fields-may-be-required entry, so we annotate it OPTIONAL on the wire; the server still rejects
-   * empty values with INVALID_PARAMETER_VALUE.
+   * Three-level Unity Catalog table name for the new index, in the form `catalog.schema.name`. The
+   * server composes the full `Index.name` as `{parent}/indexes/{index_id}` and rejects an empty
+   * value.
    */
   @JsonIgnore
   @QueryParam("index_id")

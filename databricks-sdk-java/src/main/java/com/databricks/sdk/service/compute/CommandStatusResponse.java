@@ -9,15 +9,24 @@ import java.util.Objects;
 
 @Generated
 public class CommandStatusResponse {
-  /** */
+  /** ID of the command. */
   @JsonProperty("id")
   private String id;
 
-  /** */
+  /**
+   * Output of the command. It is populated only once the command has reached a terminal status, and
+   * its `resultType` tells which of its other fields are set.
+   */
   @JsonProperty("results")
   private Results results;
 
-  /** */
+  /**
+   * Current status of the command. `Queued` and `Running` mean the command has not completed yet,
+   * and `Cancelling` means a cancellation is in progress. `Finished`, `Error` and `Cancelled` are
+   * terminal: `Finished` means the command ran to completion, including when the code itself raised
+   * an error (reported in `results` with the `error` result type), while `Error` means the
+   * execution environment failed, for example because the driver or the context stopped.
+   */
   @JsonProperty("status")
   private CommandStatus status;
 

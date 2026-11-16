@@ -7,9 +7,15 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * Configures a generic webhook destination. Notifications are delivered as HTTPS POST requests to
+ * url, optionally authenticated with HTTP Basic authentication.
+ */
 @Generated
 public class GenericWebhookConfig {
-  /** [Input-Only][Optional] Password for webhook. */
+  /**
+   * [Input-Only][Optional] Password for HTTP Basic authentication. Set it together with username.
+   */
   @JsonProperty("password")
   private String password;
 
@@ -17,7 +23,7 @@ public class GenericWebhookConfig {
   @JsonProperty("password_set")
   private Boolean passwordSet;
 
-  /** [Input-Only] URL for webhook. */
+  /** [Input-Only] HTTPS URL that notifications are posted to. */
   @JsonProperty("url")
   private String url;
 
@@ -25,7 +31,9 @@ public class GenericWebhookConfig {
   @JsonProperty("url_set")
   private Boolean urlSet;
 
-  /** [Input-Only][Optional] Username for webhook. */
+  /**
+   * [Input-Only][Optional] Username for HTTP Basic authentication. Set it together with password.
+   */
   @JsonProperty("username")
   private String username;
 

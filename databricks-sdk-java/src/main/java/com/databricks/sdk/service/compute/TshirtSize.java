@@ -4,7 +4,7 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 
-/** T-shirt size for per-workload Spark executor limits. */
+/** T-shirt size for Spark executor limits. */
 @Generated
 public enum TshirtSize {
   T_SHIRT_SIZE_2X_LARGE,

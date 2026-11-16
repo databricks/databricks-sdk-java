@@ -33,7 +33,7 @@ public interface CustomAppIntegrationService {
   /** Gets the Custom OAuth App Integration for the given integration id. */
   GetCustomAppIntegrationOutput get(GetCustomAppIntegrationRequest getCustomAppIntegrationRequest);
 
-  /** Get the list of custom OAuth app integrations for the specified Databricks account */
+  /** Get the list of custom OAuth app integrations for the specified Databricks account. */
   GetCustomAppIntegrationsOutput list(
       ListCustomAppIntegrationsRequest listCustomAppIntegrationsRequest);
 

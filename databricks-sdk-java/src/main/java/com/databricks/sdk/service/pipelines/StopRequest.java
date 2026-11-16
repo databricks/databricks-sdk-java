@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class StopRequest {
-  /** */
+  /** The ID of the pipeline to stop. */
   @JsonIgnore private String pipelineId;
 
   public StopRequest setPipelineId(String pipelineId) {

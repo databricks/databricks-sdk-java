@@ -57,6 +57,15 @@ public class Environment {
   private String environmentVersion;
 
   /**
+   * Customer-provided container image to use as the whole environment for this workload, stored in
+   * Databricks Artifact Registry and named by its Unity Catalog name and tag, as
+   * `catalog.schema.artifact:tag`. Cannot be combined with `environment_version` or
+   * `base_environment`.
+   */
+  @JsonProperty("image_uri")
+  private String imageUri;
+
+  /**
    * List of Java dependencies. Each dependency is a string representing a Java library path. For
    * example: `/Volumes/path/to/test.jar`.
    */
@@ -108,6 +117,15 @@ public class Environment {
     return environmentVersion;
   }
 
+  public Environment setImageUri(String imageUri) {
+    this.imageUri = imageUri;
+    return this;
+  }
+
+  public String getImageUri() {
+    return imageUri;
+  }
+
   public Environment setJavaDependencies(Collection<String> javaDependencies) {
     this.javaDependencies = javaDependencies;
     return this;
@@ -135,6 +153,7 @@ public class Environment {
         && Objects.equals(client, that.client)
         && Objects.equals(dependencies, that.dependencies)
         && Objects.equals(environmentVersion, that.environmentVersion)
+        && Objects.equals(imageUri, that.imageUri)
         && Objects.equals(javaDependencies, that.javaDependencies)
         && Objects.equals(projectEnvironment, that.projectEnvironment);
   }
@@ -146,6 +165,7 @@ public class Environment {
         client,
         dependencies,
         environmentVersion,
+        imageUri,
         javaDependencies,
         projectEnvironment);
   }
@@ -157,6 +177,7 @@ public class Environment {
         .add("client", client)
         .add("dependencies", dependencies)
         .add("environmentVersion", environmentVersion)
+        .add("imageUri", imageUri)
         .add("javaDependencies", javaDependencies)
         .add("projectEnvironment", projectEnvironment)
         .toString();

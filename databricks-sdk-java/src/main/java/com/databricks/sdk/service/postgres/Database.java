@@ -30,7 +30,12 @@ public class Database {
   @JsonProperty("parent")
   private String parent;
 
-  /** The desired state of the Database. */
+  /**
+   * The desired state of the Database.
+   *
+   * <p>Read the resource's current values from `status`, rather than `spec`. `spec` tracks field
+   * ownership for infrastructure-as-code tools and may omit unmanaged fields.
+   */
   @JsonProperty("spec")
   private DatabaseDatabaseSpec spec;
 

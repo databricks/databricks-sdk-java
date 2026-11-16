@@ -13,11 +13,11 @@ public class AppResourceGenieSpace {
   @JsonProperty("name")
   private String name;
 
-  /** */
+  /** Permission to grant the app on the Genie space. */
   @JsonProperty("permission")
   private AppResourceGenieSpaceGenieSpacePermission permission;
 
-  /** */
+  /** ID of the Genie space. */
   @JsonProperty("space_id")
   private String spaceId;
 

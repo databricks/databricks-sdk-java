@@ -9,15 +9,15 @@ import java.util.Objects;
 
 @Generated
 public class CancelCommand {
-  /** */
+  /** ID of the cluster that hosts the execution context. */
   @JsonProperty("clusterId")
   private String clusterId;
 
-  /** */
+  /** ID of the command to cancel, as returned by __execute__. */
   @JsonProperty("commandId")
   private String commandId;
 
-  /** */
+  /** ID of the execution context the command runs in. */
   @JsonProperty("contextId")
   private String contextId;
 

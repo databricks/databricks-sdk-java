@@ -4,6 +4,7 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 
+/** The kind of destination that notifications are sent to. */
 @Generated
 public enum DestinationType {
   DATABRICKS_APP_SLACK,

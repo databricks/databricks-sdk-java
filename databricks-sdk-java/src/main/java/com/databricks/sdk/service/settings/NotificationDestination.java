@@ -7,17 +7,26 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * A reusable definition of where a workspace sends notifications, such as a Slack channel, a set of
+ * email addresses, a PagerDuty service, a Microsoft Teams channel or a generic webhook. Job
+ * notifications, SQL alerts and other workspace features reference a destination by its id. Only
+ * workspace admins can create, update and delete destinations; once created, a destination is
+ * available to all users in the workspace. Secret values such as webhook URLs and tokens are
+ * write-only: responses report whether each one is set, never its value.
+ */
 @Generated
 public class NotificationDestination {
   /**
    * The configuration for the notification destination. Will be exactly one of the nested configs.
-   * Only returns for users with workspace admin permissions.
+   * Only returned to users with workspace admin permissions.
    */
   @JsonProperty("config")
   private Config config;
 
   /**
-   * [Output-only] The type of the notification destination. The type can not be changed once set.
+   * [Output-only] The type of the notification destination, determined by which nested config was
+   * provided on creation. The type can not be changed once set.
    */
   @JsonProperty("destination_type")
   private DestinationType destinationType;
@@ -26,7 +35,7 @@ public class NotificationDestination {
   @JsonProperty("display_name")
   private String displayName;
 
-  /** UUID identifying notification destination. */
+  /** A UUID identifying the notification destination. */
   @JsonProperty("id")
   private String id;
 

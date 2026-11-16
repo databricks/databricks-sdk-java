@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class GetPipelineRequest {
-  /** */
+  /** The ID of the pipeline. */
   @JsonIgnore private String pipelineId;
 
   public GetPipelineRequest setPipelineId(String pipelineId) {

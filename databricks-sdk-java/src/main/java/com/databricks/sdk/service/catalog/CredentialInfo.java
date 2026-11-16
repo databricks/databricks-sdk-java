@@ -7,6 +7,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * A storage credential represents an authentication and authorization mechanism for accessing data
+ * stored on your cloud tenant. It holds exactly one cloud credential, for example an AWS IAM role,
+ * an Azure managed identity or service principal, or a GCP service account. Only the field for the
+ * selected credential type is set in requests and responses.
+ */
 @Generated
 public class CredentialInfo {
   /** The AWS IAM role configuration. */

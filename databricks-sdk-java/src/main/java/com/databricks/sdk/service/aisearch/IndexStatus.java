@@ -25,7 +25,10 @@ public class IndexStatus {
   @JsonProperty("message")
   private String message;
 
-  /** Whether the index is ready for search. */
+  /**
+   * Whether the index is ready to serve queries. After CreateIndex, poll GetIndex until this is
+   * true; `message` describes the current state in the meantime.
+   */
   @JsonProperty("ready")
   private Boolean ready;
 

@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class VolumeInfo {
-  /** The AWS access point to use when accesing s3 for this external location. */
+  /** The AWS access point to use when accessing S3 for the storage location of this volume. */
   @JsonProperty("access_point")
   private String accessPoint;
 
@@ -28,7 +28,7 @@ public class VolumeInfo {
   @JsonProperty("comment")
   private String comment;
 
-  /** */
+  /** Time at which the volume was created, in epoch milliseconds. */
   @JsonProperty("created_at")
   private Long createdAt;
 
@@ -40,7 +40,10 @@ public class VolumeInfo {
   @JsonProperty("encryption_details")
   private EncryptionDetails encryptionDetails;
 
-  /** The three-level (fully qualified) name of the volume */
+  /**
+   * The three-level (fully qualified) name of the volume, in the form
+   * catalog_name.schema_name.name.
+   */
   @JsonProperty("full_name")
   private String fullName;
 
@@ -52,7 +55,10 @@ public class VolumeInfo {
   @JsonProperty("name")
   private String name;
 
-  /** The identifier of the user who owns the volume */
+  /**
+   * The user or group that owns the volume. The user who creates a volume becomes its owner; the
+   * owner can be changed afterwards with an update.
+   */
   @JsonProperty("owner")
   private String owner;
 
@@ -60,11 +66,16 @@ public class VolumeInfo {
   @JsonProperty("schema_name")
   private String schemaName;
 
-  /** The storage location on the cloud */
+  /**
+   * The cloud storage URL where the files of the volume are stored. For an external volume, it must
+   * be set on creation to a path within an existing external location. For a managed volume, it
+   * must be omitted on creation; the volume is placed under the managed storage location of the
+   * parent schema, catalog, or metastore, and the assigned path is returned in this field.
+   */
   @JsonProperty("storage_location")
   private String storageLocation;
 
-  /** */
+  /** Time at which the volume was last updated, in epoch milliseconds. */
   @JsonProperty("updated_at")
   private Long updatedAt;
 

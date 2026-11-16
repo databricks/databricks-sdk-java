@@ -7,30 +7,36 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * A database table is a table that already exists in a Postgres database of a Lakebase database
+ * instance and is registered in Unity Catalog, so that it is governed and discoverable there while
+ * the Postgres table remains the source of truth. Unlike a synced table, no data is copied from a
+ * Unity Catalog source table into Postgres.
+ */
 @Generated
 public class DatabaseTable {
   /**
-   * Name of the target database instance. This is required when creating database tables in
-   * standard catalogs. This is optional when creating database tables in registered catalogs. If
-   * this field is specified when creating database tables in registered catalogs, the database
-   * instance name MUST match that of the registered catalog (or the request will be rejected).
+   * The name of the database instance that hosts the Postgres table. It must be set when creating a
+   * database table.
    */
   @JsonProperty("database_instance_name")
   private String databaseInstanceName;
 
   /**
-   * Target Postgres database object (logical database) name for this table.
-   *
-   * <p>When creating a table in a standard catalog, this field is required. In this scenario,
-   * specifying this field will allow targeting an arbitrary postgres database.
-   *
-   * <p>Registration of database tables via /database/tables is currently only supported in standard
-   * catalogs.
+   * The name of the Postgres database in the instance that contains the table. It must be set when
+   * creating a database table. Tables in the system databases postgres, databricks_system,
+   * template0 and template1, and tables in the schemas pg_catalog and information_schema, cannot be
+   * registered.
    */
   @JsonProperty("logical_database_name")
   private String logicalDatabaseName;
 
-  /** Full three-part (catalog, schema, table) name of the table. */
+  /**
+   * Full three-part (catalog, schema, table) name of the table in Unity Catalog. The catalog must
+   * be a standard or default storage catalog; database tables cannot be registered in a database
+   * catalog. The schema and table parts must match the schema and table names of the Postgres table
+   * that is registered.
+   */
   @JsonProperty("name")
   private String name;
 

@@ -1,5 +1,23 @@
 # Version changelog
 
+## Release v0.181.0 (2026-11-16)
+
+### API Changes
+* Add `com.databricks.sdk.service.statementexecutionv2` package.
+* Add `workspaceClient.statementExecutionV2()` service.
+* Add `getAppDeploymentScanFinding()`, `listAppDeploymentScanFindings()` and `updateAppDeploymentScanFinding()` methods for `workspaceClient.apps()` service.
+* Add `scanOmittedCountIsLowerBound`, `scanOmittedFindingsCount` and `scanStatus` fields for `com.databricks.sdk.service.apps.AppDeployment`.
+* Add `imageUri` field for `com.databricks.sdk.service.compute.Environment`.
+* Add `icebergTableSource` field for `com.databricks.sdk.service.ml.DataSource`.
+* Add `testing` field for `com.databricks.sdk.service.pipelines.ClonePipelineRequest`.
+* Add `testing` field for `com.databricks.sdk.service.pipelines.CreatePipeline`.
+* Add `testing` field for `com.databricks.sdk.service.pipelines.EditPipeline`.
+* Add `testing` field for `com.databricks.sdk.service.pipelines.PipelineSpec`.
+* Add `testOnly` and `testOptions` fields for `com.databricks.sdk.service.pipelines.StartUpdate`.
+* Add `testOnly` field for `com.databricks.sdk.service.pipelines.UpdateInfo`.
+* Add `overwrite` field for `com.databricks.sdk.service.sandbox.UploadFileRequest`.
+* Add `DAY` enum value for `com.databricks.sdk.service.billing.AlertConfigurationTimePeriod`.
+
 ## Release v0.180.0 (2026-11-12)
 
 ### API Changes

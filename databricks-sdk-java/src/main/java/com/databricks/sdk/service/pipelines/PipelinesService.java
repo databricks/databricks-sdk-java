@@ -50,7 +50,10 @@ public interface PipelinesService {
    */
   void delete(DeletePipelineRequest deletePipelineRequest);
 
-  /** Get a pipeline. */
+  /**
+   * Returns the details of a pipeline, including its settings, current state, and the status of its
+   * most recent updates.
+   */
   GetPipelineResponse get(GetPipelineRequest getPipelineRequest);
 
   /** Gets the permission levels that a user can have on an object. */

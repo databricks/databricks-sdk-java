@@ -9,9 +9,19 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * A lineage relationship between a source object and a target object, where at least one of the two
+ * is an external metadata object. The other object can be a Unity Catalog table, a cloud storage
+ * path, a model version, or another external metadata object. A relationship is identified by its
+ * source and target; optional column mappings and key-value properties describe the data flow
+ * between them.
+ */
 @Generated
 public class ExternalLineageRelationshipInfo {
-  /** List of column relationships between source and target objects. */
+  /**
+   * List of column relationships between source and target objects. The combined size of all source
+   * and target column names is limited.
+   */
   @JsonProperty("columns")
   private Collection<ColumnRelationship> columns;
 
@@ -19,7 +29,10 @@ public class ExternalLineageRelationshipInfo {
   @JsonProperty("id")
   private String id;
 
-  /** Key-value properties associated with the external lineage relationship. */
+  /**
+   * Key-value properties associated with the external lineage relationship. The combined length of
+   * all keys and values must not exceed 5000 characters.
+   */
   @JsonProperty("properties")
   private Map<String, String> properties;
 

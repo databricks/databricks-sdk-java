@@ -7,13 +7,14 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Mapping from a column of the source object to a column of the target object. */
 @Generated
 public class ColumnRelationship {
-  /** */
+  /** Name of the column in the source object. */
   @JsonProperty("source")
   private String source;
 
-  /** */
+  /** Name of the column in the target object. */
   @JsonProperty("target")
   private String target;
 

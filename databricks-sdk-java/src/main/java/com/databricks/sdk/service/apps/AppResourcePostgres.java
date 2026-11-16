@@ -9,15 +9,21 @@ import java.util.Objects;
 
 @Generated
 public class AppResourcePostgres {
-  /** */
+  /**
+   * Resource name of the Lakebase Autoscaling branch, in the form
+   * `projects/{project}/branches/{branch}`.
+   */
   @JsonProperty("branch")
   private String branch;
 
-  /** */
+  /**
+   * Resource name of the database within the branch, in the form
+   * `projects/{project}/branches/{branch}/databases/{database}`.
+   */
   @JsonProperty("database")
   private String database;
 
-  /** */
+  /** Permission to grant the app on the database. */
   @JsonProperty("permission")
   private AppResourcePostgresPostgresPermission permission;
 

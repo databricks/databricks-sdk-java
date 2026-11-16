@@ -14,7 +14,10 @@ public class UpsertDataResponse {
   @JsonProperty("result")
   private DataModificationResult result;
 
-  /** Overall status of the upsert. */
+  /**
+   * Overall status of the upsert: `SUCCESS` when every row was written, `PARTIAL_SUCCESS` when some
+   * rows failed (see `result.failed_primary_keys`), or `FAILURE` when the operation failed.
+   */
   @JsonProperty("status")
   private DataModificationStatus status;
 

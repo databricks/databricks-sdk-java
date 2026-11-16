@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class ApplicationStatus {
-  /** Application status message */
+  /** Human-readable detail about the application state. */
   @JsonProperty("message")
   private String message;
 

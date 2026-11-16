@@ -8,6 +8,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * A saved Databricks SQL query. A query stores the SQL text, the SQL warehouse it runs on, its
+ * parameters, and metadata such as the display name, description, owner, and tags.
+ */
 @Generated
 public class ListQueryObjectsResponseQuery {
   /** Whether to apply a 1000 row limit to the query result. */
@@ -58,7 +62,12 @@ public class ListQueryObjectsResponseQuery {
   @JsonProperty("query_text")
   private String queryText;
 
-  /** Sets the "Run as" role for the object. */
+  /**
+   * Whose credentials the query runs with when it is shared. `VIEWER` uses the credentials of the
+   * user running the query. `OWNER` uses the owner's credentials where the product supports that,
+   * such as for legacy alerts and jobs. When omitted on create, the workspace default applies. A
+   * workspace admin can disallow `OWNER`.
+   */
   @JsonProperty("run_as_mode")
   private RunAsMode runAsMode;
 
@@ -66,7 +75,7 @@ public class ListQueryObjectsResponseQuery {
   @JsonProperty("schema")
   private String schema;
 
-  /** */
+  /** Tags attached to the query. Tags appear in the query list and can be used to filter it. */
   @JsonProperty("tags")
   private Collection<String> tags;
 

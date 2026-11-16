@@ -7,9 +7,17 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * Configures a Microsoft Teams destination. Notifications are posted to the incoming webhook url,
+ * which is required. The app_id, auth_secret, channel_url and tenant_id fields can optionally be
+ * set together to post through a Microsoft Teams app.
+ */
 @Generated
 public class MicrosoftTeamsConfig {
-  /** [Input-Only] App ID for Microsoft Teams App. */
+  /**
+   * [Input-Only] Application (client) ID of the Microsoft Teams app, as a UUID. Optional; set it
+   * together with auth_secret, channel_url and tenant_id.
+   */
   @JsonProperty("app_id")
   private String appId;
 
@@ -17,7 +25,10 @@ public class MicrosoftTeamsConfig {
   @JsonProperty("app_id_set")
   private Boolean appIdSet;
 
-  /** [Input-Only] Secret for Microsoft Teams App authentication. */
+  /**
+   * [Input-Only] Client secret of the Microsoft Teams app. Optional; set it together with app_id,
+   * channel_url and tenant_id.
+   */
   @JsonProperty("auth_secret")
   private String authSecret;
 
@@ -25,7 +36,10 @@ public class MicrosoftTeamsConfig {
   @JsonProperty("auth_secret_set")
   private Boolean authSecretSet;
 
-  /** [Input-Only] Channel URL for Microsoft Teams App. */
+  /**
+   * [Input-Only] URL of the Microsoft Teams channel that the app posts to. Optional; set it
+   * together with app_id, auth_secret and tenant_id.
+   */
   @JsonProperty("channel_url")
   private String channelUrl;
 
@@ -33,7 +47,10 @@ public class MicrosoftTeamsConfig {
   @JsonProperty("channel_url_set")
   private Boolean channelUrlSet;
 
-  /** [Input-Only] Tenant ID for Microsoft Teams App. */
+  /**
+   * [Input-Only] Microsoft Entra tenant ID of the Microsoft Teams app, as a UUID. Optional; set it
+   * together with app_id, auth_secret and channel_url.
+   */
   @JsonProperty("tenant_id")
   private String tenantId;
 
@@ -41,7 +58,10 @@ public class MicrosoftTeamsConfig {
   @JsonProperty("tenant_id_set")
   private Boolean tenantIdSet;
 
-  /** [Input-Only] URL for Microsoft Teams webhook. */
+  /**
+   * [Input-Only] Microsoft Teams incoming webhook URL that notifications are posted to. Must be an
+   * HTTPS URL. The URL is required even when the app fields are set.
+   */
   @JsonProperty("url")
   private String url;
 

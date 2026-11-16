@@ -8,24 +8,28 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** An object at one end of an external lineage relationship. Exactly one of the fields is set. */
 @Generated
 public class ExternalLineageObject {
-  /** */
+  /** An external metadata object registered in Unity Catalog. */
   @JsonProperty("external_metadata")
   @QueryParam("external_metadata")
   private ExternalLineageExternalMetadata externalMetadata;
 
-  /** */
+  /** A version of a Unity Catalog registered model. */
   @JsonProperty("model_version")
   @QueryParam("model_version")
   private ExternalLineageModelVersion modelVersion;
 
-  /** */
+  /**
+   * A cloud storage path registered in Unity Catalog, i.e. under a table, volume, or external
+   * location.
+   */
   @JsonProperty("path")
   @QueryParam("path")
   private ExternalLineagePath path;
 
-  /** */
+  /** A Unity Catalog table. */
   @JsonProperty("table")
   @QueryParam("table")
   private ExternalLineageTable table;

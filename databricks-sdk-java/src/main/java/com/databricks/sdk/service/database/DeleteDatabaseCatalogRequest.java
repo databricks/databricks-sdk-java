@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class DeleteDatabaseCatalogRequest {
-  /** */
+  /** The Unity Catalog name of the catalog to delete. */
   @JsonIgnore private String name;
 
   public DeleteDatabaseCatalogRequest setName(String name) {

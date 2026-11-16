@@ -18,6 +18,10 @@ public class DataSource {
   @JsonProperty("feature_view_source")
   private FeatureViewSource featureViewSource;
 
+  /** A Unity Catalog managed or foreign Iceberg table source. */
+  @JsonProperty("iceberg_table_source")
+  private IcebergTableSource icebergTableSource;
+
   /** A Kafka stream data source. */
   @JsonProperty("kafka_source")
   private KafkaSource kafkaSource;
@@ -57,6 +61,15 @@ public class DataSource {
 
   public FeatureViewSource getFeatureViewSource() {
     return featureViewSource;
+  }
+
+  public DataSource setIcebergTableSource(IcebergTableSource icebergTableSource) {
+    this.icebergTableSource = icebergTableSource;
+    return this;
+  }
+
+  public IcebergTableSource getIcebergTableSource() {
+    return icebergTableSource;
   }
 
   public DataSource setKafkaSource(KafkaSource kafkaSource) {
@@ -111,6 +124,7 @@ public class DataSource {
     DataSource that = (DataSource) o;
     return Objects.equals(deltaTableSource, that.deltaTableSource)
         && Objects.equals(featureViewSource, that.featureViewSource)
+        && Objects.equals(icebergTableSource, that.icebergTableSource)
         && Objects.equals(kafkaSource, that.kafkaSource)
         && Objects.equals(lateness, that.lateness)
         && Objects.equals(requestSource, that.requestSource)
@@ -123,6 +137,7 @@ public class DataSource {
     return Objects.hash(
         deltaTableSource,
         featureViewSource,
+        icebergTableSource,
         kafkaSource,
         lateness,
         requestSource,
@@ -135,6 +150,7 @@ public class DataSource {
     return new ToStringer(DataSource.class)
         .add("deltaTableSource", deltaTableSource)
         .add("featureViewSource", featureViewSource)
+        .add("icebergTableSource", icebergTableSource)
         .add("kafkaSource", kafkaSource)
         .add("lateness", lateness)
         .add("requestSource", requestSource)

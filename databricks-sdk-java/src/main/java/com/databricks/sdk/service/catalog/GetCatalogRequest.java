@@ -11,8 +11,8 @@ import java.util.Objects;
 @Generated
 public class GetCatalogRequest {
   /**
-   * Whether to include catalogs in the response for which the principal can only access selective
-   * metadata for
+   * Whether to return the catalog when the principal can only access selective metadata for it
+   * through the BROWSE privilege. The response then has browse_only set to true.
    */
   @JsonIgnore
   @QueryParam("include_browse")

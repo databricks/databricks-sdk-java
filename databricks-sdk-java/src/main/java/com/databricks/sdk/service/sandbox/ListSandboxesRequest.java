@@ -10,12 +10,18 @@ import java.util.Objects;
 
 @Generated
 public class ListSandboxesRequest {
-  /** */
+  /**
+   * Maximum number of sandboxes to return in one page. When unset or 0 the server returns up to
+   * 1000 sandboxes; values above 5000 are reduced to 5000.
+   */
   @JsonIgnore
   @QueryParam("page_size")
   private Long pageSize;
 
-  /** */
+  /**
+   * Page token from the `next_page_token` of a previous ListSandboxes response. Omit it to retrieve
+   * the first page.
+   */
   @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;

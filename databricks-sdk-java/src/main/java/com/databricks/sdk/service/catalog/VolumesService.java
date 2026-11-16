@@ -26,15 +26,15 @@ public interface VolumesService {
    * default location which is specified by the parent schema, or the parent catalog, or the
    * Metastore.
    *
-   * <p>For the volume creation to succeed, the user must satisfy following conditions: - The caller
-   * must be a metastore admin, or be the owner of the parent catalog and schema, or have the
+   * <p>For the volume creation to succeed, the user must satisfy the following conditions: - The
+   * caller must be a metastore admin, or be the owner of the parent catalog and schema, or have the
    * **USE_CATALOG** privilege on the parent catalog and the **USE_SCHEMA** privilege on the parent
    * schema. - The caller must have **CREATE VOLUME** privilege on the parent schema.
    *
-   * <p>For an external volume, following conditions also need to satisfy - The caller must have
-   * **CREATE EXTERNAL VOLUME** privilege on the external location. - There are no other tables, nor
-   * volumes existing in the specified storage location. - The specified storage location is not
-   * under the location of other tables, nor volumes, or catalogs or schemas.
+   * <p>For an external volume, the following conditions must also be satisfied: - The caller must
+   * have **CREATE EXTERNAL VOLUME** privilege on the external location. - There are no other
+   * tables, nor volumes existing in the specified storage location. - The specified storage
+   * location is not under the location of other tables, nor volumes, or catalogs or schemas.
    */
   VolumeInfo create(CreateVolumeRequestContent createVolumeRequestContent);
 
@@ -81,7 +81,7 @@ public interface VolumesService {
    * caller must also be the owner or have the **USE_CATALOG** privilege on the parent catalog and
    * the **USE_SCHEMA** privilege on the parent schema.
    *
-   * <p>Currently only the name, the owner or the comment of the volume could be updated.
+   * <p>Currently only the name, the owner, or the comment of the volume can be updated.
    */
   VolumeInfo update(UpdateVolumeRequestContent updateVolumeRequestContent);
 }

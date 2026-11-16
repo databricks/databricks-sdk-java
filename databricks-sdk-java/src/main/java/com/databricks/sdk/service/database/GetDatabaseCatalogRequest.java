@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class GetDatabaseCatalogRequest {
-  /** */
+  /** The Unity Catalog name of the catalog to retrieve. */
   @JsonIgnore private String name;
 
   public GetDatabaseCatalogRequest setName(String name) {

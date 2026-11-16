@@ -10,11 +10,15 @@ import java.util.Objects;
 
 @Generated
 public class ListExternalLineageRelationshipsResponse {
-  /** */
+  /**
+   * Relationships that match the query. Each entry describes the object at the other end of the
+   * relationship in one of `table_info`, `file_info`, `model_info`, or `external_metadata_info`,
+   * together with the relationship itself in `external_lineage_info`.
+   */
   @JsonProperty("external_lineage_relationships")
   private Collection<ExternalLineageInfo> externalLineageRelationships;
 
-  /** */
+  /** Opaque token to retrieve the next page of results. Omitted when there are no more results. */
   @JsonProperty("next_page_token")
   private String nextPageToken;
 

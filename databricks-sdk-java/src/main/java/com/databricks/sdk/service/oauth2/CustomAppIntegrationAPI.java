@@ -61,7 +61,7 @@ public class CustomAppIntegrationAPI {
     return impl.get(request);
   }
 
-  /** Get the list of custom OAuth app integrations for the specified Databricks account */
+  /** Get the list of custom OAuth app integrations for the specified Databricks account. */
   public Iterable<GetCustomAppIntegrationOutput> list(ListCustomAppIntegrationsRequest request) {
     return Paginator.newTokenPagination(
         request,

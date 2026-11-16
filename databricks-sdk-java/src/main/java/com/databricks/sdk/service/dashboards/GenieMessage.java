@@ -10,7 +10,10 @@ import java.util.Objects;
 
 @Generated
 public class GenieMessage {
-  /** AI-generated response to the message */
+  /**
+   * Genie's response to the message. Each attachment holds one part of the response, such as a text
+   * answer or a SQL query.
+   */
   @JsonProperty("attachments")
   private Collection<GenieAttachment> attachments;
 
@@ -22,7 +25,7 @@ public class GenieMessage {
   @JsonProperty("conversation_id")
   private String conversationId;
 
-  /** Timestamp when the message was created */
+  /** Time when the message was created, in milliseconds since the Unix epoch. */
   @JsonProperty("created_timestamp")
   private Long createdTimestamp;
 
@@ -38,7 +41,7 @@ public class GenieMessage {
   @JsonProperty("id")
   private String id;
 
-  /** Timestamp when the message was last updated */
+  /** Time when the message was last updated, in milliseconds since the Unix epoch. */
   @JsonProperty("last_updated_timestamp")
   private Long lastUpdatedTimestamp;
 

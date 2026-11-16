@@ -33,11 +33,19 @@ public class Index {
   @JsonProperty("endpoint")
   private String endpoint;
 
-  /** The subtype of the index. Set on create and immutable thereafter. */
+  /**
+   * Subtype of the index. Use `HYBRID` for vector and hybrid search, or `FULL_TEXT` for
+   * keyword-only search without embeddings; `VECTOR` is not a supported create value. Set on create
+   * and immutable thereafter.
+   */
   @JsonProperty("index_subtype")
   private IndexSubtype indexSubtype;
 
-  /** Type of index. Required on create and immutable thereafter. */
+  /**
+   * Type of index. A `DELTA_SYNC` index is kept in sync with a source Delta table; a
+   * `DIRECT_ACCESS` index holds rows that you write through UpsertData and RemoveData. Set on
+   * create and immutable thereafter.
+   */
   @JsonProperty("index_type")
   private IndexType indexType;
 
@@ -51,7 +59,11 @@ public class Index {
   @JsonProperty("name")
   private String name;
 
-  /** Primary key of the index. Set on create and immutable thereafter. */
+  /**
+   * Name of the column that uniquely identifies each row. It must exist in the source table (Delta
+   * Sync) or in `schema_json` (Direct Access) and cannot be the embedding source or vector column.
+   * Set on create and immutable thereafter.
+   */
   @JsonProperty("primary_key")
   private String primaryKey;
 

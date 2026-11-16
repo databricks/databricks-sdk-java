@@ -9,15 +9,15 @@ import java.util.Objects;
 
 @Generated
 public class AppResourceDatabase {
-  /** */
+  /** Name of the database within the instance. */
   @JsonProperty("database_name")
   private String databaseName;
 
-  /** */
+  /** Name of the Lakebase database instance. */
   @JsonProperty("instance_name")
   private String instanceName;
 
-  /** */
+  /** Permission to grant the app on the database. */
   @JsonProperty("permission")
   private AppResourceDatabaseDatabasePermission permission;
 

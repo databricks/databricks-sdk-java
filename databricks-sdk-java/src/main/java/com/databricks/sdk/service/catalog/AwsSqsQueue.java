@@ -14,7 +14,7 @@ public class AwsSqsQueue {
   private String managedResourceId;
 
   /**
-   * The AQS queue url in the format https://sqs.{region}.amazonaws.com/{account id}/{queue name}.
+   * The SQS queue URL in the format `https://sqs.{region}.amazonaws.com/{account id}/{queue name}`.
    * Only required for provided_sqs.
    */
   @JsonProperty("queue_url")

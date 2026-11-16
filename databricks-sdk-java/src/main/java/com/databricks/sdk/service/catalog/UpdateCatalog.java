@@ -15,22 +15,39 @@ public class UpdateCatalog {
   @JsonProperty("comment")
   private String comment;
 
-  /** Custom maximum retention period in hours for the catalog */
+  /**
+   * Dropped objects in the catalog remain recoverable for this number of hours before they are
+   * permanently purged. The value applies to standard catalogs only, must be 0 or within the range
+   * allowed for the metastore, and is inherited by schemas and tables that do not set their own
+   * value.
+   */
   @JsonProperty("custom_max_retention_hours")
   private Long customMaxRetentionHours;
 
-  /** Whether predictive optimization should be enabled for this object and objects under it. */
+  /**
+   * Whether predictive optimization is enabled for this catalog and the objects under it. Valid
+   * values are ENABLE, DISABLE, and INHERIT, where INHERIT applies the account-level setting.
+   * Standard catalogs start as INHERIT and other catalog types as DISABLE. It cannot be set when
+   * creating a catalog; use the update method instead.
+   */
   @JsonProperty("enable_predictive_optimization")
   private EnablePredictiveOptimization enablePredictiveOptimization;
 
   /**
-   * Whether the current securable is accessible from all workspaces or a specific set of
-   * workspaces.
+   * Whether the catalog is accessible from all workspaces attached to the metastore (OPEN) or only
+   * from the workspaces bound to it (ISOLATED). It cannot be set when creating a catalog; change it
+   * with the update method and manage the bound workspaces with the workspace bindings API. See
+   * [Workspace-catalog binding].
+   *
+   * <p>[Workspace-catalog binding]: https://docs.databricks.com/aws/en/catalogs/binding
    */
   @JsonProperty("isolation_mode")
   private CatalogIsolationMode isolationMode;
 
-  /** Control CMK encryption for managed catalog data */
+  /**
+   * Customer-managed key (CMK) settings control the encryption at rest of the catalog's managed
+   * data.
+   */
   @JsonProperty("managed_encryption_settings")
   private EncryptionSettings managedEncryptionSettings;
 

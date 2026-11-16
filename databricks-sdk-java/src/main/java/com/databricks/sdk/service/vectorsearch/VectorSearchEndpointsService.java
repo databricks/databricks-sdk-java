@@ -36,7 +36,10 @@ public interface VectorSearchEndpointsService {
   /** List all AI Search endpoints in the workspace. */
   ListEndpointResponse listEndpoints(ListEndpointsRequest listEndpointsRequest);
 
-  /** Update an endpoint */
+  /**
+   * Update the Target QPS of a STANDARD endpoint. The response is the updated endpoint; its
+   * scaling_info shows whether the resulting scaling change is applied or still in progress.
+   */
   EndpointInfo patchEndpoint(PatchEndpointRequest patchEndpointRequest);
 
   /** Retrieve user-visible metrics for an endpoint */
@@ -59,7 +62,7 @@ public interface VectorSearchEndpointsService {
    */
   EndpointInfo stopEndpoint(StopEndpointRequest stopEndpointRequest);
 
-  /** Update the budget policy of an endpoint */
+  /** Update the budget policy that the endpoint's usage is attributed to. */
   PatchEndpointBudgetPolicyResponse updateEndpointBudgetPolicy(
       PatchEndpointBudgetPolicyRequest patchEndpointBudgetPolicyRequest);
 

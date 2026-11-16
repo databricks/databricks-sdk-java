@@ -43,7 +43,7 @@ public class Project {
   @JsonProperty("name")
   private String name;
 
-  /** The part of the name, chosen by the user when the resource was created. */
+  /** The project ID chosen when the project was created. It is the final segment of `name`. */
   @JsonProperty("project_id")
   private String projectId;
 
@@ -55,17 +55,27 @@ public class Project {
   private Timestamp purgeTime;
 
   /**
-   * The spec contains the project configuration, including display_name, pg_version (Postgres
-   * version), history_retention_duration, and default_endpoint_settings.
+   * The desired configuration of the project. The fields under `spec` are the ones that can be
+   * changed after creation, except `pg_version`, which is fixed when the project is created. See
+   * `status` for the configuration that is currently in effect.
+   *
+   * <p>Read the resource's current values from `status`, rather than `spec`. `spec` tracks field
+   * ownership for infrastructure-as-code tools and may omit unmanaged fields.
    */
   @JsonProperty("spec")
   private ProjectSpec spec;
 
-  /** The current status of a Project. */
+  /**
+   * The configuration and state of the project that are currently in effect, as reported by the
+   * system.
+   */
   @JsonProperty("status")
   private ProjectStatus status;
 
-  /** System-generated unique ID for the project. */
+  /**
+   * A system-generated UUID that identifies the project. Unlike `name`, it is not derived from the
+   * user-chosen project ID.
+   */
   @JsonProperty("uid")
   private String uid;
 

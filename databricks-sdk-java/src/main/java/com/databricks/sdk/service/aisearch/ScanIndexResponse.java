@@ -13,7 +13,10 @@ import java.util.Objects;
 /** Response for ScanIndex carrying a page of rows and an optional continuation token. */
 @Generated
 public class ScanIndexResponse {
-  /** The rows in this page, each a struct of column name to value. */
+  /**
+   * Rows in this page, ordered by primary key. Each row is a JSON object that maps column names to
+   * values.
+   */
   @JsonProperty("data")
   private Collection<Map<String, JsonNode>> data;
 

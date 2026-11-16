@@ -8,9 +8,10 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** A Unity Catalog table at one end of an external lineage relationship. */
 @Generated
 public class ExternalLineageTable {
-  /** */
+  /** Full name of the table, in the form `catalog.schema.table`. */
   @JsonProperty("name")
   @QueryParam("name")
   private String name;

@@ -32,14 +32,14 @@ public class UpdateExternalLocation {
   private FileEventQueue effectiveFileEventQueue;
 
   /**
-   * Whether to enable file events on this external location. Default to `true`. Set to `false` to
+   * Whether to enable file events on this external location. Defaults to `true`. Set to `false` to
    * disable file events. The actual applied value may differ due to server-side defaults; check
    * `effective_enable_file_events` for the effective state.
    */
   @JsonProperty("enable_file_events")
   private Boolean enableFileEvents;
 
-  /** */
+  /** Encryption options that apply to clients connecting to cloud storage. */
   @JsonProperty("encryption_details")
   private EncryptionDetails encryptionDetails;
 
@@ -52,8 +52,8 @@ public class UpdateExternalLocation {
   private Boolean fallback;
 
   /**
-   * File event queue settings. If `enable_file_events` is not `false`, must be defined and have
-   * exactly one of the documented properties.
+   * File event queue settings. When `enable_file_events` is `true`, exactly one of the queue
+   * options must be set. Must be omitted when `enable_file_events` is `false`.
    */
   @JsonProperty("file_event_queue")
   private FileEventQueue fileEventQueue;
@@ -62,7 +62,10 @@ public class UpdateExternalLocation {
   @JsonProperty("force")
   private Boolean force;
 
-  /** */
+  /**
+   * Whether the current securable is accessible from all workspaces or a specific set of
+   * workspaces. Cannot be set when creating an external location.
+   */
   @JsonProperty("isolation_mode")
   private IsolationMode isolationMode;
 
@@ -85,7 +88,10 @@ public class UpdateExternalLocation {
   @JsonProperty("skip_validation")
   private Boolean skipValidation;
 
-  /** Path URL of the external location. */
+  /**
+   * URL of the cloud storage path that the external location points to, including the scheme (for
+   * example `s3://`, `abfss://`, or `gs://`).
+   */
   @JsonProperty("url")
   private String url;
 

@@ -8,14 +8,15 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** A version of a Unity Catalog registered model at one end of an external lineage relationship. */
 @Generated
 public class ExternalLineageModelVersion {
-  /** */
+  /** Full name of the registered model, in the form `catalog.schema.model`. */
   @JsonProperty("name")
   @QueryParam("name")
   private String name;
 
-  /** */
+  /** Version number of the model, as a string. */
   @JsonProperty("version")
   @QueryParam("version")
   private String version;

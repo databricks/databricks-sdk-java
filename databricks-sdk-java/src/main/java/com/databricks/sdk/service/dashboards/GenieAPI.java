@@ -94,7 +94,9 @@ public class GenieAPI {
 
   /**
    * Sends a new message in a chat-mode [conversation](:method:genie/startconversation). The AI
-   * response uses all previously created messages in the conversation to respond.
+   * response uses all previously created messages in the conversation to respond. The message is
+   * processed asynchronously. Poll [Get a conversation message](:method:genie/getmessage) until its
+   * `status` is `COMPLETED`, `FAILED`, or `CANCELLED`.
    */
   public Wait<GenieMessage, GenieMessage> createMessage(
       GenieCreateConversationMessageRequest request) {
@@ -125,7 +127,10 @@ public class GenieAPI {
         new GenieDeleteConversationRequest().setSpaceId(spaceId).setConversationId(conversationId));
   }
 
-  /** Delete a conversation. */
+  /**
+   * Deletes a conversation and all of its messages. Users can delete their own conversations.
+   * Deleting another user's conversation requires at least CAN MANAGE permission on the space.
+   */
   public void deleteConversation(GenieDeleteConversationRequest request) {
     impl.deleteConversation(request);
   }
@@ -327,8 +332,8 @@ public class GenieAPI {
   }
 
   /**
-   * Get the result of SQL query if the message has a query attachment. This is only available if a
-   * message has a query attachment and the message status is `EXECUTING_QUERY` OR `COMPLETED`.
+   * Gets the result of the SQL query in a message's query attachment. The result is available only
+   * while the message status is `EXECUTING_QUERY` or `COMPLETED`.
    */
   public GenieGetMessageQueryResultResponse getMessageAttachmentQueryResult(
       GenieGetMessageAttachmentQueryResultRequest request) {
@@ -417,7 +422,11 @@ public class GenieAPI {
     return listConversations(new GenieListConversationsRequest().setSpaceId(spaceId));
   }
 
-  /** Get a list of conversations in a Genie Space. */
+  /**
+   * Lists the conversations in a Genie space. By default the list contains only the caller's own
+   * conversations, ordered by most recent activity. With `include_all`, it contains every user's
+   * conversations in the space, ordered by creation time with the newest first.
+   */
   public GenieListConversationsResponse listConversations(GenieListConversationsRequest request) {
     return impl.listConversations(request);
   }
@@ -437,7 +446,7 @@ public class GenieAPI {
     return impl.listMessageComments(request);
   }
 
-  /** Get list of Genie Spaces. */
+  /** Lists the Genie spaces that the caller can access, most recently updated first. */
   public GenieListSpacesResponse listSpaces(GenieListSpacesRequest request) {
     return impl.listSpaces(request);
   }
@@ -447,7 +456,11 @@ public class GenieAPI {
     impl.sendMessageFeedback(request);
   }
 
-  /** Starts a new chat-mode conversation and sends its first message. */
+  /**
+   * Starts a new chat-mode conversation and sends its first message. The message is processed
+   * asynchronously. Poll [Get a conversation message](:method:genie/getmessage) until its `status`
+   * is `COMPLETED`, `FAILED`, or `CANCELLED`.
+   */
   public Wait<GenieMessage, GenieStartConversationResponse> startConversation(
       GenieStartConversationMessageRequest request) {
     GenieStartConversationResponse response = impl.startConversation(request);
@@ -471,7 +484,11 @@ public class GenieAPI {
     impl.trashSpace(request);
   }
 
-  /** Updates a Genie space with a serialized payload. */
+  /**
+   * Updates a Genie space. Replaces the whole configuration when `serialized_space` is set and
+   * changes the title, description, warehouse or folder when those fields are set; omitted fields
+   * keep their current values.
+   */
   public GenieSpace updateSpace(GenieUpdateSpaceRequest request) {
     return impl.updateSpace(request);
   }

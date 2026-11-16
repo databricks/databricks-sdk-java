@@ -7,33 +7,37 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Holds the destination-specific configuration. Exactly one of the nested configs is set. */
 @Generated
 public class Config {
-  /** */
+  /** Configures a Slack channel reached through the Databricks Genie app for Slack. */
   @JsonProperty("databricks_app_slack")
   private DatabricksAppSlackConfig databricksAppSlack;
 
-  /** */
+  /**
+   * Configures a Microsoft Teams channel reached through the Databricks Genie app for Microsoft
+   * Teams.
+   */
   @JsonProperty("databricks_app_teams")
   private DatabricksAppTeamsConfig databricksAppTeams;
 
-  /** */
+  /** Configures an email destination. */
   @JsonProperty("email")
   private EmailConfig email;
 
-  /** */
+  /** Configures a generic HTTPS webhook destination. */
   @JsonProperty("generic_webhook")
   private GenericWebhookConfig genericWebhook;
 
-  /** */
+  /** Configures a Microsoft Teams incoming webhook destination. */
   @JsonProperty("microsoft_teams")
   private MicrosoftTeamsConfig microsoftTeams;
 
-  /** */
+  /** Configures a PagerDuty destination. */
   @JsonProperty("pagerduty")
   private PagerdutyConfig pagerduty;
 
-  /** */
+  /** Configures a Slack incoming webhook destination. */
   @JsonProperty("slack")
   private SlackConfig slack;
 

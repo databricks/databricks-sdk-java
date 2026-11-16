@@ -8,9 +8,10 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** An external metadata object at one end of an external lineage relationship. */
 @Generated
 public class ExternalLineageExternalMetadata {
-  /** */
+  /** Name of the external metadata object. */
   @JsonProperty("name")
   @QueryParam("name")
   private String name;

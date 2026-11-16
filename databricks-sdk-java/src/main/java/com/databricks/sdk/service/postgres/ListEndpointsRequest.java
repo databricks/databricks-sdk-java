@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Generated
 public class ListEndpointsRequest {
-  /** Upper bound for items returned. Cannot be negative. */
+  /** Upper bound for the number of endpoints returned. If set, the value must be at least 10. */
   @JsonIgnore
   @QueryParam("page_size")
   private Long pageSize;

@@ -6,5 +6,6 @@ import com.databricks.sdk.support.Generated;
 
 @Generated
 public enum AlertConfigurationTimePeriod {
+  DAY,
   MONTH,
 }

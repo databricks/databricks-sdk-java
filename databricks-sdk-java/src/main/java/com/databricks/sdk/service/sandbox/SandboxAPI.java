@@ -32,7 +32,13 @@ public class SandboxAPI {
     return impl.createDirectory(request);
   }
 
-  /** Creates a new Sandbox. */
+  /**
+   * Creates a sandbox with the given `sandbox_id` and starts provisioning it. Provisioning is
+   * asynchronous: the response usually shows the sandbox in `SANDBOX_STATE_PENDING`, so poll
+   * GetSandbox until the state is `SANDBOX_STATE_RUNNING` before running commands in it. A sandbox
+   * that fails to provision ends in `SANDBOX_STATE_STOPPED`. Returns ALREADY_EXISTS if a sandbox
+   * with the same ID already exists in the workspace.
+   */
   public Sandbox createSandbox(CreateSandboxRequest request) {
     return impl.createSandbox(request);
   }
@@ -49,7 +55,11 @@ public class SandboxAPI {
     deleteSandbox(new DeleteSandboxRequest().setName(name));
   }
 
-  /** Deletes a Sandbox. */
+  /**
+   * Deletes a sandbox, including the data in its home directory. A pending or running sandbox is
+   * stopped first and is removed once the teardown completes, after which GetSandbox returns
+   * NOT_FOUND. Deleting a sandbox that is already being deleted succeeds.
+   */
   public void deleteSandbox(DeleteSandboxRequest request) {
     impl.deleteSandbox(request);
   }
@@ -139,7 +149,10 @@ public class SandboxAPI {
         });
   }
 
-  /** Lists all Sandboxes. */
+  /**
+   * Lists the sandboxes in the workspace that are visible to the caller, including stopped
+   * sandboxes. Sandboxes that are being deleted are not returned.
+   */
   public Iterable<Sandbox> listSandboxes(ListSandboxesRequest request) {
     return Paginator.newTokenPagination(
         request,
@@ -160,14 +173,23 @@ public class SandboxAPI {
   }
 
   /**
-   * Starts a previously stopped Sandbox under the same sandbox name. Returns NOT_FOUND if there is
-   * no stopped sandbox to start for the given name.
+   * Starts a previously stopped sandbox under the same sandbox name, with the data in its home
+   * directory intact. Starting is asynchronous: the response usually shows the sandbox in
+   * `SANDBOX_STATE_PENDING`, so poll GetSandbox until the state is `SANDBOX_STATE_RUNNING`. Returns
+   * NOT_FOUND if the sandbox does not exist, FAILED_PRECONDITION if it is pending or running, and
+   * ABORTED while it is still stopping.
    */
   public Sandbox startSandbox(StartSandboxRequest request) {
     return impl.startSandbox(request);
   }
 
-  /** Stops a running Sandbox, preserving it so it can later be restarted with a Start request. */
+  /**
+   * Stops a running sandbox, preserving it so it can later be restarted with a Start request.
+   * Stopping is asynchronous: the response usually shows the sandbox in `SANDBOX_STATE_STOPPING`,
+   * and it settles to `SANDBOX_STATE_STOPPED` once the shutdown completes. The data in the home
+   * directory is kept; other local changes are discarded. Stopping a sandbox that is already
+   * stopped or stopping succeeds without changes.
+   */
   public Sandbox stopSandbox(StopSandboxRequest request) {
     return impl.stopSandbox(request);
   }

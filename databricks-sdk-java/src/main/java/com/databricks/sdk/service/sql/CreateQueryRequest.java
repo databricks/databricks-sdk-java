@@ -16,7 +16,7 @@ public class CreateQueryRequest {
   @JsonProperty("auto_resolve_display_name")
   private Boolean autoResolveDisplayName;
 
-  /** */
+  /** The query to create. A display name and query text are required. */
   @JsonProperty("query")
   private CreateQueryRequestQuery query;
 

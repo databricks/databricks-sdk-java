@@ -10,7 +10,10 @@ import java.util.Objects;
 
 @Generated
 public class ListProjectsRequest {
-  /** Upper bound for items returned. Cannot be negative. The maximum value is 100. */
+  /**
+   * Upper bound for the number of projects returned. Cannot be negative. Values above the maximum
+   * page size are reduced to that maximum.
+   */
   @JsonIgnore
   @QueryParam("page_size")
   private Long pageSize;

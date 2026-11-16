@@ -11,7 +11,12 @@ import java.util.Objects;
 /** Request to upsert rows into a Direct Access AI Search index. */
 @Generated
 public class UpsertDataRequest {
-  /** JSON document describing the rows to upsert. */
+  /**
+   * JSON array of the rows to insert or update, serialized as a string. Each element is an object
+   * that maps column names to values and must include the primary key column; vector columns are
+   * given as arrays of numbers. A row whose primary key already exists is overwritten. The array
+   * must not be empty.
+   */
   @JsonProperty("inputs_json")
   private String inputsJson;
 

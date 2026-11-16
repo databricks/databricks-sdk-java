@@ -24,7 +24,10 @@ public class UpdateProjectRequest {
   @JsonProperty("project")
   private Project project;
 
-  /** The list of fields to update. */
+  /**
+   * The fields to update, as paths relative to the project, for example `spec.display_name`. Pass
+   * `*` to update every field that is set in the request. Only fields under `spec` can be updated.
+   */
   @JsonIgnore
   @QueryParam("update_mask")
   private FieldMask updateMask;

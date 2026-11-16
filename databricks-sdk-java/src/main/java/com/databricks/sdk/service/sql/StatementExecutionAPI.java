@@ -14,6 +14,12 @@ import com.databricks.sdk.support.Generated;
  *
  * <p>We suggest beginning with the [Databricks SQL Statement Execution API tutorial].
  *
+ * <p>**Lakehouse//RT warehouses**
+ *
+ * <p>You can run statements on [Lakehouse//RT] warehouses with this API. For lower latency and
+ * higher concurrency, use version 2 of this API, Statement Execution (Lakehouse//RT), instead. It
+ * works the same way, except that `warehouse_id` is a path parameter.
+ *
  * <p>**Overview of statement execution and result fetching**
  *
  * <p>Statement execution begins by issuing a :method:statementexecution/executeStatement request
@@ -98,6 +104,7 @@ import com.databricks.sdk.support.Generated;
  *
  * <p>[Apache Arrow Columnar]: https://arrow.apache.org/overview/ [Databricks SQL Statement
  * Execution API tutorial]: https://docs.databricks.com/sql/api/sql-execution-tutorial.html
+ * [Lakehouse//RT]: https://docs.databricks.com/compute/sql-warehouse/real-time.html
  */
 @Generated
 public class StatementExecutionAPI {

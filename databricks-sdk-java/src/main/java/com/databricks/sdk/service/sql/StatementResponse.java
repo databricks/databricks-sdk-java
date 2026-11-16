@@ -7,6 +7,11 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * Statement Execution works with all SQL warehouse types, including Lakehouse//RT. Statement
+ * Execution (Lakehouse//RT) is optimized for Lakehouse//RT warehouses, with lower latency and
+ * higher concurrency, and takes `warehouse_id` as a path parameter.
+ */
 @Generated
 public class StatementResponse {
   /** */

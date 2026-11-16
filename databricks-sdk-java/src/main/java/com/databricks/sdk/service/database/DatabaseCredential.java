@@ -7,13 +7,20 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * A short-lived credential for connecting to database instances with the caller's Databricks
+ * identity.
+ */
 @Generated
 public class DatabaseCredential {
-  /** */
+  /**
+   * The time at which the token expires. Tokens are valid for one hour after they are issued, and a
+   * new token is needed to open connections after that time.
+   */
   @JsonProperty("expiration_time")
   private String expirationTime;
 
-  /** */
+  /** The OAuth token to use as the Postgres password when connecting to a database instance. */
   @JsonProperty("token")
   private String token;
 

@@ -7,6 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** A summary of a conversation, as returned when listing the conversations in a space. */
 @Generated
 public class GenieConversationSummary {
   /**
@@ -16,15 +17,15 @@ public class GenieConversationSummary {
   @JsonProperty("agent_type")
   private GenieConversationType agentType;
 
-  /** */
+  /** The ID of the conversation. */
   @JsonProperty("conversation_id")
   private String conversationId;
 
-  /** */
+  /** Time when the conversation was created, in milliseconds since the Unix epoch. */
   @JsonProperty("created_timestamp")
   private Long createdTimestamp;
 
-  /** */
+  /** The title of the conversation. */
   @JsonProperty("title")
   private String title;
 

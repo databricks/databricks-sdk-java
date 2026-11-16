@@ -32,7 +32,10 @@ public class AiSearchAPI {
     return impl.createEndpoint(request);
   }
 
-  /** Create a new AI Search index. */
+  /**
+   * Create a new AI Search index. The index is provisioned asynchronously; `status.ready` on
+   * GetIndex reports when it can serve queries.
+   */
   public Index createIndex(CreateIndexRequest request) {
     return impl.createIndex(request);
   }
@@ -127,8 +130,9 @@ public class AiSearchAPI {
   }
 
   /**
-   * Synchronize a Delta Sync AI Search index with its source Delta table. Applies only to Delta
-   * Sync indexes; Direct Access indexes are written via the data-plane upsert path.
+   * Start a sync of a Delta Sync AI Search index with its source Delta table. Use it with
+   * `TRIGGERED` pipelines; `CONTINUOUS` pipelines sync automatically. Direct Access indexes are
+   * written through UpsertData instead.
    */
   public SyncIndexResponse syncIndex(SyncIndexRequest request) {
     return impl.syncIndex(request);

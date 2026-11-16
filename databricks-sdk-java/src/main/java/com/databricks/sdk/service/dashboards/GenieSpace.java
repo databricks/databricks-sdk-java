@@ -8,6 +8,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.protobuf.Timestamp;
 import java.util.Objects;
 
+/**
+ * A Genie space that business users query in natural language. Its configuration (data sources,
+ * instructions, sample questions and benchmarks) travels as a JSON string in `serialized_space`;
+ * the other fields are metadata about the space.
+ */
 @Generated
 public class GenieSpace {
   /** Time when the Genie space was created. */
@@ -25,15 +30,15 @@ public class GenieSpace {
   @JsonProperty("etag")
   private String etag;
 
-  /** Parent folder path of the Genie Space */
+  /** Path of the workspace folder that contains the space. */
   @JsonProperty("parent_path")
   private String parentPath;
 
   /**
-   * The contents of the Genie Space in serialized string form. This field is excluded in List Genie
-   * spaces responses. Use the [Get Genie Space](:method:genie/getspace) API to retrieve an example
-   * response, which includes the `serialized_space` field. This field provides the structure of the
-   * JSON string that represents the space's layout and components.
+   * Configuration of the space (data sources, instructions, sample questions and benchmarks) as a
+   * JSON string. [Get Genie Space](:method:genie/getspace) returns it only when
+   * `include_serialized_space` is true, and List Genie spaces never returns it. For the JSON format
+   * and its validation rules, see https://docs.databricks.com/aws/en/genie-agents/conversation-api.
    */
   @JsonProperty("serialized_space")
   private String serializedSpace;
@@ -52,7 +57,7 @@ public class GenieSpace {
   @JsonProperty("update_time")
   private Timestamp updateTime;
 
-  /** Warehouse associated with the Genie Space */
+  /** ID of the SQL warehouse that runs the queries Genie generates for this space. */
   @JsonProperty("warehouse_id")
   private String warehouseId;
 

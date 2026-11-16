@@ -13,7 +13,7 @@ public class Principal {
   @JsonProperty("id")
   private String id;
 
-  /** */
+  /** The type of principal that **id** identifies: a user, a group, or a service principal. */
   @JsonProperty("principal_type")
   private PrincipalType principalType;
 

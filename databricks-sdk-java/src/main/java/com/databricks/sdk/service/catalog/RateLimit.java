@@ -27,7 +27,7 @@ public class RateLimit {
   @JsonProperty("principal")
   private String principal;
 
-  /** Renewal period. */
+  /** Interval after which the request and token counters reset. */
   @JsonProperty("renewal_period")
   private RateLimitRateLimitRenewalPeriod renewalPeriod;
 

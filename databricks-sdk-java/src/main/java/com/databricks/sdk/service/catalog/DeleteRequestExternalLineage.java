@@ -8,6 +8,13 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * A lineage relationship between a source object and a target object, where at least one of the two
+ * is an external metadata object. The other object can be a Unity Catalog table, a cloud storage
+ * path, a model version, or another external metadata object. A relationship is identified by its
+ * source and target; optional column mappings and key-value properties describe the data flow
+ * between them.
+ */
 @Generated
 public class DeleteRequestExternalLineage {
   /** Unique identifier of the external lineage relationship. */

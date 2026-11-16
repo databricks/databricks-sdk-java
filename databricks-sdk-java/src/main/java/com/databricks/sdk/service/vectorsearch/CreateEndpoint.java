@@ -9,22 +9,34 @@ import java.util.Objects;
 
 @Generated
 public class CreateEndpoint {
-  /** The budget policy id to be applied */
+  /**
+   * Budget policy to attribute the endpoint's usage to. If omitted, the default budget policy
+   * applies.
+   */
   @JsonProperty("budget_policy_id")
   private String budgetPolicyId;
 
-  /** Type of endpoint */
+  /**
+   * Type of endpoint to create. STANDARD endpoints are optimized for low-latency queries and
+   * support Target QPS scaling. STORAGE_OPTIMIZED endpoints hold much larger indexes and index
+   * faster, with higher query latency. See
+   * https://docs.databricks.com/aws/en/ai-search/ai-search#endpoint-options.
+   */
   @JsonProperty("endpoint_type")
   private EndpointType endpointType;
 
-  /** Name of the AI Search endpoint */
+  /**
+   * Name of the AI Search endpoint. The name must be unique within the workspace, have at most 50
+   * characters, contain only lowercase letters, digits, hyphens, underscores and periods, and start
+   * and end with a letter or digit.
+   */
   @JsonProperty("name")
   private String name;
 
   /**
-   * Target QPS for the endpoint. Mutually exclusive with num_replicas. The actual replica count is
-   * calculated at index creation/sync time based on this value. Best-effort target; the system does
-   * not guarantee this QPS will be achieved.
+   * Target queries per second (QPS) for the endpoint. Supported for STANDARD endpoints only. The
+   * actual replica count is calculated at index creation/sync time based on this value. Best-effort
+   * target; the system does not guarantee this QPS will be achieved.
    */
   @JsonProperty("target_qps")
   private Long targetQps;

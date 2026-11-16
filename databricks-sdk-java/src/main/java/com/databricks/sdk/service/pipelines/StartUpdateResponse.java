@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class StartUpdateResponse {
-  /** */
+  /** The ID of the update that was started. */
   @JsonProperty("update_id")
   private String updateId;
 

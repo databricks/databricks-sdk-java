@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class GetDatabaseTableRequest {
-  /** */
+  /** Specifies the database table by its full three-part (catalog, schema, table) name. */
   @JsonIgnore private String name;
 
   public GetDatabaseTableRequest setName(String name) {

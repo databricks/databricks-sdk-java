@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class TrashQueryRequest {
-  /** */
+  /** UUID of the query to move to the trash. */
   @JsonIgnore private String id;
 
   public TrashQueryRequest setId(String id) {

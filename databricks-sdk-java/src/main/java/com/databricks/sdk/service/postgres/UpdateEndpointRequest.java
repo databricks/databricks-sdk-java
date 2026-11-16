@@ -27,7 +27,12 @@ public class UpdateEndpointRequest {
    */
   @JsonIgnore private String name;
 
-  /** The list of fields to update. */
+  /**
+   * The fields to update, as paths relative to the endpoint, for example
+   * `spec.autoscaling_limit_max_cu`. Pass `spec` to update every field that is set in `spec`. Only
+   * fields under `spec` can be updated. To change the suspension setting, include `spec.suspension`
+   * or the specific suspension field.
+   */
   @JsonIgnore
   @QueryParam("update_mask")
   private FieldMask updateMask;

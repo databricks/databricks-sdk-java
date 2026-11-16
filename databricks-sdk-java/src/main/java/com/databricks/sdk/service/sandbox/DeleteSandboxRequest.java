@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class DeleteSandboxRequest {
-  /** */
+  /** Resource name of the sandbox to delete, in the form `sandboxes/{sandbox_id}`. */
   @JsonIgnore private String name;
 
   public DeleteSandboxRequest setName(String name) {

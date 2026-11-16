@@ -7,9 +7,18 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * A Database Catalog registers a Postgres database that lives in a Lakebase database instance as a
+ * catalog in Unity Catalog, so that the database's schemas and tables are governed and discoverable
+ * through Unity Catalog. For an overview, see
+ * https://docs.databricks.com/aws/en/oltp/projects/register-uc.
+ */
 @Generated
 public class DatabaseCatalog {
-  /** */
+  /**
+   * If true, the database named in database_name is created in the instance when it does not
+   * already exist, with the calling user as its owner. Defaults to false.
+   */
   @JsonProperty("create_database_if_not_exists")
   private Boolean createDatabaseIfNotExists;
 
@@ -17,15 +26,19 @@ public class DatabaseCatalog {
   @JsonProperty("database_instance_name")
   private String databaseInstanceName;
 
-  /** The name of the database (in an instance) associated with the catalog. */
+  /**
+   * The name of the Postgres database in the instance that the catalog registers. The database must
+   * already exist unless create_database_if_not_exists is true. The system databases postgres,
+   * databricks_system, template0 and template1 cannot be registered.
+   */
   @JsonProperty("database_name")
   private String databaseName;
 
-  /** The name of the catalog in UC. */
+  /** The name of the catalog in Unity Catalog. */
   @JsonProperty("name")
   private String name;
 
-  /** */
+  /** An immutable UUID identifier for the catalog, assigned when the catalog is created. */
   @JsonProperty("uid")
   private String uid;
 

@@ -33,6 +33,9 @@ public class Role {
   /**
    * The spec contains the role configuration, including identity type, authentication method, and
    * role attributes.
+   *
+   * <p>Read the resource's current values from `status`, rather than `spec`. `spec` tracks field
+   * ownership for infrastructure-as-code tools and may omit unmanaged fields.
    */
   @JsonProperty("spec")
   private RoleRoleSpec spec;

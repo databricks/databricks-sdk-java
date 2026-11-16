@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Generated
 public class FindDatabaseInstanceByUidRequest {
-  /** UID of the cluster to get. */
+  /** UID of the instance to get, as returned in the uid field of the instance. */
   @JsonIgnore
   @QueryParam("uid")
   private String uid;

@@ -26,7 +26,7 @@ public class DeletePipelineRequest {
   @QueryParam("force")
   private Boolean force;
 
-  /** */
+  /** The ID of the pipeline to delete. */
   @JsonIgnore private String pipelineId;
 
   public DeletePipelineRequest setCascade(Boolean cascade) {

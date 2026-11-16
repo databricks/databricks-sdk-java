@@ -12,7 +12,8 @@ import java.util.Objects;
 
 /**
  * The AI Functions Asynchronous API lets you process large volumes of requests as a batch in a
- * single call.
+ * single call. It is in Beta: a workspace admin must turn on the **AI Functions Asynchronous API**
+ * preview on the workspace Previews page before you can call it.
  */
 @Generated
 public class Batch {
@@ -40,7 +41,9 @@ public class Batch {
 
   /**
    * Unity Catalog volume path to write the JSONL output file to. If the path is a directory, the
-   * file is `<path>/<name>_output.jsonl`.
+   * file is `<path>/<name>_output.jsonl`. Each line is the result of one request, in the form
+   * `{"custom_id": ..., "response": ...}`, or `{"custom_id": ..., "error": {"type": ..., "message":
+   * ...}}` for a request that failed.
    */
   @JsonProperty("output_ref")
   private String outputRef;

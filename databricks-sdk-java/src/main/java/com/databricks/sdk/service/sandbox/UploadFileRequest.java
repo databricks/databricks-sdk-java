@@ -14,6 +14,16 @@ public class UploadFileRequest {
   /** The complete file contents. An empty body creates an empty file. */
   @JsonIgnore private InputStream contents;
 
+  /**
+   * Whether to replace an existing file. Defaults to true when omitted. If false, the upload
+   * atomically creates the file only if the destination does not exist, equivalent to
+   * If-None-Match: *. An existing entry returns 412 Precondition Failed. Explicit true conflicts
+   * with If-None-Match: *.
+   */
+  @JsonIgnore
+  @QueryParam("overwrite")
+  private Boolean overwrite;
+
   /** The sandbox resource name, in the form sandboxes/{sandbox_id}. */
   @JsonIgnore private String parent;
 
@@ -29,6 +39,15 @@ public class UploadFileRequest {
 
   public InputStream getContents() {
     return contents;
+  }
+
+  public UploadFileRequest setOverwrite(Boolean overwrite) {
+    this.overwrite = overwrite;
+    return this;
+  }
+
+  public Boolean getOverwrite() {
+    return overwrite;
   }
 
   public UploadFileRequest setParent(String parent) {
@@ -55,19 +74,21 @@ public class UploadFileRequest {
     if (o == null || getClass() != o.getClass()) return false;
     UploadFileRequest that = (UploadFileRequest) o;
     return Objects.equals(contents, that.contents)
+        && Objects.equals(overwrite, that.overwrite)
         && Objects.equals(parent, that.parent)
         && Objects.equals(path, that.path);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(contents, parent, path);
+    return Objects.hash(contents, overwrite, parent, path);
   }
 
   @Override
   public String toString() {
     return new ToStringer(UploadFileRequest.class)
         .add("contents", contents)
+        .add("overwrite", overwrite)
         .add("parent", parent)
         .add("path", path)
         .toString();

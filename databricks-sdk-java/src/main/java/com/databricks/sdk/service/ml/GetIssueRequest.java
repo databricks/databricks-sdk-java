@@ -9,7 +9,11 @@ import java.util.Objects;
 
 @Generated
 public class GetIssueRequest {
-  /** experiments/{experiment}/issues/{issue} */
+  /**
+   * The Issue to get, as `experiments/{experiment}/issues/{issue}`, where `{experiment}` is the
+   * experiment ID and `{issue}` is the Issue ID: `iss-` followed by 32 lowercase hex digits. For
+   * example, `experiments/1234567890/issues/iss-0123456789abcdef0123456789abcdef`.
+   */
   @JsonIgnore private String name;
 
   public GetIssueRequest setName(String name) {

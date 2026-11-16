@@ -9,11 +9,11 @@ import java.util.Objects;
 
 @Generated
 public class CreateContext {
-  /** Running cluster id */
+  /** ID of the cluster to create the execution context on. The cluster must be running. */
   @JsonProperty("clusterId")
   private String clusterId;
 
-  /** */
+  /** Programming language of the execution context. */
   @JsonProperty("language")
   private Language language;
 

@@ -13,7 +13,7 @@ public class ComputeStatus {
   @JsonProperty("active_instances")
   private Long activeInstances;
 
-  /** Compute status message */
+  /** Human-readable detail about the compute state. */
   @JsonProperty("message")
   private String message;
 

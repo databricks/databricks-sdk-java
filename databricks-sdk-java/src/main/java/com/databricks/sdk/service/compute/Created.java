@@ -9,7 +9,11 @@ import java.util.Objects;
 
 @Generated
 public class Created {
-  /** */
+  /**
+   * ID of the new execution context when returned by __Create__, or of the submitted command when
+   * returned by __execute__. Pass it to the other methods of this API as `contextId` or
+   * `commandId`.
+   */
   @JsonProperty("id")
   private String id;
 

@@ -12,7 +12,10 @@ import java.util.Objects;
  */
 @Generated
 public class ObjectInfo {
-  /** Only applicable to files. The creation UTC timestamp. */
+  /**
+   * The time the object was created, as a UTC timestamp in milliseconds since the epoch. It is
+   * returned for notebooks and files.
+   */
   @JsonProperty("created_at")
   private Long createdAt;
 
@@ -27,7 +30,10 @@ public class ObjectInfo {
   @JsonProperty("language")
   private Language language;
 
-  /** Only applicable to files, the last modified UTC timestamp. */
+  /**
+   * The time the object was last modified, as a UTC timestamp in milliseconds since the epoch. It
+   * is returned for notebooks and files.
+   */
   @JsonProperty("modified_at")
   private Long modifiedAt;
 
@@ -53,7 +59,7 @@ public class ObjectInfo {
   @JsonProperty("resource_id")
   private String resourceId;
 
-  /** Only applicable to files. The file size in bytes can be returned. */
+  /** The size of the file in bytes. It is returned only for objects of type ``FILE``. */
   @JsonProperty("size")
   private Long size;
 

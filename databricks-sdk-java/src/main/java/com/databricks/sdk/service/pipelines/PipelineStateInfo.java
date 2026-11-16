@@ -41,7 +41,7 @@ public class PipelineStateInfo {
   @JsonProperty("run_as_user_name")
   private String runAsUserName;
 
-  /** */
+  /** The current state of the pipeline. */
   @JsonProperty("state")
   private PipelineState state;
 

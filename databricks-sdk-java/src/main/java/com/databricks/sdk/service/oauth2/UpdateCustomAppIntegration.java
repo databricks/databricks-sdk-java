@@ -11,10 +11,13 @@ import java.util.Objects;
 
 @Generated
 public class UpdateCustomAppIntegration {
-  /** */
+  /** ID of the custom OAuth app integration to update. */
   @JsonIgnore private String integrationId;
 
-  /** List of OAuth redirect urls to be updated in the custom OAuth app integration */
+  /**
+   * New OAuth redirect URLs for the application. Replaces the existing list; same constraints as on
+   * create.
+   */
   @JsonProperty("redirect_urls")
   private Collection<String> redirectUrls;
 
@@ -25,7 +28,10 @@ public class UpdateCustomAppIntegration {
   @JsonProperty("scopes")
   private Collection<String> scopes;
 
-  /** Token access policy to be updated in the custom OAuth app integration */
+  /**
+   * New token lifetimes for the application. Both TTL fields are required when the policy is set;
+   * the single-use refresh token settings keep their current values when omitted.
+   */
   @JsonProperty("token_access_policy")
   private TokenAccessPolicy tokenAccessPolicy;
 

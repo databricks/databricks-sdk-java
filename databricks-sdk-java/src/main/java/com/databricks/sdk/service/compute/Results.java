@@ -11,11 +11,14 @@ import java.util.Objects;
 
 @Generated
 public class Results {
-  /** The cause of the error */
+  /** Details of an `error` result, usually the exception message or stack trace. */
   @JsonProperty("cause")
   private String cause;
 
-  /** */
+  /**
+   * Output of a `text` result as a string, or the rows of a `table` result as an array of rows,
+   * each an array of column values in the order of `schema`.
+   */
   @JsonProperty("data")
   private Object data;
 
@@ -43,19 +46,30 @@ public class Results {
   @JsonProperty("pos")
   private Long pos;
 
-  /** */
+  /**
+   * Type of the result, which determines which other fields are set: `text` puts the output in
+   * `data`, `table` fills `data`, `schema`, `truncated` and `isJsonSchema`, `image` and `images`
+   * fill `fileName` and `fileNames` respectively, and `error` fills `cause` and `summary`.
+   */
   @JsonProperty("resultType")
   private ResultType resultType;
 
-  /** The table schema */
+  /**
+   * Columns of a `table` result, in the order of the values within each row of `data`. Each entry
+   * has a `name`, a `type` and a `metadata` key.
+   */
   @JsonProperty("schema")
   private Collection<Map<String, Object>> schema;
 
-  /** The summary of the error */
+  /**
+   * Short description of an `error` result, such as the exception type and message, when available.
+   */
   @JsonProperty("summary")
   private String summary;
 
-  /** true if partial results are returned. */
+  /**
+   * Whether a `table` result was cut off because the command output exceeded the row or byte limit.
+   */
   @JsonProperty("truncated")
   private Boolean truncated;
 

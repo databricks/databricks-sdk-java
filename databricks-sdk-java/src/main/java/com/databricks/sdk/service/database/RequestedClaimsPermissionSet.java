@@ -4,7 +4,7 @@ package com.databricks.sdk.service.database;
 
 import com.databricks.sdk.support.Generated;
 
-/** Might add WRITE in the future */
+/** The level of access that a claim grants on its resources. */
 @Generated
 public enum RequestedClaimsPermissionSet {
   READ_ONLY,

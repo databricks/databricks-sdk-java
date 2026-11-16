@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class NumericValue {
-  /** */
+  /** Number substituted for the parameter marker when the query runs. */
   @JsonProperty("value")
   private Double value;
 

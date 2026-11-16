@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class ApplyEnvironmentRequest {
-  /** */
+  /** The ID of the pipeline to apply the environment to. */
   @JsonIgnore private String pipelineId;
 
   public ApplyEnvironmentRequest setPipelineId(String pipelineId) {

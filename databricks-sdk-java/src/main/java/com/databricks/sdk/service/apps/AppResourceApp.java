@@ -9,11 +9,11 @@ import java.util.Objects;
 
 @Generated
 public class AppResourceApp {
-  /** */
+  /** Name of the app to grant access to. */
   @JsonProperty("name")
   private String name;
 
-  /** */
+  /** Permission to grant on that app. */
   @JsonProperty("permission")
   private AppResourceAppAppPermission permission;
 
