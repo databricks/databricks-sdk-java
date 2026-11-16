@@ -29,7 +29,7 @@ public class QueriesAPI {
     impl = mock;
   }
 
-  /** Creates a query. */
+  /** Creates a query. The caller becomes the owner of the new query. */
   public Query create(CreateQueryRequest request) {
     return impl.create(request);
   }
@@ -94,7 +94,11 @@ public class QueriesAPI {
         });
   }
 
-  /** Updates a query. */
+  /**
+   * Updates the fields of a query named in `update_mask`. Changing `owner_user_name` requires
+   * workspace admin privileges. Changing `run_as_mode` requires CAN MANAGE permission on the query,
+   * and only the query owner can switch it to `OWNER`.
+   */
   public Query update(UpdateQueryRequest request) {
     return impl.update(request);
   }

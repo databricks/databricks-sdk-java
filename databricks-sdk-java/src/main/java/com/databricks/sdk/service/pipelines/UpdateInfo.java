@@ -77,6 +77,10 @@ public class UpdateInfo {
   @JsonProperty("state")
   private UpdateInfoState state;
 
+  /** If true, this update is a test-only update. Absent for other updates. */
+  @JsonProperty("test_only")
+  private Boolean testOnly;
+
   /** The ID of this update. */
   @JsonProperty("update_id")
   private String updateId;
@@ -205,6 +209,15 @@ public class UpdateInfo {
     return state;
   }
 
+  public UpdateInfo setTestOnly(Boolean testOnly) {
+    this.testOnly = testOnly;
+    return this;
+  }
+
+  public Boolean getTestOnly() {
+    return testOnly;
+  }
+
   public UpdateInfo setUpdateId(String updateId) {
     this.updateId = updateId;
     return this;
@@ -241,6 +254,7 @@ public class UpdateInfo {
         && Objects.equals(refreshSelection, that.refreshSelection)
         && Objects.equals(refreshSelectionByPath, that.refreshSelectionByPath)
         && Objects.equals(state, that.state)
+        && Objects.equals(testOnly, that.testOnly)
         && Objects.equals(updateId, that.updateId)
         && Objects.equals(validateOnly, that.validateOnly);
   }
@@ -261,6 +275,7 @@ public class UpdateInfo {
         refreshSelection,
         refreshSelectionByPath,
         state,
+        testOnly,
         updateId,
         validateOnly);
   }
@@ -281,6 +296,7 @@ public class UpdateInfo {
         .add("refreshSelection", refreshSelection)
         .add("refreshSelectionByPath", refreshSelectionByPath)
         .add("state", state)
+        .add("testOnly", testOnly)
         .add("updateId", updateId)
         .add("validateOnly", validateOnly)
         .toString();

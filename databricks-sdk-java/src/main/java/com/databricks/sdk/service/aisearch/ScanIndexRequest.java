@@ -20,7 +20,7 @@ public class ScanIndexRequest {
    */
   @JsonIgnore private String name;
 
-  /** Maximum number of rows to return in this page. */
+  /** Maximum number of rows to return in this page. Defaults to 10. */
   @JsonProperty("page_size")
   private Long pageSize;
 

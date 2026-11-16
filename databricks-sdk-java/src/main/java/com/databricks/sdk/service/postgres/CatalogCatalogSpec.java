@@ -11,7 +11,8 @@ import java.util.Objects;
 @Generated
 public class CatalogCatalogSpec {
   /**
-   * The resource path of the branch associated with the catalog.
+   * The resource path of the branch that holds the Postgres database. The branch must have a
+   * read-write compute endpoint.
    *
    * <p>Format: projects/{project_id}/branches/{branch_id}.
    */
@@ -32,7 +33,8 @@ public class CatalogCatalogSpec {
   /**
    * The name of the Postgres database inside the specified Lakebase project and branch to be
    * associated with the UC catalog. This database must already exist, unless
-   * create_database_if_missing is set to true on creation.
+   * create_database_if_missing is set to true on creation. The system databases postgres,
+   * databricks_system, template0 and template1 cannot be registered.
    *
    * <p>A database can only be registered with one UC catalog at a time. To re-register a database
    * with a different catalog, the existing catalog must be deleted first.

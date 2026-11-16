@@ -15,8 +15,9 @@ import java.util.Objects;
 @Generated
 public class ModelServiceConfigProvisionedThroughputConfig {
   /**
-   * UC model FQN of the model served by the backing endpoint (e.g.,
-   * `system.ai.databricks-claude-opus-4-6`). Resolved from Model Serving at Create/Update time.
+   * Resource name of the Unity Catalog model served by the backing endpoint, in the form
+   * `models/{catalog}.{schema}.{model}`. Resolved from Model Serving when the model service is
+   * created or updated.
    */
   @JsonProperty("model")
   private String model;

@@ -9,7 +9,10 @@ import java.util.Objects;
 
 @Generated
 public class DateValue {
-  /** Manually specified date-time value. */
+  /**
+   * Manually specified date-time value in the format `yyyy-MM-dd`, optionally followed by a time as
+   * ` HH:mm` or ` HH:mm:ss`.
+   */
   @JsonProperty("date_value")
   private String dateValue;
 

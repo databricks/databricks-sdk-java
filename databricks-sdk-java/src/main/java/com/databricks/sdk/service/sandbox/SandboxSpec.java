@@ -9,11 +9,11 @@ import java.util.Objects;
 
 @Generated
 public class SandboxSpec {
-  /** Compute configuration (size, inactivity timeout) requested for the sandbox. */
+  /** Compute settings requested for the sandbox, such as the inactivity timeout. */
   @JsonProperty("compute")
   private ComputeSpec compute;
 
-  /** The execution environment to use for the sandbox. */
+  /** Software environment for the sandbox, such as the container image it runs. */
   @JsonProperty("environment")
   private EnvironmentSpec environment;
 

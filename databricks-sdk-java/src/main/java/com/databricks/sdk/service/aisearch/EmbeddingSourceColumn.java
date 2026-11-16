@@ -20,7 +20,7 @@ public class EmbeddingSourceColumn {
   @JsonProperty("model_endpoint_name_for_query")
   private String modelEndpointNameForQuery;
 
-  /** Name of the source column. */
+  /** Name of the column whose text is embedded. */
   @JsonProperty("name")
   private String name;
 

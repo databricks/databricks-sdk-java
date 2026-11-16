@@ -11,11 +11,11 @@ import java.util.Objects;
 /** A list of Sandboxes. */
 @Generated
 public class ListSandboxesResponse {
-  /** */
+  /** Token for retrieving the next page of results. Empty when there are no more results. */
   @JsonProperty("next_page_token")
   private String nextPageToken;
 
-  /** */
+  /** Sandboxes in this page of results. */
   @JsonProperty("sandboxes")
   private Collection<Sandbox> sandboxes;
 

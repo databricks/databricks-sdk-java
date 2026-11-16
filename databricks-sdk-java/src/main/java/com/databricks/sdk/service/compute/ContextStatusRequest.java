@@ -10,12 +10,12 @@ import java.util.Objects;
 
 @Generated
 public class ContextStatusRequest {
-  /** */
+  /** ID of the cluster that hosts the execution context. */
   @JsonIgnore
   @QueryParam("clusterId")
   private String clusterId;
 
-  /** */
+  /** ID of the execution context, as returned by __Create__. */
   @JsonIgnore
   @QueryParam("contextId")
   private String contextId;

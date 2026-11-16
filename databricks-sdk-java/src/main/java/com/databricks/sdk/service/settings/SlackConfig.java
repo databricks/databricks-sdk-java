@@ -7,9 +7,17 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * Configures a Slack destination. Notifications are posted to the incoming webhook url, which is
+ * required. A bot oauth_token and channel_id can optionally be set together to post to the channel
+ * through the Slack API.
+ */
 @Generated
 public class SlackConfig {
-  /** [Input-Only] Slack channel ID for notifications. */
+  /**
+   * [Input-Only] ID of the Slack channel that notifications are posted to through the Slack API.
+   * Optional; set it together with oauth_token.
+   */
   @JsonProperty("channel_id")
   private String channelId;
 
@@ -17,7 +25,10 @@ public class SlackConfig {
   @JsonProperty("channel_id_set")
   private Boolean channelIdSet;
 
-  /** [Input-Only] OAuth token for Slack authentication. */
+  /**
+   * [Input-Only] Slack bot OAuth token (xoxb-...). Optional; when set together with channel_id,
+   * notifications are posted to that channel through the Slack API.
+   */
   @JsonProperty("oauth_token")
   private String oauthToken;
 
@@ -25,7 +36,10 @@ public class SlackConfig {
   @JsonProperty("oauth_token_set")
   private Boolean oauthTokenSet;
 
-  /** [Input-Only] URL for Slack destination. */
+  /**
+   * [Input-Only] Slack incoming webhook URL that notifications are posted to. Must be an HTTPS URL.
+   * The URL is required even when oauth_token and channel_id are set.
+   */
   @JsonProperty("url")
   private String url;
 

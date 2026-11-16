@@ -8,13 +8,19 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.protobuf.Timestamp;
 import java.util.Objects;
 
+/**
+ * A compute endpoint of a Lakebase Postgres branch. An endpoint provides the compute that runs
+ * Postgres for the branch's data and the hostnames that clients connect to. Each branch has one
+ * read-write endpoint, created together with the branch, and can have additional read-only
+ * endpoints (read replicas).
+ */
 @Generated
 public class Endpoint {
   /** A timestamp indicating when the compute endpoint was created. */
   @JsonProperty("create_time")
   private Timestamp createTime;
 
-  /** The part of the name, chosen by the user when the resource was created. */
+  /** The endpoint ID chosen when the endpoint was created. It is the final segment of `name`. */
   @JsonProperty("endpoint_id")
   private String endpointId;
 
@@ -33,17 +39,26 @@ public class Endpoint {
   private String parent;
 
   /**
-   * The spec contains the compute endpoint configuration, including autoscaling limits, suspend
-   * timeout, and disabled state.
+   * The desired configuration of the endpoint. Every field under `spec` except `endpoint_type` can
+   * be changed after creation. See `status` for the configuration that is currently in effect.
+   *
+   * <p>Read the resource's current values from `status`, rather than `spec`. `spec` tracks field
+   * ownership for infrastructure-as-code tools and may omit unmanaged fields.
    */
   @JsonProperty("spec")
   private EndpointSpec spec;
 
-  /** Current operational status of the compute endpoint. */
+  /**
+   * The configuration and state of the endpoint that are currently in effect, as reported by the
+   * system, including the hostnames to connect to.
+   */
   @JsonProperty("status")
   private EndpointStatus status;
 
-  /** System-generated unique ID for the endpoint. */
+  /**
+   * A system-generated ID that identifies the endpoint. Unlike `name`, it is not derived from the
+   * user-chosen endpoint ID. The endpoint's connection hostnames are based on this ID.
+   */
   @JsonProperty("uid")
   private String uid;
 

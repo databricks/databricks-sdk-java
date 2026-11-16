@@ -14,8 +14,8 @@ public class AzureQueueStorage {
   private String managedResourceId;
 
   /**
-   * The AQS queue url in the format https://{storage account}.queue.core.windows.net/{queue name}
-   * Only required for provided_aqs.
+   * The AQS queue URL in the format `https://{storage account}.queue.core.windows.net/{queue
+   * name}`. Only required for provided_aqs.
    */
   @JsonProperty("queue_url")
   private String queueUrl;

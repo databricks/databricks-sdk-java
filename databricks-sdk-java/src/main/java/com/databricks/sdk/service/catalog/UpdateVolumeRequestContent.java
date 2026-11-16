@@ -17,11 +17,14 @@ public class UpdateVolumeRequestContent {
   /** The three-level (fully qualified) name of the volume */
   @JsonIgnore private String name;
 
-  /** New name for the volume. */
+  /** The new name for the volume. Set it to rename the volume. */
   @JsonProperty("new_name")
   private String newName;
 
-  /** The identifier of the user who owns the volume */
+  /**
+   * The user or group that owns the volume. The user who creates a volume becomes its owner; the
+   * owner can be changed afterwards with an update.
+   */
   @JsonProperty("owner")
   private String owner;
 

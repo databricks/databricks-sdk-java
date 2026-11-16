@@ -11,7 +11,10 @@ import java.util.Objects;
 /** A collection of settings for a compute endpoint. */
 @Generated
 public class EndpointSettings {
-  /** A raw representation of Postgres settings. */
+  /**
+   * Postgres server parameters to set on the compute endpoint, keyed by parameter name. Each value
+   * is given as a string.
+   */
   @JsonProperty("pg_settings")
   private Map<String, String> pgSettings;
 

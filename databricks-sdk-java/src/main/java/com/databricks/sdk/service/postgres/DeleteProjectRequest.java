@@ -14,8 +14,11 @@ public class DeleteProjectRequest {
   @JsonIgnore private String name;
 
   /**
-   * If true, permanently deletes the project (hard delete). If false or unset, performs a soft
-   * delete.
+   * If true, permanently deletes the project and all of its data immediately. If false or unset,
+   * the project is soft-deleted: it stops accepting connections and is retained for 7 days, during
+   * which it can be restored with Undelete, and is then permanently deleted. Deleting an already
+   * soft-deleted project with `purge` set to true removes it immediately. See
+   * https://docs.databricks.com/aws/en/oltp/projects/manage-projects for details.
    */
   @JsonIgnore
   @QueryParam("purge")

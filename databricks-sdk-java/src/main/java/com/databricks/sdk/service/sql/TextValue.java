@@ -9,7 +9,10 @@ import java.util.Objects;
 
 @Generated
 public class TextValue {
-  /** */
+  /**
+   * Text substituted for the parameter marker when the query runs. Quotation marks are added around
+   * the value automatically.
+   */
   @JsonProperty("value")
   private String value;
 

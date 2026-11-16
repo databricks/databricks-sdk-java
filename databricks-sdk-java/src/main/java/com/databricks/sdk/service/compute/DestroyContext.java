@@ -9,11 +9,11 @@ import java.util.Objects;
 
 @Generated
 public class DestroyContext {
-  /** */
+  /** ID of the cluster that hosts the execution context. */
   @JsonProperty("clusterId")
   private String clusterId;
 
-  /** */
+  /** ID of the execution context to delete, as returned by __Create__. */
   @JsonProperty("contextId")
   private String contextId;
 

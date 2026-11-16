@@ -77,9 +77,9 @@ public class AiRuntimeTask {
   private String mlflowRun;
 
   /**
-   * Scheduling priority class for the workload. May only be set together with a pre-provisioned
-   * capacity reservation (a deployment's `compute.provisioned_capacity_id`); it is rejected on a
-   * workload that runs on on-demand capacity.
+   * Scheduling priority class for the workload. May only be set together with a GPU Pool (a
+   * deployment's `compute.accelerator_pool_id` or legacy `compute.provisioned_capacity_id`); it is
+   * rejected on a workload that runs on on-demand capacity.
    */
   @JsonProperty("priority_class")
   private AiRuntimeTaskPriorityClass priorityClass;

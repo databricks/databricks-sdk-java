@@ -8,6 +8,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * The notification destinations that receive access requests for a Unity Catalog securable. A
+ * securable without destinations of its own uses its owner's email when default owner email
+ * destinations are on; otherwise it inherits the destinations of its nearest parent that has any.
+ */
 @Generated
 public class AccessRequestDestinations {
   /**
@@ -29,10 +34,7 @@ public class AccessRequestDestinations {
   @JsonProperty("destinations")
   private Collection<NotificationDestination> destinations;
 
-  /**
-   * The full name of the securable. Redundant with the name in the securable object, but necessary
-   * for Terraform integration
-   */
+  /** The full name of the securable, repeated from **securable**. */
   @JsonProperty("full_name")
   private String fullName;
 
@@ -40,10 +42,7 @@ public class AccessRequestDestinations {
   @JsonProperty("securable")
   private Securable securable;
 
-  /**
-   * The type of the securable. Redundant with the type in the securable object, but necessary for
-   * Terraform integration
-   */
+  /** The type of the securable, repeated from **securable** as a plain string. */
   @JsonProperty("securable_type")
   private String securableType;
 

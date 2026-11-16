@@ -9,11 +9,17 @@ import java.util.Objects;
 
 @Generated
 public class AppResourceUcSecurable {
-  /** */
+  /**
+   * Privilege to grant the app on the securable. The privilege must be valid for the securable
+   * type, such as READ_VOLUME for a volume or SELECT for a table.
+   */
   @JsonProperty("permission")
   private AppResourceUcSecurableUcSecurablePermission permission;
 
-  /** */
+  /**
+   * Full name of the Unity Catalog securable. For volumes, tables and functions this is the
+   * three-level catalog.schema.object name.
+   */
   @JsonProperty("securable_full_name")
   private String securableFullName;
 
@@ -24,7 +30,7 @@ public class AppResourceUcSecurable {
   @JsonProperty("securable_kind")
   private String securableKind;
 
-  /** */
+  /** Kind of Unity Catalog securable that `securable_full_name` refers to. */
   @JsonProperty("securable_type")
   private AppResourceUcSecurableUcSecurableType securableType;
 

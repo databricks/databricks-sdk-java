@@ -31,11 +31,11 @@ public class ModelService {
   @JsonProperty("create_time")
   private Timestamp createTime;
 
-  /** Creator identity. */
+  /** Username of the user who created the model service. */
   @JsonProperty("created_by")
   private String createdBy;
 
-  /** Owner of the model service. */
+  /** Username or group name of the model service owner. */
   @JsonProperty("effective_owner")
   private String effectiveOwner;
 
@@ -47,15 +47,15 @@ public class ModelService {
   @JsonProperty("etag")
   private String etag;
 
-  /** Metastore hosting the model service. */
+  /** Unique identifier of the metastore that contains the model service. */
   @JsonProperty("metastore_id")
   private String metastoreId;
 
   /**
    * Resource name of the model service. Format:
    * `model-services/{catalog}.{schema}.{model_service}`. Each `{...}` component is capped at 255
-   * characters individually. Server-derived on Create from `parent` + `model_service_id`; required
-   * and immutable on Update/Get/Delete.
+   * characters individually. The server derives the name on Create from `parent` and
+   * `model_service_id`; it is required and immutable on Update, Get, and Delete.
    */
   @JsonProperty("name")
   private String name;
@@ -72,7 +72,7 @@ public class ModelService {
   @JsonProperty("update_time")
   private Timestamp updateTime;
 
-  /** Identity of the last updater. */
+  /** Username of the user who last updated the model service. */
   @JsonProperty("updated_by")
   private String updatedBy;
 

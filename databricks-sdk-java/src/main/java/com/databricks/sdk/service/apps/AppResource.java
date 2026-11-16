@@ -9,11 +9,11 @@ import java.util.Objects;
 
 @Generated
 public class AppResource {
-  /** */
+  /** Another app in the workspace that this app is granted access to. */
   @JsonProperty("app")
   private AppResourceApp app;
 
-  /** */
+  /** Lakebase Provisioned database the app is granted access to. */
   @JsonProperty("database")
   private AppResourceDatabase database;
 
@@ -21,39 +21,45 @@ public class AppResource {
   @JsonProperty("description")
   private String description;
 
-  /** */
+  /** MLflow experiment the app is granted access to. */
   @JsonProperty("experiment")
   private AppResourceExperiment experiment;
 
-  /** */
+  /** Genie space the app is granted access to. */
   @JsonProperty("genie_space")
   private AppResourceGenieSpace genieSpace;
 
-  /** */
+  /** Lakeflow job the app is granted access to. */
   @JsonProperty("job")
   private AppResourceJob job;
 
-  /** Name of the App Resource. */
+  /**
+   * Key that identifies the resource within the app. The app configuration (app.yaml) references
+   * the resource by this key.
+   */
   @JsonProperty("name")
   private String name;
 
-  /** */
+  /** Lakebase Autoscaling Postgres database the app is granted access to. */
   @JsonProperty("postgres")
   private AppResourcePostgres postgres;
 
-  /** */
+  /** Secret the app is granted access to. */
   @JsonProperty("secret")
   private AppResourceSecret secret;
 
-  /** */
+  /** Model serving endpoint the app is granted access to. */
   @JsonProperty("serving_endpoint")
   private AppResourceServingEndpoint servingEndpoint;
 
-  /** */
+  /** SQL warehouse the app is granted access to. */
   @JsonProperty("sql_warehouse")
   private AppResourceSqlWarehouse sqlWarehouse;
 
-  /** */
+  /**
+   * Unity Catalog securable (volume, table, function, connection or model service) the app is
+   * granted a privilege on.
+   */
   @JsonProperty("uc_securable")
   private AppResourceUcSecurable ucSecurable;
 

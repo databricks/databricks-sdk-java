@@ -10,11 +10,14 @@ import java.util.Objects;
 
 @Generated
 public class RequestedClaims {
-  /** */
+  /**
+   * The level of access that the credential grants on the listed resources. READ_ONLY covers SELECT
+   * on each table, along with USE SCHEMA on its schema and USE CATALOG on its catalog.
+   */
   @JsonProperty("permission_set")
   private RequestedClaimsPermissionSet permissionSet;
 
-  /** */
+  /** The Unity Catalog resources that the permission set applies to. */
   @JsonProperty("resources")
   private Collection<RequestedResource> resources;
 

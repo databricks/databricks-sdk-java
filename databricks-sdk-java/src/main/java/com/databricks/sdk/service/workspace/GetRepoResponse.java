@@ -9,7 +9,10 @@ import java.util.Objects;
 
 @Generated
 public class GetRepoResponse {
-  /** Branch that the local version of the repo is checked out to. */
+  /**
+   * Branch that the local version of the repo is checked out to. Omitted when the Git folder (repo)
+   * is in a detached HEAD state, for example after checking out a tag.
+   */
   @JsonProperty("branch")
   private String branch;
 
@@ -33,14 +36,17 @@ public class GetRepoResponse {
   private String path;
 
   /**
-   * Git provider of the linked Git repository, e.g. `gitHub`, `azureDevOpsServices`,
-   * `bitbucketServer` (Bitbucket Data Center), `gitLabEnterpriseEdition` (GitLab Self-Managed), or
-   * `awsCodeCommit`.
+   * Git provider of the linked Git repository. Supported providers are `gitHub`, `bitbucketCloud`,
+   * `gitLab`, `azureDevOpsServices`, `gitHubEnterprise`, `bitbucketServer` (Bitbucket Data Center),
+   * `gitLabEnterpriseEdition` (GitLab Self-Managed), and `awsCodeCommit`.
    */
   @JsonProperty("provider")
   private String provider;
 
-  /** Sparse checkout settings for the Git folder (repo). */
+  /**
+   * Sparse checkout settings for the Git folder (repo). Only present when sparse checkout is
+   * enabled for the Git folder.
+   */
   @JsonProperty("sparse_checkout")
   private SparseCheckout sparseCheckout;
 

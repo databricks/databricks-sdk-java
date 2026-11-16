@@ -32,7 +32,10 @@ public class ModelServiceConfigDestinationConfig {
   @JsonProperty("is_deleted")
   private Boolean isDeleted;
 
-  /** User-facing label for this destination, used in routing references. */
+  /**
+   * Label that identifies this destination. Names are compared case-insensitively and must be
+   * unique within the primary destinations and within the fallback destinations.
+   */
   @JsonProperty("name")
   private String name;
 

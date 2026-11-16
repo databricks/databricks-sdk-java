@@ -9,11 +9,11 @@ import java.util.Objects;
 
 @Generated
 public class AppUpdateUpdateStatus {
-  /** */
+  /** Human-readable detail about the update state. */
   @JsonProperty("message")
   private String message;
 
-  /** */
+  /** State of the update. */
   @JsonProperty("state")
   private AppUpdateUpdateStatusUpdateState state;
 

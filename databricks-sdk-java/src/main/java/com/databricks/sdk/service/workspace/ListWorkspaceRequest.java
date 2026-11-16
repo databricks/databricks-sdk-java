@@ -10,7 +10,11 @@ import java.util.Objects;
 
 @Generated
 public class ListWorkspaceRequest {
-  /** UTC timestamp in milliseconds */
+  /**
+   * A UTC timestamp in milliseconds since the epoch. When it is set and `path` is a directory, the
+   * response includes only the notebooks that were modified after this time. Objects that are not
+   * notebooks are always included.
+   */
   @JsonIgnore
   @QueryParam("notebooks_modified_after")
   private Long notebooksModifiedAfter;

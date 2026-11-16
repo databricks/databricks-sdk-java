@@ -10,11 +10,11 @@ import java.util.Objects;
 
 @Generated
 public class ListQueryObjectsResponse {
-  /** */
+  /** Token to pass as `page_token` to fetch the next page. Omitted when there are no more pages. */
   @JsonProperty("next_page_token")
   private String nextPageToken;
 
-  /** */
+  /** Queries on this page. */
   @JsonProperty("results")
   private Collection<ListQueryObjectsResponseQuery> results;
 

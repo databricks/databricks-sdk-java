@@ -8,9 +8,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/** Configures an email destination. */
 @Generated
 public class EmailConfig {
-  /** Email addresses to notify. */
+  /** Email addresses to notify. At least one address is required. */
   @JsonProperty("addresses")
   private Collection<String> addresses;
 

@@ -14,7 +14,10 @@ public class RemoveDataResponse {
   @JsonProperty("result")
   private DataModificationResult result;
 
-  /** Overall status of the delete. */
+  /**
+   * Overall status of the delete: `SUCCESS` when every row was removed, `PARTIAL_SUCCESS` when some
+   * rows failed (see `result.failed_primary_keys`), or `FAILURE` when the operation failed.
+   */
   @JsonProperty("status")
   private DataModificationStatus status;
 

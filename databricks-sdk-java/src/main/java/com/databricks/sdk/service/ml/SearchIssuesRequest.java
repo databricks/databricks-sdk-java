@@ -27,7 +27,10 @@ public class SearchIssuesRequest {
   @JsonProperty("page_token")
   private String pageToken;
 
-  /** experiments/{experiment} */
+  /**
+   * The experiment to search, as `experiments/{experiment}`, where `{experiment}` is the experiment
+   * ID. For example, `experiments/1234567890`.
+   */
   @JsonIgnore private String parent;
 
   /** Case-insensitive substring match on title. */

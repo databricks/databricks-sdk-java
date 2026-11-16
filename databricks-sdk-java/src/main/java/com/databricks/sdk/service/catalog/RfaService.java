@@ -44,7 +44,8 @@ public interface RfaService {
    * in order to assign destinations. A maximum of 5 emails and 5 external notification destinations
    * (Slack, Microsoft Teams, Generic Webhook, Databricks App Slack/Teams, Asana, ServiceNow, and
    * EventBridge destinations) can be assigned to a securable. If a URL destination is assigned, no
-   * other destinations can be set.
+   * other destinations can be set. An update replaces every destination assigned directly to the
+   * securable in this workspace. An empty list removes them all.
    *
    * <p>The supported securable types are: "metastore", "catalog", "schema", "table",
    * "external_location", "connection", "credential", "function", "registered_model", and "volume".

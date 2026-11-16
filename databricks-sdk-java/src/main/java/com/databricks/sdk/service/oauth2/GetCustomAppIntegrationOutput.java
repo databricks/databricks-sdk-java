@@ -10,25 +10,29 @@ import java.util.Objects;
 
 @Generated
 public class GetCustomAppIntegrationOutput {
-  /** The client id of the custom OAuth app */
+  /** OAuth client ID that the application uses as client_id in the OAuth flow. */
   @JsonProperty("client_id")
   private String clientId;
 
   /**
-   * This field indicates whether an OAuth client secret is required to authenticate this client.
+   * Whether the application is a confidential client that authenticates with a client secret.
+   * Public clients have no client secret.
    */
   @JsonProperty("confidential")
   private Boolean confidential;
 
-  /** */
+  /** Time the integration was created, as an ISO 8601 timestamp. */
   @JsonProperty("create_time")
   private String createTime;
 
-  /** */
+  /** ID of the user who created the integration. */
   @JsonProperty("created_by")
   private Long createdBy;
 
-  /** */
+  /**
+   * Username of the user who created the integration. Only returned by the list method when
+   * include_creator_username is true.
+   */
   @JsonProperty("creator_username")
   private String creatorUsername;
 
@@ -40,15 +44,15 @@ public class GetCustomAppIntegrationOutput {
   @JsonProperty("name")
   private String name;
 
-  /** List of OAuth redirect urls */
+  /** OAuth redirect URLs the application is allowed to use in the authorization flow. */
   @JsonProperty("redirect_urls")
   private Collection<String> redirectUrls;
 
-  /** */
+  /** OAuth scopes the application is allowed to request. */
   @JsonProperty("scopes")
   private Collection<String> scopes;
 
-  /** Token access policy */
+  /** Lifetimes of the access and refresh tokens issued to the application. */
   @JsonProperty("token_access_policy")
   private TokenAccessPolicy tokenAccessPolicy;
 

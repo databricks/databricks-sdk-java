@@ -12,23 +12,27 @@ import java.util.Objects;
 @Generated
 public class GenerateDatabaseCredentialRequest {
   /**
-   * A set of UC permissions to add to the credential. We verify that the caller has the necessary
-   * permissions in UC and include a reference in the token. Postgres uses that token to give the
-   * connecting user additional grants to the Postgres resources that correspond to the UC
-   * resources. The UC resources need to be something that have a Postgres counterpart. For example,
-   * a synced table or a table in a UC database catalog.
+   * Unity Catalog permissions to embed in the credential. Databricks verifies that the caller holds
+   * each permission in Unity Catalog and records a reference to it in the token. When the user
+   * connects, Postgres grants them the matching privileges on the Postgres objects that back those
+   * Unity Catalog resources. Each resource must have a Postgres counterpart, such as a synced table
+   * or a table in a database catalog.
    */
   @JsonProperty("claims")
   private Collection<RequestedClaims> claims;
 
   /**
-   * Instances to request a credential for. At least one of instance_names or claims must be
+   * Names of the database instances to connect to with the credential. Every named instance must
+   * exist in the workspace, or the request fails. At least one of instance_names or claims must be
    * specified.
    */
   @JsonProperty("instance_names")
   private Collection<String> instanceNames;
 
-  /** */
+  /**
+   * A client-generated identifier for this request, such as a UUID. The request fails when it is
+   * omitted.
+   */
   @JsonProperty("request_id")
   private String requestId;
 

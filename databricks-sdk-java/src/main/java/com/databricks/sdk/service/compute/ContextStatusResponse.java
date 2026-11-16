@@ -9,11 +9,15 @@ import java.util.Objects;
 
 @Generated
 public class ContextStatusResponse {
-  /** */
+  /** ID of the execution context. */
   @JsonProperty("id")
   private String id;
 
-  /** */
+  /**
+   * Current status of the execution context. `Pending` means the context is still initializing and
+   * does not accept commands yet, `Running` means it is ready, and `Error` means it failed: running
+   * commands may not complete and new commands may be rejected, so create a new context.
+   */
   @JsonProperty("status")
   private ContextStatus status;
 

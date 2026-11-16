@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class PatchEndpointBudgetPolicyResponse {
-  /** */
+  /** The requested budget policy ID, returned when the endpoint was already using it. */
   @JsonProperty("budget_policy_id")
   private String budgetPolicyId;
 

@@ -131,7 +131,10 @@ public class PipelinesAPI {
     return get(new GetPipelineRequest().setPipelineId(pipelineId));
   }
 
-  /** Get a pipeline. */
+  /**
+   * Returns the details of a pipeline, including its settings, current state, and the status of its
+   * most recent updates.
+   */
   public GetPipelineResponse get(GetPipelineRequest request) {
     return impl.get(request);
   }

@@ -10,14 +10,14 @@ import java.util.Objects;
 
 @Generated
 public class ListVolumesRequest {
-  /** The identifier of the catalog */
+  /** The name of the catalog that contains the schema. */
   @JsonIgnore
   @QueryParam("catalog_name")
   private String catalogName;
 
   /**
-   * Whether to include volumes in the response for which the principal can only access selective
-   * metadata for
+   * Whether to include volumes for which the principal can only access selective metadata through
+   * the BROWSE privilege.
    */
   @JsonIgnore
   @QueryParam("include_browse")
@@ -48,7 +48,7 @@ public class ListVolumesRequest {
   @QueryParam("page_token")
   private String pageToken;
 
-  /** The identifier of the schema */
+  /** The name of the schema whose volumes are listed. */
   @JsonIgnore
   @QueryParam("schema_name")
   private String schemaName;

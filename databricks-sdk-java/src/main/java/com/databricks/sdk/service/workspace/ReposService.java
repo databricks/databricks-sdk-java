@@ -28,7 +28,10 @@ public interface ReposService {
    */
   CreateRepoResponse create(CreateRepoRequest createRepoRequest);
 
-  /** Deletes the specified repo. */
+  /**
+   * Deletes the Git folder (repo) and its contents from the workspace. The remote Git repository is
+   * not affected.
+   */
   void delete(DeleteRepoRequest deleteRepoRequest);
 
   /** Returns the repo with the given repo ID. */
@@ -59,7 +62,7 @@ public interface ReposService {
 
   /**
    * Updates the repo to a different branch or tag, or updates the repo to the latest commit on the
-   * same branch.
+   * same branch. Exactly one of `branch` or `tag` must be specified.
    */
   void update(UpdateRepoRequest updateRepoRequest);
 

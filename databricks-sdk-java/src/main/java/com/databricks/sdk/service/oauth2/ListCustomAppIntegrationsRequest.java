@@ -10,17 +10,19 @@ import java.util.Objects;
 
 @Generated
 public class ListCustomAppIntegrationsRequest {
-  /** */
+  /** When true, each returned integration includes creator_username. */
   @JsonIgnore
   @QueryParam("include_creator_username")
   private Boolean includeCreatorUsername;
 
-  /** */
+  /** Maximum number of integrations to return in one page, at most 1000. */
   @JsonIgnore
   @QueryParam("page_size")
   private Long pageSize;
 
-  /** */
+  /**
+   * Token from the next_page_token field of a previous response. Omit it to request the first page.
+   */
   @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;

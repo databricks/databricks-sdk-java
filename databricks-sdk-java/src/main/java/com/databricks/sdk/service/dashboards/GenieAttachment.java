@@ -7,10 +7,13 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Genie AI Response */
+/** One part of Genie's response to a message. Exactly one of the attachment fields is set. */
 @Generated
 public class GenieAttachment {
-  /** Attachment ID */
+  /**
+   * The ID of the attachment. The attachment query-result, execute-query, download, and
+   * visualization endpoints take this ID.
+   */
   @JsonProperty("attachment_id")
   private String attachmentId;
 

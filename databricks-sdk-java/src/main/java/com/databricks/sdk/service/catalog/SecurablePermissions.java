@@ -14,7 +14,7 @@ public class SecurablePermissions {
   @JsonProperty("permissions")
   private Collection<String> permissions;
 
-  /** The securable for which the access request destinations are being requested. */
+  /** The securable on which the permissions are requested. */
   @JsonProperty("securable")
   private Securable securable;
 

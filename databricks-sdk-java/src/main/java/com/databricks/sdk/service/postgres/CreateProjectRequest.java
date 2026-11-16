@@ -16,9 +16,10 @@ public class CreateProjectRequest {
   private Project project;
 
   /**
-   * The ID to use for the Project. This becomes the final component of the project's resource name.
-   * The ID is required and must be 1-63 characters long, start with a lowercase letter, and contain
-   * only lowercase letters, numbers, and hyphens. For example, `my-app` becomes `projects/my-app`.
+   * The ID to use for the project. It becomes the final segment of the project's resource name,
+   * `projects/{project_id}`. The ID must be 3 to 63 characters long, start with a lowercase letter,
+   * end with a lowercase letter or digit, and contain only lowercase letters, digits, and hyphens.
+   * The ID of a soft-deleted project stays reserved until that project is permanently deleted.
    */
   @JsonIgnore
   @QueryParam("project_id")

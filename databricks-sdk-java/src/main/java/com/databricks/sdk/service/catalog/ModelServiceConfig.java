@@ -11,7 +11,10 @@ import java.util.Objects;
 /** Operational configuration wrapped around the ModelService resource. */
 @Generated
 public class ModelServiceConfig {
-  /** Inference table configuration for payload logging. */
+  /**
+   * Configuration for logging request and response payloads to a Unity Catalog inference table.
+   * Omit this field to leave payload logging off.
+   */
   @JsonProperty("inference_table")
   private InferenceTableConfig inferenceTable;
 
@@ -19,7 +22,10 @@ public class ModelServiceConfig {
   @JsonProperty("rate_limits")
   private Collection<RateLimit> rateLimits;
 
-  /** Routing configuration: destinations and fallback. */
+  /**
+   * Routing configuration: the primary destinations that receive traffic and the fallback
+   * destinations tried when a primary destination fails.
+   */
   @JsonProperty("routing")
   private ModelServiceConfigRoutingConfig routing;
 

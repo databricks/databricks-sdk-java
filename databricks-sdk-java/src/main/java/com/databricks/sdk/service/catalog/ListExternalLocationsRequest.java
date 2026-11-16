@@ -12,7 +12,7 @@ import java.util.Objects;
 public class ListExternalLocationsRequest {
   /**
    * Whether to include external locations in the response for which the principal can only access
-   * selective metadata for
+   * selective metadata.
    */
   @JsonIgnore
   @QueryParam("include_browse")

@@ -14,13 +14,17 @@ import java.util.Objects;
 @Generated
 public class ExportResponse {
   /**
-   * The base64-encoded content. If the limit (10MB) is exceeded, exception with error code
-   * **MAX_NOTEBOOK_SIZE_EXCEEDED** is thrown.
+   * The base64-encoded content of the exported object. If the content exceeds the size limit (10
+   * MB), the call fails with error code `MAX_NOTEBOOK_SIZE_EXCEEDED`.
    */
   @JsonProperty("content")
   private String content;
 
-  /** The file type of the exported file. */
+  /**
+   * The file extension that matches the exported content, for example `py` for a Python notebook
+   * exported as `SOURCE`, `ipynb` for `JUPYTER`, `html` for `HTML`, `dbc` for `DBC`, and `zip` for
+   * a directory exported as `SOURCE` or `AUTO`. It is empty for workspace files.
+   */
   @JsonProperty("file_type")
   private String fileType;
 

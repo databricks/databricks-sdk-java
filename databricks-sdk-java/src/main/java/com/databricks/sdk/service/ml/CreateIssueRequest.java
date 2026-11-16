@@ -23,7 +23,10 @@ public class CreateIssueRequest {
   @QueryParam("issue_id")
   private String issueId;
 
-  /** experiments/{experiment} */
+  /**
+   * The experiment to create the Issue in, as `experiments/{experiment}`, where `{experiment}` is
+   * the experiment ID. For example, `experiments/1234567890`.
+   */
   @JsonIgnore private String parent;
 
   public CreateIssueRequest setIssue(Issue issue) {

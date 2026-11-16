@@ -24,7 +24,10 @@ public class DateRangeValue {
   @JsonProperty("precision")
   private DatePrecision precision;
 
-  /** */
+  /**
+   * Day the week starts on for week-based dynamic ranges such as `THIS_WEEK` and `LAST_WEEK`, from
+   * 0 (Sunday) to 6 (Saturday). Defaults to 0.
+   */
   @JsonProperty("start_day_of_week")
   private Long startDayOfWeek;
 

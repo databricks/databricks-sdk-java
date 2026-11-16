@@ -9,15 +9,15 @@ import java.util.Objects;
 
 @Generated
 public class QueryAttachmentParameter {
-  /** */
+  /** The name of the parameter as referenced in the SQL query. */
   @JsonProperty("keyword")
   private String keyword;
 
-  /** */
+  /** The SQL type of the parameter value. */
   @JsonProperty("sql_type")
   private String sqlType;
 
-  /** */
+  /** The value bound to the parameter. */
   @JsonProperty("value")
   private String value;
 

@@ -10,15 +10,24 @@ import java.util.Objects;
 /** Unity Catalog Destinations for OTEL telemetry export. */
 @Generated
 public class UnityCatalog {
-  /** Unity Catalog table for OTEL logs. */
+  /**
+   * Three-level name of the Unity Catalog table that receives OpenTelemetry logs. The table is
+   * created if it does not exist.
+   */
   @JsonProperty("logs_table")
   private String logsTable;
 
-  /** Unity Catalog table for OTEL metrics. */
+  /**
+   * Three-level name of the Unity Catalog table that receives OpenTelemetry metrics. The table is
+   * created if it does not exist.
+   */
   @JsonProperty("metrics_table")
   private String metricsTable;
 
-  /** Unity Catalog table for OTEL traces (spans). */
+  /**
+   * Three-level name of the Unity Catalog table that receives OpenTelemetry traces (spans). The
+   * table is created if it does not exist.
+   */
   @JsonProperty("traces_table")
   private String tracesTable;
 

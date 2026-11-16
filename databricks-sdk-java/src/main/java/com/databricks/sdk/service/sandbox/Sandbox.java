@@ -8,7 +8,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.protobuf.Timestamp;
 import java.util.Objects;
 
-/** A Sandbox resource representing an execution environment. */
+/**
+ * An isolated, pre-configured, low-latency Serverless compute environment for running code. Create
+ * a sandbox, wait until its state is `SANDBOX_STATE_RUNNING`, then run commands in it with
+ * ExecuteCommandSync. The data in its home directory persists across stop and start and is removed
+ * when the sandbox is deleted. See [Databricks Sandbox].
+ *
+ * <p>[Databricks Sandbox]: https://docs.databricks.com/en/compute/serverless/sandbox
+ */
 @Generated
 public class Sandbox {
   /** Output only. The creation time of the sandbox. */
@@ -19,7 +26,7 @@ public class Sandbox {
   @JsonProperty("display_name")
   private String displayName;
 
-  /** Metadata associated with the sandbox. */
+  /** Tags and other metadata associated with the sandbox. */
   @JsonProperty("metadata")
   private SandboxMetadata metadata;
 

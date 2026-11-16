@@ -11,11 +11,14 @@ import java.util.Objects;
 /** Configuration for the initial Read/Write endpoint created during project creation. */
 @Generated
 public class InitialEndpointSpec {
-  /** The maximum number of Compute Units for the initial endpoint. */
+  /** The maximum number of Compute Units for the initial endpoint. Minimum value is 0.5. */
   @JsonProperty("autoscaling_limit_max_cu")
   private Double autoscalingLimitMaxCu;
 
-  /** The minimum number of Compute Units for the initial endpoint. */
+  /**
+   * The minimum number of Compute Units for the initial endpoint. Minimum value is 0.5, and it must
+   * not exceed autoscaling_limit_max_cu.
+   */
   @JsonProperty("autoscaling_limit_min_cu")
   private Double autoscalingLimitMinCu;
 

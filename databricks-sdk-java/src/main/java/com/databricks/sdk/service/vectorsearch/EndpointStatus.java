@@ -10,7 +10,10 @@ import java.util.Objects;
 /** Status information of an endpoint */
 @Generated
 public class EndpointStatus {
-  /** Additional status message */
+  /**
+   * Additional detail about the state, such as the reason the endpoint is OFFLINE. Absent when
+   * there is nothing to report.
+   */
   @JsonProperty("message")
   private String message;
 

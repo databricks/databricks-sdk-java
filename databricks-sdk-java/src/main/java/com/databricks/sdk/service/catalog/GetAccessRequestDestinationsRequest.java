@@ -9,10 +9,16 @@ import java.util.Objects;
 
 @Generated
 public class GetAccessRequestDestinationsRequest {
-  /** The full name of the securable. */
+  /**
+   * The full name of the securable: the names of its parents followed by its own name, separated by
+   * dots, for example `main.sales.orders` for a table.
+   */
   @JsonIgnore private String fullName;
 
-  /** The type of the securable. */
+  /**
+   * The type of the securable. Matching is case-insensitive, and hyphens may replace underscores in
+   * multi-word types.
+   */
   @JsonIgnore private String securableType;
 
   public GetAccessRequestDestinationsRequest setFullName(String fullName) {

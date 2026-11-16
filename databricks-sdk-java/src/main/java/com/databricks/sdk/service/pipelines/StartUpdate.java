@@ -12,7 +12,7 @@ import java.util.Objects;
 
 @Generated
 public class StartUpdate {
-  /** */
+  /** What triggered this update, as recorded in the update's `cause`. Defaults to `API_CALL`. */
   @JsonProperty("cause")
   private StartUpdateCause cause;
 
@@ -44,7 +44,7 @@ public class StartUpdate {
   @JsonProperty("parameters")
   private Map<String, String> parameters;
 
-  /** */
+  /** The ID of the pipeline to start an update for. */
   @JsonIgnore private String pipelineId;
 
   /**
@@ -80,6 +80,23 @@ public class StartUpdate {
    */
   @JsonProperty("rewind_spec")
   private RewindSpec rewindSpec;
+
+  /**
+   * If true, this is a test-only update: it runs the pipeline's tests and does not update the
+   * pipeline's datasets. A failing test does not stop the other tests. The update is `COMPLETED` if
+   * at least one test runs and no test fails or errors. Otherwise the update is `FAILED`, including
+   * when no tests are found. Cannot be combined with `validate_only`, `explore_only`, or
+   * `rewind_spec`.
+   */
+  @JsonProperty("test_only")
+  private Boolean testOnly;
+
+  /**
+   * Options for selecting the tests that this test-only update runs. Requires `test_only`. When
+   * absent, every test in the pipeline's test sources runs.
+   */
+  @JsonProperty("test_options")
+  private PipelineTestOptions testOptions;
 
   /**
    * If true, this update only validates the correctness of pipeline source code but does not
@@ -197,6 +214,24 @@ public class StartUpdate {
     return rewindSpec;
   }
 
+  public StartUpdate setTestOnly(Boolean testOnly) {
+    this.testOnly = testOnly;
+    return this;
+  }
+
+  public Boolean getTestOnly() {
+    return testOnly;
+  }
+
+  public StartUpdate setTestOptions(PipelineTestOptions testOptions) {
+    this.testOptions = testOptions;
+    return this;
+  }
+
+  public PipelineTestOptions getTestOptions() {
+    return testOptions;
+  }
+
   public StartUpdate setValidateOnly(Boolean validateOnly) {
     this.validateOnly = validateOnly;
     return this;
@@ -223,6 +258,8 @@ public class StartUpdate {
         && Objects.equals(replaceWhereOverrides, that.replaceWhereOverrides)
         && Objects.equals(resetCheckpointSelection, that.resetCheckpointSelection)
         && Objects.equals(rewindSpec, that.rewindSpec)
+        && Objects.equals(testOnly, that.testOnly)
+        && Objects.equals(testOptions, that.testOptions)
         && Objects.equals(validateOnly, that.validateOnly);
   }
 
@@ -241,6 +278,8 @@ public class StartUpdate {
         replaceWhereOverrides,
         resetCheckpointSelection,
         rewindSpec,
+        testOnly,
+        testOptions,
         validateOnly);
   }
 
@@ -259,6 +298,8 @@ public class StartUpdate {
         .add("replaceWhereOverrides", replaceWhereOverrides)
         .add("resetCheckpointSelection", resetCheckpointSelection)
         .add("rewindSpec", rewindSpec)
+        .add("testOnly", testOnly)
+        .add("testOptions", testOptions)
         .add("validateOnly", validateOnly)
         .toString();
   }

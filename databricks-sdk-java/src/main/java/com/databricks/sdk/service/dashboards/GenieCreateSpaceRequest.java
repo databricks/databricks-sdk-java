@@ -9,28 +9,31 @@ import java.util.Objects;
 
 @Generated
 public class GenieCreateSpaceRequest {
-  /** Optional description */
+  /** Description of the space, up to 16384 bytes. */
   @JsonProperty("description")
   private String description;
 
-  /** Parent folder path where the space will be registered */
+  /** Path of the workspace folder in which to create the space. */
   @JsonProperty("parent_path")
   private String parentPath;
 
   /**
-   * The contents of the Genie Space in serialized string form. Use the [Get Genie
-   * Space](:method:genie/getspace) API to retrieve an example response, which includes the
-   * `serialized_space` field. This field provides the structure of the JSON string that represents
-   * the space's layout and components.
+   * Configuration of the new space as a JSON string. To copy an existing space, use the value that
+   * [Get Genie Space](:method:genie/getspace) returns when `include_serialized_space` is true. For
+   * the JSON format and its validation rules, see
+   * https://docs.databricks.com/aws/en/genie-agents/conversation-api.
    */
   @JsonProperty("serialized_space")
   private String serializedSpace;
 
-  /** Optional title override */
+  /** Display name of the new space. A default name is assigned when omitted. */
   @JsonProperty("title")
   private String title;
 
-  /** Warehouse to associate with the new space */
+  /**
+   * ID of the SQL warehouse that runs the queries Genie generates for the space, as a 16-character
+   * hexadecimal string.
+   */
   @JsonProperty("warehouse_id")
   private String warehouseId;
 

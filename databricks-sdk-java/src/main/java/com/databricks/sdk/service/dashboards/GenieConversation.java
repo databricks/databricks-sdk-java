@@ -18,7 +18,7 @@ public class GenieConversation {
   @JsonProperty("conversation_id")
   private String conversationId;
 
-  /** Timestamp when the message was created */
+  /** Time when the conversation was created, in milliseconds since the Unix epoch. */
   @JsonProperty("created_timestamp")
   private Long createdTimestamp;
 
@@ -26,7 +26,7 @@ public class GenieConversation {
   @JsonProperty("id")
   private String id;
 
-  /** Timestamp when the message was last updated */
+  /** Time when the conversation was last updated, in milliseconds since the Unix epoch. */
   @JsonProperty("last_updated_timestamp")
   private Long lastUpdatedTimestamp;
 
@@ -34,7 +34,10 @@ public class GenieConversation {
   @JsonProperty("space_id")
   private String spaceId;
 
-  /** Conversation title */
+  /**
+   * Title of the conversation. Genie sets it to the text of the first message, truncated to 255
+   * characters.
+   */
   @JsonProperty("title")
   private String title;
 

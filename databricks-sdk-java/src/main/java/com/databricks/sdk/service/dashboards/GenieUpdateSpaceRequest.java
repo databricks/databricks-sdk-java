@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Generated
 public class GenieUpdateSpaceRequest {
-  /** Optional description */
+  /** New description for the space, up to 16384 bytes. */
   @JsonProperty("description")
   private String description;
 
@@ -26,10 +26,11 @@ public class GenieUpdateSpaceRequest {
   private String parentPath;
 
   /**
-   * The contents of the Genie Space in serialized string form (full replacement). Use the [Get
-   * Genie Space](:method:genie/getspace) API to retrieve an example response, which includes the
-   * `serialized_space` field. This field provides the structure of the JSON string that represents
-   * the space's layout and components.
+   * New configuration of the space as a JSON string. It replaces the whole configuration; when
+   * omitted, the current configuration is kept. Start from the value that [Get Genie
+   * Space](:method:genie/getspace) returns when `include_serialized_space` is true. For the JSON
+   * format and its validation rules, see
+   * https://docs.databricks.com/aws/en/genie-agents/conversation-api.
    */
   @JsonProperty("serialized_space")
   private String serializedSpace;
@@ -37,11 +38,11 @@ public class GenieUpdateSpaceRequest {
   /** Genie space ID */
   @JsonIgnore private String spaceId;
 
-  /** Optional title override */
+  /** New display name for the space. Cannot be empty or contain a slash. */
   @JsonProperty("title")
   private String title;
 
-  /** Optional warehouse override */
+  /** ID of the SQL warehouse that runs the queries Genie generates for the space. */
   @JsonProperty("warehouse_id")
   private String warehouseId;
 

@@ -22,7 +22,7 @@ public class GenieQueryAttachment {
   @JsonProperty("last_updated_timestamp")
   private Long lastUpdatedTimestamp;
 
-  /** */
+  /** The parameters of the SQL query, when the query is parameterized. */
   @JsonProperty("parameters")
   private Collection<QueryAttachmentParameter> parameters;
 

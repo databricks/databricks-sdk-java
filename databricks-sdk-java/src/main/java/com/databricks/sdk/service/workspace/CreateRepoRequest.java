@@ -18,7 +18,10 @@ public class CreateRepoRequest {
 
   /**
    * Desired path for the repo in the workspace. Almost any path in the workspace can be chosen. If
-   * repo is created in `/Repos`, path must be in the format `/Repos/{folder}/{repo-name}`.
+   * repo is created in `/Repos`, path must be in the format `/Repos/{folder}/{repo-name}`. If
+   * omitted, the repo is created in the calling user's home folder (`/Users/{user}`, or
+   * `/Repos/{user}` in workspaces without workspace files). The repo name is the last path segment
+   * of `url`, for example `cli.git`.
    */
   @JsonProperty("path")
   private String path;
@@ -39,7 +42,7 @@ public class CreateRepoRequest {
   @JsonProperty("sparse_checkout")
   private SparseCheckout sparseCheckout;
 
-  /** URL of the Git repository to be linked. */
+  /** HTTPS URL of the Git repository to be linked. SSH URLs are not supported. */
   @JsonProperty("url")
   private String url;
 

@@ -8,9 +8,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * Progress of an app update started by AsyncUpdateApp, together with the values the update
+ * requested.
+ */
 @Generated
 public class AppUpdate {
-  /** */
+  /** Budget policy ID requested by the update. */
   @JsonProperty("budget_policy_id")
   private String budgetPolicyId;
 
@@ -28,11 +32,11 @@ public class AppUpdate {
   @JsonProperty("compute_min_instances")
   private Long computeMinInstances;
 
-  /** */
+  /** Compute size requested by the update. */
   @JsonProperty("compute_size")
   private ComputeSize computeSize;
 
-  /** */
+  /** Description requested by the update. */
   @JsonProperty("description")
   private String description;
 
@@ -43,27 +47,27 @@ public class AppUpdate {
   @JsonProperty("forward_user_access_token")
   private Boolean forwardUserAccessToken;
 
-  /** */
+  /** Git repository configuration requested by the update. */
   @JsonProperty("git_repository")
   private GitRepository gitRepository;
 
-  /** */
+  /** Resources requested by the update. */
   @JsonProperty("resources")
   private Collection<AppResource> resources;
 
-  /** */
+  /** Progress of the update. */
   @JsonProperty("status")
   private AppUpdateUpdateStatus status;
 
-  /** */
+  /** Telemetry export destinations requested by the update. */
   @JsonProperty("telemetry_export_destinations")
   private Collection<TelemetryExportDestination> telemetryExportDestinations;
 
-  /** */
+  /** Usage policy ID requested by the update. */
   @JsonProperty("usage_policy_id")
   private String usagePolicyId;
 
-  /** */
+  /** User API scopes requested by the update. */
   @JsonProperty("user_api_scopes")
   private Collection<String> userApiScopes;
 

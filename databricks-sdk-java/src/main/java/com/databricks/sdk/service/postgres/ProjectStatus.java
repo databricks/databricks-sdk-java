@@ -28,7 +28,7 @@ public class ProjectStatus {
   @JsonProperty("custom_tags")
   private Collection<ProjectCustomTag> customTags;
 
-  /** The full resource path of the default branch of the project */
+  /** The full resource path of the default branch of the project. */
   @JsonProperty("default_branch")
   private String defaultBranch;
 
@@ -56,7 +56,7 @@ public class ProjectStatus {
   @JsonProperty("pg_version")
   private Long pgVersion;
 
-  /** Part of the resource name. */
+  /** The project ID, which is the final segment of the project's resource name. */
   @JsonProperty("project_id")
   private String projectId;
 

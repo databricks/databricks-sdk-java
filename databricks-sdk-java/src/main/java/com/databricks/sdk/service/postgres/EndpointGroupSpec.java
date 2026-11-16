@@ -11,7 +11,8 @@ import java.util.Objects;
 public class EndpointGroupSpec {
   /**
    * Whether to allow read-only connections to read-write endpoints. Only relevant for read-write
-   * endpoints where size.max > 1.
+   * endpoints where `max` is greater than 1. When enabled, the endpoint also reports a read-only
+   * host in `status.hosts`.
    */
   @JsonProperty("enable_readable_secondaries")
   private Boolean enableReadableSecondaries;

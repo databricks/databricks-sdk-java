@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class GenieStartConversationResponse {
-  /** */
+  /** The newly created conversation. */
   @JsonProperty("conversation")
   private GenieConversation conversation;
 
@@ -17,7 +17,7 @@ public class GenieStartConversationResponse {
   @JsonProperty("conversation_id")
   private String conversationId;
 
-  /** */
+  /** The first message of the conversation, in its initial state. */
   @JsonProperty("message")
   private GenieMessage message;
 

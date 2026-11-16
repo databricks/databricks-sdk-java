@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class GetNotificationDestinationRequest {
-  /** */
+  /** A UUID identifying the notification destination. */
   @JsonIgnore private String id;
 
   public GetNotificationDestinationRequest setId(String id) {

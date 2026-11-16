@@ -16,7 +16,9 @@ import java.util.Objects;
  */
 @Generated
 public class QueryIndexRequest {
-  /** Column names to include in each result row. */
+  /**
+   * Columns to include in each result row. Only columns that are part of the index can be returned.
+   */
   @JsonProperty("columns")
   private Collection<String> columns;
 
@@ -28,13 +30,19 @@ public class QueryIndexRequest {
   @JsonProperty("facets")
   private Collection<String> facets;
 
-  /** JSON string describing query filters (e.g. `{"id >": 5}`). */
+  /**
+   * JSON object of filters to apply, serialized as a string. Each key is a column name with an
+   * optional operator suffix such as `<`, `>=`, `NOT`, or `OR`, and each value is the value to
+   * compare against. Only columns that are part of the index can be filtered. See
+   * https://docs.databricks.com/aws/en/ai-search/query-ai-search#filters for the supported
+   * operators.
+   */
   @JsonProperty("filters_json")
   private String filtersJson;
 
   /**
-   * Maximum number of results to return (the legacy `num_results`). Defaults to 10. Prefer
-   * `page_size`; when both are set, `page_size` takes precedence.
+   * Maximum number of results to return. Defaults to 10. It corresponds to `num_results` in the
+   * Vector Search API.
    */
   @JsonProperty("max_results")
   private Long maxResults;
@@ -49,11 +57,17 @@ public class QueryIndexRequest {
   @JsonProperty("query_columns")
   private Collection<String> queryColumns;
 
-  /** Query text. Required for Delta Sync indexes that compute embeddings from a model endpoint. */
+  /**
+   * Query text. Required for Delta Sync indexes that compute embeddings from a model endpoint, and
+   * for `HYBRID` and `FULL_TEXT` queries.
+   */
   @JsonProperty("query_text")
   private String queryText;
 
-  /** Query type: `ANN`, `HYBRID`, or `FULL_TEXT`. Defaults to `ANN`. */
+  /**
+   * Query type: `ANN` for vector similarity search, `HYBRID` for combined vector and keyword
+   * search, or `FULL_TEXT` for keyword search without embeddings. Defaults to `ANN`.
+   */
   @JsonProperty("query_type")
   private String queryType;
 
@@ -64,11 +78,17 @@ public class QueryIndexRequest {
   @JsonProperty("query_vector")
   private Collection<Double> queryVector;
 
-  /** If set, results are reranked before being returned. */
+  /**
+   * If set, results are reranked before being returned. See
+   * https://docs.databricks.com/aws/en/ai-search/query-ai-search#rerank for details.
+   */
   @JsonProperty("reranker")
   private RerankerConfig reranker;
 
-  /** Score threshold for the approximate nearest-neighbor search. Defaults to 0.0. */
+  /**
+   * Score threshold for the approximate nearest-neighbor search; results that score below it are
+   * not returned. Defaults to 0.0.
+   */
   @JsonProperty("score_threshold")
   private Double scoreThreshold;
 

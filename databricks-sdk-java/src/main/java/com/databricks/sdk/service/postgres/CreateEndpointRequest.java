@@ -11,15 +11,18 @@ import java.util.Objects;
 
 @Generated
 public class CreateEndpointRequest {
-  /** The Endpoint to create. */
+  /**
+   * The endpoint to create. Only `spec` is read from this message; the system sets the other
+   * fields.
+   */
   @JsonProperty("endpoint")
   private Endpoint endpoint;
 
   /**
-   * The ID to use for the Endpoint. This becomes the final component of the endpoint's resource
-   * name. The ID is required and must be 1-63 characters long, start with a lowercase letter, and
-   * contain only lowercase letters, numbers, and hyphens. For example, `primary` becomes
-   * `projects/my-app/branches/development/endpoints/primary`.
+   * The ID to use for the endpoint. It becomes the final segment of the endpoint's resource name,
+   * `projects/{project_id}/branches/{branch_id}/endpoints/{endpoint_id}`. The ID must be 3 to 63
+   * characters long, start with a lowercase letter, end with a lowercase letter or digit, and
+   * contain only lowercase letters, digits, and hyphens.
    */
   @JsonIgnore
   @QueryParam("endpoint_id")
@@ -31,7 +34,12 @@ public class CreateEndpointRequest {
    */
   @JsonIgnore private String parent;
 
-  /** If true, update the endpoint if it already exists instead of returning an error. */
+  /**
+   * If true, update the endpoint if it already exists instead of returning an error. The request's
+   * `spec.endpoint_type` must match the existing endpoint's type, and the other `spec` fields are
+   * applied as an update. Use this to configure the read-write endpoint that was created together
+   * with the branch.
+   */
   @JsonIgnore
   @QueryParam("replace_existing")
   private Boolean replaceExisting;

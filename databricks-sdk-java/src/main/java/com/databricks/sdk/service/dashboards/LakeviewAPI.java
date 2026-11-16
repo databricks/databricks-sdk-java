@@ -27,14 +27,7 @@ public class LakeviewAPI {
     impl = mock;
   }
 
-  /**
-   * Create a draft dashboard.
-   *
-   * <p>Requires the [Databricks SQL access] entitlement. Grant Databricks SQL access in addition to
-   * Workspace access.
-   *
-   * <p>[Databricks SQL access]: https://docs.databricks.com/security/auth/entitlements
-   */
+  /** Create a draft dashboard. */
   public Dashboard create(CreateDashboardRequest request) {
     return impl.create(request);
   }
@@ -110,14 +103,7 @@ public class LakeviewAPI {
     return get(new GetDashboardRequest().setDashboardId(dashboardId));
   }
 
-  /**
-   * Get a draft dashboard.
-   *
-   * <p>Requires the [Databricks SQL access] entitlement. Grant Databricks SQL access in addition to
-   * Workspace access.
-   *
-   * <p>[Databricks SQL access]: https://docs.databricks.com/security/auth/entitlements
-   */
+  /** Get a draft dashboard. */
   public Dashboard get(GetDashboardRequest request) {
     return impl.get(request);
   }
@@ -184,12 +170,8 @@ public class LakeviewAPI {
   }
 
   /**
-   * List dashboards.
-   *
-   * <p>Requires the [Databricks SQL access] entitlement. Grant Databricks SQL access in addition to
-   * Workspace access.
-   *
-   * <p>[Databricks SQL access]: https://docs.databricks.com/security/auth/entitlements
+   * List the dashboards that the caller can view. Each entry carries summary metadata only; use Get
+   * dashboard to retrieve a dashboard's full definition.
    */
   public Iterable<Dashboard> list(ListDashboardsRequest request) {
     return Paginator.newTokenPagination(
@@ -272,26 +254,12 @@ public class LakeviewAPI {
     return impl.migrate(request);
   }
 
-  /**
-   * Publish the current draft dashboard.
-   *
-   * <p>Requires the [Databricks SQL access] entitlement. Grant Databricks SQL access in addition to
-   * Workspace access.
-   *
-   * <p>[Databricks SQL access]: https://docs.databricks.com/security/auth/entitlements
-   */
+  /** Publish the current draft dashboard. */
   public PublishedDashboard publish(PublishRequest request) {
     return impl.publish(request);
   }
 
-  /**
-   * Revert a dashboard's definition in draft mode to the last published version.
-   *
-   * <p>Requires the [Databricks SQL access] entitlement. Grant Databricks SQL access in addition to
-   * Workspace access.
-   *
-   * <p>[Databricks SQL access]: https://docs.databricks.com/security/auth/entitlements
-   */
+  /** Revert a dashboard's definition in draft mode to the last published version. */
   public RevertDashboardResponse revert(RevertDashboardRequest request) {
     return impl.revert(request);
   }
@@ -300,14 +268,7 @@ public class LakeviewAPI {
     trash(new TrashDashboardRequest().setDashboardId(dashboardId));
   }
 
-  /**
-   * Trash a dashboard.
-   *
-   * <p>Requires the [Databricks SQL access] entitlement. Grant Databricks SQL access in addition to
-   * Workspace access.
-   *
-   * <p>[Databricks SQL access]: https://docs.databricks.com/security/auth/entitlements
-   */
+  /** Trash a dashboard. */
   public void trash(TrashDashboardRequest request) {
     impl.trash(request);
   }
@@ -316,26 +277,12 @@ public class LakeviewAPI {
     unpublish(new UnpublishDashboardRequest().setDashboardId(dashboardId));
   }
 
-  /**
-   * Unpublish the dashboard.
-   *
-   * <p>Requires the [Databricks SQL access] entitlement. Grant Databricks SQL access in addition to
-   * Workspace access.
-   *
-   * <p>[Databricks SQL access]: https://docs.databricks.com/security/auth/entitlements
-   */
+  /** Unpublish the dashboard. */
   public void unpublish(UnpublishDashboardRequest request) {
     impl.unpublish(request);
   }
 
-  /**
-   * Update a draft dashboard.
-   *
-   * <p>Requires the [Databricks SQL access] entitlement. Grant Databricks SQL access in addition to
-   * Workspace access.
-   *
-   * <p>[Databricks SQL access]: https://docs.databricks.com/security/auth/entitlements
-   */
+  /** Update a draft dashboard. */
   public Dashboard update(UpdateDashboardRequest request) {
     return impl.update(request);
   }

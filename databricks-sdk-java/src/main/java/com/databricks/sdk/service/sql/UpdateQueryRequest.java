@@ -11,25 +11,28 @@ import java.util.Objects;
 @Generated
 public class UpdateQueryRequest {
   /**
-   * If true, automatically resolve alert display name conflicts. Otherwise, fail the request if the
-   * alert's display name conflicts with an existing alert's display name.
+   * If true, automatically resolve query display name conflicts. Otherwise, fail the request if the
+   * query's display name conflicts with an existing query's display name.
    */
   @JsonProperty("auto_resolve_display_name")
   private Boolean autoResolveDisplayName;
 
-  /** */
+  /** UUID of the query to update. */
   @JsonIgnore private String id;
 
-  /** */
+  /** Query fields to update. Only the fields named in `update_mask` are changed. */
   @JsonProperty("query")
   private UpdateQueryRequestQuery query;
 
   /**
-   * The field mask must be a single string, with multiple fields separated by commas (no spaces).
-   * The field path is relative to the resource object, using a dot (`.`) to navigate sub-fields
-   * (e.g., `author.given_name`). Specification of elements in sequence or map fields is not
-   * allowed, as only the entire collection field can be specified. Field names must exactly match
-   * the resource field names.
+   * Comma-separated list of the query fields to update, such as the display name or query text.
+   * Fields not listed keep their current values.
+   *
+   * <p>The field mask must be a single string, with multiple fields separated by commas (no
+   * spaces). The field path is relative to the resource object, using a dot (`.`) to navigate
+   * sub-fields (e.g., `author.given_name`). Specification of elements in sequence or map fields is
+   * not allowed, as only the entire collection field can be specified. Field names must exactly
+   * match the resource field names.
    *
    * <p>A field mask of `*` indicates full replacement. It’s recommended to always explicitly list
    * the fields being updated and avoid using `*` wildcards, as it can lead to unintended results if

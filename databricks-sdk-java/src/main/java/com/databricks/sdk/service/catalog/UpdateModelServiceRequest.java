@@ -32,8 +32,8 @@ public class UpdateModelServiceRequest {
   /**
    * Resource name of the model service. Format:
    * `model-services/{catalog}.{schema}.{model_service}`. Each `{...}` component is capped at 255
-   * characters individually. Server-derived on Create from `parent` + `model_service_id`; required
-   * and immutable on Update/Get/Delete.
+   * characters individually. The server derives the name on Create from `parent` and
+   * `model_service_id`; it is required and immutable on Update, Get, and Delete.
    */
   @JsonIgnore private String name;
 

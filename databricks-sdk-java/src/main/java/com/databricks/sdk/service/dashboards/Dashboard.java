@@ -17,7 +17,11 @@ public class Dashboard {
   @JsonProperty("dashboard_id")
   private String dashboardId;
 
-  /** The display name of the dashboard. */
+  /**
+   * The display name of the dashboard. It is also the file name of the dashboard asset in the
+   * workspace, so it must be unique within the parent folder, cannot contain `/`, and cannot end
+   * with `.json`, `.lvdash` or `.yml`. The display name must not exceed 500 characters.
+   */
   @JsonProperty("display_name")
   private String displayName;
 
@@ -34,7 +38,8 @@ public class Dashboard {
 
   /**
    * The workspace path of the folder containing the dashboard. Includes leading slash and no
-   * trailing slash. This field is excluded in List Dashboards responses.
+   * trailing slash. The folder must already exist; when omitted on create, the dashboard is created
+   * in the caller's home folder. This field is excluded in List Dashboards responses.
    */
   @JsonProperty("parent_path")
   private String parentPath;
@@ -47,10 +52,11 @@ public class Dashboard {
   private String path;
 
   /**
-   * The contents of the dashboard in serialized string form. This field is excluded in List
-   * Dashboards responses. Use the [get dashboard API] to retrieve an example response, which
-   * includes the `serialized_dashboard` field. This field provides the structure of the JSON string
-   * that represents the dashboard's layout and components.
+   * The dashboard definition (datasets, pages and widgets) as a JSON string, in the same format as
+   * a dashboard file exported from the workspace (`.lvdash.json`). When omitted on create, an empty
+   * dashboard is created; when omitted on update, the existing definition is kept and only the
+   * other fields change. Use the [get dashboard API] on an existing dashboard to see a complete
+   * example. This field is excluded in List Dashboards responses.
    *
    * <p>[get dashboard API]: https://docs.databricks.com/api/workspace/lakeview/get
    */

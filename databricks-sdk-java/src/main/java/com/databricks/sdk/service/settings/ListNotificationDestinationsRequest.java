@@ -10,12 +10,14 @@ import java.util.Objects;
 
 @Generated
 public class ListNotificationDestinationsRequest {
-  /** */
+  /** Maximum number of notification destinations to return per page. Defaults to 20. */
   @JsonIgnore
   @QueryParam("page_size")
   private Long pageSize;
 
-  /** */
+  /**
+   * Opaque token returned as next_page_token by a previous call. Omit it to request the first page.
+   */
   @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;

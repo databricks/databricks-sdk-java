@@ -10,7 +10,7 @@ import java.util.Objects;
 /** A single telemetry export destination with its configuration and status. */
 @Generated
 public class TelemetryExportDestination {
-  /** */
+  /** Unity Catalog tables that receive the telemetry. */
   @JsonProperty("unity_catalog")
   private UnityCatalog unityCatalog;
 

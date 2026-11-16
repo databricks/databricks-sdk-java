@@ -256,7 +256,7 @@ public class AppsAPI {
     return delete(new DeleteAppRequest().setName(name));
   }
 
-  /** Deletes an app. */
+  /** Deletes an app and the dedicated service principal created for it. */
   public App delete(DeleteAppRequest request) {
     return impl.delete(request);
   }
@@ -297,6 +297,16 @@ public class AppsAPI {
   /** Retrieves information for the app with the supplied name. */
   public App get(GetAppRequest request) {
     return impl.get(request);
+  }
+
+  public AppDeploymentScanFinding getAppDeploymentScanFinding(String name) {
+    return getAppDeploymentScanFinding(new GetAppDeploymentScanFindingRequest().setName(name));
+  }
+
+  /** Retrieves a single security scan finding for an app deployment. */
+  public AppDeploymentScanFinding getAppDeploymentScanFinding(
+      GetAppDeploymentScanFindingRequest request) {
+    return impl.getAppDeploymentScanFinding(request);
   }
 
   public AppDeployment getDeployment(String appName, String deploymentId) {
@@ -369,6 +379,27 @@ public class AppsAPI {
         });
   }
 
+  public Iterable<AppDeploymentScanFinding> listAppDeploymentScanFindings(String parent) {
+    return listAppDeploymentScanFindings(
+        new ListAppDeploymentScanFindingsRequest().setParent(parent));
+  }
+
+  /** Lists the security scan findings for an app deployment. */
+  public Iterable<AppDeploymentScanFinding> listAppDeploymentScanFindings(
+      ListAppDeploymentScanFindingsRequest request) {
+    return Paginator.newTokenPagination(
+        request,
+        impl::listAppDeploymentScanFindings,
+        ListAppDeploymentScanFindingsResponse::getAppDeploymentScanFindings,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
+  }
+
   public Iterable<AppDeployment> listDeployments(String appName) {
     return listDeployments(new ListAppDeploymentsRequest().setAppName(appName));
   }
@@ -431,6 +462,12 @@ public class AppsAPI {
    */
   public App update(UpdateAppRequest request) {
     return impl.update(request);
+  }
+
+  /** Updates the triage status (resolved / ignored / in-progress) of a single scan finding. */
+  public AppDeploymentScanFinding updateAppDeploymentScanFinding(
+      UpdateAppDeploymentScanFindingRequest request) {
+    return impl.updateAppDeploymentScanFinding(request);
   }
 
   /** Updates the thumbnail for an app. */

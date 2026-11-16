@@ -14,8 +14,8 @@ public class GcpPubsub {
   private String managedResourceId;
 
   /**
-   * The Pub/Sub subscription name in the format projects/{project}/subscriptions/{subscription
-   * name}. Only required for provided_pubsub.
+   * The Pub/Sub subscription name in the format `projects/{project}/subscriptions/{subscription
+   * name}`. Only required for provided_pubsub.
    */
   @JsonProperty("subscription_name")
   private String subscriptionName;

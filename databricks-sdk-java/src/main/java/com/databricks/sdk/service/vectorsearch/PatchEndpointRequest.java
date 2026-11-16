@@ -15,7 +15,7 @@ public class PatchEndpointRequest {
 
   /**
    * Target QPS for the endpoint. Best-effort; the system does not guarantee this QPS will be
-   * achieved.
+   * achieved. Set to -1 to clear the Target QPS, as if it had never been set.
    */
   @JsonProperty("target_qps")
   private Long targetQps;

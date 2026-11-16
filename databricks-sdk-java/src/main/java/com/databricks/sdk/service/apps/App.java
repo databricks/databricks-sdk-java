@@ -8,6 +8,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * An app that runs on Databricks Apps. The app runs on managed compute in the workspace and is
+ * deployed from a workspace folder or a Git repository. Each app acts as its own dedicated service
+ * principal.
+ */
 @Generated
 public class App {
   /**
@@ -17,11 +22,15 @@ public class App {
   @JsonProperty("active_deployment")
   private AppDeployment activeDeployment;
 
-  /** */
+  /** Status of the application process on the app compute, as reported by the app runtime. */
   @JsonProperty("app_status")
   private ApplicationStatus appStatus;
 
-  /** */
+  /**
+   * ID of the serverless budget policy that the app's compute usage is attributed to. Budget
+   * policies and usage policies are alternatives: set at most one of `budget_policy_id` and
+   * `usage_policy_id`.
+   */
   @JsonProperty("budget_policy_id")
   private String budgetPolicyId;
 
@@ -39,15 +48,19 @@ public class App {
   @JsonProperty("compute_min_instances")
   private Long computeMinInstances;
 
-  /** */
+  /**
+   * Size of the compute instances the app runs on. Defaults to MEDIUM. Larger sizes provide more
+   * CPU and memory at a higher hourly cost. See
+   * https://docs.databricks.com/aws/en/dev-tools/databricks-apps/compute-size.
+   */
   @JsonProperty("compute_size")
   private ComputeSize computeSize;
 
-  /** */
+  /** Status of the compute that runs the app. */
   @JsonProperty("compute_status")
   private ComputeStatus computeStatus;
 
-  /** The creation time of the app. Formatted timestamp in ISO 6801. */
+  /** The creation time of the app. Formatted timestamp in ISO 8601. */
   @JsonProperty("create_time")
   private String createTime;
 
@@ -74,7 +87,7 @@ public class App {
   @JsonProperty("description")
   private String description;
 
-  /** */
+  /** ID of the budget policy in effect for the app, after Databricks applies any defaults. */
   @JsonProperty("effective_budget_policy_id")
   private String effectiveBudgetPolicyId;
 
@@ -85,7 +98,7 @@ public class App {
   @JsonProperty("effective_resources")
   private Collection<AppResource> effectiveResources;
 
-  /** */
+  /** ID of the usage policy in effect for the app, after Databricks applies any defaults. */
   @JsonProperty("effective_usage_policy_id")
   private String effectiveUsagePolicyId;
 
@@ -125,11 +138,11 @@ public class App {
   @JsonProperty("name")
   private String name;
 
-  /** */
+  /** OAuth client ID of the app integration that signs in the app's users. */
   @JsonProperty("oauth2_app_client_id")
   private String oauth2AppClientId;
 
-  /** */
+  /** ID of the OAuth app integration that Databricks creates for the app to sign in its users. */
   @JsonProperty("oauth2_app_integration_id")
   private String oauth2AppIntegrationId;
 
@@ -140,23 +153,37 @@ public class App {
   @JsonProperty("pending_deployment")
   private AppDeployment pendingDeployment;
 
-  /** Resources for the app. */
+  /**
+   * Databricks resources the app depends on. Each entry grants the app's service principal the
+   * listed permission on one resource and makes that resource available to the app under the
+   * entry's name.
+   */
   @JsonProperty("resources")
   private Collection<AppResource> resources;
 
-  /** */
+  /**
+   * OAuth client ID of the app's service principal. The app runtime exposes it to the app as the
+   * DATABRICKS_CLIENT_ID environment variable.
+   */
   @JsonProperty("service_principal_client_id")
   private String servicePrincipalClientId;
 
-  /** */
+  /**
+   * Numeric ID of the service principal the app runs as. Databricks creates a dedicated service
+   * principal for each app and deletes it with the app. Apps in some older spaces run as the
+   * space's shared service principal instead.
+   */
   @JsonProperty("service_principal_id")
   private Long servicePrincipalId;
 
-  /** */
+  /** Display name of the app's service principal. */
   @JsonProperty("service_principal_name")
   private String servicePrincipalName;
 
-  /** */
+  /**
+   * Workspace file system path of the app source code. On create, the app is deployed from this
+   * path. Alternative to `git_source`.
+   */
   @JsonProperty("source_code_path")
   private String sourceCodePath;
 
@@ -164,7 +191,10 @@ public class App {
   @JsonProperty("space")
   private String space;
 
-  /** */
+  /**
+   * Destinations that receive the app's OpenTelemetry logs, metrics and traces. Changes take effect
+   * when the app is next deployed.
+   */
   @JsonProperty("telemetry_export_destinations")
   private Collection<TelemetryExportDestination> telemetryExportDestinations;
 
@@ -172,7 +202,7 @@ public class App {
   @JsonProperty("thumbnail_url")
   private String thumbnailUrl;
 
-  /** The update time of the app. Formatted timestamp in ISO 6801. */
+  /** The update time of the app. Formatted timestamp in ISO 8601. */
   @JsonProperty("update_time")
   private String updateTime;
 
@@ -184,11 +214,20 @@ public class App {
   @JsonProperty("url")
   private String url;
 
-  /** */
+  /**
+   * ID of the usage policy that the app's compute usage is attributed to. Alternative to
+   * `budget_policy_id`.
+   */
   @JsonProperty("usage_policy_id")
   private String usagePolicyId;
 
-  /** */
+  /**
+   * API scopes the app requests for user authorization. The user access token that Databricks
+   * forwards to the app is limited to these scopes plus the default identity scopes, so the app can
+   * act on the user's behalf only within them. Workspace admins can restrict which scopes apps in
+   * the workspace may request. See
+   * https://docs.databricks.com/aws/en/dev-tools/databricks-apps/auth.
+   */
   @JsonProperty("user_api_scopes")
   private Collection<String> userApiScopes;
 

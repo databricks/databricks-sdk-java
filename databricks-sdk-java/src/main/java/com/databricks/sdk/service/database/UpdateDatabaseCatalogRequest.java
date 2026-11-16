@@ -15,7 +15,7 @@ public class UpdateDatabaseCatalogRequest {
   @JsonProperty("database_catalog")
   private DatabaseCatalog databaseCatalog;
 
-  /** The name of the catalog in UC. */
+  /** The name of the catalog in Unity Catalog. */
   @JsonIgnore private String name;
 
   /** The list of fields to update. Setting this field is not yet supported. */

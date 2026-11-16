@@ -25,7 +25,7 @@ public interface AppsService {
    */
   AppUpdate createUpdate(AsyncUpdateAppRequest asyncUpdateAppRequest);
 
-  /** Deletes an app. */
+  /** Deletes an app and the dedicated service principal created for it. */
   App delete(DeleteAppRequest deleteAppRequest);
 
   /** Deletes the thumbnail for an app. */
@@ -39,6 +39,10 @@ public interface AppsService {
 
   /** Retrieves information for the app with the supplied name. */
   App get(GetAppRequest getAppRequest);
+
+  /** Retrieves a single security scan finding for an app deployment. */
+  AppDeploymentScanFinding getAppDeploymentScanFinding(
+      GetAppDeploymentScanFindingRequest getAppDeploymentScanFindingRequest);
 
   /** Retrieves information for the app deployment with the supplied name and deployment id. */
   AppDeployment getDeployment(GetAppDeploymentRequest getAppDeploymentRequest);
@@ -61,6 +65,10 @@ public interface AppsService {
 
   /** Lists all apps in the workspace. */
   ListAppsResponse list(ListAppsRequest listAppsRequest);
+
+  /** Lists the security scan findings for an app deployment. */
+  ListAppDeploymentScanFindingsResponse listAppDeploymentScanFindings(
+      ListAppDeploymentScanFindingsRequest listAppDeploymentScanFindingsRequest);
 
   /** Lists all app deployments for the app with the supplied name. */
   ListAppDeploymentsResponse listDeployments(ListAppDeploymentsRequest listAppDeploymentsRequest);
@@ -85,6 +93,10 @@ public interface AppsService {
    * request are cleared, so send the complete app.
    */
   App update(UpdateAppRequest updateAppRequest);
+
+  /** Updates the triage status (resolved / ignored / in-progress) of a single scan finding. */
+  AppDeploymentScanFinding updateAppDeploymentScanFinding(
+      UpdateAppDeploymentScanFindingRequest updateAppDeploymentScanFindingRequest);
 
   /** Updates the thumbnail for an app. */
   AppThumbnail updateAppThumbnail(UpdateAppThumbnailRequest updateAppThumbnailRequest);

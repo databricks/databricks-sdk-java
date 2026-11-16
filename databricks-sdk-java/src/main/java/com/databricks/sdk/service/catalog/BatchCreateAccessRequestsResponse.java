@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/** The access request destinations resolved for each principal and securable in the batch. */
 @Generated
 public class BatchCreateAccessRequestsResponse {
   /** The access request destinations for each securable object the principal requested. */

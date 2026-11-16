@@ -9,7 +9,10 @@ import java.util.Objects;
 
 @Generated
 public class RequestedResource {
-  /** */
+  /**
+   * The full three-level Unity Catalog name of the database table or synced table, in the form
+   * catalog.schema.table.
+   */
   @JsonProperty("table_name")
   private String tableName;
 

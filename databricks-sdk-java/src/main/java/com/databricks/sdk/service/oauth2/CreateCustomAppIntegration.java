@@ -11,7 +11,8 @@ import java.util.Objects;
 @Generated
 public class CreateCustomAppIntegration {
   /**
-   * This field indicates whether an OAuth client secret is required to authenticate this client.
+   * Whether to create a confidential client that authenticates with a client secret. Public clients
+   * receive no client secret.
    */
   @JsonProperty("confidential")
   private Boolean confidential;
@@ -20,18 +21,26 @@ public class CreateCustomAppIntegration {
   @JsonProperty("name")
   private String name;
 
-  /** List of OAuth redirect urls */
+  /**
+   * OAuth redirect URLs for the application. Each URL must use https, except loopback URLs
+   * (localhost, 127.0.0.1 or ::1), which may use http. At most 100 URLs of at most 256 characters
+   * each.
+   */
   @JsonProperty("redirect_urls")
   private Collection<String> redirectUrls;
 
   /**
-   * OAuth scopes granted to the application. Supported scopes: all-apis, sql, offline_access,
-   * openid, profile, email.
+   * OAuth scopes granted to the application. At least one scope is required. Supported scopes:
+   * all-apis, sql, offline_access, openid, profile, email, and the fine-grained API scopes listed
+   * at https://docs.databricks.com/api/account/scopes.
    */
   @JsonProperty("scopes")
   private Collection<String> scopes;
 
-  /** Token access policy */
+  /**
+   * Lifetimes of the tokens issued to the application. If omitted, access tokens are valid for 60
+   * minutes and refresh tokens for 7 days (10080 minutes). If set, both TTL fields are required.
+   */
   @JsonProperty("token_access_policy")
   private TokenAccessPolicy tokenAccessPolicy;
 

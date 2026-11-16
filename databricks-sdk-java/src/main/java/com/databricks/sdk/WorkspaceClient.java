@@ -276,6 +276,8 @@ import com.databricks.sdk.service.sql.StatementExecutionAPI;
 import com.databricks.sdk.service.sql.StatementExecutionService;
 import com.databricks.sdk.service.sql.WarehousesAPI;
 import com.databricks.sdk.service.sql.WarehousesService;
+import com.databricks.sdk.service.statementexecutionv2.StatementExecutionV2API;
+import com.databricks.sdk.service.statementexecutionv2.StatementExecutionV2Service;
 import com.databricks.sdk.service.supervisoragents.SupervisorAgentsAPI;
 import com.databricks.sdk.service.supervisoragents.SupervisorAgentsService;
 import com.databricks.sdk.service.tags.TagPoliciesAPI;
@@ -420,6 +422,7 @@ public class WorkspaceClient {
   private SharesAPI sharesAPI;
   private SoftwareArtifactsAPI softwareArtifactsAPI;
   private StatementExecutionAPI statementExecutionAPI;
+  private StatementExecutionV2API statementExecutionV2API;
   private StorageCredentialsAPI storageCredentialsAPI;
   private SupervisorAgentsAPI supervisorAgentsAPI;
   private SystemSchemasAPI systemSchemasAPI;
@@ -573,6 +576,7 @@ public class WorkspaceClient {
     sharesAPI = new SharesAPI(apiClient);
     softwareArtifactsAPI = new SoftwareArtifactsAPI(apiClient);
     statementExecutionAPI = new StatementExecutionAPI(apiClient);
+    statementExecutionV2API = new StatementExecutionV2API(apiClient);
     storageCredentialsAPI = new StorageCredentialsAPI(apiClient);
     supervisorAgentsAPI = new SupervisorAgentsAPI(apiClient);
     systemSchemasAPI = new SystemSchemasAPI(apiClient);
@@ -1956,6 +1960,12 @@ public class WorkspaceClient {
    *
    * <p>We suggest beginning with the [Databricks SQL Statement Execution API tutorial].
    *
+   * <p>**Lakehouse//RT warehouses**
+   *
+   * <p>You can run statements on [Lakehouse//RT] warehouses with this API. For lower latency and
+   * higher concurrency, use version 2 of this API, Statement Execution (Lakehouse//RT), instead. It
+   * works the same way, except that `warehouse_id` is a path parameter.
+   *
    * <p>**Overview of statement execution and result fetching**
    *
    * <p>Statement execution begins by issuing a :method:statementexecution/executeStatement request
@@ -2042,9 +2052,26 @@ public class WorkspaceClient {
    *
    * <p>[Apache Arrow Columnar]: https://arrow.apache.org/overview/ [Databricks SQL Statement
    * Execution API tutorial]: https://docs.databricks.com/sql/api/sql-execution-tutorial.html
+   * [Lakehouse//RT]: https://docs.databricks.com/compute/sql-warehouse/real-time.html
    */
   public StatementExecutionAPI statementExecution() {
     return statementExecutionAPI;
+  }
+
+  /**
+   * The Statement Execution API v2 can be used to execute SQL statements on a SQL warehouse and
+   * fetch the result. It works the same as the Statement Execution API (v1), except that
+   * `warehouse_id` is a path parameter on every call, including polling, fetching result chunks,
+   * and canceling. Routing on the warehouse ID gives lower latency and higher concurrency.
+   *
+   * <p>Version 2 currently supports [Lakehouse//RT] warehouses only. For other warehouse types, use
+   * the Statement Execution API (v1). You can also run statements on Lakehouse//RT warehouses with
+   * version 1, but version 2 is optimized for them.
+   *
+   * <p>[Lakehouse//RT]: https://docs.databricks.com/compute/sql-warehouse/real-time.html
+   */
+  public StatementExecutionV2API statementExecutionV2() {
+    return statementExecutionV2API;
   }
 
   /**
@@ -3722,6 +3749,18 @@ public class WorkspaceClient {
   /** Replace the default StatementExecutionAPI with a custom implementation. */
   public WorkspaceClient withStatementExecutionAPI(StatementExecutionAPI statementExecution) {
     this.statementExecutionAPI = statementExecution;
+    return this;
+  }
+
+  /** Replace the default StatementExecutionV2Service with a custom implementation. */
+  public WorkspaceClient withStatementExecutionV2Impl(
+      StatementExecutionV2Service statementExecutionV2) {
+    return this.withStatementExecutionV2API(new StatementExecutionV2API(statementExecutionV2));
+  }
+
+  /** Replace the default StatementExecutionV2API with a custom implementation. */
+  public WorkspaceClient withStatementExecutionV2API(StatementExecutionV2API statementExecutionV2) {
+    this.statementExecutionV2API = statementExecutionV2;
     return this;
   }
 

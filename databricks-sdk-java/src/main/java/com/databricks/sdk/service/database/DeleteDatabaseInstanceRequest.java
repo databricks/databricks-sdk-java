@@ -11,8 +11,9 @@ import java.util.Objects;
 @Generated
 public class DeleteDatabaseInstanceRequest {
   /**
-   * By default, an instance cannot be deleted if it has descendant instances created via PITR. If
-   * this flag is specified as true, all descendent instances will be deleted as well.
+   * By default, an instance cannot be deleted if it has descendant instances created via PITR.
+   * Setting this flag to true is not supported and the request is rejected; delete the child
+   * instances first.
    */
   @JsonIgnore
   @QueryParam("force")
@@ -22,8 +23,8 @@ public class DeleteDatabaseInstanceRequest {
   @JsonIgnore private String name;
 
   /**
-   * Deprecated. Omitting the field or setting it to true will result in the field being hard
-   * deleted. Setting a value of false will throw a bad request.
+   * Deprecated: omitting the field or setting it to true hard deletes the instance. Setting it to
+   * false returns a bad request.
    */
   @JsonIgnore
   @QueryParam("purge")

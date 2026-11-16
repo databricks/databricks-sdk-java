@@ -11,16 +11,21 @@ import java.util.Objects;
 
 @Generated
 public class UpdateDatabaseInstanceRequest {
-  /** */
+  /** Specifies the instance to update, identified by its name. */
   @JsonProperty("database_instance")
   private DatabaseInstance databaseInstance;
 
-  /** The name of the instance. This is the unique identifier for the instance. */
+  /**
+   * The name of the instance. This is the unique identifier for the instance. Must be 1 to 63
+   * characters long, contain only letters, digits and hyphens, start with a letter, and not contain
+   * consecutive hyphens.
+   */
   @JsonIgnore private String name;
 
   /**
-   * The list of fields to update. If unspecified, all fields will be updated when possible. To wipe
-   * out custom_tags, specify custom_tags in the update_mask with an empty custom_tags map.
+   * The list of fields to update. If unspecified, all fields will be updated when possible. Use "*"
+   * to update every field. To wipe out custom_tags, specify custom_tags in the update_mask with an
+   * empty custom_tags list.
    */
   @JsonIgnore
   @QueryParam("update_mask")

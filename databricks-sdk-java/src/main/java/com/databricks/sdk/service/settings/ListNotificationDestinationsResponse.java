@@ -10,11 +10,14 @@ import java.util.Objects;
 
 @Generated
 public class ListNotificationDestinationsResponse {
-  /** Page token for next of results. */
+  /**
+   * Token to pass as page_token to fetch the next page of results. Absent when there are no more
+   * results.
+   */
   @JsonProperty("next_page_token")
   private String nextPageToken;
 
-  /** */
+  /** Notification destinations in the current page. */
   @JsonProperty("results")
   private Collection<ListNotificationDestinationsResult> results;
 

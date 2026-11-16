@@ -18,7 +18,10 @@ public class CreateModelServiceRequest {
   @JsonProperty("model_service")
   private ModelService modelService;
 
-  /** Name for the model service, e.g. "my_model_service". */
+  /**
+   * Name of the model service within the parent schema. The name must not contain periods, spaces,
+   * forward slashes, percent signs, or control characters, and it is stored in lowercase.
+   */
   @JsonIgnore
   @QueryParam("model_service_id")
   private String modelServiceId;

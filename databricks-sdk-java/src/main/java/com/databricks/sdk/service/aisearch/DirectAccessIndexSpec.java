@@ -11,18 +11,25 @@ import java.util.Objects;
 /** Specification for a Direct Access index — the customer manages vectors and metadata directly. */
 @Generated
 public class DirectAccessIndexSpec {
-  /** The columns that contain the embedding source. */
+  /**
+   * Columns that contain the text to embed, each with the model endpoint that computes its
+   * embeddings.
+   */
   @JsonProperty("embedding_source_columns")
   private Collection<EmbeddingSourceColumn> embeddingSourceColumns;
 
-  /** The columns that contain the embedding vectors. */
+  /**
+   * Columns that hold precomputed embedding vectors. A single vector column is supported, and it
+   * cannot be the primary key.
+   */
   @JsonProperty("embedding_vector_columns")
   private Collection<EmbeddingVectorColumn> embeddingVectorColumns;
 
   /**
-   * The schema of the index in JSON format. Supported types are `integer`, `long`, `float`,
-   * `double`, `boolean`, `string`, `date`, `timestamp`. Supported types for vector columns:
-   * `array<float>`, `array<double>`.
+   * The schema of the index in JSON format, mapping each column name to its type. Supported types
+   * are `integer`, `long`, `float`, `double`, `boolean`, `string`, `date`, `timestamp`. Supported
+   * types for vector columns: `array<float>`, `array<double>`. The schema must include the primary
+   * key column and the embedding vector column.
    */
   @JsonProperty("schema_json")
   private String schemaJson;

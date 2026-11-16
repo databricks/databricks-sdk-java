@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class GetSandboxRequest {
-  /** */
+  /** Resource name of the sandbox to retrieve, in the form `sandboxes/{sandbox_id}`. */
   @JsonIgnore private String name;
 
   public GetSandboxRequest setName(String name) {

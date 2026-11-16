@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class DeleteDatabaseTableRequest {
-  /** */
+  /** Specifies the database table by its full three-part (catalog, schema, table) name. */
   @JsonIgnore private String name;
 
   public DeleteDatabaseTableRequest setName(String name) {

@@ -13,14 +13,7 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface LakeviewService {
-  /**
-   * Create a draft dashboard.
-   *
-   * <p>Requires the [Databricks SQL access] entitlement. Grant Databricks SQL access in addition to
-   * Workspace access.
-   *
-   * <p>[Databricks SQL access]: https://docs.databricks.com/security/auth/entitlements
-   */
+  /** Create a draft dashboard. */
   Dashboard create(CreateDashboardRequest createDashboardRequest);
 
   /**
@@ -69,14 +62,7 @@ public interface LakeviewService {
    */
   void deleteSubscription(DeleteSubscriptionRequest deleteSubscriptionRequest);
 
-  /**
-   * Get a draft dashboard.
-   *
-   * <p>Requires the [Databricks SQL access] entitlement. Grant Databricks SQL access in addition to
-   * Workspace access.
-   *
-   * <p>[Databricks SQL access]: https://docs.databricks.com/security/auth/entitlements
-   */
+  /** Get a draft dashboard. */
   Dashboard get(GetDashboardRequest getDashboardRequest);
 
   /**
@@ -117,12 +103,8 @@ public interface LakeviewService {
   Subscription getSubscription(GetSubscriptionRequest getSubscriptionRequest);
 
   /**
-   * List dashboards.
-   *
-   * <p>Requires the [Databricks SQL access] entitlement. Grant Databricks SQL access in addition to
-   * Workspace access.
-   *
-   * <p>[Databricks SQL access]: https://docs.databricks.com/security/auth/entitlements
+   * List the dashboards that the caller can view. Each entry carries summary metadata only; use Get
+   * dashboard to retrieve a dashboard's full definition.
    */
   ListDashboardsResponse list(ListDashboardsRequest listDashboardsRequest);
 
@@ -158,54 +140,19 @@ public interface LakeviewService {
    */
   Dashboard migrate(MigrateDashboardRequest migrateDashboardRequest);
 
-  /**
-   * Publish the current draft dashboard.
-   *
-   * <p>Requires the [Databricks SQL access] entitlement. Grant Databricks SQL access in addition to
-   * Workspace access.
-   *
-   * <p>[Databricks SQL access]: https://docs.databricks.com/security/auth/entitlements
-   */
+  /** Publish the current draft dashboard. */
   PublishedDashboard publish(PublishRequest publishRequest);
 
-  /**
-   * Revert a dashboard's definition in draft mode to the last published version.
-   *
-   * <p>Requires the [Databricks SQL access] entitlement. Grant Databricks SQL access in addition to
-   * Workspace access.
-   *
-   * <p>[Databricks SQL access]: https://docs.databricks.com/security/auth/entitlements
-   */
+  /** Revert a dashboard's definition in draft mode to the last published version. */
   RevertDashboardResponse revert(RevertDashboardRequest revertDashboardRequest);
 
-  /**
-   * Trash a dashboard.
-   *
-   * <p>Requires the [Databricks SQL access] entitlement. Grant Databricks SQL access in addition to
-   * Workspace access.
-   *
-   * <p>[Databricks SQL access]: https://docs.databricks.com/security/auth/entitlements
-   */
+  /** Trash a dashboard. */
   void trash(TrashDashboardRequest trashDashboardRequest);
 
-  /**
-   * Unpublish the dashboard.
-   *
-   * <p>Requires the [Databricks SQL access] entitlement. Grant Databricks SQL access in addition to
-   * Workspace access.
-   *
-   * <p>[Databricks SQL access]: https://docs.databricks.com/security/auth/entitlements
-   */
+  /** Unpublish the dashboard. */
   void unpublish(UnpublishDashboardRequest unpublishDashboardRequest);
 
-  /**
-   * Update a draft dashboard.
-   *
-   * <p>Requires the [Databricks SQL access] entitlement. Grant Databricks SQL access in addition to
-   * Workspace access.
-   *
-   * <p>[Databricks SQL access]: https://docs.databricks.com/security/auth/entitlements
-   */
+  /** Update a draft dashboard. */
   Dashboard update(UpdateDashboardRequest updateDashboardRequest);
 
   /**

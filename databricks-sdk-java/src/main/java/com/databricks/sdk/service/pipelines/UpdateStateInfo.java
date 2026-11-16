@@ -9,15 +9,15 @@ import java.util.Objects;
 
 @Generated
 public class UpdateStateInfo {
-  /** */
+  /** The time when the update was created, in ISO 8601 format. */
   @JsonProperty("creation_time")
   private String creationTime;
 
-  /** */
+  /** The state of the update. */
   @JsonProperty("state")
   private UpdateStateInfoState state;
 
-  /** */
+  /** The ID of the update. */
   @JsonProperty("update_id")
   private String updateId;
 

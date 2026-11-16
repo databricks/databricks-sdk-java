@@ -7,9 +7,19 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * A synced table is a Postgres table in a Lakebase database instance that Databricks keeps in sync
+ * with a source table in Unity Catalog. A data synchronization pipeline loads the source data and
+ * then applies later changes according to the scheduling policy, so the table can serve low-latency
+ * queries without a hand-built ETL process. For an overview, see
+ * https://docs.databricks.com/aws/en/oltp/projects/sync-tables.
+ */
 @Generated
 public class SyncedDatabaseTable {
-  /** Synced Table data synchronization status */
+  /**
+   * Reports the status of the data synchronization pipeline that keeps this table in sync with its
+   * source, including the pipeline ID and the position of the last successful sync.
+   */
   @JsonProperty("data_synchronization_status")
   private SyncedTableStatus dataSynchronizationStatus;
 
@@ -25,8 +35,8 @@ public class SyncedDatabaseTable {
 
   /**
    * The name of the database instance that this table is registered to. This field is always
-   * returned, and for tables inside database catalogs is inferred database instance associated with
-   * the catalog. This is an output only field that contains the value computed from the input field
+   * returned; for tables inside database catalogs it is the database instance associated with the
+   * catalog. This is an output only field that contains the value computed from the input field
    * combined with server side defaults. Use the field without the effective_ prefix to set the
    * value.
    */
@@ -50,8 +60,9 @@ public class SyncedDatabaseTable {
    * will be rejected).
    *
    * <p>When creating a synced table in a standard catalog, this field is required. In this
-   * scenario, specifying this field will allow targeting an arbitrary postgres database. Note that
-   * this has implications for the `create_database_objects_is_missing` field in `spec`.
+   * scenario, specifying this field will allow targeting an arbitrary postgres database. If this
+   * database does not exist yet, it is created when `create_database_objects_if_missing` in `spec`
+   * is true.
    */
   @JsonProperty("logical_database_name")
   private String logicalDatabaseName;
@@ -60,7 +71,7 @@ public class SyncedDatabaseTable {
   @JsonProperty("name")
   private String name;
 
-  /** */
+  /** Specifies the source table, the key columns and how the data synchronization pipeline runs. */
   @JsonProperty("spec")
   private SyncedTableSpec spec;
 

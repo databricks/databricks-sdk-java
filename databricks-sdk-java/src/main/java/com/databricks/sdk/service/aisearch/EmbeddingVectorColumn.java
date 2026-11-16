@@ -10,11 +10,11 @@ import java.util.Objects;
 /** Name and dimension of an embedding vector column. */
 @Generated
 public class EmbeddingVectorColumn {
-  /** Dimension of the embedding vector. */
+  /** Number of elements in each embedding vector. It must be positive. */
   @JsonProperty("embedding_dimension")
   private Long embeddingDimension;
 
-  /** Name of the column. */
+  /** Name of the column that holds the precomputed embedding vectors. */
   @JsonProperty("name")
   private String name;
 

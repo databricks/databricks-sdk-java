@@ -26,14 +26,17 @@ public class CreateRepoResponse {
   private String path;
 
   /**
-   * Git provider of the linked Git repository, e.g. `gitHub`, `azureDevOpsServices`,
-   * `bitbucketServer` (Bitbucket Data Center), `gitLabEnterpriseEdition` (GitLab Self-Managed), or
-   * `awsCodeCommit`.
+   * Git provider of the linked Git repository. Supported providers are `gitHub`, `bitbucketCloud`,
+   * `gitLab`, `azureDevOpsServices`, `gitHubEnterprise`, `bitbucketServer` (Bitbucket Data Center),
+   * `gitLabEnterpriseEdition` (GitLab Self-Managed), and `awsCodeCommit`.
    */
   @JsonProperty("provider")
   private String provider;
 
-  /** Sparse checkout settings for the Git folder (repo). */
+  /**
+   * Sparse checkout settings for the Git folder (repo). Only present when sparse checkout is
+   * enabled for the Git folder.
+   */
   @JsonProperty("sparse_checkout")
   private SparseCheckout sparseCheckout;
 

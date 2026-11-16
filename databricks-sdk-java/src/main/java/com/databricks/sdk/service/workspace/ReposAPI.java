@@ -48,7 +48,10 @@ public class ReposAPI {
     delete(new DeleteRepoRequest().setRepoId(repoId));
   }
 
-  /** Deletes the specified repo. */
+  /**
+   * Deletes the Git folder (repo) and its contents from the workspace. The remote Git repository is
+   * not affected.
+   */
   public void delete(DeleteRepoRequest request) {
     impl.delete(request);
   }
@@ -113,7 +116,7 @@ public class ReposAPI {
 
   /**
    * Updates the repo to a different branch or tag, or updates the repo to the latest commit on the
-   * same branch.
+   * same branch. Exactly one of `branch` or `tag` must be specified.
    */
   public void update(UpdateRepoRequest request) {
     impl.update(request);

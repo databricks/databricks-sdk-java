@@ -10,16 +10,17 @@ import java.util.Objects;
 @Generated
 public class TokenAccessPolicy {
   /**
-   * Absolute OAuth session TTL in minutes. Effective only when the single-use refresh token feature
-   * is enabled. This is the absolute TTL of all refresh tokens issued in one OAuth session. When a
-   * new refresh token is issued during refresh token rotation, it will inherit the same absolute
-   * TTL as the old refresh token. In other words, this represents the maximum amount of time a user
-   * can stay logged in without re-authenticating.
+   * Absolute OAuth session TTL in minutes. Can only be set when enable_single_use_refresh_tokens is
+   * true, and must be at least refresh_token_ttl_in_minutes and at most 525600 (one year). This is
+   * the absolute TTL of all refresh tokens issued in one OAuth session. When a new refresh token is
+   * issued during refresh token rotation, it will inherit the same absolute TTL as the old refresh
+   * token. In other words, this represents the maximum amount of time a user can stay logged in
+   * without re-authenticating.
    */
   @JsonProperty("absolute_session_lifetime_in_minutes")
   private Long absoluteSessionLifetimeInMinutes;
 
-  /** access token time to live in minutes */
+  /** Lifetime of access tokens, in minutes. */
   @JsonProperty("access_token_ttl_in_minutes")
   private Long accessTokenTtlInMinutes;
 
@@ -34,9 +35,10 @@ public class TokenAccessPolicy {
   private Boolean enableSingleUseRefreshTokens;
 
   /**
-   * Refresh token time to live in minutes. When single-use refresh tokens are enabled, this
-   * represents the TTL of an individual refresh token. If the refresh token is used before it
-   * expires, a new one is issued with a renewed individual TTL.
+   * Lifetime of refresh tokens, in minutes. Must not be shorter than access_token_ttl_in_minutes.
+   * When single-use refresh tokens are enabled, this represents the TTL of an individual refresh
+   * token. If the refresh token is used before it expires, a new one is issued with a renewed
+   * individual TTL.
    */
   @JsonProperty("refresh_token_ttl_in_minutes")
   private Long refreshTokenTtlInMinutes;

@@ -22,7 +22,7 @@ public class EndpointStatus {
   @JsonProperty("autoscaling_limit_min_cu")
   private Double autoscalingLimitMinCu;
 
-  /** */
+  /** The state the compute endpoint is in now. */
   @JsonProperty("current_state")
   private EndpointStatusState currentState;
 
@@ -34,7 +34,7 @@ public class EndpointStatus {
   @JsonProperty("disabled")
   private Boolean disabled;
 
-  /** Part of the resource name. */
+  /** The endpoint ID, which is the final segment of the endpoint's resource name. */
   @JsonProperty("endpoint_id")
   private String endpointId;
 
@@ -54,15 +54,18 @@ public class EndpointStatus {
   @JsonProperty("last_active_time")
   private Timestamp lastActiveTime;
 
-  /** */
+  /** The state the compute endpoint is transitioning to, if a transition is in progress. */
   @JsonProperty("pending_state")
   private EndpointStatusState pendingState;
 
-  /** */
+  /** The Postgres server parameters currently set on the compute endpoint. */
   @JsonProperty("settings")
   private EndpointSettings settings;
 
-  /** Duration of inactivity after which the compute endpoint is automatically suspended. */
+  /**
+   * Duration of inactivity after which the compute endpoint is automatically suspended. Absent when
+   * automatic suspension is disabled.
+   */
   @JsonProperty("suspend_timeout_duration")
   private Duration suspendTimeoutDuration;
 

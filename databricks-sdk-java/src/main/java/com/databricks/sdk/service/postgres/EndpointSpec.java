@@ -12,19 +12,25 @@ import java.util.Objects;
 public class EndpointSpec {
   /**
    * The maximum number of Compute Units. The maximum value is 64. The difference between the
-   * minimum and maximum Compute Units (max - min) must not exceed 16.
+   * minimum and maximum Compute Units (max - min) must not exceed 16. Set it equal to
+   * `autoscaling_limit_min_cu` for a fixed-size compute. When omitted at creation, the project's
+   * default endpoint settings apply.
    */
   @JsonProperty("autoscaling_limit_max_cu")
   private Double autoscalingLimitMaxCu;
 
-  /** The minimum number of Compute Units. Minimum value is 0.5. */
+  /**
+   * The minimum number of Compute Units. Minimum value is 0.5, and it must not exceed
+   * `autoscaling_limit_max_cu`. When omitted at creation, the project's default endpoint settings
+   * apply.
+   */
   @JsonProperty("autoscaling_limit_min_cu")
   private Double autoscalingLimitMinCu;
 
   /**
    * Whether to restrict connections to the compute endpoint. Enabling this option schedules a
    * suspend compute operation. A disabled compute endpoint cannot be enabled by a connection or
-   * console action.
+   * console action. To accept connections again, set this field back to false.
    */
   @JsonProperty("disabled")
   private Boolean disabled;
@@ -36,26 +42,32 @@ public class EndpointSpec {
   /**
    * Settings for optional HA configuration of the endpoint. If unspecified, the endpoint defaults
    * to non HA settings, with a single compute backing the endpoint (and no readable secondaries for
-   * Read/Write endpoints).
+   * Read/Write endpoints). Automatic suspension is not available for an endpoint with more than one
+   * compute, so set `no_suspension` to true when configuring one.
    */
   @JsonProperty("group")
   private EndpointGroupSpec group;
 
   /**
-   * When set to true, explicitly disables automatic suspension (never suspend). Should be set to
+   * When set to true, explicitly disables automatic suspension (never suspend). The value must be
    * true when provided. Mutually exclusive with `suspend_timeout_duration`.
    */
   @JsonProperty("no_suspension")
   private Boolean noSuspension;
 
-  /** */
+  /**
+   * Postgres server parameters for the compute endpoint. On update, an empty `pg_settings` map
+   * leaves the current parameters unchanged.
+   */
   @JsonProperty("settings")
   private EndpointSettings settings;
 
   /**
    * Duration of inactivity after which the compute endpoint is automatically suspended. If
-   * specified should be between 60s and 604800s (1 minute to 1 week). Mutually exclusive with
-   * `no_suspension`.
+   * specified, the value must be between 60s and 604800s (1 minute to 1 week). A suspended endpoint
+   * keeps its hostnames and configuration, and the next connection attempt restarts it. When
+   * neither this field nor `no_suspension` is set at creation, the project's default endpoint
+   * settings apply. Mutually exclusive with `no_suspension`.
    */
   @JsonProperty("suspend_timeout_duration")
   private Duration suspendTimeoutDuration;

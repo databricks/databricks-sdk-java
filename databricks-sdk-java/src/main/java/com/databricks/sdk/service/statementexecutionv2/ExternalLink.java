@@ -1,0 +1,199 @@
+// Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
+
+package com.databricks.sdk.service.statementexecutionv2;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Map;
+import java.util.Objects;
+
+/** A short-lived cloud-storage link to one chunk of result data. */
+@Generated
+public class ExternalLink {
+  /**
+   * The number of bytes in the result chunk. This field is not available when using `INLINE`
+   * disposition.
+   */
+  @JsonProperty("byte_count")
+  private Long byteCount;
+
+  /** The position within the sequence of result set chunks. */
+  @JsonProperty("chunk_index")
+  private Long chunkIndex;
+
+  /**
+   * Indicates the date-time that the given external link will expire and become invalid, after
+   * which point a new `external_link` must be requested.
+   */
+  @JsonProperty("expiration")
+  private String expiration;
+
+  /**
+   * A short-lived cloud-storage URL pointing to a chunk of result data, hosted by an external
+   * service, with a short expiration time (<= 15 minutes). As this URL contains a temporary
+   * credential, it should be considered sensitive and the client should not expose this URL in a
+   * log.
+   */
+  @JsonProperty("external_link")
+  private String externalLink;
+
+  /**
+   * HTTP headers that must be included with a GET request to the `external_link`. Each header is
+   * provided as a key-value pair. Headers are typically used to pass a decryption key to the
+   * external service. The values of these headers should be considered sensitive and the client
+   * should not expose these values in a log.
+   */
+  @JsonProperty("http_headers")
+  private Map<String, String> httpHeaders;
+
+  /**
+   * When fetching, provides the `chunk_index` for the _next_ chunk. If absent, indicates there are
+   * no more chunks. The next chunk can be fetched with a get-result-chunk request for that index.
+   */
+  @JsonProperty("next_chunk_index")
+  private Long nextChunkIndex;
+
+  /**
+   * When fetching, provides a link to fetch the _next_ chunk. If absent, indicates there are no
+   * more chunks. This link is an absolute `path` to be joined with your `$DATABRICKS_HOST`, and
+   * should be treated as an opaque link. This is an alternative to using `next_chunk_index`.
+   * Lakehouse//RT warehouses currently don't return this field; use `next_chunk_index` instead.
+   */
+  @JsonProperty("next_chunk_internal_link")
+  private String nextChunkInternalLink;
+
+  /** The number of rows within the result chunk. */
+  @JsonProperty("row_count")
+  private Long rowCount;
+
+  /** The starting row offset within the result set. */
+  @JsonProperty("row_offset")
+  private Long rowOffset;
+
+  public ExternalLink setByteCount(Long byteCount) {
+    this.byteCount = byteCount;
+    return this;
+  }
+
+  public Long getByteCount() {
+    return byteCount;
+  }
+
+  public ExternalLink setChunkIndex(Long chunkIndex) {
+    this.chunkIndex = chunkIndex;
+    return this;
+  }
+
+  public Long getChunkIndex() {
+    return chunkIndex;
+  }
+
+  public ExternalLink setExpiration(String expiration) {
+    this.expiration = expiration;
+    return this;
+  }
+
+  public String getExpiration() {
+    return expiration;
+  }
+
+  public ExternalLink setExternalLink(String externalLink) {
+    this.externalLink = externalLink;
+    return this;
+  }
+
+  public String getExternalLink() {
+    return externalLink;
+  }
+
+  public ExternalLink setHttpHeaders(Map<String, String> httpHeaders) {
+    this.httpHeaders = httpHeaders;
+    return this;
+  }
+
+  public Map<String, String> getHttpHeaders() {
+    return httpHeaders;
+  }
+
+  public ExternalLink setNextChunkIndex(Long nextChunkIndex) {
+    this.nextChunkIndex = nextChunkIndex;
+    return this;
+  }
+
+  public Long getNextChunkIndex() {
+    return nextChunkIndex;
+  }
+
+  public ExternalLink setNextChunkInternalLink(String nextChunkInternalLink) {
+    this.nextChunkInternalLink = nextChunkInternalLink;
+    return this;
+  }
+
+  public String getNextChunkInternalLink() {
+    return nextChunkInternalLink;
+  }
+
+  public ExternalLink setRowCount(Long rowCount) {
+    this.rowCount = rowCount;
+    return this;
+  }
+
+  public Long getRowCount() {
+    return rowCount;
+  }
+
+  public ExternalLink setRowOffset(Long rowOffset) {
+    this.rowOffset = rowOffset;
+    return this;
+  }
+
+  public Long getRowOffset() {
+    return rowOffset;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ExternalLink that = (ExternalLink) o;
+    return Objects.equals(byteCount, that.byteCount)
+        && Objects.equals(chunkIndex, that.chunkIndex)
+        && Objects.equals(expiration, that.expiration)
+        && Objects.equals(externalLink, that.externalLink)
+        && Objects.equals(httpHeaders, that.httpHeaders)
+        && Objects.equals(nextChunkIndex, that.nextChunkIndex)
+        && Objects.equals(nextChunkInternalLink, that.nextChunkInternalLink)
+        && Objects.equals(rowCount, that.rowCount)
+        && Objects.equals(rowOffset, that.rowOffset);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        byteCount,
+        chunkIndex,
+        expiration,
+        externalLink,
+        httpHeaders,
+        nextChunkIndex,
+        nextChunkInternalLink,
+        rowCount,
+        rowOffset);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ExternalLink.class)
+        .add("byteCount", byteCount)
+        .add("chunkIndex", chunkIndex)
+        .add("expiration", expiration)
+        .add("externalLink", externalLink)
+        .add("httpHeaders", httpHeaders)
+        .add("nextChunkIndex", nextChunkIndex)
+        .add("nextChunkInternalLink", nextChunkInternalLink)
+        .add("rowCount", rowCount)
+        .add("rowOffset", rowOffset)
+        .toString();
+  }
+}

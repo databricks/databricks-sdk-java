@@ -10,10 +10,7 @@ import java.util.Objects;
 
 @Generated
 public class DeleteStorageCredentialRequest {
-  /**
-   * Force an update even if there are dependent external locations or external tables (when purpose
-   * is **STORAGE**) or dependent services (when purpose is **SERVICE**).
-   */
+  /** Force deletion even if there are dependent external locations or external tables. */
   @JsonIgnore
   @QueryParam("force")
   private Boolean force;

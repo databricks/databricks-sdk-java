@@ -11,8 +11,8 @@ import java.util.Objects;
 @Generated
 public class GenieGetSpaceRequest {
   /**
-   * Whether to include the serialized space export in the response. Requires at least CAN EDIT
-   * permission on the space.
+   * Whether to include the serialized space export in the response. When true, the response also
+   * carries the configuration `etag`. Requires at least CAN EDIT permission on the space.
    */
   @JsonIgnore
   @QueryParam("include_serialized_space")

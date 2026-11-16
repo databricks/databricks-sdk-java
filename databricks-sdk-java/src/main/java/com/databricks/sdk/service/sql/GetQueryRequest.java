@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class GetQueryRequest {
-  /** */
+  /** UUID of the query to fetch. */
   @JsonIgnore private String id;
 
   public GetQueryRequest setId(String id) {

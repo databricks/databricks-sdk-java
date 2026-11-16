@@ -47,12 +47,15 @@ public class NotificationDestinationsAPI {
     return get(new GetNotificationDestinationRequest().setId(id));
   }
 
-  /** Gets a notification destination. */
+  /** Gets a notification destination by ID. Workspace admins also receive its config. */
   public NotificationDestination get(GetNotificationDestinationRequest request) {
     return impl.get(request);
   }
 
-  /** Lists notification destinations. */
+  /**
+   * Lists the notification destinations in the workspace. Results never include a destination's
+   * config; workspace admins can retrieve it with Get.
+   */
   public Iterable<ListNotificationDestinationsResult> list(
       ListNotificationDestinationsRequest request) {
     return Paginator.newTokenPagination(
@@ -70,7 +73,7 @@ public class NotificationDestinationsAPI {
 
   /**
    * Updates a notification destination. Requires workspace admin permissions. At least one field is
-   * required in the request body.
+   * required in the request body. A config provided in the request replaces the existing one.
    */
   public NotificationDestination update(UpdateNotificationDestinationRequest request) {
     return impl.update(request);

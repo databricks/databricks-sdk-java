@@ -11,8 +11,8 @@ import java.util.Objects;
 @Generated
 public class ReadVolumeRequest {
   /**
-   * Whether to include volumes in the response for which the principal can only access selective
-   * metadata for
+   * Whether to include volumes for which the principal can only access selective metadata through
+   * the BROWSE privilege.
    */
   @JsonIgnore
   @QueryParam("include_browse")

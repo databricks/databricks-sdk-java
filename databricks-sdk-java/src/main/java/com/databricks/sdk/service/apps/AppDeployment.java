@@ -56,6 +56,28 @@ public class AppDeployment {
   private AppDeploymentMode mode;
 
   /**
+   * Whether `scan_omitted_findings_count` is a lower bound rather than an exact count, because the
+   * scanner itself stopped counting.
+   */
+  @JsonProperty("scan_omitted_count_is_lower_bound")
+  private Boolean scanOmittedCountIsLowerBound;
+
+  /**
+   * The number of findings the scan reported but did not store, because the deployment hit the
+   * per-deployment findings cap. Non-zero means the listed findings are incomplete.
+   */
+  @JsonProperty("scan_omitted_findings_count")
+  private Long scanOmittedFindingsCount;
+
+  /**
+   * The security scan outcome for this deployment. UNSPECIFIED means no scan result has been
+   * recorded: the scan may still be in flight, or it ended without recording one, so don't wait
+   * indefinitely for it to change. The other values are terminal.
+   */
+  @JsonProperty("scan_status")
+  private AppDeploymentScanStatus scanStatus;
+
+  /**
    * The workspace file system path of the source code used to create the app deployment. This is
    * different from `deployment_artifacts.source_code_path`, which is the path used by the deployed
    * app. The former refers to the original source code location of the app in the workspace during
@@ -154,6 +176,33 @@ public class AppDeployment {
     return mode;
   }
 
+  public AppDeployment setScanOmittedCountIsLowerBound(Boolean scanOmittedCountIsLowerBound) {
+    this.scanOmittedCountIsLowerBound = scanOmittedCountIsLowerBound;
+    return this;
+  }
+
+  public Boolean getScanOmittedCountIsLowerBound() {
+    return scanOmittedCountIsLowerBound;
+  }
+
+  public AppDeployment setScanOmittedFindingsCount(Long scanOmittedFindingsCount) {
+    this.scanOmittedFindingsCount = scanOmittedFindingsCount;
+    return this;
+  }
+
+  public Long getScanOmittedFindingsCount() {
+    return scanOmittedFindingsCount;
+  }
+
+  public AppDeployment setScanStatus(AppDeploymentScanStatus scanStatus) {
+    this.scanStatus = scanStatus;
+    return this;
+  }
+
+  public AppDeploymentScanStatus getScanStatus() {
+    return scanStatus;
+  }
+
   public AppDeployment setSourceCodePath(String sourceCodePath) {
     this.sourceCodePath = sourceCodePath;
     return this;
@@ -195,6 +244,9 @@ public class AppDeployment {
         && Objects.equals(gitSource, that.gitSource)
         && Objects.equals(healthCheck, that.healthCheck)
         && Objects.equals(mode, that.mode)
+        && Objects.equals(scanOmittedCountIsLowerBound, that.scanOmittedCountIsLowerBound)
+        && Objects.equals(scanOmittedFindingsCount, that.scanOmittedFindingsCount)
+        && Objects.equals(scanStatus, that.scanStatus)
         && Objects.equals(sourceCodePath, that.sourceCodePath)
         && Objects.equals(status, that.status)
         && Objects.equals(updateTime, that.updateTime);
@@ -212,6 +264,9 @@ public class AppDeployment {
         gitSource,
         healthCheck,
         mode,
+        scanOmittedCountIsLowerBound,
+        scanOmittedFindingsCount,
+        scanStatus,
         sourceCodePath,
         status,
         updateTime);
@@ -229,6 +284,9 @@ public class AppDeployment {
         .add("gitSource", gitSource)
         .add("healthCheck", healthCheck)
         .add("mode", mode)
+        .add("scanOmittedCountIsLowerBound", scanOmittedCountIsLowerBound)
+        .add("scanOmittedFindingsCount", scanOmittedFindingsCount)
+        .add("scanStatus", scanStatus)
         .add("sourceCodePath", sourceCodePath)
         .add("status", status)
         .add("updateTime", updateTime)

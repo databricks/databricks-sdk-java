@@ -9,11 +9,11 @@ import java.util.Objects;
 
 @Generated
 public class MessageError {
-  /** */
+  /** A human-readable description of the error. */
   @JsonProperty("error")
   private String error;
 
-  /** */
+  /** The category of the error. */
   @JsonProperty("type")
   private MessageErrorType typeValue;
 

@@ -21,7 +21,7 @@ public class ListUpdatesResponse {
   @JsonProperty("prev_page_token")
   private String prevPageToken;
 
-  /** */
+  /** The updates for the pipeline, ordered with the newest update first. */
   @JsonProperty("updates")
   private Collection<UpdateInfo> updates;
 

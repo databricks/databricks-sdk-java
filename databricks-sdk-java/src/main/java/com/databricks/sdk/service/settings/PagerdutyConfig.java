@@ -7,9 +7,16 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * Configures a PagerDuty destination. Notifications are sent as events to the PagerDuty Events API
+ * v2.
+ */
 @Generated
 public class PagerdutyConfig {
-  /** [Input-Only] Integration key for PagerDuty. */
+  /**
+   * [Input-Only] Integration key from an Events API v2 integration on the PagerDuty service that
+   * receives the notifications.
+   */
   @JsonProperty("integration_key")
   private String integrationKey;
 

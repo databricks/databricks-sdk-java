@@ -10,7 +10,12 @@ import java.util.Objects;
 
 @Generated
 public class ListExternalLineageRelationshipsRequest {
-  /** The lineage direction to filter on. */
+  /**
+   * Direction of the relationships to return, relative to `object_info`. `UPSTREAM` returns the
+   * relationships in which the object is the target, so each result describes a source;
+   * `DOWNSTREAM` returns the relationships in which the object is the source, so each result
+   * describes a target.
+   */
   @JsonIgnore
   @QueryParam("lineage_direction")
   private LineageDirection lineageDirection;

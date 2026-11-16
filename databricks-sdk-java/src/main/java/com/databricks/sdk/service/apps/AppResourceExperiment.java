@@ -9,11 +9,11 @@ import java.util.Objects;
 
 @Generated
 public class AppResourceExperiment {
-  /** */
+  /** ID of the MLflow experiment. */
   @JsonProperty("experiment_id")
   private String experimentId;
 
-  /** */
+  /** Permission to grant the app on the experiment. */
   @JsonProperty("permission")
   private AppResourceExperimentExperimentPermission permission;
 

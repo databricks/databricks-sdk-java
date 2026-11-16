@@ -10,10 +10,14 @@ import java.util.Objects;
 
 @Generated
 public class DeleteSyncedDatabaseTableRequest {
-  /** */
+  /** Specifies the synced table by its full three-part (catalog, schema, table) name. */
   @JsonIgnore private String name;
 
-  /** Optional. When set to true, the actual PostgreSQL table will be dropped from the database. */
+  /**
+   * When true, the Postgres table is also dropped from the database. When false, the synced table
+   * is unregistered from Unity Catalog and its pipeline stops syncing it, but the Postgres table
+   * and its data are kept.
+   */
   @JsonIgnore
   @QueryParam("purge_data")
   private Boolean purgeData;

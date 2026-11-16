@@ -12,22 +12,32 @@ import java.util.Objects;
 @Generated
 public class DeltaSyncIndexSpec {
   /**
-   * [Optional] Select the columns to sync with the index. If left blank, all columns from the
-   * source table are synced. The primary key column and embedding source or vector column are
-   * always synced.
+   * Columns of the source table to include in the index. When empty, all columns are synced. The
+   * primary key and the embedding source or vector column are always synced. Only synced columns
+   * can be returned in query results or used in filters.
    */
   @JsonProperty("columns_to_sync")
   private Collection<String> columnsToSync;
 
-  /** The columns that contain the embedding source. */
+  /**
+   * Columns whose text Databricks embeds during sync, using the model endpoint named on each
+   * column. Set either this field or `embedding_vector_columns`, not both.
+   */
   @JsonProperty("embedding_source_columns")
   private Collection<EmbeddingSourceColumn> embeddingSourceColumns;
 
-  /** The columns that contain the embedding vectors. */
+  /**
+   * Columns of the source table that already hold precomputed embedding vectors. Set either this
+   * field or `embedding_source_columns`, not both.
+   */
   @JsonProperty("embedding_vector_columns")
   private Collection<EmbeddingVectorColumn> embeddingVectorColumns;
 
-  /** [Optional] Name of the Delta table to sync the index contents and computed embeddings to. */
+  /**
+   * Three-level name of a Delta table to write the synced rows and computed embeddings to. It
+   * applies only when embeddings are computed from `embedding_source_columns`, and the table must
+   * not already exist.
+   */
   @JsonProperty("embedding_writeback_table")
   private String embeddingWritebackTable;
 
@@ -36,16 +46,16 @@ public class DeltaSyncIndexSpec {
   private String pipelineId;
 
   /**
-   * Pipeline execution mode. Required on create — the backend rejects an unset value. Storage
-   * Optimized endpoints accept only `TRIGGERED`; Standard endpoints accept both. No explicit
-   * `stage` — a REQUIRED field staged below its service would be dropped from combined specs while
-   * remaining in `required`, tripping the OpenAPI required-vs-properties consistency check. The
-   * field inherits the service's launch stage.
+   * Sync mode of the pipeline that keeps the index up to date. `TRIGGERED` syncs at creation and
+   * then each time SyncIndex is called; `CONTINUOUS` processes source changes as they arrive.
+   * Storage Optimized endpoints accept only `TRIGGERED`, and an unset value is rejected.
    */
   @JsonProperty("pipeline_type")
   private PipelineType pipelineType;
 
-  /** The full name of the source Delta table. */
+  /**
+   * Three-level Unity Catalog name of the source Delta table, in the form `catalog.schema.table`.
+   */
   @JsonProperty("source_table")
   private String sourceTable;
 

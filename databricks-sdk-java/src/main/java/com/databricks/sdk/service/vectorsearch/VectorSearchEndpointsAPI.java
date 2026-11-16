@@ -146,7 +146,10 @@ public class VectorSearchEndpointsAPI {
         });
   }
 
-  /** Update an endpoint */
+  /**
+   * Update the Target QPS of a STANDARD endpoint. The response is the updated endpoint; its
+   * scaling_info shows whether the resulting scaling change is applied or still in progress.
+   */
   public EndpointInfo patchEndpoint(PatchEndpointRequest request) {
     return impl.patchEndpoint(request);
   }
@@ -179,7 +182,7 @@ public class VectorSearchEndpointsAPI {
     return impl.stopEndpoint(request);
   }
 
-  /** Update the budget policy of an endpoint */
+  /** Update the budget policy that the endpoint's usage is attributed to. */
   public PatchEndpointBudgetPolicyResponse updateEndpointBudgetPolicy(
       PatchEndpointBudgetPolicyRequest request) {
     return impl.updateEndpointBudgetPolicy(request);

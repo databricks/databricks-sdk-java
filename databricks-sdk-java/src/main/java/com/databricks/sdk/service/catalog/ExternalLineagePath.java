@@ -8,9 +8,13 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** A cloud storage path at one end of an external lineage relationship. */
 @Generated
 public class ExternalLineagePath {
-  /** */
+  /**
+   * URL of the cloud storage path. The path must be registered in Unity Catalog, i.e. under a
+   * table, volume, or external location.
+   */
   @JsonProperty("url")
   @QueryParam("url")
   private String url;

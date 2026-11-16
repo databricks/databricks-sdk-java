@@ -10,7 +10,11 @@ import java.util.Objects;
 
 @Generated
 public class DeleteExternalLineageRelationshipRequest {
-  /** */
+  /**
+   * The relationship to delete, identified by its `source` and `target` objects. Since this field
+   * is a query parameter, flatten the nested fields, for example
+   * `external_lineage_relationship.source.table.name=main.sales.orders`.
+   */
   @JsonIgnore
   @QueryParam("external_lineage_relationship")
   private DeleteRequestExternalLineage externalLineageRelationship;

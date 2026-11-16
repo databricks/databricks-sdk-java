@@ -10,19 +10,26 @@ import java.util.Objects;
 
 @Generated
 public class AsyncUpdateAppRequest {
-  /** */
+  /**
+   * The new values for the app. Only the fields named in `update_mask` are applied; the others must
+   * still be valid.
+   */
   @JsonProperty("app")
   private App app;
 
-  /** */
+  /** The name of the app to update. */
   @JsonIgnore private String appName;
 
   /**
-   * The field mask must be a single string, with multiple fields separated by commas (no spaces).
-   * The field path is relative to the resource object, using a dot (`.`) to navigate sub-fields
-   * (e.g., `author.given_name`). Specification of elements in sequence or map fields is not
-   * allowed, as only the entire collection field can be specified. Field names must exactly match
-   * the resource field names.
+   * Comma-separated names of the `app` fields to update, such as `description` or `resources`. A
+   * field named in the mask but absent from `app` is cleared, except `compute_size`, which resets
+   * to `MEDIUM`.
+   *
+   * <p>The field mask must be a single string, with multiple fields separated by commas (no
+   * spaces). The field path is relative to the resource object, using a dot (`.`) to navigate
+   * sub-fields (e.g., `author.given_name`). Specification of elements in sequence or map fields is
+   * not allowed, as only the entire collection field can be specified. Field names must exactly
+   * match the resource field names.
    *
    * <p>A field mask of `*` indicates full replacement. It’s recommended to always explicitly list
    * the fields being updated and avoid using `*` wildcards, as it can lead to unintended results if

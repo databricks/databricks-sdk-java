@@ -14,19 +14,35 @@ public class CreateCatalog {
   @JsonProperty("comment")
   private String comment;
 
-  /** The name of the connection to an external data source. */
+  /**
+   * Naming a connection to an external data source creates a foreign catalog that mirrors a
+   * database in that source, which requires ownership of or the CREATE FOREIGN CATALOG privilege on
+   * the connection. Connection-specific settings, such as the database to mirror, go in options.
+   * The connection cannot be changed after creation.
+   */
   @JsonProperty("connection_name")
   private String connectionName;
 
-  /** Custom maximum retention period in hours for the catalog */
+  /**
+   * Dropped objects in the catalog remain recoverable for this number of hours before they are
+   * permanently purged. The value applies to standard catalogs only, must be 0 or within the range
+   * allowed for the metastore, and is inherited by schemas and tables that do not set their own
+   * value.
+   */
   @JsonProperty("custom_max_retention_hours")
   private Long customMaxRetentionHours;
 
-  /** Control CMK encryption for managed catalog data */
+  /**
+   * Customer-managed key (CMK) settings control the encryption at rest of the catalog's managed
+   * data.
+   */
   @JsonProperty("managed_encryption_settings")
   private EncryptionSettings managedEncryptionSettings;
 
-  /** Name of catalog. */
+  /**
+   * The name of the catalog is stored in lowercase, can be at most 255 characters long, and cannot
+   * contain periods, spaces, forward slashes, or control characters.
+   */
   @JsonProperty("name")
   private String name;
 
@@ -39,19 +55,26 @@ public class CreateCatalog {
   private Map<String, String> properties;
 
   /**
-   * The name of delta sharing provider.
-   *
-   * <p>A Delta Sharing catalog is a catalog that is based on a Delta share on a remote sharing
-   * server.
+   * The Delta Sharing provider that owns the share must be named here, together with share_name, to
+   * create a Delta Sharing catalog that exposes the data of the share on a remote sharing server.
+   * The provider cannot be changed after creation.
    */
   @JsonProperty("provider_name")
   private String providerName;
 
-  /** The name of the share under the share provider. */
+  /**
+   * The share under the Delta Sharing provider must be named here, together with provider_name, to
+   * create a Delta Sharing catalog. The share cannot be changed after creation.
+   */
   @JsonProperty("share_name")
   private String shareName;
 
-  /** Storage root URL for managed tables within catalog. */
+  /**
+   * Managed tables and volumes in the catalog are stored under this storage root URL. The path must
+   * be inside an external location on which the caller has the CREATE MANAGED STORAGE privilege. If
+   * omitted, managed data is stored under the metastore's root storage location, which must then be
+   * configured. Delta Sharing catalogs cannot have a storage root.
+   */
   @JsonProperty("storage_root")
   private String storageRoot;
 

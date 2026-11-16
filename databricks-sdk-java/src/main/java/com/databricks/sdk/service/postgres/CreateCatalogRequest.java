@@ -16,8 +16,8 @@ public class CreateCatalogRequest {
   private Catalog catalog;
 
   /**
-   * The ID in the Unity Catalog. It becomes the full resource name, for example "my_catalog"
-   * becomes "catalogs/my_catalog".
+   * The ID of the catalog to create, which is also its name in Unity Catalog. It becomes the last
+   * segment of the catalog's resource name, catalogs/{catalog_id}.
    */
   @JsonIgnore
   @QueryParam("catalog_id")

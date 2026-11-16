@@ -10,7 +10,10 @@ import java.util.Objects;
 
 @Generated
 public class UpdateRepoRequest {
-  /** Branch that the local version of the repo is checked out to. */
+  /**
+   * Branch to check out. The Git folder (repo) is then updated to the latest commit of the branch.
+   * Mutually exclusive with `tag`.
+   */
   @JsonProperty("branch")
   private String branch;
 
@@ -41,7 +44,7 @@ public class UpdateRepoRequest {
 
   /**
    * If specified, update the sparse checkout settings. The update will fail if sparse checkout is
-   * not enabled for the repo.
+   * not enabled for the repo. Must be sent together with `branch` or `tag`.
    */
   @JsonProperty("sparse_checkout")
   private SparseCheckoutUpdate sparseCheckout;
@@ -49,7 +52,7 @@ public class UpdateRepoRequest {
   /**
    * Tag that the local version of the repo is checked out to. Updating the repo to a tag puts the
    * repo in a detached HEAD state. Before committing new changes, you must update the repo to a
-   * branch instead of the detached HEAD.
+   * branch instead of the detached HEAD. Mutually exclusive with `branch`.
    */
   @JsonProperty("tag")
   private String tag;

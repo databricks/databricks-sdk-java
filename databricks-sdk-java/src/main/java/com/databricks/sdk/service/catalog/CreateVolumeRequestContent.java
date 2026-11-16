@@ -25,7 +25,12 @@ public class CreateVolumeRequestContent {
   @JsonProperty("schema_name")
   private String schemaName;
 
-  /** The storage location on the cloud */
+  /**
+   * The cloud storage URL where the files of the volume are stored. For an external volume, it must
+   * be set on creation to a path within an existing external location. For a managed volume, it
+   * must be omitted on creation; the volume is placed under the managed storage location of the
+   * parent schema, catalog, or metastore, and the assigned path is returned in this field.
+   */
   @JsonProperty("storage_location")
   private String storageLocation;
 

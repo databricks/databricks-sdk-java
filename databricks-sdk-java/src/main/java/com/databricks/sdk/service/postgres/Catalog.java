@@ -10,7 +10,10 @@ import java.util.Objects;
 
 @Generated
 public class Catalog {
-  /** The part of the name, chosen by the user when the resource was created. */
+  /**
+   * The ID chosen when the catalog was created, which is also its name in Unity Catalog. It is the
+   * last segment of the name field.
+   */
   @JsonProperty("catalog_id")
   private String catalogId;
 
@@ -26,7 +29,10 @@ public class Catalog {
   @JsonProperty("name")
   private String name;
 
-  /** The desired state of the Catalog. */
+  /**
+   * The desired state of the Catalog. The catalog has no update method, so the spec is fixed when
+   * the catalog is created.
+   */
   @JsonProperty("spec")
   private CatalogCatalogSpec spec;
 
@@ -34,7 +40,7 @@ public class Catalog {
   @JsonProperty("status")
   private CatalogCatalogStatus status;
 
-  /** System-generated unique identifier for the catalog. */
+  /** The immutable UUID that identifies the catalog, assigned when the catalog is created. */
   @JsonProperty("uid")
   private String uid;
 

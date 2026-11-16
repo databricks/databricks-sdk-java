@@ -9,7 +9,16 @@ import java.util.Objects;
 
 @Generated
 public class SandboxStatus {
-  /** Lifecycle state of the sandbox. */
+  /**
+   * Lifecycle state of the sandbox.
+   *
+   * <p>- `SANDBOX_STATE_PENDING`: The sandbox is being provisioned after a create or start request
+   * and cannot run commands yet. - `SANDBOX_STATE_RUNNING`: The sandbox is ready and commands can
+   * run in it. - `SANDBOX_STATE_STOPPING`: The sandbox is shutting down. It settles to
+   * `SANDBOX_STATE_STOPPED`, or disappears if it is being deleted. - `SANDBOX_STATE_STOPPED`: The
+   * sandbox is stopped, by a stop request, inactivity auto-stop, or a failed provisioning. Its home
+   * directory is kept and it can be started again with StartSandbox.
+   */
   @JsonProperty("state")
   private SandboxState state;
 

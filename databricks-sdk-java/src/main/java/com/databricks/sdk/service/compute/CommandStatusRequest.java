@@ -10,17 +10,17 @@ import java.util.Objects;
 
 @Generated
 public class CommandStatusRequest {
-  /** */
+  /** ID of the cluster that hosts the execution context. */
   @JsonIgnore
   @QueryParam("clusterId")
   private String clusterId;
 
-  /** */
+  /** ID of the command, as returned by __execute__. */
   @JsonIgnore
   @QueryParam("commandId")
   private String commandId;
 
-  /** */
+  /** ID of the execution context the command runs in. */
   @JsonIgnore
   @QueryParam("contextId")
   private String contextId;

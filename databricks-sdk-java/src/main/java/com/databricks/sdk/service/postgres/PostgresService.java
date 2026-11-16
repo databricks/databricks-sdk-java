@@ -33,7 +33,13 @@ public interface PostgresService {
   /** Creates a new database branch in the project. */
   Operation createBranch(CreateBranchRequest createBranchRequest);
 
-  /** Register a Postgres database in the Unity Catalog. */
+  /**
+   * Registers a Postgres database from a Lakebase project branch as a catalog in Unity Catalog, so
+   * that its schemas, tables and views are governed and discoverable through Unity Catalog. The
+   * catalog is read-only; the data stays managed through Postgres. Returns a long-running
+   * operation. Poll it until done is true; its response holds the new catalog. For an overview, see
+   * https://docs.databricks.com/aws/en/oltp/projects/register-uc.
+   */
   Operation createCatalog(CreateCatalogRequest createCatalogRequest);
 
   /**
@@ -53,7 +59,11 @@ public interface PostgresService {
    */
   Operation createDatabase(CreateDatabaseRequest createDatabaseRequest);
 
-  /** Creates a new compute endpoint in the branch. */
+  /**
+   * Creates a compute endpoint in the branch. Each branch gets its read-write endpoint when the
+   * branch is created, so use this method to add read-only endpoints (read replicas) or, with
+   * `replace_existing`, to reconfigure the existing read-write endpoint.
+   */
   Operation createEndpoint(CreateEndpointRequest createEndpointRequest);
 
   /** Creates a migration. */
@@ -61,7 +71,9 @@ public interface PostgresService {
 
   /**
    * Creates a new Lakebase Autoscaling Postgres database project, which contains branches and
-   * compute endpoints.
+   * compute endpoints. The new project starts with a single branch, a read-write compute endpoint
+   * on that branch, a Postgres database named `databricks_postgres`, and a Postgres role for the
+   * calling identity.
    */
   Operation createProject(CreateProjectRequest createProjectRequest);
 
@@ -77,7 +89,11 @@ public interface PostgresService {
   /** Deletes the specified database branch. */
   Operation deleteBranch(DeleteBranchRequest deleteBranchRequest);
 
-  /** Delete a Database Catalog. */
+  /**
+   * Deletes the catalog from Unity Catalog. The Postgres database and its tables remain in the
+   * branch, and the database can be registered again afterwards. Returns a long-running operation.
+   * Poll it until done is true.
+   */
   Operation deleteCatalog(DeleteCatalogRequest deleteCatalogRequest);
 
   /**
@@ -93,13 +109,21 @@ public interface PostgresService {
   /** Delete a Database. */
   Operation deleteDatabase(DeleteDatabaseRequest deleteDatabaseRequest);
 
-  /** Deletes the specified compute endpoint. */
+  /**
+   * Deletes the specified compute endpoint. Deletion is permanent. Only read-only endpoints can be
+   * deleted this way, because a branch's read-write endpoint is deleted together with the branch.
+   * To stop the compute costs of a read-write endpoint without deleting the branch, set
+   * `spec.disabled` to true.
+   */
   Operation deleteEndpoint(DeleteEndpointRequest deleteEndpointRequest);
 
   /** Soft-deletes a migration. */
   Operation deleteMigration(DeleteMigrationRequest deleteMigrationRequest);
 
-  /** Deletes the specified database project. */
+  /**
+   * Deletes the specified database project. By default the project is soft-deleted and can be
+   * restored with Undelete during its retention period; set `purge` to delete it permanently.
+   */
   Operation deleteProject(DeleteProjectRequest deleteProjectRequest);
 
   /** Deletes the specified Postgres role. */
@@ -121,7 +145,10 @@ public interface PostgresService {
   /** Retrieves information about the specified database branch. */
   Branch getBranch(GetBranchRequest getBranchRequest);
 
-  /** Get a Database Catalog. */
+  /**
+   * Gets the catalog with the given name. The status reports the Postgres database, project and
+   * branch that the catalog registers.
+   */
   Catalog getCatalog(GetCatalogRequest getCatalogRequest);
 
   /**
@@ -196,7 +223,10 @@ public interface PostgresService {
   /** List Databases. */
   ListDatabasesResponse listDatabases(ListDatabasesRequest listDatabasesRequest);
 
-  /** Returns a paginated list of compute endpoints in the branch. */
+  /**
+   * Lists the compute endpoints in the branch, including its read-write endpoint and any read-only
+   * endpoints.
+   */
   ListEndpointsResponse listEndpoints(ListEndpointsRequest listEndpointsRequest);
 
   /** Lists migrations in the workspace. */
@@ -231,7 +261,11 @@ public interface PostgresService {
   /** Restores a soft-deleted migration before it is permanently purged. */
   Operation undeleteMigration(UndeleteMigrationRequest undeleteMigrationRequest);
 
-  /** Undeletes a soft-deleted project. */
+  /**
+   * Restores a soft-deleted project together with its branches and their data, compute endpoints,
+   * Postgres databases and roles, project settings, and permissions. A project can be restored
+   * until its `purge_time`; after that it is permanently deleted and cannot be recovered.
+   */
   Operation undeleteProject(UndeleteProjectRequest undeleteProjectRequest);
 
   /**
@@ -247,15 +281,19 @@ public interface PostgresService {
   Operation updateDatabase(UpdateDatabaseRequest updateDatabaseRequest);
 
   /**
-   * Updates the specified compute endpoint. You can update autoscaling limits, suspend timeout, or
-   * enable/disable the compute endpoint.
+   * Updates the configuration of the specified compute endpoint. Only the `spec` fields named in
+   * `update_mask` change, and `spec.endpoint_type` cannot be changed. The endpoint keeps its
+   * hostnames across updates, so existing connection strings stay valid.
    */
   Operation updateEndpoint(UpdateEndpointRequest updateEndpointRequest);
 
   /** Updates user-owned migration configuration. */
   Operation updateMigration(UpdateMigrationRequest updateMigrationRequest);
 
-  /** Updates the specified database project. */
+  /**
+   * Updates the configuration of the specified database project. Only the fields named in
+   * `update_mask` change.
+   */
   Operation updateProject(UpdateProjectRequest updateProjectRequest);
 
   /**

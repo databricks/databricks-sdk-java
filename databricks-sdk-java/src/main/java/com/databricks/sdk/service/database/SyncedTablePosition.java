@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class SyncedTablePosition {
-  /** */
+  /** Identifies the position in the source Delta table at the time of the last successful sync. */
   @JsonProperty("delta_table_sync_info")
   private DeltaTableSyncInfo deltaTableSyncInfo;
 

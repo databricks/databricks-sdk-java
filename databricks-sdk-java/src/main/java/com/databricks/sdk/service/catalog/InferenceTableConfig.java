@@ -29,7 +29,10 @@ public class InferenceTableConfig {
   @JsonProperty("parent")
   private String parent;
 
-  /** Resolved UC table for payload logs. Format: `tables/{catalog}.{schema}.{table}`. */
+  /**
+   * Resource name of the Unity Catalog table that receives the payload logs. Format:
+   * `tables/{catalog}.{schema}.{table}`.
+   */
   @JsonProperty("table")
   private String table;
 

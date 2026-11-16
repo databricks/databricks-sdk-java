@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class GetSyncedDatabaseTableRequest {
-  /** */
+  /** Specifies the synced table by its full three-part (catalog, schema, table) name. */
   @JsonIgnore private String name;
 
   public GetSyncedDatabaseTableRequest setName(String name) {
