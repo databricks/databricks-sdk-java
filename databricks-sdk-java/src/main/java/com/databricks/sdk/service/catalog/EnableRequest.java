@@ -10,14 +10,17 @@ import java.util.Objects;
 
 @Generated
 public class EnableRequest {
-  /** the catalog for which the system schema is to enabled in */
+  /**
+   * Name of the catalog in which to enable the system schema. The supported values are `system` and
+   * `samples`. If not set, the system schema is enabled in the `system` catalog.
+   */
   @JsonProperty("catalog_name")
   private String catalogName;
 
   /** The metastore ID under which the system schema lives. */
   @JsonIgnore private String metastoreId;
 
-  /** Full name of the system schema. */
+  /** Name of the system schema, without the catalog prefix. */
   @JsonIgnore private String schemaName;
 
   public EnableRequest setCatalogName(String catalogName) {

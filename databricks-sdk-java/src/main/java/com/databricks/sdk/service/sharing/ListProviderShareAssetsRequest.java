@@ -26,6 +26,11 @@ public class ListProviderShareAssetsRequest {
   /** The name of the share. */
   @JsonIgnore private String shareName;
 
+  /** Maximum number of skills to return. */
+  @JsonIgnore
+  @QueryParam("skill_max_results")
+  private Long skillMaxResults;
+
   /** Maximum number of tables to return. */
   @JsonIgnore
   @QueryParam("table_max_results")
@@ -72,6 +77,15 @@ public class ListProviderShareAssetsRequest {
     return shareName;
   }
 
+  public ListProviderShareAssetsRequest setSkillMaxResults(Long skillMaxResults) {
+    this.skillMaxResults = skillMaxResults;
+    return this;
+  }
+
+  public Long getSkillMaxResults() {
+    return skillMaxResults;
+  }
+
   public ListProviderShareAssetsRequest setTableMaxResults(Long tableMaxResults) {
     this.tableMaxResults = tableMaxResults;
     return this;
@@ -99,6 +113,7 @@ public class ListProviderShareAssetsRequest {
         && Objects.equals(notebookMaxResults, that.notebookMaxResults)
         && Objects.equals(providerName, that.providerName)
         && Objects.equals(shareName, that.shareName)
+        && Objects.equals(skillMaxResults, that.skillMaxResults)
         && Objects.equals(tableMaxResults, that.tableMaxResults)
         && Objects.equals(volumeMaxResults, that.volumeMaxResults);
   }
@@ -110,6 +125,7 @@ public class ListProviderShareAssetsRequest {
         notebookMaxResults,
         providerName,
         shareName,
+        skillMaxResults,
         tableMaxResults,
         volumeMaxResults);
   }
@@ -121,6 +137,7 @@ public class ListProviderShareAssetsRequest {
         .add("notebookMaxResults", notebookMaxResults)
         .add("providerName", providerName)
         .add("shareName", shareName)
+        .add("skillMaxResults", skillMaxResults)
         .add("tableMaxResults", tableMaxResults)
         .add("volumeMaxResults", volumeMaxResults)
         .toString();

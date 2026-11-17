@@ -7,15 +7,17 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** A library to install on a cluster. Exactly one of the library-type fields must be set. */
 @Generated
 public class Library {
-  /** Specification of a CRAN library to be installed as part of the library */
+  /** Specification of a CRAN library to be installed. */
   @JsonProperty("cran")
   private RCranLibrary cran;
 
   /**
-   * Deprecated. URI of the egg library to install. Installing Python egg files is deprecated and is
-   * not supported in Databricks Runtime 14.0 and above.
+   * Deprecated: Installing Python egg files is not supported in Databricks Runtime 14.0 and above.
+   * Use a wheel (`whl`) or a PyPI package (`pypi`) instead. The value is the URI of the egg file to
+   * install.
    */
   @JsonProperty("egg")
   private String egg;
@@ -37,14 +39,15 @@ public class Library {
   @JsonProperty("maven")
   private MavenLibrary maven;
 
-  /** Specification of a PyPi library to be installed. For example: `{ "package": "simplejson" }` */
+  /** Specification of a PyPI library to be installed. For example: `{ "package": "simplejson" }` */
   @JsonProperty("pypi")
   private PythonPyPiLibrary pypi;
 
   /**
    * URI of the requirements.txt file to install. Only Workspace paths and Unity Catalog Volumes
    * paths are supported. For example: `{ "requirements": "/Workspace/path/to/requirements.txt" }`
-   * or `{ "requirements" : "/Volumes/path/to/requirements.txt" }`
+   * or `{ "requirements" : "/Volumes/path/to/requirements.txt" }`. Installing a requirements file
+   * requires Databricks Runtime 15.0 or above.
    */
   @JsonProperty("requirements")
   private String requirements;

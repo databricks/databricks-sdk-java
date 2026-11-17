@@ -11,10 +11,10 @@ import java.util.Objects;
 
 @Generated
 public class PatchAccountGroupRequest {
-  /** Unique ID in the Databricks workspace. */
+  /** Unique ID for a group in the Databricks account. */
   @JsonIgnore private String id;
 
-  /** */
+  /** Lists the patch operations to apply to the group. */
   @JsonProperty("Operations")
   private Collection<Patch> operations;
 

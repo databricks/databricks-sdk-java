@@ -12,25 +12,26 @@ import java.util.Objects;
 public class AuthorizationDetails {
   /**
    * Represents downscoped permission rules with specific access rights. This field is specific to
-   * `workspace_rule_set` constraint.
+   * the `workspace_rule_set` constraint.
    */
   @JsonProperty("grant_rules")
   private Collection<AuthorizationDetailsGrantRule> grantRules;
 
-  /** The acl path of the tree store resource resource. */
+  /** The legacy ACL path of the workspace object that the rule applies to. */
   @JsonProperty("resource_legacy_acl_path")
   private String resourceLegacyAclPath;
 
   /**
-   * The resource name to which the authorization rule applies. This field is specific to
-   * `workspace_rule_set` constraint. Format: `workspaces/{workspace_id}/dashboards/{dashboard_id}`
+   * The resource name to which the authorization rule applies. This field is specific to the
+   * `workspace_rule_set` constraint. Format: `workspaces/{workspace_id}` for a workspace-level
+   * rule, or `workspaces/{workspace_id}/dashboards/{dashboard_id}` for a rule on a dashboard.
    */
   @JsonProperty("resource_name")
   private String resourceName;
 
   /**
-   * The type of authorization downscoping policy. Ex: `workspace_rule_set` defines access rules for
-   * a specific workspace resource
+   * The type of authorization downscoping policy. A `workspace_rule_set` policy defines access
+   * rules for a specific workspace resource.
    */
   @JsonProperty("type")
   private String typeValue;

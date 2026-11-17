@@ -11,10 +11,10 @@ import java.util.Objects;
 
 @Generated
 public class PatchAccountServicePrincipalRequest {
-  /** Unique ID in the Databricks workspace. */
+  /** Unique ID for a service principal in the Databricks account. */
   @JsonIgnore private String id;
 
-  /** */
+  /** Lists the patch operations to apply to the service principal. */
   @JsonProperty("Operations")
   private Collection<Patch> operations;
 

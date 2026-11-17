@@ -13,11 +13,15 @@ public class SetExperimentTag {
   @JsonProperty("experiment_id")
   private String experimentId;
 
-  /** Name of the tag. Keys up to 250 bytes in size are supported. */
+  /**
+   * Key of the tag. Keys are at most 255 characters long. Setting a key that already exists
+   * replaces its value. System tags such as `mlflow.ownerId`, `mlflow.ownerEmail` and
+   * `mlflow.experimentType` cannot be set.
+   */
   @JsonProperty("key")
   private String key;
 
-  /** String value of the tag being logged. Values up to 64KB in size are supported. */
+  /** Value of the tag. Values are at most 65535 characters long. */
   @JsonProperty("value")
   private String value;
 

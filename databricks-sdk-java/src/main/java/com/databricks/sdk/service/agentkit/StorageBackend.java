@@ -10,7 +10,11 @@ import java.util.Objects;
 /** Service-managed storage backing a memory store. */
 @Generated
 public class StorageBackend {
-  /** Backend-specific identifier. For Lakebase, this is the project ID. */
+  /**
+   * Backend-specific identifier. For Lakebase, this is the resource name of the database that holds
+   * the store's entries, in the form
+   * `projects/{project_id}/branches/{branch_id}/databases/{database_id}`.
+   */
   @JsonProperty("backend_id")
   private String backendId;
 

@@ -19,7 +19,8 @@ public class EditWarehouseRequest {
    * The amount of time in minutes that a SQL warehouse must be idle (i.e., no RUNNING queries)
    * before it is automatically stopped.
    *
-   * <p>Supported values: - Must be == 0 or >= 10 mins - 0 indicates no autostop.
+   * <p>Supported values: - Must be == 0 or >= 1 min for serverless warehouses. - Must be == 0 or >=
+   * 10 mins for classic and pro warehouses. - 0 indicates no autostop.
    *
    * <p>Defaults to 120 mins
    */

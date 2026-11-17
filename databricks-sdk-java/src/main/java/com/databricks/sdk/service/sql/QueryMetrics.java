@@ -26,8 +26,9 @@ public class QueryMetrics {
   private Long networkSentBytes;
 
   /**
-   * Timestamp of when the query was enqueued waiting while the warehouse was at max load. This
-   * field is optional and will not appear if the query skipped the overloading queue.
+   * Timestamp of when the query was enqueued waiting while the warehouse was at max load, in
+   * milliseconds since the Unix epoch. This field is optional and will not appear if the query
+   * skipped the overloading queue.
    */
   @JsonProperty("overloading_queue_start_timestamp")
   private Long overloadingQueueStartTimestamp;
@@ -54,8 +55,8 @@ public class QueryMetrics {
 
   /**
    * Timestamp of when the query was enqueued waiting for a cluster to be provisioned for the
-   * warehouse. This field is optional and will not appear if the query skipped the provisioning
-   * queue.
+   * warehouse, in milliseconds since the Unix epoch. This field is optional and will not appear if
+   * the query skipped the provisioning queue.
    */
   @JsonProperty("provisioning_queue_start_timestamp")
   private Long provisioningQueueStartTimestamp;
@@ -68,7 +69,10 @@ public class QueryMetrics {
   @JsonProperty("pruned_files_count")
   private Long prunedFilesCount;
 
-  /** Timestamp of when the underlying compute started compilation of the query. */
+  /**
+   * Timestamp of when the underlying compute started compilation of the query, in milliseconds
+   * since the Unix epoch.
+   */
   @JsonProperty("query_compilation_start_timestamp")
   private Long queryCompilationStartTimestamp;
 
@@ -119,10 +123,7 @@ public class QueryMetrics {
   @JsonProperty("rows_read_count")
   private Long rowsReadCount;
 
-  /**
-   * number of remaining tasks to complete, calculated by autoscaler StatementAnalysis.scala
-   * deprecated: use remaining_task_count instead
-   */
+  /** Deprecated: use `remaining_task_count` instead. Number of remaining tasks to complete. */
   @JsonProperty("runnable_tasks")
   private Long runnableTasks;
 
@@ -146,14 +147,13 @@ public class QueryMetrics {
   private Long totalTimeMs;
 
   /**
-   * remaining work to be done across all stages in the query, calculated by autoscaler
-   * StatementAnalysis.scala, in milliseconds deprecated: using
-   * projected_remaining_task_total_time_ms instead
+   * Deprecated: use `projected_remaining_task_total_time_ms` instead. Remaining work to be done
+   * across all stages in the query, in milliseconds.
    */
   @JsonProperty("work_to_be_done")
   private Long workToBeDone;
 
-  /** Size pf persistent data written to cloud object storage in your cloud tenant, in bytes. */
+  /** Size of persistent data written to cloud object storage in your cloud tenant, in bytes. */
   @JsonProperty("write_remote_bytes")
   private Long writeRemoteBytes;
 

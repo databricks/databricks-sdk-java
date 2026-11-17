@@ -1,5 +1,19 @@
 # Version changelog
 
+## Release v0.182.0 (2026-11-17)
+
+### API Changes
+* Add `createParser()`, `createParserVersion()`, `deleteParser()`, `deleteParserVersion()`, `getBuiltinParser()`, `getBuiltinParserVersion()`, `getParser()`, `getParserVersion()`, `listBuiltinParserVersions()`, `listBuiltinParsers()`, `listParserVersions()` and `listParsers()` methods for `workspaceClient.lakewatch()` service.
+* Add `detailedState` field for `com.databricks.sdk.service.aisearch.IndexStatus`.
+* Add `operations` field for `com.databricks.sdk.service.ml.MaterializedFeature`.
+* Add `skillMaxResults` field for `com.databricks.sdk.service.sharing.ListProviderShareAssetsRequest`.
+* Add `skills` field for `com.databricks.sdk.service.sharing.ListProviderShareAssetsResponse`.
+* Add `detailedState` and `failedStatus` fields for `com.databricks.sdk.service.vectorsearch.VectorIndexStatus`.
+* Add `GOOGLE_ADS` enum value for `com.databricks.sdk.service.pipelines.IngestionSourceType`.
+* Add `SKILL` enum value for `com.databricks.sdk.service.sharing.SharedDataObjectDataObjectType`.
+* [Breaking] Change `sqlQueryId` field for `com.databricks.sdk.service.jobs.SqlConditionConfiguration` to no longer be required.
+* Change `sqlQueryId` field for `com.databricks.sdk.service.jobs.SqlConditionConfiguration` to no longer be required.
+
 ## Release v0.181.0 (2026-11-16)
 
 ### API Changes

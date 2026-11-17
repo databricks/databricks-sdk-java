@@ -7,6 +7,13 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * A clean room is a secure, Databricks-managed environment where collaborators from one or more
+ * Unity Catalog metastores share tables, views, volumes and notebooks and run approved analyses
+ * without seeing each other's data. Each collaborator sees the clean room as a securable in their
+ * own metastore, while the analyses run in a central clean room in the cloud and region chosen at
+ * creation.
+ */
 @Generated
 public class CleanRoom {
   /**
@@ -17,7 +24,10 @@ public class CleanRoom {
   @JsonProperty("access_restricted")
   private CleanRoomAccessRestricted accessRestricted;
 
-  /** */
+  /**
+   * Free-form description of the clean room. Comments are local to the caller's metastore and are
+   * not shared with the other collaborators.
+   */
   @JsonProperty("comment")
   private String comment;
 
@@ -55,7 +65,7 @@ public class CleanRoom {
 
   /**
    * This is the Databricks username of the owner of the local clean room securable for permission
-   * management.
+   * management. When creating a clean room, leave it empty or set it to the caller.
    */
   @JsonProperty("owner")
   private String owner;

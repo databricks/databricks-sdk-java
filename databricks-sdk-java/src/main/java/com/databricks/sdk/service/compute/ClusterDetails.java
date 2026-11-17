@@ -109,7 +109,34 @@ public class ClusterDetails {
   @JsonProperty("custom_tags")
   private Map<String, String> customTags;
 
-  /** */
+  /**
+   * Data security mode decides what data governance model to use when accessing data from a
+   * cluster.
+   *
+   * <p>* `DATA_SECURITY_MODE_AUTO`: Databricks will choose the most appropriate access mode
+   * depending on your compute configuration. * `DATA_SECURITY_MODE_STANDARD`: A secure cluster that
+   * can be shared by multiple users. Cluster users are fully isolated so that they cannot see each
+   * other's data and credentials. Most data governance features are supported in this mode. But
+   * programming languages and cluster features might be limited. * `DATA_SECURITY_MODE_DEDICATED`:
+   * A secure cluster that can only be exclusively used by a single user specified in
+   * `single_user_name`. Most programming languages, cluster features and data governance features
+   * are available in this mode. * `NONE`: No security isolation for multiple users sharing the
+   * cluster. Data governance features are not available in this mode.
+   *
+   * <p>The following modes are legacy aliases for the above modes:
+   *
+   * <p>* `USER_ISOLATION`: Legacy alias for `DATA_SECURITY_MODE_STANDARD`. * `SINGLE_USER`: Legacy
+   * alias for `DATA_SECURITY_MODE_DEDICATED`.
+   *
+   * <p>The following modes are deprecated starting with Databricks Runtime 15.0 and will be removed
+   * for future Databricks Runtime versions:
+   *
+   * <p>* `LEGACY_TABLE_ACL`: This mode is for users migrating from legacy Table ACL clusters. *
+   * `LEGACY_PASSTHROUGH`: This mode is for users migrating from legacy Passthrough on high
+   * concurrency clusters. * `LEGACY_SINGLE_USER`: This mode is for users migrating from legacy
+   * Passthrough on standard clusters. * `LEGACY_SINGLE_USER_STANDARD`: This mode provides a way
+   * that doesn't have UC or passthrough enabled.
+   */
   @JsonProperty("data_security_mode")
   private DataSecurityMode dataSecurityMode;
 
@@ -133,7 +160,11 @@ public class ClusterDetails {
   @JsonProperty("dependency_mode")
   private DependencyMode dependencyMode;
 
-  /** Custom docker image BYOC */
+  /**
+   * Custom Docker image for the cluster's nodes, used with [Databricks Container Services].
+   *
+   * <p>[Databricks Container Services]: https://docs.databricks.com/compute/custom-containers.html
+   */
   @JsonProperty("docker_image")
   private DockerImage dockerImage;
 
@@ -206,17 +237,30 @@ public class ClusterDetails {
   private Boolean isSingleNode;
 
   /**
-   * Port on which Spark JDBC server is listening, in the driver nod. No service will be listeningon
+   * Port on which Spark JDBC server is listening in the driver node. No service will be listening
    * on this port in executor nodes.
    */
   @JsonProperty("jdbc_port")
   private Long jdbcPort;
 
-  /** */
+  /**
+   * The kind of compute described by this compute specification.
+   *
+   * <p>Depending on `kind`, different validations and default values will be applied.
+   *
+   * <p>Clusters with `kind = CLASSIC_PREVIEW` support the following fields, whereas clusters with
+   * no specified `kind` do not. * [is_single_node] * [use_ml_runtime]
+   *
+   * <p>By using the [simple form], your clusters are automatically using `kind = CLASSIC_PREVIEW`.
+   *
+   * <p>[is_single_node]: https://docs.databricks.com/api/workspace/clusters/create#is_single_node
+   * [simple form]: https://docs.databricks.com/compute/simple-form.html [use_ml_runtime]:
+   * https://docs.databricks.com/api/workspace/clusters/create#use_ml_runtime
+   */
   @JsonProperty("kind")
   private Kind kind;
 
-  /** the timestamp that the cluster was started/restarted */
+  /** Time (in epoch milliseconds) when the cluster was last started or restarted. */
   @JsonProperty("last_restarted_time")
   private Long lastRestartedTime;
 
@@ -380,7 +424,10 @@ public class ClusterDetails {
   @JsonProperty("worker_node_type_flexibility")
   private NodeTypeFlexibility workerNodeTypeFlexibility;
 
-  /** */
+  /**
+   * Types of workloads that can use the cluster, such as notebooks or jobs. If omitted, the cluster
+   * can be used for both notebooks and jobs.
+   */
   @JsonProperty("workload_type")
   private WorkloadType workloadType;
 

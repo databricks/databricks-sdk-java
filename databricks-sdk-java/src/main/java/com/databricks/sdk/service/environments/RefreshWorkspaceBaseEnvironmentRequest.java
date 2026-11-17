@@ -11,7 +11,7 @@ import java.util.Objects;
 @Generated
 public class RefreshWorkspaceBaseEnvironmentRequest {
   /**
-   * Required. The resource name of the workspace base environment to delete. Format:
+   * Required. The resource name of the workspace base environment to refresh. Format:
    * workspace-base-environments/{workspace_base_environment}
    */
   @JsonIgnore private String name;

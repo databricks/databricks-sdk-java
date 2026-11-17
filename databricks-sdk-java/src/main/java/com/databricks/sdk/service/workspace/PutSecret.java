@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class PutSecret {
-  /** If specified, value will be stored as bytes. */
+  /** The secret value as raw bytes. The bytes must be base64-encoded in the JSON request body. */
   @JsonProperty("bytes_value")
   private String bytesValue;
 
@@ -17,11 +17,11 @@ public class PutSecret {
   @JsonProperty("key")
   private String key;
 
-  /** The name of the scope to which the secret will be associated with. */
+  /** The name of the scope to store the secret in. */
   @JsonProperty("scope")
   private String scope;
 
-  /** If specified, note that the value will be stored in UTF-8 (MB4) form. */
+  /** The secret value as text. The server stores it as the UTF-8 encoding of the string. */
   @JsonProperty("string_value")
   private String stringValue;
 

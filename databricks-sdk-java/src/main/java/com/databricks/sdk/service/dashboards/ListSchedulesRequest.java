@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Generated
 public class ListSchedulesRequest {
-  /** UUID identifying the dashboard to which the schedules belongs. */
+  /** UUID identifying the dashboard to which the schedules belong. */
   @JsonIgnore private String dashboardId;
 
   /** The number of schedules to return per page. */

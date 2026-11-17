@@ -10,18 +10,18 @@ import java.util.Objects;
 
 @Generated
 public class DeleteSubscriptionRequest {
-  /** UUID identifying the dashboard which the subscription belongs. */
+  /** UUID identifying the dashboard to which the subscription belongs. */
   @JsonIgnore private String dashboardId;
 
   /**
-   * The etag for the subscription. Can be optionally provided to ensure that the subscription has
-   * not been modified since the last read.
+   * The etag of the subscription, as returned when it was read. If it is provided and no longer
+   * matches, the request fails with ABORTED and the subscription is not deleted.
    */
   @JsonIgnore
   @QueryParam("etag")
   private String etag;
 
-  /** UUID identifying the schedule which the subscription belongs. */
+  /** UUID identifying the schedule to which the subscription belongs. */
   @JsonIgnore private String scheduleId;
 
   /** UUID identifying the subscription. */

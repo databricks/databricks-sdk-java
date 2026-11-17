@@ -10,12 +10,12 @@ import java.util.Objects;
 
 @Generated
 public class TimeRange {
-  /** The end time in milliseconds. */
+  /** End of the range, in milliseconds since the Unix epoch. */
   @JsonProperty("end_time_ms")
   @QueryParam("end_time_ms")
   private Long endTimeMs;
 
-  /** The start time in milliseconds. */
+  /** Start of the range, in milliseconds since the Unix epoch. */
   @JsonProperty("start_time_ms")
   @QueryParam("start_time_ms")
   private Long startTimeMs;

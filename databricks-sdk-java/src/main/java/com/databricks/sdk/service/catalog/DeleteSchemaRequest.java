@@ -15,7 +15,7 @@ public class DeleteSchemaRequest {
   @QueryParam("force")
   private Boolean force;
 
-  /** Full name of the schema. */
+  /** Full name of the schema, in the form catalog_name.schema_name. */
   @JsonIgnore private String fullName;
 
   public DeleteSchemaRequest setForce(Boolean force) {

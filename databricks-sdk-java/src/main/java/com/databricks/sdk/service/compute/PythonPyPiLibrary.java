@@ -10,7 +10,7 @@ import java.util.Objects;
 @Generated
 public class PythonPyPiLibrary {
   /**
-   * The name of the pypi package to install. An optional exact version specification is also
+   * The name of the PyPI package to install. An optional exact version specification is also
    * supported. Examples: "simplejson" and "simplejson==3.8.0".
    */
   @JsonProperty("package")

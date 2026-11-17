@@ -26,7 +26,8 @@ public class UpdateCredentialsRequest {
    * Git provider. This field is case-insensitive. The available Git providers are `gitHub`,
    * `bitbucketCloud`, `gitLab`, `azureDevOpsServices` (Azure DevOps Services, including Microsoft
    * Entra ID authentication), `gitHubEnterprise`, `bitbucketServer` (Bitbucket Data Center),
-   * `gitLabEnterpriseEdition` (GitLab Self-Managed), and `awsCodeCommit`.
+   * `gitLabEnterpriseEdition` (GitLab Self-Managed), and `awsCodeCommit`. Must match the Git
+   * provider of the existing credential; the provider cannot be changed.
    */
   @JsonProperty("git_provider")
   private String gitProvider;
@@ -40,11 +41,17 @@ public class UpdateCredentialsRequest {
   @JsonProperty("git_username")
   private String gitUsername;
 
-  /** if the credential is the default for the given provider */
+  /**
+   * Set to true to make this credential the default for its Git provider, replacing the current
+   * default. Cannot be set to false; make another credential the default instead.
+   */
   @JsonProperty("is_default_for_provider")
   private Boolean isDefaultForProvider;
 
-  /** the name of the git credential, used for identification and ease of lookup */
+  /**
+   * The name of the Git credential, used for identification and ease of lookup. It must not exceed
+   * 100 characters.
+   */
   @JsonProperty("name")
   private String name;
 

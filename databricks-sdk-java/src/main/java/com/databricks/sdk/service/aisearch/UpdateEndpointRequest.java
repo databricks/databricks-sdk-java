@@ -17,14 +17,17 @@ public class UpdateEndpointRequest {
   private Endpoint endpoint;
 
   /**
-   * Name of the AI Search endpoint. Server-assigned full resource path
-   * (`workspaces/{workspace}/endpoints/{endpoint}`) on output. On create, the user-supplied short
-   * name is conveyed via `CreateEndpointRequest.endpoint_id`; the server composes the full `name`
-   * and returns it on the response.
+   * Full resource name of the endpoint, in the form
+   * `workspaces/{workspace_id}/endpoints/{endpoint_id}`. On create, the server composes it from
+   * `parent` and `endpoint_id` and ignores any value supplied in the request body.
    */
   @JsonIgnore private String name;
 
-  /** The list of fields to update. */
+  /**
+   * Comma-separated list of `Endpoint` fields to update. The updatable fields are
+   * `budget_policy_id`, `usage_policy_id`, `custom_tags`, `replica_count`, and `target_qps`. The
+   * server rejects nested paths and unknown fields.
+   */
   @JsonIgnore
   @QueryParam("update_mask")
   private FieldMask updateMask;

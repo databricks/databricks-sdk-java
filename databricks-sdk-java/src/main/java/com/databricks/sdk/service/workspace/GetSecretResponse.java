@@ -13,7 +13,10 @@ public class GetSecretResponse {
   @JsonProperty("key")
   private String key;
 
-  /** The value of the secret in its byte representation. */
+  /**
+   * The secret value, base64-encoded. A secret written with ``string_value`` is returned as the
+   * base64 encoding of its UTF-8 bytes.
+   */
   @JsonProperty("value")
   private String value;
 

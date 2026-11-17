@@ -62,7 +62,7 @@ public class GitCredentialsAPI {
         request, impl::list, ListCredentialsResponse::getCredentials, response -> null);
   }
 
-  /** Updates the specified Git credential. */
+  /** Updates the specified Git credential. Fields that are omitted keep their current values. */
   public void update(UpdateCredentialsRequest request) {
     impl.update(request);
   }

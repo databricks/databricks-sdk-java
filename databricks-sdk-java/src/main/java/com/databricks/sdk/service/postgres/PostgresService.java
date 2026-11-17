@@ -80,7 +80,11 @@ public interface PostgresService {
   /** Creates a new Postgres role in the branch. */
   Operation createRole(CreateRoleRequest createRoleRequest);
 
-  /** Creates a snapshot, an immutable point-in-time copy of a branch's data, within the project. */
+  /**
+   * Creates a snapshot, an immutable point-in-time copy of a branch's data, within the project.
+   * Returns a long-running operation. Poll it until done is true; its response holds the new
+   * snapshot.
+   */
   Operation createSnapshot(CreateSnapshotRequest createSnapshotRequest);
 
   /** Create a Synced Table. */
@@ -106,7 +110,7 @@ public interface PostgresService {
   /** Disable Data API for a database. */
   Operation deleteDataApi(DeleteDataApiRequest deleteDataApiRequest);
 
-  /** Delete a Database. */
+  /** Deletes the specified Postgres database. */
   Operation deleteDatabase(DeleteDatabaseRequest deleteDatabaseRequest);
 
   /**
@@ -129,7 +133,10 @@ public interface PostgresService {
   /** Deletes the specified Postgres role. */
   Operation deleteRole(DeleteRoleRequest deleteRoleRequest);
 
-  /** Deletes the specified snapshot. */
+  /**
+   * Deletes the specified snapshot. A deleted snapshot cannot be recovered. Returns a long-running
+   * operation. Poll it until done is true.
+   */
   Operation deleteSnapshot(DeleteSnapshotRequest deleteSnapshotRequest);
 
   /** Delete a Synced Table. */
@@ -166,7 +173,7 @@ public interface PostgresService {
   /** Get Data API configuration for a database. */
   DataApi getDataApi(GetDataApiRequest getDataApiRequest);
 
-  /** Get a Database. */
+  /** Retrieves information about the specified Postgres database. */
   Database getDatabase(GetDatabaseRequest getDatabaseRequest);
 
   /**
@@ -220,7 +227,7 @@ public interface PostgresService {
    */
   ListCdfStatusesResponse listCdfStatuses(ListCdfStatusesRequest listCdfStatusesRequest);
 
-  /** List Databases. */
+  /** Returns a list of Postgres databases in the branch. */
   ListDatabasesResponse listDatabases(ListDatabasesRequest listDatabasesRequest);
 
   /**
@@ -277,7 +284,7 @@ public interface PostgresService {
   /** Update Data API configuration for a database. */
   Operation updateDataApi(UpdateDataApiRequest updateDataApiRequest);
 
-  /** Update a Database. */
+  /** Updates the specified Postgres database. Only the fields named in `update_mask` change. */
   Operation updateDatabase(UpdateDatabaseRequest updateDatabaseRequest);
 
   /**

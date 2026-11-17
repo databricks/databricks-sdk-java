@@ -11,21 +11,21 @@ import java.util.Objects;
 @Generated
 public class GetPublishedDashboardTokenInfoResponse {
   /**
-   * Authorization constraints for accessing the published dashboard. Currently includes
-   * `workspace_rule_set` and could be enriched with `unity_catalog_privileges` before oAuth token
-   * generation.
+   * Authorization constraints that restrict the minted token to viewing the published dashboard.
+   * Pass them to the OAuth token endpoint serialized as a JSON array.
    */
   @JsonProperty("authorization_details")
   private Collection<AuthorizationDetails> authorizationDetails;
 
   /**
-   * Custom claim generated from external_value and external_viewer_id. Format:
+   * Custom claim that carries `external_value` and `external_viewer_id` into the minted token. It
+   * is only present when at least one of those query parameters was provided. Format:
    * `urn:aibi:external_data:<external_value>:<external_viewer_id>:<dashboard_id>`
    */
   @JsonProperty("custom_claim")
   private String customClaim;
 
-  /** Scope defining access permissions. */
+  /** The space-separated OAuth scopes to request when minting the token. */
   @JsonProperty("scope")
   private String scope;
 

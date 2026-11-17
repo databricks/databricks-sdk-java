@@ -9,7 +9,13 @@ import java.util.Objects;
 
 @Generated
 public class SubscriptionSubscriberDestination {
-  /** The canonical identifier of the destination to receive email notification. */
+  /**
+   * The UUID of the notification destination that receives the subscription, as returned by the
+   * [Notification Destinations API].
+   *
+   * <p>[Notification Destinations API]:
+   * https://docs.databricks.com/api/workspace/notificationdestinations
+   */
   @JsonProperty("destination_id")
   private String destinationId;
 

@@ -10,7 +10,7 @@ import java.util.Objects;
 /** A Unity Catalog catalog to replicate. */
 @Generated
 public class UcCatalog {
-  /** The name of the UC catalog to replicate. */
+  /** Name of the Unity Catalog catalog to replicate. */
   @JsonProperty("name")
   private String name;
 

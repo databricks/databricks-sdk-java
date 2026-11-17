@@ -19,10 +19,10 @@ public class CreateEndpointRequest {
   private Endpoint endpoint;
 
   /**
-   * The user-supplied short name for the Endpoint, per AIP-133. The server composes the full
-   * `Endpoint.name` as `{parent}/endpoints/{endpoint_id}`. AIP-133 does not list `endpoint_id` as a
-   * fields-may-be-required entry, so we annotate it OPTIONAL on the wire; the server still rejects
-   * empty values with INVALID_PARAMETER_VALUE.
+   * Short name of the endpoint, which becomes the last segment of `name`. The server rejects a
+   * request without it. The name can have at most 50 characters, can contain only lowercase
+   * letters, digits, hyphens, periods, and underscores, and must start and end with a letter or
+   * digit.
    */
   @JsonIgnore
   @QueryParam("endpoint_id")

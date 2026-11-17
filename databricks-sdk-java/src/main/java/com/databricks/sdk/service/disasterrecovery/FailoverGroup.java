@@ -10,8 +10,11 @@ import java.util.Collection;
 import java.util.Objects;
 
 /**
- * A failover group manages disaster recovery across workspace sets, coordinating Unity Catalog and
- * workspace assets replication.
+ * A failover group manages Databricks Managed Disaster Recovery for a pair of workspaces in two
+ * regions. It continuously replicates the selected Unity Catalog catalogs and workspace assets from
+ * the primary region to the secondary region and lets you fail over to the secondary region; at
+ * least one of the two replication types must be enabled. See
+ * https://docs.databricks.com/aws/en/admin/managed-disaster-recovery for the product documentation.
  */
 @Generated
 public class FailoverGroup {
@@ -30,13 +33,17 @@ public class FailoverGroup {
   @JsonProperty("etag")
   private String etag;
 
-  /** True if errors currently block the replication point. */
+  /**
+   * True when replication errors are preventing the replication point from advancing. Populated
+   * only while the failover group is INITIAL_REPLICATION or ACTIVE; the blocking errors are listed
+   * in the system.replication.states system table.
+   */
   @JsonProperty("has_replication_point_blocking_errors")
   private Boolean hasReplicationPointBlockingErrors;
 
   /**
-   * Initial primary region. Used only in Create requests to set the starting primary region. Not
-   * returned in responses.
+   * Initial primary region. Used only in Create requests to set the starting primary region, and
+   * must be one of the regions in `regions`. Not returned in responses.
    */
   @JsonProperty("initial_primary_region")
   private String initialPrimaryRegion;
@@ -55,19 +62,37 @@ public class FailoverGroup {
   @JsonProperty("name")
   private String name;
 
-  /** List of all regions participating in this failover group. */
+  /**
+   * The two cloud regions that participate in this failover group, the primary and the secondary.
+   * Each workspace set contains one workspace in each region.
+   */
   @JsonProperty("regions")
   private Collection<String> regions;
 
-  /** The latest point in time to which data has been replicated. */
+  /**
+   * The most recent point in time up to which all in-scope assets have been replicated to the
+   * secondary region. Data written after this point might not exist in the secondary yet and can be
+   * lost in an unplanned failover. When both Unity Catalog and workspace assets are replicated,
+   * this is the older of the two replication points. Not populated until the first replication
+   * point exists, and not populated in ListFailoverGroups responses.
+   */
   @JsonProperty("replication_point")
   private Timestamp replicationPoint;
 
-  /** Aggregate state of the failover group. */
+  /**
+   * Aggregate state of the failover group across Unity Catalog and workspace asset replication. The
+   * group is INITIAL_REPLICATION until it has a replication point, ACTIVE while replication is in
+   * steady state and failover is available, and FAILING_OVER while a failover is in progress; the
+   * `*_FAILED` values mean that the last operation did not complete. Not populated in
+   * ListFailoverGroups responses.
+   */
   @JsonProperty("state")
   private FailoverGroupState state;
 
-  /** Unity Catalog replication configuration. */
+  /**
+   * Unity Catalog replication configuration: the catalogs to replicate and the storage location
+   * mappings for their data. Omit it to replicate workspace assets only.
+   */
   @JsonProperty("unity_catalog_assets")
   private UcReplicationConfig unityCatalogAssets;
 
@@ -75,7 +100,10 @@ public class FailoverGroup {
   @JsonProperty("update_time")
   private Timestamp updateTime;
 
-  /** Workspace sets, each containing workspaces that replicate to each other. */
+  /**
+   * Workspace sets, each containing workspaces that replicate to each other. A failover group
+   * currently supports exactly one workspace set.
+   */
   @JsonProperty("workspace_sets")
   private Collection<WorkspaceSet> workspaceSets;
 

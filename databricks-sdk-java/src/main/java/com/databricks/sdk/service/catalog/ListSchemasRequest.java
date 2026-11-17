@@ -16,8 +16,8 @@ public class ListSchemasRequest {
   private String catalogName;
 
   /**
-   * Whether to include schemas in the response for which the principal can only access selective
-   * metadata for
+   * Whether to include schemas for which the principal can only access selective metadata through
+   * the BROWSE privilege. Such schemas are returned with browse_only set to true.
    */
   @JsonIgnore
   @QueryParam("include_browse")

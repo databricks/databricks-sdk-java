@@ -13,7 +13,10 @@ public class RestartCluster {
   @JsonProperty("cluster_id")
   private String clusterId;
 
-  /** */
+  /**
+   * User name recorded in the `RESTARTING` cluster event as the user who restarted the cluster. If
+   * omitted, the name of the user making the request is recorded.
+   */
   @JsonProperty("restart_user")
   private String restartUser;
 

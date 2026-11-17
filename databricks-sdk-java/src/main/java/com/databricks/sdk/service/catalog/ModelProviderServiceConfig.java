@@ -25,23 +25,38 @@ public class ModelProviderServiceConfig {
   @JsonProperty("allow_all_targets")
   private Boolean allowAllTargets;
 
-  /** */
+  /**
+   * Configuration for Amazon Bedrock. Set this field when `provider_type` is
+   * `EXTERNAL_MODEL_PROVIDER_TYPE_AMAZON_BEDROCK`.
+   */
   @JsonProperty("amazon_bedrock")
   private ModelProviderServiceConfigAmazonBedrockProviderConfig amazonBedrock;
 
-  /** */
+  /**
+   * Configuration for Anthropic. Set this field when `provider_type` is
+   * `EXTERNAL_MODEL_PROVIDER_TYPE_ANTHROPIC`.
+   */
   @JsonProperty("anthropic")
   private ModelProviderServiceConfigAnthropicProviderConfig anthropic;
 
-  /** */
+  /**
+   * Configuration for Azure OpenAI. Set this field when `provider_type` is
+   * `EXTERNAL_MODEL_PROVIDER_TYPE_AZURE_OPENAI`.
+   */
   @JsonProperty("azure_openai")
   private ModelProviderServiceConfigAzureOpenAiProviderConfig azureOpenai;
 
-  /** */
+  /**
+   * Configuration for Amazon Bedrock Mantle, with the same fields as `amazon_bedrock`. Set this
+   * field when `provider_type` is `EXTERNAL_MODEL_PROVIDER_TYPE_BEDROCK_MANTLE`.
+   */
   @JsonProperty("bedrock_mantle")
   private ModelProviderServiceConfigAmazonBedrockProviderConfig bedrockMantle;
 
-  /** */
+  /**
+   * Configuration for a custom OpenAI-compatible provider. Set this field when `provider_type` is
+   * `EXTERNAL_MODEL_PROVIDER_TYPE_CUSTOM`.
+   */
   @JsonProperty("custom")
   private ModelProviderServiceConfigCustomProviderConfig custom;
 
@@ -71,7 +86,10 @@ public class ModelProviderServiceConfig {
   @JsonProperty("forward_unmanaged_paths")
   private Boolean forwardUnmanagedPaths;
 
-  /** */
+  /**
+   * Configuration for Google Gemini Enterprise. Set this field when `provider_type` is
+   * `EXTERNAL_MODEL_PROVIDER_TYPE_GEMINI_ENTERPRISE`.
+   */
   @JsonProperty("gemini_enterprise")
   private ModelProviderServiceConfigGeminiEnterpriseProviderConfig geminiEnterprise;
 
@@ -82,11 +100,17 @@ public class ModelProviderServiceConfig {
   @JsonProperty("inference_table")
   private InferenceTableConfig inferenceTable;
 
-  /** */
+  /**
+   * Configuration for Microsoft Foundry. Set this field when `provider_type` is
+   * `EXTERNAL_MODEL_PROVIDER_TYPE_MICROSOFT_FOUNDRY`.
+   */
   @JsonProperty("microsoft_foundry")
   private ModelProviderServiceConfigMicrosoftFoundryProviderConfig microsoftFoundry;
 
-  /** */
+  /**
+   * Configuration for OpenAI. Set this field when `provider_type` is
+   * `EXTERNAL_MODEL_PROVIDER_TYPE_OPENAI`.
+   */
   @JsonProperty("openai")
   private ModelProviderServiceConfigOpenAiProviderConfig openai;
 

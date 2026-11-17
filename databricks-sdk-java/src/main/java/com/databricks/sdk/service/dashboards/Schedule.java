@@ -7,13 +7,21 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * A schedule periodically runs a dashboard on a cron cadence. Each run executes the dashboard's
+ * queries to refresh its cached data and sends a snapshot of the dashboard to the schedule's
+ * subscribers. See [Manage scheduled dashboard updates and subscriptions] for details.
+ *
+ * <p>[Manage scheduled dashboard updates and subscriptions]:
+ * https://docs.databricks.com/dashboards/share/schedule-subscribe
+ */
 @Generated
 public class Schedule {
   /** A timestamp indicating when the schedule was created. */
   @JsonProperty("create_time")
   private String createTime;
 
-  /** The cron expression describing the frequency of the periodic refresh for this schedule. */
+  /** The cron expression and time zone that define when the schedule runs. */
   @JsonProperty("cron_schedule")
   private CronSchedule cronSchedule;
 
@@ -21,7 +29,7 @@ public class Schedule {
   @JsonProperty("dashboard_id")
   private String dashboardId;
 
-  /** The display name for schedule. */
+  /** The name of the schedule, as shown in the dashboard's list of schedules. */
   @JsonProperty("display_name")
   private String displayName;
 
@@ -33,7 +41,10 @@ public class Schedule {
   @JsonProperty("etag")
   private String etag;
 
-  /** The status indicates whether this schedule is paused or not. */
+  /**
+   * Whether the schedule is paused. A paused schedule keeps its configuration and subscribers, but
+   * the dashboard is not refreshed and no notifications are sent until the schedule is unpaused.
+   */
   @JsonProperty("pause_status")
   private SchedulePauseStatus pauseStatus;
 
@@ -45,7 +56,10 @@ public class Schedule {
   @JsonProperty("update_time")
   private String updateTime;
 
-  /** The warehouse id to run the dashboard with for the schedule. */
+  /**
+   * The ID of the SQL warehouse that runs the dashboard's queries during scheduled refreshes. If
+   * omitted, the warehouse of the published dashboard is used.
+   */
   @JsonProperty("warehouse_id")
   private String warehouseId;
 

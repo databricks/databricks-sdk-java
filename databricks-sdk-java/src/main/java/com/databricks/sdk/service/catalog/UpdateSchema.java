@@ -15,22 +15,34 @@ public class UpdateSchema {
   @JsonProperty("comment")
   private String comment;
 
-  /** Custom maximum retention period in hours for the schema. */
+  /**
+   * Dropped objects in the schema remain recoverable for this number of hours before they are
+   * permanently purged. The value must be 0 or within the range allowed for the metastore. Schemas
+   * that do not set their own value inherit the parent catalog's value.
+   */
   @JsonProperty("custom_max_retention_hours")
   private Long customMaxRetentionHours;
 
-  /** Whether predictive optimization should be enabled for this object and objects under it. */
+  /**
+   * Whether predictive optimization is enabled for this schema and the objects under it. Valid
+   * values are ENABLE, DISABLE, and INHERIT, where INHERIT applies the parent catalog's setting.
+   * New schemas start as INHERIT. It cannot be set when creating a schema; use the update method
+   * instead.
+   */
   @JsonProperty("enable_predictive_optimization")
   private EnablePredictiveOptimization enablePredictiveOptimization;
 
-  /** Full name of the schema. */
+  /** Full name of the schema, in the form catalog_name.schema_name. */
   @JsonIgnore private String fullName;
 
   /** New name for the schema. */
   @JsonProperty("new_name")
   private String newName;
 
-  /** Username of current owner of schema. */
+  /**
+   * The user or group that owns the schema. The creator becomes the owner, and the owner can be
+   * changed only through the update method.
+   */
   @JsonProperty("owner")
   private String owner;
 

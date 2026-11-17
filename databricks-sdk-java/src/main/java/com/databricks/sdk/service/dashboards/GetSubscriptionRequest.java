@@ -9,10 +9,10 @@ import java.util.Objects;
 
 @Generated
 public class GetSubscriptionRequest {
-  /** UUID identifying the dashboard which the subscription belongs. */
+  /** UUID identifying the dashboard to which the subscription belongs. */
   @JsonIgnore private String dashboardId;
 
-  /** UUID identifying the schedule which the subscription belongs. */
+  /** UUID identifying the schedule to which the subscription belongs. */
   @JsonIgnore private String scheduleId;
 
   /** UUID identifying the subscription. */

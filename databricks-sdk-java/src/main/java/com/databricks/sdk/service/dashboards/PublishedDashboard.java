@@ -13,15 +13,25 @@ public class PublishedDashboard {
   @JsonProperty("display_name")
   private String displayName;
 
-  /** Indicates whether credentials are embedded in the published dashboard. */
+  /**
+   * Whether the publisher's credentials are embedded in the published dashboard. When true, viewers
+   * run the dashboard's queries with the publisher's data permissions (shared data permissions);
+   * when false, each viewer runs them with their own data permissions.
+   */
   @JsonProperty("embed_credentials")
   private Boolean embedCredentials;
 
-  /** The timestamp of when the published dashboard was last revised. */
+  /**
+   * The timestamp of when the current published version was created, that is, when the dashboard
+   * was last published.
+   */
   @JsonProperty("revision_create_time")
   private String revisionCreateTime;
 
-  /** The warehouse ID used to run the published dashboard. */
+  /**
+   * The ID of the SQL warehouse that runs the published dashboard's queries. It is the warehouse
+   * given when the dashboard was published, or the draft's warehouse if none was given.
+   */
   @JsonProperty("warehouse_id")
   private String warehouseId;
 

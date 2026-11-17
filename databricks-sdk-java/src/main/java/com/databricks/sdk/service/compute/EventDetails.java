@@ -32,7 +32,10 @@ public class EventDetails {
   @JsonProperty("current_num_workers")
   private Long currentNumWorkers;
 
-  /** */
+  /**
+   * The reason the disk was not expanded. Included in `DID_NOT_EXPAND_DISK` and
+   * `FAILED_TO_EXPAND_DISK` events.
+   */
   @JsonProperty("did_not_expand_reason")
   private String didNotExpandReason;
 
@@ -50,7 +53,10 @@ public class EventDetails {
   @JsonProperty("enable_termination_for_node_blocklisted")
   private Boolean enableTerminationForNodeBlocklisted;
 
-  /** */
+  /**
+   * Free disk space in bytes. Included in disk expansion events such as `EXPANDED_DISK` and
+   * `DID_NOT_EXPAND_DISK`.
+   */
   @JsonProperty("free_space")
   private Long freeSpace;
 

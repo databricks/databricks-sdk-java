@@ -7,6 +7,15 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * A subscription registers a workspace user or a notification destination as a subscriber of a
+ * dashboard schedule. Each time the schedule runs, the subscriber receives a snapshot of the
+ * published dashboard, unless the subscription is refresh-only. See [Manage scheduled dashboard
+ * updates and subscriptions].
+ *
+ * <p>[Manage scheduled dashboard updates and subscriptions]:
+ * https://docs.databricks.com/dashboards/share/schedule-subscribe
+ */
 @Generated
 public class Subscription {
   /** A timestamp indicating when the subscription was created. */
@@ -25,8 +34,8 @@ public class Subscription {
   private String dashboardId;
 
   /**
-   * The etag for the subscription. Must be left empty on create, can be optionally provided on
-   * delete to ensure that the subscription has not been deleted since the last read.
+   * The etag of the subscription. It must be left empty on create. It can be passed as the `etag`
+   * parameter of the delete method to make sure the subscription has not changed since it was read.
    */
   @JsonProperty("etag")
   private String etag;
@@ -36,14 +45,17 @@ public class Subscription {
   private String scheduleId;
 
   /**
-   * Controls whether notifications are sent to the subscriber for scheduled dashboard refreshes. If
-   * not defined, defaults to false in the backend to match the current behavior (refresh and
-   * notify)
+   * Whether the subscription is refresh-only. When true, each scheduled run refreshes the dashboard
+   * data for the subscriber without sending a notification. Defaults to false. Refresh-only
+   * subscriptions are only allowed on dashboards published without embedded credentials.
    */
   @JsonProperty("skip_notify")
   private Boolean skipNotify;
 
-  /** Subscriber details for users and destinations to be added as subscribers to the schedule. */
+  /**
+   * The subscriber that receives the dashboard snapshot. Exactly one of `user_subscriber` and
+   * `destination_subscriber` must be set.
+   */
   @JsonProperty("subscriber")
   private Subscriber subscriber;
 

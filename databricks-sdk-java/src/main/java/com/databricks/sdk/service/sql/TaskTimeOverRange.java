@@ -10,7 +10,10 @@ import java.util.Objects;
 
 @Generated
 public class TaskTimeOverRange {
-  /** */
+  /**
+   * Each entry covers one consecutive time bucket of length `interval`, starting at
+   * `query_start_time_ms`.
+   */
   @JsonProperty("entries")
   private Collection<TaskTimeOverRangeEntry> entries;
 

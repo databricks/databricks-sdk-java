@@ -7,6 +7,11 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * A Git credential that Databricks uses to authenticate to a Git provider on behalf of a user or
+ * service principal. Each user has one default credential per Git provider, which is used when no
+ * specific credential is selected.
+ */
 @Generated
 public class CredentialInfo {
   /** ID of the credential object in the workspace. */
@@ -40,11 +45,15 @@ public class CredentialInfo {
   @JsonProperty("git_username")
   private String gitUsername;
 
-  /** if the credential is the default for the given provider */
+  /**
+   * Whether this credential is the default for its Git provider. The default credential is the
+   * fallback that is used when no specific credential is selected. See
+   * https://docs.databricks.com/aws/en/repos/repos-setup#how-default-credentials-work.
+   */
   @JsonProperty("is_default_for_provider")
   private Boolean isDefaultForProvider;
 
-  /** the name of the git credential, used for identification and ease of lookup */
+  /** The name of the Git credential, used for identification and ease of lookup. */
   @JsonProperty("name")
   private String name;
 

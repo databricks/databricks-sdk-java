@@ -35,11 +35,14 @@ public class CreateCredentialsResponse {
   @JsonProperty("git_username")
   private String gitUsername;
 
-  /** if the credential is the default for the given provider */
+  /**
+   * Whether this credential is the default for its Git provider. The default credential is the
+   * fallback that is used when no specific credential is selected.
+   */
   @JsonProperty("is_default_for_provider")
   private Boolean isDefaultForProvider;
 
-  /** the name of the git credential, used for identification and ease of lookup */
+  /** The name of the Git credential, used for identification and ease of lookup. */
   @JsonProperty("name")
   private String name;
 

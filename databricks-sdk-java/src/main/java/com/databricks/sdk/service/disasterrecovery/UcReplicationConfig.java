@@ -11,18 +11,26 @@ import java.util.Objects;
 /** Unity Catalog replication configuration (top-level, not per-set). */
 @Generated
 public class UcReplicationConfig {
-  /** UC catalogs to replicate. */
+  /**
+   * Unity Catalog catalogs to replicate, including their metadata and managed table data. Adding a
+   * catalog to an existing failover group returns the group to INITIAL_REPLICATION until the
+   * catalog has been replicated.
+   */
   @JsonProperty("catalogs")
   private Collection<UcCatalog> catalogs;
 
   /**
-   * The workspace set whose workspaces will be used for data replication of all UC catalogs'
-   * underlying storage.
+   * Name of the workspace set whose workspaces run the data replication for the catalogs'
+   * underlying storage. Must match the name of a workspace set in this failover group.
    */
   @JsonProperty("data_replication_workspace_set")
   private String dataReplicationWorkspaceSet;
 
-  /** Location mappings - storage URI per region for each location. */
+  /**
+   * Storage location mappings. Each mapping pairs a storage path used by the replicated catalogs in
+   * one region with the corresponding path in the other region, so that replicated data is written
+   * to the matching storage in the secondary region.
+   */
   @JsonProperty("location_mappings")
   private Collection<LocationMapping> locationMappings;
 
