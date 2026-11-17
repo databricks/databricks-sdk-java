@@ -10,12 +10,17 @@ import java.util.Objects;
 
 @Generated
 public class UpdateWorkspaceBaseEnvironmentRequest {
-  /** */
+  /**
+   * The resource name of the workspace base environment to update. Format:
+   * workspace-base-environments/{workspace_base_environment}
+   */
   @JsonIgnore private String name;
 
   /**
-   * Required. The workspace base environment with updated fields. The name field is used to
-   * identify the environment to update.
+   * The workspace base environment with its new configuration. The `name` path parameter identifies
+   * the environment to update. Set `display_name` and `filepath` on every update, even when they do
+   * not change. An update keeps the stored `base_environment_type`, but the YAML file is validated
+   * against the type in the request, which defaults to `CPU`, so also set it for a GPU environment.
    */
   @JsonProperty("workspace_base_environment")
   private WorkspaceBaseEnvironment workspaceBaseEnvironment;

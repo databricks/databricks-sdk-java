@@ -13,6 +13,10 @@ import java.util.Objects;
  */
 @Generated
 public class IndexStatus {
+  /** Lifecycle and ingestion state. An online index can still have a failed update. */
+  @JsonProperty("detailed_state")
+  private IndexStatusState detailedState;
+
   /** Index API URL used to perform operations on the index. */
   @JsonProperty("index_url")
   private String indexUrl;
@@ -26,11 +30,21 @@ public class IndexStatus {
   private String message;
 
   /**
-   * Whether the index is ready to serve queries. After CreateIndex, poll GetIndex until this is
-   * true; `message` describes the current state in the meantime.
+   * Whether the index can serve queries. After CreateIndex, poll GetIndex until true; message
+   * describes progress. This does not guarantee freshness or update success; check detailed_state
+   * for update failures.
    */
   @JsonProperty("ready")
   private Boolean ready;
+
+  public IndexStatus setDetailedState(IndexStatusState detailedState) {
+    this.detailedState = detailedState;
+    return this;
+  }
+
+  public IndexStatusState getDetailedState() {
+    return detailedState;
+  }
 
   public IndexStatus setIndexUrl(String indexUrl) {
     this.indexUrl = indexUrl;
@@ -73,7 +87,8 @@ public class IndexStatus {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     IndexStatus that = (IndexStatus) o;
-    return Objects.equals(indexUrl, that.indexUrl)
+    return Objects.equals(detailedState, that.detailedState)
+        && Objects.equals(indexUrl, that.indexUrl)
         && Objects.equals(indexedRowCount, that.indexedRowCount)
         && Objects.equals(message, that.message)
         && Objects.equals(ready, that.ready);
@@ -81,12 +96,13 @@ public class IndexStatus {
 
   @Override
   public int hashCode() {
-    return Objects.hash(indexUrl, indexedRowCount, message, ready);
+    return Objects.hash(detailedState, indexUrl, indexedRowCount, message, ready);
   }
 
   @Override
   public String toString() {
     return new ToStringer(IndexStatus.class)
+        .add("detailedState", detailedState)
         .add("indexUrl", indexUrl)
         .add("indexedRowCount", indexedRowCount)
         .add("message", message)

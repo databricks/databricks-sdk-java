@@ -9,7 +9,12 @@ import java.util.Objects;
 
 @Generated
 public class SubscriptionSubscriberUser {
-  /** UserId of the subscriber. */
+  /**
+   * The ID of the workspace user who receives the subscription, as returned by the [Workspace Users
+   * API].
+   *
+   * <p>[Workspace Users API]: https://docs.databricks.com/api/workspace/users
+   */
   @JsonProperty("user_id")
   private Long userId;
 

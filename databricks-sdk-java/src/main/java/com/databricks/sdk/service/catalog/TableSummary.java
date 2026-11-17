@@ -17,7 +17,7 @@ public class TableSummary {
   @JsonProperty("securable_kind_manifest")
   private SecurableKindManifest securableKindManifest;
 
-  /** */
+  /** The type of the table, with the same meaning as table_type on TableInfo. */
   @JsonProperty("table_type")
   private TableType tableType;
 

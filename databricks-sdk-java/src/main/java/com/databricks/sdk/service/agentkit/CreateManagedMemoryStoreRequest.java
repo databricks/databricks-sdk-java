@@ -18,7 +18,7 @@ public class CreateManagedMemoryStoreRequest {
   /**
    * Caller-provided, workspace-unique memory store ID. It must be 3-56 characters, begin with a
    * lowercase letter, contain only lowercase letters, digits, and hyphens, and end with a letter or
-   * digit.
+   * digit. It becomes the last segment of the store's `name` and cannot be changed after creation.
    */
   @JsonIgnore
   @QueryParam("managed_memory_store_id")

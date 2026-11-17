@@ -11,9 +11,8 @@ import java.util.Objects;
 @Generated
 public class ListEndpointsRequest {
   /**
-   * Best-effort upper bound on the number of results to return. Honored as an upper bound by the
-   * shim: `page_size` only narrows the legacy backend's response, never widens it, so the practical
-   * cap is `min(page_size, legacy_fixed_page_size)`.
+   * Maximum number of endpoints to return in one page. The server applies its own page size limit,
+   * so a page can hold fewer endpoints than `page_size` even when more remain.
    */
   @JsonIgnore
   @QueryParam("page_size")

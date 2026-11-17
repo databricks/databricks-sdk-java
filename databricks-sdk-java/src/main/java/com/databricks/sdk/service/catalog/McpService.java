@@ -29,11 +29,11 @@ public class McpService {
   @JsonProperty("create_time")
   private Timestamp createTime;
 
-  /** Creator identity. */
+  /** Username or service principal application ID of the principal that created the MCP service. */
   @JsonProperty("created_by")
   private String createdBy;
 
-  /** Owner of the MCP service. */
+  /** Username, group name, or service principal application ID of the MCP service owner. */
   @JsonProperty("effective_owner")
   private String effectiveOwner;
 
@@ -45,14 +45,15 @@ public class McpService {
   @JsonProperty("etag")
   private String etag;
 
-  /** Metastore hosting the MCP service. */
+  /** Unique identifier of the metastore that contains the MCP service. */
   @JsonProperty("metastore_id")
   private String metastoreId;
 
   /**
    * Resource name of the MCP service. Format: `mcp-services/{catalog}.{schema}.{mcp_service}`. Each
-   * `{...}` component is capped at 255 characters individually. Server-derived on Create from
-   * `parent` + `mcp_service_id`; required and immutable on Update/Get/Delete.
+   * `{...}` component is capped at 255 characters individually. The server derives the name on
+   * Create from `parent` and `mcp_service_id`; it is required and immutable on Update, Get, and
+   * Delete.
    */
   @JsonProperty("name")
   private String name;
@@ -61,7 +62,10 @@ public class McpService {
   @JsonProperty("update_time")
   private Timestamp updateTime;
 
-  /** Identity of the last updater. */
+  /**
+   * Username or service principal application ID of the principal that last updated the MCP
+   * service.
+   */
   @JsonProperty("updated_by")
   private String updatedBy;
 

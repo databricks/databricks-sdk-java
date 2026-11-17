@@ -7,6 +7,13 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * A tag assignment attaches a tag, which is a key with an optional value, to a workspace object
+ * such as a dashboard, notebook, Genie space or app. An object can have at most one assignment for
+ * each tag key. If the key belongs to a governed tag, the caller needs the ASSIGN permission on
+ * that governed tag, and the value must be one of its allowed values. See
+ * https://docs.databricks.com/aws/en/admin/governed-tags/.
+ */
 @Generated
 public class TagAssignment {
   /**
@@ -27,7 +34,7 @@ public class TagAssignment {
   @JsonProperty("tag_key")
   private String tagKey;
 
-  /** The value of the tag */
+  /** The value of the tag. If the value is omitted, the tag is assigned with its key only. */
   @JsonProperty("tag_value")
   private String tagValue;
 

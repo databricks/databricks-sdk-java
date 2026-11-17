@@ -17,7 +17,11 @@ public class GrantMemoryStorePermissionRequest {
   /** Resource name in the form `memory-stores/{managed_memory_store_id}`. */
   @JsonIgnore private String name;
 
-  /** Permission level to grant. */
+  /**
+   * Permission level to grant. `WRITE` includes `READ`. Grants are additive: granting `READ` to a
+   * principal that already holds `WRITE` does not lower its access. To downgrade a principal,
+   * revoke its grants and grant again.
+   */
   @JsonProperty("permission")
   private PermissionLevel permission;
 

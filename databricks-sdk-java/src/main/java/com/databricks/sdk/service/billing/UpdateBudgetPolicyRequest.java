@@ -11,7 +11,7 @@ import java.util.Objects;
 
 @Generated
 public class UpdateBudgetPolicyRequest {
-  /** DEPRECATED. This is redundant field as LimitConfig is part of the BudgetPolicy */
+  /** Deprecated: This field is ignored. */
   @JsonIgnore
   @QueryParam("limit_config")
   private LimitConfig limitConfig;

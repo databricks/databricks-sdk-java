@@ -11,11 +11,15 @@ import java.util.Objects;
 /** An experiment and its metadata. */
 @Generated
 public class Experiment {
-  /** Location where artifacts for the experiment are stored. */
+  /**
+   * URI of the location where the artifacts of the experiment's runs are stored. Experiments
+   * created without an explicit location use MLflow-managed storage under
+   * `dbfs:/databricks/mlflow-tracking/<experiment_id>`.
+   */
   @JsonProperty("artifact_location")
   private String artifactLocation;
 
-  /** Creation time */
+  /** Time when the experiment was created, as a Unix timestamp in milliseconds. */
   @JsonProperty("creation_time")
   private Long creationTime;
 
@@ -23,22 +27,29 @@ public class Experiment {
   @JsonProperty("experiment_id")
   private String experimentId;
 
-  /** Last update time */
+  /** Time when the experiment metadata was last updated, as a Unix timestamp in milliseconds. */
   @JsonProperty("last_update_time")
   private Long lastUpdateTime;
 
   /**
-   * Current life cycle stage of the experiment: "active" or "deleted". Deleted experiments are not
-   * returned by APIs.
+   * Current life cycle stage of the experiment: `active` or `deleted`. Deleted experiments are
+   * excluded from list and search results unless `view_type` requests them, and can be restored
+   * until they are permanently deleted.
    */
   @JsonProperty("lifecycle_stage")
   private String lifecycleStage;
 
-  /** Human readable name that identifies the experiment. */
+  /**
+   * Name of the experiment. A workspace experiment is named by its absolute path in the workspace;
+   * a notebook experiment has the path of its notebook.
+   */
   @JsonProperty("name")
   private String name;
 
-  /** Tags: Additional metadata key-value pairs. */
+  /**
+   * Tags set on the experiment, as key-value pairs, including system tags such as `mlflow.ownerId`
+   * that MLflow maintains.
+   */
   @JsonProperty("tags")
   private Collection<ExperimentTag> tags;
 

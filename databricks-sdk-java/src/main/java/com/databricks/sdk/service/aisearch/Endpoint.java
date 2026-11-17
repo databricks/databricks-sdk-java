@@ -16,7 +16,11 @@ import java.util.Objects;
  */
 @Generated
 public class Endpoint {
-  /** The user-selected budget policy id for the endpoint. */
+  /**
+   * ID of the serverless budget policy to apply to the endpoint. The caller must have permission to
+   * use the policy. Set either this field or `usage_policy_id`, not both. Responses do not echo
+   * this field; they report the applied policy in `effective_budget_policy_id`.
+   */
   @JsonProperty("budget_policy_id")
   private String budgetPolicyId;
 
@@ -24,19 +28,25 @@ public class Endpoint {
   @JsonProperty("create_time")
   private Timestamp createTime;
 
-  /** Creator of the endpoint */
+  /**
+   * User name of the principal that created the endpoint. For a user, it is the user's email
+   * address; for any other principal, it is the principal's unique name.
+   */
   @JsonProperty("creator")
   private String creator;
 
-  /** The custom tags assigned to the endpoint */
+  /**
+   * Custom tags assigned to the endpoint. On update, the list replaces all of the endpoint's
+   * existing tags.
+   */
   @JsonProperty("custom_tags")
   private Collection<CustomTag> customTags;
 
-  /** The budget policy id applied to the endpoint */
+  /** ID of the budget policy that is currently applied to the endpoint. */
   @JsonProperty("effective_budget_policy_id")
   private String effectiveBudgetPolicyId;
 
-  /** Current status of the endpoint */
+  /** Current lifecycle state of the endpoint, with an optional message that explains it. */
   @JsonProperty("endpoint_status")
   private EndpointStatus endpointStatus;
 
@@ -44,7 +54,7 @@ public class Endpoint {
   @JsonProperty("endpoint_type")
   private EndpointType endpointType;
 
-  /** Unique identifier of the endpoint */
+  /** System-generated UUID that uniquely identifies the endpoint. */
   @JsonProperty("id")
   private String id;
 
@@ -52,15 +62,14 @@ public class Endpoint {
   @JsonProperty("index_count")
   private Long indexCount;
 
-  /** User who last updated the endpoint */
+  /** User name of the principal that last updated the endpoint, in the same format as `creator`. */
   @JsonProperty("last_updated_user")
   private String lastUpdatedUser;
 
   /**
-   * Name of the AI Search endpoint. Server-assigned full resource path
-   * (`workspaces/{workspace}/endpoints/{endpoint}`) on output. On create, the user-supplied short
-   * name is conveyed via `CreateEndpointRequest.endpoint_id`; the server composes the full `name`
-   * and returns it on the response.
+   * Full resource name of the endpoint, in the form
+   * `workspaces/{workspace_id}/endpoints/{endpoint_id}`. On create, the server composes it from
+   * `parent` and `endpoint_id` and ignores any value supplied in the request body.
    */
   @JsonProperty("name")
   private String name;
@@ -78,7 +87,8 @@ public class Endpoint {
 
   /**
    * Target QPS for the endpoint. Mutually exclusive with `replica_count`. Best-effort; the system
-   * does not guarantee this QPS will be achieved.
+   * does not guarantee this QPS will be achieved. Responses report the requested value in
+   * `scaling_info.requested_target_qps`.
    */
   @JsonProperty("target_qps")
   private Long targetQps;
@@ -91,7 +101,10 @@ public class Endpoint {
   @JsonProperty("update_time")
   private Timestamp updateTime;
 
-  /** The usage policy id applied to the endpoint. */
+  /**
+   * ID of the usage policy to apply to the endpoint. The server treats it as the same setting as
+   * `budget_policy_id`, so set only one of the two.
+   */
   @JsonProperty("usage_policy_id")
   private String usagePolicyId;
 

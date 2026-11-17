@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class ChangeClusterOwner {
-  /** */
+  /** The ID of the cluster whose owner is changed. */
   @JsonProperty("cluster_id")
   private String clusterId;
 

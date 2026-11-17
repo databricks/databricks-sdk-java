@@ -28,7 +28,10 @@ public class SoftwareArtifactsAPI {
     return getSoftwareArtifact(new GetSoftwareArtifactRequest().setName(name));
   }
 
-  /** Gets a software artifact. */
+  /**
+   * Gets a software artifact by its resource name. Returns `NOT_FOUND` if the artifact does not
+   * exist.
+   */
   public SoftwareArtifact getSoftwareArtifact(GetSoftwareArtifactRequest request) {
     return impl.getSoftwareArtifact(request);
   }
@@ -37,7 +40,10 @@ public class SoftwareArtifactsAPI {
     return getSoftwareArtifactVersion(new GetSoftwareArtifactVersionRequest().setName(name));
   }
 
-  /** Gets a software artifact version. */
+  /**
+   * Gets a software artifact version by its resource name. Returns `NOT_FOUND` if the version does
+   * not exist.
+   */
   public SoftwareArtifactVersion getSoftwareArtifactVersion(
       GetSoftwareArtifactVersionRequest request) {
     return impl.getSoftwareArtifactVersion(request);
@@ -83,7 +89,10 @@ public class SoftwareArtifactsAPI {
         });
   }
 
-  /** Resolves a software artifact version from its tag alias. */
+  /**
+   * Resolves a software artifact version from its tag alias. Returns `NOT_FOUND` if the artifact or
+   * the alias does not exist.
+   */
   public ResolveSoftwareArtifactVersionResponse resolveSoftwareArtifactVersion(
       ResolveSoftwareArtifactVersionRequest request) {
     return impl.resolveSoftwareArtifactVersion(request);

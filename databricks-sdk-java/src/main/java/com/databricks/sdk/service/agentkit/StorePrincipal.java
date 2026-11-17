@@ -13,11 +13,17 @@ import java.util.Objects;
  */
 @Generated
 public class StorePrincipal {
-  /** */
+  /**
+   * Identifier of the principal: the email address of a user, or the application (client) ID of a
+   * service principal. Groups are not supported.
+   */
   @JsonProperty("name")
   private String name;
 
-  /** The kind of principal. Required unless the deprecated type alias is supplied. */
+  /**
+   * The kind of principal, which determines how `name` is interpreted. A principal without a type
+   * is rejected.
+   */
   @JsonProperty("principal_type")
   private PrincipalType principalType;
 

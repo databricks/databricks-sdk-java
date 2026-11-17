@@ -10,11 +10,11 @@ import java.util.Objects;
 @Generated
 public class CronSchedule {
   /**
-   * A cron expression using quartz syntax. EX: `0 0 8 * * ?` represents everyday at 8am. See [Cron
-   * Trigger] for details.
+   * A cron expression in Quartz syntax that defines when the schedule runs. See the [Quartz cron
+   * trigger tutorial] for the syntax.
    *
-   * <p>[Cron Trigger]:
-   * http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html
+   * <p>[Quartz cron trigger tutorial]:
+   * https://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html
    */
   @JsonProperty("quartz_cron_expression")
   private String quartzCronExpression;

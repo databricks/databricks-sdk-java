@@ -155,7 +155,7 @@ public interface ModelRegistryService {
   /** Updates a registered model. */
   UpdateModelResponse updateModel(UpdateModelRequest updateModelRequest);
 
-  /** Updates the model version. */
+  /** Updates the description of a model version. */
   UpdateModelVersionResponse updateModelVersion(
       UpdateModelVersionRequest updateModelVersionRequest);
 

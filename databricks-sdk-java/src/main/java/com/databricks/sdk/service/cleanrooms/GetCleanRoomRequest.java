@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class GetCleanRoomRequest {
-  /** */
+  /** Name of the clean room. */
   @JsonIgnore private String name;
 
   public GetCleanRoomRequest setName(String name) {

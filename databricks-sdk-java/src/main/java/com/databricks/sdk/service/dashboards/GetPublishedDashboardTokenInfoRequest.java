@@ -13,12 +13,19 @@ public class GetPublishedDashboardTokenInfoRequest {
   /** UUID identifying the published dashboard. */
   @JsonIgnore private String dashboardId;
 
-  /** Provided external value to be included in the custom claim. */
+  /**
+   * Value to carry in the token for this viewer, such as a tenant or region key. Dashboard dataset
+   * queries can reference it as `__aibi_external_value` to filter data per viewer. The combined
+   * size of `external_value` and `external_viewer_id` must be less than 1 KB.
+   */
   @JsonIgnore
   @QueryParam("external_value")
   private String externalValue;
 
-  /** Provided external viewer id to be included in the custom claim. */
+  /**
+   * Identifier of the viewer in the external application. It is recorded in dashboard audit logs,
+   * so it should be unique per viewer and must not contain personally identifiable information.
+   */
   @JsonIgnore
   @QueryParam("external_viewer_id")
   private String externalViewerId;

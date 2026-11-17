@@ -20,8 +20,8 @@ public class CleanRoomRemoteDetail {
   private String cloudVendor;
 
   /**
-   * Collaborators in the central clean room. There should one and only one collaborator in the list
-   * that satisfies the owner condition:
+   * Collaborators in the central clean room. There should be one and only one collaborator in the
+   * list that satisfies the owner condition:
    *
    * <p>1. It has the creator's global_metastore_id (determined by caller of CreateCleanRoom).
    *
@@ -30,7 +30,11 @@ public class CleanRoomRemoteDetail {
   @JsonProperty("collaborators")
   private Collection<CleanRoomCollaborator> collaborators;
 
-  /** */
+  /**
+   * Compliance security profile of the central clean room. It is taken from the creator's workspace
+   * when the clean room is created; a collaborator whose workspace profile differs sees
+   * access_restricted set to CSP_MISMATCH.
+   */
   @JsonProperty("compliance_security_profile")
   private ComplianceSecurityProfile complianceSecurityProfile;
 
@@ -38,7 +42,12 @@ public class CleanRoomRemoteDetail {
   @JsonProperty("creator")
   private CleanRoomCollaborator creator;
 
-  /** Egress network policy to apply to the central clean room workspace. */
+  /**
+   * Egress network policy to apply to the central clean room workspace. Only
+   * internet_access.restriction_mode (FULL_ACCESS or RESTRICTED_ACCESS) and
+   * internet_access.allowed_internet_destinations can be set. When omitted, internet access is
+   * restricted with no allowed destinations.
+   */
   @JsonProperty("egress_network_policy")
   private com.databricks.sdk.service.settings.EgressNetworkPolicy egressNetworkPolicy;
 

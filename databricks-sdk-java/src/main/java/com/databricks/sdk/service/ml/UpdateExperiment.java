@@ -13,7 +13,9 @@ public class UpdateExperiment {
   @JsonProperty("experiment_id")
   private String experimentId;
 
-  /** If provided, the experiment's name is changed to the new name. The new name must be unique. */
+  /**
+   * New name for the experiment, as an absolute path in the workspace. The new name must be unique.
+   */
   @JsonProperty("new_name")
   private String newName;
 

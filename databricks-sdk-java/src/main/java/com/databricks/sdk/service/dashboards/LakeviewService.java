@@ -17,7 +17,8 @@ public interface LakeviewService {
   Dashboard create(CreateDashboardRequest createDashboardRequest);
 
   /**
-   * Create dashboard schedule.
+   * Creates a schedule for a dashboard. The dashboard must be published before a schedule can be
+   * created for it.
    *
    * <p>Requires the [Databricks SQL access] entitlement. Grant Databricks SQL access in addition to
    * Workspace access.
@@ -27,7 +28,12 @@ public interface LakeviewService {
   Schedule createSchedule(CreateScheduleRequest createScheduleRequest);
 
   /**
-   * Create schedule subscription.
+   * Create schedule subscription. Subscribes a workspace user or a notification destination to the
+   * schedule, so that it receives a snapshot of the dashboard each time the schedule runs.
+   * Subscribing yourself requires CAN VIEW permission on the dashboard; subscribing another user or
+   * a notification destination requires CAN EDIT. On dashboards published without embedded
+   * credentials, you can only subscribe yourself. If the subscriber is already subscribed to the
+   * schedule, the existing subscription is returned.
    *
    * <p>The caller must be a workspace user with one of the following [entitlements]: Workspace
    * access, Databricks SQL access, or Consumer access.
@@ -40,7 +46,7 @@ public interface LakeviewService {
   Subscription createSubscription(CreateSubscriptionRequest createSubscriptionRequest);
 
   /**
-   * Delete dashboard schedule.
+   * Deletes a schedule together with all of its subscriptions.
    *
    * <p>Requires the [Databricks SQL access] entitlement. Grant Databricks SQL access in addition to
    * Workspace access.
@@ -50,7 +56,9 @@ public interface LakeviewService {
   void deleteSchedule(DeleteScheduleRequest deleteScheduleRequest);
 
   /**
-   * Delete schedule subscription.
+   * Delete schedule subscription. The subscriber receives no further snapshots from the schedule.
+   * Deleting your own subscription requires CAN VIEW permission on the dashboard; deleting another
+   * user's or a notification destination's subscription requires CAN EDIT.
    *
    * <p>The caller must be a workspace user with one of the following [entitlements]: Workspace
    * access, Databricks SQL access, or Consumer access.
@@ -66,7 +74,8 @@ public interface LakeviewService {
   Dashboard get(GetDashboardRequest getDashboardRequest);
 
   /**
-   * Get the current published dashboard.
+   * Get the current published dashboard. The request fails with NOT_FOUND if the dashboard has
+   * never been published or has been unpublished.
    *
    * <p>The caller must be a workspace user with one of the following entitlements: Workspace
    * access, Databricks SQL access, or Consumer access.
@@ -143,20 +152,30 @@ public interface LakeviewService {
   /** Publish the current draft dashboard. */
   PublishedDashboard publish(PublishRequest publishRequest);
 
-  /** Revert a dashboard's definition in draft mode to the last published version. */
+  /**
+   * Revert a dashboard's definition in draft mode to the last published version. The draft's
+   * datasets, pages and widgets are replaced with those of the current published version, and the
+   * updated draft is returned. The dashboard must have been published at least once; the published
+   * version itself is not changed.
+   */
   RevertDashboardResponse revert(RevertDashboardRequest revertDashboardRequest);
 
   /** Trash a dashboard. */
   void trash(TrashDashboardRequest trashDashboardRequest);
 
-  /** Unpublish the dashboard. */
+  /**
+   * Unpublish the dashboard. This deletes the published version, so viewers can no longer open it,
+   * and pauses the dashboard's schedules. The draft is not changed; publish it again to make the
+   * dashboard available to viewers.
+   */
   void unpublish(UnpublishDashboardRequest unpublishDashboardRequest);
 
   /** Update a draft dashboard. */
   Dashboard update(UpdateDashboardRequest updateDashboardRequest);
 
   /**
-   * Update dashboard schedule.
+   * Updates a schedule. The request body replaces the stored schedule, so fields omitted from the
+   * body are reset to their defaults.
    *
    * <p>Requires the [Databricks SQL access] entitlement. Grant Databricks SQL access in addition to
    * Workspace access.

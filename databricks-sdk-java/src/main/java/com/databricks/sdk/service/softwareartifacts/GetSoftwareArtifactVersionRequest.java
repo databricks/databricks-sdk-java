@@ -11,7 +11,8 @@ import java.util.Objects;
 public class GetSoftwareArtifactVersionRequest {
   /**
    * Resource name of the version, of the form
-   * `software-artifacts/{catalog}.{schema}.{artifact}/versions/{version}`.
+   * `software-artifacts/{catalog}.{schema}.{artifact}/versions/{version}`, where `{version}` is the
+   * version's content digest.
    */
   @JsonIgnore private String name;
 

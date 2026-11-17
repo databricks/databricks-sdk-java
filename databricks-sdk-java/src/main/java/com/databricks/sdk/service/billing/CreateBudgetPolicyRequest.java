@@ -11,9 +11,9 @@ import java.util.Objects;
 @Generated
 public class CreateBudgetPolicyRequest {
   /**
-   * The policy to create. `policy_id` needs to be empty as it will be generated `policy_name` must
-   * be provided, custom_tags may need to be provided depending on the cloud provider. All other
-   * fields are optional.
+   * The policy to create. `policy_name` must be provided, and `custom_tags` may be required
+   * depending on the cloud provider. Leave `policy_id` empty because Databricks generates it. All
+   * other fields are optional.
    */
   @JsonProperty("policy")
   private BudgetPolicy policy;

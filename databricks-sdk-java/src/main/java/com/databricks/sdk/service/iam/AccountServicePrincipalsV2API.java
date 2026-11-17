@@ -39,7 +39,7 @@ public class AccountServicePrincipalsV2API {
     delete(new DeleteAccountServicePrincipalRequest().setId(id));
   }
 
-  /** Delete a single service principal in the Databricks account. */
+  /** Deletes a single service principal from the Databricks account. */
   public void delete(DeleteAccountServicePrincipalRequest request) {
     impl.delete(request);
   }
@@ -48,7 +48,7 @@ public class AccountServicePrincipalsV2API {
     return get(new GetAccountServicePrincipalRequest().setId(id));
   }
 
-  /** Gets the details for a single service principal define in the Databricks account. */
+  /** Gets the details for a single service principal in the Databricks account. */
   public AccountServicePrincipal get(GetAccountServicePrincipalRequest request) {
     return impl.get(request);
   }
@@ -81,7 +81,7 @@ public class AccountServicePrincipalsV2API {
   /**
    * Updates the details of a single service principal.
    *
-   * <p>This action replaces the existing service principal with the same name.
+   * <p>This action replaces the existing service principal that has the given ID.
    */
   public void update(UpdateAccountServicePrincipalRequest request) {
     impl.update(request);

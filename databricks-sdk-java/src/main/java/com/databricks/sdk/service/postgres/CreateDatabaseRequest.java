@@ -19,8 +19,8 @@ public class CreateDatabaseRequest {
    * The ID used to identify and manage the Database resource through the API. The Postgres database
    * name is specified in `spec.postgres_database`.
    *
-   * <p>This value should be 4-63 characters, and only use characters available in DNS names, as
-   * defined by RFC-1123
+   * <p>This value should be 3-63 characters, start with a lowercase letter, end with a lowercase
+   * letter or digit, and contain only lowercase letters, digits, and hyphens.
    *
    * <p>If database_id is not specified in the request, it is generated automatically.
    */
@@ -34,7 +34,11 @@ public class CreateDatabaseRequest {
    */
   @JsonIgnore private String parent;
 
-  /** If true, update the database if it already exists instead of returning an error. */
+  /**
+   * If true, update the database if it already exists instead of returning an error. This requires
+   * `database_id` to be set. Without `database_id`, the request follows the normal create path and
+   * fails if the database name already exists.
+   */
   @JsonIgnore
   @QueryParam("replace_existing")
   private Boolean replaceExisting;

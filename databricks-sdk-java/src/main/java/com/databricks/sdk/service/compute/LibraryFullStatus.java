@@ -15,7 +15,7 @@ public class LibraryFullStatus {
   @JsonProperty("is_library_for_all_clusters")
   private Boolean isLibraryForAllClusters;
 
-  /** Unique identifier for the library. */
+  /** The library whose status is reported. */
   @JsonProperty("library")
   private Library library;
 
@@ -23,7 +23,13 @@ public class LibraryFullStatus {
   @JsonProperty("messages")
   private Collection<String> messages;
 
-  /** Status of installing the library on the cluster. */
+  /**
+   * Status of installing the library on the cluster. The status starts at PENDING and ends at
+   * INSTALLED, FAILED or SKIPPED. Intermediate states are not always reported. A library stays
+   * UNINSTALL_ON_RESTART after an uninstall request until the cluster restarts. While the cluster
+   * is not running, libraries are reported as PENDING, and libraries marked for uninstall are
+   * omitted.
+   */
   @JsonProperty("status")
   private LibraryInstallStatus status;
 

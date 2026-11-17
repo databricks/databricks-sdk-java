@@ -10,16 +10,13 @@ import java.util.Objects;
 @Generated
 public class Subscriber {
   /**
-   * The destination to receive the subscription email. This parameter is mutually exclusive with
-   * `user_subscriber`.
+   * The notification destination that receives the subscription, such as an email list or a Slack
+   * or Microsoft Teams channel. Workspace admins configure notification destinations.
    */
   @JsonProperty("destination_subscriber")
   private SubscriptionSubscriberDestination destinationSubscriber;
 
-  /**
-   * The user to receive the subscription email. This parameter is mutually exclusive with
-   * `destination_subscriber`.
-   */
+  /** The workspace user who receives the subscription. */
   @JsonProperty("user_subscriber")
   private SubscriptionSubscriberUser userSubscriber;
 

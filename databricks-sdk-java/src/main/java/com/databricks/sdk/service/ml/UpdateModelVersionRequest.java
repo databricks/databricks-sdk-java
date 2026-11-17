@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class UpdateModelVersionRequest {
-  /** If provided, updates the description for this `registered_model`. */
+  /** New description for the model version. */
   @JsonProperty("description")
   private String description;
 

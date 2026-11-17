@@ -20,7 +20,9 @@ public class ListExperimentsRequest {
   @QueryParam("max_results")
   private Long maxResults;
 
-  /** Token indicating the page of experiments to fetch */
+  /**
+   * Page token returned as `next_page_token` by a previous call. Omit it to fetch the first page.
+   */
   @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;

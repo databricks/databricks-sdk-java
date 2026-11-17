@@ -13,30 +13,45 @@ import java.util.Objects;
 @Generated
 public class SnapshotSpec {
   /**
-   * Absolute time at which the snapshot is deleted. Mutually exclusive with `ttl` and `no_expiry`.
+   * Absolute time at which the snapshot is deleted. It must not be in the past. Mutually exclusive
+   * with `ttl` and `no_expiry`.
    */
   @JsonProperty("expire_time")
   private Timestamp expireTime;
 
-  /** If true, the snapshot never expires. Mutually exclusive with `ttl` and `expire_time`. */
+  /**
+   * If true, the snapshot never expires. The value `false` is rejected; set `expire_time` or `ttl`
+   * instead. Mutually exclusive with `ttl` and `expire_time`.
+   */
   @JsonProperty("no_expiry")
   private Boolean noExpiry;
 
-  /** The source branch to snapshot. Format: projects/{project_id}/branches/{branch_id} */
+  /**
+   * The source branch to snapshot. The branch must belong to the same project as the snapshot.
+   * Format: projects/{project_id}/branches/{branch_id}
+   */
   @JsonProperty("source_branch")
   private String sourceBranch;
 
-  /** LSN to snapshot from, e.g. `16/B374D848`. Mutually exclusive with `source_branch_time`. */
+  /**
+   * Postgres log sequence number (LSN) to snapshot from. It must fall within the project's history
+   * retention window. If neither this field nor `source_branch_time` is set, the snapshot captures
+   * the current head of the source branch. Mutually exclusive with `source_branch_time`.
+   */
   @JsonProperty("source_branch_lsn")
   private String sourceBranchLsn;
 
-  /** Timestamp to snapshot from. Mutually exclusive with `source_branch_lsn`. */
+  /**
+   * Timestamp to snapshot from. It must fall within the project's history retention window.
+   * Mutually exclusive with `source_branch_lsn`.
+   */
   @JsonProperty("source_branch_time")
   private Timestamp sourceBranchTime;
 
   /**
-   * Time-to-live. The snapshot expires this long after it is created. Mutually exclusive with
-   * `expire_time` and `no_expiry`. Reads report the resolved absolute `expire_time` instead.
+   * Time-to-live, as a positive duration in seconds with an `s` suffix. The snapshot expires this
+   * long after it is created. Mutually exclusive with `expire_time` and `no_expiry`. Reads report
+   * the resolved absolute `expire_time` instead.
    */
   @JsonProperty("ttl")
   private Duration ttl;

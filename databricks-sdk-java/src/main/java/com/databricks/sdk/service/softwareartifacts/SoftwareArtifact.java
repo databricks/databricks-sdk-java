@@ -8,10 +8,16 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.protobuf.Timestamp;
 import java.util.Objects;
 
-/** A software artifact in a Unity Catalog schema. */
+/**
+ * A software artifact is a named container image stored in a Unity Catalog schema and governed by
+ * Unity Catalog privileges. Images are pushed through Databricks Artifact Registry; each pushed
+ * image digest becomes an immutable version of the artifact, exposed as a SoftwareArtifactVersion.
+ * See https://docs.databricks.com/aws/en/artifact-registry/ for concepts, naming rules, and the
+ * privileges each operation requires.
+ */
 @Generated
 public class SoftwareArtifact {
-  /** Time at which this software artifact was created. */
+  /** Time at which the artifact was created, formatted as an RFC 3339 timestamp in JSON. */
   @JsonProperty("create_time")
   private Timestamp createTime;
 
@@ -25,11 +31,14 @@ public class SoftwareArtifact {
   @JsonProperty("name")
   private String name;
 
-  /** Principal name (a user, service principal, or group) that owns this artifact. */
+  /**
+   * Principal that owns the artifact, given as a user's email address, a service principal's
+   * application ID, or a group name.
+   */
   @JsonProperty("owner")
   private String owner;
 
-  /** Time at which this software artifact was last updated. */
+  /** Time at which the artifact was last updated, formatted as an RFC 3339 timestamp in JSON. */
   @JsonProperty("update_time")
   private Timestamp updateTime;
 

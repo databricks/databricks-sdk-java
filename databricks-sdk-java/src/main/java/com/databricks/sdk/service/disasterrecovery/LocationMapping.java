@@ -14,11 +14,14 @@ import java.util.Objects;
  */
 @Generated
 public class LocationMapping {
-  /** Resource name for this location. */
+  /** Identifier of this location mapping, unique within the failover group. */
   @JsonProperty("name")
   private String name;
 
-  /** URI for each region. Each entry maps a region name to a storage URI. */
+  /**
+   * The storage URI of this location in each region, with exactly one entry per region of the
+   * failover group.
+   */
   @JsonProperty("uri_by_region")
   private Collection<LocationMappingEntry> uriByRegion;
 

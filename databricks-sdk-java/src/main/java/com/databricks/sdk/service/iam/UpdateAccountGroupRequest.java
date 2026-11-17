@@ -11,18 +11,24 @@ import java.util.Objects;
 
 @Generated
 public class UpdateAccountGroupRequest {
-  /** String that represents a human-readable group name */
+  /**
+   * Sets the human-readable name of the group. The name must be unique within the account and must
+   * not exceed 255 characters.
+   */
   @JsonProperty("displayName")
   private String displayName;
 
-  /** */
+  /** Sets the identifier of the group in an external identity provider. */
   @JsonProperty("externalId")
   private String externalId;
 
-  /** Databricks group ID */
+  /** Identifies the group within Databricks. */
   @JsonIgnore private String id;
 
-  /** */
+  /**
+   * Lists the members of the group. Each entry identifies a user, service principal or group in the
+   * account by its ID in the value sub-attribute.
+   */
   @JsonProperty("members")
   private Collection<ComplexValue> members;
 
@@ -30,7 +36,10 @@ public class UpdateAccountGroupRequest {
   @JsonProperty("meta")
   private ResourceMeta meta;
 
-  /** Indicates if the group has the admin role. */
+  /**
+   * Lists the account roles that are assigned to the group. The only supported role value is
+   * `account_admin`.
+   */
   @JsonProperty("roles")
   private Collection<ComplexValue> roles;
 

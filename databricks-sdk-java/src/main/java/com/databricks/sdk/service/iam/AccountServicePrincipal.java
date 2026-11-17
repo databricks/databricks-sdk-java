@@ -8,33 +8,53 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * Represents a service principal in the Databricks account. Service principals are identities for
+ * jobs, automated tools and systems such as scripts, apps and CI/CD platforms.
+ */
 @Generated
 public class AccountServicePrincipal {
-  /** Databricks account ID */
+  /** Identifies the Databricks account that the service principal belongs to. */
   @JsonProperty("account_id")
   private String accountId;
 
-  /** If this user is active */
+  /**
+   * Indicates whether the service principal is active. A deactivated service principal cannot
+   * authenticate or access Databricks APIs, but it keeps its permissions.
+   */
   @JsonProperty("active")
   private Boolean active;
 
-  /** UUID relating to the service principal */
+  /**
+   * Identifies the service principal when it authenticates to Databricks. Databricks generates the
+   * application ID, except on Azure, where it can be the application ID of a Microsoft Entra ID
+   * service principal.
+   */
   @JsonProperty("applicationId")
   private String applicationId;
 
-  /** String that represents a concatenation of given and family names. */
+  /** Identifies the service principal by a human-readable name. */
   @JsonProperty("displayName")
   private String displayName;
 
-  /** */
+  /**
+   * Identifies the service principal in an external identity provider. Identity providers use it to
+   * match the service principals they manage to Databricks service principals.
+   */
   @JsonProperty("externalId")
   private String externalId;
 
-  /** Databricks service principal ID. */
+  /**
+   * Identifies the service principal within Databricks. Databricks generates the ID when the
+   * service principal is created.
+   */
   @JsonProperty("id")
   private String id;
 
-  /** Indicates if the group has the admin role. */
+  /**
+   * Lists the account roles that are assigned to the service principal. The only supported role
+   * value is `account_admin`.
+   */
   @JsonProperty("roles")
   private Collection<ComplexValue> roles;
 

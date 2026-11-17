@@ -127,7 +127,11 @@ public class PostgresAPI {
     return new CreateRoleOperation(impl, operation);
   }
 
-  /** Creates a snapshot, an immutable point-in-time copy of a branch's data, within the project. */
+  /**
+   * Creates a snapshot, an immutable point-in-time copy of a branch's data, within the project.
+   * Returns a long-running operation. Poll it until done is true; its response holds the new
+   * snapshot.
+   */
   public CreateSnapshotOperation createSnapshot(CreateSnapshotRequest request) {
     Operation operation = impl.createSnapshot(request);
     return new CreateSnapshotOperation(impl, operation);
@@ -191,7 +195,7 @@ public class PostgresAPI {
     return deleteDatabase(new DeleteDatabaseRequest().setName(name));
   }
 
-  /** Delete a Database. */
+  /** Deletes the specified Postgres database. */
   public DeleteDatabaseOperation deleteDatabase(DeleteDatabaseRequest request) {
     Operation operation = impl.deleteDatabase(request);
     return new DeleteDatabaseOperation(impl, operation);
@@ -249,7 +253,10 @@ public class PostgresAPI {
     return deleteSnapshot(new DeleteSnapshotRequest().setName(name));
   }
 
-  /** Deletes the specified snapshot. */
+  /**
+   * Deletes the specified snapshot. A deleted snapshot cannot be recovered. Returns a long-running
+   * operation. Poll it until done is true.
+   */
   public DeleteSnapshotOperation deleteSnapshot(DeleteSnapshotRequest request) {
     Operation operation = impl.deleteSnapshot(request);
     return new DeleteSnapshotOperation(impl, operation);
@@ -337,7 +344,7 @@ public class PostgresAPI {
     return getDatabase(new GetDatabaseRequest().setName(name));
   }
 
-  /** Get a Database. */
+  /** Retrieves information about the specified Postgres database. */
   public Database getDatabase(GetDatabaseRequest request) {
     return impl.getDatabase(request);
   }
@@ -509,7 +516,7 @@ public class PostgresAPI {
     return listDatabases(new ListDatabasesRequest().setParent(parent));
   }
 
-  /** List Databases. */
+  /** Returns a list of Postgres databases in the branch. */
   public Iterable<Database> listDatabases(ListDatabasesRequest request) {
     return Paginator.newTokenPagination(
         request,
@@ -669,7 +676,7 @@ public class PostgresAPI {
     return new UpdateDataApiOperation(impl, operation);
   }
 
-  /** Update a Database. */
+  /** Updates the specified Postgres database. Only the fields named in `update_mask` change. */
   public UpdateDatabaseOperation updateDatabase(UpdateDatabaseRequest request) {
     Operation operation = impl.updateDatabase(request);
     return new UpdateDatabaseOperation(impl, operation);

@@ -25,7 +25,8 @@ public class DatabaseDatabaseSpec {
    * The name of the role that owns the database. Format:
    * projects/{project_id}/branches/{branch_id}/roles/{role_id}
    *
-   * <p>To change the owner, pass valid existing Role name when updating the Database
+   * <p>The role must be in the same branch as the database. To change the owner, pass valid
+   * existing Role name when updating the Database
    *
    * <p>Required when creating the Database.
    */

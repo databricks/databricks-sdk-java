@@ -14,7 +14,10 @@ public class ModelVersionDatabricks {
   @JsonProperty("creation_timestamp")
   private Long creationTimestamp;
 
-  /** */
+  /**
+   * Current stage of the model version. Valid values are `None`, `Staging`, `Production` and
+   * `Archived`.
+   */
   @JsonProperty("current_stage")
   private String currentStage;
 
@@ -41,14 +44,13 @@ public class ModelVersionDatabricks {
   @JsonProperty("name")
   private String name;
 
-  /**
-   * Open requests for this `model_versions`. Gap in sequence number is intentional and is done in
-   * order to match field sequence numbers of `ModelVersion` proto message
-   */
+  /** Open stage transition requests for the model version. */
   @JsonProperty("open_requests")
   private Collection<Activity> openRequests;
 
-  /** */
+  /**
+   * Permission level of the requesting user on the registered model that the version belongs to.
+   */
   @JsonProperty("permission_level")
   private PermissionLevel permissionLevel;
 
@@ -71,7 +73,9 @@ public class ModelVersionDatabricks {
   @JsonProperty("source")
   private String source;
 
-  /** */
+  /**
+   * Registration status of the model version. The version can be used once the status is `READY`.
+   */
   @JsonProperty("status")
   private Status status;
 

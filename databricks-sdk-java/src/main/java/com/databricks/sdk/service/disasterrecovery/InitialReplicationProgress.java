@@ -13,7 +13,10 @@ import java.util.Objects;
  */
 @Generated
 public class InitialReplicationProgress {
-  /** Percent complete, 0-100. */
+  /**
+   * Percentage of in-scope assets replicated so far, from 0 to 100. Stays below 100 while errors
+   * block the first replication point.
+   */
   @JsonProperty("completed")
   private Long completed;
 

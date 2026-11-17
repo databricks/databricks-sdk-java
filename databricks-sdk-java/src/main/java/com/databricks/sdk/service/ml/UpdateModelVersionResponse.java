@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class UpdateModelVersionResponse {
-  /** Return new version number generated for this model in registry. */
+  /** The updated model version. */
   @JsonProperty("model_version")
   private ModelVersion modelVersion;
 

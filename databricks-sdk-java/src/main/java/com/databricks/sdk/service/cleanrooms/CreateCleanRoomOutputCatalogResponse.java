@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class CreateCleanRoomOutputCatalogResponse {
-  /** */
+  /** The output catalog that was created. */
   @JsonProperty("output_catalog")
   private CleanRoomOutputCatalog outputCatalog;
 

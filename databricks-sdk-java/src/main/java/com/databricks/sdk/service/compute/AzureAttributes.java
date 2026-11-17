@@ -47,7 +47,10 @@ public class AzureAttributes {
   @JsonProperty("first_on_demand")
   private Long firstOnDemand;
 
-  /** Defines values necessary to configure and run Azure Log Analytics agent */
+  /**
+   * Defines values necessary to configure and run Azure Log Analytics agent. Both
+   * `log_analytics_workspace_id` and `log_analytics_primary_key` must be set, or neither.
+   */
   @JsonProperty("log_analytics_info")
   private LogAnalyticsInfo logAnalyticsInfo;
 

@@ -9,7 +9,10 @@ import java.util.Objects;
 
 @Generated
 public class SqlConditionConfiguration {
-  /** The ID of the SQL query to evaluate as the trigger condition. */
+  /**
+   * The ID of the SQL query to evaluate as the trigger condition. Exactly one of `sql_query_id` or
+   * `file` must be set.
+   */
   @JsonProperty("sql_query_id")
   private String sqlQueryId;
 

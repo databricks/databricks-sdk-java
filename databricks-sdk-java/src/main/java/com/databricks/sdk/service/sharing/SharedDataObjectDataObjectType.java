@@ -13,6 +13,7 @@ public enum SharedDataObjectDataObjectType {
   MODEL,
   NOTEBOOK_FILE,
   SCHEMA,
+  SKILL,
   STREAMING_TABLE,
   TABLE,
   VIEW,

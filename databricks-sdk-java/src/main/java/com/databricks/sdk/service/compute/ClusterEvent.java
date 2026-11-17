@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class ClusterEvent {
-  /** */
+  /** The ID of the cluster the event belongs to. */
   @JsonProperty("cluster_id")
   private String clusterId;
 
@@ -17,7 +17,7 @@ public class ClusterEvent {
   @JsonProperty("data_plane_event_details")
   private DataPlaneEventDetails dataPlaneEventDetails;
 
-  /** */
+  /** Details about the event. Which fields are populated depends on the event `type`. */
   @JsonProperty("details")
   private EventDetails details;
 
@@ -28,7 +28,7 @@ public class ClusterEvent {
   @JsonProperty("timestamp")
   private Long timestamp;
 
-  /** */
+  /** The type of event, which determines which `details` fields are populated. */
   @JsonProperty("type")
   private EventType typeValue;
 

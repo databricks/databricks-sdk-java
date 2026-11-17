@@ -48,7 +48,10 @@ public class AgentKitAPI {
     return impl.createMemory(request);
   }
 
-  /** Creates a memory store in the caller's workspace. */
+  /**
+   * Creates a memory store in the caller's workspace. Returns `ALREADY_EXISTS` when a store with
+   * the requested ID already exists.
+   */
   public ManagedMemoryStore createMemoryStore(CreateManagedMemoryStoreRequest request) {
     return impl.createMemoryStore(request);
   }
@@ -80,8 +83,9 @@ public class AgentKitAPI {
   }
 
   /**
-   * Deletes a memory store by resource name. Returns `NOT_FOUND` when the store does not exist in
-   * the caller's workspace.
+   * Deletes a memory store by resource name. Deleting a store also deletes all of its memory
+   * entries, and its ID becomes available for reuse. Returns `NOT_FOUND` when the store does not
+   * exist in the caller's workspace.
    */
   public void deleteMemoryStore(DeleteManagedMemoryStoreRequest request) {
     impl.deleteMemoryStore(request);

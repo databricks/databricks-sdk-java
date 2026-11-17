@@ -34,7 +34,11 @@ public class UpdateFailoverGroupRequest {
    */
   @JsonIgnore private String name;
 
-  /** Comma-separated list of fields to update. */
+  /**
+   * Comma-separated list of the fields to update. The supported paths are `workspace_sets`,
+   * `unity_catalog_assets`, `unity_catalog_assets.catalogs` and
+   * `unity_catalog_assets.location_mappings`; any other path is rejected.
+   */
   @JsonIgnore
   @QueryParam("update_mask")
   private FieldMask updateMask;

@@ -8,25 +8,41 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * Represents a group of users, service principals and other groups in the Databricks account.
+ * Members inherit the permissions that are granted to the group.
+ */
 @Generated
 public class AccountGroup {
-  /** Databricks account ID */
+  /** Identifies the Databricks account that the group belongs to. */
   @JsonProperty("account_id")
   private String accountId;
 
-  /** String that represents a human-readable group name */
+  /**
+   * Identifies the group by a human-readable name. The name must be unique within the account and
+   * must not exceed 255 characters.
+   */
   @JsonProperty("displayName")
   private String displayName;
 
-  /** external_id should be unique for identifying groups */
+  /**
+   * Identifies the group in an external identity provider. Identity providers use it to match the
+   * groups they manage to Databricks groups, so it should be unique among the groups in the
+   * account.
+   */
   @JsonProperty("externalId")
   private String externalId;
 
-  /** Databricks group ID */
+  /**
+   * Identifies the group within Databricks. Databricks generates the ID when the group is created.
+   */
   @JsonProperty("id")
   private String id;
 
-  /** */
+  /**
+   * Lists the members of the group. Each entry identifies a user, service principal or group in the
+   * account by its ID in the value sub-attribute.
+   */
   @JsonProperty("members")
   private Collection<ComplexValue> members;
 
@@ -34,7 +50,10 @@ public class AccountGroup {
   @JsonProperty("meta")
   private ResourceMeta meta;
 
-  /** Indicates if the group has the admin role. */
+  /**
+   * Lists the account roles that are assigned to the group. The only supported role value is
+   * `account_admin`.
+   */
   @JsonProperty("roles")
   private Collection<ComplexValue> roles;
 
