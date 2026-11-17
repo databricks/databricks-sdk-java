@@ -15,8 +15,8 @@ public class RevertDashboardRequest {
   @JsonIgnore private String dashboardId;
 
   /**
-   * The etag for the dashboard. Optionally, it can be provided to verify that the dashboard has not
-   * been modified from its last retrieval.
+   * The etag of the draft dashboard, as returned by the get dashboard API. When provided, the
+   * request fails with ABORTED if the draft has been modified since that etag was read.
    */
   @JsonProperty("etag")
   private String etag;

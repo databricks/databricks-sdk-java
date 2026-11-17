@@ -20,10 +20,10 @@ public interface AccountServicePrincipalsV2Service {
   AccountServicePrincipal create(
       CreateAccountServicePrincipalRequest createAccountServicePrincipalRequest);
 
-  /** Delete a single service principal in the Databricks account. */
+  /** Deletes a single service principal from the Databricks account. */
   void delete(DeleteAccountServicePrincipalRequest deleteAccountServicePrincipalRequest);
 
-  /** Gets the details for a single service principal define in the Databricks account. */
+  /** Gets the details for a single service principal in the Databricks account. */
   AccountServicePrincipal get(GetAccountServicePrincipalRequest getAccountServicePrincipalRequest);
 
   /** Gets the set of service principals associated with a Databricks account. */
@@ -36,7 +36,7 @@ public interface AccountServicePrincipalsV2Service {
   /**
    * Updates the details of a single service principal.
    *
-   * <p>This action replaces the existing service principal with the same name.
+   * <p>This action replaces the existing service principal that has the given ID.
    */
   void update(UpdateAccountServicePrincipalRequest updateAccountServicePrincipalRequest);
 }

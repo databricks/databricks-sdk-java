@@ -12,8 +12,10 @@ import java.util.Objects;
 @Generated
 public class SearchModelVersionsRequest {
   /**
-   * String filter condition, like "name='my-model-name'". Must be a single boolean condition, with
-   * string values wrapped in single quotes.
+   * Filter condition on `name`, `run_id`, `source` or `tags.<key>`. The filter must constrain at
+   * least one of `name`, `run_id` or `source`. Conditions use `=`, `!=`, `LIKE` or `ILIKE`, and
+   * `run_id` also supports `IN`. String values are wrapped in single quotes, and several conditions
+   * can be combined with `AND`.
    */
   @JsonIgnore
   @QueryParam("filter")
@@ -25,9 +27,10 @@ public class SearchModelVersionsRequest {
   private Long maxResults;
 
   /**
-   * List of columns to be ordered by including model name, version, stage with an optional "DESC"
-   * or "ASC" annotation, where "ASC" is the default. Tiebreaks are done by latest stage transition
-   * timestamp, followed by name ASC, followed by version DESC.
+   * Columns to order the results by, each given as `name`, `version`, `current_stage` or
+   * `last_updated_timestamp` with an optional `ASC` or `DESC` suffix, where `ASC` is the default.
+   * Tiebreaks are done by latest stage transition timestamp, followed by name ASC, followed by
+   * version DESC.
    */
   @JsonIgnore
   @QueryParam("order_by")

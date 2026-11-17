@@ -31,6 +31,6 @@ public interface GitCredentialsService {
   /** Lists the calling user's Git credentials. */
   ListCredentialsResponse list(ListCredentialsRequest listCredentialsRequest);
 
-  /** Updates the specified Git credential. */
+  /** Updates the specified Git credential. Fields that are omitted keep their current values. */
   void update(UpdateCredentialsRequest updateCredentialsRequest);
 }

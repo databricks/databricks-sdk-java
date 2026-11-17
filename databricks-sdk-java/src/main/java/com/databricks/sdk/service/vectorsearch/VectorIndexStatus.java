@@ -9,6 +9,14 @@ import java.util.Objects;
 
 @Generated
 public class VectorIndexStatus {
+  /** Lifecycle and ingestion state. An online index can still have a failed update. */
+  @JsonProperty("detailed_state")
+  private IndexStatus detailedState;
+
+  /** Failure details, when available, for OFFLINE_FAILED or ONLINE_PIPELINE_FAILED. */
+  @JsonProperty("failed_status")
+  private FailedStatus failedStatus;
+
   /** Index API Url to be used to perform operations on the index */
   @JsonProperty("index_url")
   private String indexUrl;
@@ -21,9 +29,30 @@ public class VectorIndexStatus {
   @JsonProperty("message")
   private String message;
 
-  /** Whether the index is ready for search */
+  /**
+   * Whether the index can serve queries. This does not mean the latest update succeeded or that all
+   * source-table changes have been indexed; check detailed_state for update failures.
+   */
   @JsonProperty("ready")
   private Boolean ready;
+
+  public VectorIndexStatus setDetailedState(IndexStatus detailedState) {
+    this.detailedState = detailedState;
+    return this;
+  }
+
+  public IndexStatus getDetailedState() {
+    return detailedState;
+  }
+
+  public VectorIndexStatus setFailedStatus(FailedStatus failedStatus) {
+    this.failedStatus = failedStatus;
+    return this;
+  }
+
+  public FailedStatus getFailedStatus() {
+    return failedStatus;
+  }
 
   public VectorIndexStatus setIndexUrl(String indexUrl) {
     this.indexUrl = indexUrl;
@@ -66,7 +95,9 @@ public class VectorIndexStatus {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     VectorIndexStatus that = (VectorIndexStatus) o;
-    return Objects.equals(indexUrl, that.indexUrl)
+    return Objects.equals(detailedState, that.detailedState)
+        && Objects.equals(failedStatus, that.failedStatus)
+        && Objects.equals(indexUrl, that.indexUrl)
         && Objects.equals(indexedRowCount, that.indexedRowCount)
         && Objects.equals(message, that.message)
         && Objects.equals(ready, that.ready);
@@ -74,12 +105,14 @@ public class VectorIndexStatus {
 
   @Override
   public int hashCode() {
-    return Objects.hash(indexUrl, indexedRowCount, message, ready);
+    return Objects.hash(detailedState, failedStatus, indexUrl, indexedRowCount, message, ready);
   }
 
   @Override
   public String toString() {
     return new ToStringer(VectorIndexStatus.class)
+        .add("detailedState", detailedState)
+        .add("failedStatus", failedStatus)
         .add("indexUrl", indexUrl)
         .add("indexedRowCount", indexedRowCount)
         .add("message", message)

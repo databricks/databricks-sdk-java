@@ -338,7 +338,7 @@ public class ModelRegistryAPI {
     return impl.updateModel(request);
   }
 
-  /** Updates the model version. */
+  /** Updates the description of a model version. */
   public UpdateModelVersionResponse updateModelVersion(UpdateModelVersionRequest request) {
     return impl.updateModelVersion(request);
   }

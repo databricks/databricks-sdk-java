@@ -12,10 +12,16 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface SoftwareArtifactsService {
-  /** Gets a software artifact. */
+  /**
+   * Gets a software artifact by its resource name. Returns `NOT_FOUND` if the artifact does not
+   * exist.
+   */
   SoftwareArtifact getSoftwareArtifact(GetSoftwareArtifactRequest getSoftwareArtifactRequest);
 
-  /** Gets a software artifact version. */
+  /**
+   * Gets a software artifact version by its resource name. Returns `NOT_FOUND` if the version does
+   * not exist.
+   */
   SoftwareArtifactVersion getSoftwareArtifactVersion(
       GetSoftwareArtifactVersionRequest getSoftwareArtifactVersionRequest);
 
@@ -27,7 +33,10 @@ public interface SoftwareArtifactsService {
   ListSoftwareArtifactsResponse listSoftwareArtifacts(
       ListSoftwareArtifactsRequest listSoftwareArtifactsRequest);
 
-  /** Resolves a software artifact version from its tag alias. */
+  /**
+   * Resolves a software artifact version from its tag alias. Returns `NOT_FOUND` if the artifact or
+   * the alias does not exist.
+   */
   ResolveSoftwareArtifactVersionResponse resolveSoftwareArtifactVersion(
       ResolveSoftwareArtifactVersionRequest resolveSoftwareArtifactVersionRequest);
 

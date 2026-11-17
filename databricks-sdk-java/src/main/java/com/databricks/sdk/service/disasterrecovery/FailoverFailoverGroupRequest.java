@@ -18,7 +18,7 @@ public class FailoverFailoverGroupRequest {
   @JsonProperty("etag")
   private String etag;
 
-  /** The type of failover to perform. */
+  /** The type of failover to perform. FORCED is the only supported type. */
   @JsonProperty("failover_type")
   private FailoverFailoverGroupRequestFailoverType failoverType;
 

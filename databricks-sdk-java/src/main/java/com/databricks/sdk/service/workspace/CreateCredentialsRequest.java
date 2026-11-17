@@ -36,11 +36,18 @@ public class CreateCredentialsRequest {
   @JsonProperty("git_username")
   private String gitUsername;
 
-  /** if the credential is the default for the given provider */
+  /**
+   * Set to true to make the new credential the default for its Git provider, replacing the current
+   * default. The first credential created for a provider becomes the default regardless of this
+   * value.
+   */
   @JsonProperty("is_default_for_provider")
   private Boolean isDefaultForProvider;
 
-  /** the name of the git credential, used for identification and ease of lookup */
+  /**
+   * The name of the Git credential, used for identification and ease of lookup. It must not exceed
+   * 100 characters.
+   */
   @JsonProperty("name")
   private String name;
 
@@ -54,8 +61,8 @@ public class CreateCredentialsRequest {
   private String personalAccessToken;
 
   /**
-   * The ID of the service principal whose credentials will be modified. Only service principal
-   * managers can perform this action.
+   * The ID of the service principal for which the credential will be created. Only service
+   * principal managers can perform this action.
    */
   @JsonProperty("principal_id")
   private Long principalId;

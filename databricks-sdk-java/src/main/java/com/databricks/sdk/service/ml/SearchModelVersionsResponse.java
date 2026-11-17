@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Generated
 public class SearchModelVersionsResponse {
-  /** Models that match the search criteria */
+  /** Model versions that match the search filter. */
   @JsonProperty("model_versions")
   private Collection<ModelVersion> modelVersions;
 

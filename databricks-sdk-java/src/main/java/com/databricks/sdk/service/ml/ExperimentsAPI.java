@@ -66,7 +66,8 @@ public class ExperimentsAPI {
 
   /**
    * Marks an experiment and associated metadata, runs, metrics, params, and tags for deletion. If
-   * the experiment uses FileStore, artifacts associated with the experiment are also deleted.
+   * the experiment uses FileStore, artifacts associated with the experiment are also deleted. Only
+   * workspace experiments can be deleted through this method.
    */
   public void deleteExperiment(DeleteExperiment request) {
     impl.deleteExperiment(request);
@@ -238,7 +239,7 @@ public class ExperimentsAPI {
         });
   }
 
-  /** Gets a list of all experiments. */
+  /** Gets a list of all experiments, ordered by creation time with the newest first. */
   public Iterable<Experiment> listExperiments(ListExperimentsRequest request) {
     return Paginator.newTokenPagination(
         request,
@@ -354,6 +355,8 @@ public class ExperimentsAPI {
    * metrics, params, and tags. If experiment uses FileStore, underlying artifacts associated with
    * experiment are also restored.
    *
+   * <p>Only workspace experiments can be restored through this method.
+   *
    * <p>Throws `RESOURCE_DOES_NOT_EXIST` if experiment was never created or was permanently deleted.
    */
   public void restoreExperiment(RestoreExperiment request) {
@@ -459,7 +462,10 @@ public class ExperimentsAPI {
     impl.setTag(request);
   }
 
-  /** Updates experiment metadata. */
+  /**
+   * Updates experiment metadata. Only workspace experiments can be updated; a notebook experiment
+   * takes its name from its notebook.
+   */
   public void updateExperiment(UpdateExperiment request) {
     impl.updateExperiment(request);
   }

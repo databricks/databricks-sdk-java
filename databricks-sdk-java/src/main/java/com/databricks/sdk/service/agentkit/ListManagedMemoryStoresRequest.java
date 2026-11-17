@@ -18,7 +18,7 @@ public class ListManagedMemoryStoresRequest {
   @QueryParam("page_size")
   private Long pageSize;
 
-  /** Opaque pagination token from a previous ListManagedMemoryStores response. */
+  /** Opaque pagination token, taken from the `next_page_token` of a previous response. */
   @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;

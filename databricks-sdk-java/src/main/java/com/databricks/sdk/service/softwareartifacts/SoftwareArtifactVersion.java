@@ -12,7 +12,10 @@ import java.util.Objects;
 /** An immutable version of a software artifact, identified by its content digest. */
 @Generated
 public class SoftwareArtifactVersion {
-  /** Time at which this software artifact version was created. */
+  /**
+   * Time at which this software artifact version was created, formatted as an RFC 3339 timestamp in
+   * JSON.
+   */
   @JsonProperty("create_time")
   private Timestamp createTime;
 
@@ -20,7 +23,7 @@ public class SoftwareArtifactVersion {
   @JsonProperty("created_by")
   private String createdBy;
 
-  /** Content digest of the version, for example `sha256:...`. */
+  /** Content digest of the version's image manifest, of the form `{algorithm}:{hex}`. */
   @JsonProperty("digest")
   private String digest;
 
@@ -30,7 +33,8 @@ public class SoftwareArtifactVersion {
 
   /**
    * Resource name of the version, of the form
-   * `software-artifacts/{catalog}.{schema}.{artifact}/versions/{version}`.
+   * `software-artifacts/{catalog}.{schema}.{artifact}/versions/{version}`, where `{version}` is the
+   * version's content digest.
    */
   @JsonProperty("name")
   private String name;
@@ -42,7 +46,10 @@ public class SoftwareArtifactVersion {
   @JsonProperty("tags")
   private Collection<String> tags;
 
-  /** Time at which this software artifact version was last updated. */
+  /**
+   * Time at which this software artifact version was last updated, formatted as an RFC 3339
+   * timestamp in JSON.
+   */
   @JsonProperty("update_time")
   private Timestamp updateTime;
 

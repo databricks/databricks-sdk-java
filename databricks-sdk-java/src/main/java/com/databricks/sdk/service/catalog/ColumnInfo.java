@@ -13,7 +13,11 @@ public class ColumnInfo {
   @JsonProperty("comment")
   private String comment;
 
-  /** */
+  /**
+   * The column mask function applied to this column, if any. A column mask is a SQL user-defined
+   * function that transforms the values a query returns for the column. See
+   * https://docs.databricks.com/aws/en/tables/row-and-column-filters for details.
+   */
   @JsonProperty("mask")
   private ColumnMask mask;
 
@@ -41,7 +45,11 @@ public class ColumnInfo {
   @JsonProperty("type_json")
   private String typeJson;
 
-  /** */
+  /**
+   * The name of the column's data type, for example STRING, DECIMAL or STRUCT. The complete type,
+   * including parameters such as the precision of a decimal or the element type of an array, is in
+   * type_text.
+   */
   @JsonProperty("type_name")
   private ColumnTypeName typeName;
 

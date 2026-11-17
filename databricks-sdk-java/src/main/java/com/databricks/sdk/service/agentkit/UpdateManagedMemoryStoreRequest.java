@@ -20,7 +20,8 @@ public class UpdateManagedMemoryStoreRequest {
   @JsonIgnore private String name;
 
   /**
-   * Only `description` and `metadata` may be updated. Selecting `metadata` replaces the entire map.
+   * Only `description` and `metadata` may be updated. Selecting `description` while leaving it
+   * unset clears it. Selecting `metadata` replaces the entire map.
    */
   @JsonIgnore
   @QueryParam("update_mask")

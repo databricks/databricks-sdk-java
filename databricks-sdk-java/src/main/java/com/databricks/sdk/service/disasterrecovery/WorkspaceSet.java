@@ -11,13 +11,16 @@ import java.util.Objects;
 /** A set of workspaces that replicate to each other across regions. */
 @Generated
 public class WorkspaceSet {
-  /** Resource name for this workspace set. */
+  /**
+   * Identifier of the workspace set, unique within the failover group and referenced by
+   * unity_catalog_assets.data_replication_workspace_set. Cannot be changed after creation.
+   */
   @JsonProperty("name")
   private String name;
 
   /**
-   * Whether to enable control plane DR (notebooks, jobs, clusters, etc.) for this set. Defaults to
-   * false.
+   * Whether to replicate workspace assets (notebooks, jobs, clusters, SQL warehouses and so on) and
+   * their ACLs for this set. Defaults to false. Can be turned on or off with UpdateFailoverGroup.
    */
   @JsonProperty("replicate_workspace_assets")
   private Boolean replicateWorkspaceAssets;
@@ -25,14 +28,17 @@ public class WorkspaceSet {
   /**
    * Resource names of stable URLs associated with this workspace set. Format:
    * accounts/{account_id}/stable-urls/{stable_url_id}. The referenced stable URLs must already
-   * exist (via CreateStableUrl).
+   * exist (via CreateStableUrl), and the list can only be set when replicate_workspace_assets is
+   * true. While workspace asset replication stays enabled, an update can attach or detach one
+   * stable URL at a time.
    */
   @JsonProperty("stable_url_names")
   private Collection<String> stableUrlNames;
 
   /**
-   * Workspace IDs in this set. The system derives and validates regions. All workspaces must be in
-   * the Mission Critical tier.
+   * IDs of the two workspaces in this set, one in each of the failover group's regions. The system
+   * derives and validates each workspace's region. Both workspaces must belong to the account and
+   * have the Mission Critical add-on enabled, and they cannot be changed after creation.
    */
   @JsonProperty("workspace_ids")
   private Collection<String> workspaceIds;

@@ -50,9 +50,8 @@ public class ManagedMemoryEntry {
   private String sessionId;
 
   /**
-   * Which writer created this entry. Caller sets this on Create; immutable after creation. While
-   * the workspace's default-source-type rollout flag is on, omitted or UNSPECIFIED is stored as
-   * AGENT. While it is off, omitted is stored unset and UNSPECIFIED as UNSPECIFIED.
+   * Which writer created this entry. Caller sets this on Create; immutable after creation. The
+   * server may store an omitted or UNSPECIFIED value as AGENT.
    */
   @JsonProperty("source_type")
   private ManagedMemoryEntrySourceType sourceType;

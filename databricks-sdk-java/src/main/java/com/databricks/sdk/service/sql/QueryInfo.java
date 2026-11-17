@@ -10,7 +10,10 @@ import java.util.Objects;
 
 @Generated
 public class QueryInfo {
-  /** The ID of the cached query if this result retrieved from cache */
+  /**
+   * The ID of the query whose cached result was returned, if this result was retrieved from the
+   * cache.
+   */
   @JsonProperty("cache_query_id")
   private String cacheQueryId;
 
@@ -27,9 +30,9 @@ public class QueryInfo {
   private String clientApplication;
 
   /**
-   * Total time of the statement execution. This value does not include the time taken to retrieve
-   * the results, which can result in a discrepancy between this value and the start-to-finish
-   * wall-clock time.
+   * Total time of the statement execution, in milliseconds. This value does not include the time
+   * taken to retrieve the results, which can result in a discrepancy between this value and the
+   * start-to-finish wall-clock time.
    */
   @JsonProperty("duration")
   private Long duration;
@@ -50,11 +53,13 @@ public class QueryInfo {
   @JsonProperty("executed_as_user_name")
   private String executedAsUserName;
 
-  /** The time execution of the query ended. */
+  /** The time execution of the query ended, in milliseconds since the Unix epoch. */
   @JsonProperty("execution_end_time_ms")
   private Long executionEndTimeMs;
 
-  /** Whether more updates for the query are expected. */
+  /**
+   * Whether the query has reached a final state, so no further updates to this record are expected.
+   */
   @JsonProperty("is_final")
   private Boolean isFinal;
 
@@ -62,7 +67,7 @@ public class QueryInfo {
   @JsonProperty("lookup_key")
   private String lookupKey;
 
-  /** Metrics about query execution. */
+  /** Metrics about query execution. Only returned when `include_metrics` is true in the request. */
   @JsonProperty("metrics")
   private QueryMetrics metrics;
 
@@ -70,11 +75,14 @@ public class QueryInfo {
   @JsonProperty("plans_state")
   private PlansState plansState;
 
-  /** The time the query ended. */
+  /** The time the query ended, in milliseconds since the Unix epoch. */
   @JsonProperty("query_end_time_ms")
   private Long queryEndTimeMs;
 
-  /** The query ID. */
+  /**
+   * The UUID that uniquely identifies the query execution. It matches the statement ID shown in the
+   * Query History UI and the values accepted by the `statement_ids` filter.
+   */
   @JsonProperty("query_id")
   private String queryId;
 
@@ -86,11 +94,15 @@ public class QueryInfo {
   @JsonProperty("query_source")
   private ExternalQuerySource querySource;
 
-  /** The time the query started. */
+  /** The time the query started, in milliseconds since the Unix epoch. */
   @JsonProperty("query_start_time_ms")
   private Long queryStartTimeMs;
 
-  /** A query execution can be optionally annotated with query tags */
+  /**
+   * Key-value tags attached to the query execution, for example with the `SET QUERY_TAGS`
+   * statement, for grouping and filtering. See
+   * https://docs.databricks.com/aws/en/sql/user/queries/query-tags.
+   */
   @JsonProperty("query_tags")
   private Collection<QueryTag> queryTags;
 
@@ -118,7 +130,7 @@ public class QueryInfo {
   private QueryStatementType statementType;
 
   /**
-   * Query status with one the following values:
+   * Query status with one of the following values:
    *
    * <p>- `QUEUED`: Query has been received and queued. - `RUNNING`: Query has started. -
    * `CANCELED`: Query has been cancelled by the user. - `FAILED`: Query has failed. - `FINISHED`:
@@ -135,7 +147,7 @@ public class QueryInfo {
   @JsonProperty("user_name")
   private String userName;
 
-  /** Warehouse ID. */
+  /** ID of the warehouse that ran the query. */
   @JsonProperty("warehouse_id")
   private String warehouseId;
 

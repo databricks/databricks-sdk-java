@@ -21,7 +21,10 @@ public class ExternalQuerySource {
   @JsonProperty("genie_space_id")
   private String genieSpaceId;
 
-  /** */
+  /**
+   * Identifiers of the job, job run, and task run that executed this statement, when it ran as part
+   * of a job.
+   */
   @JsonProperty("job_info")
   private ExternalQuerySourceJobInfo jobInfo;
 

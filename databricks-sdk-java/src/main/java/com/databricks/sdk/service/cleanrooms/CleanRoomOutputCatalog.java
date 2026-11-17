@@ -19,7 +19,7 @@ public class CleanRoomOutputCatalog {
   @JsonProperty("catalog_name")
   private String catalogName;
 
-  /** */
+  /** Status of the output catalog for the calling collaborator. */
   @JsonProperty("status")
   private CleanRoomOutputCatalogOutputCatalogStatus status;
 

@@ -10,12 +10,12 @@ import java.util.Objects;
 
 @Generated
 public class GetSchemaRequest {
-  /** Full name of the schema. */
+  /** Full name of the schema, in the form catalog_name.schema_name. */
   @JsonIgnore private String fullName;
 
   /**
-   * Whether to include schemas in the response for which the principal can only access selective
-   * metadata for
+   * Whether to return the schema when the principal can only access selective metadata for it
+   * through the BROWSE privilege. The response then has browse_only set to true.
    */
   @JsonIgnore
   @QueryParam("include_browse")

@@ -14,7 +14,7 @@ public class ListAccountGroupsResponse {
   @JsonProperty("itemsPerPage")
   private Long itemsPerPage;
 
-  /** User objects returned in the response. */
+  /** Group objects returned in the response. */
   @JsonProperty("Resources")
   private Collection<AccountGroup> resources;
 

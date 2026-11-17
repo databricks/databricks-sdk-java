@@ -14,11 +14,11 @@ import java.util.Objects;
  */
 @Generated
 public class QueryTag {
-  /** */
+  /** The key of the tag. */
   @JsonProperty("key")
   private String key;
 
-  /** */
+  /** The value of the tag. Key-only tags have no value. */
   @JsonProperty("value")
   private String value;
 

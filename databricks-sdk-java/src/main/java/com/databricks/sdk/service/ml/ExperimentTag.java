@@ -10,11 +10,11 @@ import java.util.Objects;
 /** A tag for an experiment. */
 @Generated
 public class ExperimentTag {
-  /** The tag key. */
+  /** The tag key. Keys are at most 255 characters long. */
   @JsonProperty("key")
   private String key;
 
-  /** The tag value. */
+  /** The tag value. Values are at most 65535 characters long. */
   @JsonProperty("value")
   private String value;
 

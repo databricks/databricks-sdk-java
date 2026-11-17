@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Generated
 public class ListSubscriptionsRequest {
-  /** UUID identifying the dashboard which the subscriptions belongs. */
+  /** UUID identifying the dashboard to which the subscriptions belong. */
   @JsonIgnore private String dashboardId;
 
   /** The number of subscriptions to return per page. */
@@ -26,7 +26,7 @@ public class ListSubscriptionsRequest {
   @QueryParam("page_token")
   private String pageToken;
 
-  /** UUID identifying the schedule which the subscriptions belongs. */
+  /** UUID identifying the schedule to which the subscriptions belong. */
   @JsonIgnore private String scheduleId;
 
   public ListSubscriptionsRequest setDashboardId(String dashboardId) {

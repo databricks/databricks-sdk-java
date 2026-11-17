@@ -8,7 +8,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-/** Contains the BudgetPolicy details. */
+/**
+ * A serverless usage policy is a set of tags that are applied to the serverless usage of the
+ * workloads that use the policy. Each usage record in the billable usage system table carries the
+ * policy ID and these tags, so that serverless usage can be attributed to the policy.
+ */
 @Generated
 public class BudgetPolicy {
   /**

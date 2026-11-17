@@ -19,7 +19,11 @@ public class CreateTableRequest {
   @JsonProperty("columns")
   private Collection<ColumnInfo> columns;
 
-  /** */
+  /**
+   * The format of the data that backs the table, such as DELTA, PARQUET, CSV or JSON. Foreign
+   * tables report the external system that holds them, for example SNOWFLAKE_FORMAT or
+   * MYSQL_FORMAT.
+   */
   @JsonProperty("data_source_format")
   private DataSourceFormat dataSourceFormat;
 
@@ -35,11 +39,22 @@ public class CreateTableRequest {
   @JsonProperty("schema_name")
   private String schemaName;
 
-  /** Storage root URL for table (for **MANAGED**, **EXTERNAL** tables). */
+  /**
+   * The cloud storage URL under which the data files of the table are stored. For an EXTERNAL
+   * table, it must be set on creation to a path within an existing external location. For a MANAGED
+   * table, the server assigns a path under the managed storage location of the parent schema,
+   * catalog or metastore and returns it in this field. Views have no storage location.
+   */
   @JsonProperty("storage_location")
   private String storageLocation;
 
-  /** */
+  /**
+   * The type of the table. MANAGED tables store their data in storage that Unity Catalog manages,
+   * EXTERNAL tables store it in a registered external location, FOREIGN tables mirror objects of an
+   * external database through a connection, and the shallow clone types reference the data files of
+   * a base table. VIEW, MATERIALIZED_VIEW, STREAMING_TABLE and METRIC_VIEW are defined by a view
+   * definition. See https://docs.databricks.com/aws/en/tables/ for an overview of the table types.
+   */
   @JsonProperty("table_type")
   private TableType tableType;
 

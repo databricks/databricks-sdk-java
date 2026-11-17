@@ -10,7 +10,11 @@ import java.util.Objects;
 
 @Generated
 public class UpdateCleanRoomRequest {
-  /** */
+  /**
+   * Clean room fields to update. Only mutable fields such as owner, comment and
+   * enable_shared_output can be changed; remote_detailed_info, status, created_at and updated_at
+   * must be omitted.
+   */
   @JsonProperty("clean_room")
   private CleanRoom cleanRoom;
 

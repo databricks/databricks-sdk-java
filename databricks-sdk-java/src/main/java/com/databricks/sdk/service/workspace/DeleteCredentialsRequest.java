@@ -14,7 +14,7 @@ public class DeleteCredentialsRequest {
   @JsonIgnore private Long credentialId;
 
   /**
-   * The ID of the service principal whose credentials will be modified. Only service principal
+   * The ID of the service principal whose credential will be deleted. Only service principal
    * managers can perform this action.
    */
   @JsonIgnore

@@ -15,7 +15,9 @@ public class ListAccountGroupsRequest {
   @QueryParam("attributes")
   private String attributes;
 
-  /** Desired number of results per page. Default is 10000. */
+  /**
+   * Specifies the number of results per page. When omitted, the server uses its default page size.
+   */
   @JsonIgnore
   @QueryParam("count")
   private Long count;

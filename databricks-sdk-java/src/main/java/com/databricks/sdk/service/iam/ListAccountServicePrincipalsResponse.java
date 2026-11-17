@@ -14,7 +14,7 @@ public class ListAccountServicePrincipalsResponse {
   @JsonProperty("itemsPerPage")
   private Long itemsPerPage;
 
-  /** User objects returned in the response. */
+  /** Lists the service principals that are returned in the response. */
   @JsonProperty("Resources")
   private Collection<AccountServicePrincipal> resources;
 

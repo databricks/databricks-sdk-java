@@ -24,7 +24,7 @@ public class BudgetPolicyAPI {
     impl = mock;
   }
 
-  /** Creates a new policy. */
+  /** Creates a new usage policy. The creator is granted the manager role on the new policy. */
   public BudgetPolicy create(CreateBudgetPolicyRequest request) {
     return impl.create(request);
   }
@@ -33,7 +33,7 @@ public class BudgetPolicyAPI {
     delete(new DeleteBudgetPolicyRequest().setPolicyId(policyId));
   }
 
-  /** Deletes a policy */
+  /** Deletes a usage policy. */
   public void delete(DeleteBudgetPolicyRequest request) {
     impl.delete(request);
   }
@@ -42,13 +42,14 @@ public class BudgetPolicyAPI {
     return get(new GetBudgetPolicyRequest().setPolicyId(policyId));
   }
 
-  /** Retrieves a policy by it's ID. */
+  /** Retrieves a usage policy by its ID. */
   public BudgetPolicy get(GetBudgetPolicyRequest request) {
     return impl.get(request);
   }
 
   /**
-   * Lists all policies. Policies are returned in the alphabetically ascending order of their names.
+   * Lists the usage policies that the caller has permission to view. Policies are sorted by name in
+   * ascending order unless `sort_spec` requests a different order.
    */
   public Iterable<BudgetPolicy> list(ListBudgetPoliciesRequest request) {
     return Paginator.newTokenPagination(
@@ -64,7 +65,10 @@ public class BudgetPolicyAPI {
         });
   }
 
-  /** Updates a policy */
+  /**
+   * Updates a usage policy. Changes apply only to serverless usage that starts after the update,
+   * not to workloads that are already running.
+   */
   public BudgetPolicy update(UpdateBudgetPolicyRequest request) {
     return impl.update(request);
   }

@@ -97,6 +97,10 @@ public class MaterializedFeature {
   @JsonProperty("online_store_config")
   private OnlineStoreConfig onlineStoreConfig;
 
+  /** Operations associated with this materialized feature. */
+  @JsonProperty("operations")
+  private MaterializedFeatureOperations operations;
+
   /**
    * The ID of the pipeline that materializes this feature. This is only present for streaming
    * features.
@@ -265,6 +269,15 @@ public class MaterializedFeature {
     return onlineStoreConfig;
   }
 
+  public MaterializedFeature setOperations(MaterializedFeatureOperations operations) {
+    this.operations = operations;
+    return this;
+  }
+
+  public MaterializedFeatureOperations getOperations() {
+    return operations;
+  }
+
   public MaterializedFeature setPipelineId(String pipelineId) {
     this.pipelineId = pipelineId;
     return this;
@@ -339,6 +352,7 @@ public class MaterializedFeature {
         && Objects.equals(notifications, that.notifications)
         && Objects.equals(offlineStoreConfig, that.offlineStoreConfig)
         && Objects.equals(onlineStoreConfig, that.onlineStoreConfig)
+        && Objects.equals(operations, that.operations)
         && Objects.equals(pipelineId, that.pipelineId)
         && Objects.equals(pipelineScheduleState, that.pipelineScheduleState)
         && Objects.equals(streamingMode, that.streamingMode)
@@ -364,6 +378,7 @@ public class MaterializedFeature {
         notifications,
         offlineStoreConfig,
         onlineStoreConfig,
+        operations,
         pipelineId,
         pipelineScheduleState,
         streamingMode,
@@ -389,6 +404,7 @@ public class MaterializedFeature {
         .add("notifications", notifications)
         .add("offlineStoreConfig", offlineStoreConfig)
         .add("onlineStoreConfig", onlineStoreConfig)
+        .add("operations", operations)
         .add("pipelineId", pipelineId)
         .add("pipelineScheduleState", pipelineScheduleState)
         .add("streamingMode", streamingMode)

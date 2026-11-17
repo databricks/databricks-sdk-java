@@ -10,23 +10,34 @@ import java.util.Objects;
 
 @Generated
 public class SearchExperiments {
-  /** String representing a SQL filter condition (e.g. "name ILIKE 'my-experiment%'") */
+  /**
+   * Filter condition on the experiment name and tags. The `name` attribute and `tags.<key>` support
+   * the operators `=`, `!=`, `LIKE` and `ILIKE` (case-insensitive `LIKE`), string values are
+   * wrapped in single quotes, and several conditions can be combined with `AND`. No wildcard is
+   * added automatically, so include `%` in a `LIKE` pattern where you need one.
+   */
   @JsonProperty("filter")
   private String filter;
 
-  /** Maximum number of experiments desired. Max threshold is 3000. */
+  /**
+   * Maximum number of experiments to return per page. Larger values are capped by the server, so
+   * use `page_token` to retrieve further pages.
+   */
   @JsonProperty("max_results")
   private Long maxResults;
 
   /**
-   * List of columns for ordering search results, which can include experiment name and last updated
-   * timestamp with an optional "DESC" or "ASC" annotation, where "ASC" is the default. Tiebreaks
-   * are done by experiment id DESC.
+   * Columns to order the results by, each given as `name`, `basename` (the last segment of the
+   * name), `experiment_id`, `creation_time` or `last_update_time` with an optional `ASC` or `DESC`
+   * suffix, where `ASC` is the default. If omitted, results are ordered by last update time with
+   * the most recently updated experiment first. Tiebreaks are done by experiment id DESC.
    */
   @JsonProperty("order_by")
   private Collection<String> orderBy;
 
-  /** Token indicating the page of experiments to fetch */
+  /**
+   * Page token returned as `next_page_token` by a previous call. Omit it to fetch the first page.
+   */
   @JsonProperty("page_token")
   private String pageToken;
 

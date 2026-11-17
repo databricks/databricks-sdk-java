@@ -12,20 +12,24 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface BudgetPolicyService {
-  /** Creates a new policy. */
+  /** Creates a new usage policy. The creator is granted the manager role on the new policy. */
   BudgetPolicy create(CreateBudgetPolicyRequest createBudgetPolicyRequest);
 
-  /** Deletes a policy */
+  /** Deletes a usage policy. */
   void delete(DeleteBudgetPolicyRequest deleteBudgetPolicyRequest);
 
-  /** Retrieves a policy by it's ID. */
+  /** Retrieves a usage policy by its ID. */
   BudgetPolicy get(GetBudgetPolicyRequest getBudgetPolicyRequest);
 
   /**
-   * Lists all policies. Policies are returned in the alphabetically ascending order of their names.
+   * Lists the usage policies that the caller has permission to view. Policies are sorted by name in
+   * ascending order unless `sort_spec` requests a different order.
    */
   ListBudgetPoliciesResponse list(ListBudgetPoliciesRequest listBudgetPoliciesRequest);
 
-  /** Updates a policy */
+  /**
+   * Updates a usage policy. Changes apply only to serverless usage that starts after the update,
+   * not to workloads that are already running.
+   */
   BudgetPolicy update(UpdateBudgetPolicyRequest updateBudgetPolicyRequest);
 }

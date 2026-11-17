@@ -9,11 +9,11 @@ import java.util.Objects;
 
 @Generated
 public class DockerBasicAuth {
-  /** Password of the user */
+  /** Password for authenticating to the Docker registry that hosts the image. */
   @JsonProperty("password")
   private String password;
 
-  /** Name of the user */
+  /** User name for authenticating to the Docker registry that hosts the image. */
   @JsonProperty("username")
   private String username;
 

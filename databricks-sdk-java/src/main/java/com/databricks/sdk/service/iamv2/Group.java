@@ -18,11 +18,18 @@ public class Group {
   @JsonProperty("external_id")
   private String externalId;
 
-  /** The Databricks ID of the group. */
+  /**
+   * The Databricks ID of the group. It is a numeric string that Databricks assigns when the group
+   * is created, and it is the `{group_id}` segment of `name`.
+   */
   @JsonProperty("group_id")
   private String groupId;
 
-  /** The name of the group. */
+  /**
+   * The display name of the group. It must be unique in the account, must not be blank, and must be
+   * shorter than 255 characters. Databricks trims surrounding whitespace. You can't use the name of
+   * a group that Databricks manages, such as `admins` or `users`.
+   */
   @JsonProperty("group_name")
   private String groupName;
 

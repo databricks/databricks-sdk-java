@@ -14,9 +14,7 @@ import java.util.Objects;
  */
 @Generated
 public class Filter {
-  /**
-   * The policy creator user id to be filtered on. If unspecified, all policies will be returned.
-   */
+  /** Deprecated: This field is ignored. Creator filtering will be removed in a future version. */
   @JsonProperty("creator_user_id")
   @QueryParam("creator_user_id")
   private Long creatorUserId;
@@ -31,7 +29,8 @@ public class Filter {
   private String creatorUserName;
 
   /**
-   * The partial name of policies to be filtered on. If unspecified, all policies will be returned.
+   * Only policies whose name contains this string are returned. Matching is case-insensitive. If
+   * unspecified, all policies are returned.
    */
   @JsonProperty("policy_name")
   @QueryParam("policy_name")

@@ -18,7 +18,10 @@ public class CreateMcpServiceRequest {
   @JsonProperty("mcp_service")
   private McpService mcpService;
 
-  /** Name for the MCP service, e.g. "my_mcp_service". */
+  /**
+   * Name of the MCP service within the parent schema. The name must not contain periods, spaces,
+   * forward slashes, percent signs, or control characters, and it is stored in lowercase.
+   */
   @JsonIgnore
   @QueryParam("mcp_service_id")
   private String mcpServiceId;

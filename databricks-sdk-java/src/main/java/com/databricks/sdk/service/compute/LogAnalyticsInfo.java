@@ -9,11 +9,17 @@ import java.util.Objects;
 
 @Generated
 public class LogAnalyticsInfo {
-  /** */
+  /**
+   * Primary key of the Azure Log Analytics workspace. The agent uses it to authenticate when
+   * reporting to the workspace.
+   */
   @JsonProperty("log_analytics_primary_key")
   private String logAnalyticsPrimaryKey;
 
-  /** */
+  /**
+   * ID of the Azure Log Analytics workspace that the Log Analytics agent on the cluster's nodes
+   * reports to.
+   */
   @JsonProperty("log_analytics_workspace_id")
   private String logAnalyticsWorkspaceId;
 

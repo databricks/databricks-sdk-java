@@ -13,7 +13,9 @@ public class UpdateTableRequest {
   /** Full name of the table. */
   @JsonIgnore private String fullName;
 
-  /** Username of current owner of table. */
+  /**
+   * The user or group that owns the table. The principal that creates the table becomes its owner.
+   */
   @JsonProperty("owner")
   private String owner;
 

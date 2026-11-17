@@ -10,7 +10,9 @@ import java.util.Objects;
 
 /**
  * An immutable, point-in-time copy of a branch's data within a project. It remains available after
- * the source branch is deleted.
+ * the source branch is deleted. To restore a snapshot, create a new branch with
+ * `spec.source_snapshot` set to the snapshot's resource name. For an overview, see
+ * https://docs.databricks.com/aws/en/oltp/projects/snapshots.
  */
 @Generated
 public class Snapshot {
@@ -26,7 +28,10 @@ public class Snapshot {
   @JsonProperty("snapshot_id")
   private String snapshotId;
 
-  /** Client-provided configuration of the snapshot. */
+  /**
+   * Client-provided configuration of the snapshot. When you create a snapshot, set exactly one of
+   * `expire_time`, `ttl`, or `no_expiry`.
+   */
   @JsonProperty("spec")
   private SnapshotSpec spec;
 

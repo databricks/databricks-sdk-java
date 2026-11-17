@@ -20,7 +20,7 @@ public interface EnvironmentsService {
    * Creates a new WorkspaceBaseEnvironment. This is a long-running operation. The operation will
    * asynchronously generate a materialized environment to optimize dependency resolution and is
    * only marked as done when the materialized environment has been successfully generated or has
-   * failed.
+   * failed. Poll the returned operation with GetOperation.
    */
   Operation createWorkspaceBaseEnvironment(
       CreateWorkspaceBaseEnvironmentRequest createWorkspaceBaseEnvironmentRequest);
@@ -28,7 +28,7 @@ public interface EnvironmentsService {
   /**
    * Deletes a WorkspaceBaseEnvironment. Deleting a base environment may impact linked notebooks and
    * jobs. This operation is irreversible and should be performed only when you are certain the
-   * environment is no longer needed.
+   * environment is no longer needed. Databricks-provided base environments cannot be deleted.
    */
   void deleteWorkspaceBaseEnvironment(
       DeleteWorkspaceBaseEnvironmentRequest deleteWorkspaceBaseEnvironmentRequest);
@@ -42,7 +42,11 @@ public interface EnvironmentsService {
 
   /**
    * Gets the status of a long-running operation. Clients can use this method to poll the operation
-   * result.
+   * result. Create, update and refresh return an operation named
+   * `operations/{workspace_base_environment_id}`. The operation is done when the materialized
+   * environment build finishes. On success, `response` contains the WorkspaceBaseEnvironment with
+   * status `CREATED`. When the status is `FAILED`, `EXPIRED` or `INVALID`, `error` is set instead,
+   * and `error.message` carries the environment's status message when one is available.
    */
   Operation getOperation(GetOperationRequest getOperationRequest);
 
@@ -72,7 +76,9 @@ public interface EnvironmentsService {
    * Refreshes the materialized environment for a WorkspaceBaseEnvironment. This is a long-running
    * operation. The operation will asynchronously regenerate the materialized environment and is
    * only marked as done when the materialized environment has been successfully generated or has
-   * failed. The existing materialized environment remains available until it expires.
+   * failed. The existing materialized environment remains available until it expires. Poll the
+   * returned operation with GetOperation. Databricks-provided base environments cannot be
+   * refreshed.
    */
   Operation refreshWorkspaceBaseEnvironment(
       RefreshWorkspaceBaseEnvironmentRequest refreshWorkspaceBaseEnvironmentRequest);
@@ -88,7 +94,8 @@ public interface EnvironmentsService {
    * Updates an existing WorkspaceBaseEnvironment. This is a long-running operation. The operation
    * will asynchronously regenerate the materialized environment and is only marked as done when the
    * materialized environment has been successfully generated or has failed. The existing
-   * materialized environment remains available until it expires.
+   * materialized environment remains available until it expires. Poll the returned operation with
+   * GetOperation. Databricks-provided base environments cannot be updated.
    */
   Operation updateWorkspaceBaseEnvironment(
       UpdateWorkspaceBaseEnvironmentRequest updateWorkspaceBaseEnvironmentRequest);

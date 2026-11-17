@@ -18,7 +18,11 @@ public class CreateSchema {
   @JsonProperty("comment")
   private String comment;
 
-  /** Custom maximum retention period in hours for the schema. */
+  /**
+   * Dropped objects in the schema remain recoverable for this number of hours before they are
+   * permanently purged. The value must be 0 or within the range allowed for the metastore. Schemas
+   * that do not set their own value inherit the parent catalog's value.
+   */
   @JsonProperty("custom_max_retention_hours")
   private Long customMaxRetentionHours;
 
@@ -30,7 +34,13 @@ public class CreateSchema {
   @JsonProperty("properties")
   private Map<String, String> properties;
 
-  /** Storage root URL for managed tables within schema. */
+  /**
+   * Managed tables and volumes in the schema are stored under this storage root URL. The path must
+   * be inside an external location on which the caller has the CREATE MANAGED STORAGE privilege. If
+   * omitted, managed data is stored under the parent catalog's storage root, or under the
+   * metastore's root storage location when the catalog has none. Schemas in Delta Sharing catalogs
+   * cannot have a storage root, and schemas in a federated Hive metastore catalog must set one.
+   */
   @JsonProperty("storage_root")
   private String storageRoot;
 

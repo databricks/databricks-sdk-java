@@ -22,8 +22,8 @@ public class ModelProviderServiceConfigCustomProviderApiKeyHeaderAuth {
   private String apiKeyName;
 
   /**
-   * Secret value forwarded under the `api_key_name` header on outbound requests. Supplied as inline
-   * plaintext via `ProviderSecret.plaintext`.
+   * Secret value forwarded under the `api_key_name` header on outbound requests. Supply the value
+   * in `api_key_value.plaintext`.
    */
   @JsonProperty("api_key_value")
   private ModelProviderServiceConfigProviderSecret apiKeyValue;

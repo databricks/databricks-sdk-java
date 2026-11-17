@@ -27,7 +27,10 @@ public class UpdateDatabaseRequest {
    */
   @JsonIgnore private String name;
 
-  /** The list of fields to update. */
+  /**
+   * The list of fields to update. The updatable fields are `spec.role` and
+   * `spec.postgres_database`.
+   */
   @JsonIgnore
   @QueryParam("update_mask")
   private FieldMask updateMask;

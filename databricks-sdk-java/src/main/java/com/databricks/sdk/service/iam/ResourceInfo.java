@@ -20,7 +20,10 @@ public class ResourceInfo {
   @QueryParam("legacy_acl_path")
   private String legacyAclPath;
 
-  /** Parent resource info for the current resource. The parent may have another parent. */
+  /**
+   * Deprecated: use `contributing_resources`. Parent resource info for the current resource. The
+   * parent may have another parent.
+   */
   @JsonProperty("parent_resource_info")
   @QueryParam("parent_resource_info")
   private ResourceInfo parentResourceInfo;

@@ -14,7 +14,7 @@ import java.util.Objects;
  */
 @Generated
 public class WorkspaceBaseEnvironment {
-  /** The type of base environment (CPU or GPU). */
+  /** The type of base environment (CPU or GPU). The default is `CPU`. */
   @JsonProperty("base_environment_type")
   private BaseEnvironmentType baseEnvironmentType;
 
@@ -30,7 +30,11 @@ public class WorkspaceBaseEnvironment {
   @JsonProperty("display_name")
   private String displayName;
 
-  /** The WSFS or UC Volumes path to the environment YAML file. */
+  /**
+   * The workspace file or Unity Catalog volume path to the YAML file that defines the environment
+   * version and dependencies. The file name must end in `.yaml` or `.yml`. Create and update
+   * requests must set this field.
+   */
   @JsonProperty("filepath")
   private String filepath;
 
@@ -42,22 +46,33 @@ public class WorkspaceBaseEnvironment {
   @JsonProperty("last_updated_user_id")
   private String lastUpdatedUserId;
 
-  /** Status message providing additional details about the environment status. */
+  /**
+   * Status message providing additional details about the environment status. When the status is
+   * `FAILED`, the message contains the build error.
+   */
   @JsonProperty("message")
   private String message;
 
   /**
    * The resource name of the workspace base environment. Format:
-   * workspace-base-environments/{workspace-base-environment}
+   * workspace-base-environments/{workspace-base-environment} The server ignores this field on
+   * create and builds the name from `workspace_base_environment_id`, or from `display_name` plus a
+   * random suffix when no ID is given.
    */
   @JsonProperty("name")
   private String name;
 
-  /** The environment specification containing version and dependencies. */
+  /**
+   * The environment specification containing version and dependencies, read from the YAML file at
+   * `filepath`.
+   */
   @JsonProperty("spec")
   private EnvironmentSpec spec;
 
-  /** The status of the materialized workspace base environment. */
+  /**
+   * The status of the materialized workspace base environment, which the server builds from the
+   * YAML file. The status is `CREATED` once the build has succeeded.
+   */
   @JsonProperty("status")
   private WorkspaceBaseEnvironmentCacheStatus status;
 

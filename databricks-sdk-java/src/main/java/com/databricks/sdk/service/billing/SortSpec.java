@@ -15,7 +15,7 @@ public class SortSpec {
   @QueryParam("descending")
   private Boolean descending;
 
-  /** The filed to sort by */
+  /** The field to sort by. If unspecified, policies are sorted by name. */
   @JsonProperty("field")
   @QueryParam("field")
   private SortSpecField field;

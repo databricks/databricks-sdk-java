@@ -12,8 +12,8 @@ import java.util.Objects;
 public class ListQueryHistoryRequest {
   /**
    * An optional filter object to limit query history results. Accepts parameters such as user IDs,
-   * endpoint IDs, and statuses to narrow the returned data. In a URL, the parameters of this filter
-   * are specified with dot notation. For example: `filter_by.statement_ids`.
+   * warehouse IDs, and statuses to narrow the returned data. In a URL, the parameters of this
+   * filter are specified with dot notation. For example: `filter_by.statement_ids`.
    */
   @JsonIgnore
   @QueryParam("filter_by")
@@ -28,7 +28,7 @@ public class ListQueryHistoryRequest {
   private Boolean includeMetrics;
 
   /**
-   * Limit the number of results returned in one page. Must be less than 1000 and the default is
+   * Limit the number of results returned in one page. Must be no more than 1000; the default is
    * 100.
    */
   @JsonIgnore
@@ -36,8 +36,8 @@ public class ListQueryHistoryRequest {
   private Long maxResults;
 
   /**
-   * A token that can be used to get the next page of results. The token can contains characters
-   * that need to be encoded before using it in a URL. For example, the character '+' needs to be
+   * A token that can be used to get the next page of results. The token can contain characters that
+   * need to be encoded before using it in a URL. For example, the character '+' needs to be
    * replaced by %2B. This field is optional.
    */
   @JsonIgnore

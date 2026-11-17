@@ -17,7 +17,7 @@ public class SecretMetadata {
   @JsonProperty("key")
   private String key;
 
-  /** The last updated timestamp (in milliseconds) for the secret. */
+  /** The time the secret was last written, in milliseconds since the Unix epoch. */
   @JsonProperty("last_updated_timestamp")
   private Long lastUpdatedTimestamp;
 

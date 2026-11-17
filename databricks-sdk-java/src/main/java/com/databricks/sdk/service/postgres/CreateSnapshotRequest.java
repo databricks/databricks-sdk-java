@@ -14,13 +14,18 @@ public class CreateSnapshotRequest {
   /** The project in which to create the snapshot. Format: projects/{project_id} */
   @JsonIgnore private String parent;
 
-  /** The snapshot to create. */
+  /**
+   * The snapshot to create. Only `spec` is read from this message; the system sets the other
+   * fields.
+   */
   @JsonProperty("snapshot")
   private Snapshot snapshot;
 
   /**
    * Client-chosen ID for the snapshot. It becomes the final segment of the snapshot resource name
-   * and cannot be changed after creation.
+   * and cannot be changed after creation. The ID must be 3 to 63 characters long, start with a
+   * lowercase letter, end with a lowercase letter or digit, and contain only lowercase letters,
+   * digits, and hyphens.
    */
   @JsonIgnore
   @QueryParam("snapshot_id")

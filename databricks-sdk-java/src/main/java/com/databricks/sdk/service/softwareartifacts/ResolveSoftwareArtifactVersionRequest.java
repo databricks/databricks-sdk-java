@@ -11,11 +11,18 @@ import java.util.Objects;
 /** Request to resolve a software artifact version from its tag alias. */
 @Generated
 public class ResolveSoftwareArtifactVersionRequest {
-  /** Image tag alias selecting the version. */
+  /**
+   * Image tag alias selecting the version. The alias must be a valid OCI image tag of at most 128
+   * characters, made of letters, digits, underscores, periods, and hyphens, and must not start with
+   * a period or hyphen.
+   */
   @JsonProperty("alias")
   private String alias;
 
-  /** Resource name of the software artifact containing the alias. */
+  /**
+   * Resource name of the software artifact containing the alias, of the form
+   * `software-artifacts/{catalog}.{schema}.{artifact}`.
+   */
   @JsonIgnore private String parent;
 
   public ResolveSoftwareArtifactVersionRequest setAlias(String alias) {

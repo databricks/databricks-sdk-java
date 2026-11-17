@@ -44,7 +44,8 @@ public interface ExperimentsService {
 
   /**
    * Marks an experiment and associated metadata, runs, metrics, params, and tags for deletion. If
-   * the experiment uses FileStore, artifacts associated with the experiment are also deleted.
+   * the experiment uses FileStore, artifacts associated with the experiment are also deleted. Only
+   * workspace experiments can be deleted through this method.
    */
   void deleteExperiment(DeleteExperiment deleteExperiment);
 
@@ -125,7 +126,7 @@ public interface ExperimentsService {
    */
   ListArtifactsResponse listArtifacts(ListArtifactsRequest listArtifactsRequest);
 
-  /** Gets a list of all experiments. */
+  /** Gets a list of all experiments, ordered by creation time with the newest first. */
   ListExperimentsResponse listExperiments(ListExperimentsRequest listExperimentsRequest);
 
   /**
@@ -215,6 +216,8 @@ public interface ExperimentsService {
    * metrics, params, and tags. If experiment uses FileStore, underlying artifacts associated with
    * experiment are also restored.
    *
+   * <p>Only workspace experiments can be restored through this method.
+   *
    * <p>Throws `RESOURCE_DOES_NOT_EXIST` if experiment was never created or was permanently deleted.
    */
   void restoreExperiment(RestoreExperiment restoreExperiment);
@@ -269,7 +272,10 @@ public interface ExperimentsService {
    */
   void setTag(SetTag setTag);
 
-  /** Updates experiment metadata. */
+  /**
+   * Updates experiment metadata. Only workspace experiments can be updated; a notebook experiment
+   * takes its name from its notebook.
+   */
   void updateExperiment(UpdateExperiment updateExperiment);
 
   /** Updates the fields of an issue named in `update_mask`. */

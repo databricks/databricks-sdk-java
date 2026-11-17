@@ -18,7 +18,11 @@ public class CreateModelProviderServiceRequest {
   @JsonProperty("model_provider_service")
   private ModelProviderService modelProviderService;
 
-  /** Name for the model provider service, e.g. "openai_prod". */
+  /**
+   * Name of the model provider service within the parent schema. The name must not contain periods,
+   * spaces, forward slashes, percent signs, or control characters, must not end in
+   * `_DO_NOT_MODIFY`, and must not exceed 241 characters. It is stored in lowercase.
+   */
   @JsonIgnore
   @QueryParam("model_provider_service_id")
   private String modelProviderServiceId;

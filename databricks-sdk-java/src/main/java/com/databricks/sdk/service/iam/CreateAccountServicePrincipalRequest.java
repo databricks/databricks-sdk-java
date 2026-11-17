@@ -10,27 +10,40 @@ import java.util.Objects;
 
 @Generated
 public class CreateAccountServicePrincipalRequest {
-  /** If this user is active */
+  /**
+   * Indicates whether the service principal is active. A deactivated service principal cannot
+   * authenticate or access Databricks APIs, but it keeps its permissions.
+   */
   @JsonProperty("active")
   private Boolean active;
 
-  /** UUID relating to the service principal */
+  /**
+   * Sets the application ID of a Microsoft Entra ID service principal. Only Azure accepts this
+   * field. On AWS and GCP, Databricks generates the application ID and rejects requests that set
+   * it.
+   */
   @JsonProperty("applicationId")
   private String applicationId;
 
-  /** String that represents a concatenation of given and family names. */
+  /**
+   * Sets the human-readable name of the service principal. The name is required unless the request
+   * sets `applicationId`.
+   */
   @JsonProperty("displayName")
   private String displayName;
 
-  /** */
+  /** Sets the identifier of the service principal in an external identity provider. */
   @JsonProperty("externalId")
   private String externalId;
 
-  /** Databricks service principal ID. */
+  /** Identifies the service principal within Databricks. */
   @JsonProperty("id")
   private String id;
 
-  /** Indicates if the group has the admin role. */
+  /**
+   * Lists the account roles that are assigned to the service principal. The only supported role
+   * value is `account_admin`.
+   */
   @JsonProperty("roles")
   private Collection<ComplexValue> roles;
 

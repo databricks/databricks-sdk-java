@@ -12,7 +12,7 @@ public class DisableRequest {
   /** The metastore ID under which the system schema lives. */
   @JsonIgnore private String metastoreId;
 
-  /** Full name of the system schema. */
+  /** Name of the system schema, without the catalog prefix. */
   @JsonIgnore private String schemaName;
 
   public DisableRequest setMetastoreId(String metastoreId) {
