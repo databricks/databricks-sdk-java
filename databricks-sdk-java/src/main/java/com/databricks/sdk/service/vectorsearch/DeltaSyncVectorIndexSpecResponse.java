@@ -27,11 +27,19 @@ public class DeltaSyncVectorIndexSpecResponse {
   @JsonProperty("columns_to_sync")
   private Collection<String> columnsToSync;
 
-  /** The columns that contain the embedding source. */
+  /**
+   * The source table column whose text Databricks embeds, together with the embedding model
+   * endpoint to use. Set this for an index with Databricks-managed embeddings. Exactly one of
+   * `embedding_source_columns` or `embedding_vector_columns` must be specified unless the index
+   * subtype is `FULL_TEXT`, and only one column is supported.
+   */
   @JsonProperty("embedding_source_columns")
   private Collection<EmbeddingSourceColumn> embeddingSourceColumns;
 
-  /** The columns that contain the embedding vectors. */
+  /**
+   * The source table column that contains precomputed embedding vectors. Set this instead of
+   * `embedding_source_columns` for an index with self-managed embeddings.
+   */
   @JsonProperty("embedding_vector_columns")
   private Collection<EmbeddingVectorColumn> embeddingVectorColumns;
 
@@ -56,7 +64,7 @@ public class DeltaSyncVectorIndexSpecResponse {
   @JsonProperty("pipeline_type")
   private PipelineType pipelineType;
 
-  /** The name of the source table. */
+  /** Three-level Unity Catalog name of the source table that the index is synced from. */
   @JsonProperty("source_table")
   private String sourceTable;
 

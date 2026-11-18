@@ -8,20 +8,25 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.protobuf.Timestamp;
 import java.util.Objects;
 
+/**
+ * A synced table is a read-only Postgres table that Databricks keeps up to date from a Unity
+ * Catalog source table through a managed pipeline. It is also registered in Unity Catalog under its
+ * three-part name. See https://docs.databricks.com/aws/en/oltp/projects/sync-tables.
+ */
 @Generated
 public class SyncedTable {
-  /** */
+  /** The time when the synced table was created. */
   @JsonProperty("create_time")
   private Timestamp createTime;
 
   /**
-   * Output only. The Full resource name of the synced table in Postgres where (catalog, schema,
-   * table) are the UC entity names.
+   * The full resource name of the synced table, where (catalog, schema, table) are the Unity
+   * Catalog names of the synced table.
    *
-   * <p>Format "synced_tables/{catalog}.{schema}.{table}"
+   * <p>Format: "synced_tables/{catalog}.{schema}.{table}".
    *
-   * <p>For the corresponding source table in the Unity catalog look for the
-   * "source_table_full_name" attribute.
+   * <p>For the corresponding source table in Unity Catalog, look for the "source_table_full_name"
+   * attribute.
    */
   @JsonProperty("name")
   private String name;
@@ -36,7 +41,11 @@ public class SyncedTable {
   @JsonProperty("status")
   private SyncedTableSyncedTableStatus status;
 
-  /** The part of the name, chosen by the user when the resource was created. */
+  /**
+   * The three-part Unity Catalog name of the synced table, in the format
+   * "{catalog}.{schema}.{table}". It is the synced_table_id that was used to create the synced
+   * table and the last component of name.
+   */
   @JsonProperty("synced_table_id")
   private String syncedTableId;
 

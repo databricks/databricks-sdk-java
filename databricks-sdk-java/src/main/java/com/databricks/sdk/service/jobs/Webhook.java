@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class Webhook {
-  /** */
+  /** The ID of the notification destination to call. Must be a UUID. */
   @JsonProperty("id")
   private String id;
 

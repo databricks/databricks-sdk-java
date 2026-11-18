@@ -17,7 +17,10 @@ public class ListVectorIndexesResponse {
   @JsonProperty("next_page_token")
   private String nextPageToken;
 
-  /** */
+  /**
+   * Indexes served by the endpoint. Each entry is a summary without the index specification and
+   * status; use Get an index to retrieve them.
+   */
   @JsonProperty("vector_indexes")
   private Collection<MiniVectorIndex> vectorIndexes;
 

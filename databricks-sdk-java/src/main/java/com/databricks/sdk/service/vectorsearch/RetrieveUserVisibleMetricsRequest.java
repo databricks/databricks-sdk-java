@@ -12,26 +12,34 @@ import java.util.Objects;
 /** Request to retrieve user-visible metrics */
 @Generated
 public class RetrieveUserVisibleMetricsRequest {
-  /** End time for metrics query */
+  /** End of the time range. Defaults to the current time. Must be later than `start_time`. */
   @JsonProperty("end_time")
   private String endTime;
 
-  /** Granularity in seconds */
+  /**
+   * Requested interval between data points, in seconds. Defaults to 60, which is also the minimum.
+   * The server may return a finer or coarser interval: 60 seconds only for time ranges of 1 hour or
+   * less, otherwise 300 seconds or more. Read the interval from the returned timestamps.
+   */
   @JsonProperty("granularity_in_seconds")
   private Long granularityInSeconds;
 
-  /** List of metrics to retrieve */
+  /**
+   * Metrics to retrieve. Each entry names a metric and optionally narrows it with labels or a
+   * percentile. An unknown metric name fails the whole request, and an empty list returns no
+   * series.
+   */
   @JsonProperty("metrics")
   private Collection<Metric> metrics;
 
-  /** AI Search endpoint name */
+  /** Name of the endpoint whose metrics to retrieve. */
   @JsonIgnore private String name;
 
-  /** Token for pagination */
+  /** Not used. The response returns all data points in one page. */
   @JsonProperty("page_token")
   private String pageToken;
 
-  /** Start time for metrics query */
+  /** Start of the time range. Required. Must be within the last 169 hours. */
   @JsonProperty("start_time")
   private String startTime;
 

@@ -7,6 +7,14 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * An AI Search index stores vectors and metadata on an endpoint and serves vector similarity,
+ * full-text and hybrid search queries over them. A Delta Sync index is kept in sync with a source
+ * table, with embeddings either computed by Databricks from a text column or supplied by you in a
+ * vector column; a Direct Vector Access index holds rows that you write through the upsert and
+ * delete data APIs. See https://docs.databricks.com/aws/en/ai-search/create-ai-search for how to
+ * choose between them.
+ */
 @Generated
 public class MiniVectorIndex {
   /** The user who created the index. */
@@ -17,23 +25,29 @@ public class MiniVectorIndex {
   @JsonProperty("endpoint_id")
   private String endpointId;
 
-  /** Name of the endpoint associated with the index */
+  /** Name of the endpoint that serves the index. */
   @JsonProperty("endpoint_name")
   private String endpointName;
 
-  /** The subtype of the index. */
+  /**
+   * Subtype of the index. A `HYBRID` index supports vector similarity, full-text and hybrid
+   * queries; a `FULL_TEXT` index has no embeddings and supports only full-text queries.
+   */
   @JsonProperty("index_subtype")
   private IndexSubtype indexSubtype;
 
-  /** */
+  /**
+   * Type of the index, which determines whether `delta_sync_index_spec` or
+   * `direct_access_index_spec` describes it.
+   */
   @JsonProperty("index_type")
   private VectorIndexType indexType;
 
-  /** Name of the index */
+  /** Three-level Unity Catalog name of the index. */
   @JsonProperty("name")
   private String name;
 
-  /** Primary key of the index */
+  /** Name of the column that uniquely identifies each row of the index. */
   @JsonProperty("primary_key")
   private String primaryKey;
 

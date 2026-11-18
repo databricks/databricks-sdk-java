@@ -10,18 +10,26 @@ import java.util.Objects;
 
 @Generated
 public class DirectAccessVectorIndexSpec {
-  /** The columns that contain the embedding source. The format should be array[double]. */
+  /**
+   * Embedding source configuration used to embed `query_text` when the index is queried with text,
+   * naming the embedding model endpoint to use. The index stores the vectors you supply through
+   * upsert; this setting never computes embeddings for them.
+   */
   @JsonProperty("embedding_source_columns")
   private Collection<EmbeddingSourceColumn> embeddingSourceColumns;
 
-  /** The columns that contain the embedding vectors. The format should be array[double]. */
+  /**
+   * The column that holds the embedding vectors you write to the index. Exactly one column must be
+   * specified, and `schema_json` must declare it as `array<float>` or `array<double>`.
+   */
   @JsonProperty("embedding_vector_columns")
   private Collection<EmbeddingVectorColumn> embeddingVectorColumns;
 
   /**
-   * The schema of the index in JSON format. Supported types are `integer`, `long`, `float`,
-   * `double`, `boolean`, `string`, `date`, `timestamp`. Supported types for vector column:
-   * `array<float>`, `array<double>`,`.
+   * JSON object that maps each column name of the index to its type, serialized to a string. The
+   * primary key and the embedding vector column must be present. Supported types are `integer`,
+   * `long`, `float`, `double`, `boolean`, `string`, `date`, `timestamp`. Supported types for vector
+   * column: `array<float>`, `array<double>`.
    */
   @JsonProperty("schema_json")
   private String schemaJson;

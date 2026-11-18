@@ -64,7 +64,7 @@ public class RunNow {
   @JsonProperty("job_id")
   private Long jobId;
 
-  /** Job-level parameters used in the run. for example `"param": "overriding_val"` */
+  /** Job-level parameters used in the run, for example `"param": "overriding_val"`. */
   @JsonProperty("job_parameters")
   private Map<String, String> jobParameters;
 

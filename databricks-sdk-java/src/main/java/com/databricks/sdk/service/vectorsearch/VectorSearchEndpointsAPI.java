@@ -154,7 +154,10 @@ public class VectorSearchEndpointsAPI {
     return impl.patchEndpoint(request);
   }
 
-  /** Retrieve user-visible metrics for an endpoint */
+  /**
+   * Retrieve time series of usage and health metrics for an endpoint and its indexes, such as
+   * request counts, request latency percentiles and endpoint utilization.
+   */
   public RetrieveUserVisibleMetricsResponse retrieveUserVisibleMetrics(
       RetrieveUserVisibleMetricsRequest request) {
     return impl.retrieveUserVisibleMetrics(request);

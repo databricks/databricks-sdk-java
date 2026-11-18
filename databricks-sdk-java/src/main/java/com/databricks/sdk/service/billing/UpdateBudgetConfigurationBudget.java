@@ -8,6 +8,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * A budget tracks the spend of your account, or of the workspaces and custom tags selected by its
+ * filter, against one or more alert thresholds. Spend is measured in US dollars at list price. For
+ * an overview, see https://docs.databricks.com/en/admin/account-settings/budgets.html.
+ */
 @Generated
 public class UpdateBudgetConfigurationBudget {
   /** Databricks account ID. */
@@ -39,7 +44,8 @@ public class UpdateBudgetConfigurationBudget {
   /**
    * Configured filters for this budget. These are applied to your account's usage to limit the
    * scope of what is considered for this budget. Leave empty to include all usage for this account.
-   * All provided filters must be matched for usage to be included.
+   * All provided filters must be matched for usage to be included. The filter cannot be changed
+   * after the budget is created. To change it, delete the budget and create a new one.
    */
   @JsonProperty("filter")
   private BudgetConfigurationFilter filter;

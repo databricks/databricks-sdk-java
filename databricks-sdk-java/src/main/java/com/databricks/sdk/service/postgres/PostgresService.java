@@ -87,7 +87,10 @@ public interface PostgresService {
    */
   Operation createSnapshot(CreateSnapshotRequest createSnapshotRequest);
 
-  /** Create a Synced Table. */
+  /**
+   * Create a Synced Table. Creates the synced table in Unity Catalog and the Postgres table on the
+   * branch, and starts the pipeline that loads the initial data from the source table.
+   */
   Operation createSyncedTable(CreateSyncedTableRequest createSyncedTableRequest);
 
   /** Deletes the specified database branch. */
@@ -139,7 +142,11 @@ public interface PostgresService {
    */
   Operation deleteSnapshot(DeleteSnapshotRequest deleteSnapshotRequest);
 
-  /** Delete a Synced Table. */
+  /**
+   * Delete a Synced Table. Drops the Postgres table, removes the synced table from its pipeline,
+   * and deletes it from Unity Catalog. The pipeline itself is deleted when no other synced table
+   * uses it.
+   */
   Operation deleteSyncedTable(DeleteSyncedTableRequest deleteSyncedTableRequest);
 
   /** Generate OAuth credentials for a Postgres database. */

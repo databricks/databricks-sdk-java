@@ -8,5 +8,4 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum MigrationType {
   MIGRATION_TYPE_ONE_TIME_COPY,
-  MIGRATION_TYPE_ONLINE,
 }

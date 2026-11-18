@@ -9,11 +9,11 @@ import java.util.Objects;
 
 @Generated
 public class TriggerStateProto {
-  /** */
+  /** State of the file arrival trigger. */
   @JsonProperty("file_arrival")
   private FileArrivalTriggerState fileArrival;
 
-  /** */
+  /** State of the job completion trigger. */
   @JsonProperty("job_completion")
   private JobCompletionTriggerState jobCompletion;
 
@@ -29,7 +29,7 @@ public class TriggerStateProto {
   @JsonProperty("sql_condition")
   private SqlConditionState sqlCondition;
 
-  /** */
+  /** State of the table update trigger. */
   @JsonProperty("table")
   private TableTriggerState table;
 

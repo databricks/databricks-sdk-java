@@ -15,9 +15,7 @@ import java.util.Objects;
 public class CustomerFacingIngressNetworkPolicyPrivateIngressRule {
   /**
    * The authenticated identity the request must match. When unset, the rule matches all users and
-   * service principals. On the account-level network policy, scoping to specific identities is not
-   * currently supported, so this field must be unset (the rule matches all users and service
-   * principals).
+   * service principals.
    */
   @JsonProperty("authentication")
   private CustomerFacingIngressNetworkPolicyAuthentication authentication;

@@ -10,11 +10,18 @@ import java.util.Objects;
 /** Label for a metric */
 @Generated
 public class MetricLabel {
-  /** Label name */
+  /**
+   * Label name, such as `error_source`, `failure_cause`, `operation`, `request_path`, `query_type`,
+   * `response_code`, or `index_name`. Supported labels depend on the metric.
+   */
   @JsonProperty("name")
   private String name;
 
-  /** Label value */
+  /**
+   * Label value, as an RE2 regular expression. The label also splits the result by its values, so
+   * `.+` returns one series per value. Some labels, such as `operation`, accept only `.+`, `.*`, or
+   * listed values joined by `|`.
+   */
   @JsonProperty("value")
   private String value;
 

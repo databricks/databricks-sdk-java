@@ -12,7 +12,7 @@ import java.util.Objects;
 public class CreateBudgetConfigurationBudgetAlertConfigurations {
   /**
    * Configured actions for this alert. These define what happens when an alert enters a triggered
-   * state.
+   * state. An alert can have up to 10 actions.
    */
   @JsonProperty("action_configurations")
   private Collection<CreateBudgetConfigurationBudgetActionConfigurations> actionConfigurations;
@@ -26,7 +26,8 @@ public class CreateBudgetConfigurationBudgetAlertConfigurations {
 
   /**
    * The threshold for the budget alert to determine if it is in a triggered state. The number is
-   * evaluated based on `quantity_type`.
+   * evaluated based on `quantity_type`. A decimal number passed as a string, from 0 to
+   * 1,000,000,000.
    */
   @JsonProperty("quantity_threshold")
   private String quantityThreshold;

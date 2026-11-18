@@ -15,19 +15,19 @@ public class UpdateExternalMetadataRequest {
   @JsonProperty("external_metadata")
   private ExternalMetadata externalMetadata;
 
-  /** Name of the external metadata object. */
+  /**
+   * Name of the external metadata object. The name is unique within the metastore, must follow the
+   * [Unity Catalog naming requirements], and is stored in lowercase. It cannot be changed after
+   * creation, and external lineage relationships refer to the object by this name.
+   *
+   * <p>[Unity Catalog naming requirements]:
+   * https://docs.databricks.com/aws/en/data-governance/unity-catalog/requirements#naming-requirements
+   */
   @JsonIgnore private String name;
 
   /**
-   * The field mask must be a single string, with multiple fields separated by commas (no spaces).
-   * The field path is relative to the resource object, using a dot (`.`) to navigate sub-fields
-   * (e.g., `author.given_name`). Specification of elements in sequence or map fields is not
-   * allowed, as only the entire collection field can be specified. Field names must exactly match
-   * the resource field names.
-   *
-   * <p>A field mask of `*` indicates full replacement. It’s recommended to always explicitly list
-   * the fields being updated and avoid using `*` wildcards, as it can lead to unintended results if
-   * the API changes in the future.
+   * Comma-separated list of the fields to update, for example `description,properties`. Only the
+   * listed fields change. The other fields keep their current values. The mask must not be empty.
    */
   @JsonIgnore
   @QueryParam("update_mask")

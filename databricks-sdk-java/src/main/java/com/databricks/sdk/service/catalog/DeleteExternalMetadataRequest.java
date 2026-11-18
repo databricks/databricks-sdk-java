@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class DeleteExternalMetadataRequest {
-  /** */
+  /** Name of the external metadata object to delete. */
   @JsonIgnore private String name;
 
   public DeleteExternalMetadataRequest setName(String name) {

@@ -11,11 +11,13 @@ import java.util.Objects;
 /** Collection of metric values for a specific metric */
 @Generated
 public class MetricValues {
-  /** Metric specification */
+  /**
+   * The metric this time series was computed for, including the labels that identify the series.
+   */
   @JsonProperty("metric")
   private Metric metric;
 
-  /** Time series of metric values */
+  /** Each entry is one data point of the time series. */
   @JsonProperty("values")
   private Collection<MetricValue> values;
 

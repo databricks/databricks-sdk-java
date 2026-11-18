@@ -9,15 +9,20 @@ import java.util.Objects;
 
 @Generated
 public class ContinuousTriggerState {
-  /** */
+  /**
+   * The number of consecutive unsuccessful runs. Resets to `0` after a healthy run and determines
+   * the exponential backoff before the next run.
+   */
   @JsonProperty("consecutive_failures")
   private Long consecutiveFailures;
 
-  /** */
+  /**
+   * Whether the trigger is delaying the next run with exponential backoff after repeated failures.
+   */
   @JsonProperty("is_backing_off")
   private Boolean isBackingOff;
 
-  /** */
+  /** The time at which the trigger next attempts to start a run, in epoch milliseconds. */
   @JsonProperty("next_attempt_ms")
   private Long nextAttemptMs;
 

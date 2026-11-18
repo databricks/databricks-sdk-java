@@ -25,15 +25,19 @@ public class CreateVectorIndexRequest {
   @JsonProperty("index_subtype")
   private IndexSubtype indexSubtype;
 
-  /** */
+  /** Type of index to create, which determines which spec field is required. */
   @JsonProperty("index_type")
   private VectorIndexType indexType;
 
-  /** Name of the index */
+  /** Three-level Unity Catalog name of the index to create. */
   @JsonProperty("name")
   private String name;
 
-  /** Primary key of the index */
+  /**
+   * Name of the column that uniquely identifies each row. For a Delta Sync index it is a column of
+   * the source table; for a Direct Vector Access index it must be declared in `schema_json`. It
+   * cannot be the embedding source or embedding vector column.
+   */
   @JsonProperty("primary_key")
   private String primaryKey;
 

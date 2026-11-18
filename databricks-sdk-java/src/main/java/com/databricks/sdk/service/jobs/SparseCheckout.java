@@ -10,7 +10,10 @@ import java.util.Objects;
 
 @Generated
 public class SparseCheckout {
-  /** List of patterns to include for sparse checkout. */
+  /**
+   * List of patterns to include for sparse checkout. Each pattern is the path of a directory
+   * relative to the repository root.
+   */
   @JsonProperty("patterns")
   private Collection<String> patterns;
 

@@ -33,7 +33,10 @@ public class SyncedTableSyncedTableStatus {
   @JsonProperty("message")
   private String message;
 
-  /** */
+  /**
+   * Progress of the sync that is currently running, either the initial data load or an update of a
+   * triggered or snapshot synced table.
+   */
   @JsonProperty("ongoing_sync_progress")
   private SyncedTablePipelineProgress ongoingSyncProgress;
 

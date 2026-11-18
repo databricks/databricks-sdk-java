@@ -13,7 +13,10 @@ public class JobEnvironment {
   @JsonProperty("environment_key")
   private String environmentKey;
 
-  /** */
+  /**
+   * The environment specification, including the environment version and the dependencies to
+   * install before a task runs.
+   */
   @JsonProperty("spec")
   private com.databricks.sdk.service.compute.Environment spec;
 

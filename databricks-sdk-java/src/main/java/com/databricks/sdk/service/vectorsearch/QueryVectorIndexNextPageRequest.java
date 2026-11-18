@@ -11,7 +11,7 @@ import java.util.Objects;
 /** Request payload for getting next page of results. */
 @Generated
 public class QueryVectorIndexNextPageRequest {
-  /** Name of the endpoint. */
+  /** Name of the endpoint that serves the index. */
   @JsonProperty("endpoint_name")
   private String endpointName;
 

@@ -9,11 +9,18 @@ import java.util.Objects;
 
 @Generated
 public class CreateBudgetConfigurationBudgetActionConfigurations {
-  /** The type of the action. */
+  /**
+   * The action to take when the alert enters a triggered state. `EMAIL_NOTIFICATION` sends an email
+   * and `BLOCK_USAGE` blocks further usage. `BLOCK_USAGE` is only supported on Unity AI Gateway
+   * budgets, with `resource_type` set to `BUDGET_RESOURCE_TYPE_UNITY_AI_GATEWAY`.
+   */
   @JsonProperty("action_type")
   private ActionConfigurationType actionType;
 
-  /** Target for the action. For example, an email address. */
+  /**
+   * Target of the action. For `EMAIL_NOTIFICATION`, the email address that receives the alert, up
+   * to 256 characters. Must be omitted for `BLOCK_USAGE`.
+   */
   @JsonProperty("target")
   private String target;
 
