@@ -12,7 +12,7 @@ import java.util.Objects;
 public class ListExternalMetadataRequest {
   /**
    * Specifies the maximum number of external metadata objects to return in a single response. The
-   * value must be less than or equal to 1000.
+   * value must be less than or equal to 1000. Defaults to 1000 when omitted.
    */
   @JsonIgnore
   @QueryParam("page_size")

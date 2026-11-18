@@ -14,7 +14,7 @@ public class DeleteDataVectorIndexRequest {
   /** Name of the vector index where data is to be deleted. Must be a Direct Vector Access Index. */
   @JsonIgnore private String indexName;
 
-  /** List of primary keys for the data to be deleted. */
+  /** Primary keys of the rows to delete. At least one key is required. */
   @JsonIgnore
   @QueryParam("primary_keys")
   private Collection<String> primaryKeys;

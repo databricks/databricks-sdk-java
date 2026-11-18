@@ -15,19 +15,19 @@ import java.util.Objects;
  */
 @Generated
 public class PerTriggerState {
-  /** */
+  /** State of the continuous trigger. */
   @JsonProperty("continuous")
   private ContinuousTriggerState continuous;
 
-  /** */
+  /** State of the file arrival trigger. */
   @JsonProperty("file_arrival")
   private FileArrivalTriggerState fileArrival;
 
-  /** */
+  /** State of the job completion trigger. */
   @JsonProperty("job_completion")
   private JobCompletionTriggerState jobCompletion;
 
-  /** */
+  /** State of the model trigger. */
   @JsonProperty("model")
   private ModelTriggerState model;
 
@@ -35,11 +35,11 @@ public class PerTriggerState {
   @JsonProperty("pause_status")
   private PauseStatus pauseStatus;
 
-  /** */
+  /** State of the periodic trigger. */
   @JsonProperty("periodic")
   private PeriodicTriggerState periodic;
 
-  /** */
+  /** State of the cron schedule trigger. */
   @JsonProperty("schedule")
   private ScheduleTriggerState schedule;
 
@@ -47,7 +47,7 @@ public class PerTriggerState {
   @JsonProperty("sql_condition")
   private SqlConditionState sqlCondition;
 
-  /** */
+  /** State of the table update trigger. */
   @JsonProperty("table_update")
   private TableTriggerState tableUpdate;
 

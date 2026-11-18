@@ -11,14 +11,14 @@ import java.util.Objects;
 /** Response containing user-visible metrics */
 @Generated
 public class RetrieveUserVisibleMetricsResponse {
-  /** Collection of metric values */
+  /**
+   * One time series for each requested metric and each combination of label values it was broken
+   * down by.
+   */
   @JsonProperty("metric_values")
   private Collection<MetricValues> metricValues;
 
-  /**
-   * A token that can be used to get the next page of results. If not present, there are no more
-   * results to show.
-   */
+  /** Not set. The response returns all data points in one page. */
   @JsonProperty("next_page_token")
   private String nextPageToken;
 

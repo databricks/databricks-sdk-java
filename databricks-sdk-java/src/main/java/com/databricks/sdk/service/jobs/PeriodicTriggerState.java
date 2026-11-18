@@ -9,7 +9,10 @@ import java.util.Objects;
 
 @Generated
 public class PeriodicTriggerState {
-  /** */
+  /**
+   * The time of the next scheduled run, in epoch milliseconds. Only set while the trigger is not
+   * paused.
+   */
   @JsonProperty("next_run_time")
   private Long nextRunTime;
 

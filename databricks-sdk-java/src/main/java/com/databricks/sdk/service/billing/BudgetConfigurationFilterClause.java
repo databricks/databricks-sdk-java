@@ -10,11 +10,11 @@ import java.util.Objects;
 
 @Generated
 public class BudgetConfigurationFilterClause {
-  /** */
+  /** How usage is compared with `values`. `IN` matches usage whose value is one of `values`. */
   @JsonProperty("operator")
   private BudgetConfigurationFilterOperator operator;
 
-  /** */
+  /** Values to match. A clause can list up to 30 values. */
   @JsonProperty("values")
   private Collection<String> values;
 

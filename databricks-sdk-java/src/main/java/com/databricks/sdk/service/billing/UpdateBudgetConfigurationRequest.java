@@ -10,7 +10,11 @@ import java.util.Objects;
 
 @Generated
 public class UpdateBudgetConfigurationRequest {
-  /** The updated budget. This will overwrite the budget specified by the budget ID. */
+  /**
+   * The updated budget. This will overwrite the budget specified by the budget ID. Alerts and
+   * actions are matched by ID: those omitted from the request are removed, and those without an ID
+   * are created.
+   */
   @JsonProperty("budget")
   private UpdateBudgetConfigurationBudget budget;
 

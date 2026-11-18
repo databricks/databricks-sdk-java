@@ -11,15 +11,27 @@ import java.util.Objects;
 /** Metric specification */
 @Generated
 public class Metric {
-  /** Metric labels */
+  /**
+   * Labels that restrict the metric to matching series, for example to a single index.
+   * Endpoint-level metrics do not accept labels.
+   */
   @JsonProperty("labels")
   private Collection<MetricLabel> labels;
 
-  /** Metric name */
+  /**
+   * Metric name. Supported metrics include: `EndpointHealthStatus`, `EndpointConcurrency`,
+   * `IndexRequestCount`, `IndexRequestLatency`, `IndexRequestErrorSourceCount`,
+   * `IndexRequestGuidanceCount`, `IndexRequestGuidancePeakRate`, `IndexIngestedRows`, and
+   * `IndexEmbeddedRows`. An unknown name is rejected with an error that lists the available metric
+   * names.
+   */
   @JsonProperty("name")
   private String name;
 
-  /** Percentile for the metric */
+  /**
+   * Percentile for latency metrics, such as `IndexRequestLatency`, which require it. One of 0.5,
+   * 0.75, 0.9, 0.95, or 0.99.
+   */
   @JsonProperty("percentile")
   private Double percentile;
 

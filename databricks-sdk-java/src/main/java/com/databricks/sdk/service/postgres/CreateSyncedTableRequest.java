@@ -11,7 +11,10 @@ import java.util.Objects;
 
 @Generated
 public class CreateSyncedTableRequest {
-  /** */
+  /**
+   * The synced table to create. Its configuration is read from spec, and its name comes from
+   * synced_table_id.
+   */
   @JsonProperty("synced_table")
   private SyncedTable syncedTable;
 

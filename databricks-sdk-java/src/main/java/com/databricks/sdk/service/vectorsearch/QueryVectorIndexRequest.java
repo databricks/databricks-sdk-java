@@ -11,7 +11,10 @@ import java.util.Objects;
 
 @Generated
 public class QueryVectorIndexRequest {
-  /** List of column names to include in the response. */
+  /**
+   * Names of the columns to return for each result. At least one column is required, and only
+   * columns that are part of the index can be returned.
+   */
   @JsonProperty("columns")
   private Collection<String> columns;
 
@@ -29,13 +32,12 @@ public class QueryVectorIndexRequest {
   private Collection<String> facets;
 
   /**
-   * JSON string representing query filters.
-   *
-   * <p>Example filters:
-   *
-   * <p>- `{"id <": 5}`: Filter for id less than 5. - `{"id >": 5}`: Filter for id greater than 5. -
-   * `{"id <=": 5}`: Filter for id less than equal to 5. - `{"id >=": 5}`: Filter for id greater
-   * than equal to 5. - `{"id": 5}`: Filter for id equal to 5.
+   * Filters to apply to the results, as a JSON object serialized to a string. Each key is a column
+   * name, optionally followed by a space and an operator, and each value is the value or list of
+   * values to compare the column against. A key without an operator matches the value exactly, or
+   * any of the listed values. Supported operators are `NOT`, `<`, `<=`, `>`, `>=`, `OR` and `LIKE`;
+   * see https://docs.databricks.com/aws/en/ai-search/query-ai-search for their semantics. This
+   * field is not supported on storage-optimized endpoints.
    */
   @JsonProperty("filters_json")
   private String filtersJson;
@@ -43,7 +45,10 @@ public class QueryVectorIndexRequest {
   /** Name of the vector index to query. */
   @JsonIgnore private String indexName;
 
-  /** Number of results to return. Defaults to 10. */
+  /**
+   * Maximum number of results to return. It must be greater than 0 and defaults to 10. By default,
+   * a `HYBRID` query can return at most 200 results.
+   */
   @JsonProperty("num_results")
   private Long numResults;
 
@@ -51,7 +56,11 @@ public class QueryVectorIndexRequest {
   @JsonProperty("query_columns")
   private Collection<String> queryColumns;
 
-  /** Query text. Required for Delta Sync Index using model endpoint. */
+  /**
+   * Text to search for. Use it for an index with Databricks-managed embeddings, which embeds the
+   * text with the index's embedding model endpoint, and for `FULL_TEXT` queries on any index. A
+   * `HYBRID` query on an index with managed embeddings requires only `query_text`.
+   */
   @JsonProperty("query_text")
   private String queryText;
 
@@ -60,8 +69,11 @@ public class QueryVectorIndexRequest {
   private String queryType;
 
   /**
-   * Query vector. Required for Direct Vector Access Index and Delta Sync Index using self-managed
-   * vectors.
+   * Embedding vector to search for. Use it for an index whose embeddings you compute yourself: a
+   * Direct Vector Access index or a Delta Sync index with `embedding_vector_columns`. A `HYBRID`
+   * query on a Delta Sync index with `embedding_vector_columns`, or on a Direct Vector Access index
+   * without `embedding_source_columns`, requires both `query_vector` and `query_text`. A Direct
+   * Vector Access index with `embedding_source_columns` can be queried with `query_text` alone.
    */
   @JsonProperty("query_vector")
   private Collection<Double> queryVector;

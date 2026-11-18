@@ -40,7 +40,10 @@ public class GitSource {
   @JsonProperty("git_provider")
   private GitProvider gitProvider;
 
-  /** */
+  /**
+   * Read-only state of the remote repository at the time the job was run. This field is only
+   * included on job runs.
+   */
   @JsonProperty("git_snapshot")
   private GitSnapshot gitSnapshot;
 
@@ -61,7 +64,10 @@ public class GitSource {
   @JsonProperty("job_source")
   private JobSource jobSource;
 
-  /** */
+  /**
+   * Sparse checkout settings for the repository. When set, only the directories listed in
+   * `patterns` are checked out.
+   */
   @JsonProperty("sparse_checkout")
   private SparseCheckout sparseCheckout;
 

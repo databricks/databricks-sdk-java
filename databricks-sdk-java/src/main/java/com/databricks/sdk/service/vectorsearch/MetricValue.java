@@ -10,11 +10,11 @@ import java.util.Objects;
 /** Single metric value at a specific timestamp */
 @Generated
 public class MetricValue {
-  /** Timestamp of the metric value (milliseconds since epoch) */
+  /** Timestamp of the metric value, in seconds since the Unix epoch. */
   @JsonProperty("timestamp")
   private Long timestamp;
 
-  /** Metric value */
+  /** Value of the metric at `timestamp`. */
   @JsonProperty("value")
   private Double value;
 

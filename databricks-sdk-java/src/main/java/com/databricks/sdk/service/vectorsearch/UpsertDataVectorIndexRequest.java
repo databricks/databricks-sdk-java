@@ -15,7 +15,11 @@ public class UpsertDataVectorIndexRequest {
    */
   @JsonIgnore private String indexName;
 
-  /** JSON string representing the data to be upserted. */
+  /**
+   * Rows to upsert, as a JSON array of objects serialized to a string. Each object maps column
+   * names from `schema_json` to values and must include the primary key. A row whose primary key
+   * already exists in the index is replaced.
+   */
   @JsonProperty("inputs_json")
   private String inputsJson;
 

@@ -39,11 +39,9 @@ public class GetInstancePool {
    *
    * <p>- Vendor: Databricks
    *
-   * <p>- InstancePoolCreator: <user_id_of_creator>
+   * <p>- DatabricksInstancePoolCreatorId: <user_id_of_creator>
    *
-   * <p>- InstancePoolName: <name_of_pool>
-   *
-   * <p>- InstancePoolId: <id_of_pool>
+   * <p>- DatabricksInstancePoolId: <id_of_pool>
    */
   @JsonProperty("default_tags")
   private Map<String, String> defaultTags;

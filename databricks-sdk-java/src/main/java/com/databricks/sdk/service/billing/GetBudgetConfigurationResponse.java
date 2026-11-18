@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class GetBudgetConfigurationResponse {
-  /** */
+  /** The requested budget configuration. */
   @JsonProperty("budget")
   private BudgetConfiguration budget;
 

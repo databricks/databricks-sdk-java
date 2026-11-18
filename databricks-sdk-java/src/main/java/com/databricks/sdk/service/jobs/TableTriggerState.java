@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Generated
 public class TableTriggerState {
-  /** */
+  /** The last observed state of each monitored table. */
   @JsonProperty("last_seen_table_states")
   private Collection<TableState> lastSeenTableStates;
 

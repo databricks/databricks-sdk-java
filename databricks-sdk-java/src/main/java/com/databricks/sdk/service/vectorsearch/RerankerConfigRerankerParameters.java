@@ -10,7 +10,10 @@ import java.util.Objects;
 
 @Generated
 public class RerankerConfigRerankerParameters {
-  /** */
+  /**
+   * Names of the columns whose values are sent to the reranker. List the most relevant column
+   * first, since the order affects the ranking.
+   */
   @JsonProperty("columns_to_rerank")
   private Collection<String> columnsToRerank;
 

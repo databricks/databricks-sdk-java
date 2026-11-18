@@ -10,12 +10,12 @@ import java.util.Objects;
 
 @Generated
 public class ListIndexesRequest {
-  /** Name of the endpoint */
+  /** Name of the endpoint whose indexes to list. */
   @JsonIgnore
   @QueryParam("endpoint_name")
   private String endpointName;
 
-  /** Token for pagination */
+  /** Page token returned by a previous call, used to get the next page of results. */
   @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;

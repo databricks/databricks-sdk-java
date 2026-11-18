@@ -42,7 +42,10 @@ public interface VectorSearchEndpointsService {
    */
   EndpointInfo patchEndpoint(PatchEndpointRequest patchEndpointRequest);
 
-  /** Retrieve user-visible metrics for an endpoint */
+  /**
+   * Retrieve time series of usage and health metrics for an endpoint and its indexes, such as
+   * request counts, request latency percentiles and endpoint utilization.
+   */
   RetrieveUserVisibleMetricsResponse retrieveUserVisibleMetrics(
       RetrieveUserVisibleMetricsRequest retrieveUserVisibleMetricsRequest);
 

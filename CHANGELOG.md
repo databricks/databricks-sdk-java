@@ -1,5 +1,10 @@
 # Version changelog
 
+## Release v0.183.0 (2026-11-18)
+
+### API Changes
+* [Breaking] Remove `MIGRATION_TYPE_ONLINE` enum value for `com.databricks.sdk.service.postgres.MigrationType`.
+
 ## Release v0.182.0 (2026-11-17)
 
 ### API Changes

@@ -36,7 +36,7 @@ public class TriggerSettings {
   @JsonProperty("sql_condition")
   private SqlConditionConfiguration sqlCondition;
 
-  /** */
+  /** Table update trigger settings. */
   @JsonProperty("table_update")
   private TableUpdateTriggerConfiguration tableUpdate;
 

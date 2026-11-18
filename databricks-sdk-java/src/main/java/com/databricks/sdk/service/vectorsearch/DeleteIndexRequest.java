@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class DeleteIndexRequest {
-  /** Name of the index */
+  /** Three-level Unity Catalog name of the index. */
   @JsonIgnore private String indexName;
 
   public DeleteIndexRequest setIndexName(String indexName) {

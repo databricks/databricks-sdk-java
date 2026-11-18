@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class GetExternalMetadataRequest {
-  /** */
+  /** Name of the external metadata object to get. */
   @JsonIgnore private String name;
 
   public GetExternalMetadataRequest setName(String name) {

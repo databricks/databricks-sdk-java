@@ -109,7 +109,7 @@ public class JobSettings {
   @JsonProperty("git_source")
   private GitSource gitSource;
 
-  /** */
+  /** An optional set of health rules that can be defined for this job. */
   @JsonProperty("health")
   private JobsHealthRules health;
 

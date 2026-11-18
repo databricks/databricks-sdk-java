@@ -20,7 +20,7 @@ public class GetIndexRequest {
   @QueryParam("ensure_reranker_compatible")
   private Boolean ensureRerankerCompatible;
 
-  /** Name of the index */
+  /** Three-level Unity Catalog name of the index. */
   @JsonIgnore private String indexName;
 
   public GetIndexRequest setEnsureRerankerCompatible(Boolean ensureRerankerCompatible) {

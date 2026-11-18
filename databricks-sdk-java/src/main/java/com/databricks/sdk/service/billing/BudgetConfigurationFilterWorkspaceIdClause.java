@@ -10,11 +10,14 @@ import java.util.Objects;
 
 @Generated
 public class BudgetConfigurationFilterWorkspaceIdClause {
-  /** */
+  /** How usage is compared with `values`. `IN` matches usage from any of the listed workspaces. */
   @JsonProperty("operator")
   private BudgetConfigurationFilterOperator operator;
 
-  /** */
+  /**
+   * IDs of the workspaces whose usage is included. A clause can list up to 30 workspaces, all of
+   * which must belong to this account.
+   */
   @JsonProperty("values")
   private Collection<Long> values;
 

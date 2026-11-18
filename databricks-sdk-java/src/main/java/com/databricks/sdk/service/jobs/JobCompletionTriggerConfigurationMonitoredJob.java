@@ -17,7 +17,7 @@ public class JobCompletionTriggerConfigurationMonitoredJob {
   /**
    * The ID of the workspace containing the upstream job. This can differ from the caller's
    * workspace and downstream services enforce correct entitlements and CAN_VIEW permissions for the
-   * user + job combination. SDR: https://databricks.atlassian.net/browse/SDR-5267
+   * user + job combination.
    */
   @JsonProperty("workspace_id")
   private String workspaceId;

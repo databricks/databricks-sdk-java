@@ -137,7 +137,10 @@ public class PostgresAPI {
     return new CreateSnapshotOperation(impl, operation);
   }
 
-  /** Create a Synced Table. */
+  /**
+   * Create a Synced Table. Creates the synced table in Unity Catalog and the Postgres table on the
+   * branch, and starts the pipeline that loads the initial data from the source table.
+   */
   public CreateSyncedTableOperation createSyncedTable(CreateSyncedTableRequest request) {
     Operation operation = impl.createSyncedTable(request);
     return new CreateSyncedTableOperation(impl, operation);
@@ -266,7 +269,11 @@ public class PostgresAPI {
     return deleteSyncedTable(new DeleteSyncedTableRequest().setName(name));
   }
 
-  /** Delete a Synced Table. */
+  /**
+   * Delete a Synced Table. Drops the Postgres table, removes the synced table from its pipeline,
+   * and deletes it from Unity Catalog. The pipeline itself is deleted when no other synced table
+   * uses it.
+   */
   public DeleteSyncedTableOperation deleteSyncedTable(DeleteSyncedTableRequest request) {
     Operation operation = impl.deleteSyncedTable(request);
     return new DeleteSyncedTableOperation(impl, operation);

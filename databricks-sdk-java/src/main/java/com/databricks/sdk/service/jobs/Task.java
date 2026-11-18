@@ -133,7 +133,7 @@ public class Task {
   @JsonProperty("gen_ai_compute_task")
   private GenAiComputeTask genAiComputeTask;
 
-  /** */
+  /** An optional set of health rules that can be defined for this task. */
   @JsonProperty("health")
   private JobsHealthRules health;
 

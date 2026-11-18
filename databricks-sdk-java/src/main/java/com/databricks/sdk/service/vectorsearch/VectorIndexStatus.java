@@ -25,7 +25,7 @@ public class VectorIndexStatus {
   @JsonProperty("indexed_row_count")
   private Long indexedRowCount;
 
-  /** Message associated with the index status */
+  /** Human-readable description of the current status. */
   @JsonProperty("message")
   private String message;
 

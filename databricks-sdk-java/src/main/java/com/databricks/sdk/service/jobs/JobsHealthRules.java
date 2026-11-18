@@ -11,7 +11,7 @@ import java.util.Objects;
 /** An optional set of health rules that can be defined for this job. */
 @Generated
 public class JobsHealthRules {
-  /** */
+  /** The health rules to evaluate for each run. */
   @JsonProperty("rules")
   private Collection<JobsHealthRule> rules;
 
