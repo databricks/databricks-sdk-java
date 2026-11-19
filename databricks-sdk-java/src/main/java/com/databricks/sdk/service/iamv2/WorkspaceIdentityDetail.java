@@ -10,7 +10,8 @@ import java.util.Objects;
 /**
  * A user, service principal, or group's status in a workspace, and whether it has access to the
  * workspace directly or through a group. Update it to activate or deactivate a user or service
- * principal in the workspace.
+ * principal in the workspace. To address it, put its resource name in the URL: `GET
+ * /api/2.0/identity/principals/{principal_id}/workspace-identity-detail`.
  */
 @Generated
 public class WorkspaceIdentityDetail {

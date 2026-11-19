@@ -9,15 +9,24 @@ import java.util.Objects;
 
 @Generated
 public class GenieEvalResponse {
-  /** The response content (either text or SQL query). */
+  /**
+   * The content of this entry is the SQL statement when `response_type` is SQL, or Genie's text
+   * answer when it is TEXT.
+   */
   @JsonProperty("response")
   private String response;
 
-  /** Type of response */
+  /** Whether this entry is a SQL statement or a text answer. */
   @JsonProperty("response_type")
   private GenieEvalResponseType responseType;
 
-  /** SQL Statement Execution response. */
+  /**
+   * Result of executing the SQL statement, only set when `response_type` is SQL. The value has the
+   * structure of a [Statement Execution API response].
+   *
+   * <p>[Statement Execution API response]:
+   * https://docs.databricks.com/api/statement-execution/v1/get-statement-result
+   */
   @JsonProperty("sql_execution_result")
   private com.databricks.sdk.service.sql.StatementResponse sqlExecutionResult;
 

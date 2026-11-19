@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class ProviderAnalyticsDashboard {
-  /** */
+  /** Marketplace-specific ID of the dashboard record, distinct from the AI/BI dashboard ID. */
   @JsonProperty("id")
   private String id;
 

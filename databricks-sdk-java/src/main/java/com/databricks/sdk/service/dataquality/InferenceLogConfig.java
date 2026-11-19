@@ -17,23 +17,31 @@ public class InferenceLogConfig {
   @JsonProperty("granularities")
   private Collection<AggregationGranularity> granularities;
 
-  /** Column for the label. */
+  /** Column containing the ground truth for the model's predictions. */
   @JsonProperty("label_column")
   private String labelColumn;
 
-  /** Column for the model identifier. */
+  /**
+   * Column containing the ID of the model that produced each prediction. A slice is created
+   * automatically for each distinct model ID.
+   */
   @JsonProperty("model_id_column")
   private String modelIdColumn;
 
-  /** Column for the prediction. */
+  /** Column containing the model's predicted values. */
   @JsonProperty("prediction_column")
   private String predictionColumn;
 
-  /** Problem type the model aims to solve. */
+  /**
+   * The type of problem the model solves. It determines which model quality metrics are computed.
+   */
   @JsonProperty("problem_type")
   private InferenceProblemType problemType;
 
-  /** Column for the timestamp. */
+  /**
+   * Column containing the timestamp of each inference request. Its type must be TIMESTAMP or
+   * convertible to a timestamp.
+   */
   @JsonProperty("timestamp_column")
   private String timestampColumn;
 

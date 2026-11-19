@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class GetFileResponse {
-  /** */
+  /** Metadata of the file. */
   @JsonProperty("file_info")
   private FileInfo fileInfo;
 

@@ -11,7 +11,13 @@ import java.util.Objects;
 
 @Generated
 public class CreatePipeline {
-  /** If false, deployment will fail if name conflicts with that of another pipeline. */
+  /**
+   * If false, deployment will fail if name conflicts with that of another pipeline.
+   *
+   * <p>Ignored when `parent_path` is set. A pipeline in a workspace folder must have a name that is
+   * unique within that folder, and creation fails if the folder already contains an object with the
+   * same name.
+   */
   @JsonProperty("allow_duplicate_names")
   private Boolean allowDuplicateNames;
 
@@ -135,7 +141,9 @@ public class CreatePipeline {
   /**
    * Path of the pipeline parent folder in workspace file tree.
    *
-   * <p>If absent, the pipeline doesn't have a workspace object.
+   * <p>If absent, the pipeline doesn't have a parent folder.
+   *
+   * <p>Example: /Workspace/Projects/my_project
    */
   @JsonProperty("parent_path")
   private String parentPath;

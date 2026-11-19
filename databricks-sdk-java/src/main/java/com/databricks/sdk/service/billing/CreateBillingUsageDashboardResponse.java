@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class CreateBillingUsageDashboardResponse {
-  /** The unique id of the usage dashboard. */
+  /** The ID of the AI/BI dashboard that was created. */
   @JsonProperty("dashboard_id")
   private String dashboardId;
 

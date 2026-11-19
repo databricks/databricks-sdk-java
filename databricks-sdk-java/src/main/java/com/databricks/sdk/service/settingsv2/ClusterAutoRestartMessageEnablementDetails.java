@@ -21,8 +21,8 @@ public class ClusterAutoRestartMessageEnablementDetails {
   private Boolean forcedForComplianceMode;
 
   /**
-   * The feature is unavailable if the corresponding entitlement disabled (see
-   * getShieldEntitlementEnable)
+   * The feature is unavailable because the workspace does not have the Enhanced Security and
+   * Compliance entitlement.
    */
   @JsonProperty("unavailable_for_disabled_entitlement")
   private Boolean unavailableForDisabledEntitlement;

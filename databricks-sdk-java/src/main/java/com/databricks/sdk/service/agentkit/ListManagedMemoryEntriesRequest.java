@@ -39,8 +39,9 @@ public class ListManagedMemoryEntriesRequest {
   private String pathPrefix;
 
   /**
-   * Optional session identifier. When set, only entries with this exact `session_id` are returned.
-   * Omitted-session (cross-session) entries are not included. Ignored when path is set.
+   * Deprecated: the service will ignore this filter. Until then, when set, only entries with this
+   * exact `session_id` are returned, and omitted-session (cross-session) entries are not included.
+   * Ignored when path is set.
    */
   @JsonIgnore
   @QueryParam("session_id")

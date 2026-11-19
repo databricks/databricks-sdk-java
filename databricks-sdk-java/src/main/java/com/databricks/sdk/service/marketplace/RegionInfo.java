@@ -9,11 +9,11 @@ import java.util.Objects;
 
 @Generated
 public class RegionInfo {
-  /** */
+  /** Cloud provider: aws, azure or gcp. */
   @JsonProperty("cloud")
   private String cloud;
 
-  /** */
+  /** Cloud region, for example us-west-2. */
   @JsonProperty("region")
   private String region;
 

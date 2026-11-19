@@ -11,18 +11,25 @@ import java.util.Objects;
  * A singleton resource representing the default workspace base environment configuration. This
  * resource contains the workspace base environments that are used as defaults for serverless
  * notebooks and jobs in the workspace, for both CPU and GPU compute types.
+ *
+ * <p>When cpu_workspace_base_environment or gpu_workspace_base_environment is unset, new serverless
+ * notebooks for that compute type use the Databricks Standard base environment: the latest stable
+ * standard environment version provided by Databricks, with no workspace base environment applied.
+ * The workspace settings page shows this as Standard Latest.
  */
 @Generated
 public class DefaultWorkspaceBaseEnvironment {
   /**
-   * The default workspace base environment for CPU compute. Format:
+   * The default workspace base environment for CPU compute. If unset, CPU compute defaults to the
+   * Databricks Standard base environment (Standard Latest). Format:
    * workspace-base-environments/{workspace_base_environment}
    */
   @JsonProperty("cpu_workspace_base_environment")
   private String cpuWorkspaceBaseEnvironment;
 
   /**
-   * The default workspace base environment for GPU compute. Format:
+   * The default workspace base environment for GPU compute. If unset, GPU compute defaults to the
+   * Databricks Standard base environment (Standard Latest). Format:
    * workspace-base-environments/{workspace_base_environment}
    */
   @JsonProperty("gpu_workspace_base_environment")

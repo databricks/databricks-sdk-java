@@ -21,10 +21,7 @@ public class CreateScope {
   @JsonProperty("scope")
   private String scope;
 
-  /**
-   * The backend type the scope will be created with. If not specified, will default to
-   * ``DATABRICKS``
-   */
+  /** The backend type of the new scope. Defaults to ``DATABRICKS``. */
   @JsonProperty("scope_backend_type")
   private ScopeBackendType scopeBackendType;
 

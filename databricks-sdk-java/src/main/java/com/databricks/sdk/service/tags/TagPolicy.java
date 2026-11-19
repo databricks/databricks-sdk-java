@@ -8,21 +8,26 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * A tag policy makes a tag key governed and defines the values that can be assigned to it. Governed
+ * tags are enforced across all workspaces in the account, and only users with the ASSIGN permission
+ * on the governed tag can assign it. See https://docs.databricks.com/aws/en/admin/governed-tags/.
+ */
 @Generated
 public class TagPolicy {
   /** Timestamp when the tag policy was created */
   @JsonProperty("create_time")
   private String createTime;
 
-  /** */
+  /** A description of the governed tag, such as its purpose or the meaning of its values. */
   @JsonProperty("description")
   private String description;
 
-  /** */
+  /** The unique identifier of the tag policy, generated when the policy is created. */
   @JsonProperty("id")
   private String id;
 
-  /** */
+  /** The tag key that this policy governs. Tag keys are case-sensitive. */
   @JsonProperty("tag_key")
   private String tagKey;
 
@@ -30,7 +35,10 @@ public class TagPolicy {
   @JsonProperty("update_time")
   private String updateTime;
 
-  /** */
+  /**
+   * The allowed values of the governed tag. Only these values can be assigned to the tag key, and
+   * each value must be unique. A policy without values defines a key-only governed tag.
+   */
   @JsonProperty("values")
   private Collection<Value> values;
 

@@ -11,7 +11,9 @@ import java.util.Objects;
  * A group from your identity provider (IdP), identified by its ID in your IdP. This resource is
  * read-only. Getting an external group syncs its name and parent groups from your IdP, and adds it
  * to your account if it isn't already there. If your account has group visibility filters, the
- * group must match them.
+ * group must match them. To address an external group, put its resource name in the URL: `GET
+ * /api/2.0/identity/accounts/{account_id}/external-groups/{external_group_id}` in account APIs, or
+ * `GET /api/2.0/identity/external-groups/{external_group_id}` in workspace APIs.
  */
 @Generated
 public class ExternalGroup {

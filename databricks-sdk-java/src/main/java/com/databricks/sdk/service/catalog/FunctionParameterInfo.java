@@ -17,27 +17,39 @@ public class FunctionParameterInfo {
   @JsonProperty("name")
   private String name;
 
-  /** Default value of the parameter. */
+  /** Default value of the parameter as a SQL expression, used when a call omits the argument. */
   @JsonProperty("parameter_default")
   private String parameterDefault;
 
-  /** Function parameter mode. */
+  /**
+   * Direction of the parameter. Only IN parameters, which pass a value into the function, are
+   * supported.
+   */
   @JsonProperty("parameter_mode")
   private FunctionParameterMode parameterMode;
 
-  /** Function parameter type. */
+  /**
+   * Whether the entry is an input parameter (PARAM) or a result column of a table function
+   * (COLUMN).
+   */
   @JsonProperty("parameter_type")
   private FunctionParameterType parameterType;
 
-  /** Ordinal position of column (starting at position 0). */
+  /**
+   * Zero-based position of the parameter in the parameter list. Positions must be unique and
+   * consecutive.
+   */
   @JsonProperty("position")
   private Long position;
 
-  /** Format of IntervalType. */
+  /** Unit range of the data type for INTERVAL parameters. It is unset for other types. */
   @JsonProperty("type_interval_type")
   private String typeIntervalType;
 
-  /** Full data type spec, JSON-serialized. */
+  /**
+   * Data type of the parameter as the JSON representation of a Spark SQL struct field, with name,
+   * type, nullable and metadata keys.
+   */
   @JsonProperty("type_json")
   private String typeJson;
 
@@ -53,7 +65,10 @@ public class FunctionParameterInfo {
   @JsonProperty("type_scale")
   private Long typeScale;
 
-  /** Full data type spec, SQL/catalogString text. */
+  /**
+   * Data type of the parameter in SQL syntax, including any type parameters such as precision and
+   * scale.
+   */
   @JsonProperty("type_text")
   private String typeText;
 

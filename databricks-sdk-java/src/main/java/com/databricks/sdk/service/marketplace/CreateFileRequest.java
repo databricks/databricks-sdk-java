@@ -9,19 +9,25 @@ import java.util.Objects;
 
 @Generated
 public class CreateFileRequest {
-  /** */
+  /** Name shown to consumers for the file, for example a notebook title. At most 255 characters. */
   @JsonProperty("display_name")
   private String displayName;
 
-  /** */
+  /** Provider profile or listing to attach the file to. */
   @JsonProperty("file_parent")
   private FileParent fileParent;
 
-  /** */
+  /**
+   * Purpose of the file. PROVIDER_ICON requires a PROVIDER parent; EMBEDDED_NOTEBOOK requires a
+   * LISTING parent.
+   */
   @JsonProperty("marketplace_file_type")
   private MarketplaceFileType marketplaceFileType;
 
-  /** */
+  /**
+   * MIME type of the file content: text/html for notebooks; image/png, image/jpeg or image/svg+xml
+   * for icons.
+   */
   @JsonProperty("mime_type")
   private String mimeType;
 

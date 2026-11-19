@@ -10,7 +10,11 @@ import java.util.Objects;
 
 @Generated
 public class AllowedAppsUserApiScopesMessage {
-  /** */
+  /**
+   * OAuth scopes that app developers can request when an app acts on behalf of a user. A list with
+   * the single entry * allows every supported scope and cannot be combined with other scopes. An
+   * empty list disables user authorization for apps.
+   */
   @JsonProperty("allowed_scopes")
   private Collection<String> allowedScopes;
 

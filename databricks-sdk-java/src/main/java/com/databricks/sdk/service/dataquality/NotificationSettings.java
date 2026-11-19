@@ -10,7 +10,10 @@ import java.util.Objects;
 /** Settings for sending notifications on the data quality monitoring. */
 @Generated
 public class NotificationSettings {
-  /** Destinations to send notifications on failure/timeout. */
+  /**
+   * Recipients to notify when a refresh of the monitor fails or times out. Only supported on table
+   * monitors, via `data_profiling_config`, and only `email_addresses` is accepted there.
+   */
   @JsonProperty("on_failure")
   private NotificationDestination onFailure;
 

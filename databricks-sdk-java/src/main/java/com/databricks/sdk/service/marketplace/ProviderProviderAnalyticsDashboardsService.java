@@ -13,18 +13,25 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface ProviderProviderAnalyticsDashboardsService {
   /**
-   * Create provider analytics dashboard. Returns Marketplace specific `id`. Not to be confused with
-   * the Lakeview dashboard id.
+   * Creates the Provider Analytics Dashboard in the caller's workspace from the latest template.
+   * Fails if the dashboard already exists. Returns the Marketplace-specific `id` of the dashboard
+   * record, which is distinct from the AI/BI dashboard ID.
    */
   ProviderAnalyticsDashboard create();
 
-  /** Get provider analytics dashboard. */
+  /**
+   * Gets the Provider Analytics Dashboard that was created for the caller's account. Returns an
+   * empty response if the dashboard has not been created yet.
+   */
   ListProviderAnalyticsDashboardResponse get();
 
-  /** Get latest version of provider analytics dashboard. */
+  /** Gets the latest available version of the Provider Analytics Dashboard template. */
   GetLatestVersionProviderAnalyticsDashboardResponse getLatestVersion();
 
-  /** Update provider analytics dashboard. */
+  /**
+   * Updates the Provider Analytics Dashboard to a newer version of the template. The requested
+   * version must be newer than the version that the dashboard currently uses.
+   */
   UpdateProviderAnalyticsDashboardResponse update(
       UpdateProviderAnalyticsDashboardRequest updateProviderAnalyticsDashboardRequest);
 }

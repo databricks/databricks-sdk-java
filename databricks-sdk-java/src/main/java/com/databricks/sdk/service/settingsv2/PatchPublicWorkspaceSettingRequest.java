@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Generated
 public class PatchPublicWorkspaceSettingRequest {
-  /** Name of the setting */
+  /** Name of the setting to update. */
   @JsonIgnore private String name;
 
   /** */

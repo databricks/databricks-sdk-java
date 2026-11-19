@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class ServiceError {
-  /** */
+  /** The error code that classifies the failure. */
   @JsonProperty("error_code")
   private ServiceErrorCode errorCode;
 

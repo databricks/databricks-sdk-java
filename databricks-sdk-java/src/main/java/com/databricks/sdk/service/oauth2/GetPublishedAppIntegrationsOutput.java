@@ -14,7 +14,7 @@ public class GetPublishedAppIntegrationsOutput {
   @JsonProperty("apps")
   private Collection<GetPublishedAppIntegrationOutput> apps;
 
-  /** */
+  /** Token for the next page of results. If not present, there are no more results to show. */
   @JsonProperty("next_page_token")
   private String nextPageToken;
 

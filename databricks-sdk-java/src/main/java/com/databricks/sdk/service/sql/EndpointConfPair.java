@@ -9,11 +9,11 @@ import java.util.Objects;
 
 @Generated
 public class EndpointConfPair {
-  /** */
+  /** Name of the configuration parameter. */
   @JsonProperty("key")
   private String key;
 
-  /** */
+  /** Value of the configuration parameter. */
   @JsonProperty("value")
   private String value;
 

@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class FileInfo {
-  /** */
+  /** Time the file was created, in epoch milliseconds. */
   @JsonProperty("created_at")
   private Long createdAt;
 
@@ -17,27 +17,30 @@ public class FileInfo {
   @JsonProperty("display_name")
   private String displayName;
 
-  /** */
+  /** Short-lived URL for downloading the file content. */
   @JsonProperty("download_link")
   private String downloadLink;
 
-  /** */
+  /** Provider or listing that the file belongs to. */
   @JsonProperty("file_parent")
   private FileParent fileParent;
 
-  /** */
+  /** ID of the file. */
   @JsonProperty("id")
   private String id;
 
-  /** */
+  /** Purpose of the file, such as a provider icon or a notebook attached to a listing. */
   @JsonProperty("marketplace_file_type")
   private MarketplaceFileType marketplaceFileType;
 
-  /** */
+  /** MIME type of the file content, for example text/html for notebooks or image/png for icons. */
   @JsonProperty("mime_type")
   private String mimeType;
 
-  /** */
+  /**
+   * Processing status of the file. New files start in FILE_STATUS_STAGING and become
+   * FILE_STATUS_PUBLISHED after Databricks has sanitized them.
+   */
   @JsonProperty("status")
   private FileStatus status;
 
@@ -45,7 +48,7 @@ public class FileInfo {
   @JsonProperty("status_message")
   private String statusMessage;
 
-  /** */
+  /** Time the file was last updated, in epoch milliseconds. */
   @JsonProperty("updated_at")
   private Long updatedAt;
 

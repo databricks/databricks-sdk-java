@@ -7,9 +7,10 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** An allowed value of a governed tag. */
 @Generated
 public class Value {
-  /** */
+  /** The value that can be assigned to the tag key. Values are case-sensitive. */
   @JsonProperty("name")
   private String name;
 

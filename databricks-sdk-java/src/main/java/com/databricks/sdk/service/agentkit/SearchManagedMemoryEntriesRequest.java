@@ -54,8 +54,8 @@ public class SearchManagedMemoryEntriesRequest {
   private String query;
 
   /**
-   * Optional session identifier. When set, only entries with this exact `session_id` are searched.
-   * Omitted-session (cross-session) entries are not included.
+   * Deprecated: the service will ignore this filter. Until then, when set, only entries with this
+   * exact `session_id` are searched, and omitted-session (cross-session) entries are not included.
    */
   @JsonProperty("session_id")
   private String sessionId;

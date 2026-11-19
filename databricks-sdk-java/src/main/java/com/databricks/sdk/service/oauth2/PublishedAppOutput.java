@@ -14,7 +14,7 @@ public class PublishedAppOutput {
   @JsonProperty("app_id")
   private String appId;
 
-  /** Client ID of the published OAuth app. It is the client_id in the OAuth flow */
+  /** Client ID of the published OAuth app. The app sends it as client_id in the OAuth flow. */
   @JsonProperty("client_id")
   private String clientId;
 

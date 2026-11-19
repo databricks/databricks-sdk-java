@@ -40,8 +40,8 @@ public class CreateRoleRequest {
    * The ID used to identify and manage the Role resource through the API. The Postgres role name is
    * specified in `spec.postgres_role`.
    *
-   * <p>This value should be 4-63 characters, and valid characters are lowercase letters, numbers,
-   * and hyphens, as defined by RFC 1123.
+   * <p>This value should be 3-63 characters, start with a lowercase letter, end with a lowercase
+   * letter or digit, and contain only lowercase letters, digits, and hyphens.
    *
    * <p>If role_id is not specified in the request, it is generated automatically.
    */

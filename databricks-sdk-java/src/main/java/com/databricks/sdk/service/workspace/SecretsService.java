@@ -26,34 +26,23 @@ public interface SecretsService {
    * <p>The scope name must consist of alphanumeric characters, dashes, underscores, and periods,
    * and may not exceed 128 characters.
    *
-   * <p>Example request:
-   *
-   * <p>.. code::
-   *
-   * <p>{ "scope": "my-simple-databricks-scope", "initial_manage_principal": "users"
-   * "scope_backend_type": "databricks|azure_keyvault", # below is only required if scope type is
-   * azure_keyvault "backend_azure_keyvault": { "resource_id":
-   * "/subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/resourceGroups/xxxx/providers/Microsoft.KeyVault/vaults/xxxx",
-   * "tenant_id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", "dns_name":
-   * "https://xxxx.vault.azure.net/", } }
-   *
    * <p>If ``initial_manage_principal`` is specified, the initial ACL applied to the scope is
    * applied to the supplied principal (user or group) with ``MANAGE`` permissions. The only
    * supported principal for this option is the group ``users``, which contains all users in the
    * workspace. If ``initial_manage_principal`` is not specified, the initial ACL with ``MANAGE``
    * permission applied to the scope is assigned to the API request issuer's user identity.
    *
-   * <p>If ``scope_backend_type`` is ``azure_keyvault``, a secret scope is created with secrets from
-   * a given Azure KeyVault. The caller must provide the keyvault_resource_id and the tenant_id for
-   * the key vault. If ``scope_backend_type`` is ``databricks`` or is unspecified, an empty secret
-   * scope is created and stored in Databricks's own storage.
+   * <p>If ``scope_backend_type`` is ``AZURE_KEYVAULT``, a secret scope is created with secrets from
+   * an existing Azure key vault. The caller must provide the key vault's resource ID and DNS name
+   * in ``backend_azure_keyvault``. If ``scope_backend_type`` is ``DATABRICKS`` or is unspecified,
+   * an empty secret scope is created and stored in Databricks-managed storage.
    *
    * <p>Throws ``RESOURCE_ALREADY_EXISTS`` if a scope with the given name already exists. Throws
    * ``RESOURCE_LIMIT_EXCEEDED`` if maximum number of scopes in the workspace is exceeded. Throws
    * ``INVALID_PARAMETER_VALUE`` if the scope name is invalid. Throws ``BAD_REQUEST`` if request
-   * violated constraints. Throws ``CUSTOMER_UNAUTHORIZED`` if normal user attempts to create a
-   * scope with name reserved for databricks internal usage. Throws ``UNAUTHENTICATED`` if unable to
-   * verify user access permission on Azure KeyVault
+   * violated constraints. Throws ``CUSTOMER_UNAUTHORIZED`` if the scope name is reserved for
+   * Databricks internal use. Throws ``UNAUTHENTICATED`` if Databricks cannot verify the caller's
+   * access to the Azure key vault.
    */
   void createScope(CreateScope createScope);
 
@@ -61,12 +50,6 @@ public interface SecretsService {
    * Deletes the given ACL on the given scope.
    *
    * <p>Users must have the ``MANAGE`` permission to invoke this API.
-   *
-   * <p>Example request:
-   *
-   * <p>.. code::
-   *
-   * <p>{ "scope": "my-secret-scope", "principal": "data-scientists" }
    *
    * <p>Throws ``RESOURCE_DOES_NOT_EXIST`` if no such secret scope, principal, or ACL exists. Throws
    * ``PERMISSION_DENIED`` if the user does not have permission to make this API call. Throws
@@ -77,15 +60,8 @@ public interface SecretsService {
   /**
    * Deletes a secret scope.
    *
-   * <p>Example request:
-   *
-   * <p>.. code::
-   *
-   * <p>{ "scope": "my-secret-scope" }
-   *
    * <p>Throws ``RESOURCE_DOES_NOT_EXIST`` if the scope does not exist. Throws ``PERMISSION_DENIED``
-   * if the user does not have permission to make this API call. Throws ``BAD_REQUEST`` if system
-   * user attempts to delete internal secret scope.
+   * if the user does not have permission to make this API call.
    */
   void deleteScope(DeleteScope deleteScope);
 
@@ -95,8 +71,7 @@ public interface SecretsService {
    *
    * <p>Throws ``RESOURCE_DOES_NOT_EXIST`` if no such secret scope or secret exists. Throws
    * ``PERMISSION_DENIED`` if the user does not have permission to make this API call. Throws
-   * ``BAD_REQUEST`` if system user attempts to delete an internal secret, or request is made
-   * against Azure KeyVault backed scope.
+   * ``BAD_REQUEST`` if the request is made against an Azure Key Vault-backed scope.
    */
   void deleteSecret(DeleteSecret deleteSecret);
 
@@ -104,12 +79,6 @@ public interface SecretsService {
    * Describes the details about the given ACL, such as the group and permission.
    *
    * <p>Users must have the ``MANAGE`` permission to invoke this API.
-   *
-   * <p>Example response:
-   *
-   * <p>.. code::
-   *
-   * <p>{ "principal": "data-scientists", "permission": "READ" }
    *
    * <p>Throws ``RESOURCE_DOES_NOT_EXIST`` if no such secret scope exists. Throws
    * ``PERMISSION_DENIED`` if the user does not have permission to make this API call. Throws
@@ -139,13 +108,6 @@ public interface SecretsService {
    *
    * <p>Users must have the ``MANAGE`` permission to invoke this API.
    *
-   * <p>Example response:
-   *
-   * <p>.. code::
-   *
-   * <p>{ "acls": [{ "principal": "admins", "permission": "MANAGE" },{ "principal":
-   * "data-scientists", "permission": "READ" }] }
-   *
    * <p>Throws ``RESOURCE_DOES_NOT_EXIST`` if no such secret scope exists. Throws
    * ``PERMISSION_DENIED`` if the user does not have permission to make this API call.
    */
@@ -153,13 +115,6 @@ public interface SecretsService {
 
   /**
    * Lists all secret scopes available in the workspace.
-   *
-   * <p>Example response:
-   *
-   * <p>.. code::
-   *
-   * <p>{ "scopes": [{ "name": "my-databricks-scope", "backend_type": "DATABRICKS" },{ "name":
-   * "mount-points", "backend_type": "DATABRICKS" }] }
    *
    * <p>Throws ``PERMISSION_DENIED`` if the user does not have permission to make this API call.
    */
@@ -183,24 +138,9 @@ public interface SecretsService {
    * - Allowed to read and write to this secret scope. * ``READ`` - Allowed to read this secret
    * scope and list what secrets are available.
    *
-   * <p>Note that in general, secret values can only be read from within a command on a cluster (for
-   * example, through a notebook). There is no API to read the actual secret value material outside
-   * of a cluster. However, the user's permission will be applied based on who is executing the
-   * command, and they must have at least READ permission.
-   *
    * <p>Users must have the ``MANAGE`` permission to invoke this API.
    *
-   * <p>Example request:
-   *
-   * <p>.. code::
-   *
-   * <p>{ "scope": "my-secret-scope", "principal": "data-scientists", "permission": "READ" }
-   *
-   * <p>The principal is a user or group name corresponding to an existing Databricks principal to
-   * be granted or revoked access.
-   *
    * <p>Throws ``RESOURCE_DOES_NOT_EXIST`` if no such secret scope exists. Throws
-   * ``RESOURCE_ALREADY_EXISTS`` if a permission for the principal already exists. Throws
    * ``INVALID_PARAMETER_VALUE`` if the permission or principal is invalid. Throws
    * ``PERMISSION_DENIED`` if the user does not have permission to make this API call.
    */

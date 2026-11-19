@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class GetLatestVersionProviderAnalyticsDashboardResponse {
-  /** version here is latest logical version of the dashboard template */
+  /** Latest available version of the dashboard template. */
   @JsonProperty("version")
   private Long version;
 

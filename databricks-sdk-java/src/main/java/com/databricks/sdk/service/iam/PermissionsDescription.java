@@ -9,11 +9,11 @@ import java.util.Objects;
 
 @Generated
 public class PermissionsDescription {
-  /** */
+  /** Human-readable description of the permission level. */
   @JsonProperty("description")
   private String description;
 
-  /** */
+  /** Permission level that can be granted on the object. */
   @JsonProperty("permission_level")
   private PermissionLevel permissionLevel;
 

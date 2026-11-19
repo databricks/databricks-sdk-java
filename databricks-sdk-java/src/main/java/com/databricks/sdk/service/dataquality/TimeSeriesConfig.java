@@ -17,7 +17,10 @@ public class TimeSeriesConfig {
   @JsonProperty("granularities")
   private Collection<AggregationGranularity> granularities;
 
-  /** Column for the timestamp. */
+  /**
+   * Column containing the timestamp of each row. Its type must be TIMESTAMP or convertible to a
+   * timestamp.
+   */
   @JsonProperty("timestamp_column")
   private String timestampColumn;
 

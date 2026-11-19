@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class ShareInfo {
-  /** */
+  /** Name of the Delta Sharing share in the provider's Unity Catalog metastore. */
   @JsonProperty("name")
   private String name;
 

@@ -14,7 +14,9 @@ public class GenerateTemporaryServiceCredentialGcpOptions {
   /**
    * The scopes to which the temporary GCP credential should apply. These resources are the scopes
    * that are passed to the token provider (see
-   * https://google-auth.readthedocs.io/en/latest/reference/google.auth.html#google.auth.credentials.Credentials)
+   * https://google-auth.readthedocs.io/en/latest/reference/google.auth.html#google.auth.credentials.Credentials).
+   * Each scope must be a Google OAuth 2.0 scope URL on the `googleapis.com` or `www.googleapis.com`
+   * host.
    */
   @JsonProperty("scopes")
   private Collection<String> scopes;

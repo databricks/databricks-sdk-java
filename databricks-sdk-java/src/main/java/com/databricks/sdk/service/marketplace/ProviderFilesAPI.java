@@ -27,7 +27,11 @@ public class ProviderFilesAPI {
     impl = mock;
   }
 
-  /** Create a file. Currently, only provider icons and attached notebooks are supported. */
+  /**
+   * Creates a file and returns a short-lived URL for uploading its content with an HTTP PUT
+   * request. Only provider icons (PROVIDER_ICON files on a PROVIDER parent) and sample notebooks
+   * (EMBEDDED_NOTEBOOK files on a LISTING parent) are supported.
+   */
   public CreateFileResponse create(CreateFileRequest request) {
     return impl.create(request);
   }
@@ -36,7 +40,7 @@ public class ProviderFilesAPI {
     delete(new DeleteFileRequest().setFileId(fileId));
   }
 
-  /** Delete a file */
+  /** Deletes a file. Fails if the file is still in use. */
   public void delete(DeleteFileRequest request) {
     impl.delete(request);
   }
@@ -45,7 +49,7 @@ public class ProviderFilesAPI {
     return get(new GetFileRequest().setFileId(fileId));
   }
 
-  /** Get a file */
+  /** Gets a file's metadata, including a short-lived download URL. */
   public GetFileResponse get(GetFileRequest request) {
     return impl.get(request);
   }
@@ -54,7 +58,7 @@ public class ProviderFilesAPI {
     return list(new ListFilesRequest().setFileParent(fileParent));
   }
 
-  /** List files attached to a parent entity. */
+  /** Lists the files attached to a provider profile or a listing. */
   public Iterable<FileInfo> list(ListFilesRequest request) {
     return Paginator.newTokenPagination(
         request,

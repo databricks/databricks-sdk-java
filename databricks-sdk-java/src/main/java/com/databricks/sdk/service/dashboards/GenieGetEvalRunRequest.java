@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class GenieGetEvalRunRequest {
-  /** */
+  /** The ID of the evaluation run, as returned when the run was created. */
   @JsonIgnore private String evalRunId;
 
   /** The ID associated with the Genie space where the evaluation run is located. */

@@ -9,11 +9,11 @@ import java.util.Objects;
 
 @Generated
 public class CreateFileResponse {
-  /** */
+  /** Metadata of the created file. */
   @JsonProperty("file_info")
   private FileInfo fileInfo;
 
-  /** Pre-signed POST URL to blob storage */
+  /** Short-lived URL for uploading the file content with an HTTP PUT request. */
   @JsonProperty("upload_url")
   private String uploadUrl;
 

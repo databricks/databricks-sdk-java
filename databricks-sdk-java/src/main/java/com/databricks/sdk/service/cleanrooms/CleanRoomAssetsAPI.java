@@ -74,7 +74,10 @@ public class CleanRoomAssetsAPI {
     return list(new ListCleanRoomAssetsRequest().setCleanRoomName(cleanRoomName));
   }
 
-  /** List assets. */
+  /**
+   * List the assets in a clean room. Listed assets do not include their asset-type specific
+   * details, such as table columns or notebook content; use the get method to retrieve them.
+   */
   public Iterable<CleanRoomAsset> list(ListCleanRoomAssetsRequest request) {
     return Paginator.newTokenPagination(
         request,

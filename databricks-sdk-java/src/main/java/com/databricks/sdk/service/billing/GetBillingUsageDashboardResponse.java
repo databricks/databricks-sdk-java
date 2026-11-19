@@ -9,11 +9,13 @@ import java.util.Objects;
 
 @Generated
 public class GetBillingUsageDashboardResponse {
-  /** The unique id of the usage dashboard. */
+  /** The ID of the AI/BI dashboard. The ID is empty if no matching dashboard is found. */
   @JsonProperty("dashboard_id")
   private String dashboardId;
 
-  /** The URL of the usage dashboard. */
+  /**
+   * The URL of the dashboard in its workspace. The URL is empty if no matching dashboard is found.
+   */
   @JsonProperty("dashboard_url")
   private String dashboardUrl;
 

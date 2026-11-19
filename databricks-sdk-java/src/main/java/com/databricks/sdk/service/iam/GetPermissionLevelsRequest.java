@@ -9,7 +9,11 @@ import java.util.Objects;
 
 @Generated
 public class GetPermissionLevelsRequest {
-  /** */
+  /**
+   * The id of the object. It is the id that the object's own API uses, for example the cluster id
+   * for clusters, the job id for jobs, and the workspace object id for notebooks and directories.
+   * For the `authorization` object type, use `tokens` to manage token permissions.
+   */
   @JsonIgnore private String requestObjectId;
 
   /**

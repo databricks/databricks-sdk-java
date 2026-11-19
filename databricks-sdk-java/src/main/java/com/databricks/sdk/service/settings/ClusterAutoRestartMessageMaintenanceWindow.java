@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class ClusterAutoRestartMessageMaintenanceWindow {
-  /** */
+  /** Schedule anchored to a day of the week, either every week or on given weeks of the month. */
   @JsonProperty("week_day_based_schedule")
   private ClusterAutoRestartMessageMaintenanceWindowWeekDayBasedSchedule weekDayBasedSchedule;
 

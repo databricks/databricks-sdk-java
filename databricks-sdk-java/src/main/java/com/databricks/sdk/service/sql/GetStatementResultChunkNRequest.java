@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class GetStatementResultChunkNRequest {
-  /** */
+  /** The zero-based index of the result chunk to fetch. */
   @JsonIgnore private Long chunkIndex;
 
   /**

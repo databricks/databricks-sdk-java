@@ -9,15 +9,18 @@ import java.util.Objects;
 
 @Generated
 public class ListProviderAnalyticsDashboardResponse {
-  /** dashboard_id will be used to open Lakeview dashboard. */
+  /** ID of the AI/BI dashboard in the workspace. Use it to open the dashboard. */
   @JsonProperty("dashboard_id")
   private String dashboardId;
 
-  /** */
+  /**
+   * Marketplace-specific ID of the dashboard record. Use it as the `id` when updating the
+   * dashboard.
+   */
   @JsonProperty("id")
   private String id;
 
-  /** */
+  /** Version of the dashboard template that the dashboard was created or last updated from. */
   @JsonProperty("version")
   private Long version;
 

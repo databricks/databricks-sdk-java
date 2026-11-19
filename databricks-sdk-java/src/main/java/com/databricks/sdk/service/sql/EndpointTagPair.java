@@ -9,11 +9,14 @@ import java.util.Objects;
 
 @Generated
 public class EndpointTagPair {
-  /** */
+  /**
+   * Tag key. Keys must be unique within the warehouse and cannot use the keys that Databricks
+   * reserves for the tags it sets automatically.
+   */
   @JsonProperty("key")
   private String key;
 
-  /** */
+  /** Tag value. Keys and values must follow the tagging rules of the cloud provider. */
   @JsonProperty("value")
   private String value;
 

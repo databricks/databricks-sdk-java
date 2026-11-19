@@ -20,7 +20,7 @@ public class GetFunctionRequest {
 
   /**
    * The fully-qualified name of the function (of the form
-   * __catalog_name__.__schema_name__.__function__name__).
+   * __catalog_name__.__schema_name__.__function_name__).
    */
   @JsonIgnore private String name;
 

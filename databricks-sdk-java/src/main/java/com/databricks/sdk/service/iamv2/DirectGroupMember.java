@@ -7,7 +7,13 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** A user, service principal, or group that's a direct member of a group. */
+/**
+ * A user, service principal, or group that's a direct member of a group. To address a membership,
+ * put its resource name in the URL: `GET
+ * /api/2.0/identity/accounts/{account_id}/groups/{group_id}/direct-members/{principal_id}` in
+ * account APIs, or `GET /api/2.0/identity/groups/{group_id}/direct-members/{principal_id}` in
+ * workspace APIs.
+ */
 @Generated
 public class DirectGroupMember {
   /** The member's display name. */

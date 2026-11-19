@@ -17,6 +17,40 @@ class SoftwareArtifactsImpl implements SoftwareArtifactsService {
   }
 
   @Override
+  public void deleteSoftwareArtifact(DeleteSoftwareArtifactRequest request) {
+    String path = String.format("/api/2.1/unity-catalog/%s", request.getName());
+    try {
+      Request req = new Request("DELETE", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      apiClient.execute(req, Void.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public void deleteSoftwareArtifactVersion(DeleteSoftwareArtifactVersionRequest request) {
+    String path = String.format("/api/2.1/unity-catalog/%s", request.getName());
+    try {
+      Request req = new Request("DELETE", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      apiClient.execute(req, Void.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public SoftwareArtifact getSoftwareArtifact(GetSoftwareArtifactRequest request) {
     String path = String.format("/api/2.1/unity-catalog/%s", request.getName());
     try {

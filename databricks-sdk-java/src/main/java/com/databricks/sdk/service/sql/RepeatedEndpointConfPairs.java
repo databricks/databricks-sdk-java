@@ -14,7 +14,7 @@ public class RepeatedEndpointConfPairs {
   @JsonProperty("config_pair")
   private Collection<EndpointConfPair> configPair;
 
-  /** */
+  /** Configuration parameters, each a key-value pair. */
   @JsonProperty("configuration_pairs")
   private Collection<EndpointConfPair> configurationPairs;
 

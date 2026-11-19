@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class CreateProviderRequest {
-  /** */
+  /** Provider profile to create. */
   @JsonProperty("provider")
   private ProviderInfo provider;
 

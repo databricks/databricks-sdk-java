@@ -13,6 +13,15 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface SoftwareArtifactsService {
   /**
+   * Deletes a software artifact. Fails if the artifact still has versions unless `force` is set.
+   */
+  void deleteSoftwareArtifact(DeleteSoftwareArtifactRequest deleteSoftwareArtifactRequest);
+
+  /** Deletes a software artifact version. */
+  void deleteSoftwareArtifactVersion(
+      DeleteSoftwareArtifactVersionRequest deleteSoftwareArtifactVersionRequest);
+
+  /**
    * Gets a software artifact by its resource name. Returns `NOT_FOUND` if the artifact does not
    * exist.
    */

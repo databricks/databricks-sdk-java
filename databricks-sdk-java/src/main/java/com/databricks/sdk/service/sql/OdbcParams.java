@@ -9,19 +9,19 @@ import java.util.Objects;
 
 @Generated
 public class OdbcParams {
-  /** */
+  /** Hostname of the workspace to connect to. */
   @JsonProperty("hostname")
   private String hostname;
 
-  /** */
+  /** HTTP path of the warehouse. */
   @JsonProperty("path")
   private String path;
 
-  /** */
+  /** The connection port is always 443. */
   @JsonProperty("port")
   private Long port;
 
-  /** */
+  /** The transport protocol is always https. */
   @JsonProperty("protocol")
   private String protocol;
 

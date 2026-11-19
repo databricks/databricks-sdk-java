@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Generated
 public class AccessControlResponse {
-  /** All permissions. */
+  /** Permission levels the principal holds on the object, both granted directly and inherited. */
   @JsonProperty("all_permissions")
   private Collection<Permission> allPermissions;
 
@@ -18,15 +18,15 @@ public class AccessControlResponse {
   @JsonProperty("display_name")
   private String displayName;
 
-  /** name of the group */
+  /** Display name of the group. */
   @JsonProperty("group_name")
   private String groupName;
 
-  /** Name of the service principal. */
+  /** Application ID of the service principal. */
   @JsonProperty("service_principal_name")
   private String servicePrincipalName;
 
-  /** name of the user */
+  /** Username of the user, which is the user's email address. */
   @JsonProperty("user_name")
   private String userName;
 

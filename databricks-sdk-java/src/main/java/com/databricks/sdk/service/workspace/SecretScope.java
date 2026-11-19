@@ -8,9 +8,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 /**
- * An organizational resource for storing secrets. Secret scopes can be different types
- * (Databricks-managed, Azure KeyVault backed, etc), and ACLs can be applied to control permissions
- * for all secrets within a scope.
+ * An organizational resource for storing secrets. A secret scope is either Databricks-backed or
+ * Azure Key Vault-backed, and ACLs can be applied to control permissions for all secrets within a
+ * scope.
  */
 @Generated
 public class SecretScope {
@@ -18,7 +18,7 @@ public class SecretScope {
   @JsonProperty("backend_type")
   private ScopeBackendType backendType;
 
-  /** The metadata for the secret scope if the type is ``AZURE_KEYVAULT`` */
+  /** The metadata for the secret scope if the type is ``AZURE_KEYVAULT``. */
   @JsonProperty("keyvault_metadata")
   private AzureKeyVaultSecretScopeMetadata keyvaultMetadata;
 

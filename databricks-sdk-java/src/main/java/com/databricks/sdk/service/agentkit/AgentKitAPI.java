@@ -42,7 +42,8 @@ public class AgentKitAPI {
    * service generates one when it is omitted. Returns `ALREADY_EXISTS` when an entry with the same
    * actor, session, and path already exists. Omitted `session_id` is its own uniqueness key: two
    * omitted-session entries with the same actor and path conflict, but an omitted-session entry
-   * does not conflict with a session-scoped entry at the same actor and path.
+   * does not conflict with a session-scoped entry at the same actor and path. `session_id` is
+   * deprecated: once it is ignored, the uniqueness key becomes actor and path.
    */
   public ManagedMemoryEntry createMemory(CreateManagedMemoryEntryRequest request) {
     return impl.createMemory(request);
@@ -220,8 +221,8 @@ public class AgentKitAPI {
 
   /**
    * Lists memory entries for one actor. An exact `path` filters entries across sessions, ignoring
-   * session metadata. Otherwise, `session_id` and `path_prefix` restrict the actor partition.
-   * `view` controls whether each returned entry includes memory content.
+   * session metadata. Otherwise, `path_prefix` and the deprecated `session_id` restrict the actor
+   * partition. `view` controls whether each returned entry includes memory content.
    */
   public Iterable<ManagedMemoryEntry> listMemories(ListManagedMemoryEntriesRequest request) {
     return Paginator.newTokenPagination(

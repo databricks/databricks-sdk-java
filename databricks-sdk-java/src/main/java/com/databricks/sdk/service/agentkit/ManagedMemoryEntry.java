@@ -36,15 +36,17 @@ public class ManagedMemoryEntry {
   private String name;
 
   /**
-   * Absolute, case-sensitive path identifying the entry within its actor and optional session.
-   * Paths must begin with `/` and must not contain empty, `.` or `..` segments.
+   * Absolute, case-sensitive path identifying the entry within its actor and, until the deprecated
+   * `session_id` is ignored, its optional session. Paths must begin with `/` and must not contain
+   * empty, `.` or `..` segments.
    */
   @JsonProperty("path")
   private String path;
 
   /**
-   * Optional identifier for the session associated with this memory entry. When omitted, the entry
-   * applies across the actor's sessions.
+   * Deprecated: memory entries will be identified by `(actor_id, path)`, and the service will
+   * ignore this field on writes and omit it from responses. Until then, an omitted value means the
+   * entry applies across the actor's sessions.
    */
   @JsonProperty("session_id")
   private String sessionId;

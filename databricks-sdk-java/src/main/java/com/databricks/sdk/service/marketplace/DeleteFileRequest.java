@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class DeleteFileRequest {
-  /** */
+  /** ID of the file to delete. */
   @JsonIgnore private String fileId;
 
   public DeleteFileRequest setFileId(String fileId) {

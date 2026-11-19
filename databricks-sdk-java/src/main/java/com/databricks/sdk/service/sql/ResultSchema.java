@@ -11,11 +11,11 @@ import java.util.Objects;
 /** The schema is an ordered list of column descriptions. */
 @Generated
 public class ResultSchema {
-  /** */
+  /** The number of columns in the result set. */
   @JsonProperty("column_count")
   private Long columnCount;
 
-  /** */
+  /** The column descriptions, in result set order. */
   @JsonProperty("columns")
   private Collection<ColumnInfo> columns;
 

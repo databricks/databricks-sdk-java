@@ -21,7 +21,7 @@ public class GetWarehouseResponse {
   @JsonProperty("auto_stop_mins")
   private Long autoStopMins;
 
-  /** Channel Details */
+  /** Channel that determines which Databricks SQL version the warehouse runs. */
   @JsonProperty("channel")
   private Channel channel;
 
@@ -36,7 +36,7 @@ public class GetWarehouseResponse {
   @JsonProperty("cluster_size")
   private String clusterSize;
 
-  /** warehouse creator name */
+  /** Name of the user who created the warehouse. Set by the server and ignored in requests. */
   @JsonProperty("creator_name")
   private String creatorName;
 
@@ -60,7 +60,7 @@ public class GetWarehouseResponse {
   @JsonProperty("health")
   private EndpointHealth health;
 
-  /** unique identifier for warehouse */
+  /** Unique identifier of the warehouse. */
   @JsonProperty("id")
   private String id;
 
@@ -68,7 +68,7 @@ public class GetWarehouseResponse {
   @JsonProperty("instance_profile_arn")
   private String instanceProfileArn;
 
-  /** the jdbc connection string for this warehouse */
+  /** JDBC connection string for the warehouse. */
   @JsonProperty("jdbc_url")
   private String jdbcUrl;
 
@@ -104,9 +104,9 @@ public class GetWarehouseResponse {
   private Long minNumClusters;
 
   /**
-   * Logical name for the cluster.
+   * Logical name for the warehouse.
    *
-   * <p>Supported values: - Must be unique within an org. - Must be less than 100 characters.
+   * <p>Supported values: - Must be unique within an org. - Must be 1 to 100 characters.
    */
   @JsonProperty("name")
   private String name;
@@ -115,7 +115,10 @@ public class GetWarehouseResponse {
   @JsonProperty("num_active_sessions")
   private Long numActiveSessions;
 
-  /** current number of clusters running for the service */
+  /**
+   * Number of clusters currently allocated to the warehouse, including clusters that are still
+   * starting.
+   */
   @JsonProperty("num_clusters")
   private Long numClusters;
 
@@ -135,15 +138,23 @@ public class GetWarehouseResponse {
   @JsonProperty("reyden_cluster_size_multiplier")
   private Double reydenClusterSizeMultiplier;
 
-  /** Configurations whether the endpoint should use spot instances. */
+  /**
+   * Configures whether the warehouse should use spot instances. COST_OPTIMIZED uses spot instances
+   * where the cloud provider supports them, and RELIABILITY_OPTIMIZED uses on-demand instances
+   * only.
+   */
   @JsonProperty("spot_instance_policy")
   private SpotInstancePolicy spotInstancePolicy;
 
-  /** state of the endpoint */
+  /** Current state of the warehouse. */
   @JsonProperty("state")
   private State state;
 
-  /** Warehouse statement timeout in seconds. */
+  /**
+   * Maximum time in seconds that a statement can run on this warehouse before it is cancelled. Set
+   * to 0 to remove the warehouse-level timeout. Changing the value of a running warehouse restarts
+   * it. See https://docs.databricks.com/aws/en/sql/language-manual/parameters/statement_timeout.
+   */
   @JsonProperty("statement_timeout")
   private Long statementTimeout;
 

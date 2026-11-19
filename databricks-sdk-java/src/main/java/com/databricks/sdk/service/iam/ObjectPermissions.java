@@ -8,17 +8,27 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/** The permissions set on an object, with one entry per principal that holds a permission on it. */
 @Generated
 public class ObjectPermissions {
-  /** */
+  /**
+   * Permissions on the object, with one entry per principal. Each entry lists the principal's
+   * direct and inherited permission levels.
+   */
   @JsonProperty("access_control_list")
   private Collection<AccessControlResponse> accessControlList;
 
-  /** */
+  /**
+   * Path that identifies the object in the access control list, built from the object type and the
+   * object id.
+   */
   @JsonProperty("object_id")
   private String objectId;
 
-  /** */
+  /**
+   * Type of the object, as recorded in the access control list. It can differ from the
+   * `request_object_type` path segment, for example a request for `clusters` returns `cluster`.
+   */
   @JsonProperty("object_type")
   private String objectType;
 

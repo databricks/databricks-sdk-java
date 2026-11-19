@@ -11,7 +11,10 @@ import java.util.Objects;
 
 @Generated
 public class UpdateConnection {
-  /** [Create,Update:OPT] Connection environment settings as EnvironmentSettings object. */
+  /**
+   * Environment settings for the connection, such as the Java libraries that it needs and the
+   * environment version.
+   */
   @JsonProperty("environment_settings")
   private EnvironmentSettings environmentSettings;
 
@@ -26,7 +29,10 @@ public class UpdateConnection {
   @JsonProperty("options")
   private Map<String, String> options;
 
-  /** Username of current owner of the connection. */
+  /**
+   * Username of the current owner of the connection. The creator becomes the owner at creation, and
+   * ownership can be transferred on update.
+   */
   @JsonProperty("owner")
   private String owner;
 

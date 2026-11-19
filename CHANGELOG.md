@@ -1,5 +1,12 @@
 # Version changelog
 
+## Release v0.184.0 (2026-11-19)
+
+### API Changes
+* Add `deleteSoftwareArtifact()` and `deleteSoftwareArtifactVersion()` methods for `workspaceClient.softwareArtifacts()` service.
+* Add `HIGH` enum value for `com.databricks.sdk.service.jobs.AiRuntimeTaskPriorityClass`.
+* [Breaking] Remove `BEST_EFFORT` enum value for `com.databricks.sdk.service.jobs.AiRuntimeTaskPriorityClass`.
+
 ## Release v0.183.0 (2026-11-18)
 
 ### API Changes

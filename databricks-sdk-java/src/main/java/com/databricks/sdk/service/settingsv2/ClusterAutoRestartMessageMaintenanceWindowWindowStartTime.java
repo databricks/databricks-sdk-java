@@ -9,11 +9,11 @@ import java.util.Objects;
 
 @Generated
 public class ClusterAutoRestartMessageMaintenanceWindowWindowStartTime {
-  /** */
+  /** Hour of the day on a 24-hour clock. */
   @JsonProperty("hours")
   private Long hours;
 
-  /** */
+  /** Minute of the hour. */
   @JsonProperty("minutes")
   private Long minutes;
 

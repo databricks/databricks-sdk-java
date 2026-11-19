@@ -14,11 +14,17 @@ import java.util.Objects;
  */
 @Generated
 public class StatementResponse {
-  /** */
+  /** The schema and metadata of the result set. Present when `status.state` is `SUCCEEDED`. */
   @JsonProperty("manifest")
   private ResultManifest manifest;
 
-  /** */
+  /**
+   * Contains the result data of a single chunk when using `INLINE` disposition. When using
+   * `EXTERNAL_LINKS` disposition, the array `external_links` is used instead to provide short-lived
+   * cloud-storage URLs to the result data in cloud storage. Exactly one of these alternatives is
+   * used. Calls to `getResultData` return the link for the requested chunk; `executeStatement` and
+   * `getStatementResult` responses can contain links for multiple chunks.
+   */
   @JsonProperty("result")
   private ResultData result;
 
@@ -29,7 +35,7 @@ public class StatementResponse {
   @JsonProperty("statement_id")
   private String statementId;
 
-  /** */
+  /** The execution state of the statement and, if it failed, the error details. */
   @JsonProperty("status")
   private StatementStatus status;
 

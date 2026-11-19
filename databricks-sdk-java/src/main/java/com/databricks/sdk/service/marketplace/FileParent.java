@@ -10,12 +10,14 @@ import java.util.Objects;
 
 @Generated
 public class FileParent {
-  /** */
+  /**
+   * Type of the parent: PROVIDER for provider icons, LISTING for notebooks attached to a listing.
+   */
   @JsonProperty("file_parent_type")
   @QueryParam("file_parent_type")
   private FileParentType fileParentType;
 
-  /** */
+  /** ID of the provider or listing that the file belongs to. */
   @JsonProperty("parent_id")
   @QueryParam("parent_id")
   private String parentId;

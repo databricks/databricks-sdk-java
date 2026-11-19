@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Generated
 public class EndpointTags {
-  /** */
+  /** User-defined tags, applied in addition to the tags Databricks sets automatically. */
   @JsonProperty("custom_tags")
   private Collection<EndpointTagPair> customTags;
 

@@ -7,6 +7,15 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * A setting and its value at the workspace or account scope. Each setting has one value type, so
+ * one value field applies to it: a primitive wrapper (boolean_val, string_val or integer_val) or a
+ * setting-specific message. The settings metadata endpoint reports the field each setting uses.
+ * When updating a setting, set only the value field that matches its type. Responses return that
+ * field with the value configured at this scope, if one is set, together with the matching
+ * effective_* field, which holds the value in effect after Databricks applies account policies and
+ * defaults.
+ */
 @Generated
 public class Setting {
   /**
@@ -150,7 +159,9 @@ public class Setting {
   @JsonProperty("integer_val")
   private IntegerMessage integerVal;
 
-  /** Name of the setting. */
+  /**
+   * Name of the setting. The settings metadata endpoint lists the names available at each scope.
+   */
   @JsonProperty("name")
   private String name;
 

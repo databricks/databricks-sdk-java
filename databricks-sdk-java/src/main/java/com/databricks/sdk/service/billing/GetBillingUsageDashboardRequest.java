@@ -12,13 +12,17 @@ import java.util.Objects;
 public class GetBillingUsageDashboardRequest {
   /**
    * Workspace level usage dashboard shows usage data for the specified workspace ID. Global level
-   * usage dashboard shows usage data for all workspaces in the account.
+   * usage dashboard shows usage data for all workspaces in the account. The request fails if the
+   * type is not set.
    */
   @JsonIgnore
   @QueryParam("dashboard_type")
   private UsageDashboardType dashboardType;
 
-  /** The workspace ID of the workspace in which the usage dashboard is created. */
+  /**
+   * The ID of the workspace that contains the usage dashboard. If omitted, the most recently
+   * created dashboard of the given type across all workspaces in the account is returned.
+   */
   @JsonIgnore
   @QueryParam("workspace_id")
   private Long workspaceId;

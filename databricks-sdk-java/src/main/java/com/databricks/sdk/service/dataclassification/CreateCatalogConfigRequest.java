@@ -14,7 +14,7 @@ public class CreateCatalogConfigRequest {
   @JsonProperty("catalog_config")
   private CatalogConfig catalogConfig;
 
-  /** Parent resource in the format: catalogs/{catalog_name} */
+  /** Name of the catalog to enable, in the format catalogs/{catalog_name}. */
   @JsonIgnore private String parent;
 
   public CreateCatalogConfigRequest setCatalogConfig(CatalogConfig catalogConfig) {

@@ -10,11 +10,11 @@ import java.util.Objects;
 
 @Generated
 public class ListFilesResponse {
-  /** */
+  /** Files on this page. */
   @JsonProperty("file_infos")
   private Collection<FileInfo> fileInfos;
 
-  /** */
+  /** Token for the next page. Not set when there are no more results. */
   @JsonProperty("next_page_token")
   private String nextPageToken;
 

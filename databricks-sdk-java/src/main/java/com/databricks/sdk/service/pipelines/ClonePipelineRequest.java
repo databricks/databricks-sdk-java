@@ -133,7 +133,9 @@ public class ClonePipelineRequest {
   /**
    * Path of the pipeline parent folder in workspace file tree.
    *
-   * <p>If absent, the pipeline doesn't have a workspace object.
+   * <p>If absent, the pipeline doesn't have a parent folder.
+   *
+   * <p>Example: /Workspace/Projects/my_project
    */
   @JsonProperty("parent_path")
   private String parentPath;

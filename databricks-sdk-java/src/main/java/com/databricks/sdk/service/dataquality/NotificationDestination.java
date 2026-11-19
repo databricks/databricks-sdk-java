@@ -29,7 +29,8 @@ public class NotificationDestination {
 
   /**
    * The list of email addresses to send the notification to. A maximum of 5 email addresses is
-   * supported.
+   * supported. Only supported on table monitors, via `data_profiling_config`; rejected on schema
+   * monitors.
    */
   @JsonProperty("email_addresses")
   private Collection<String> emailAddresses;

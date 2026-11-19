@@ -12,18 +12,18 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface ProviderProvidersService {
-  /** Create a provider */
+  /** Creates a provider profile in the caller's account. Returns the ID of the new profile. */
   CreateProviderResponse create(CreateProviderRequest createProviderRequest);
 
-  /** Delete provider */
+  /** Deletes a provider profile and all of the listings that it owns. */
   void delete(DeleteProviderRequest deleteProviderRequest);
 
-  /** Get provider profile */
+  /** Gets a provider profile by ID. */
   GetProviderResponse get(GetProviderRequest getProviderRequest);
 
-  /** List provider profiles for account. */
+  /** Lists the provider profiles in the caller's account. */
   ListProvidersResponse list(ListProvidersRequest listProvidersRequest);
 
-  /** Update provider profile */
+  /** Updates a provider profile. Send the full profile definition. */
   UpdateProviderResponse update(UpdateProviderRequest updateProviderRequest);
 }

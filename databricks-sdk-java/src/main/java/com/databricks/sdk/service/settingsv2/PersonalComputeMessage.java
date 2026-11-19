@@ -9,7 +9,11 @@ import java.util.Objects;
 
 @Generated
 public class PersonalComputeMessage {
-  /** */
+  /**
+   * ON grants all users in all workspaces of the account access to the Personal Compute default
+   * policy. DELEGATE moves control to each workspace, where users or groups must be added to the
+   * policy's permissions before they can create compute with it.
+   */
   @JsonProperty("value")
   private PersonalComputeMessagePersonalComputeMessageEnum value;
 

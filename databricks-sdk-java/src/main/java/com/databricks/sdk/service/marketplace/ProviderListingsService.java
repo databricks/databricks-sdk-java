@@ -13,18 +13,28 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface ProviderListingsService {
-  /** Create a new listing */
+  /**
+   * Creates a listing under one of the caller's provider profiles. The listing name, provider ID
+   * and visibility are required, and the caller must have access to any share that the listing
+   * references. Returns the ID of the new listing.
+   */
   CreateListingResponse create(CreateListingRequest createListingRequest);
 
-  /** Delete a listing */
+  /**
+   * Deletes a listing permanently. The underlying share is not deleted, and consumers who already
+   * have access to the share keep that access until it is revoked in Delta Sharing.
+   */
   void delete(DeleteListingRequest deleteListingRequest);
 
-  /** Get a listing */
+  /** Gets a listing owned by one of the caller's provider profiles. */
   GetListingResponse get(GetListingRequest getListingRequest);
 
-  /** List listings owned by this provider */
+  /** Lists the listings owned by the provider profiles in the caller's account. */
   GetListingsResponse list(GetListingsRequest getListingsRequest);
 
-  /** Update a listing */
+  /**
+   * Updates a listing. Send the full listing definition; the listing type cannot be changed after
+   * the listing is created, and changing the share re-links the listing to the new share.
+   */
   UpdateListingResponse update(UpdateListingRequest updateListingRequest);
 }

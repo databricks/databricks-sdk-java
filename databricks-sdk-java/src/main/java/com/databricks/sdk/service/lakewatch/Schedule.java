@@ -10,9 +10,9 @@ import java.util.Objects;
 /**
  * Defines when a recurring job executes.
  *
- * <p>Exactly one of the timing modes (`at_least_every`, `cron_expression`, `continuous`) must be
- * set; combining them or setting none is rejected by the server. `compute_group` and `enabled` are
- * orthogonal to the timing.
+ * <p>Exactly one of the timing modes (`at_least_every`, `cron_expression`, `continuous`,
+ * `file_arrival`) must be set; combining them or setting none is rejected by the server.
+ * `compute_group` and `enabled` are orthogonal to the timing.
  */
 @Generated
 public class Schedule {

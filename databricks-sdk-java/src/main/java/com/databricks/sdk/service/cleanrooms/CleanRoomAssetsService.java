@@ -32,7 +32,10 @@ public interface CleanRoomAssetsService {
   /** Get the details of a clean room asset by its type and full name. */
   CleanRoomAsset get(GetCleanRoomAssetRequest getCleanRoomAssetRequest);
 
-  /** List assets. */
+  /**
+   * List the assets in a clean room. Listed assets do not include their asset-type specific
+   * details, such as table columns or notebook content; use the get method to retrieve them.
+   */
   ListCleanRoomAssetsResponse list(ListCleanRoomAssetsRequest listCleanRoomAssetsRequest);
 
   /**

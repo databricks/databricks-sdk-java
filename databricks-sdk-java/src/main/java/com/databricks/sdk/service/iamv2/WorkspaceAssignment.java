@@ -21,6 +21,11 @@ import java.util.Objects;
  * <p>`entitlements` is the only field you set. `effective_entitlements` also includes the
  * entitlements the principal gets through its groups. An assignment must grant at least one
  * entitlement. To remove a principal's direct access, delete the assignment.
+ *
+ * <p>To address an assignment, put its resource name in the URL: `GET
+ * /api/2.0/identity/accounts/{account_id}/workspaces/{workspace_id}/workspace-assignments/{principal_id}`
+ * in account APIs, or `GET /api/2.0/identity/workspace-assignments/{principal_id}` in workspace
+ * APIs.
  */
 @Generated
 public class WorkspaceAssignment {

@@ -11,7 +11,7 @@ import java.util.Objects;
 
 @Generated
 public class UpdateMonitorRequest {
-  /** The monitor to update. */
+  /** The new values for the monitor. Only the fields named in `update_mask` are applied. */
   @JsonProperty("monitor")
   private Monitor monitor;
 

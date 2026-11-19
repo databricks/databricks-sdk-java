@@ -9,27 +9,27 @@ import java.util.Objects;
 
 @Generated
 public class PersonalizationRequest {
-  /** */
+  /** Comment that the consumer entered with the request. */
   @JsonProperty("comment")
   private String comment;
 
-  /** */
+  /** Cloud and region of the consumer's Unity Catalog metastore. */
   @JsonProperty("consumer_region")
   private RegionInfo consumerRegion;
 
-  /** */
+  /** Contact details that the consumer entered with the request. */
   @JsonProperty("contact_info")
   private ContactInfo contactInfo;
 
-  /** */
+  /** Time the request was created, in epoch milliseconds. */
   @JsonProperty("created_at")
   private Long createdAt;
 
-  /** */
+  /** ID of the personalization request. */
   @JsonProperty("id")
   private String id;
 
-  /** */
+  /** How the consumer intends to use the data product, as entered with the request. */
   @JsonProperty("intended_use")
   private String intendedUse;
 
@@ -37,23 +37,27 @@ public class PersonalizationRequest {
   @JsonProperty("is_from_lighthouse")
   private Boolean isFromLighthouse;
 
-  /** */
+  /** ID of the listing that the request was made for. */
   @JsonProperty("listing_id")
   private String listingId;
 
-  /** */
+  /** Name of the listing that the request was made for. */
   @JsonProperty("listing_name")
   private String listingName;
 
-  /** */
+  /** ID of the consumer's Unity Catalog metastore. */
   @JsonProperty("metastore_id")
   private String metastoreId;
 
-  /** */
+  /** ID of the provider profile that owns the listing. */
   @JsonProperty("provider_id")
   private String providerId;
 
-  /** */
+  /**
+   * How the consumer receives the shared data: DELTA_SHARING_RECIPIENT_TYPE_DATABRICKS for a
+   * consumer on a Databricks workspace, DELTA_SHARING_RECIPIENT_TYPE_OPEN for a consumer on another
+   * platform who uses a credential file.
+   */
   @JsonProperty("recipient_type")
   private DeltaSharingRecipientType recipientType;
 
@@ -64,15 +68,15 @@ public class PersonalizationRequest {
   @JsonProperty("share")
   private ShareInfo share;
 
-  /** */
+  /** Current status of the request. */
   @JsonProperty("status")
   private PersonalizationRequestStatus status;
 
-  /** */
+  /** Reason that the provider gave in the most recent status update. */
   @JsonProperty("status_message")
   private String statusMessage;
 
-  /** */
+  /** Time the request was last updated, in epoch milliseconds. */
   @JsonProperty("updated_at")
   private Long updatedAt;
 

@@ -20,7 +20,8 @@ public class AiClassifyRequest {
   /**
    * The label set to classify as. Either a JSON array of label strings (e.g. ["spam", "not_spam"]),
    * or a JSON object mapping each label to a description (e.g. {"spam": "unsolicited bulk message",
-   * "not_spam": "a legitimate message"}). Accepts 2 to 500 labels, each 1 to 100 characters.
+   * "not_spam": "a legitimate message"}). Accepts 2 to 500 labels, each 1 to 100 characters. When
+   * multilabel is true, a single label is also accepted.
    */
   @JsonProperty("labels")
   private JsonNode labels;

@@ -10,11 +10,17 @@ import java.util.Objects;
 /** Workspace label and color for display (e.g. in account console). */
 @Generated
 public class WorkspaceLabelMessage {
-  /** */
+  /**
+   * Color of the label badge. The supported colors are coral, lemon, lime, turquoise, indigo,
+   * purple and pink. It is an empty string when no label is set.
+   */
   @JsonProperty("color")
   private String color;
 
-  /** */
+  /**
+   * Text of the label shown next to the workspace name in the top navigation bar. An empty string
+   * means no label is set.
+   */
   @JsonProperty("label")
   private String label;
 

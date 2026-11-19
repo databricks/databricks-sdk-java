@@ -13,15 +13,19 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface ProviderFilesService {
-  /** Create a file. Currently, only provider icons and attached notebooks are supported. */
+  /**
+   * Creates a file and returns a short-lived URL for uploading its content with an HTTP PUT
+   * request. Only provider icons (PROVIDER_ICON files on a PROVIDER parent) and sample notebooks
+   * (EMBEDDED_NOTEBOOK files on a LISTING parent) are supported.
+   */
   CreateFileResponse create(CreateFileRequest createFileRequest);
 
-  /** Delete a file */
+  /** Deletes a file. Fails if the file is still in use. */
   void delete(DeleteFileRequest deleteFileRequest);
 
-  /** Get a file */
+  /** Gets a file's metadata, including a short-lived download URL. */
   GetFileResponse get(GetFileRequest getFileRequest);
 
-  /** List files attached to a parent entity. */
+  /** Lists the files attached to a provider profile or a listing. */
   ListFilesResponse list(ListFilesRequest listFilesRequest);
 }

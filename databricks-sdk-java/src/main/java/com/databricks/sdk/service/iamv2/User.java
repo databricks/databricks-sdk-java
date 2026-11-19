@@ -7,7 +7,11 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** A user in your Databricks account. */
+/**
+ * A user in your Databricks account. To address a user, put its resource name in the URL: `GET
+ * /api/2.0/identity/accounts/{account_id}/users/{user_id}` in account APIs, or `GET
+ * /api/2.0/identity/users/{user_id}` in workspace APIs.
+ */
 @Generated
 public class User {
   /** The ID of the account that contains the user. */

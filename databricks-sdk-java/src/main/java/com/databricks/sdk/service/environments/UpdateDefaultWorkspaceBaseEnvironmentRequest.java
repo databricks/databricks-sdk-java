@@ -26,7 +26,9 @@ public class UpdateDefaultWorkspaceBaseEnvironmentRequest {
    *
    * <p>To unset one or both defaults, include the field path(s) in the mask and omit them from the
    * request body. To unset both, you must list both paths explicitly — the wildcard '*' cannot be
-   * used to unset fields.
+   * used to unset fields. Unsetting a default makes that compute type use the Databricks Standard
+   * base environment. The Standard base environment has no resource name, so unsetting the field is
+   * the only way to select it.
    */
   @JsonIgnore
   @QueryParam("update_mask")
