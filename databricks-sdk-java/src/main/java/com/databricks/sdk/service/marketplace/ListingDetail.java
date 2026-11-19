@@ -10,7 +10,10 @@ import java.util.Objects;
 
 @Generated
 public class ListingDetail {
-  /** Type of assets included in the listing. eg. GIT_REPO, DATA_TABLE, MODEL, NOTEBOOK */
+  /**
+   * Types of assets included in the listing. At least one is required unless the listing is a
+   * DRAFT. Duplicate values are ignored.
+   */
   @JsonProperty("assets")
   private Collection<AssetType> assets;
 
@@ -34,15 +37,21 @@ public class ListingDetail {
   @JsonProperty("data_source")
   private String dataSource;
 
-  /** */
+  /**
+   * Detailed description of the data product. Supports basic Markdown formatting such as bold,
+   * italics and lists.
+   */
   @JsonProperty("description")
   private String description;
 
-  /** */
+  /** URL of documentation that helps consumers use the data product. */
   @JsonProperty("documentation_link")
   private String documentationLink;
 
-  /** */
+  /**
+   * Sample notebooks attached to the listing. Create each notebook with createFile, using the
+   * EMBEDDED_NOTEBOOK file type and the listing as the parent, and reference it here.
+   */
   @JsonProperty("embedded_notebook_file_infos")
   private Collection<FileInfo> embeddedNotebookFileInfos;
 
@@ -54,10 +63,7 @@ public class ListingDetail {
   @JsonProperty("geographical_coverage")
   private String geographicalCoverage;
 
-  /**
-   * ID 20, 21 removed don't use License of the data asset - Required for listings with model based
-   * assets
-   */
+  /** License of the data asset. Required for listings with model-based assets. */
   @JsonProperty("license")
   private String license;
 
@@ -68,7 +74,10 @@ public class ListingDetail {
   @JsonProperty("pricing_model")
   private String pricingModel;
 
-  /** */
+  /**
+   * URL of the privacy policy for the listing. Defaults to the provider profile's privacy policy
+   * link when empty.
+   */
   @JsonProperty("privacy_policy_link")
   private String privacyPolicyLink;
 
@@ -76,22 +85,21 @@ public class ListingDetail {
   @JsonProperty("size")
   private Double size;
 
-  /** */
+  /** URL where consumers can get support for the listing. */
   @JsonProperty("support_link")
   private String supportLink;
 
   /**
-   * Listing tags - Simple key value pair to annotate listings. When should I use tags vs dedicated
-   * fields? Using tags avoids the need to add new columns in the database for new annotations.
-   * However, this should be used sparingly since tags are stored as key value pair. Use tags only:
-   * 1. If the field is optional and won't need to have NOT NULL integrity check 2. The value is
-   * fairly fixed, static and low cardinality (eg. enums). 3. The value won't be used in filters or
-   * joins with other tables.
+   * Tags that annotate the listing with fixed, low-cardinality values, such as supported languages
+   * or tasks.
    */
   @JsonProperty("tags")
   private Collection<ListingTag> tags;
 
-  /** */
+  /**
+   * URL of the terms of service for the listing. Defaults to the provider profile's terms of
+   * service link when empty.
+   */
   @JsonProperty("terms_of_service")
   private String termsOfService;
 

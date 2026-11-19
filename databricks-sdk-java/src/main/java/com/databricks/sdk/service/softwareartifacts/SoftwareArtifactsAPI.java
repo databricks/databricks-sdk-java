@@ -24,6 +24,26 @@ public class SoftwareArtifactsAPI {
     impl = mock;
   }
 
+  public void deleteSoftwareArtifact(String name) {
+    deleteSoftwareArtifact(new DeleteSoftwareArtifactRequest().setName(name));
+  }
+
+  /**
+   * Deletes a software artifact. Fails if the artifact still has versions unless `force` is set.
+   */
+  public void deleteSoftwareArtifact(DeleteSoftwareArtifactRequest request) {
+    impl.deleteSoftwareArtifact(request);
+  }
+
+  public void deleteSoftwareArtifactVersion(String name) {
+    deleteSoftwareArtifactVersion(new DeleteSoftwareArtifactVersionRequest().setName(name));
+  }
+
+  /** Deletes a software artifact version. */
+  public void deleteSoftwareArtifactVersion(DeleteSoftwareArtifactVersionRequest request) {
+    impl.deleteSoftwareArtifactVersion(request);
+  }
+
   public SoftwareArtifact getSoftwareArtifact(String name) {
     return getSoftwareArtifact(new GetSoftwareArtifactRequest().setName(name));
   }

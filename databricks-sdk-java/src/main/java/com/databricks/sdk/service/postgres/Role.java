@@ -11,7 +11,7 @@ import java.util.Objects;
 /** Role represents a Postgres role within a Branch. */
 @Generated
 public class Role {
-  /** */
+  /** A timestamp indicating when the role was created. */
   @JsonProperty("create_time")
   private Timestamp createTime;
 
@@ -47,7 +47,7 @@ public class Role {
   @JsonProperty("status")
   private RoleRoleStatus status;
 
-  /** */
+  /** A timestamp indicating when the role was last updated. */
   @JsonProperty("update_time")
   private Timestamp updateTime;
 

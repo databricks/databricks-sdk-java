@@ -9,11 +9,19 @@ import java.util.Objects;
 
 @Generated
 public class CreatePublishedAppIntegration {
-  /** App id of the OAuth published app integration. For example power-bi, tableau-deskop */
+  /**
+   * ID of the published OAuth app to enable, as returned in app_id by the list of published OAuth
+   * apps. The short legacy IDs of the original published apps, such as power-bi and
+   * tableau-desktop, are also accepted. The request fails if the app is already enabled for the
+   * account.
+   */
   @JsonProperty("app_id")
   private String appId;
 
-  /** Token access policy */
+  /**
+   * Lifetimes of the tokens issued to the app. If omitted, the app's default token lifetimes apply.
+   * If set, both TTL fields are required.
+   */
   @JsonProperty("token_access_policy")
   private TokenAccessPolicy tokenAccessPolicy;
 

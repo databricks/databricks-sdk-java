@@ -10,7 +10,10 @@ import java.util.Objects;
 /**
  * A user from your identity provider (IdP), identified by their ID in your IdP. This resource is
  * read-only. Getting an external user syncs the user's details and group memberships from your IdP,
- * and adds the user to your account if they aren't already there.
+ * and adds the user to your account if they aren't already there. To address an external user, put
+ * its resource name in the URL: `GET
+ * /api/2.0/identity/accounts/{account_id}/external-users/{external_user_id}` in account APIs, or
+ * `GET /api/2.0/identity/external-users/{external_user_id}` in workspace APIs.
  */
 @Generated
 public class ExternalUser {

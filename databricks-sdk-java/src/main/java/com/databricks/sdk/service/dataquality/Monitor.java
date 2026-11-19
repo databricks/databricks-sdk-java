@@ -7,16 +7,23 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Monitor for the data quality of unity catalog entities such as schema or table. */
+/**
+ * A data quality monitor on a Unity Catalog object. A `schema` monitor runs anomaly detection on
+ * the tables in the schema and is configured through `anomaly_detection_config`. A `table` monitor
+ * profiles a single table and is configured through `data_profiling_config`.
+ */
 @Generated
 public class Monitor {
-  /** Anomaly Detection Configuration, applicable to `schema` object types. */
+  /**
+   * Anomaly detection settings. Required when `object_type` is `schema`. When reading a `table`
+   * monitor, this holds the settings of the parent schema's monitor if the schema has one.
+   */
   @JsonProperty("anomaly_detection_config")
   private AnomalyDetectionConfig anomalyDetectionConfig;
 
   /**
-   * Data Profiling Configuration, applicable to `table` object types. Exactly one `Analysis
-   * Configuration` must be present.
+   * Data profiling settings. Required when `object_type` is `table`. Exactly one of
+   * `inference_log`, `time_series` or `snapshot` must be set.
    */
   @JsonProperty("data_profiling_config")
   private DataProfilingConfig dataProfilingConfig;

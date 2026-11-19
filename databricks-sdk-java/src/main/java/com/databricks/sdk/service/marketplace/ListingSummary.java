@@ -10,46 +10,58 @@ import java.util.Objects;
 
 @Generated
 public class ListingSummary {
-  /** */
+  /**
+   * Categories that consumers can use to filter listings. They also appear as tags on the listing
+   * tile and detail page.
+   */
   @JsonProperty("categories")
   private Collection<Category> categories;
 
-  /** */
+  /** Time the listing was created, in epoch milliseconds. */
   @JsonProperty("created_at")
   private Long createdAt;
 
-  /** */
+  /** Name of the user who created the listing. */
   @JsonProperty("created_by")
   private String createdBy;
 
-  /** */
+  /** ID of the user who created the listing. */
   @JsonProperty("created_by_id")
   private Long createdById;
 
-  /** */
+  /**
+   * IDs of the private exchanges that the listing is shared in. A listing can be linked to at most
+   * 10 exchanges.
+   */
   @JsonProperty("exchange_ids")
   private Collection<String> exchangeIds;
 
   /**
-   * if a git repo is being created, a listing will be initialized with this field as opposed to a
-   * share
+   * Git repository that holds the listing's assets, used instead of a share for notebook and Git
+   * repo listings. A listing cannot have both a share and a Git repo.
    */
   @JsonProperty("git_repo")
   private RepoInfo gitRepo;
 
-  /** */
+  /**
+   * How consumers get access to the listing. STANDARD listings are instantly available;
+   * PERSONALIZED listings require the provider to approve each consumer request. Cannot be changed
+   * after the listing is created.
+   */
   @JsonProperty("listingType")
   private ListingType listingType;
 
-  /** */
+  /**
+   * Display name of the listing. Must start with a letter or digit and be at most 100 characters.
+   */
   @JsonProperty("name")
   private String name;
 
-  /** */
+  /** ID of the provider profile that owns the listing. */
   @JsonProperty("provider_id")
   private String providerId;
 
-  /** */
+  /** Cloud and region of the provider's Unity Catalog metastore. Not allowed in create requests. */
   @JsonProperty("provider_region")
   private RegionInfo providerRegion;
 
@@ -61,31 +73,41 @@ public class ListingSummary {
   @JsonProperty("published_by")
   private String publishedBy;
 
-  /** */
+  /**
+   * Listing settings, such as whether the listing is visible in the public Marketplace or only in
+   * private exchanges.
+   */
   @JsonProperty("setting")
   private ListingSetting setting;
 
-  /** */
+  /**
+   * Delta Sharing share that holds the listing's data assets. Required to publish a STANDARD
+   * listing, except for app and MCP server listings; notebook and Git repo listings can use
+   * git_repo instead. The caller must have access to the share.
+   */
   @JsonProperty("share")
   private ShareInfo share;
 
-  /** */
+  /**
+   * Publication status of the listing. Only PUBLISHED listings are visible to consumers; create a
+   * listing as DRAFT and set the status to PUBLISHED when it is ready.
+   */
   @JsonProperty("status")
   private ListingStatus status;
 
-  /** */
+  /** One-line subtitle shown with the listing name. */
   @JsonProperty("subtitle")
   private String subtitle;
 
-  /** */
+  /** Time the listing was last updated, in epoch milliseconds. */
   @JsonProperty("updated_at")
   private Long updatedAt;
 
-  /** */
+  /** Name of the user who last updated the listing. */
   @JsonProperty("updated_by")
   private String updatedBy;
 
-  /** */
+  /** ID of the user who last updated the listing. */
   @JsonProperty("updated_by_id")
   private Long updatedById;
 

@@ -20,7 +20,7 @@ public class WarehouseTypePair {
   @JsonProperty("enabled")
   private Boolean enabled;
 
-  /** */
+  /** Warehouse type that this entry enables or disables. */
   @JsonProperty("warehouse_type")
   private WarehouseTypePairWarehouseType warehouseType;
 

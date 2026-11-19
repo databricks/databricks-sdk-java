@@ -10,11 +10,11 @@ import java.util.Objects;
 
 @Generated
 public class GetListingsResponse {
-  /** */
+  /** Listings on this page. */
   @JsonProperty("listings")
   private Collection<Listing> listings;
 
-  /** */
+  /** Token for the next page. Not set when there are no more results. */
   @JsonProperty("next_page_token")
   private String nextPageToken;
 

@@ -47,7 +47,9 @@ public class ProviderPersonalizationRequestsAPI {
   }
 
   /**
-   * Update personalization request. This method only permits updating the status of the request.
+   * Updates the status of a personalization request; other properties of the request cannot be
+   * changed. Fulfilling a request grants the consumer access to the share, and denying a fulfilled
+   * request revokes that access. The listing must be published.
    */
   public UpdatePersonalizationRequestResponse update(UpdatePersonalizationRequestRequest request) {
     return impl.update(request);

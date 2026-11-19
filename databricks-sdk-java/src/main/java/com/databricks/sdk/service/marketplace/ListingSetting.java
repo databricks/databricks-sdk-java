@@ -9,7 +9,10 @@ import java.util.Objects;
 
 @Generated
 public class ListingSetting {
-  /** */
+  /**
+   * PUBLIC listings are visible to all consumers in the Marketplace. PRIVATE listings are visible
+   * only to members of the private exchanges that they are shared in.
+   */
   @JsonProperty("visibility")
   private Visibility visibility;
 

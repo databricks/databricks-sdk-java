@@ -7,6 +7,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * A user-defined function (UDF) registered in Unity Catalog. A function belongs to a schema and is
+ * referenced as catalog_name.schema_name.function_name. Its body is either a SQL expression or
+ * query, or source code in an external language such as Python. See
+ * https://docs.databricks.com/aws/en/udf/unity-catalog for an overview.
+ */
 @Generated
 public class CreateFunction {
   /** Name of parent Catalog. */
@@ -17,31 +23,50 @@ public class CreateFunction {
   @JsonProperty("comment")
   private String comment;
 
-  /** Scalar function return data type. */
+  /**
+   * Data type of the value the function returns. A table function uses TABLE_TYPE and describes its
+   * result columns in return_params, except for a polymorphic Python UDTF, which omits them.
+   */
   @JsonProperty("data_type")
   private ColumnTypeName dataType;
 
-  /** External function language. */
+  /**
+   * Language of the function body for an EXTERNAL function. It is required when routine_body is
+   * EXTERNAL.
+   */
   @JsonProperty("external_language")
   private String externalLanguage;
 
-  /** External function name. */
+  /** Name of the function in its external language. It is reserved for future use. */
   @JsonProperty("external_name")
   private String externalName;
 
-  /** Pretty printed function data type. */
+  /**
+   * Return data type of the function in SQL syntax, including any type parameters such as precision
+   * and scale.
+   */
   @JsonProperty("full_data_type")
   private String fullDataType;
 
-  /** Function input parameters. */
+  /**
+   * Input parameters of the function. When it is set, parameters must contain at least one entry. A
+   * function that takes no arguments omits input_params, even though the Create request schema
+   * marks it as required.
+   */
   @JsonProperty("input_params")
   private FunctionParameterInfos inputParams;
 
-  /** Whether the function is deterministic. */
+  /**
+   * Whether the function returns the same result for the same arguments. It corresponds to the
+   * DETERMINISTIC characteristic of CREATE FUNCTION.
+   */
   @JsonProperty("is_deterministic")
   private Boolean isDeterministic;
 
-  /** Function null call. */
+  /**
+   * Whether the function is a null-call function in the sense of the SQL standard, which returns
+   * NULL whenever any argument is NULL.
+   */
   @JsonProperty("is_null_call")
   private Boolean isNullCall;
 
@@ -49,7 +74,10 @@ public class CreateFunction {
   @JsonProperty("name")
   private String name;
 
-  /** Function parameter style. **S** is the value for SQL. */
+  /**
+   * How arguments are passed to the function body. S means that each argument is passed as a single
+   * scalar value.
+   */
   @JsonProperty("parameter_style")
   private CreateFunctionParameterStyle parameterStyle;
 
@@ -57,20 +85,27 @@ public class CreateFunction {
   @JsonProperty("properties")
   private String properties;
 
-  /** Table function return parameters. */
+  /**
+   * Result columns of a table function. Set it when data_type is TABLE_TYPE, except for a
+   * polymorphic Python UDTF (an EXTERNAL Python function with full_data_type "()"), which must not
+   * set it.
+   */
   @JsonProperty("return_params")
   private FunctionParameterInfos returnParams;
 
   /**
-   * Function language. When **EXTERNAL** is used, the language of the routine function should be
-   * specified in the **external_language** field, and the **return_params** of the function cannot
-   * be used (as **TABLE** return type is not supported), and the **sql_data_access** field must be
-   * **NO_SQL**.
+   * Language of the function body. SQL means that routine_definition holds a SQL expression or
+   * query. EXTERNAL means that it holds source code in the language named by external_language, and
+   * sql_data_access must then be NO_SQL.
    */
   @JsonProperty("routine_body")
   private CreateFunctionRoutineBody routineBody;
 
-  /** Function body. */
+  /**
+   * Body of the function. For a SQL function it is the expression or query that computes the
+   * result; for an EXTERNAL function it is the source code of the function. It is omitted when the
+   * caller can only browse the function.
+   */
   @JsonProperty("routine_definition")
   private String routineDefinition;
 
@@ -85,19 +120,26 @@ public class CreateFunction {
   @JsonProperty("schema_name")
   private String schemaName;
 
-  /** Function security type. */
+  /**
+   * Whose privileges the function body runs with. DEFINER runs it with the privileges of the
+   * function owner.
+   */
   @JsonProperty("security_type")
   private CreateFunctionSecurityType securityType;
 
-  /** Specific name of the function; Reserved for future use. */
+  /** Specific name of the function. Set it to the same value as name. */
   @JsonProperty("specific_name")
   private String specificName;
 
-  /** Function SQL data access. */
+  /**
+   * How the function body interacts with SQL data. CONTAINS_SQL means that the body contains SQL
+   * but reads no table or view, READS_SQL_DATA means that it reads a table or view, and NO_SQL is
+   * required for EXTERNAL functions.
+   */
   @JsonProperty("sql_data_access")
   private CreateFunctionSqlDataAccess sqlDataAccess;
 
-  /** List of schemes whose objects can be referenced without qualification. */
+  /** List of schemas whose objects can be referenced without qualification. */
   @JsonProperty("sql_path")
   private String sqlPath;
 

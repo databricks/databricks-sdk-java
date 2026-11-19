@@ -7,7 +7,13 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** A benchmark evaluation run. The public benchmark API currently evaluates chat-mode responses. */
+/**
+ * A benchmark evaluation run. A run asks Genie each selected benchmark question in a Genie space,
+ * compares every response with the benchmark SQL, and records one evaluation result per question.
+ * Runs execute asynchronously; poll the run until its status is terminal, then list its results.
+ * All evaluation run methods require CAN EDIT permission on the space. The public benchmark API
+ * currently evaluates chat-mode responses.
+ */
 @Generated
 public class GenieEvalRunResponse {
   /** Timestamp when the evaluation run was created (milliseconds since epoch). */
@@ -18,7 +24,15 @@ public class GenieEvalRunResponse {
   @JsonProperty("eval_run_id")
   private String evalRunId;
 
-  /** Current status of the evaluation run. */
+  /**
+   * Current status of the run, derived from the statuses of its results. Unless a result has timed
+   * out or the run has been cancelled, the run is RUNNING while any question has not finished. It
+   * is DONE once every question has finished, whether it was scored or failed. EVALUATION_CANCELLED
+   * means the run was cancelled before all questions finished, and EVALUATION_TIMEOUT means the
+   * background evaluation job stopped before they did. DONE, EVALUATION_CANCELLED and
+   * EVALUATION_TIMEOUT are terminal run statuses. NOT_STARTED and EVALUATION_FAILED appear only on
+   * individual results.
+   */
   @JsonProperty("eval_run_status")
   private EvaluationStatusType evalRunStatus;
 
@@ -26,15 +40,21 @@ public class GenieEvalRunResponse {
   @JsonProperty("last_updated_timestamp")
   private Long lastUpdatedTimestamp;
 
-  /** Number of questions answered correctly. */
+  /** Number of questions whose result is assessed GOOD, including results assessed manually. */
   @JsonProperty("num_correct")
   private Long numCorrect;
 
-  /** Number of questions that have been completed. */
+  /**
+   * Number of questions that have finished, either scored (DONE) or failed (EVALUATION_FAILED).
+   * Cancelled and timed-out questions are not counted.
+   */
   @JsonProperty("num_done")
   private Long numDone;
 
-  /** Number of questions that need manual review. */
+  /**
+   * Number of finished questions whose result is assessed NEEDS_REVIEW and has not been reviewed
+   * manually yet.
+   */
   @JsonProperty("num_needs_review")
   private Long numNeedsReview;
 

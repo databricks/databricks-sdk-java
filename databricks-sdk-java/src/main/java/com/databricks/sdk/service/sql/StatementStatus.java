@@ -10,7 +10,7 @@ import java.util.Objects;
 /** The status response includes execution state and if relevant, error information. */
 @Generated
 public class StatementStatus {
-  /** */
+  /** The error that caused the statement to fail. Only populated when `state` is `FAILED`. */
   @JsonProperty("error")
   private ServiceError error;
 

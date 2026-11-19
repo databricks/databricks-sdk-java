@@ -7,7 +7,11 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** A group in your Databricks account. */
+/**
+ * A group in your Databricks account. To address a group, put its resource name in the URL: `GET
+ * /api/2.0/identity/accounts/{account_id}/groups/{group_id}` in account APIs, or `GET
+ * /api/2.0/identity/groups/{group_id}` in workspace APIs.
+ */
 @Generated
 public class Group {
   /** The ID of the account that contains the group. */

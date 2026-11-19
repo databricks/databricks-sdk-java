@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class GetPublicWorkspaceSettingRequest {
-  /** Name of the setting */
+  /** Name of the setting to retrieve. */
   @JsonIgnore private String name;
 
   public GetPublicWorkspaceSettingRequest setName(String name) {

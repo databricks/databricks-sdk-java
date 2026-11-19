@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class UpdateProviderResponse {
-  /** */
+  /** The updated provider profile. */
   @JsonProperty("provider")
   private ProviderInfo provider;
 

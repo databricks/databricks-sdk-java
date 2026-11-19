@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Generated
 public class FunctionParameterInfos {
-  /** */
+  /** The parameters that make up the list, ordered by position. */
   @JsonProperty("parameters")
   private Collection<FunctionParameterInfo> parameters;
 

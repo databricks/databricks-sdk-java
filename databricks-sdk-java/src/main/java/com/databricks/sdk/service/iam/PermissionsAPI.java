@@ -77,17 +77,19 @@ public class PermissionsAPI {
   }
 
   /**
-   * Sets permissions on an object, replacing existing permissions if they exist. Deletes all direct
-   * permissions if none are specified. Objects can inherit permissions from their parent objects or
-   * root object.
+   * Sets permissions on an object, replacing all direct permissions with the ones in the request.
+   * Principals that are not in the request lose their direct permissions on the object, and all
+   * direct permissions are deleted if none are specified. Objects can inherit permissions from
+   * their parent objects or root object.
    */
   public ObjectPermissions set(SetObjectPermissions request) {
     return impl.set(request);
   }
 
   /**
-   * Updates the permissions on an object. Objects can inherit permissions from their parent objects
-   * or root object.
+   * Updates the permissions on an object by adding or changing the permissions of the principals in
+   * the request. Principals that are not in the request keep their existing permissions. Objects
+   * can inherit permissions from their parent objects or root object.
    */
   public ObjectPermissions update(UpdateObjectPermissions request) {
     return impl.update(request);

@@ -15,11 +15,11 @@ public class ResultManifest {
   @JsonProperty("chunks")
   private Collection<BaseChunkInfo> chunks;
 
-  /** */
+  /** The format of the result data, as requested with `format`. */
   @JsonProperty("format")
   private Format format;
 
-  /** */
+  /** The schema of the result set: the ordered list of column descriptions. */
   @JsonProperty("schema")
   private ResultSchema schema;
 

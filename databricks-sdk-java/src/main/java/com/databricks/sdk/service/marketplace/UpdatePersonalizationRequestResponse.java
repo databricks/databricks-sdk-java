@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class UpdatePersonalizationRequestResponse {
-  /** */
+  /** The updated personalization request. */
   @JsonProperty("request")
   private PersonalizationRequest request;
 

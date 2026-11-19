@@ -56,7 +56,7 @@ public class ConnectionsAPI {
     return get(new GetConnectionRequest().setName(name));
   }
 
-  /** Gets a connection from it's name. */
+  /** Gets a connection from its name. */
   public ConnectionInfo get(GetConnectionRequest request) {
     return impl.get(request);
   }
@@ -90,7 +90,10 @@ public class ConnectionsAPI {
         });
   }
 
-  /** Updates the connection that matches the supplied name. */
+  /**
+   * Updates the connection that matches the supplied name. When options are provided, they replace
+   * the existing options of the connection, so include every key that the connection type requires.
+   */
   public ConnectionInfo update(UpdateConnection request) {
     return impl.update(request);
   }

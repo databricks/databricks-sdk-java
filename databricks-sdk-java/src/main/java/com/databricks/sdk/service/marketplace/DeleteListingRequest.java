@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class DeleteListingRequest {
-  /** */
+  /** ID of the listing to delete. */
   @JsonIgnore private String id;
 
   public DeleteListingRequest setId(String id) {

@@ -13,11 +13,14 @@ import java.util.Objects;
  */
 @Generated
 public class Channel {
-  /** */
+  /** Databricks SQL version to pin to. Set it if and only if name is CHANNEL_NAME_CUSTOM. */
   @JsonProperty("dbsql_version")
   private String dbsqlVersion;
 
-  /** */
+  /**
+   * Channel to follow. CHANNEL_NAME_CURRENT is the default, and CHANNEL_NAME_PREVIEW carries the
+   * upcoming Databricks SQL release for testing.
+   */
   @JsonProperty("name")
   private ChannelName name;
 

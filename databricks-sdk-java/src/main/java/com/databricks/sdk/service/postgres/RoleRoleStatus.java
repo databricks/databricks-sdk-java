@@ -10,19 +10,19 @@ import java.util.Objects;
 
 @Generated
 public class RoleRoleStatus {
-  /** The PG role attributes associated with the role. */
+  /** The Postgres role attributes currently granted to the role. */
   @JsonProperty("attributes")
   private RoleAttributes attributes;
 
-  /** */
+  /** How the role authenticates when it connects to Postgres. */
   @JsonProperty("auth_method")
   private RoleAuthMethod authMethod;
 
-  /** The type of the role. */
+  /** The type of Databricks identity that backs the role, if any. */
   @JsonProperty("identity_type")
   private RoleIdentityType identityType;
 
-  /** An enum value for a standard role that this role is a member of. */
+  /** The standard roles that the role is currently a member of. */
   @JsonProperty("membership_roles")
   private Collection<RoleMembershipRole> membershipRoles;
 

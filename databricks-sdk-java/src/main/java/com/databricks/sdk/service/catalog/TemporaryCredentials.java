@@ -9,11 +9,14 @@ import java.util.Objects;
 
 @Generated
 public class TemporaryCredentials {
-  /** */
+  /** Temporary AWS credentials that can be used to sign AWS API requests. */
   @JsonProperty("aws_temp_credentials")
   private AwsCredentials awsTempCredentials;
 
-  /** */
+  /**
+   * A Microsoft Entra ID (formerly Azure Active Directory) token that is issued for the
+   * credential's identity.
+   */
   @JsonProperty("azure_aad")
   private AzureActiveDirectoryToken azureAad;
 
@@ -24,11 +27,11 @@ public class TemporaryCredentials {
   @JsonProperty("expiration_time")
   private Long expirationTime;
 
-  /** */
+  /** A GCP OAuth 2.0 access token that is issued for the credential's service account. */
   @JsonProperty("gcp_oauth_token")
   private GcpOauthToken gcpOauthToken;
 
-  /** */
+  /** Temporary Cloudflare R2 credentials that can be used with the R2 S3-compatible API. */
   @JsonProperty("r2_temp_credentials")
   private R2Credentials r2TempCredentials;
 

@@ -10,11 +10,11 @@ import java.util.Objects;
 /** The metadata of the Azure KeyVault for a secret scope of type `AZURE_KEYVAULT` */
 @Generated
 public class AzureKeyVaultSecretScopeMetadata {
-  /** The DNS of the KeyVault */
+  /** The DNS name of the key vault, for example ``https://my-key-vault.vault.azure.net/``. */
   @JsonProperty("dns_name")
   private String dnsName;
 
-  /** The resource id of the azure KeyVault that user wants to associate the scope with. */
+  /** The Azure resource ID of the key vault to associate with the scope. */
   @JsonProperty("resource_id")
   private String resourceId;
 

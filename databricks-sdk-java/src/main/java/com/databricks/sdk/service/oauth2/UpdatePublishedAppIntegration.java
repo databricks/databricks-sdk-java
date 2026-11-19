@@ -10,10 +10,14 @@ import java.util.Objects;
 
 @Generated
 public class UpdatePublishedAppIntegration {
-  /** */
+  /** ID of the published OAuth app integration to update. */
   @JsonIgnore private String integrationId;
 
-  /** Token access policy to be updated in the published OAuth app integration */
+  /**
+   * New token lifetimes for the app. Both TTL fields are required when the policy is set; the
+   * single-use refresh token settings keep their current values when omitted. If the policy is
+   * omitted, the integration is left unchanged.
+   */
   @JsonProperty("token_access_policy")
   private TokenAccessPolicy tokenAccessPolicy;
 

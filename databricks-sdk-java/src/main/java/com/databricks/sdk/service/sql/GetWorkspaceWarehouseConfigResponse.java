@@ -19,8 +19,10 @@ public class GetWorkspaceWarehouseConfigResponse {
   private RepeatedEndpointConfPairs configParam;
 
   /**
-   * Spark confs for external hive metastore configuration JSON serialized size must be less than <=
-   * 512K
+   * Spark configuration applied to every warehouse in the workspace, for example to connect to an
+   * external Hive metastore or to configure access to cloud storage. Only allowlisted keys are
+   * accepted, and the JSON-serialized size must be at most 512 KB. See
+   * https://docs.databricks.com/aws/en/admin/sql/data-access-configuration.
    */
   @JsonProperty("data_access_config")
   private Collection<EndpointConfPair> dataAccessConfig;
@@ -33,8 +35,7 @@ public class GetWorkspaceWarehouseConfigResponse {
    * List of Warehouse Types allowed in this workspace (limits allowed value of the type field in
    * CreateWarehouse and EditWarehouse). Note: Some types cannot be disabled, they don't need to be
    * specified in SetWorkspaceWarehouseConfig. Note: Disabling a type may cause existing warehouses
-   * to be converted to another type. Used by frontend to save specific type availability in the
-   * warehouse create and edit form UI.
+   * to be converted to another type.
    */
   @JsonProperty("enabled_warehouse_types")
   private Collection<WarehouseTypePair> enabledWarehouseTypes;
@@ -43,7 +44,10 @@ public class GetWorkspaceWarehouseConfigResponse {
   @JsonProperty("global_param")
   private RepeatedEndpointConfPairs globalParam;
 
-  /** GCP only: Google Service Account used to pass to cluster to access Google Cloud Storage */
+  /**
+   * GCP only: Google service account that the warehouse clusters use to access Google Cloud
+   * Storage.
+   */
   @JsonProperty("google_service_account")
   private String googleServiceAccount;
 
@@ -58,7 +62,11 @@ public class GetWorkspaceWarehouseConfigResponse {
   @JsonProperty("security_policy")
   private GetWorkspaceWarehouseConfigResponseSecurityPolicy securityPolicy;
 
-  /** SQL configuration parameters */
+  /**
+   * SQL configuration parameters applied to every warehouse in the workspace. Only parameters that
+   * can be set at the workspace scope are accepted. See
+   * https://docs.databricks.com/aws/en/sql/language-manual/sql-ref-parameters.
+   */
   @JsonProperty("sql_configuration_parameters")
   private RepeatedEndpointConfPairs sqlConfigurationParameters;
 

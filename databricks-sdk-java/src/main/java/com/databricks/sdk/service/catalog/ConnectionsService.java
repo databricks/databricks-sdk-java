@@ -30,7 +30,7 @@ public interface ConnectionsService {
   /** Deletes the connection that matches the supplied name. */
   void delete(DeleteConnectionRequest deleteConnectionRequest);
 
-  /** Gets a connection from it's name. */
+  /** Gets a connection from its name. */
   ConnectionInfo get(GetConnectionRequest getConnectionRequest);
 
   /**
@@ -46,6 +46,9 @@ public interface ConnectionsService {
    */
   ListConnectionsResponse list(ListConnectionsRequest listConnectionsRequest);
 
-  /** Updates the connection that matches the supplied name. */
+  /**
+   * Updates the connection that matches the supplied name. When options are provided, they replace
+   * the existing options of the connection, so include every key that the connection type requires.
+   */
   ConnectionInfo update(UpdateConnection updateConnection);
 }

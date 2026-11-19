@@ -10,11 +10,11 @@ import java.util.Objects;
 
 @Generated
 public class ListAllPersonalizationRequestsResponse {
-  /** */
+  /** Token for the next page. Not set when there are no more results. */
   @JsonProperty("next_page_token")
   private String nextPageToken;
 
-  /** */
+  /** Personalization requests on this page. */
   @JsonProperty("personalization_requests")
   private Collection<PersonalizationRequest> personalizationRequests;
 

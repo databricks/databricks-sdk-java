@@ -49,7 +49,7 @@ public class ExternalLink {
   /**
    * When fetching, provides the `chunk_index` for the _next_ chunk. If absent, indicates there are
    * no more chunks. The next chunk can be fetched with a
-   * :method:statementexecution/getstatementresultchunkn request.
+   * :method:statementexecution/getStatementResultChunkN request.
    */
   @JsonProperty("next_chunk_index")
   private Long nextChunkIndex;

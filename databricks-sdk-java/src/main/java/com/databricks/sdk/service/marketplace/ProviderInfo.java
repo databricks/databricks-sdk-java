@@ -9,47 +9,64 @@ import java.util.Objects;
 
 @Generated
 public class ProviderInfo {
-  /** */
+  /** Email address that Databricks uses to contact the provider. Not shown to consumers. */
   @JsonProperty("business_contact_email")
   private String businessContactEmail;
 
-  /** */
+  /** URL of the provider's website. Shown on all of the provider's listings. */
   @JsonProperty("company_website_link")
   private String companyWebsiteLink;
 
-  /** */
+  /**
+   * ID of the provider icon file used in dark mode, created with createFile using the PROVIDER_ICON
+   * file type.
+   */
   @JsonProperty("dark_mode_icon_file_id")
   private String darkModeIconFileId;
 
-  /** */
+  /**
+   * URL for downloading the dark mode provider icon. Populated by the server from
+   * dark_mode_icon_file_id.
+   */
   @JsonProperty("dark_mode_icon_file_path")
   private String darkModeIconFilePath;
 
-  /** */
+  /**
+   * Description of the provider organization, shown on the provider profile and on all of its
+   * listings.
+   */
   @JsonProperty("description")
   private String description;
 
-  /** */
+  /** ID of the provider icon file, created with createFile using the PROVIDER_ICON file type. */
   @JsonProperty("icon_file_id")
   private String iconFileId;
 
-  /** */
+  /** URL for downloading the provider icon. Populated by the server from icon_file_id. */
   @JsonProperty("icon_file_path")
   private String iconFilePath;
 
-  /** */
+  /**
+   * ID of the provider profile. Assigned by the server; not allowed in create or update requests.
+   */
   @JsonProperty("id")
   private String id;
 
-  /** is_featured is accessible by consumers only */
+  /**
+   * Whether Databricks features the provider in the Marketplace. Set by Databricks; not allowed in
+   * create or update requests.
+   */
   @JsonProperty("is_featured")
   private Boolean isFeatured;
 
-  /** */
+  /** Display name of the provider. Consumers can filter listings by provider name. */
   @JsonProperty("name")
   private String name;
 
-  /** */
+  /**
+   * URL of the provider's privacy policy. Shown on all of the provider's listings unless a listing
+   * sets its own privacy policy.
+   */
   @JsonProperty("privacy_policy_link")
   private String privacyPolicyLink;
 
@@ -57,11 +74,17 @@ public class ProviderInfo {
   @JsonProperty("published_by")
   private String publishedBy;
 
-  /** */
+  /**
+   * Email address that consumers can use to request support. Shown on all of the provider's
+   * listings.
+   */
   @JsonProperty("support_contact_email")
   private String supportContactEmail;
 
-  /** */
+  /**
+   * URL of the provider's terms of service. Shown on all of the provider's listings unless a
+   * listing sets its own terms of service.
+   */
   @JsonProperty("term_of_service_link")
   private String termOfServiceLink;
 

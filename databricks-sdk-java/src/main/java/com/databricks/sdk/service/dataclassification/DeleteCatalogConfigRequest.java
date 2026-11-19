@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class DeleteCatalogConfigRequest {
-  /** Resource name in the format: catalogs/{catalog_name}/config */
+  /** Resource name of the config, in the format catalogs/{catalog_name}/config. */
   @JsonIgnore private String name;
 
   public DeleteCatalogConfigRequest setName(String name) {

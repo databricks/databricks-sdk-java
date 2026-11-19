@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class CreateListingRequest {
-  /** */
+  /** Listing to create. */
   @JsonProperty("listing")
   private Listing listing;
 

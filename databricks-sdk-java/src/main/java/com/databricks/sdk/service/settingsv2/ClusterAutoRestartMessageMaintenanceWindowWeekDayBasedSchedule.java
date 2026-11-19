@@ -9,15 +9,18 @@ import java.util.Objects;
 
 @Generated
 public class ClusterAutoRestartMessageMaintenanceWindowWeekDayBasedSchedule {
-  /** */
+  /** Day of the week on which the maintenance window starts. */
   @JsonProperty("day_of_week")
   private ClusterAutoRestartMessageMaintenanceWindowDayOfWeek dayOfWeek;
 
-  /** */
+  /**
+   * How often the maintenance window occurs: every week, or only on the listed occurrences of the
+   * day of the week within each month.
+   */
   @JsonProperty("frequency")
   private ClusterAutoRestartMessageMaintenanceWindowWeekDayFrequency frequency;
 
-  /** */
+  /** Time of day, in UTC, at which the maintenance window starts. */
   @JsonProperty("window_start_time")
   private ClusterAutoRestartMessageMaintenanceWindowWindowStartTime windowStartTime;
 

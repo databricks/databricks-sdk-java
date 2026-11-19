@@ -10,12 +10,16 @@ import java.util.Objects;
 
 @Generated
 public class UpdateProviderAnalyticsDashboardRequest {
-  /** id is immutable property and can't be updated. */
+  /**
+   * Marketplace-specific ID of the dashboard record, as returned when the dashboard was created or
+   * retrieved.
+   */
   @JsonIgnore private String id;
 
   /**
-   * this is the version of the dashboard template we want to update our user to current expectation
-   * is that it should be equal to latest version of the dashboard template
+   * Version of the dashboard template to update to. Must be newer than the version that the
+   * dashboard currently uses; use the version returned by
+   * getLatestVersionProviderAnalyticsDashboard.
    */
   @JsonProperty("version")
   private Long version;

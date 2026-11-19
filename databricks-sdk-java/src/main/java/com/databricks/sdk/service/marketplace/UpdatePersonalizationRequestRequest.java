@@ -10,21 +10,27 @@ import java.util.Objects;
 
 @Generated
 public class UpdatePersonalizationRequestRequest {
-  /** */
+  /** ID of the listing that the request was made for. */
   @JsonIgnore private String listingId;
 
-  /** */
+  /** Message for the consumer that explains the status change, at most 255 characters. */
   @JsonProperty("reason")
   private String reason;
 
-  /** */
+  /** ID of the personalization request. */
   @JsonIgnore private String requestId;
 
-  /** */
+  /**
+   * Share to grant the consumer access to. Required when fulfilling a request for a listing with
+   * data assets and not allowed with other statuses. Ignored for app and MCP server listings.
+   */
   @JsonProperty("share")
   private ShareInfo share;
 
-  /** */
+  /**
+   * New status of the request. Allowed transitions: NEW or REQUEST_PENDING to REQUEST_PENDING,
+   * FULFILLED or DENIED; FULFILLED to DENIED; DENIED to REQUEST_PENDING.
+   */
   @JsonProperty("status")
   private PersonalizationRequestStatus status;
 

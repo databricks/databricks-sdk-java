@@ -10,17 +10,17 @@ import java.util.Objects;
 
 @Generated
 public class ListFilesRequest {
-  /** */
+  /** Provider profile or listing whose files to list. */
   @JsonIgnore
   @QueryParam("file_parent")
   private FileParent fileParent;
 
-  /** */
+  /** Maximum number of results to return per page. */
   @JsonIgnore
   @QueryParam("page_size")
   private Long pageSize;
 
-  /** */
+  /** Token from the next_page_token field of a previous response. Omit to get the first page. */
   @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;

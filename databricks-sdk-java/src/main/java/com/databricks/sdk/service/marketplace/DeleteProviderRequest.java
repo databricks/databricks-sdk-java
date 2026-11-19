@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class DeleteProviderRequest {
-  /** */
+  /** ID of the provider profile to delete. */
   @JsonIgnore private String id;
 
   public DeleteProviderRequest setId(String id) {

@@ -24,7 +24,7 @@ public class ProviderProvidersAPI {
     impl = mock;
   }
 
-  /** Create a provider */
+  /** Creates a provider profile in the caller's account. Returns the ID of the new profile. */
   public CreateProviderResponse create(CreateProviderRequest request) {
     return impl.create(request);
   }
@@ -33,7 +33,7 @@ public class ProviderProvidersAPI {
     delete(new DeleteProviderRequest().setId(id));
   }
 
-  /** Delete provider */
+  /** Deletes a provider profile and all of the listings that it owns. */
   public void delete(DeleteProviderRequest request) {
     impl.delete(request);
   }
@@ -42,12 +42,12 @@ public class ProviderProvidersAPI {
     return get(new GetProviderRequest().setId(id));
   }
 
-  /** Get provider profile */
+  /** Gets a provider profile by ID. */
   public GetProviderResponse get(GetProviderRequest request) {
     return impl.get(request);
   }
 
-  /** List provider profiles for account. */
+  /** Lists the provider profiles in the caller's account. */
   public Iterable<ProviderInfo> list(ListProvidersRequest request) {
     return Paginator.newTokenPagination(
         request,
@@ -62,7 +62,7 @@ public class ProviderProvidersAPI {
         });
   }
 
-  /** Update provider profile */
+  /** Updates a provider profile. Send the full profile definition. */
   public UpdateProviderResponse update(UpdateProviderRequest request) {
     return impl.update(request);
   }

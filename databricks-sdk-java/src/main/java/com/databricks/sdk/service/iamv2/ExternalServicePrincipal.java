@@ -11,7 +11,11 @@ import java.util.Objects;
  * A service principal from your identity provider (IdP), identified by its ID in your IdP. This
  * resource is read-only and requires Microsoft Entra ID as your IdP. Getting an external service
  * principal syncs its details and group memberships from your IdP, and adds it to your account if
- * it isn't already there.
+ * it isn't already there. To address an external service principal, put its resource name in the
+ * URL: `GET
+ * /api/2.0/identity/accounts/{account_id}/external-service-principals/{external_service_principal_id}`
+ * in account APIs, or `GET
+ * /api/2.0/identity/external-service-principals/{external_service_principal_id}` in workspace APIs.
  */
 @Generated
 public class ExternalServicePrincipal {

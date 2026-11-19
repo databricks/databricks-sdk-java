@@ -9,7 +9,11 @@ import java.util.Objects;
 
 @Generated
 public class AibiDashboardEmbeddingAccessPolicy {
-  /** */
+  /**
+   * Where AI/BI dashboards can be embedded: in any domain (ALLOW_ALL_DOMAINS), only in the approved
+   * domains configured for the workspace (ALLOW_APPROVED_DOMAINS), or nowhere (DENY_ALL_DOMAINS).
+   * Defaults to ALLOW_APPROVED_DOMAINS.
+   */
   @JsonProperty("access_policy_type")
   private AibiDashboardEmbeddingAccessPolicyAccessPolicyType accessPolicyType;
 

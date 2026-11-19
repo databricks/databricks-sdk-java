@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Generated
 public class RoleRoleSpec {
-  /** The desired API-exposed Postgres role attribute to associate with the role. Optional. */
+  /** The Postgres role attributes to grant to the role. */
   @JsonProperty("attributes")
   private RoleAttributes attributes;
 
@@ -39,7 +39,9 @@ public class RoleRoleSpec {
   private RoleAuthMethod authMethod;
 
   /**
-   * The type of role. When specifying a managed-identity, the chosen postgres_role must be a valid:
+   * The type of Databricks identity that backs the role. Leave unset to create a native Postgres
+   * role that is not associated with a Databricks identity. When specifying a managed-identity, the
+   * chosen postgres_role must be a valid:
    *
    * <p>* application ID for SERVICE_PRINCIPAL * user email for USER * group name for GROUP
    *
@@ -67,7 +69,7 @@ public class RoleRoleSpec {
    * <p>If you wish to create a Postgres Role backed by a managed Databricks identity, then
    * postgres_role must be one of the following:
    *
-   * <p>1. user email for IdentityType.USER 2. app ID for IdentityType.SERVICE_PRINCIPAL 2. group
+   * <p>1. user email for IdentityType.USER 2. app ID for IdentityType.SERVICE_PRINCIPAL 3. group
    * name for IdentityType.GROUP
    *
    * <p>This value cannot be changed after creation.

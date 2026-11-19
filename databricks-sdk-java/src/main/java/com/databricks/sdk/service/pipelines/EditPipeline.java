@@ -13,7 +13,12 @@ import java.util.Objects;
 @Generated
 public class EditPipeline {
   /**
-   * If false, deployment will fail if name has changed and conflicts the name of another pipeline.
+   * If false, deployment will fail if name has changed and conflicts with the name of another
+   * pipeline.
+   *
+   * <p>Ignored when the pipeline is in a workspace folder or the request sets `parent_path`.
+   * Renaming or moving such a pipeline fails if the target folder already contains an object with
+   * the same name.
    */
   @JsonProperty("allow_duplicate_names")
   private Boolean allowDuplicateNames;
@@ -138,7 +143,9 @@ public class EditPipeline {
   /**
    * Path of the pipeline parent folder in workspace file tree.
    *
-   * <p>If absent, the pipeline doesn't have a workspace object.
+   * <p>If absent, the pipeline doesn't have a parent folder.
+   *
+   * <p>Example: /Workspace/Projects/my_project
    */
   @JsonProperty("parent_path")
   private String parentPath;

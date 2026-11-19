@@ -11,11 +11,11 @@ import java.util.Objects;
 /** Response for listing Monitors. */
 @Generated
 public class ListMonitorResponse {
-  /** */
+  /** The monitors on this page. */
   @JsonProperty("monitors")
   private Collection<Monitor> monitors;
 
-  /** */
+  /** Pagination token to pass as `page_token` to fetch the next page. */
   @JsonProperty("next_page_token")
   private String nextPageToken;
 

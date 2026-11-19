@@ -21,7 +21,9 @@ public interface ProviderPersonalizationRequestsService {
       ListAllPersonalizationRequestsRequest listAllPersonalizationRequestsRequest);
 
   /**
-   * Update personalization request. This method only permits updating the status of the request.
+   * Updates the status of a personalization request; other properties of the request cannot be
+   * changed. Fulfilling a request grants the consumer access to the share, and denying a fulfilled
+   * request revokes that access. The listing must be published.
    */
   UpdatePersonalizationRequestResponse update(
       UpdatePersonalizationRequestRequest updatePersonalizationRequestRequest);

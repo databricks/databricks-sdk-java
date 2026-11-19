@@ -9,15 +9,15 @@ import java.util.Objects;
 
 @Generated
 public class UpdateProviderAnalyticsDashboardResponse {
-  /** this is newly created Lakeview dashboard for the user */
+  /** ID of the AI/BI dashboard that now contains the updated template. */
   @JsonProperty("dashboard_id")
   private String dashboardId;
 
-  /** id & version should be the same as the request */
+  /** Marketplace-specific ID of the dashboard record, the same as in the request. */
   @JsonProperty("id")
   private String id;
 
-  /** */
+  /** Version of the dashboard template that the dashboard now uses. */
   @JsonProperty("version")
   private Long version;
 

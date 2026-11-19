@@ -13,7 +13,7 @@ import java.util.Objects;
  */
 @Generated
 public class GcpOauthToken {
-  /** */
+  /** The OAuth 2.0 access token to pass as a bearer token to Google Cloud APIs. */
   @JsonProperty("oauth_token")
   private String oauthToken;
 

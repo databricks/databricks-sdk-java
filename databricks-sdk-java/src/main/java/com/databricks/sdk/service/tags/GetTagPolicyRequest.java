@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class GetTagPolicyRequest {
-  /** */
+  /** The key of the governed tag whose policy to get. */
   @JsonIgnore private String tagKey;
 
   public GetTagPolicyRequest setTagKey(String tagKey) {

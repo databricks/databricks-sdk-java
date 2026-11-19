@@ -14,11 +14,17 @@ public class CreateConnection {
   @JsonProperty("comment")
   private String comment;
 
-  /** The type of connection. */
+  /**
+   * The type of external data source or service that the connection reaches. The connection type
+   * determines which keys are required in options and cannot be changed after creation.
+   */
   @JsonProperty("connection_type")
   private ConnectionType connectionType;
 
-  /** [Create,Update:OPT] Connection environment settings as EnvironmentSettings object. */
+  /**
+   * Environment settings for the connection, such as the Java libraries that it needs and the
+   * environment version.
+   */
   @JsonProperty("environment_settings")
   private EnvironmentSettings environmentSettings;
 
@@ -41,7 +47,10 @@ public class CreateConnection {
   @JsonProperty("properties")
   private Map<String, String> properties;
 
-  /** If the connection is read only. */
+  /**
+   * Whether the connection is read only. All connections are currently read only, so a value set on
+   * create or update is ignored.
+   */
   @JsonProperty("read_only")
   private Boolean readOnly;
 

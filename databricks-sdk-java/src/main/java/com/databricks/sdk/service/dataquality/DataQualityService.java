@@ -58,13 +58,13 @@ public interface DataQualityService {
   Refresh createRefresh(CreateRefreshRequest createRefreshRequest);
 
   /**
-   * Delete a data quality monitor on Unity Catalog object.
+   * Delete a data quality monitor on a Unity Catalog object.
    *
    * <p>For the `table` `object_type`, the caller must have either of the following sets of
-   * permissions: **MANAGE** and **USE_CATALOG** on the table's parent catalog. **USE_CATALOG** on
-   * the table's parent catalog, and **MANAGE** and **USE_SCHEMA** on the table's parent schema.
-   * **USE_CATALOG** on the table's parent catalog, **USE_SCHEMA** on the table's parent schema, and
-   * **MANAGE** on the table.
+   * permissions: 1. **MANAGE** and **USE_CATALOG** on the table's parent catalog. 2.
+   * **USE_CATALOG** on the table's parent catalog, and **MANAGE** and **USE_SCHEMA** on the table's
+   * parent schema. 3. **USE_CATALOG** on the table's parent catalog, **USE_SCHEMA** on the table's
+   * parent schema, and **MANAGE** on the table.
    *
    * <p>Note that the metric tables and dashboard will not be deleted as part of this call; those
    * assets must be manually cleaned up (if desired).
@@ -134,7 +134,8 @@ public interface DataQualityService {
   ListRefreshResponse listRefresh(ListRefreshRequest listRefreshRequest);
 
   /**
-   * Update a data quality monitor on Unity Catalog object.
+   * Update a data quality monitor on a Unity Catalog object. Only the fields named in `update_mask`
+   * are changed.
    *
    * <p>For the `table` `object_type`, the caller must have either of the following sets of
    * permissions: 1. **MANAGE** and **USE_CATALOG** on the table's parent catalog. 2.

@@ -15,15 +15,19 @@ import java.util.Objects;
  */
 @Generated
 public class RoleAttributes {
-  /** */
+  /**
+   * Whether the role bypasses every row-level security policy (the Postgres BYPASSRLS attribute).
+   */
   @JsonProperty("bypassrls")
   private Boolean bypassrls;
 
-  /** */
+  /** Whether the role can create databases (the Postgres CREATEDB attribute). */
   @JsonProperty("createdb")
   private Boolean createdb;
 
-  /** */
+  /**
+   * Whether the role can create, alter and drop other roles (the Postgres CREATEROLE attribute).
+   */
   @JsonProperty("createrole")
   private Boolean createrole;
 

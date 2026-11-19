@@ -9,7 +9,10 @@ import java.util.Objects;
 
 @Generated
 public class GenerateTemporaryServiceCredentialRequest {
-  /** */
+  /**
+   * Options for an Azure service credential. They are required when the service credential uses an
+   * Azure managed identity.
+   */
   @JsonProperty("azure_options")
   private GenerateTemporaryServiceCredentialAzureOptions azureOptions;
 
@@ -17,7 +20,10 @@ public class GenerateTemporaryServiceCredentialRequest {
   @JsonProperty("credential_name")
   private String credentialName;
 
-  /** */
+  /**
+   * Options for a GCP service credential. They are required when the service credential uses a
+   * Databricks-managed GCP service account.
+   */
   @JsonProperty("gcp_options")
   private GenerateTemporaryServiceCredentialGcpOptions gcpOptions;
 

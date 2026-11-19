@@ -10,12 +10,12 @@ import java.util.Objects;
 
 @Generated
 public class ListMonitorRequest {
-  /** */
+  /** The maximum number of monitors to return in one page. */
   @JsonIgnore
   @QueryParam("page_size")
   private Long pageSize;
 
-  /** */
+  /** Pagination token from a previous response, used to fetch the next page. */
   @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;

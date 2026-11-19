@@ -18,7 +18,10 @@ public class ConnectionInfo {
   @JsonProperty("connection_id")
   private String connectionId;
 
-  /** The type of connection. */
+  /**
+   * The type of external data source or service that the connection reaches. The connection type
+   * determines which keys are required in options and cannot be changed after creation.
+   */
   @JsonProperty("connection_type")
   private ConnectionType connectionType;
 
@@ -30,11 +33,17 @@ public class ConnectionInfo {
   @JsonProperty("created_by")
   private String createdBy;
 
-  /** The type of credential. */
+  /**
+   * The type of credential that is used to authenticate to the external data source. The server
+   * derives it from the connection type and the keys present in options.
+   */
   @JsonProperty("credential_type")
   private CredentialType credentialType;
 
-  /** [Create,Update:OPT] Connection environment settings as EnvironmentSettings object. */
+  /**
+   * Environment settings for the connection, such as the Java libraries that it needs and the
+   * environment version.
+   */
   @JsonProperty("environment_settings")
   private EnvironmentSettings environmentSettings;
 
@@ -54,7 +63,10 @@ public class ConnectionInfo {
   @JsonProperty("options")
   private Map<String, String> options;
 
-  /** Username of current owner of the connection. */
+  /**
+   * Username of the current owner of the connection. The creator becomes the owner at creation, and
+   * ownership can be transferred on update.
+   */
   @JsonProperty("owner")
   private String owner;
 
@@ -62,11 +74,14 @@ public class ConnectionInfo {
   @JsonProperty("properties")
   private Map<String, String> properties;
 
-  /** */
+  /** Provisioning status of the connection. */
   @JsonProperty("provisioning_info")
   private ProvisioningInfo provisioningInfo;
 
-  /** If the connection is read only. */
+  /**
+   * Whether the connection is read only. All connections are currently read only, so a value set on
+   * create or update is ignored.
+   */
   @JsonProperty("read_only")
   private Boolean readOnly;
 
@@ -77,7 +92,7 @@ public class ConnectionInfo {
   @JsonProperty("secrets")
   private Map<String, String> secrets;
 
-  /** */
+  /** The type of Unity Catalog securable. This is always CONNECTION. */
   @JsonProperty("securable_type")
   private SecurableType securableType;
 
@@ -89,7 +104,7 @@ public class ConnectionInfo {
   @JsonProperty("updated_by")
   private String updatedBy;
 
-  /** URL of the remote data source, extracted from options. */
+  /** URL of the remote data source. The server derives it from the host, port and path options. */
   @JsonProperty("url")
   private String url;
 

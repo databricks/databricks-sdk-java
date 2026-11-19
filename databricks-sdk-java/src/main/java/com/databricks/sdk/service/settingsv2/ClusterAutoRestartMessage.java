@@ -9,23 +9,39 @@ import java.util.Objects;
 
 @Generated
 public class ClusterAutoRestartMessage {
-  /** */
+  /**
+   * Whether the workspace can change the enabled state. Databricks computes this value: it is false
+   * when the compliance security profile forces the feature on or when the workspace lacks the
+   * Enhanced Security and Compliance entitlement. A value sent in an update request has no effect.
+   */
   @JsonProperty("can_toggle")
   private Boolean canToggle;
 
-  /** */
+  /**
+   * Whether automatic cluster update is enabled for the workspace. The effective value is always
+   * true while the compliance security profile is enabled on the workspace.
+   */
   @JsonProperty("enabled")
   private Boolean enabled;
 
-  /** */
+  /**
+   * Why the feature is forced on or unavailable. Databricks sets these details for information
+   * only; they do not determine whether the feature is enabled.
+   */
   @JsonProperty("enablement_details")
   private ClusterAutoRestartMessageEnablementDetails enablementDetails;
 
-  /** */
+  /**
+   * When the maintenance window runs. When unset, it defaults to the first Sunday of every month at
+   * 01:00 UTC.
+   */
   @JsonProperty("maintenance_window")
   private ClusterAutoRestartMessageMaintenanceWindow maintenanceWindow;
 
-  /** */
+  /**
+   * Whether compute resources restart during every maintenance window even when no update is
+   * available. When false, they restart only when an update is available.
+   */
   @JsonProperty("restart_even_if_no_updates_available")
   private Boolean restartEvenIfNoUpdatesAvailable;
 

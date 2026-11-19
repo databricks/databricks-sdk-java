@@ -12,26 +12,33 @@ import java.util.Objects;
 @Generated
 public class DataProfilingConfig {
   /**
-   * Field for specifying the absolute path to a custom directory to store data-monitoring assets.
-   * Normally prepopulated to a default user location via UI and Python APIs.
+   * The absolute workspace path of the directory where the monitor's assets, such as the dashboard,
+   * are stored. The UI and the Python APIs normally prepopulate a default user location.
    */
   @JsonProperty("assets_dir")
   private String assetsDir;
 
   /**
-   * Baseline table name. Baseline data is used to compute drift from the data in the monitored
-   * `table_name`. The baseline table and the monitored table shall have the same schema.
+   * The fully qualified name of a baseline table. Format: `catalog.schema.table_name`. Drift
+   * metrics compare the monitored table against the baseline data, so the two tables must have the
+   * same schema.
    */
   @JsonProperty("baseline_table_name")
   private String baselineTableName;
 
-  /** Custom metrics. */
+  /**
+   * Custom metrics to compute in addition to the built-in ones. See [custom metrics].
+   *
+   * <p>[custom metrics]:
+   * https://docs.databricks.com/aws/en/data-governance/unity-catalog/data-quality-monitoring/data-profiling/custom-metrics
+   */
   @JsonProperty("custom_metrics")
   private Collection<DataProfilingCustomMetric> customMetrics;
 
   /**
-   * Id of dashboard that visualizes the computed metrics. This can be empty if the monitor is in
-   * PENDING state.
+   * The ID of the dashboard that visualizes the computed metrics. It is empty while the monitor is
+   * pending, when the dashboard was skipped with `skip_builtin_dashboard`, or when the caller is in
+   * a different workspace from the one where the monitor was created.
    */
   @JsonProperty("dashboard_id")
   private String dashboardId;
@@ -44,7 +51,10 @@ public class DataProfilingConfig {
   @JsonProperty("effective_warehouse_id")
   private String effectiveWarehouseId;
 
-  /** `Analysis Configuration` for monitoring inference log tables. */
+  /**
+   * Profiles an inference log table, which stores the requests and predictions of a model. Metrics
+   * are computed per time window and include model quality metrics.
+   */
   @JsonProperty("inference_log")
   private InferenceLogConfig inferenceLog;
 
@@ -60,15 +70,20 @@ public class DataProfilingConfig {
   @JsonProperty("monitor_version")
   private Long monitorVersion;
 
-  /** Unity Catalog table to monitor. Format: `catalog.schema.table_name` */
+  /** The fully qualified name of the monitored table. Format: `catalog.schema.table_name`. */
   @JsonProperty("monitored_table_name")
   private String monitoredTableName;
 
-  /** Field for specifying notification settings. */
+  /**
+   * Who to notify about this monitor's refreshes. Only `on_failure` with `email_addresses` is
+   * supported here.
+   */
   @JsonProperty("notification_settings")
   private NotificationSettings notificationSettings;
 
-  /** ID of the schema where output tables are created. */
+  /**
+   * The UUID of the Unity Catalog schema where the profile and drift metrics tables are created.
+   */
   @JsonProperty("output_schema_id")
   private String outputSchemaId;
 
@@ -76,7 +91,10 @@ public class DataProfilingConfig {
   @JsonProperty("profile_metrics_table_name")
   private String profileMetricsTableName;
 
-  /** The cron schedule. */
+  /**
+   * The schedule on which the monitor refreshes its metrics. Refreshes can also be triggered on
+   * demand through the Refresh resource.
+   */
   @JsonProperty("schedule")
   private CronSchedule schedule;
 
@@ -87,28 +105,40 @@ public class DataProfilingConfig {
   /**
    * List of column expressions to slice data with for targeted analysis. The data is grouped by
    * each expression independently, resulting in a separate slice for each predicate and its
-   * complements. For example `slicing_exprs=[“col_1”, “col_2 > 10”]` will generate the following
-   * slices: two slices for `col_2 > 10` (True and False), and one slice per unique value in `col1`.
-   * For high-cardinality columns, only the top 100 unique values by frequency will generate slices.
+   * complements. For example `slicing_exprs=["col_1", "col_2 > 10"]` will generate the following
+   * slices: two slices for `col_2 > 10` (True and False), and one slice per unique value in
+   * `col_1`. For high-cardinality columns, only the top 100 unique values by frequency will
+   * generate slices.
    */
   @JsonProperty("slicing_exprs")
   private Collection<String> slicingExprs;
 
-  /** `Analysis Configuration` for monitoring snapshot tables. */
+  /**
+   * Profiles the full contents of the table. Metrics are computed over all rows at each refresh.
+   */
   @JsonProperty("snapshot")
   private SnapshotConfig snapshot;
 
-  /** The data profiling monitor status. */
+  /**
+   * The status of the monitor. `DATA_PROFILING_STATUS_PENDING` means the monitor's assets are being
+   * created or updated. `DATA_PROFILING_STATUS_ACTIVE` means the monitor is ready and can be
+   * refreshed. `DATA_PROFILING_STATUS_FAILED` and `DATA_PROFILING_STATUS_ERROR` mean the monitor is
+   * not operational, and `latest_monitor_failure_message` describes the cause when one was
+   * recorded. `DATA_PROFILING_STATUS_DELETE_PENDING` means the monitor is being deleted.
+   */
   @JsonProperty("status")
   private DataProfilingStatus status;
 
-  /** `Analysis Configuration` for monitoring time series tables. */
+  /**
+   * Profiles a time series table. Metrics are computed per time window, as defined by
+   * `timestamp_column` and `granularities`.
+   */
   @JsonProperty("time_series")
   private TimeSeriesConfig timeSeries;
 
   /**
-   * Optional argument to specify the warehouse for dashboard creation. If not specified, the first
-   * running warehouse will be used.
+   * The ID of the SQL warehouse used to create the dashboard. If not specified, the first running
+   * warehouse the caller can access is used.
    */
   @JsonProperty("warehouse_id")
   private String warehouseId;

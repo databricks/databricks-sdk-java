@@ -150,8 +150,10 @@ public class JobSettings {
   private Collection<JobParameterDefinition> parameters;
 
   /**
-   * Path of the job parent folder in workspace file tree. If absent, the job doesn't have a
-   * workspace object.
+   * Path of the job parent folder in workspace file tree. If absent, the job doesn't have a parent
+   * folder.
+   *
+   * <p>Example: /Workspace/Projects/my_project
    */
   @JsonProperty("parent_path")
   private String parentPath;

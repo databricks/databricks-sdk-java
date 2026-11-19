@@ -4,10 +4,7 @@ package com.databricks.sdk.service.workspace;
 
 import com.databricks.sdk.support.Generated;
 
-/**
- * The types of secret scope backends in the Secret Manager. Azure KeyVault backed secret scopes
- * will be supported in a later release.
- */
+/** The types of secret scope backends in the Secret Manager. */
 @Generated
 public enum ScopeBackendType {
   AZURE_KEYVAULT,

@@ -10,7 +10,10 @@ import java.util.Objects;
 /** ai_decide */
 @Generated
 public class AiDecideOptions {
-  /** The function API version to invoke. Defaults to "1.0". Supported versions: ["1.0"]. */
+  /**
+   * The function API version to invoke. If unset, the version is inferred per row. Supported
+   * versions: ["1.0"].
+   */
   @JsonProperty("version")
   private String version;
 

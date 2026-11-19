@@ -9,19 +9,19 @@ import java.util.Objects;
 
 @Generated
 public class AccessControlRequest {
-  /** name of the group */
+  /** Display name of the group. */
   @JsonProperty("group_name")
   private String groupName;
 
-  /** */
+  /** Permission level to grant to the principal. */
   @JsonProperty("permission_level")
   private PermissionLevel permissionLevel;
 
-  /** application ID of a service principal */
+  /** Application ID of the service principal. */
   @JsonProperty("service_principal_name")
   private String servicePrincipalName;
 
-  /** name of the user */
+  /** Username of the user, which is the user's email address. */
   @JsonProperty("user_name")
   private String userName;
 

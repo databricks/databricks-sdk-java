@@ -22,8 +22,8 @@ public class DataProfilingCustomMetric {
   private String definition;
 
   /**
-   * A list of column names in the input table the metric should be computed for. Can use
-   * ``":table"`` to indicate that the metric needs information from multiple columns.
+   * A list of column names in the input table the metric should be computed for. Can use `":table"`
+   * to indicate that the metric needs information from multiple columns.
    */
   @JsonProperty("input_columns")
   private Collection<String> inputColumns;
@@ -32,11 +32,20 @@ public class DataProfilingCustomMetric {
   @JsonProperty("name")
   private String name;
 
-  /** The output type of the custom metric. */
+  /**
+   * Specifies the Spark SQL data type of the metric value, either as a plain type name or as a
+   * JSON-encoded StructField.
+   */
   @JsonProperty("output_data_type")
   private String outputDataType;
 
-  /** The type of the custom metric. */
+  /**
+   * The type of the custom metric. `DATA_PROFILING_CUSTOM_METRIC_TYPE_AGGREGATE` metrics depend
+   * only on the columns of the input table, `DATA_PROFILING_CUSTOM_METRIC_TYPE_DERIVED` metrics
+   * depend only on previously computed aggregate metrics, and
+   * `DATA_PROFILING_CUSTOM_METRIC_TYPE_DRIFT` metrics depend on previously computed aggregate or
+   * derived metrics.
+   */
   @JsonProperty("type")
   private DataProfilingCustomMetricType typeValue;
 

@@ -14,7 +14,7 @@ import java.util.Objects;
  */
 @Generated
 public class GenieEvalResult {
-  /** Stored snapshot of original benchmark answer text. */
+  /** Benchmark SQL statement that defines the expected answer, as it was when the run started. */
   @JsonProperty("benchmark_answer")
   private String benchmarkAnswer;
 
@@ -22,11 +22,14 @@ public class GenieEvalResult {
   @JsonProperty("benchmark_question_id")
   private String benchmarkQuestionId;
 
-  /** User ID who created evaluation result. */
+  /** ID of the user who started the evaluation run. */
   @JsonProperty("created_by_user")
   private Long createdByUser;
 
-  /** Stored snapshot of original benchmark question text. */
+  /**
+   * Text of the benchmark question as it was when the run started. Later edits to the question do
+   * not change it.
+   */
   @JsonProperty("question")
   private String question;
 
@@ -38,7 +41,13 @@ public class GenieEvalResult {
   @JsonProperty("space_id")
   private String spaceId;
 
-  /** Current status of this evaluation result. */
+  /**
+   * Current status of this result. NOT_STARTED and RUNNING mean the question has not finished. DONE
+   * means Genie answered and the response was assessed. EVALUATION_FAILED means Genie could not
+   * answer the question or the benchmark SQL could not run. EVALUATION_CANCELLED and
+   * EVALUATION_TIMEOUT mean the run was cancelled or its background job stopped before this
+   * question finished.
+   */
   @JsonProperty("status")
   private EvaluationStatusType status;
 

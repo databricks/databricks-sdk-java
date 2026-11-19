@@ -11,11 +11,19 @@ import java.util.Objects;
 
 @Generated
 public class UpdateObjectPermissions {
-  /** */
+  /**
+   * Permissions to apply to the object, with one entry per principal. Each entry names exactly one
+   * principal through `user_name`, `group_name` or `service_principal_name` and the
+   * `permission_level` for that principal.
+   */
   @JsonProperty("access_control_list")
   private Collection<AccessControlRequest> accessControlList;
 
-  /** The id of the request object. */
+  /**
+   * The id of the object. It is the id that the object's own API uses, for example the cluster id
+   * for clusters, the job id for jobs, and the workspace object id for notebooks and directories.
+   * For the `authorization` object type, use `tokens` to manage token permissions.
+   */
   @JsonIgnore private String requestObjectId;
 
   /**

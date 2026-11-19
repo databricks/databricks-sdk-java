@@ -93,21 +93,40 @@ public interface GenieService {
    */
   GenieMessage genieCancelResponse(GenieCancelResponseRequest genieCancelResponseRequest);
 
-  /** Creates and runs chat-mode evaluations for multiple benchmark questions in a Genie space. */
+  /**
+   * Starts a benchmark evaluation run that asks Genie each selected benchmark question in a Genie
+   * space and compares every response with the benchmark SQL. The run executes asynchronously: the
+   * response is the new run with its current status. If it is still running, poll with the get
+   * method until the status is terminal.
+   */
   GenieEvalRunResponse genieCreateEvalRun(GenieCreateEvalRunRequest genieCreateEvalRunRequest);
 
-  /** Get details for evaluation results. */
+  /**
+   * Gets the full result for one benchmark question in an evaluation run: its assessment and the
+   * reasons for it, Genie's response with the SQL execution result, and the expected response from
+   * the benchmark. The result must belong to the given run.
+   */
   GenieEvalResultDetails genieGetEvalResultDetails(
       GenieGetEvalResultDetailsRequest genieGetEvalResultDetailsRequest);
 
-  /** Get evaluation run details. */
+  /**
+   * Gets the current status and summary counts of a benchmark evaluation run. Poll this method
+   * until `eval_run_status` is terminal: DONE, EVALUATION_CANCELLED or EVALUATION_TIMEOUT.
+   */
   GenieEvalRunResponse genieGetEvalRun(GenieGetEvalRunRequest genieGetEvalRunRequest);
 
-  /** List evaluation results for a specific evaluation run. */
+  /**
+   * Lists the results of a benchmark evaluation run, one per benchmark question. Each entry carries
+   * the result status and a snapshot of the question and benchmark answer; the assessment and
+   * Genie's response are available through the result details method.
+   */
   GenieListEvalResultsResponse genieListEvalResults(
       GenieListEvalResultsRequest genieListEvalResultsRequest);
 
-  /** Lists all evaluation runs in a space. */
+  /**
+   * Lists the benchmark evaluation runs in a Genie space with the current status and summary counts
+   * of each run.
+   */
   GenieListEvalRunsResponse genieListEvalRuns(GenieListEvalRunsRequest genieListEvalRunsRequest);
 
   /**

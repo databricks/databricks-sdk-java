@@ -10,19 +10,19 @@ import java.util.Objects;
 /** contact info for the consumer requesting data or performing a listing installation */
 @Generated
 public class ContactInfo {
-  /** */
+  /** Company of the consumer contact. */
   @JsonProperty("company")
   private String company;
 
-  /** */
+  /** Email address of the consumer contact. */
   @JsonProperty("email")
   private String email;
 
-  /** */
+  /** First name of the consumer contact. */
   @JsonProperty("first_name")
   private String firstName;
 
-  /** */
+  /** Last name of the consumer contact. */
   @JsonProperty("last_name")
   private String lastName;
 

@@ -15,11 +15,11 @@ public class GenieAgentDataSources {
   @JsonProperty("mcp_connections")
   private Collection<GenieAgentMcpConnection> mcpConnections;
 
-  /** Unity Catalog tables, views, and metric views, in the order they were added. */
+  /** Unity Catalog tables, views, and metric views, sorted by `identifier`. */
   @JsonProperty("tables")
   private Collection<GenieAgentTable> tables;
 
-  /** Unity Catalog volumes, in the order they were added. */
+  /** Unity Catalog volumes, sorted by `path`. */
   @JsonProperty("volumes")
   private Collection<GenieAgentVolume> volumes;
 

@@ -58,8 +58,7 @@ public class CredentialsAPI {
 
   /**
    * Returns a set of temporary credentials generated using the specified service credential. The
-   * caller must be a metastore admin or have the metastore privilege **ACCESS** on the service
-   * credential.
+   * caller must be a metastore admin or have the **ACCESS** privilege on the service credential.
    */
   public TemporaryCredentials generateTemporaryServiceCredential(
       GenerateTemporaryServiceCredentialRequest request) {

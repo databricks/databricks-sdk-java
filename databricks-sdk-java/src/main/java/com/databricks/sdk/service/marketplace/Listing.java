@@ -7,17 +7,25 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * A Marketplace listing: a data product that a provider offers to consumers. The summary holds the
+ * listing's identity, status and sharing configuration, and the detail holds the descriptive
+ * content that consumers see on the listing page.
+ */
 @Generated
 public class Listing {
-  /** */
+  /**
+   * Descriptive content shown to consumers on the listing page, such as the description, links and
+   * data attributes.
+   */
   @JsonProperty("detail")
   private ListingDetail detail;
 
-  /** */
+  /** ID of the listing. Assigned by the server; not allowed in create requests. */
   @JsonProperty("id")
   private String id;
 
-  /** */
+  /** Identity, status and sharing configuration of the listing. */
   @JsonProperty("summary")
   private ListingSummary summary;
 

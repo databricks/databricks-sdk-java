@@ -9,7 +9,11 @@ import java.util.Objects;
 
 @Generated
 public class OperationalEmailCustomRecipientMessage {
-  /** */
+  /**
+   * Email address that receives this workspace's operational emails in addition to the workspace
+   * admins. Use a distribution list address to reach several people. An empty string clears the
+   * additional recipient.
+   */
   @JsonProperty("email")
   private String email;
 

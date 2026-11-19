@@ -10,11 +10,11 @@ import java.util.Objects;
 
 @Generated
 public class ListProvidersResponse {
-  /** */
+  /** Token for the next page. Not set when there are no more results. */
   @JsonProperty("next_page_token")
   private String nextPageToken;
 
-  /** */
+  /** Provider profiles on this page. */
   @JsonProperty("providers")
   private Collection<ProviderInfo> providers;
 

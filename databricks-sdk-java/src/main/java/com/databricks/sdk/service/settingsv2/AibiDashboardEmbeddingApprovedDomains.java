@@ -10,7 +10,11 @@ import java.util.Objects;
 
 @Generated
 public class AibiDashboardEmbeddingApprovedDomains {
-  /** */
+  /**
+   * Domains allowed to host embedded AI/BI dashboards. A leading wildcard allows every subdomain of
+   * a domain. The list applies, and can only be changed, while the embedding access policy is
+   * ALLOW_APPROVED_DOMAINS.
+   */
   @JsonProperty("approved_domains")
   private Collection<String> approvedDomains;
 

@@ -45,11 +45,11 @@ public class PublishedAppIntegrationAPI {
   }
 
   /**
-   * Delete an existing Published OAuth App Integration. You can retrieve the published OAuth app
-   * integration via [PublishedAppIntegration/get].
+   * Delete an existing Published OAuth App Integration. The app can no longer be used to sign in to
+   * the account until it is enabled again with [PublishedAppIntegration/create].
    *
-   * <p>[PublishedAppIntegration/get]:
-   * https://docs.databricks.com/api/account/publishedappintegration/get
+   * <p>[PublishedAppIntegration/create]:
+   * https://docs.databricks.com/api/account/publishedappintegration/create
    */
   public void delete(DeletePublishedAppIntegrationRequest request) {
     impl.delete(request);
@@ -64,7 +64,7 @@ public class PublishedAppIntegrationAPI {
     return impl.get(request);
   }
 
-  /** Get the list of published OAuth app integrations for the specified Databricks account */
+  /** Get the list of published OAuth app integrations for the specified Databricks account. */
   public Iterable<GetPublishedAppIntegrationOutput> list(
       ListPublishedAppIntegrationsRequest request) {
     return Paginator.newTokenPagination(

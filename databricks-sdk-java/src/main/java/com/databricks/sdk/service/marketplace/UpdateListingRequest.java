@@ -10,10 +10,10 @@ import java.util.Objects;
 
 @Generated
 public class UpdateListingRequest {
-  /** */
+  /** ID of the listing to update. */
   @JsonIgnore private String id;
 
-  /** */
+  /** Full definition of the listing, including the fields that are not changing. */
   @JsonProperty("listing")
   private Listing listing;
 

@@ -22,7 +22,10 @@ public class UpdateCatalogConfigRequest {
   /** Resource name in the format: catalogs/{catalog_name}/config. */
   @JsonIgnore private String name;
 
-  /** Field mask specifying which fields to update. */
+  /**
+   * Comma-separated list of the fields of catalog_config to update, for example `included_schemas`
+   * or `auto_tag_configs`.
+   */
   @JsonIgnore
   @QueryParam("update_mask")
   private FieldMask updateMask;

@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class UpdateListingResponse {
-  /** */
+  /** The updated listing. */
   @JsonProperty("listing")
   private Listing listing;
 

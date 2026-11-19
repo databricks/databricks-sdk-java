@@ -10,10 +10,10 @@ import java.util.Objects;
 
 @Generated
 public class UpdateProviderRequest {
-  /** */
+  /** ID of the provider profile to update. */
   @JsonIgnore private String id;
 
-  /** */
+  /** Full definition of the provider profile, including the fields that are not changing. */
   @JsonProperty("provider")
   private ProviderInfo provider;
 

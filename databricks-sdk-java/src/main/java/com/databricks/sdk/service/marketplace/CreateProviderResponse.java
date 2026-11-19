@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class CreateProviderResponse {
-  /** */
+  /** ID of the created provider profile. */
   @JsonProperty("id")
   private String id;
 

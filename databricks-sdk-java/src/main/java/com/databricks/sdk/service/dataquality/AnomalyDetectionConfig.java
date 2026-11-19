@@ -11,7 +11,10 @@ import java.util.Objects;
 /** Anomaly Detection Configurations. */
 @Generated
 public class AnomalyDetectionConfig {
-  /** List of fully qualified table names to exclude from anomaly detection. */
+  /**
+   * List of fully qualified table names to exclude from anomaly detection. Format:
+   * `catalog.schema.table_name`.
+   */
   @JsonProperty("excluded_table_full_names")
   private Collection<String> excludedTableFullNames;
 

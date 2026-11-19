@@ -14,7 +14,8 @@ public class GenerateTemporaryServiceCredentialAzureOptions {
   /**
    * The resources to which the temporary Azure credential should apply. These resources are the
    * scopes that are passed to the token provider (see
-   * https://learn.microsoft.com/python/api/azure-core/azure.core.credentials.tokencredential?view=azure-python)
+   * https://learn.microsoft.com/python/api/azure-core/azure.core.credentials.tokencredential?view=azure-python).
+   * Exactly one resource is supported, and its URL must end with the `.default` scope.
    */
   @JsonProperty("resources")
   private Collection<String> resources;

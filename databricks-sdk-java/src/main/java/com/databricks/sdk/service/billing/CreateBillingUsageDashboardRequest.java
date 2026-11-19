@@ -11,16 +11,23 @@ import java.util.Objects;
 public class CreateBillingUsageDashboardRequest {
   /**
    * Workspace level usage dashboard shows usage data for the specified workspace ID. Global level
-   * usage dashboard shows usage data for all workspaces in the account.
+   * usage dashboard shows usage data for all workspaces in the account. The request fails if the
+   * type is not set.
    */
   @JsonProperty("dashboard_type")
   private UsageDashboardType dashboardType;
 
-  /** The major version of the usage dashboard template to use. Defaults to VERSION_1. */
+  /**
+   * The major version of the usage dashboard template to import. Version 2 adds cost forecasting
+   * and object-level cost drill-down.
+   */
   @JsonProperty("major_version")
   private UsageDashboardMajorVersion majorVersion;
 
-  /** The workspace ID of the workspace in which the usage dashboard is created. */
+  /**
+   * The ID of the workspace to import the usage dashboard into. The workspace must be running,
+   * belong to the account, and not be a disaster recovery secondary.
+   */
   @JsonProperty("workspace_id")
   private Long workspaceId;
 

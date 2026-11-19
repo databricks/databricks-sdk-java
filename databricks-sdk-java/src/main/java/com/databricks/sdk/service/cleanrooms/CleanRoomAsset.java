@@ -33,7 +33,7 @@ public class CleanRoomAsset {
   private CleanRoomAssetForeignTable foreignTable;
 
   /**
-   * Local details for a foreign that are only available to its owner. Present if and only if
+   * Local details for a foreign table that are only available to its owner. Present if and only if
    * **asset_type** is **FOREIGN_TABLE**
    */
   @JsonProperty("foreign_table_local_details")
@@ -71,7 +71,11 @@ public class CleanRoomAsset {
   @JsonProperty("owner_collaborator_alias")
   private String ownerCollaboratorAlias;
 
-  /** Status of the asset */
+  /**
+   * The sharing status of the asset. `PERMISSION_DENIED` means the clean room owner no longer has
+   * the privileges needed on the underlying Unity Catalog object, so the asset is not shared into
+   * the clean room.
+   */
   @JsonProperty("status")
   private CleanRoomAssetStatusEnum status;
 

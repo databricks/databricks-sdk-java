@@ -14,7 +14,7 @@ import com.databricks.sdk.support.Generated;
 public interface WorkspaceSettingsV2Service {
   /**
    * Get a setting value at workspace level. See :method:settingsv2/listworkspacesettingsmetadata
-   * for list of setting available via public APIs.
+   * for the list of settings available via public APIs.
    */
   Setting getPublicWorkspaceSetting(
       GetPublicWorkspaceSettingRequest getPublicWorkspaceSettingRequest);
@@ -29,7 +29,7 @@ public interface WorkspaceSettingsV2Service {
 
   /**
    * Patch a setting value at workspace level. See :method:settingsv2/listworkspacesettingsmetadata
-   * for list of setting available via public APIs at workspace level. To determine the correct
+   * for the list of settings available via public APIs at workspace level. To determine the correct
    * field to include in a patch request, refer to the type field of the setting returned in the
    * :method:settingsv2/listworkspacesettingsmetadata response.
    *

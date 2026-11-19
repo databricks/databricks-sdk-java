@@ -18,7 +18,8 @@ public class DeleteRoleRequest {
 
   /**
    * Reassign objects. If this is set, all objects owned by the role are reassigned to the role
-   * specified in this parameter.
+   * specified in this parameter. The role must already exist. Format:
+   * projects/{project_id}/branches/{branch_id}/roles/{role_id}
    *
    * <p>NOTE: setting this requires spinning up a compute to succeed, since it involves running SQL
    * queries.

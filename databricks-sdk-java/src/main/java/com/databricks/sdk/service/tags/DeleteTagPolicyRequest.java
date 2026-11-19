@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class DeleteTagPolicyRequest {
-  /** */
+  /** The key of the governed tag whose policy to delete. */
   @JsonIgnore private String tagKey;
 
   public DeleteTagPolicyRequest setTagKey(String tagKey) {

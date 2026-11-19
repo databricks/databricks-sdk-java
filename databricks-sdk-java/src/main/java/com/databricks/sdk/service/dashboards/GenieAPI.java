@@ -216,7 +216,12 @@ public class GenieAPI {
     return impl.genieCancelResponse(request);
   }
 
-  /** Creates and runs chat-mode evaluations for multiple benchmark questions in a Genie space. */
+  /**
+   * Starts a benchmark evaluation run that asks Genie each selected benchmark question in a Genie
+   * space and compares every response with the benchmark SQL. The run executes asynchronously: the
+   * response is the new run with its current status. If it is still running, poll with the get
+   * method until the status is terminal.
+   */
   public GenieEvalRunResponse genieCreateEvalRun(GenieCreateEvalRunRequest request) {
     return impl.genieCreateEvalRun(request);
   }
@@ -230,7 +235,11 @@ public class GenieAPI {
             .setResultId(resultId));
   }
 
-  /** Get details for evaluation results. */
+  /**
+   * Gets the full result for one benchmark question in an evaluation run: its assessment and the
+   * reasons for it, Genie's response with the SQL execution result, and the expected response from
+   * the benchmark. The result must belong to the given run.
+   */
   public GenieEvalResultDetails genieGetEvalResultDetails(
       GenieGetEvalResultDetailsRequest request) {
     return impl.genieGetEvalResultDetails(request);
@@ -241,7 +250,10 @@ public class GenieAPI {
         new GenieGetEvalRunRequest().setSpaceId(spaceId).setEvalRunId(evalRunId));
   }
 
-  /** Get evaluation run details. */
+  /**
+   * Gets the current status and summary counts of a benchmark evaluation run. Poll this method
+   * until `eval_run_status` is terminal: DONE, EVALUATION_CANCELLED or EVALUATION_TIMEOUT.
+   */
   public GenieEvalRunResponse genieGetEvalRun(GenieGetEvalRunRequest request) {
     return impl.genieGetEvalRun(request);
   }
@@ -251,7 +263,11 @@ public class GenieAPI {
         new GenieListEvalResultsRequest().setSpaceId(spaceId).setEvalRunId(evalRunId));
   }
 
-  /** List evaluation results for a specific evaluation run. */
+  /**
+   * Lists the results of a benchmark evaluation run, one per benchmark question. Each entry carries
+   * the result status and a snapshot of the question and benchmark answer; the assessment and
+   * Genie's response are available through the result details method.
+   */
   public GenieListEvalResultsResponse genieListEvalResults(GenieListEvalResultsRequest request) {
     return impl.genieListEvalResults(request);
   }
@@ -260,7 +276,10 @@ public class GenieAPI {
     return genieListEvalRuns(new GenieListEvalRunsRequest().setSpaceId(spaceId));
   }
 
-  /** Lists all evaluation runs in a space. */
+  /**
+   * Lists the benchmark evaluation runs in a Genie space with the current status and summary counts
+   * of each run.
+   */
   public GenieListEvalRunsResponse genieListEvalRuns(GenieListEvalRunsRequest request) {
     return impl.genieListEvalRuns(request);
   }

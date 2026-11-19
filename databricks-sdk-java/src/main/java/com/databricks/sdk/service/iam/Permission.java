@@ -10,15 +10,20 @@ import java.util.Objects;
 
 @Generated
 public class Permission {
-  /** */
+  /**
+   * Whether the permission is inherited from a parent object or the root object instead of being
+   * granted directly on the object.
+   */
   @JsonProperty("inherited")
   private Boolean inherited;
 
-  /** */
+  /**
+   * Paths of the objects the permission is inherited from. It is only set when `inherited` is true.
+   */
   @JsonProperty("inherited_from_object")
   private Collection<String> inheritedFromObject;
 
-  /** */
+  /** Permission level the principal holds on the object. */
   @JsonProperty("permission_level")
   private PermissionLevel permissionLevel;
 

@@ -13,7 +13,9 @@ public class PutAcl {
   @JsonProperty("permission")
   private AclPermission permission;
 
-  /** The principal in which the permission is applied. */
+  /**
+   * The user name or group name of an existing Databricks principal that the permission applies to.
+   */
   @JsonProperty("principal")
   private String principal;
 

@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class GetFileRequest {
-  /** */
+  /** ID of the file. */
   @JsonIgnore private String fileId;
 
   public GetFileRequest setFileId(String fileId) {

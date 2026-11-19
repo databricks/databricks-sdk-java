@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class GetPublishedAppIntegrationRequest {
-  /** */
+  /** ID of the published OAuth app integration. */
   @JsonIgnore private String integrationId;
 
   public GetPublishedAppIntegrationRequest setIntegrationId(String integrationId) {

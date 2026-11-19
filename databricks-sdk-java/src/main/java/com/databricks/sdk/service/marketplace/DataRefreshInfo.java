@@ -9,11 +9,11 @@ import java.util.Objects;
 
 @Generated
 public class DataRefreshInfo {
-  /** */
+  /** Number of time units. Must be greater than zero. */
   @JsonProperty("interval")
   private Long interval;
 
-  /** */
+  /** Time unit that the interval is expressed in. */
   @JsonProperty("unit")
   private DataRefresh unit;
 

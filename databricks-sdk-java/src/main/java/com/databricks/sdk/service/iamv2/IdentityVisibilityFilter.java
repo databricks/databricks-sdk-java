@@ -18,6 +18,9 @@ import java.util.Objects;
  *
  * <p>You can only create group filters. Filters don't affect provisioning or sign-in for users and
  * service principals. You can't change a filter: to change a rule, delete it and create a new one.
+ *
+ * <p>To address a filter, put its resource name in the URL: `GET
+ * /api/2.0/identity/accounts/{account_id}/identity-visibility-filters/{identity_visibility_filter_id}`.
  */
 @Generated
 public class IdentityVisibilityFilter {

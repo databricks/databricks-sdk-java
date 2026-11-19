@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Generated
 public class GetPermissionLevelsResponse {
-  /** Specific permission levels */
+  /** Permission levels that can be granted on objects of the requested type. */
   @JsonProperty("permission_levels")
   private Collection<PermissionsDescription> permissionLevels;
 
