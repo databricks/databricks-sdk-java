@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class CancelBatchRequest {
-  /** Resource name of the batch. Format: `batch_<id>`. */
+  /** Unique identifier of the batch. Format: `batch_<id>`. */
   @JsonIgnore private String name;
 
   public CancelBatchRequest setName(String name) {

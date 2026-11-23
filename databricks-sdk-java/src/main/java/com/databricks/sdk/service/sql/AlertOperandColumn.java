@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class AlertOperandColumn {
-  /** */
+  /** Name of the column in the query result. */
   @JsonProperty("name")
   private String name;
 

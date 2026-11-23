@@ -8,6 +8,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * A share is a named collection of data and AI assets from a single Unity Catalog metastore that a
+ * provider makes available to recipients through Delta Sharing. A share is created empty; tables,
+ * views, volumes, models, notebook files, or whole schemas are added to it with **update**, and
+ * recipients are granted access to it through share permissions.
+ */
 @Generated
 public class ShareInfo {
   /** User-provided free-form text description. */
@@ -34,11 +40,17 @@ public class ShareInfo {
   @JsonProperty("owner")
   private String owner;
 
-  /** Storage Location URL (full path) for the share. */
+  /**
+   * Full storage path, derived from `storage_root`, where the share's notebook files are stored.
+   */
   @JsonProperty("storage_location")
   private String storageLocation;
 
-  /** Storage root URL for the share. */
+  /**
+   * Cloud storage path, within an external location, under which the share stores the notebook
+   * files added to it. When unset, notebook files are stored under the metastore root storage
+   * location.
+   */
   @JsonProperty("storage_root")
   private String storageRoot;
 

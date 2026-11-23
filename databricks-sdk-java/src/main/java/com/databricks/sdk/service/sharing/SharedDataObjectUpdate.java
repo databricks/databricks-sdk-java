@@ -9,14 +9,15 @@ import java.util.Objects;
 
 @Generated
 public class SharedDataObjectUpdate {
-  /** One of: **ADD**, **REMOVE**, **UPDATE**. */
+  /**
+   * One of: **ADD**, **REMOVE**, **UPDATE**. **ADD** adds the data object to the share, **REMOVE**
+   * removes it, and **UPDATE** changes the properties of a data object that is already in the
+   * share.
+   */
   @JsonProperty("action")
   private SharedDataObjectUpdateAction action;
 
-  /**
-   * The data object that is being added, removed, or updated. The maximum number update data
-   * objects allowed is a 100.
-   */
+  /** The data object that is being added, removed, or updated. */
   @JsonProperty("data_object")
   private SharedDataObject dataObject;
 

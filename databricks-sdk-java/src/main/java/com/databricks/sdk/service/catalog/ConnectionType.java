@@ -15,6 +15,7 @@ public enum ConnectionType {
   GA4_RAW_DATA,
   GITHUB,
   GLUE,
+  GOOGLE_ADS,
   HIVE_METASTORE,
   HTTP,
   HUBSPOT,

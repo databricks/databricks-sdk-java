@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class TrashAlertRequest {
-  /** */
+  /** UUID of the alert to move to the trash. */
   @JsonIgnore private String id;
 
   public TrashAlertRequest setId(String id) {

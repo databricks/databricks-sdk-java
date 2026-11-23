@@ -13,12 +13,12 @@ public class ListAppDeploymentsRequest {
   /** The name of the app. */
   @JsonIgnore private String appName;
 
-  /** Upper bound for items returned. */
+  /** Upper bound for items returned. The default is 100 and the maximum is 1000. */
   @JsonIgnore
   @QueryParam("page_size")
   private Long pageSize;
 
-  /** Pagination token to go to the next page of apps. Requests first page if absent. */
+  /** Pagination token to go to the next page of deployments. Requests first page if absent. */
   @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;

@@ -14,6 +14,11 @@ import java.util.Objects;
  * The AI Functions Asynchronous API lets you process large volumes of requests as a batch in a
  * single call. It is in Beta: a workspace admin must turn on the **AI Functions Asynchronous API**
  * preview on the workspace Previews page before you can call it.
+ *
+ * <p>For examples, see
+ * [`ai_parse_document`](/agents/agent-bricks/document-parsing#asynchronous-api),
+ * [`ai_extract`](/agents/agent-bricks/info-extraction#asynchronous-api), and
+ * [`ai_classify`](/agents/agent-bricks/classification#asynchronous-api).
  */
 @Generated
 public class Batch {
@@ -33,9 +38,7 @@ public class Batch {
   @JsonProperty("input_ref")
   private String inputRef;
 
-  /**
-   * Output only. Identifier. Resource name of the batch, returned by create. Format: `batch_<id>`.
-   */
+  /** Output only. Unique identifier of the batch, returned by create. Format: `batch_<id>`. */
   @JsonProperty("name")
   private String name;
 
@@ -43,7 +46,7 @@ public class Batch {
    * Unity Catalog volume path to write the JSONL output file to. If the path is a directory, the
    * file is `<path>/<name>_output.jsonl`. Each line is the result of one request, in the form
    * `{"custom_id": ..., "response": ...}`, or `{"custom_id": ..., "error": {"type": ..., "message":
-   * ...}}` for a request that failed.
+   * ...}}` for a request that failed or did not finish.
    */
   @JsonProperty("output_ref")
   private String outputRef;
@@ -71,7 +74,12 @@ public class Batch {
   @JsonProperty("request_counts")
   private BatchRequestCounts requestCounts;
 
-  /** Output only. The status of the batch. */
+  /**
+   * Output only. The status of the batch. A batch starts as `PENDING`, runs as `IN_PROGRESS`, is
+   * `FINALIZING` while the output file is written, and ends as `COMPLETED`. A running batch that is
+   * cancelled is `CANCELLING`, then `CANCELLED`. A `COMPLETED` batch can include requests that
+   * failed, and a `FAILED` batch has no `output_ref`.
+   */
   @JsonProperty("status")
   private BatchStatus status;
 

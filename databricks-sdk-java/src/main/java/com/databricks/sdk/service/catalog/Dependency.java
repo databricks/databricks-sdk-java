@@ -13,19 +13,19 @@ import java.util.Objects;
  */
 @Generated
 public class Dependency {
-  /** */
+  /** A dependency on a Unity Catalog connection. */
   @JsonProperty("connection")
   private ConnectionDependency connection;
 
-  /** */
+  /** A dependency on a Unity Catalog credential. */
   @JsonProperty("credential")
   private CredentialDependency credential;
 
-  /** */
+  /** A dependency on a Unity Catalog function. */
   @JsonProperty("function")
   private FunctionDependency function;
 
-  /** */
+  /** A dependency on a Unity Catalog table. */
   @JsonProperty("table")
   private TableDependency table;
 

@@ -12,14 +12,24 @@ import java.util.Objects;
 
 @Generated
 public class UpdateSupervisorAgentRequest {
-  /** The resource name of the SupervisorAgent. Format: supervisor-agents/{supervisor_agent_id} */
+  /**
+   * The resource name of the Supervisor Agent. Format: supervisor-agents/{supervisor_agent_id} The
+   * server assigns the name when the agent is created.
+   */
   @JsonIgnore private String name;
 
-  /** The SupervisorAgent to update. */
+  /**
+   * The Supervisor Agent to update. `name` identifies the agent. The other fields carry the new
+   * values for the paths listed in `update_mask`.
+   */
   @JsonProperty("supervisor_agent")
   private SupervisorAgent supervisorAgent;
 
-  /** Field mask for fields to be updated. */
+  /**
+   * Comma-separated list of the fields to update. Supported values are `display_name`,
+   * `description` and `instructions`. The request fails if the mask is empty or names any other
+   * field.
+   */
   @JsonIgnore
   @QueryParam("update_mask")
   private FieldMask updateMask;

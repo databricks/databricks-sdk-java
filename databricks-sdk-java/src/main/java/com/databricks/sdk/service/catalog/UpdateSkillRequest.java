@@ -23,8 +23,8 @@ public class UpdateSkillRequest {
 
   /**
    * Resource name of the skill. Format: `skills/{catalog}.{schema}.{skill}`. Each `{...}` component
-   * is capped at 255 characters individually. Server-derived on Create from `parent` + `skill_id`;
-   * required and immutable on Update/Get/Delete.
+   * is capped at 255 characters individually. The server derives the name on Create from `parent`
+   * and `skill_id`; it is required and immutable on Update, Get, and Delete.
    */
   @JsonIgnore private String name;
 
@@ -36,8 +36,8 @@ public class UpdateSkillRequest {
   private Skill skill;
 
   /**
-   * Fields to update; validated against `skill`. REQUIRED, matching the sibling Update RPCs.
-   * `comment` is the only mutable field.
+   * Comma-separated list of `skill` fields to update. `comment` is the only field that can be
+   * updated.
    */
   @JsonIgnore
   @QueryParam("update_mask")

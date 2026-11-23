@@ -11,7 +11,7 @@ import java.util.Objects;
 
 @Generated
 public class CreateTableRequest {
-  /** Name of parent catalog. */
+  /** Name of parent catalog. Required for creation using catalog and schema names. */
   @JsonProperty("catalog_name")
   private String catalogName;
 
@@ -35,7 +35,10 @@ public class CreateTableRequest {
   @JsonProperty("properties")
   private Map<String, String> properties;
 
-  /** Name of parent schema relative to its parent catalog. */
+  /**
+   * Name of parent schema relative to its parent catalog. Required for creation using catalog and
+   * schema names.
+   */
   @JsonProperty("schema_name")
   private String schemaName;
 

@@ -34,7 +34,12 @@ public interface AppsService {
   /** Deletes an app space. */
   Operation deleteSpace(DeleteSpaceRequest deleteSpaceRequest);
 
-  /** Creates an app deployment for the app with the supplied name. */
+  /**
+   * Creates an app deployment for the app with the supplied name. The call returns while the
+   * deployment is still `IN_PROGRESS`; poll the deployment until it reaches a terminal state. The
+   * request fails with RESOURCE_CONFLICT if another deployment of the same app is still pending and
+   * has not timed out.
+   */
   AppDeployment deploy(CreateAppDeploymentRequest createAppDeploymentRequest);
 
   /** Retrieves information for the app with the supplied name. */
@@ -70,7 +75,10 @@ public interface AppsService {
   ListAppDeploymentScanFindingsResponse listAppDeploymentScanFindings(
       ListAppDeploymentScanFindingsRequest listAppDeploymentScanFindingsRequest);
 
-  /** Lists all app deployments for the app with the supplied name. */
+  /**
+   * Lists all app deployments for the app with the supplied name. The history holds only the app's
+   * most recent deployments.
+   */
   ListAppDeploymentsResponse listDeployments(ListAppDeploymentsRequest listAppDeploymentsRequest);
 
   /** Lists all app spaces in the workspace. */

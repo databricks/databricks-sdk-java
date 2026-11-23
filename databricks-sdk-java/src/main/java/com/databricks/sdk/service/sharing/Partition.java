@@ -10,7 +10,10 @@ import java.util.Objects;
 
 @Generated
 public class Partition {
-  /** An array of partition values. */
+  /**
+   * An array of partition values. A row belongs to the partition when it matches every value in the
+   * array, and each `name` must appear at most once in the array.
+   */
   @JsonProperty("values")
   private Collection<PartitionValue> values;
 

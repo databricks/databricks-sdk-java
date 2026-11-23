@@ -30,6 +30,14 @@ public class Function {
   @JsonProperty("function_type")
   private FunctionFunctionType functionType;
 
+  /** Looks up an upstream Feature using entity values from other Features or the request. */
+  @JsonProperty("lookup")
+  private Lookup lookup;
+
+  /** Selects the secondary key values an upstream Feature has stored for the request's entity. */
+  @JsonProperty("secondary_keys")
+  private SecondaryKeys secondaryKeys;
+
   public Function setAggregationFunction(AggregationFunction aggregationFunction) {
     this.aggregationFunction = aggregationFunction;
     return this;
@@ -75,6 +83,24 @@ public class Function {
     return functionType;
   }
 
+  public Function setLookup(Lookup lookup) {
+    this.lookup = lookup;
+    return this;
+  }
+
+  public Lookup getLookup() {
+    return lookup;
+  }
+
+  public Function setSecondaryKeys(SecondaryKeys secondaryKeys) {
+    this.secondaryKeys = secondaryKeys;
+    return this;
+  }
+
+  public SecondaryKeys getSecondaryKeys() {
+    return secondaryKeys;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -84,13 +110,21 @@ public class Function {
         && Objects.equals(columnSelection, that.columnSelection)
         && Objects.equals(customUdf, that.customUdf)
         && Objects.equals(extraParameters, that.extraParameters)
-        && Objects.equals(functionType, that.functionType);
+        && Objects.equals(functionType, that.functionType)
+        && Objects.equals(lookup, that.lookup)
+        && Objects.equals(secondaryKeys, that.secondaryKeys);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(
-        aggregationFunction, columnSelection, customUdf, extraParameters, functionType);
+        aggregationFunction,
+        columnSelection,
+        customUdf,
+        extraParameters,
+        functionType,
+        lookup,
+        secondaryKeys);
   }
 
   @Override
@@ -101,6 +135,8 @@ public class Function {
         .add("customUdf", customUdf)
         .add("extraParameters", extraParameters)
         .add("functionType", functionType)
+        .add("lookup", lookup)
+        .add("secondaryKeys", secondaryKeys)
         .toString();
   }
 }

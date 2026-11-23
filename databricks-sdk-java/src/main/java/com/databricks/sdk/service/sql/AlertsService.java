@@ -35,6 +35,10 @@ public interface AlertsService {
    */
   ListAlertsResponse list(ListAlertsRequest listAlertsRequest);
 
-  /** Updates an alert. */
+  /**
+   * Updates the fields of an alert named in `update_mask`. Changing `owner_user_name` requires
+   * workspace admin privileges; changing any other field requires CAN MANAGE permission on the
+   * alert.
+   */
   Alert update(UpdateAlertRequest updateAlertRequest);
 }

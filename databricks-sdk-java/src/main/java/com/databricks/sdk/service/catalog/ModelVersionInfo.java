@@ -8,6 +8,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * A numbered version of a registered model in Unity Catalog. A model version is identified by the
+ * full name of its parent registered model and its version number, or by an alias that points to
+ * it. See https://docs.databricks.com/aws/en/machine-learning/manage-model-lifecycle/.
+ */
 @Generated
 public class ModelVersionInfo {
   /** List of aliases associated with the model version */
@@ -22,7 +27,7 @@ public class ModelVersionInfo {
   @JsonProperty("comment")
   private String comment;
 
-  /** */
+  /** Time at which the model version was created, in epoch milliseconds. */
   @JsonProperty("created_at")
   private Long createdAt;
 
@@ -81,7 +86,7 @@ public class ModelVersionInfo {
   @JsonProperty("storage_location")
   private String storageLocation;
 
-  /** */
+  /** Time at which the model version was last updated, in epoch milliseconds. */
   @JsonProperty("updated_at")
   private Long updatedAt;
 

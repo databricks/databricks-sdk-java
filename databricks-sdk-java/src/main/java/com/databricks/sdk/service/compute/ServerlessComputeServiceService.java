@@ -12,6 +12,18 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface ServerlessComputeServiceService {
+  /** Creates a custom compute policy in the workspace. */
+  ComputePolicy createComputePolicy(CreateComputePolicyRequest createComputePolicyRequest);
+
+  /**
+   * Deletes a custom compute policy in the workspace. Default (system-provisioned) policies cannot
+   * be deleted.
+   */
+  void deleteComputePolicy(DeleteComputePolicyRequest deleteComputePolicyRequest);
+
+  /** Retrieves a compute policy by its ID. */
+  ComputePolicy getComputePolicy(GetComputePolicyRequest getComputePolicyRequest);
+
   /**
    * Lists Interactive serverless computes that the caller can use or manage. Results are returned
    * in an unspecified order.
@@ -24,4 +36,11 @@ public interface ServerlessComputeServiceService {
    */
   ListComputePoliciesResponse listComputePolicies(
       ListComputePoliciesRequest listComputePoliciesRequest);
+
+  /**
+   * Updates a custom compute policy in the workspace. The display_name and allowed_compute_products
+   * are mutable; use update_mask to control which fields change. Default (system-provisioned)
+   * policies cannot be updated.
+   */
+  ComputePolicy updateComputePolicy(UpdateComputePolicyRequest updateComputePolicyRequest);
 }

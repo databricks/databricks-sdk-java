@@ -14,9 +14,13 @@ import com.databricks.sdk.core.oauth.TokenSource;
 import com.databricks.sdk.core.utils.Environment;
 import com.databricks.sdk.core.utils.TestOSUtils;
 import java.io.IOException;
+import java.lang.reflect.Method;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -897,5 +901,127 @@ public class DatabricksConfigTest {
           "https://ws.databricks.com/oidc/v1/authorize", endpoints.getAuthorizationEndpoint());
       assertEquals("https://ws.databricks.com/oidc/v1/token", endpoints.getTokenEndpoint());
     }
+  }
+
+  // The hidden switches: read from the environment or a profile, with no setter, so that removing
+  // them later breaks no user code.
+  private static final class HiddenSwitch {
+    final String envVar;
+    final String profileKey;
+    final String getter;
+    final boolean unset;
+
+    HiddenSwitch(String envVar, String profileKey, String getter, boolean unset) {
+      this.envVar = envVar;
+      this.profileKey = profileKey;
+      this.getter = getter;
+      this.unset = unset;
+    }
+
+    boolean read(DatabricksConfig config) throws ReflectiveOperationException {
+      return (boolean) DatabricksConfig.class.getMethod(getter).invoke(config);
+    }
+
+    @Override
+    public String toString() {
+      return envVar;
+    }
+  }
+
+  static Stream<HiddenSwitch> hiddenSwitches() {
+    return Stream.of(
+        new HiddenSwitch(
+            "DATABRICKS_DISABLE_EXPERIMENTAL_FILES_API_CLIENT",
+            "disable_experimental_files_api_client",
+            "getDisableExperimentalFilesApiClient",
+            false),
+        new HiddenSwitch(
+            "DATABRICKS_EXPERIMENTAL_FILES_EXT_ENABLE_ENDPOINTS_API",
+            "experimental_files_ext_enable_endpoints_api",
+            "getExperimentalFilesExtEnableEndpointsApi",
+            false));
+  }
+
+  static Stream<Arguments> hiddenSwitchesFromTheEnvironment() {
+    return hiddenSwitches()
+        .flatMap(
+            hidden ->
+                Stream.of(
+                    Arguments.of(hidden, "true", true),
+                    Arguments.of(hidden, "false", false),
+                    Arguments.of(hidden, null, hidden.unset)));
+  }
+
+  @ParameterizedTest(name = "{0}={1}")
+  @MethodSource("hiddenSwitchesFromTheEnvironment")
+  public void testHiddenSwitchFromTheEnvironment(HiddenSwitch hidden, String value, boolean want)
+      throws ReflectiveOperationException {
+    Map<String, String> env = new HashMap<>();
+    if (value != null) {
+      env.put(hidden.envVar, value);
+    }
+
+    assertEquals(want, hidden.read(offlineConfig().resolve(environment(env))));
+  }
+
+  static Stream<Arguments> hiddenSwitchesFromAProfile() {
+    return hiddenSwitches()
+        .flatMap(hidden -> Stream.of(Arguments.of(hidden, true), Arguments.of(hidden, false)));
+  }
+
+  @ParameterizedTest(name = "{0} in a profile = {1}")
+  @MethodSource("hiddenSwitchesFromAProfile")
+  public void testHiddenSwitchFromAProfile(HiddenSwitch hidden, boolean value)
+      throws IOException, ReflectiveOperationException {
+    Path file = Files.createTempFile("databrickscfg", "");
+    Files.write(
+        file,
+        Arrays.asList(
+            "[files]",
+            "host = https://ws.example.com",
+            "token = dapi-test",
+            hidden.profileKey + " = " + value));
+    try {
+      DatabricksConfig config =
+          new DatabricksConfig()
+              .setConfigFile(file.toString())
+              .setProfile("files")
+              .setHttpClient(
+                  request -> {
+                    throw new IOException("offline test");
+                  });
+
+      assertEquals(value, hidden.read(config.resolve(environment(new HashMap<>()))));
+    } finally {
+      Files.delete(file);
+    }
+  }
+
+  @ParameterizedTest(name = "{0}")
+  @MethodSource("hiddenSwitches")
+  public void testHiddenSwitchHasNoSetter(HiddenSwitch hidden) {
+    String name = hidden.getter.substring("get".length());
+    List<String> methods = new ArrayList<>();
+    for (Method method : DatabricksConfig.class.getMethods()) {
+      if (method.getName().contains(name)) {
+        methods.add(method.getName());
+      }
+    }
+
+    assertEquals(Collections.singletonList(hidden.getter), methods);
+  }
+
+  private static DatabricksConfig offlineConfig() {
+    return new DatabricksConfig()
+        .setHost("https://ws.example.com")
+        .setToken("dapi-test")
+        .setHttpClient(
+            request -> {
+              throw new IOException("offline test");
+            });
+  }
+
+  private static Environment environment(Map<String, String> env) {
+    return new Environment(env, new ArrayList<>(), System.getProperty("os.name"));
   }
 }

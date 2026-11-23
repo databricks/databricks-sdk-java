@@ -8,8 +8,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 /**
- * A user, service principal, or group that's a direct member of a group. To address a membership,
- * put its resource name in the URL: `GET
+ * A user, service principal, or group in your Databricks account that's a direct member of a group.
+ * To address a membership, put its resource name in the URL: `GET
  * /api/2.0/identity/accounts/{account_id}/groups/{group_id}/direct-members/{principal_id}` in
  * account APIs, or `GET /api/2.0/identity/groups/{group_id}/direct-members/{principal_id}` in
  * workspace APIs.
@@ -28,7 +28,10 @@ public class DirectGroupMember {
   @JsonProperty("group_id")
   private Long groupId;
 
-  /** Where the membership comes from. */
+  /**
+   * Where the membership comes from: added in Databricks (in the UI, through the API, or through
+   * SCIM provisioning), or synced from your IdP by automatic identity management.
+   */
   @JsonProperty("membership_source")
   private GroupMembershipSource membershipSource;
 

@@ -13,7 +13,10 @@ public class PartitionValue {
   @JsonProperty("name")
   private String name;
 
-  /** The operator to apply for the value. */
+  /**
+   * The operator to apply for the value. **EQUAL** matches the partition value exactly; **LIKE**
+   * matches it against a SQL `LIKE` pattern.
+   */
   @JsonProperty("op")
   private PartitionValueOp op;
 

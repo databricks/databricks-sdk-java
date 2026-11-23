@@ -1,5 +1,22 @@
 # Version changelog
 
+## Release v0.185.0 (2026-11-23)
+
+### API Changes
+* Add `createComputePolicy()`, `deleteComputePolicy()`, `getComputePolicy()` and `updateComputePolicy()` methods for `workspaceClient.serverlessComputeService()` service.
+* Add `rescanCatalog()` method for `workspaceClient.dataClassification()` service.
+* Add `urlConfiguration` field for `com.databricks.sdk.service.catalog.AccessRequestDestinations`.
+* Add `streaming` field for `com.databricks.sdk.service.lakewatch.Rule`.
+* Add `lookup` and `secondaryKeys` fields for `com.databricks.sdk.service.ml.Function`.
+* Add `computePolicyId` field for `com.databricks.sdk.service.postgres.ProjectStatus`.
+* Add `network` field for `com.databricks.sdk.service.sandbox.SandboxSpec`.
+* Add `FINALIZING` enum value for `com.databricks.sdk.service.aisearch.EndpointScalingInfoPhase`.
+* Add `GOOGLE_ADS` enum value for `com.databricks.sdk.service.catalog.ConnectionType`.
+* Add `PREEMPTABLE` enum value for `com.databricks.sdk.service.jobs.AiRuntimeTaskPriorityClass`.
+* Add `FINALIZING` enum value for `com.databricks.sdk.service.vectorsearch.EndpointScalingInfoScalingPhase`.
+* [Breaking] Change `schedule` field for `com.databricks.sdk.service.lakewatch.Rule` to no longer be required.
+* Change `schedule` field for `com.databricks.sdk.service.lakewatch.Rule` to no longer be required.
+
 ## Release v0.184.0 (2026-11-19)
 
 ### API Changes

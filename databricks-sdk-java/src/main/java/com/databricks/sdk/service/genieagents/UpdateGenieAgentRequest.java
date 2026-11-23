@@ -40,7 +40,11 @@ public class UpdateGenieAgentRequest {
    * <p>A field named in the mask takes the value from `genie_agent`, even when it is unset there:
    * an unset `description` is cleared; an unset `display_name`, `warehouse_id`, or `definition` is
    * rejected with INVALID_PARAMETER_VALUE; an unset `parent_path` is cleared without moving the
-   * Genie Agent. `definition` is replaced as a whole; paths within it are not supported.
+   * Genie Agent. `definition` is replaced as a whole.
+   *
+   * <p>The one supported path inside `definition` is `definition.data_sources.sub_agents`, and only
+   * alongside `definition`. Naming it makes the sub-agent list exact, so an empty list detaches
+   * every sub-agent. Without it, including with `*`, an empty list keeps them.
    *
    * <p>The special value `*` replaces the whole Genie Agent, as if every updatable field were
    * named. It must be the only path in the mask. Prefer naming fields explicitly: with `*`, any

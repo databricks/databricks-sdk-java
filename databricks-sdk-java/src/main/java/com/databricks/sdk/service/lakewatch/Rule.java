@@ -183,7 +183,10 @@ public class Rule {
   @JsonProperty("runbook")
   private String runbook;
 
-  /** When the rule executes. */
+  /**
+   * When the rule executes. Required for scheduled rules. A streaming rule accepts only `enabled`,
+   * and an omitted schedule means enabled.
+   */
   @JsonProperty("schedule")
   private RuleSchedule schedule;
 
@@ -202,6 +205,13 @@ public class Rule {
   /** Read-only lifecycle status. */
   @JsonProperty("status")
   private ResourceStatus status;
+
+  /**
+   * Native streaming rule input: one source table filtered by one stateless row predicate.
+   * Permanent field number; must not be renumbered.
+   */
+  @JsonProperty("streaming")
+  private RuleInputStreaming streaming;
 
   /** If set, this rule's signals do not open new alerts until the given time. */
   @JsonProperty("suppress_until_time")
@@ -516,6 +526,15 @@ public class Rule {
     return status;
   }
 
+  public Rule setStreaming(RuleInputStreaming streaming) {
+    this.streaming = streaming;
+    return this;
+  }
+
+  public RuleInputStreaming getStreaming() {
+    return streaming;
+  }
+
   public Rule setSuppressUntilTime(Timestamp suppressUntilTime) {
     this.suppressUntilTime = suppressUntilTime;
     return this;
@@ -598,6 +617,7 @@ public class Rule {
         && Objects.equals(schemaName, that.schemaName)
         && Objects.equals(severity, that.severity)
         && Objects.equals(status, that.status)
+        && Objects.equals(streaming, that.streaming)
         && Objects.equals(suppressUntilTime, that.suppressUntilTime)
         && Objects.equals(timerange, that.timerange)
         && Objects.equals(updateTime, that.updateTime)
@@ -640,6 +660,7 @@ public class Rule {
         schemaName,
         severity,
         status,
+        streaming,
         suppressUntilTime,
         timerange,
         updateTime,
@@ -682,6 +703,7 @@ public class Rule {
         .add("schemaName", schemaName)
         .add("severity", severity)
         .add("status", status)
+        .add("streaming", streaming)
         .add("suppressUntilTime", suppressUntilTime)
         .add("timerange", timerange)
         .add("updateTime", updateTime)

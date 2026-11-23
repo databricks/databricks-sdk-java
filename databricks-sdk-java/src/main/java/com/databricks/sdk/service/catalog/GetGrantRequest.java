@@ -10,7 +10,10 @@ import java.util.Objects;
 
 @Generated
 public class GetGrantRequest {
-  /** Full name of securable. */
+  /**
+   * Full name of the securable. Tables, views, volumes and functions use the three-level name
+   * `catalog.schema.object`; a metastore uses its metastore ID.
+   */
   @JsonIgnore private String fullName;
 
   /**
@@ -38,7 +41,10 @@ public class GetGrantRequest {
   @QueryParam("principal")
   private String principal;
 
-  /** Type of securable. */
+  /**
+   * Type of the securable, such as `catalog`, `schema`, `table` or `volume`. The value is
+   * case-insensitive.
+   */
   @JsonIgnore private String securableType;
 
   public GetGrantRequest setFullName(String fullName) {

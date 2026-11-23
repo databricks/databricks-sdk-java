@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class AlertConditionOperand {
-  /** */
+  /** A column of the query result. Used for the `operand` of a condition. */
   @JsonProperty("column")
   private AlertOperandColumn column;
 

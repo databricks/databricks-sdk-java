@@ -46,6 +46,22 @@ public class AccessRequestDestinations {
   @JsonProperty("securable_type")
   private String securableType;
 
+  /**
+   * The access request URLs shared by every workspace in the metastore. Only set when the securable
+   * is a metastore. These URLs are used when neither the requested securable nor its parents have
+   * an explicit destination or a default owner email destination, and they take precedence over
+   * metastore destinations.
+   *
+   * <p>A **dynamic_url** and default owner email destinations cannot both be on: saving one turns
+   * the other off. Saving a **dynamic_url** while they are on requires a metastore admin.
+   *
+   * <p>Setting this field removes the metastore destinations in this workspace. The first save also
+   * removes the metastore URL destinations of other workspaces. Once set, the configuration can be
+   * cleared but not removed.
+   */
+  @JsonProperty("url_configuration")
+  private UrlConfiguration urlConfiguration;
+
   public AccessRequestDestinations setAreAnyDestinationsHidden(Boolean areAnyDestinationsHidden) {
     this.areAnyDestinationsHidden = areAnyDestinationsHidden;
     return this;
@@ -102,6 +118,15 @@ public class AccessRequestDestinations {
     return securableType;
   }
 
+  public AccessRequestDestinations setUrlConfiguration(UrlConfiguration urlConfiguration) {
+    this.urlConfiguration = urlConfiguration;
+    return this;
+  }
+
+  public UrlConfiguration getUrlConfiguration() {
+    return urlConfiguration;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -112,7 +137,8 @@ public class AccessRequestDestinations {
         && Objects.equals(destinations, that.destinations)
         && Objects.equals(fullName, that.fullName)
         && Objects.equals(securable, that.securable)
-        && Objects.equals(securableType, that.securableType);
+        && Objects.equals(securableType, that.securableType)
+        && Objects.equals(urlConfiguration, that.urlConfiguration);
   }
 
   @Override
@@ -123,7 +149,8 @@ public class AccessRequestDestinations {
         destinations,
         fullName,
         securable,
-        securableType);
+        securableType,
+        urlConfiguration);
   }
 
   @Override
@@ -135,6 +162,7 @@ public class AccessRequestDestinations {
         .add("fullName", fullName)
         .add("securable", securable)
         .add("securableType", securableType)
+        .add("urlConfiguration", urlConfiguration)
         .toString();
   }
 }

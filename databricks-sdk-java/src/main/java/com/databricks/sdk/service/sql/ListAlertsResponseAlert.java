@@ -7,9 +7,18 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * A legacy Databricks SQL alert. An alert runs a saved query, compares a column of the result
+ * against a threshold, and notifies its subscribers when the condition is met. See
+ * https://docs.databricks.com/aws/en/sql/user/alerts/legacy for details.
+ */
 @Generated
 public class ListAlertsResponseAlert {
-  /** Trigger conditions of the alert. */
+  /**
+   * Condition that triggers the alert: a column of the query result, a comparison operator, and a
+   * threshold value. The value in the first row of the column is evaluated; aggregations are not
+   * supported through this API.
+   */
   @JsonProperty("condition")
   private AlertCondition condition;
 
@@ -18,23 +27,23 @@ public class ListAlertsResponseAlert {
   private String createTime;
 
   /**
-   * Custom body of alert notification, if it exists. See [here] for custom templating instructions.
-   *
-   * <p>[here]: https://docs.databricks.com/sql/user/alerts/index.html
+   * Custom body of the alert notification. It can use the template variables and HTML described at
+   * https://docs.databricks.com/aws/en/sql/user/alerts/legacy. If omitted, the default notification
+   * body is used.
    */
   @JsonProperty("custom_body")
   private String customBody;
 
   /**
-   * Custom subject of alert notification, if it exists. This can include email subject entries and
-   * Slack notification headers, for example. See [here] for custom templating instructions.
-   *
-   * <p>[here]: https://docs.databricks.com/sql/user/alerts/index.html
+   * Custom subject of the alert notification, used as the email subject or the Slack message
+   * header. It can use the template variables described at
+   * https://docs.databricks.com/aws/en/sql/user/alerts/legacy. If omitted, the default subject is
+   * used.
    */
   @JsonProperty("custom_subject")
   private String customSubject;
 
-  /** The display name of the alert. */
+  /** Display name of the alert, shown in list views and notifications. It must not be empty. */
   @JsonProperty("display_name")
   private String displayName;
 
@@ -42,11 +51,14 @@ public class ListAlertsResponseAlert {
   @JsonProperty("id")
   private String id;
 
-  /** The workspace state of the alert. Used for tracking trashed status. */
+  /** Lifecycle state of the alert: `ACTIVE`, or `TRASHED` after it has been moved to the trash. */
   @JsonProperty("lifecycle_state")
   private LifecycleState lifecycleState;
 
-  /** Whether to notify alert subscribers when alert returns back to normal. */
+  /**
+   * Whether to notify subscribers when the alert state changes from `TRIGGERED` back to `OK`.
+   * Defaults to true.
+   */
   @JsonProperty("notify_on_ok")
   private Boolean notifyOnOk;
 
@@ -54,20 +66,25 @@ public class ListAlertsResponseAlert {
   @JsonProperty("owner_user_name")
   private String ownerUserName;
 
-  /** UUID of the query attached to the alert. */
+  /**
+   * UUID of the saved query whose result the alert evaluates. The caller must have permission to
+   * view the query.
+   */
   @JsonProperty("query_id")
   private String queryId;
 
   /**
-   * Number of seconds an alert must wait after being triggered to rearm itself. After rearming, it
-   * can be triggered again. If 0 or not specified, the alert will not be triggered again.
+   * Number of seconds the alert waits after a notification before it can notify again while its
+   * state stays `TRIGGERED`. If 0 or not specified, the alert notifies once when its state changes
+   * to `TRIGGERED` and does not notify again until its state has changed.
    */
   @JsonProperty("seconds_to_retrigger")
   private Long secondsToRetrigger;
 
   /**
-   * Current state of the alert's trigger status. This field is set to UNKNOWN if the alert has not
-   * yet been evaluated or ran into an error during the last evaluation.
+   * Current state of the alert's trigger status: `TRIGGERED` if the condition was met on the last
+   * evaluation, `OK` if it was not, and `UNKNOWN` if the alert has not yet been evaluated or ran
+   * into an error during the last evaluation.
    */
   @JsonProperty("state")
   private AlertState state;

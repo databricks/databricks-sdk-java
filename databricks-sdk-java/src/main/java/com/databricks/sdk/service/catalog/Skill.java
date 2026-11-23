@@ -23,11 +23,10 @@ public class Skill {
   private String bundleName;
 
   /**
-   * User-provided comment for the skill. Free-text, user-editable via UpdateSkill (listed in its
-   * `update_mask`). DISTINCT from `description`, which is the server-parsed, OUTPUT_ONLY SKILL.md
-   * frontmatter value: `comment` is the customer's own annotation and is preserved across bundle
-   * re-uploads. When `comment` is in the update mask, omitting it clears the field, while an
-   * explicitly empty string is retained.
+   * User-provided comment for the skill, which you can change with UpdateSkill. It is separate from
+   * `description`, which the server reads from the SKILL.md frontmatter, and it is preserved across
+   * bundle re-uploads and FinalizeSkill. When `comment` is in the update mask, omitting it clears
+   * the field, while an explicitly empty string is retained.
    */
   @JsonProperty("comment")
   private String comment;
@@ -36,7 +35,7 @@ public class Skill {
   @JsonProperty("create_time")
   private Timestamp createTime;
 
-  /** Creator identity. */
+  /** Username or service principal application ID of the principal that created the skill. */
   @JsonProperty("created_by")
   private String createdBy;
 
@@ -47,7 +46,7 @@ public class Skill {
   @JsonProperty("description")
   private String description;
 
-  /** Owner of the skill. */
+  /** Username, group name, or service principal application ID of the skill owner. */
   @JsonProperty("effective_owner")
   private String effectiveOwner;
 
@@ -63,14 +62,14 @@ public class Skill {
   @JsonProperty("finalize_time")
   private Timestamp finalizeTime;
 
-  /** Metastore hosting the skill. */
+  /** Unique identifier of the metastore that contains the skill. */
   @JsonProperty("metastore_id")
   private String metastoreId;
 
   /**
    * Resource name of the skill. Format: `skills/{catalog}.{schema}.{skill}`. Each `{...}` component
-   * is capped at 255 characters individually. Server-derived on Create from `parent` + `skill_id`;
-   * required and immutable on Update/Get/Delete.
+   * is capped at 255 characters individually. The server derives the name on Create from `parent`
+   * and `skill_id`; it is required and immutable on Update, Get, and Delete.
    */
   @JsonProperty("name")
   private String name;
@@ -82,7 +81,7 @@ public class Skill {
   @JsonProperty("update_time")
   private Timestamp updateTime;
 
-  /** Identity of the last updater. */
+  /** Username or service principal application ID of the principal that last updated the skill. */
   @JsonProperty("updated_by")
   private String updatedBy;
 

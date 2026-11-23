@@ -15,7 +15,10 @@ public interface SupervisorAgentsService {
   /** Creates an example for a Supervisor Agent. */
   Example createExample(CreateExampleRequest createExampleRequest);
 
-  /** Creates a new Supervisor Agent. */
+  /**
+   * Creates a Supervisor Agent together with its serving endpoint and MLflow experiment. Tools and
+   * subagents are added to the agent afterwards with the Tool methods.
+   */
   SupervisorAgent createSupervisorAgent(CreateSupervisorAgentRequest createSupervisorAgentRequest);
 
   /**
@@ -31,7 +34,10 @@ public interface SupervisorAgentsService {
   /** Deletes an example from a Supervisor Agent. */
   void deleteExample(DeleteExampleRequest deleteExampleRequest);
 
-  /** Deletes a Supervisor Agent. */
+  /**
+   * Deletes a Supervisor Agent together with the resources created for it, including its tools,
+   * examples, serving endpoint and MLflow experiment.
+   */
   void deleteSupervisorAgent(DeleteSupervisorAgentRequest deleteSupervisorAgentRequest);
 
   /** Deletes a Tool. */
@@ -60,7 +66,7 @@ public interface SupervisorAgentsService {
   /** Lists examples under a Supervisor Agent. */
   ListExamplesResponse listExamples(ListExamplesRequest listExamplesRequest);
 
-  /** Lists Supervisor Agents. */
+  /** Lists the Supervisor Agents in the workspace that the caller has permission to view. */
   ListSupervisorAgentsResponse listSupervisorAgents(
       ListSupervisorAgentsRequest listSupervisorAgentsRequest);
 
@@ -85,8 +91,8 @@ public interface SupervisorAgentsService {
       SupervisorAgentPermissionsRequest supervisorAgentPermissionsRequest);
 
   /**
-   * Updates a Supervisor Agent. The fields that are required depend on the paths specified in
-   * `update_mask`. Only fields included in the mask will be updated.
+   * Updates a Supervisor Agent. Only the fields listed in `update_mask` are changed. All other
+   * fields keep their current values.
    */
   SupervisorAgent updateSupervisorAgent(UpdateSupervisorAgentRequest updateSupervisorAgentRequest);
 

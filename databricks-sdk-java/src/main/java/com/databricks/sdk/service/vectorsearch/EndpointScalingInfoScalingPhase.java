@@ -9,5 +9,6 @@ import com.databricks.sdk.support.Generated;
 public enum EndpointScalingInfoScalingPhase {
   ADJUSTING_CAPACITY,
   ESTIMATING,
+  FINALIZING,
   INITIALIZING_INDEX,
 }

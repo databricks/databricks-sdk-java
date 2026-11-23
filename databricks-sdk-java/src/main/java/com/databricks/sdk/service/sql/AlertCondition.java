@@ -9,19 +9,29 @@ import java.util.Objects;
 
 @Generated
 public class AlertCondition {
-  /** Alert state if result is empty. */
+  /** State the alert takes when the query returns no rows. Defaults to `UNKNOWN` when not set. */
   @JsonProperty("empty_result_state")
   private AlertState emptyResultState;
 
-  /** Operator used for comparison in alert evaluation. */
+  /**
+   * Comparison operator applied between the operand column value and the threshold. The alert is
+   * triggered when the comparison is true. `IS_NULL` triggers when the column value is null; a
+   * threshold must still be supplied but its value is ignored.
+   */
   @JsonProperty("op")
   private AlertOperator op;
 
-  /** Name of the column from the query result to use for comparison in alert evaluation. */
+  /**
+   * Left-hand side of the comparison. Through this API it must be a `column` naming a column of the
+   * query result; the value in the first row of that column is compared against the threshold.
+   */
   @JsonProperty("operand")
   private AlertConditionOperand operand;
 
-  /** Threshold value used for comparison in alert evaluation. */
+  /**
+   * Right-hand side of the comparison. Through this API it must be a fixed `value` whose type
+   * matches the operand column.
+   */
   @JsonProperty("threshold")
   private AlertConditionThreshold threshold;
 

@@ -38,8 +38,9 @@ public interface AiFunctionsService {
   AiParseDocumentResponse aiParseDocument(AiParseDocumentRequest aiParseDocumentRequest);
 
   /**
-   * Starts the asynchronous cancellation of a batch. Requests in progress are drained first.
-   * Cancellation is best effort, so the batch can still complete.
+   * Starts the asynchronous cancellation of a batch. Requests in progress are stopped, and the
+   * results of the requests that finished are kept. Cancellation is best effort, so the batch can
+   * still complete.
    */
   CancelBatchResponse cancelBatch(CancelBatchRequest cancelBatchRequest);
 

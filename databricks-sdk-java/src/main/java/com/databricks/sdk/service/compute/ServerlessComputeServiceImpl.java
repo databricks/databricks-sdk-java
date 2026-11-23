@@ -17,6 +17,58 @@ class ServerlessComputeServiceImpl implements ServerlessComputeServiceService {
   }
 
   @Override
+  public ComputePolicy createComputePolicy(CreateComputePolicyRequest request) {
+    String path = "/api/2.0/policies/compute";
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request.getComputePolicy()));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, ComputePolicy.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public void deleteComputePolicy(DeleteComputePolicyRequest request) {
+    String path = String.format("/api/2.0/policies/compute/%s", request.getComputePolicyId());
+    try {
+      Request req = new Request("DELETE", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      apiClient.execute(req, Void.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public ComputePolicy getComputePolicy(GetComputePolicyRequest request) {
+    String path = String.format("/api/2.0/policies/compute/%s", request.getComputePolicyId());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, ComputePolicy.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public ListServerlessComputesResponse list(ListServerlessComputesRequest request) {
     String path = "/api/2.0/serverless-compute";
     try {
@@ -45,6 +97,24 @@ class ServerlessComputeServiceImpl implements ServerlessComputeServiceService {
         req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, ListComputePoliciesResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public ComputePolicy updateComputePolicy(UpdateComputePolicyRequest request) {
+    String path = String.format("/api/2.0/policies/compute/%s", request.getComputePolicyId());
+    try {
+      Request req = new Request("PATCH", path, apiClient.serialize(request.getComputePolicy()));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, ComputePolicy.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

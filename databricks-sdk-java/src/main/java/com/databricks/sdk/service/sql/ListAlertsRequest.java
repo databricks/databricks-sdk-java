@@ -10,12 +10,12 @@ import java.util.Objects;
 
 @Generated
 public class ListAlertsRequest {
-  /** */
+  /** Maximum number of alerts to return per page. */
   @JsonIgnore
   @QueryParam("page_size")
   private Long pageSize;
 
-  /** */
+  /** Token from the `next_page_token` of a previous response. Omit it to fetch the first page. */
   @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;

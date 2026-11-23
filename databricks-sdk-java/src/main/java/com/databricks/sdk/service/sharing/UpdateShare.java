@@ -26,11 +26,18 @@ public class UpdateShare {
   @JsonProperty("owner")
   private String owner;
 
-  /** Storage root URL for the share. */
+  /**
+   * Cloud storage path, within an external location, under which the share stores the notebook
+   * files added to it. When unset, notebook files are stored under the metastore root storage
+   * location.
+   */
   @JsonProperty("storage_root")
   private String storageRoot;
 
-  /** Array of shared data object updates. */
+  /**
+   * Array of shared data object updates. The server limits how many updates a single request can
+   * contain.
+   */
   @JsonProperty("updates")
   private Collection<SharedDataObjectUpdate> updates;
 

@@ -58,8 +58,9 @@ public class AiFunctionsAPI {
   }
 
   /**
-   * Starts the asynchronous cancellation of a batch. Requests in progress are drained first.
-   * Cancellation is best effort, so the batch can still complete.
+   * Starts the asynchronous cancellation of a batch. Requests in progress are stopped, and the
+   * results of the requests that finished are kept. Cancellation is best effort, so the batch can
+   * still complete.
    */
   public CancelBatchResponse cancelBatch(CancelBatchRequest request) {
     return impl.cancelBatch(request);

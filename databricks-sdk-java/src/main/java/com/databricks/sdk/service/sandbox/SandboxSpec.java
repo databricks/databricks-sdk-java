@@ -17,6 +17,10 @@ public class SandboxSpec {
   @JsonProperty("environment")
   private EnvironmentSpec environment;
 
+  /** Network configuration requested for the sandbox. */
+  @JsonProperty("network")
+  private NetworkSpec network;
+
   public SandboxSpec setCompute(ComputeSpec compute) {
     this.compute = compute;
     return this;
@@ -35,17 +39,28 @@ public class SandboxSpec {
     return environment;
   }
 
+  public SandboxSpec setNetwork(NetworkSpec network) {
+    this.network = network;
+    return this;
+  }
+
+  public NetworkSpec getNetwork() {
+    return network;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     SandboxSpec that = (SandboxSpec) o;
-    return Objects.equals(compute, that.compute) && Objects.equals(environment, that.environment);
+    return Objects.equals(compute, that.compute)
+        && Objects.equals(environment, that.environment)
+        && Objects.equals(network, that.network);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(compute, environment);
+    return Objects.hash(compute, environment, network);
   }
 
   @Override
@@ -53,6 +68,7 @@ public class SandboxSpec {
     return new ToStringer(SandboxSpec.class)
         .add("compute", compute)
         .add("environment", environment)
+        .add("network", network)
         .toString();
   }
 }

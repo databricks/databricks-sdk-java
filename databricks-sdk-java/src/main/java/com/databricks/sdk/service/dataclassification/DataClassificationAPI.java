@@ -63,6 +63,20 @@ public class DataClassificationAPI {
   }
 
   /**
+   * Rescan the tables in a catalog's Data Classification scope that changed since their last scan.
+   *
+   * <p>The rescan uses the catalog's current classifiers and follows its config (schema selection)
+   * and SKIP tags. Tables with no commits since their last scan are skipped. Views and tables
+   * without a Delta commit history keep their regular rescan schedule. The call returns once the
+   * rescan is scheduled; scanning runs in the background. If a scan of the catalog is running, the
+   * call cancels it and starts a new run. - Data Classification must be enabled for the catalog. -
+   * The call must come from the workspace where Data Classification was enabled.
+   */
+  public RescanCatalogResponse rescanCatalog(RescanCatalogRequest request) {
+    return impl.rescanCatalog(request);
+  }
+
+  /**
    * Update the Data Classification configuration for a catalog.
    *
    * <p>The config must already exist for the catalog. Only the fields named in `update_mask`

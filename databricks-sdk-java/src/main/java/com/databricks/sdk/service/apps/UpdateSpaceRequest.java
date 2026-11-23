@@ -14,7 +14,8 @@ import java.util.Objects;
 public class UpdateSpaceRequest {
   /**
    * The name of the app space. The name must contain only lowercase alphanumeric characters and
-   * hyphens. It must be unique within the workspace.
+   * hyphens. It must be unique within the workspace. It can't start or end with a hyphen, and it
+   * can't be changed after the space is created.
    */
   @JsonIgnore private String name;
 
@@ -23,15 +24,8 @@ public class UpdateSpaceRequest {
   private Space space;
 
   /**
-   * The field mask must be a single string, with multiple fields separated by commas (no spaces).
-   * The field path is relative to the resource object, using a dot (`.`) to navigate sub-fields
-   * (e.g., `author.given_name`). Specification of elements in sequence or map fields is not
-   * allowed, as only the entire collection field can be specified. Field names must exactly match
-   * the resource field names.
-   *
-   * <p>A field mask of `*` indicates full replacement. It’s recommended to always explicitly list
-   * the fields being updated and avoid using `*` wildcards, as it can lead to unintended results if
-   * the API changes in the future.
+   * Comma-separated names of the `space` fields to update, such as `description` or `resources`. A
+   * field named in the mask but absent from `space` is cleared.
    */
   @JsonIgnore
   @QueryParam("update_mask")

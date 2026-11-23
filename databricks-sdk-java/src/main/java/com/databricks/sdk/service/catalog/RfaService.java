@@ -49,6 +49,12 @@ public interface RfaService {
    *
    * <p>The supported securable types are: "metastore", "catalog", "schema", "table",
    * "external_location", "connection", "credential", "function", "registered_model", and "volume".
+   *
+   * <p>On a metastore that has a **url_configuration**, its URLs are shared by every workspace,
+   * while emails and webhooks are still saved per workspace. There, a URL destination replaces the
+   * configuration's **redirect_url** and clears its **dynamic_url**, so requests that used the
+   * **dynamic_url** go to the new URL. An update that has no URL destination and does not set
+   * **url_configuration** clears both URLs, in every workspace.
    */
   AccessRequestDestinations updateAccessRequestDestinations(
       UpdateAccessRequestDestinationsRequest updateAccessRequestDestinationsRequest);
