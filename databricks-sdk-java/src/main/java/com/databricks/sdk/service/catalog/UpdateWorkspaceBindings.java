@@ -11,14 +11,14 @@ import java.util.Objects;
 
 @Generated
 public class UpdateWorkspaceBindings {
-  /** A list of workspace IDs. */
+  /** The IDs of the workspaces to bind to the catalog. */
   @JsonProperty("assign_workspaces")
   private Collection<Long> assignWorkspaces;
 
   /** The name of the catalog. */
   @JsonIgnore private String name;
 
-  /** A list of workspace IDs. */
+  /** The IDs of the workspaces to unbind from the catalog. */
   @JsonProperty("unassign_workspaces")
   private Collection<Long> unassignWorkspaces;
 

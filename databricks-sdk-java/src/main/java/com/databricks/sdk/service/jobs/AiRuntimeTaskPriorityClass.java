@@ -12,4 +12,5 @@ import com.databricks.sdk.support.Generated;
 public enum AiRuntimeTaskPriorityClass {
   HIGH,
   NORMAL,
+  PREEMPTABLE,
 }

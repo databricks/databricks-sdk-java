@@ -15,17 +15,23 @@ public class UpdatePermissions {
   @JsonProperty("changes")
   private Collection<PermissionsChange> changes;
 
-  /** Full name of securable. */
+  /**
+   * Full name of the securable. Tables, views, volumes and functions use the three-level name
+   * `catalog.schema.object`; a metastore uses its metastore ID.
+   */
   @JsonIgnore private String fullName;
 
   /**
-   * Optional, default false. Specifies whether all the permissions should be returned in the
-   * response.
+   * Whether to omit the privilege assignments from the response. When false, the response lists all
+   * direct privilege assignments on the securable after the update.
    */
   @JsonProperty("omit_permissions_in_response")
   private Boolean omitPermissionsInResponse;
 
-  /** Type of securable. */
+  /**
+   * Type of the securable, such as `catalog`, `schema`, `table` or `volume`. The value is
+   * case-insensitive.
+   */
   @JsonIgnore private String securableType;
 
   public UpdatePermissions setChanges(Collection<PermissionsChange> changes) {

@@ -8,45 +8,68 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.protobuf.Timestamp;
 import java.util.Objects;
 
+/**
+ * A Supervisor Agent coordinates tools and subagents, such as Genie Agents, Knowledge Assistants,
+ * Unity Catalog functions, MCP servers and agent endpoints, to answer requests that span several
+ * domains. It is served through its own serving endpoint. Tools and subagents are managed through
+ * the Tool resource. See
+ * https://docs.databricks.com/aws/en/generative-ai/agent-bricks/multi-agent-supervisor for the
+ * product documentation.
+ */
 @Generated
 public class SupervisorAgent {
-  /** Creation timestamp. */
+  /** The time at which the Supervisor Agent was created, as an RFC 3339 timestamp. */
   @JsonProperty("create_time")
   private Timestamp createTime;
 
-  /** The creator of the Supervisor Agent. */
+  /** The email address of the user who created the Supervisor Agent. */
   @JsonProperty("creator")
   private String creator;
 
-  /** Description of what this agent can do (user-facing). */
+  /** A summary of what the agent does. It is shown to users of the agent. */
   @JsonProperty("description")
   private String description;
 
-  /** The display name of the Supervisor Agent, unique at workspace level. */
+  /**
+   * The display name of the Supervisor Agent. It must be unique among the agents in the workspace.
+   * Creating an agent with a display name that is already in use fails with ALREADY_EXISTS.
+   */
   @JsonProperty("display_name")
   private String displayName;
 
-  /** The name of the supervisor agent's serving endpoint. */
+  /**
+   * The name of the Model Serving endpoint that serves the Supervisor Agent. Query this endpoint to
+   * chat with the agent.
+   */
   @JsonProperty("endpoint_name")
   private String endpointName;
 
-  /** The MLflow experiment ID. */
+  /** The ID of the MLflow experiment that is created together with the Supervisor Agent. */
   @JsonProperty("experiment_id")
   private String experimentId;
 
-  /** Deprecated: Use supervisor_agent_id instead. */
+  /** Deprecated: Use supervisor_agent_id instead. This field is no longer populated. */
   @JsonProperty("id")
   private String id;
 
-  /** Optional natural-language instructions for the supervisor agent. */
+  /**
+   * Natural-language guidelines for how the supervisor should respond and how it should delegate
+   * requests to its tools and subagents.
+   */
   @JsonProperty("instructions")
   private String instructions;
 
-  /** The resource name of the SupervisorAgent. Format: supervisor-agents/{supervisor_agent_id} */
+  /**
+   * The resource name of the Supervisor Agent. Format: supervisor-agents/{supervisor_agent_id} The
+   * server assigns the name when the agent is created.
+   */
   @JsonProperty("name")
   private String name;
 
-  /** The universally unique identifier (UUID) of the Supervisor Agent. */
+  /**
+   * The universally unique identifier (UUID) of the Supervisor Agent. It is the last segment of
+   * `name`.
+   */
   @JsonProperty("supervisor_agent_id")
   private String supervisorAgentId;
 

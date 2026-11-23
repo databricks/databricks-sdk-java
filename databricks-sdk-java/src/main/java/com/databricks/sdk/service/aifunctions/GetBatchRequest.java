@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class GetBatchRequest {
-  /** Resource name of the batch. Format: `batch_<id>`. */
+  /** Unique identifier of the batch. Format: `batch_<id>`. */
   @JsonIgnore private String name;
 
   public GetBatchRequest setName(String name) {

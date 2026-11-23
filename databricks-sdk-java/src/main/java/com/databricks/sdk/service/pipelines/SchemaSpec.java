@@ -19,7 +19,7 @@ public class SchemaSpec {
 
   /**
    * Required. Destination schema to store tables in. Tables with the same name as the source tables
-   * are created in this destination schema. The pipeline fails If a table with the same name
+   * are created in this destination schema. The pipeline fails if a table with the same name
    * already exists.
    */
   @JsonProperty("destination_schema")

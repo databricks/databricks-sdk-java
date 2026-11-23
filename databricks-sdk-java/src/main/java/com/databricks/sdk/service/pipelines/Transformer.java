@@ -7,14 +7,17 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Specifies how to transform binary data into structured data. */
+/**
+ * One step that transforms a column: either decodes data into structured data (`format`) or
+ * reshapes an already-decoded column (`operation`).
+ */
 @Generated
 public class Transformer {
   /** */
   @JsonProperty("avro_options")
   private AvroTransformerOptions avroOptions;
 
-  /** Required: the wire format of the data. */
+  /** The format to decode the input column from. */
   @JsonProperty("format")
   private TransformerFormat format;
 

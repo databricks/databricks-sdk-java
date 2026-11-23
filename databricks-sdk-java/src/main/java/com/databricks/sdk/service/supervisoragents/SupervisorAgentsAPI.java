@@ -29,7 +29,10 @@ public class SupervisorAgentsAPI {
     return impl.createExample(request);
   }
 
-  /** Creates a new Supervisor Agent. */
+  /**
+   * Creates a Supervisor Agent together with its serving endpoint and MLflow experiment. Tools and
+   * subagents are added to the agent afterwards with the Tool methods.
+   */
   public SupervisorAgent createSupervisorAgent(CreateSupervisorAgentRequest request) {
     return impl.createSupervisorAgent(request);
   }
@@ -59,7 +62,10 @@ public class SupervisorAgentsAPI {
     deleteSupervisorAgent(new DeleteSupervisorAgentRequest().setName(name));
   }
 
-  /** Deletes a Supervisor Agent. */
+  /**
+   * Deletes a Supervisor Agent together with the resources created for it, including its tools,
+   * examples, serving endpoint and MLflow experiment.
+   */
   public void deleteSupervisorAgent(DeleteSupervisorAgentRequest request) {
     impl.deleteSupervisorAgent(request);
   }
@@ -143,7 +149,7 @@ public class SupervisorAgentsAPI {
         });
   }
 
-  /** Lists Supervisor Agents. */
+  /** Lists the Supervisor Agents in the workspace that the caller has permission to view. */
   public Iterable<SupervisorAgent> listSupervisorAgents(ListSupervisorAgentsRequest request) {
     return Paginator.newTokenPagination(
         request,
@@ -199,8 +205,8 @@ public class SupervisorAgentsAPI {
   }
 
   /**
-   * Updates a Supervisor Agent. The fields that are required depend on the paths specified in
-   * `update_mask`. Only fields included in the mask will be updated.
+   * Updates a Supervisor Agent. Only the fields listed in `update_mask` are changed. All other
+   * fields keep their current values.
    */
   public SupervisorAgent updateSupervisorAgent(UpdateSupervisorAgentRequest request) {
     return impl.updateSupervisorAgent(request);

@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class AlertConditionThreshold {
-  /** */
+  /** A fixed value. Used for the `threshold` of a condition. */
   @JsonProperty("value")
   private AlertOperandValue value;
 

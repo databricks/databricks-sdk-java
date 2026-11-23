@@ -10,11 +10,11 @@ import java.util.Objects;
 
 @Generated
 public class ListAppDeploymentsResponse {
-  /** Deployment history of the app. */
+  /** Deployment history of the app, most recent deployment first. */
   @JsonProperty("app_deployments")
   private Collection<AppDeployment> appDeployments;
 
-  /** Pagination token to request the next page of apps. */
+  /** Pagination token to request the next page of deployments. */
   @JsonProperty("next_page_token")
   private String nextPageToken;
 

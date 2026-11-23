@@ -13,7 +13,10 @@ public class AppDeploymentStatus {
   @JsonProperty("message")
   private String message;
 
-  /** State of the deployment. */
+  /**
+   * State of the deployment. A deployment starts in `IN_PROGRESS` and ends in `SUCCEEDED`, `FAILED`
+   * or `CANCELLED`.
+   */
   @JsonProperty("state")
   private AppDeploymentState state;
 

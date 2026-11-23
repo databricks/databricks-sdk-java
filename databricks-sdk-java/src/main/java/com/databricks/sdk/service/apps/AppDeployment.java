@@ -8,6 +8,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * A deployment of an app's source code, taken from a workspace path or a Git reference. When a
+ * deployment succeeds, it becomes the app's active deployment. See
+ * https://docs.databricks.com/aws/en/dev-tools/databricks-apps/deploy.
+ */
 @Generated
 public class AppDeployment {
   /**
@@ -17,11 +22,11 @@ public class AppDeployment {
   @JsonProperty("command")
   private Collection<String> command;
 
-  /** The creation time of the deployment. Formatted timestamp in ISO 6801. */
+  /** The creation time of the deployment. Formatted timestamp in ISO 8601. */
   @JsonProperty("create_time")
   private String createTime;
 
-  /** The email of the user creates the deployment. */
+  /** The email of the user that created the deployment. */
   @JsonProperty("creator")
   private String creator;
 
@@ -29,18 +34,24 @@ public class AppDeployment {
   @JsonProperty("deployment_artifacts")
   private AppDeploymentArtifacts deploymentArtifacts;
 
-  /** The unique id of the deployment. */
+  /**
+   * The unique ID of the deployment. Databricks generates the ID when the deployment is created.
+   */
   @JsonProperty("deployment_id")
   private String deploymentId;
 
   /**
    * The environment variables to set in the app runtime environment. This will override the
-   * environment variables specified in the app.yaml file.
+   * environment variables specified in the app.yaml file. Responses return only the variable names,
+   * not their values.
    */
   @JsonProperty("env_vars")
   private Collection<EnvVar> envVars;
 
-  /** Git repository to use as the source for the app deployment. */
+  /**
+   * Git repository to use as the source for the app deployment. The repository itself is configured
+   * on the app, so set only the branch, tag or commit here, and optionally `source_code_path`.
+   */
   @JsonProperty("git_source")
   private GitSource gitSource;
 
@@ -51,7 +62,10 @@ public class AppDeployment {
   @JsonProperty("health_check")
   private AppHealthCheck healthCheck;
 
-  /** The mode of which the deployment will manage the source code. */
+  /**
+   * The mode in which the deployment manages the source code. The mode defaults to `SNAPSHOT`,
+   * which is the only supported mode.
+   */
   @JsonProperty("mode")
   private AppDeploymentMode mode;
 
@@ -82,16 +96,17 @@ public class AppDeployment {
    * different from `deployment_artifacts.source_code_path`, which is the path used by the deployed
    * app. The former refers to the original source code location of the app in the workspace during
    * deployment creation, whereas the latter provides a system generated stable snapshotted source
-   * code path used by the deployment.
+   * code path used by the deployment. Set either `source_code_path` or `git_source`, not both. If
+   * neither is set, the deployment reuses the source of the app's active deployment.
    */
   @JsonProperty("source_code_path")
   private String sourceCodePath;
 
-  /** Status and status message of the deployment */
+  /** The current state of the deployment and a message that describes its progress or failure. */
   @JsonProperty("status")
   private AppDeploymentStatus status;
 
-  /** The update time of the deployment. Formatted timestamp in ISO 6801. */
+  /** The update time of the deployment. Formatted timestamp in ISO 8601. */
   @JsonProperty("update_time")
   private String updateTime;
 

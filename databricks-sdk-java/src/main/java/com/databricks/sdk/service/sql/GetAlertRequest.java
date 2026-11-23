@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class GetAlertRequest {
-  /** */
+  /** UUID of the alert to fetch. */
   @JsonIgnore private String id;
 
   public GetAlertRequest setId(String id) {

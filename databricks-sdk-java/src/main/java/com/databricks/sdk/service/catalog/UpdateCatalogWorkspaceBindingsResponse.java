@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Generated
 public class UpdateCatalogWorkspaceBindingsResponse {
-  /** A list of workspace IDs */
+  /** The IDs of the workspaces that are bound to the catalog. */
   @JsonProperty("workspaces")
   private Collection<Long> workspaces;
 

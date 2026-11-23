@@ -28,7 +28,7 @@ public class TableInfo {
   @JsonProperty("browse_only")
   private Boolean browseOnly;
 
-  /** Name of parent catalog. */
+  /** Name of parent catalog. Required for creation using catalog and schema names. */
   @JsonProperty("catalog_name")
   private String catalogName;
 
@@ -128,7 +128,10 @@ public class TableInfo {
   @JsonProperty("row_filter")
   private TableRowFilter rowFilter;
 
-  /** Name of parent schema relative to its parent catalog. */
+  /**
+   * Name of parent schema relative to its parent catalog. Required for creation using catalog and
+   * schema names.
+   */
   @JsonProperty("schema_name")
   private String schemaName;
 

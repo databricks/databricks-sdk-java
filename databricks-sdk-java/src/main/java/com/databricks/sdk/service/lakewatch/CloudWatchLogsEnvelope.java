@@ -15,7 +15,8 @@ import java.util.Objects;
 public class CloudWatchLogsEnvelope {
   /**
    * Whether to keep the envelope's `owner`, `logGroup`, and `logStream` values in the
-   * `data.lw_header` field of each unwrapped row. Must be set explicitly to `true` or `false`.
+   * `data.lw_header` field of each unwrapped row whose message is a JSON object. A message that is
+   * any other JSON value is kept without the field. Must be set explicitly to `true` or `false`.
    */
   @JsonProperty("header_retention")
   private Boolean headerRetention;

@@ -23,7 +23,7 @@ public class UpdateModelVersionRequest {
   @JsonProperty("comment")
   private String comment;
 
-  /** */
+  /** Time at which the model version was created, in epoch milliseconds. */
   @JsonProperty("created_at")
   private Long createdAt;
 
@@ -31,7 +31,10 @@ public class UpdateModelVersionRequest {
   @JsonProperty("created_by")
   private String createdBy;
 
-  /** The three-level (fully qualified) name of the model version */
+  /**
+   * The three-level (fully qualified) name of the parent registered model, in the form
+   * `catalog_name.schema_name.model_name`.
+   */
   @JsonIgnore private String fullName;
 
   /** The unique identifier of the model version */
@@ -85,7 +88,7 @@ public class UpdateModelVersionRequest {
   @JsonProperty("storage_location")
   private String storageLocation;
 
-  /** */
+  /** Time at which the model version was last updated, in epoch milliseconds. */
   @JsonProperty("updated_at")
   private Long updatedAt;
 

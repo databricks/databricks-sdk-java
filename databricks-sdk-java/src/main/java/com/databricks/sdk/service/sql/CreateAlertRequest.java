@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class CreateAlertRequest {
-  /** */
+  /** The alert to create. A display name, a `query_id`, and a `condition` are required. */
   @JsonProperty("alert")
   private CreateAlertRequestAlert alert;
 

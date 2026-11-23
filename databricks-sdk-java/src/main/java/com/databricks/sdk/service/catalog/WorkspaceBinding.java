@@ -7,13 +7,20 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * A binding between a workspace and a securable. When the isolation mode of the securable is
+ * `ISOLATED`, only bound workspaces can access it.
+ */
 @Generated
 public class WorkspaceBinding {
-  /** One of READ_WRITE/READ_ONLY. Default is READ_WRITE. */
+  /**
+   * One of READ_WRITE/READ_ONLY. Default is READ_WRITE. Only catalogs support
+   * `BINDING_TYPE_READ_ONLY`; other securable types accept only `BINDING_TYPE_READ_WRITE`.
+   */
   @JsonProperty("binding_type")
   private WorkspaceBindingBindingType bindingType;
 
-  /** Required */
+  /** The ID of the workspace that the binding applies to. */
   @JsonProperty("workspace_id")
   private Long workspaceId;
 

@@ -17,7 +17,7 @@ public class PythonOperatorTask {
   @JsonProperty("main")
   private String main;
 
-  /** An ordered list of task parameters. TODO(JOBS-30885): Add limits for parameters. */
+  /** An ordered list of task parameters. */
   @JsonProperty("parameters")
   private Collection<PythonOperatorTaskParameter> parameters;
 

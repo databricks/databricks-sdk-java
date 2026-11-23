@@ -17,7 +17,11 @@ public class CreateShare {
   @JsonProperty("name")
   private String name;
 
-  /** Storage root URL for the share. */
+  /**
+   * Cloud storage path, within an external location, under which the share stores the notebook
+   * files added to it. When unset, notebook files are stored under the metastore root storage
+   * location.
+   */
   @JsonProperty("storage_root")
   private String storageRoot;
 

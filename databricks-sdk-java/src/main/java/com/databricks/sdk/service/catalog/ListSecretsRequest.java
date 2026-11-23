@@ -30,8 +30,8 @@ public class ListSecretsRequest {
   private Long pageSize;
 
   /**
-   * Opaque pagination token to go to the next page based on previous query. The maximum page length
-   * is determined by a server configured value.
+   * Opaque pagination token for the next page of results. Set it to the **next_page_token** value
+   * from the previous response.
    */
   @JsonIgnore
   @QueryParam("page_token")

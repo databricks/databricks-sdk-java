@@ -280,7 +280,12 @@ public class AppsAPI {
     return new DeleteSpaceOperation(impl, operation);
   }
 
-  /** Creates an app deployment for the app with the supplied name. */
+  /**
+   * Creates an app deployment for the app with the supplied name. The call returns while the
+   * deployment is still `IN_PROGRESS`; poll the deployment until it reaches a terminal state. The
+   * request fails with RESOURCE_CONFLICT if another deployment of the same app is still pending and
+   * has not timed out.
+   */
   public Wait<AppDeployment, AppDeployment> deploy(CreateAppDeploymentRequest request) {
     AppDeployment response = impl.deploy(request);
     return new Wait<>(
@@ -404,7 +409,10 @@ public class AppsAPI {
     return listDeployments(new ListAppDeploymentsRequest().setAppName(appName));
   }
 
-  /** Lists all app deployments for the app with the supplied name. */
+  /**
+   * Lists all app deployments for the app with the supplied name. The history holds only the app's
+   * most recent deployments.
+   */
   public Iterable<AppDeployment> listDeployments(ListAppDeploymentsRequest request) {
     return Paginator.newTokenPagination(
         request,

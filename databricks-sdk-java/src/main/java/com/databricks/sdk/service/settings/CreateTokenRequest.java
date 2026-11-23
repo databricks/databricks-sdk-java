@@ -12,7 +12,8 @@ import java.util.Objects;
 public class CreateTokenRequest {
   /**
    * Whether to enable autoscoping for this token. When true, the token will automatically collect
-   * inferred API path scopes as it is used.
+   * inferred API path scopes as it is used. `disable_autoscoping` supersedes this field and is the
+   * one read when both are set.
    */
   @JsonProperty("autoscope_enabled")
   private Boolean autoscopeEnabled;

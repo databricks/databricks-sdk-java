@@ -9,6 +9,11 @@ import com.google.protobuf.Timestamp;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * An app space groups Databricks apps and shares configuration across them. Resources, user API
+ * scopes and the usage policy configured on a space apply to every app in the space. See
+ * https://docs.databricks.com/aws/en/dev-tools/databricks-apps/app-spaces.
+ */
 @Generated
 public class Space {
   /**
@@ -19,7 +24,7 @@ public class Space {
   @JsonProperty("assume_group_id")
   private String assumeGroupId;
 
-  /** The creation time of the app space. Formatted timestamp in ISO 6801. */
+  /** The creation time of the app space. Formatted timestamp in ISO 8601. */
   @JsonProperty("create_time")
   private Timestamp createTime;
 
@@ -45,7 +50,8 @@ public class Space {
 
   /**
    * The name of the app space. The name must contain only lowercase alphanumeric characters and
-   * hyphens. It must be unique within the workspace.
+   * hyphens. It must be unique within the workspace. It can't start or end with a hyphen, and it
+   * can't be changed after the space is created.
    */
   @JsonProperty("name")
   private String name;
@@ -57,15 +63,15 @@ public class Space {
   @JsonProperty("resources")
   private Collection<AppResource> resources;
 
-  /** The service principal client ID for the app space. */
+  /** OAuth client ID of the app space's service principal. */
   @JsonProperty("service_principal_client_id")
   private String servicePrincipalClientId;
 
-  /** The service principal ID for the app space. */
+  /** Numeric ID of the app space's service principal. */
   @JsonProperty("service_principal_id")
   private Long servicePrincipalId;
 
-  /** The service principal name for the app space. */
+  /** Display name of the app space's service principal. */
   @JsonProperty("service_principal_name")
   private String servicePrincipalName;
 
@@ -73,7 +79,7 @@ public class Space {
   @JsonProperty("status")
   private SpaceStatus status;
 
-  /** The update time of the app space. Formatted timestamp in ISO 6801. */
+  /** The update time of the app space. Formatted timestamp in ISO 8601. */
   @JsonProperty("update_time")
   private Timestamp updateTime;
 
@@ -85,7 +91,10 @@ public class Space {
   @JsonProperty("usage_policy_id")
   private String usagePolicyId;
 
-  /** OAuth scopes for apps in the space. */
+  /**
+   * API scopes that apps in the space can request for user authorization. See
+   * https://docs.databricks.com/aws/en/dev-tools/databricks-apps/auth.
+   */
   @JsonProperty("user_api_scopes")
   private Collection<String> userApiScopes;
 

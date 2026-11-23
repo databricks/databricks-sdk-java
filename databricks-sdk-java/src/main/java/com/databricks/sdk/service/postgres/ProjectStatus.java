@@ -24,6 +24,10 @@ public class ProjectStatus {
   @JsonProperty("compute_last_active_time")
   private Timestamp computeLastActiveTime;
 
+  /** The compute policy that is applied to the project. */
+  @JsonProperty("compute_policy_id")
+  private String computePolicyId;
+
   /** The effective custom tags associated with the project. */
   @JsonProperty("custom_tags")
   private Collection<ProjectCustomTag> customTags;
@@ -89,6 +93,15 @@ public class ProjectStatus {
 
   public Timestamp getComputeLastActiveTime() {
     return computeLastActiveTime;
+  }
+
+  public ProjectStatus setComputePolicyId(String computePolicyId) {
+    this.computePolicyId = computePolicyId;
+    return this;
+  }
+
+  public String getComputePolicyId() {
+    return computePolicyId;
   }
 
   public ProjectStatus setCustomTags(Collection<ProjectCustomTag> customTags) {
@@ -190,6 +203,7 @@ public class ProjectStatus {
     return Objects.equals(branchLogicalSizeLimitBytes, that.branchLogicalSizeLimitBytes)
         && Objects.equals(budgetPolicyId, that.budgetPolicyId)
         && Objects.equals(computeLastActiveTime, that.computeLastActiveTime)
+        && Objects.equals(computePolicyId, that.computePolicyId)
         && Objects.equals(customTags, that.customTags)
         && Objects.equals(defaultBranch, that.defaultBranch)
         && Objects.equals(defaultEndpointSettings, that.defaultEndpointSettings)
@@ -208,6 +222,7 @@ public class ProjectStatus {
         branchLogicalSizeLimitBytes,
         budgetPolicyId,
         computeLastActiveTime,
+        computePolicyId,
         customTags,
         defaultBranch,
         defaultEndpointSettings,
@@ -226,6 +241,7 @@ public class ProjectStatus {
         .add("branchLogicalSizeLimitBytes", branchLogicalSizeLimitBytes)
         .add("budgetPolicyId", budgetPolicyId)
         .add("computeLastActiveTime", computeLastActiveTime)
+        .add("computePolicyId", computePolicyId)
         .add("customTags", customTags)
         .add("defaultBranch", defaultBranch)
         .add("defaultEndpointSettings", defaultEndpointSettings)

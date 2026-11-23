@@ -18,7 +18,11 @@ public class SharedDataObject {
   @JsonProperty("added_by")
   private String addedBy;
 
-  /** Whether to enable cdf or indicate if cdf is enabled on the shared object. */
+  /**
+   * Whether to share the table's change data feed (CDF) with recipients. Requires change data feed
+   * to be enabled on the source table, and implicitly enables history sharing. Only applies to
+   * tables.
+   */
   @JsonProperty("cdf_enabled")
   private Boolean cdfEnabled;
 
@@ -34,13 +38,18 @@ public class SharedDataObject {
   @JsonProperty("content")
   private String content;
 
-  /** The type of the data object. */
+  /**
+   * The type of the data object. One of **TABLE**, **VIEW**, **MATERIALIZED_VIEW**,
+   * **STREAMING_TABLE**, **FOREIGN_TABLE**, **SCHEMA**, **VOLUME**, **MODEL**, **FUNCTION**,
+   * **FEATURE_SPEC**, or **NOTEBOOK_FILE**. Defaults to **TABLE** when omitted.
+   */
   @JsonProperty("data_object_type")
   private SharedDataObjectDataObjectType dataObjectType;
 
   /**
-   * Whether to enable or disable sharing of data history. If not specified, the default is
-   * **DISABLED**.
+   * Whether to share the table's history, which lets recipients run time travel queries and
+   * streaming reads against it. When a **TABLE** is added without this field or `cdf_enabled`,
+   * history sharing is **ENABLED** by default; otherwise the default is **DISABLED**.
    */
   @JsonProperty("history_data_sharing_status")
   private SharedDataObjectHistoryDataSharingStatus historyDataSharingStatus;
@@ -48,12 +57,17 @@ public class SharedDataObject {
   /**
    * A fully qualified name that uniquely identifies a data object. For example,
    * a table's fully qualified name is in the format of
-   * `<catalog>.<schema>.<table>`,
+   * `<catalog>.<schema>.<table>`, a schema's is `<catalog>.<schema>`, a
+   * volume's, model's, or function's is `<catalog>.<schema>.<object_name>`, and
+   * a notebook file's is its workspace path.
    */
   @JsonProperty("name")
   private String name;
 
-  /** Array of partitions for the shared data. */
+  /**
+   * Array of partitions for the shared data. Only rows that belong to at least one of the listed
+   * partitions are shared. Only applies to tables.
+   */
   @JsonProperty("partitions")
   private Collection<Partition> partitions;
 
@@ -96,7 +110,11 @@ public class SharedDataObject {
   @JsonProperty("start_version")
   private Long startVersion;
 
-  /** One of: **ACTIVE**, **PERMISSION_DENIED**. */
+  /**
+   * Sharing status of the data object. **ACTIVE** means the object is being shared with recipients
+   * without issues; **PERMISSION_DENIED** means the share owner has lost access to the object, so
+   * it is not being shared with recipients.
+   */
   @JsonProperty("status")
   private SharedDataObjectStatus status;
 

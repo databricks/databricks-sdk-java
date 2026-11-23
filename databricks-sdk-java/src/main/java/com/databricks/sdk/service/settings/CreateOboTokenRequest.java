@@ -15,7 +15,10 @@ public class CreateOboTokenRequest {
   @JsonProperty("application_id")
   private String applicationId;
 
-  /** Whether to enable autoscoping for this token. */
+  /**
+   * Whether to enable autoscoping for this token. `disable_autoscoping` supersedes this field and
+   * is the one read when both are set.
+   */
   @JsonProperty("autoscope_enabled")
   private Boolean autoscopeEnabled;
 

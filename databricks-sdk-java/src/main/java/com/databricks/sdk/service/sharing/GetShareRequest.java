@@ -10,7 +10,10 @@ import java.util.Objects;
 
 @Generated
 public class GetShareRequest {
-  /** Query for data to include in the share. */
+  /**
+   * Whether to include the share's data objects in the response. When false or omitted, the
+   * response omits `objects`.
+   */
   @JsonIgnore
   @QueryParam("include_shared_data")
   private Boolean includeSharedData;

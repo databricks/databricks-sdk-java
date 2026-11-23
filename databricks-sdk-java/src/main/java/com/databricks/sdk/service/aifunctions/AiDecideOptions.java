@@ -11,8 +11,7 @@ import java.util.Objects;
 @Generated
 public class AiDecideOptions {
   /**
-   * The function API version to invoke. If unset, the version is inferred per row. Supported
-   * versions: ["1.0"].
+   * The function API version to invoke. If unset, version 1.0 is used. Supported versions: ["1.0"].
    */
   @JsonProperty("version")
   private String version;

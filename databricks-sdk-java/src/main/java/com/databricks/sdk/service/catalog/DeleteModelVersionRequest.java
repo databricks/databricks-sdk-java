@@ -9,7 +9,10 @@ import java.util.Objects;
 
 @Generated
 public class DeleteModelVersionRequest {
-  /** The three-level (fully qualified) name of the model version */
+  /**
+   * The three-level (fully qualified) name of the parent registered model, in the form
+   * `catalog_name.schema_name.model_name`.
+   */
   @JsonIgnore private String fullName;
 
   /** The integer version number of the model version */

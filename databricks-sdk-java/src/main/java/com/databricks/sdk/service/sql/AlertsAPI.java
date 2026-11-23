@@ -75,7 +75,11 @@ public class AlertsAPI {
         });
   }
 
-  /** Updates an alert. */
+  /**
+   * Updates the fields of an alert named in `update_mask`. Changing `owner_user_name` requires
+   * workspace admin privileges; changing any other field requires CAN MANAGE permission on the
+   * alert.
+   */
   public Alert update(UpdateAlertRequest request) {
     return impl.update(request);
   }

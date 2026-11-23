@@ -8,10 +8,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 /**
- * A group that a principal belongs to, either directly or through another group. To list a
- * principal's parent groups, put the principal's resource name in the URL: `GET
- * /api/2.0/identity/accounts/{account_id}/principals/{principal_id}/transitive-parent-groups` in
- * account APIs, or `GET /api/2.0/identity/principals/{principal_id}/transitive-parent-groups` in
+ * A group in your Databricks account that a principal belongs to, either directly or through
+ * another group. To list a principal's parent groups, put the principal's resource name in the URL:
+ * `GET /api/2.0/identity/accounts/{account_id}/principals/{principal_id}/transitive-parent-groups`
+ * in account APIs, or `GET /api/2.0/identity/principals/{principal_id}/transitive-parent-groups` in
  * workspace APIs.
  */
 @Generated

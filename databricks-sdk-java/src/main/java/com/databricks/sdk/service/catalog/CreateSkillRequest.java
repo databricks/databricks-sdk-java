@@ -27,8 +27,9 @@ public class CreateSkillRequest {
   private Skill skill;
 
   /**
-   * Name for the skill, e.g. "basic-math". The server normalizes this identifier to lowercase. It
-   * is independent of the bundle name read from SKILL.md.
+   * Name of the skill within the parent schema. The name must not contain periods, spaces, forward
+   * slashes, percent signs, or control characters, and it is stored in lowercase. It is independent
+   * of the bundle name read from SKILL.md.
    */
   @JsonIgnore
   @QueryParam("skill_id")

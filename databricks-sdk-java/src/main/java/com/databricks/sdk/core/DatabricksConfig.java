@@ -13,6 +13,7 @@ import com.databricks.sdk.core.oauth.OpenIDConnectEndpoints;
 import com.databricks.sdk.core.oauth.TokenSource;
 import com.databricks.sdk.core.utils.Cloud;
 import com.databricks.sdk.core.utils.Environment;
+import com.databricks.sdk.support.InternalApi;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
@@ -203,6 +204,22 @@ public class DatabricksConfig {
    */
   @ConfigAttribute(env = "DATABRICKS_DISABLE_OAUTH_REFRESH_TOKEN")
   private Boolean disableOauthRefreshToken;
+
+  /**
+   * Turns off the Files transfer extension (FilesExt), from the environment or a profile only. It
+   * is not a public option, which is why it has no setter.
+   */
+  @ConfigAttribute(env = "DATABRICKS_DISABLE_EXPERIMENTAL_FILES_API_CLIENT")
+  private Boolean disableExperimentalFilesApiClient;
+
+  /**
+   * Turns on endpoint discovery for the Files transfer extension: asking the workspace which
+   * endpoints to transfer through. From the environment or a profile only. It defaults off, while
+   * the Python SDK defaults it on. It is not a public option, which is why it has no setter. The
+   * extension's off switch wins over it.
+   */
+  @ConfigAttribute(env = "DATABRICKS_EXPERIMENTAL_FILES_EXT_ENABLE_ENDPOINTS_API")
+  private Boolean experimentalFilesExtEnableEndpointsApi;
 
   public Environment getEnv() {
     return env;
@@ -711,6 +728,18 @@ public class DatabricksConfig {
 
   public boolean getDisableOauthRefreshToken() {
     return disableOauthRefreshToken != null && disableOauthRefreshToken;
+  }
+
+  /** Whether the Files transfer extension is turned off; see the field. */
+  @InternalApi
+  public boolean getDisableExperimentalFilesApiClient() {
+    return disableExperimentalFilesApiClient != null && disableExperimentalFilesApiClient;
+  }
+
+  /** Whether the Files transfer extension asks the workspace for its endpoints; see the field. */
+  @InternalApi
+  public boolean getExperimentalFilesExtEnableEndpointsApi() {
+    return experimentalFilesExtEnableEndpointsApi != null && experimentalFilesExtEnableEndpointsApi;
   }
 
   public DatabricksConfig setDisableOauthRefreshToken(boolean disable) {
