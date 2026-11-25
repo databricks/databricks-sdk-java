@@ -23,7 +23,7 @@ public class AsyncUpdateAppRequest {
   /**
    * Comma-separated names of the `app` fields to update, such as `description` or `resources`. A
    * field named in the mask but absent from `app` is cleared, except `compute_size`, which resets
-   * to `MEDIUM`.
+   * to `MEDIUM`. Sent in the request body together with `app`.
    *
    * <p>The field mask must be a single string, with multiple fields separated by commas (no
    * spaces). The field path is relative to the resource object, using a dot (`.`) to navigate

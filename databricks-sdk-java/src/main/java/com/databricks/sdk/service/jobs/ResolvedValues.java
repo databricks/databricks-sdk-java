@@ -23,27 +23,27 @@ public class ResolvedValues {
   @JsonProperty("ai_runtime_task")
   private ResolvedValuesAiRuntimeTaskResolvedValues aiRuntimeTask;
 
-  /** */
+  /** Resolved operands of a condition task. */
   @JsonProperty("condition_task")
   private ResolvedConditionTaskValues conditionTask;
 
-  /** */
+  /** Resolved commands of a dbt task. */
   @JsonProperty("dbt_task")
   private ResolvedDbtTaskValues dbtTask;
 
-  /** */
+  /** Resolved parameters of a notebook task. */
   @JsonProperty("notebook_task")
   private ResolvedNotebookTaskValues notebookTask;
 
-  /** */
+  /** Resolved parameters of a pipeline task. */
   @JsonProperty("pipeline_task")
   private ResolvedPipelineTaskValues pipelineTask;
 
-  /** */
+  /** Resolved parameters of a Python wheel task. */
   @JsonProperty("python_wheel_task")
   private ResolvedPythonWheelTaskValues pythonWheelTask;
 
-  /** */
+  /** Resolved parameters of a Run Job task. */
   @JsonProperty("run_job_task")
   private ResolvedRunJobTaskValues runJobTask;
 
@@ -51,19 +51,19 @@ public class ResolvedValues {
   @JsonProperty("simulation_task")
   private ResolvedParamPairValues simulationTask;
 
-  /** */
+  /** Resolved parameters of a JAR task. */
   @JsonProperty("spark_jar_task")
   private ResolvedStringParamsValues sparkJarTask;
 
-  /** */
+  /** Resolved parameters of a Python script task. */
   @JsonProperty("spark_python_task")
   private ResolvedStringParamsValues sparkPythonTask;
 
-  /** */
+  /** Resolved parameters of a spark-submit task. */
   @JsonProperty("spark_submit_task")
   private ResolvedStringParamsValues sparkSubmitTask;
 
-  /** */
+  /** Resolved parameters of a SQL task. */
   @JsonProperty("sql_task")
   private ResolvedParamPairValues sqlTask;
 

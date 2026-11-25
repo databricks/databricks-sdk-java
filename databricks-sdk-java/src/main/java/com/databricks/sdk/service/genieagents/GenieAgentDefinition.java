@@ -18,13 +18,13 @@ public class GenieAgentDefinition {
   @JsonProperty("config")
   private GenieAgentConfig config;
 
-  /** The data the Genie Agent can access. */
-  @JsonProperty("data_sources")
-  private GenieAgentDataSources dataSources;
-
   /** Instructions and SQL that guide how the Genie Agent answers questions. */
   @JsonProperty("instructions")
   private GenieAgentInstructions instructions;
+
+  /** The resources the Genie Agent can use: data, SQL functions, connections, and sub-agents. */
+  @JsonProperty("resources")
+  private GenieAgentResources resources;
 
   public GenieAgentDefinition setBenchmarks(GenieAgentBenchmarks benchmarks) {
     this.benchmarks = benchmarks;
@@ -44,15 +44,6 @@ public class GenieAgentDefinition {
     return config;
   }
 
-  public GenieAgentDefinition setDataSources(GenieAgentDataSources dataSources) {
-    this.dataSources = dataSources;
-    return this;
-  }
-
-  public GenieAgentDataSources getDataSources() {
-    return dataSources;
-  }
-
   public GenieAgentDefinition setInstructions(GenieAgentInstructions instructions) {
     this.instructions = instructions;
     return this;
@@ -62,6 +53,15 @@ public class GenieAgentDefinition {
     return instructions;
   }
 
+  public GenieAgentDefinition setResources(GenieAgentResources resources) {
+    this.resources = resources;
+    return this;
+  }
+
+  public GenieAgentResources getResources() {
+    return resources;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -69,13 +69,13 @@ public class GenieAgentDefinition {
     GenieAgentDefinition that = (GenieAgentDefinition) o;
     return Objects.equals(benchmarks, that.benchmarks)
         && Objects.equals(config, that.config)
-        && Objects.equals(dataSources, that.dataSources)
-        && Objects.equals(instructions, that.instructions);
+        && Objects.equals(instructions, that.instructions)
+        && Objects.equals(resources, that.resources);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(benchmarks, config, dataSources, instructions);
+    return Objects.hash(benchmarks, config, instructions, resources);
   }
 
   @Override
@@ -83,8 +83,8 @@ public class GenieAgentDefinition {
     return new ToStringer(GenieAgentDefinition.class)
         .add("benchmarks", benchmarks)
         .add("config", config)
-        .add("dataSources", dataSources)
         .add("instructions", instructions)
+        .add("resources", resources)
         .toString();
   }
 }

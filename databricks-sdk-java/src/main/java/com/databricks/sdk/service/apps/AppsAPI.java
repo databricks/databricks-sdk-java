@@ -274,7 +274,10 @@ public class AppsAPI {
     return deleteSpace(new DeleteSpaceRequest().setName(name));
   }
 
-  /** Deletes an app space. */
+  /**
+   * Deletes the app space with the supplied name. Spaces are identified by name, not by id. The
+   * workspace's default space can't be deleted.
+   */
   public DeleteSpaceOperation deleteSpace(DeleteSpaceRequest request) {
     Operation operation = impl.deleteSpace(request);
     return new DeleteSpaceOperation(impl, operation);
@@ -346,7 +349,10 @@ public class AppsAPI {
     return getSpace(new GetSpaceRequest().setName(name));
   }
 
-  /** Retrieves information for the app space with the supplied name. */
+  /**
+   * Retrieves information for the app space with the supplied name. Spaces are identified by name,
+   * not by id.
+   */
   public Space getSpace(GetSpaceRequest request) {
     return impl.getSpace(request);
   }
@@ -489,8 +495,9 @@ public class AppsAPI {
   }
 
   /**
-   * Updates an app space. The update process is asynchronous and the status of the update can be
-   * checked with the GetSpaceOperation method.
+   * Updates the app space with the supplied name. Spaces are identified by name, not by id. The
+   * workspace's default space can't be updated. The update process is asynchronous and the status
+   * of the update can be checked with the GetSpaceOperation method.
    */
   public UpdateSpaceOperation updateSpace(UpdateSpaceRequest request) {
     Operation operation = impl.updateSpace(request);

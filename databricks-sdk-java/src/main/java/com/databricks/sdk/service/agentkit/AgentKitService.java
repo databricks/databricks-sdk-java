@@ -81,8 +81,8 @@ public interface AgentKitService {
   ForkSessionResponse forkSession(ForkSessionRequest forkSessionRequest);
 
   /**
-   * Retrieves a memory entry by resource name. `view` controls whether the response includes memory
-   * content. Returns `NOT_FOUND` when the entry does not exist in the caller's workspace.
+   * Retrieves a memory entry by resource name. Returns `NOT_FOUND` when the entry does not exist in
+   * the caller's workspace.
    */
   ManagedMemoryEntry getMemory(GetManagedMemoryEntryRequest getManagedMemoryEntryRequest);
 
@@ -178,7 +178,7 @@ public interface AgentKitService {
 
   /**
    * Searches memory entries by text query for one actor. Returns matching entries and scores ranked
-   * by relevance; `view` controls whether each returned entry includes content.
+   * by relevance.
    */
   SearchManagedMemoryEntriesResponse searchMemories(
       SearchManagedMemoryEntriesRequest searchManagedMemoryEntriesRequest);

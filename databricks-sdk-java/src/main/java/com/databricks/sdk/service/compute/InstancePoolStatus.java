@@ -11,9 +11,9 @@ import java.util.Objects;
 @Generated
 public class InstancePoolStatus {
   /**
-   * List of error messages for the failed pending instances. The pending_instance_errors follows
-   * FIFO with maximum length of the min_idle of the pool. The pending_instance_errors is emptied
-   * once the number of exiting available instances reaches the min_idle of the pool.
+   * List of errors for pending instances that failed to launch, most recent first. The list holds
+   * at most `min_idle_instances` entries, and never more than 20, and is emptied once the pool has
+   * at least `min_idle_instances` available instances and no pending ones.
    */
   @JsonProperty("pending_instance_errors")
   private Collection<PendingInstanceError> pendingInstanceErrors;

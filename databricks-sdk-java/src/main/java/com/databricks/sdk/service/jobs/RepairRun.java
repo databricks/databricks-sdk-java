@@ -47,7 +47,7 @@ public class RepairRun {
   @JsonProperty("jar_params")
   private Collection<String> jarParams;
 
-  /** Job-level parameters used in the run. for example `"param": "overriding_val"` */
+  /** Job-level parameters used in the run, for example `"param": "overriding_val"`. */
   @JsonProperty("job_parameters")
   private Map<String, String> jobParameters;
 

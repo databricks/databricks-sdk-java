@@ -10,9 +10,8 @@ import java.util.Objects;
 @Generated
 public class NccEgressConfig {
   /**
-   * The network connectivity rules that are applied by default without resource specific
-   * configurations. You can find the stable network information of your serverless compute
-   * resources here.
+   * Deprecated. This field is retained for compatibility with existing clients. Avoid using it in
+   * new integrations.
    */
   @JsonProperty("default_rules")
   private NccEgressDefaultRules defaultRules;

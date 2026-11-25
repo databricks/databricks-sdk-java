@@ -7,7 +7,7 @@ import com.databricks.sdk.core.logging.LoggerFactory;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.Paginator;
 
-/** Transform and enrich data with AI on Databricks. */
+/** Transform and enrich data with AI. */
 @Generated
 public class AiFunctionsAPI {
   private static final Logger LOG = LoggerFactory.getLogger(AiFunctionsAPI.class);
@@ -25,8 +25,8 @@ public class AiFunctionsAPI {
   }
 
   /**
-   * Classifies content according to a set of provided labels. For REST API requests, the default
-   * rate limit is 1,200 requests per minute per workspace. Contact your Databricks account team to
+   * Classifies content according to a set of provided labels. The AI Classify REST API has a
+   * default rate limit of 1,200 requests per minute per workspace. Contact your account team to
    * request a higher limit.
    */
   public AiClassifyResponse aiClassify(AiClassifyRequest request) {
@@ -36,17 +36,22 @@ public class AiFunctionsAPI {
   /**
    * Turn text and structured data into decisions your application can use. Define questions and
    * criteria to choose an option, estimate a probability, or assign a score given a provided state.
-   * For REST API requests, the default rate limit is 1,200 requests per minute per workspace.
-   * Contact your Databricks account team to request a higher limit.
+   * The AI Decide REST API has a default rate limit of 1,200 requests per minute per workspace.
+   * Contact your account team to request a higher limit.
+   *
+   * <p>> **Note:** The v1 AI Decide syntax supporting strings and objects in `state` and objects
+   * and arrays in `instructions` will no longer be supported starting February 1, 2027. To use AI
+   * Decide, you must set `options.version` to `"2.0"`, pass an array of typed content objects to
+   * `state`, and a nonblank string to `instructions`.
    */
   public AiDecideResponse aiDecide(AiDecideRequest request) {
     return impl.aiDecide(request);
   }
 
   /**
-   * Extracts structured data from text and documents according to a provided schema. For REST API
-   * requests, the default rate limit is 120 requests per minute per workspace. Contact your
-   * Databricks account team to request a higher limit.
+   * Extracts structured data from text and documents according to a provided schema. The AI Extract
+   * REST API has a default rate limit of 120 requests per minute per workspace. Contact your
+   * account team to request a higher limit.
    */
   public AiExtractResponse aiExtract(AiExtractRequest request) {
     return impl.aiExtract(request);

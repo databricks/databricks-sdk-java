@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Generated
 public class ResolvedParamPairValues {
-  /** */
+  /** The query parameters with dynamic value references replaced by their concrete values. */
   @JsonProperty("parameters")
   private Map<String, String> parameters;
 

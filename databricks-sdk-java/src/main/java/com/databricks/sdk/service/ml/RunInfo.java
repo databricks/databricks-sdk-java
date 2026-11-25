@@ -11,9 +11,8 @@ import java.util.Objects;
 @Generated
 public class RunInfo {
   /**
-   * URI of the directory where artifacts should be uploaded. This can be a local path (starting
-   * with "/"), or a distributed file system (DFS) path, like ``s3://bucket/directory`` or
-   * ``dbfs:/my/directory``. If not set, the local ``./mlruns`` directory is chosen.
+   * URI of the directory where the run's artifacts are stored. MLflow sets it when the run is
+   * created, as the `artifact_location` of the run's experiment followed by `/<run_id>/artifacts`.
    */
   @JsonProperty("artifact_uri")
   private String artifactUri;
@@ -22,11 +21,11 @@ public class RunInfo {
   @JsonProperty("end_time")
   private Long endTime;
 
-  /** The experiment ID. */
+  /** ID of the experiment that the run belongs to. */
   @JsonProperty("experiment_id")
   private String experimentId;
 
-  /** Current life cycle stage of the experiment : OneOf("active", "deleted") */
+  /** Current life cycle stage of the run: `active` or `deleted`. */
   @JsonProperty("lifecycle_stage")
   private String lifecycleStage;
 

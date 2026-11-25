@@ -32,7 +32,10 @@ public class GlobalInitScriptsAPI {
     impl = mock;
   }
 
-  /** Creates a new global init script in this workspace. */
+  /**
+   * Creates a new global init script in this workspace. The number of global init scripts per
+   * workspace is limited.
+   */
   public CreateResponse create(GlobalInitScriptCreateRequest request) {
     return impl.create(request);
   }

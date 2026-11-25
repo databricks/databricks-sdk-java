@@ -42,7 +42,7 @@ public class UpdateGenieAgentRequest {
    * rejected with INVALID_PARAMETER_VALUE; an unset `parent_path` is cleared without moving the
    * Genie Agent. `definition` is replaced as a whole.
    *
-   * <p>The one supported path inside `definition` is `definition.data_sources.sub_agents`, and only
+   * <p>The one supported path inside `definition` is `definition.resources.sub_agents`, and only
    * alongside `definition`. Naming it makes the sub-agent list exact, so an empty list detaches
    * every sub-agent. Without it, including with `*`, an empty list keeps them.
    *

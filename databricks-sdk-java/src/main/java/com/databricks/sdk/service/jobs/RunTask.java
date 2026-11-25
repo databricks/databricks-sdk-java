@@ -302,7 +302,7 @@ public class RunTask {
   @JsonProperty("run_job_task")
   private RunJobTask runJobTask;
 
-  /** */
+  /** The URL to the detail page of the task run. */
   @JsonProperty("run_page_url")
   private String runPageUrl;
 
@@ -351,7 +351,7 @@ public class RunTask {
   @JsonProperty("state")
   private RunState state;
 
-  /** */
+  /** The current status of the task run. Use this field instead of the deprecated `state` field. */
   @JsonProperty("status")
   private RunStatus status;
 

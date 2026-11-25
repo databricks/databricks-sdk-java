@@ -18,7 +18,10 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface GlobalInitScriptsService {
-  /** Creates a new global init script in this workspace. */
+  /**
+   * Creates a new global init script in this workspace. The number of global init scripts per
+   * workspace is limited.
+   */
   CreateResponse create(GlobalInitScriptCreateRequest globalInitScriptCreateRequest);
 
   /** Deletes a global init script. */

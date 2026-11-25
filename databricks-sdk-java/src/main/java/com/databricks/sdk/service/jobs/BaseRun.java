@@ -145,7 +145,10 @@ public class BaseRun {
   @JsonProperty("job_id")
   private Long jobId;
 
-  /** Job-level parameters used in the run */
+  /**
+   * Job-level parameters used in the run. Each entry carries the parameter's name, its default, and
+   * the value used in this run.
+   */
   @JsonProperty("job_parameters")
   private Collection<JobParameter> jobParameters;
 
@@ -226,7 +229,7 @@ public class BaseRun {
   @JsonProperty("state")
   private RunState state;
 
-  /** */
+  /** The current status of the run. Use this field instead of the deprecated `state` field. */
   @JsonProperty("status")
   private RunStatus status;
 
@@ -243,7 +246,10 @@ public class BaseRun {
   @JsonProperty("trigger")
   private TriggerType trigger;
 
-  /** */
+  /**
+   * Additional details about the trigger that fired the run. The fields that are populated depend
+   * on the value of `trigger`.
+   */
   @JsonProperty("trigger_info")
   private TriggerInfo triggerInfo;
 

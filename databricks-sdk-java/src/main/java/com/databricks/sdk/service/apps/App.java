@@ -50,7 +50,8 @@ public class App {
 
   /**
    * Size of the compute instances the app runs on. Defaults to MEDIUM. Larger sizes provide more
-   * CPU and memory at a higher hourly cost. See
+   * CPU and memory at a higher hourly cost. Leave unset for an app in a space: apps in a space
+   * always run on space compute and reject any other size. See
    * https://docs.databricks.com/aws/en/dev-tools/databricks-apps/compute-size.
    */
   @JsonProperty("compute_size")

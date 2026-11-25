@@ -134,6 +134,8 @@ import com.databricks.sdk.service.files.FilesAPI;
 import com.databricks.sdk.service.files.FilesService;
 import com.databricks.sdk.service.genieagents.GenieAgentsAPI;
 import com.databricks.sdk.service.genieagents.GenieAgentsService;
+import com.databricks.sdk.service.geniemigrate.GenieMigrateAPI;
+import com.databricks.sdk.service.geniemigrate.GenieMigrateService;
 import com.databricks.sdk.service.iam.AccessControlAPI;
 import com.databricks.sdk.service.iam.AccessControlService;
 import com.databricks.sdk.service.iam.AccountAccessControlProxyAPI;
@@ -359,6 +361,7 @@ public class WorkspaceClient {
   private FunctionsAPI functionsAPI;
   private GenieAPI genieAPI;
   private GenieAgentsAPI genieAgentsAPI;
+  private GenieMigrateAPI genieMigrateAPI;
   private GitCredentialsAPI gitCredentialsAPI;
   private GlobalInitScriptsAPI globalInitScriptsAPI;
   private GrantsAPI grantsAPI;
@@ -512,6 +515,7 @@ public class WorkspaceClient {
     functionsAPI = new FunctionsAPI(apiClient);
     genieAPI = new GenieAPI(apiClient);
     genieAgentsAPI = new GenieAgentsAPI(apiClient);
+    genieMigrateAPI = new GenieMigrateAPI(apiClient);
     gitCredentialsAPI = new GitCredentialsAPI(apiClient);
     globalInitScriptsAPI = new GlobalInitScriptsAPI(apiClient);
     grantsAPI = new GrantsAPI(apiClient);
@@ -643,7 +647,7 @@ public class WorkspaceClient {
     return agentKitAPI;
   }
 
-  /** Transform and enrich data with AI on Databricks. */
+  /** Transform and enrich data with AI. */
   public AiFunctionsAPI aiFunctions() {
     return aiFunctionsAPI;
   }
@@ -1174,6 +1178,14 @@ public class WorkspaceClient {
    */
   public GenieAgentsAPI genieAgents() {
     return genieAgentsAPI;
+  }
+
+  /**
+   * Use the Genie Migrate API to create and manage migration projects and the source files to
+   * convert.
+   */
+  public GenieMigrateAPI genieMigrate() {
+    return genieMigrateAPI;
   }
 
   /**
@@ -3015,6 +3027,17 @@ public class WorkspaceClient {
   /** Replace the default GenieAgentsAPI with a custom implementation. */
   public WorkspaceClient withGenieAgentsAPI(GenieAgentsAPI genieAgents) {
     this.genieAgentsAPI = genieAgents;
+    return this;
+  }
+
+  /** Replace the default GenieMigrateService with a custom implementation. */
+  public WorkspaceClient withGenieMigrateImpl(GenieMigrateService genieMigrate) {
+    return this.withGenieMigrateAPI(new GenieMigrateAPI(genieMigrate));
+  }
+
+  /** Replace the default GenieMigrateAPI with a custom implementation. */
+  public WorkspaceClient withGenieMigrateAPI(GenieMigrateAPI genieMigrate) {
+    this.genieMigrateAPI = genieMigrate;
     return this;
   }
 

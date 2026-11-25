@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class CancelRun {
-  /** This field is required. */
+  /** The canonical identifier of the run to cancel. */
   @JsonProperty("run_id")
   private Long runId;
 

@@ -11,12 +11,12 @@ import java.util.Objects;
 /** Target rule controls the egress rules that are dedicated to specific resources. */
 @Generated
 public class NccEgressTargetRules {
-  /** AWS private endpoint rule controls the AWS private endpoint based egress rules. */
+  /** Deprecated. This field is not supported anymore and kept purely for interface stability. */
   @JsonProperty("aws_private_endpoint_rules")
   private Collection<CustomerFacingNetworkConnectivityConfigAwsPrivateEndpointRule>
       awsPrivateEndpointRules;
 
-  /** */
+  /** Deprecated. This field is not supported anymore and kept purely for interface stability. */
   @JsonProperty("azure_private_endpoint_rules")
   private Collection<NccAzurePrivateEndpointRule> azurePrivateEndpointRules;
 

@@ -25,7 +25,8 @@ public class UpdateSpaceRequest {
 
   /**
    * Comma-separated names of the `space` fields to update, such as `description` or `resources`. A
-   * field named in the mask but absent from `space` is cleared.
+   * field named in the mask but absent from `space` is cleared. Sent as a query parameter, not in
+   * the `space` body.
    */
   @JsonIgnore
   @QueryParam("update_mask")
