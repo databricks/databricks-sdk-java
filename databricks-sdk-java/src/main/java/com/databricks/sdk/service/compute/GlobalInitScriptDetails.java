@@ -7,6 +7,10 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * A global init script in the workspace. Only workspace admins can view and manage global init
+ * scripts.
+ */
 @Generated
 public class GlobalInitScriptDetails {
   /** Time when the script was created, represented as a Unix timestamp in milliseconds. */
@@ -21,7 +25,7 @@ public class GlobalInitScriptDetails {
   @JsonProperty("enabled")
   private Boolean enabled;
 
-  /** The name of the script */
+  /** The name of the script. The name must be unique within the workspace. */
   @JsonProperty("name")
   private String name;
 
@@ -40,7 +44,7 @@ public class GlobalInitScriptDetails {
   @JsonProperty("updated_at")
   private Long updatedAt;
 
-  /** The username of the user who last updated the script */
+  /** The username of the user who last updated the script. */
   @JsonProperty("updated_by")
   private String updatedBy;
 

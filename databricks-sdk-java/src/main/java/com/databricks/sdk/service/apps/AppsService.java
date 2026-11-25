@@ -31,7 +31,10 @@ public interface AppsService {
   /** Deletes the thumbnail for an app. */
   void deleteAppThumbnail(DeleteAppThumbnailRequest deleteAppThumbnailRequest);
 
-  /** Deletes an app space. */
+  /**
+   * Deletes the app space with the supplied name. Spaces are identified by name, not by id. The
+   * workspace's default space can't be deleted.
+   */
   Operation deleteSpace(DeleteSpaceRequest deleteSpaceRequest);
 
   /**
@@ -59,7 +62,10 @@ public interface AppsService {
   /** Gets the permissions of an app. Apps can inherit permissions from their root object. */
   AppPermissions getPermissions(GetAppPermissionsRequest getAppPermissionsRequest);
 
-  /** Retrieves information for the app space with the supplied name. */
+  /**
+   * Retrieves information for the app space with the supplied name. Spaces are identified by name,
+   * not by id.
+   */
   Space getSpace(GetSpaceRequest getSpaceRequest);
 
   /** Gets the status of an app space update operation. */
@@ -113,8 +119,9 @@ public interface AppsService {
   AppPermissions updatePermissions(AppPermissionsRequest appPermissionsRequest);
 
   /**
-   * Updates an app space. The update process is asynchronous and the status of the update can be
-   * checked with the GetSpaceOperation method.
+   * Updates the app space with the supplied name. Spaces are identified by name, not by id. The
+   * workspace's default space can't be updated. The update process is asynchronous and the status
+   * of the update can be checked with the GetSpaceOperation method.
    */
   Operation updateSpace(UpdateSpaceRequest updateSpaceRequest);
 }

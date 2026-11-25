@@ -153,7 +153,10 @@ public class PipelineSpec {
   @JsonProperty("serverless")
   private Boolean serverless;
 
-  /** Serverless compute ID specified by the user for serverless pipelines. */
+  /**
+   * Serverless compute ID specified by the user for serverless pipelines. Use compute_policy_id
+   * instead. Only one of these fields may be set.
+   */
   @JsonProperty("serverless_compute_id")
   private String serverlessComputeId;
 

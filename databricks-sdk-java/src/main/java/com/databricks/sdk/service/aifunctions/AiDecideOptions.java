@@ -11,7 +11,8 @@ import java.util.Objects;
 @Generated
 public class AiDecideOptions {
   /**
-   * The function API version to invoke. If unset, version 1.0 is used. Supported versions: ["1.0"].
+   * Set to `"2.0"`. If unset, the deprecated version 1.0 is used during the [migration
+   * period](/api/ai-functions/v1#aidecide).
    */
   @JsonProperty("version")
   private String version;

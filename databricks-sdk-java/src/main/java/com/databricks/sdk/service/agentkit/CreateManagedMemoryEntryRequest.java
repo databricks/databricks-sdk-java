@@ -15,7 +15,11 @@ public class CreateManagedMemoryEntryRequest {
   @JsonProperty("managed_memory_entry")
   private ManagedMemoryEntry managedMemoryEntry;
 
-  /** Optional caller-selected memory entry ID. The service generates an ID when omitted. */
+  /**
+   * Caller-selected memory entry ID. It must contain 1-255 letters, digits, hyphens, or
+   * underscores, and it becomes the last segment of the entry's `name`. The service generates a
+   * UUID when it is omitted.
+   */
   @JsonIgnore
   @QueryParam("managed_memory_entry_id")
   private String managedMemoryEntryId;

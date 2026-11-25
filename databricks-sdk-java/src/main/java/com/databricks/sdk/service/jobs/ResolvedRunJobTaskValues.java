@@ -10,7 +10,10 @@ import java.util.Objects;
 
 @Generated
 public class ResolvedRunJobTaskValues {
-  /** */
+  /**
+   * The job-level parameters passed to the triggered job with dynamic value references replaced by
+   * their concrete values.
+   */
   @JsonProperty("job_parameters")
   private Map<String, String> jobParameters;
 

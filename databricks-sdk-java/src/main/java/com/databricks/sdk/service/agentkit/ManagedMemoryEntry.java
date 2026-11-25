@@ -8,7 +8,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.protobuf.Timestamp;
 import java.util.Objects;
 
-/** A workspace-scoped entry in a memory store. */
+/**
+ * A workspace-scoped entry in a memory store. Each entry belongs to one actor and, optionally, one
+ * session, and its `path` is unique within that actor and session.
+ */
 @Generated
 public class ManagedMemoryEntry {
   /** Customer-provided identifier for the actor whose memory this entry represents. */

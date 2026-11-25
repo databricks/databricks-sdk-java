@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Generated
 public class ResolvedDbtTaskValues {
-  /** */
+  /** The dbt commands with dynamic value references replaced by their concrete values. */
   @JsonProperty("commands")
   private Collection<String> commands;
 

@@ -14,11 +14,11 @@ public class UpdateSyncedDatabaseTableRequest {
   /** Full three-part (catalog, schema, table) name of the table. */
   @JsonIgnore private String name;
 
-  /** Note that updating a synced database table is not yet supported. */
+  /** The synced database table and requested spec values. */
   @JsonProperty("synced_table")
   private SyncedDatabaseTable syncedTable;
 
-  /** The list of fields to update. Setting this field is not yet supported. */
+  /** The list of fields to update. Updatable paths include spec.accelerated_sync and *. */
   @JsonIgnore
   @QueryParam("update_mask")
   private String updateMask;

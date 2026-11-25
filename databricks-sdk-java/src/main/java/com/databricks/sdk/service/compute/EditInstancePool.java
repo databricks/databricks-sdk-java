@@ -12,7 +12,9 @@ import java.util.Objects;
 public class EditInstancePool {
   /**
    * Additional tags for pool resources. Databricks will tag all pool resources (e.g., AWS instances
-   * and EBS volumes) with these tags in addition to `default_tags`. Notes:
+   * and EBS volumes) with these tags in addition to `default_tags`, and clusters backed by the pool
+   * inherit them. When editing a pool, omitting this field or passing an empty map keeps the
+   * existing tags, and a non-empty map replaces them. Notes:
    *
    * <p>- Currently, Databricks allows at most 45 custom tags
    */
@@ -29,7 +31,7 @@ public class EditInstancePool {
   @JsonProperty("idle_instance_autotermination_minutes")
   private Long idleInstanceAutoterminationMinutes;
 
-  /** Instance pool ID */
+  /** Identifier of the instance pool to edit. */
   @JsonProperty("instance_pool_id")
   private String instancePoolId;
 
@@ -43,20 +45,25 @@ public class EditInstancePool {
   /**
    * Maximum number of outstanding instances to keep in the pool, including both instances used by
    * clusters and idle instances. Clusters that require further instance provisioning will fail
-   * during upsize requests.
+   * during upsize requests. If unset, the pool size is not capped.
    */
   @JsonProperty("max_capacity")
   private Long maxCapacity;
 
-  /** Minimum number of idle instances to keep in the instance pool */
+  /**
+   * Minimum number of idle instances to keep in the instance pool. These instances do not terminate
+   * regardless of `idle_instance_autotermination_minutes`, and the pool provisions replacements
+   * when clusters consume them. Defaults to 0.
+   */
   @JsonProperty("min_idle_instances")
   private Long minIdleInstances;
 
   /**
    * This field encodes, through a single value, the resources available to each of the Spark nodes
-   * in this cluster. For example, the Spark nodes can be provisioned and optimized for memory or
-   * compute intensive workloads. A list of available node types can be retrieved by using the
-   * [clusters/listNodeTypes] API call. The node type cannot be changed after the pool is created.
+   * in clusters that use this pool. For example, the Spark nodes can be provisioned and optimized
+   * for memory or compute intensive workloads. A list of available node types can be retrieved by
+   * using the [clusters/listNodeTypes] API call. The node type cannot be changed after the pool is
+   * created.
    *
    * <p>[clusters/listNodeTypes]: https://docs.databricks.com/api/workspace/clusters/listnodetypes
    */

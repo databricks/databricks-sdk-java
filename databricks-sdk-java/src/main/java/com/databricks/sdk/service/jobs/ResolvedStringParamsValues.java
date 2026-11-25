@@ -10,7 +10,10 @@ import java.util.Objects;
 
 @Generated
 public class ResolvedStringParamsValues {
-  /** */
+  /**
+   * The parameters passed to the main class with dynamic value references replaced by their
+   * concrete values.
+   */
   @JsonProperty("parameters")
   private Collection<String> parameters;
 

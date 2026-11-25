@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Generated
 public class ListInstancePools {
-  /** */
+  /** Instance pools in the workspace, each with its usage statistics and status. */
   @JsonProperty("instance_pools")
   private Collection<InstancePoolAndStats> instancePools;
 

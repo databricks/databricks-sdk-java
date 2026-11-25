@@ -49,7 +49,10 @@ public class SearchManagedMemoryEntriesRequest {
   @JsonProperty("path_prefix")
   private String pathPrefix;
 
-  /** Free-form search query. */
+  /**
+   * Free-form search query. Entries are ranked by how well their `content` and `description` match
+   * it.
+   */
   @JsonProperty("query")
   private String query;
 

@@ -41,7 +41,7 @@ public class CreateWarehouseRequest {
   @JsonProperty("creator_name")
   private String creatorName;
 
-  /** Compute version label for a REALTIME warehouse. This field is output only. */
+  /** Compute version label for a Real-Time warehouse. This field is output only. */
   @JsonProperty("customer_version_label")
   private String customerVersionLabel;
 
@@ -62,8 +62,8 @@ public class CreateWarehouseRequest {
   private String instanceProfileArn;
 
   /**
-   * Maximum compute capacity of a real-time SQL warehouse, in DBU per hour. Must be at least the
-   * minimum DBU for the selected warehouse size and no greater than the configured DBU limit.
+   * Maximum autoscaling capacity of a Real-Time SQL warehouse, in DBU per hour. Must be at least
+   * the minimum DBU for the selected warehouse size and no greater than the configured DBU limit.
    * Actual capacity may be below this ceiling.
    */
   @JsonProperty("max_dbu")
@@ -138,8 +138,9 @@ public class CreateWarehouseRequest {
   private EndpointTags tags;
 
   /**
-   * Warehouse type: `PRO` or `CLASSIC`. If you want to use serverless compute, you must set to
-   * `PRO` and also set the field `enable_serverless_compute` to `true`.
+   * Warehouse type: `PRO`, `CLASSIC`, or `REALTIME`. For serverless compute, use `PRO` or
+   * `REALTIME` with `enable_serverless_compute=true`. `REALTIME` requires serverless compute and
+   * Photon; `enable_photon` defaults to `true`.
    */
   @JsonProperty("warehouse_type")
   private CreateWarehouseRequestWarehouseType warehouseType;

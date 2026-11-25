@@ -22,7 +22,10 @@ public class JobCompletionTriggerStateMonitoredJobState {
   @JsonProperty("is_deleted")
   private Boolean isDeleted;
 
-  /** The ID of the upstream job. */
+  /**
+   * The ID of the upstream job. For a job monitored by name, the ID of the job that the name last
+   * resolved to. Omitted until the name resolves to a job.
+   */
   @JsonProperty("job_id")
   private String jobId;
 

@@ -23,7 +23,10 @@ public class RepairHistoryItem {
   @JsonProperty("effective_performance_target")
   private PerformanceTarget effectivePerformanceTarget;
 
-  /** The end time of the (repaired) run. */
+  /**
+   * The end time of this repair history item in epoch milliseconds (milliseconds since 1/1/1970
+   * UTC).
+   */
   @JsonProperty("end_time")
   private Long endTime;
 
@@ -33,7 +36,10 @@ public class RepairHistoryItem {
   @JsonProperty("id")
   private Long id;
 
-  /** The start time of the (repaired) run. */
+  /**
+   * The start time of this repair history item in epoch milliseconds (milliseconds since 1/1/1970
+   * UTC).
+   */
   @JsonProperty("start_time")
   private Long startTime;
 
@@ -41,7 +47,10 @@ public class RepairHistoryItem {
   @JsonProperty("state")
   private RunState state;
 
-  /** */
+  /**
+   * The status of the run at the end of this repair history item, or its current status for the
+   * latest item. Use this field instead of the deprecated `state` field.
+   */
   @JsonProperty("status")
   private RunStatus status;
 

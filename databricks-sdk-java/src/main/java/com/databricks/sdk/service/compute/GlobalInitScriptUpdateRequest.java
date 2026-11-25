@@ -14,7 +14,7 @@ public class GlobalInitScriptUpdateRequest {
   @JsonProperty("enabled")
   private Boolean enabled;
 
-  /** The name of the script */
+  /** The name of the script. The name must be unique within the workspace. */
   @JsonProperty("name")
   private String name;
 
@@ -33,7 +33,10 @@ public class GlobalInitScriptUpdateRequest {
   @JsonProperty("position")
   private Long position;
 
-  /** The Base64-encoded content of the script. */
+  /**
+   * The Base64-encoded content of the script. The decoded content must not be empty and cannot
+   * exceed 64 KB.
+   */
   @JsonProperty("script")
   private String script;
 

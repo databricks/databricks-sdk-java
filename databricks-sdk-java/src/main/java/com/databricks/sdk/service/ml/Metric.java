@@ -43,7 +43,7 @@ public class Metric {
   @JsonProperty("step")
   private Long step;
 
-  /** The timestamp at which the metric was recorded. */
+  /** Time at which the metric was recorded, as a Unix timestamp in milliseconds. */
   @JsonProperty("timestamp")
   private Long timestamp;
 

@@ -27,7 +27,9 @@ public class GetInstancePool {
 
   /**
    * Additional tags for pool resources. Databricks will tag all pool resources (e.g., AWS instances
-   * and EBS volumes) with these tags in addition to `default_tags`. Notes:
+   * and EBS volumes) with these tags in addition to `default_tags`, and clusters backed by the pool
+   * inherit them. When editing a pool, omitting this field or passing an empty map keeps the
+   * existing tags, and a non-empty map replaces them. Notes:
    *
    * <p>- Currently, Databricks allows at most 45 custom tags
    */
@@ -35,7 +37,7 @@ public class GetInstancePool {
   private Map<String, String> customTags;
 
   /**
-   * Tags that are added by Databricks regardless of any ``custom_tags``, including:
+   * Tags that Databricks adds to every pool resource in addition to any `custom_tags`:
    *
    * <p>- Vendor: Databricks
    *
@@ -46,15 +48,19 @@ public class GetInstancePool {
   @JsonProperty("default_tags")
   private Map<String, String> defaultTags;
 
-  /** Defines the specification of the disks that will be attached to all spark containers. */
+  /**
+   * Defines the specification of the disks that will be attached to all spark containers. The disk
+   * specification cannot be changed after the pool is created.
+   */
   @JsonProperty("disk_spec")
   private DiskSpec diskSpec;
 
   /**
-   * Autoscaling Local Storage: when enabled, this instances in this pool will dynamically acquire
-   * additional disk space when its Spark workers are running low on disk space. In AWS, this
-   * feature requires specific AWS permissions to function correctly - refer to the User Guide for
-   * more details.
+   * Autoscaling Local Storage: when enabled, the instances in this pool will dynamically acquire
+   * additional disk space when their Spark workers are running low on disk space. In AWS, this
+   * feature requires specific AWS permissions to function correctly; see
+   * https://docs.databricks.com/aws/en/compute/pools#autoscaling-local-storage for details. This
+   * setting cannot be changed after the pool is created.
    */
   @JsonProperty("enable_elastic_disk")
   private Boolean enableElasticDisk;
@@ -90,12 +96,16 @@ public class GetInstancePool {
   /**
    * Maximum number of outstanding instances to keep in the pool, including both instances used by
    * clusters and idle instances. Clusters that require further instance provisioning will fail
-   * during upsize requests.
+   * during upsize requests. If unset, the pool size is not capped.
    */
   @JsonProperty("max_capacity")
   private Long maxCapacity;
 
-  /** Minimum number of idle instances to keep in the instance pool */
+  /**
+   * Minimum number of idle instances to keep in the instance pool. These instances do not terminate
+   * regardless of `idle_instance_autotermination_minutes`, and the pool provisions replacements
+   * when clusters consume them. Defaults to 0.
+   */
   @JsonProperty("min_idle_instances")
   private Long minIdleInstances;
 
@@ -105,23 +115,29 @@ public class GetInstancePool {
 
   /**
    * This field encodes, through a single value, the resources available to each of the Spark nodes
-   * in this cluster. For example, the Spark nodes can be provisioned and optimized for memory or
-   * compute intensive workloads. A list of available node types can be retrieved by using the
-   * [clusters/listNodeTypes] API call. The node type cannot be changed after the pool is created.
+   * in clusters that use this pool. For example, the Spark nodes can be provisioned and optimized
+   * for memory or compute intensive workloads. A list of available node types can be retrieved by
+   * using the [clusters/listNodeTypes] API call. The node type cannot be changed after the pool is
+   * created.
    *
    * <p>[clusters/listNodeTypes]: https://docs.databricks.com/api/workspace/clusters/listnodetypes
    */
   @JsonProperty("node_type_id")
   private String nodeTypeId;
 
-  /** Custom Docker Image BYOC */
+  /**
+   * A list containing at most one custom Docker image to preload on the pool's idle instances.
+   * Clusters that use Databricks Container Services with the preloaded image start faster. The list
+   * cannot be changed after the pool is created.
+   */
   @JsonProperty("preloaded_docker_images")
   private Collection<DockerImage> preloadedDockerImages;
 
   /**
    * A list containing at most one preloaded Spark image version for the pool. Pool-backed clusters
    * started with the preloaded Spark version will start faster. A list of available Spark versions
-   * can be retrieved by using the [clusters/sparkVersions] API call.
+   * can be retrieved by using the [clusters/sparkVersions] API call. The list cannot be changed
+   * after the pool is created.
    *
    * <p>[clusters/sparkVersions]: https://docs.databricks.com/api/workspace/clusters/sparkversions
    */
