@@ -11,7 +11,10 @@ import java.util.Objects;
 /** Response containing memory entries. */
 @Generated
 public class ListManagedMemoryEntriesResponse {
-  /** Memory entries matching the request and selected response view. */
+  /**
+   * Memory entries matching the request and selected response view, ordered by creation time,
+   * oldest first.
+   */
   @JsonProperty("managed_memory_entries")
   private Collection<ManagedMemoryEntry> managedMemoryEntries;
 

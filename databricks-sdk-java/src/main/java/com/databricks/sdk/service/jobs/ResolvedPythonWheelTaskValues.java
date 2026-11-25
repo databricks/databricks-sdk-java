@@ -11,11 +11,11 @@ import java.util.Objects;
 
 @Generated
 public class ResolvedPythonWheelTaskValues {
-  /** */
+  /** The named parameters with dynamic value references replaced by their concrete values. */
   @JsonProperty("named_parameters")
   private Map<String, String> namedParameters;
 
-  /** */
+  /** The positional parameters with dynamic value references replaced by their concrete values. */
   @JsonProperty("parameters")
   private Collection<String> parameters;
 

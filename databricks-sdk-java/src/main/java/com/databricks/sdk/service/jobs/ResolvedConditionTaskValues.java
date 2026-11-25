@@ -9,11 +9,17 @@ import java.util.Objects;
 
 @Generated
 public class ResolvedConditionTaskValues {
-  /** */
+  /**
+   * The left operand of the condition with dynamic value references replaced by their concrete
+   * values.
+   */
   @JsonProperty("left")
   private String left;
 
-  /** */
+  /**
+   * The right operand of the condition with dynamic value references replaced by their concrete
+   * values.
+   */
   @JsonProperty("right")
   private String right;
 

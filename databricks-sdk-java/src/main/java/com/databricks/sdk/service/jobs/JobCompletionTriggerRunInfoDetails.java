@@ -14,7 +14,10 @@ import java.util.Objects;
  */
 @Generated
 public class JobCompletionTriggerRunInfoDetails {
-  /** */
+  /**
+   * The upstream job completions that fired the trigger, in the order in which the jobs are
+   * configured on the trigger.
+   */
   @JsonProperty("completed_jobs")
   private Collection<CompletedJob> completedJobs;
 

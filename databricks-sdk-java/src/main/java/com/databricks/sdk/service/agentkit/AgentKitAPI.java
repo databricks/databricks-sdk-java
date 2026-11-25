@@ -137,8 +137,8 @@ public class AgentKitAPI {
   }
 
   /**
-   * Retrieves a memory entry by resource name. `view` controls whether the response includes memory
-   * content. Returns `NOT_FOUND` when the entry does not exist in the caller's workspace.
+   * Retrieves a memory entry by resource name. Returns `NOT_FOUND` when the entry does not exist in
+   * the caller's workspace.
    */
   public ManagedMemoryEntry getMemory(GetManagedMemoryEntryRequest request) {
     return impl.getMemory(request);
@@ -378,7 +378,7 @@ public class AgentKitAPI {
 
   /**
    * Searches memory entries by text query for one actor. Returns matching entries and scores ranked
-   * by relevance; `view` controls whether each returned entry includes content.
+   * by relevance.
    */
   public Iterable<ManagedMemoryEntrySearchResult> searchMemories(
       SearchManagedMemoryEntriesRequest request) {

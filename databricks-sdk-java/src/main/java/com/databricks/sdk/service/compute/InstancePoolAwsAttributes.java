@@ -54,8 +54,8 @@ public class InstancePoolAwsAttributes {
    * Identifier for the availability zone/datacenter in which the cluster resides. This string will
    * be of a form like "us-west-2a". The provided availability zone must be in the same region as
    * the Databricks deployment. For example, "us-west-2a" is not a valid zone id if the Databricks
-   * deployment resides in the "us-east-1" region. This is an optional field at cluster creation,
-   * and if not specified, a default zone will be used. The list of available zones as well as the
+   * deployment resides in the "us-east-1" region. This is an optional field at pool creation, and
+   * if not specified, a default zone will be used. The list of available zones as well as the
    * default value can be found by using the `List Zones` method.
    *
    * <p>Set this field to "auto" to enable Auto-AZ, in which case Databricks selects the

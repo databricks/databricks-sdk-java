@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Generated
 public class ResolvedNotebookTaskValues {
-  /** */
+  /** The notebook parameters with dynamic value references replaced by their concrete values. */
   @JsonProperty("base_parameters")
   private Map<String, String> baseParameters;
 

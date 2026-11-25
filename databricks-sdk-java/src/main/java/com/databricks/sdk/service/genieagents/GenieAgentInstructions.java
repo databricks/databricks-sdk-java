@@ -19,17 +19,13 @@ public class GenieAgentInstructions {
   @JsonProperty("join_specs")
   private Collection<GenieAgentJoinSpec> joinSpecs;
 
-  /** Unity Catalog SQL functions the generated SQL may call. */
-  @JsonProperty("sql_functions")
-  private Collection<GenieAgentSqlFunction> sqlFunctions;
-
   /** Reusable SQL filters, expressions, and measures. */
   @JsonProperty("sql_snippets")
   private GenieAgentSqlSnippets sqlSnippets;
 
-  /** General text instructions. At most one text instruction is supported. */
-  @JsonProperty("text_instructions")
-  private Collection<GenieAgentTextInstruction> textInstructions;
+  /** The general text instruction. */
+  @JsonProperty("text_instruction")
+  private GenieAgentTextInstruction textInstruction;
 
   public GenieAgentInstructions setExampleQuestionSqls(
       Collection<GenieAgentExampleQuestionSql> exampleQuestionSqls) {
@@ -50,15 +46,6 @@ public class GenieAgentInstructions {
     return joinSpecs;
   }
 
-  public GenieAgentInstructions setSqlFunctions(Collection<GenieAgentSqlFunction> sqlFunctions) {
-    this.sqlFunctions = sqlFunctions;
-    return this;
-  }
-
-  public Collection<GenieAgentSqlFunction> getSqlFunctions() {
-    return sqlFunctions;
-  }
-
   public GenieAgentInstructions setSqlSnippets(GenieAgentSqlSnippets sqlSnippets) {
     this.sqlSnippets = sqlSnippets;
     return this;
@@ -68,14 +55,13 @@ public class GenieAgentInstructions {
     return sqlSnippets;
   }
 
-  public GenieAgentInstructions setTextInstructions(
-      Collection<GenieAgentTextInstruction> textInstructions) {
-    this.textInstructions = textInstructions;
+  public GenieAgentInstructions setTextInstruction(GenieAgentTextInstruction textInstruction) {
+    this.textInstruction = textInstruction;
     return this;
   }
 
-  public Collection<GenieAgentTextInstruction> getTextInstructions() {
-    return textInstructions;
+  public GenieAgentTextInstruction getTextInstruction() {
+    return textInstruction;
   }
 
   @Override
@@ -85,15 +71,13 @@ public class GenieAgentInstructions {
     GenieAgentInstructions that = (GenieAgentInstructions) o;
     return Objects.equals(exampleQuestionSqls, that.exampleQuestionSqls)
         && Objects.equals(joinSpecs, that.joinSpecs)
-        && Objects.equals(sqlFunctions, that.sqlFunctions)
         && Objects.equals(sqlSnippets, that.sqlSnippets)
-        && Objects.equals(textInstructions, that.textInstructions);
+        && Objects.equals(textInstruction, that.textInstruction);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        exampleQuestionSqls, joinSpecs, sqlFunctions, sqlSnippets, textInstructions);
+    return Objects.hash(exampleQuestionSqls, joinSpecs, sqlSnippets, textInstruction);
   }
 
   @Override
@@ -101,9 +85,8 @@ public class GenieAgentInstructions {
     return new ToStringer(GenieAgentInstructions.class)
         .add("exampleQuestionSqls", exampleQuestionSqls)
         .add("joinSpecs", joinSpecs)
-        .add("sqlFunctions", sqlFunctions)
         .add("sqlSnippets", sqlSnippets)
-        .add("textInstructions", textInstructions)
+        .add("textInstruction", textInstruction)
         .toString();
   }
 }

@@ -7,14 +7,17 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Error message of a failed pending instances */
+/** Error for an instance that failed to launch while the pool was provisioning it. */
 @Generated
 public class PendingInstanceError {
-  /** */
+  /** Identifier of the pending instance that failed to launch. */
   @JsonProperty("instance_id")
   private String instanceId;
 
-  /** */
+  /**
+   * Error message describing why the instance failed to launch. The message may be omitted, because
+   * not all pool status reads include it.
+   */
   @JsonProperty("message")
   private String message;
 

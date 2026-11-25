@@ -23,7 +23,10 @@ public class ListManagedMemoryEntriesRequest {
   @QueryParam("page_size")
   private Long pageSize;
 
-  /** Opaque pagination token from a previous ListManagedMemoryEntries response. */
+  /**
+   * Opaque pagination token, taken from the `next_page_token` of a previous response. The other
+   * request parameters must match the request that returned the token.
+   */
   @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;

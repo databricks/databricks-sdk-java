@@ -41,7 +41,7 @@ public class ListRunsRequest {
   private Long jobId;
 
   /**
-   * The number of runs to return. This value must be greater than 0 and less than 25. The default
+   * The number of runs to return. This value must be greater than 0 and at most 25. The default
    * value is 20. If a request specifies a limit of 0, the service instead uses the maximum limit.
    */
   @JsonIgnore

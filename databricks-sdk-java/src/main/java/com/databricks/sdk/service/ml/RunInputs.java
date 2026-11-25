@@ -11,7 +11,7 @@ import java.util.Objects;
 /** Run inputs. */
 @Generated
 public class RunInputs {
-  /** Run metrics. */
+  /** Datasets used as inputs to the run. */
   @JsonProperty("dataset_inputs")
   private Collection<DatasetInput> datasetInputs;
 

@@ -32,11 +32,14 @@ public class AiDecideResponse {
    *
    * <p>```json { "answers": { "escalate": { "type": "noul", "probability": 0.8 } } } ```
    *
-   * <p>- `score`: score is the probability-weighted mean of the zero-based level indices. It can
+   * <p>- `score`: score is a numeric rating on the zero-based scale defined by `criteria`. It can
    * fall between levels, from 0 to the number of levels minus 1. `probabilities` maps each level
    * index to its probability, and `legend` maps each index to its original description. Both maps
    * use string keys such as "0", "1", and "2". `confidence` is a number from 0 to 1 indicating how
-   * well the state supports the assessment. The `probabilities` values sum to 1. For example:
+   * well the state supports the assessment. The `probabilities` values sum to 1. Depending on the
+   * model, `score` may be truncated and `probabilities` rounded to 2 decimal places while
+   * preserving a sum of 1, so the score can differ slightly from the probability-weighted mean
+   * computed from the returned probabilities. For example:
    *
    * <p>```json { "answers": { "urgency": { "type": "score", "score": 1.6, "probabilities": { "0":
    * 0.1, "1": 0.2, "2": 0.7 }, "legend": { "0": "Routine: can wait a few days", "1":

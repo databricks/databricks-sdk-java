@@ -31,7 +31,10 @@ public class GetPipelineResponse {
   @JsonProperty("effective_publishing_mode")
   private PublishingMode effectivePublishingMode;
 
-  /** Serverless compute ID resolved for the pipeline. */
+  /**
+   * Serverless compute ID resolved for the pipeline. For the equivalent compute policy ID, use
+   * effective_compute_policy_id.
+   */
   @JsonProperty("effective_serverless_compute_id")
   private String effectiveServerlessComputeId;
 
